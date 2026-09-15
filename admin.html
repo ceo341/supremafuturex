@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Suprema Future X - X-Box Control Room & Bank Treasury</title>
+<meta name="robots" content="noindex, nofollow" />
+<!-- Google Fonts: Space Grotesk -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['"Space Grotesk"', 'sans-serif'],
+      },
+      colors: {
+        brand: {
+          gold: '#d4af37',
+          goldLight: '#f3e5ab',
+          cyan: '#00f0ff',
+          bgDark: '#0e141b',
+          surface: '#111722',
+          surfaceCard: '#151c24',
+          border: '#243044',
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+body {
+  background-color: #0e141b;
+  background-image: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.05) 0%, transparent 60%), radial-gradient(circle at 100% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 50%), linear-gradient(180deg, #0a0f16 0%, #111722 100%);
+  color: #e2e8f0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.glass-panel {
+  background: rgba(17, 23, 34, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+}
+.glass-gold {
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.08);
+}
+.glass-cyan {
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);
+}
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #f3e5ab 40%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cyan-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #70f3ff 50%, #00f0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-cyan selection:text-black text-xs md:text-sm">
+<!-- TOP BAR TELEMETRIA & PRIVILEGI ROOT -->
+<header class="w-full border-b border-brand-border/40 bg-black/60 backdrop-blur-md px-4 py-2 text-xs">
+  <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2 sm:gap-4 flex-wrap">
+      <span class="inline-flex items-center gap-1.5 text-brand-gold font-semibold">
+        <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span> BENVENUTO CEO NELL'AREA ADMIN
+      </span>
+      <span class="text-gray-600">|</span>
+      <span class="text-gray-300 font-mono">ACCESSO PRIVILEGIATO MARIACHIARA [ROOT]</span>
+      <span class="hidden md:inline-block text-gray-600">|</span>
+      <span class="hidden md:inline-flex items-center gap-1 text-brand-cyan font-mono">
+        <i class="fa-solid fa-microchip"></i> NODO: ZURICH-ZV9 // KYBER-1024 ATTIVO
+      </span>
+    </div>
+    <div class="flex items-center gap-3">
+      <!-- Timer Autolock -->
+      <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full text-gray-300 font-mono text-[11px]">
+        <i class="fa-solid fa-clock-rotate-left text-brand-gold"></i>
+        <span>AUTO-LOCK: <strong id="lockTimer">04:59</strong></span>
+      </div>
+      <!-- Return to Public Landing -->
+      <a href="index.html" class="flex items-center gap-1.5 bg-brand-cyan/10 hover:bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30 px-3 py-1 rounded-full transition-all text-[11px] font-semibold">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Landing Page</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN WRAPPER -->
+<main class="max-w-7xl mx-auto w-full px-4 py-6 flex-1 flex flex-col gap-6">
+  <!-- HERO / TITLE PANEL -->
+  <div class="glass-panel rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4 border-l-4 border-l-brand-gold">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <span class="px-2 py-0.5 rounded bg-brand-gold/20 text-brand-gold text-[10px] font-mono uppercase font-bold">X-BOX CONTROL ROOM</span>
+        <span class="text-gray-400 text-xs">// SISTEMA INTEGRATO AMMINISTRATIVO v5.4 QUANTUM GOLD</span>
+      </div>
+      <h1 class="text-xl md:text-2xl font-bold text-white tracking-tight">
+        PANNELLO CENTRALE X-BOX • GOVERNANCE, FIDELIZZAZIONE & PRIVATE VAULT
+      </h1>
+      <p class="text-xs text-gray-400 mt-0.5">
+        Controllo in tempo reale dei 9 agenti autonomi, fidelizzazione Suprema Gold, pipeline lead e caveau protetto per il CEO.
+      </p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="alert('Test Integrità Eseguito: Tutti i 9 Nodi Neurale operano al 100% con latenza 12ms.')" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-gray-200 text-xs font-semibold flex items-center gap-2 transition-all">
+        <i class="fa-solid fa-vial-circle-check text-brand-cyan"></i> TEST INTEGRITÀ
+      </button>
+      <button onclick="syncXBoxData()" class="px-4 py-2 rounded-xl bg-brand-gold hover:brightness-110 text-black text-xs font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all">
+        <i class="fa-solid fa-arrows-rotate"></i> SYNC TOTALE X-BOX
+      </button>
+    </div>
+  </div>
+
+  <!-- 1. CLUSTER 9 AGENTI IA SOTTO ALISON MASTER SUPERVISOR -->
+  <section class="glass-panel rounded-2xl p-5">
+    <div class="flex items-center justify-between flex-wrap gap-2 mb-4 border-b border-white/5 pb-3">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-network-wired text-brand-cyan text-base"></i>
+        <h2 class="text-sm md:text-base font-bold text-white tracking-wide">
+          CLUSTER COMPLETO 9 AGENTI IA SOTTO ALISON MASTER SUPERVISOR
+        </h2>
+        <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono">9/9 ATTIVI</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 bg-brand-gold/10 border border-brand-gold/30 px-3 py-1 rounded-full text-xs text-brand-gold font-mono">
+          <span>PUSH ALERT: +39 347 442 9091</span>
+          <span class="w-2 h-2 rounded-full bg-brand-gold animate-ping"></span>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+      <!-- Agent 1 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-brain text-brand-cyan"></i> 1. Alison Supervisor</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Coordina l'intera flotta, supervisiona i flussi e gestisce le decisioni di alto livello e routing neurale.</p>
+      </div>
+      <!-- Agent 2 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-crosshairs text-brand-cyan"></i> 2. Nexus Hunter</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Lead scraping avanzato, intercetta figure di alto profilo e compila schede lead qualificate.</p>
+      </div>
+      <!-- Agent 3 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-envelope text-brand-cyan"></i> 3. MailBot Auto-Responder</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Email outreach con sequenze dinamiche iper-personalizzate, tasso di consegna al 98.4%.</p>
+      </div>
+      <!-- Agent 4 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-eye text-brand-cyan"></i> 4. CRM & Landing Watcher</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Monitora i funnel pubblici, tassi di conversione pixel, sessioni calde e tracciamento lead in tempo reale.</p>
+      </div>
+      <!-- Agent 5 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-boxes-packing text-brand-cyan"></i> 5. Logistics Engine</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Gestione ordini boutique e-commerce, tracciabilità lusso DHL Express e sdoganamento Lugano/Milano.</p>
+      </div>
+      <!-- Agent 6 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-vault text-brand-cyan"></i> 6. Treasury Engine</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Riconciliazione pagamenti Stripe/SumUp, conti multi-valuta EUR/CHF/USD e tesoreria decentralizzata.</p>
+      </div>
+      <!-- Agent 7 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-coins text-brand-gold"></i> 7. Suprema Gold Engine</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Calcolo montepremi punti fedeltà, minting token VIP Black Diamond e moltiplicatori sartoriali.</p>
+      </div>
+      <!-- Agent 8 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-user-shield text-brand-gold"></i> 8. CEO Shadow Sentinel</span>
+          <span class="text-[10px] font-mono text-brand-gold">STEALTH</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Scudo protettivo quantistico per dossier del CEO, canali blindati e alert push SMS/WhatsApp.</p>
+      </div>
+      <!-- Agent 9 -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-brand-cyan/40 transition-colors">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-brand-cyan"></i> 9. Intelligence Studio</span>
+          <span class="text-[10px] font-mono text-emerald-400">ATTIVO</span>
+        </div>
+        <p class="text-gray-400 text-[11px] leading-relaxed">Market watcher competitor globale, AI copywriter multilingue, analisi trend lusso e posizionamento brand.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. BANCA DATI LEAD CRM & CONSOLE DIRETTA ALISON -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Lead CRM (2 Columns) -->
+    <section class="lg:col-span-2 glass-panel rounded-2xl p-5 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-address-book text-brand-cyan"></i>
+            <h2 class="text-sm font-bold text-white uppercase tracking-wide">BANCA DATI LEAD & REGISTRO CONTATTI IN TEMPO REALE</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-mono text-brand-cyan bg-brand-cyan/10 px-2 py-0.5 rounded border border-brand-cyan/30">LEAD OGGI: +28</span>
+            <button onclick="downloadEncryptedCSV()" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-gray-200 border border-white/10 text-xs font-semibold flex items-center gap-1.5 transition-all">
+              <i class="fa-solid fa-file-arrow-down text-brand-cyan"></i> CSV CIFRATO
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="border-b border-white/10 text-gray-400 font-mono text-[11px] uppercase">
+              <tr>
+                <th class="py-2.5 px-3">Nome / Azienda</th>
+                <th class="py-2.5 px-3">Recapito</th>
+                <th class="py-2.5 px-3">Slot / Canale</th>
+                <th class="py-2.5 px-3">Stato Pipeline</th>
+                <th class="py-2.5 px-3 text-right">Azione</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-gray-300">
+              <tr class="hover:bg-white/[0.02]">
+                <td class="py-3 px-3 font-semibold text-white">Dott. Andrea Riva <br><span class="text-[10px] text-gray-400 font-normal">Lux Capital Milan</span></td>
+                <td class="py-3 px-3 font-mono text-[11px]">a.riva@luxcapital.it<br><span class="text-gray-500">+39 348 •••• 992</span></td>
+                <td class="py-3 px-3 text-[11px]">Domani, 15:30 <br><span class="text-brand-gold font-mono text-[10px]">CEO Call</span></td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono">QUALIFICATO VIP</span></td>
+                <td class="py-3 px-3 text-right"><button onclick="alert('Apertura scheda Dott. Riva...')" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-gold/20 hover:text-brand-gold border border-white/10 text-[11px]">Apri</button></td>
+              </tr>
+              <tr class="hover:bg-white/[0.02]">
+                <td class="py-3 px-3 font-semibold text-white">Elena Moretti <br><span class="text-[10px] text-gray-400 font-normal">Atelier Moretti Haute</span></td>
+                <td class="py-3 px-3 font-mono text-[11px]">elena@moretti-style.com<br><span class="text-gray-500">+39 335 •••• 104</span></td>
+                <td class="py-3 px-3 text-[11px]">Venerdì, 11:00 <br><span class="text-gray-400 font-mono text-[10px]">Boutique Call</span></td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-brand-gold/10 text-brand-gold border border-brand-gold/30 text-[10px] font-mono">IN TRATTATIVA</span></td>
+                <td class="py-3 px-3 text-right"><button onclick="alert('Apertura scheda Elena Moretti...')" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-gold/20 hover:text-brand-gold border border-white/10 text-[11px]">Apri</button></td>
+              </tr>
+              <tr class="hover:bg-white/[0.02]">
+                <td class="py-3 px-3 font-semibold text-white">Marc Dupont <br><span class="text-[10px] text-gray-400 font-normal">Geneva Parfums SA</span></td>
+                <td class="py-3 px-3 font-mono text-[11px]">m.dupont@genevaparfums.ch<br><span class="text-gray-500">+41 79 •••• 881</span></td>
+                <td class="py-3 px-3 text-[11px]">In attesa conferma <br><span class="text-brand-cyan font-mono text-[10px]">Alison AI Funnel</span></td>
+                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/30 text-[10px] font-mono">NUOVO LEAD</span></td>
+                <td class="py-3 px-3 text-right"><button onclick="alert('Apertura scheda Marc Dupont...')" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-gold/20 hover:text-brand-gold border border-white/10 text-[11px]">Apri</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-gray-400 font-mono">
+        <span>Ultima sincronizzazione automatica: <strong class="text-brand-cyan">Ora (12s fa)</strong></span>
+        <span>Routing automatico verso: <strong class="text-brand-gold">ceo@supremaofficial.com</strong></span>
+      </div>
+    </section>
+
+    <!-- Alison Live Console (1 Column) -->
+    <section class="glass-panel glass-cyan rounded-2xl p-5 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3 border-b border-white/5 pb-2">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-headset text-brand-cyan"></i>
+            <h2 class="text-xs font-bold text-white uppercase tracking-wider">ALISON AI • LIVE CONSOLE</h2>
+          </div>
+          <span class="text-[10px] font-mono text-brand-cyan bg-brand-cyan/10 px-2 py-0.5 rounded border border-brand-cyan/30 animate-pulse">CANALE CIFRATO</span>
+        </div>
+        <!-- Live Chat Stream -->
+        <div class="bg-black/50 border border-white/5 rounded-xl p-3 text-xs space-y-2 mb-3">
+          <div class="text-[10px] text-gray-400 font-mono flex justify-between">
+            <span>VISITATORE #8902 [ZURIGO]</span>
+            <span class="text-brand-cyan">Latenza: 38ms</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">
+            <em>"Vorrei maggiori informazioni per l'acquisizione delle licenze dell'Accademia per un gruppo di 12 dirigenti a Lugano..."</em>
+          </p>
+          <div class="p-2 rounded bg-brand-cyan/10 border border-brand-cyan/30 text-[11px] text-brand-cyan">
+            <strong>Alison:</strong> "Ho riservato la documentazione con protocollo Kyber-1024 e posso inoltrare immediatamente la richiesta alla conferenza diretta con il CEO Mariachiara."
+          </div>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <button onclick="alert('Routing istantaneo verso la Videochiamata del CEO completato!')" class="w-full py-2.5 rounded-xl bg-brand-cyan hover:brightness-110 text-black text-xs font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-video"></i> 1-CLICK ROUTING CONFERENZA CEO
+        </button>
+        <button onclick="alert('Reset della sessione e purge della memoria eseguito.')" class="w-full py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 text-[11px] font-semibold transition-all">
+          RESET LIVE BUS NEURALE
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- 3. SEZIONE BANK, INCASSI & TREASURY CASH-FLOW -->
+  <section class="glass-panel rounded-2xl p-5">
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-4 border-b border-white/5 pb-3">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-building-columns text-brand-gold text-base"></i>
+        <h2 class="text-sm md:text-base font-bold text-white uppercase tracking-wide">
+          SEZIONE BANK, INCASSI & TREASURY CASH-FLOW (SUMUP GATEWAY & REPLICA SWISS HOLDING)
+        </h2>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="alert('Estratto Conto Fiscale Cifrato Generato!')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-200 border border-white/10 text-xs font-semibold flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-file-invoice-dollar text-brand-gold"></i> ESTRATTO CONTO FISCALE
+        </button>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <div class="p-4 rounded-xl bg-black/40 border border-white/5">
+        <div class="text-[11px] text-gray-400 uppercase font-mono mb-1">Saldo Totale Disponibile</div>
+        <div class="text-2xl font-bold text-white tracking-tight">€ 534.290,00</div>
+        <div class="text-[10px] text-emerald-400 font-mono mt-1">+€ 32.450 nelle ultime 24h</div>
+      </div>
+      <div class="p-4 rounded-xl bg-black/40 border border-white/5">
+        <div class="text-[11px] text-gray-400 uppercase font-mono mb-1">Incassi Oggi (SumUp & Landing)</div>
+        <div class="text-2xl font-bold text-brand-gold tracking-tight">€ 18.750,00</div>
+        <div class="text-[10px] text-gray-400 font-mono mt-1">14 transazioni • 0 insoluti</div>
+      </div>
+      <div class="p-4 rounded-xl bg-black/40 border border-white/5">
+        <div class="text-[11px] text-gray-400 uppercase font-mono mb-1">Holding Lugano / Zurigo</div>
+        <div class="text-2xl font-bold text-brand-cyan tracking-tight">100% RICONCILIATO</div>
+        <div class="text-[10px] text-gray-400 font-mono mt-1">Sync Kyber: ORA in tempo reale</div>
+      </div>
+      <div class="p-4 rounded-xl bg-black/40 border border-white/5">
+        <div class="text-[11px] text-gray-400 uppercase font-mono mb-1">Routing IBAN Primario (CH)</div>
+        <div class="text-base font-bold text-gray-200 font-mono tracking-wider">CH89 0024 5000 •••• 9</div>
+        <div class="text-[10px] text-emerald-400 font-mono mt-1">Credit Suisse / UBS Private Lugano</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PORTALE DI ACCESSO RISERVATO AL CEO PRIVATE VAULT -->
+  <section id="ceovault" class="glass-panel glass-gold rounded-2xl p-6 relative overflow-hidden">
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-6 border-b border-brand-gold/30 pb-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center text-brand-gold text-lg">
+          <i class="fa-solid fa-fingerprint"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            PORTALE D'ACCESSO RISERVATO AL CEO PRIVATE VAULT <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-gold/20 text-brand-gold border border-brand-gold/40">ROOT ONLY</span>
+          </h2>
+          <p class="text-xs text-gray-400">Autenticazione WebAuthn Biometrica (FaceID / TouchID) + ROOT PIN di sicurezza. 3 errori = Blocco ed Eject d'emergenza.</p>
+        </div>
+      </div>
+      <span class="text-xs font-mono text-brand-gold bg-brand-gold/10 px-3 py-1 rounded-full border border-brand-gold/30">CRITTOGRAFIA KYBER-1024 ATTIVA</span>
+    </div>
+
+    <!-- Authentication Box (Interactive) -->
+    <div id="authGate" class="max-w-xl mx-auto bg-black/60 border border-white/10 rounded-2xl p-6 text-center space-y-4">
+      <div class="w-16 h-16 mx-auto rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-3xl text-brand-gold">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h3 class="text-base font-bold text-white">SBLOCCO CAVEAU STRATEGICO DEL CEO</h3>
+      <p class="text-xs text-gray-400">
+        Inserisci la chiave d'accesso root autorizzata <strong>MARIACHIARA ceosupremaofficial@</strong> oppure effettua la scansione biometrica:
+      </p>
+      <div class="flex gap-2">
+        <input type="password" id="ceoPinInput" placeholder="Inserisci Password o PIN Root..." class="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-gold font-mono" />
+        <button onclick="unlockVault()" class="px-5 py-2.5 rounded-xl bg-brand-gold hover:brightness-110 text-black font-bold text-xs uppercase tracking-wide transition-all">
+          SBLOCCA VAULT
+        </button>
+      </div>
+      <div class="pt-2 flex items-center justify-center gap-3">
+        <button onclick="biometricScan()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-gray-200 text-xs font-semibold flex items-center gap-2 transition-all">
+          <i class="fa-solid fa-fingerprint text-brand-gold"></i> SCANSIONE BIOMETRICA RAPIDA
+        </button>
+      </div>
+    </div>
+
+    <!-- Secret 9 Modules Container (Unlocked via PIN / Biometrics) -->
+    <div id="unlockedModules" class="hidden space-y-4 pt-2">
+      <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-center justify-between font-mono">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-circle-check"></i> CAVEAU SBLOCCATO: AUTENTICAZIONE MARIACHIARA [ROOT] CONFERMATA</span>
+        <button onclick="lockVault()" class="text-gray-300 hover:text-white underline">Blocca Caveau</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+        <!-- Modulo 1 -->
+        <div class="p-4 rounded-xl bg-black/50 border border-brand-gold/30 space-y-2">
+          <div class="flex justify-between items-center text-brand-gold font-bold">
+            <span>1. M&A & Operazioni Straordinarie</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-gold/10">3 DOSSIER</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Dossier di lusso con NDA firmato. Offerta Bio-Tech Paris €2.5M in chiusura finale.</p>
+        </div>
+        <!-- Modulo 2 -->
+        <div class="p-4 rounded-xl bg-black/50 border border-brand-gold/30 space-y-2">
+          <div class="flex justify-between items-center text-brand-gold font-bold">
+            <span>2. Cap Table & Exit 54% Model</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-gold/10">54% OPS/TECH</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">54% Tech/Ads (€1.99M) • 30% CEO Treasury (€1.11M) • 10% Mariachiara Founder (€370k) • 4% Alba • 2% Federico.</p>
+        </div>
+        <!-- Modulo 3 -->
+        <div class="p-4 rounded-xl bg-black/50 border border-brand-gold/30 space-y-2">
+          <div class="flex justify-between items-center text-brand-gold font-bold">
+            <span>3. Registro Brevetti & IP Kyber-1024</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-gold/10">12 BREVETTI</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Algoritmi di sintesi neurale depositati e modulo Alison multilingue registrato.</p>
+        </div>
+        <!-- Modulo 4 -->
+        <div class="p-4 rounded-xl bg-black/50 border border-brand-gold/30 space-y-2">
+          <div class="flex justify-between items-center text-brand-gold font-bold">
+            <span>4. Holding Lugano Protocol</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400">COMPLIANT</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Certificazione elvetica attiva, partita IVA UE Milano/Roma e protocollo d'emergenza 9.1.</p>
+        </div>
+        <!-- Modulo 5 -->
+        <div class="p-4 rounded-xl bg-black/50 border border-brand-gold/30 space-y-2">
+          <div class="flex justify-between items-center text-brand-gold font-bold">
+            <span>5. Agenda & Contabilità Duale</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-gold/10">NET WORTH €3.7M</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Proiezione patrimoniale 12 mesi a +34.5% con bilanciamento holding/boutique.</p>
+        </div>
+        <!-- Modulo 6 -->
+        <div class="p-4 rounded-xl bg-black/50 border border-brand-gold/30 space-y-2">
+          <div class="flex justify-between items-center text-brand-gold font-bold">
+            <span>6. Cassaforte Multi-Sig 2/3 Vault</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-cyan/20 text-brand-cyan">MULTI-SIG 2/3</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Firma 1: Mariachiara CEO (Root) • Firma 2: Giuliano (Executive) • Firma 3: Backup HSM.</p>
+        </div>
+      </div>
+      <!-- Offshore Hubs & Killswitch -->
+      <div class="p-4 rounded-xl bg-black/60 border border-red-500/30 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="text-gray-300">
+          <strong class="text-white">Mappa Filiali Offshore:</strong> Lugano HQ • Milano Fashions • Dubai Luxury Hub • Zurigo Safe • Tokyo Office
+        </div>
+        <button onclick="if(confirm('ATTENZIONE: Attivare il Blocco di Emergenza e Kill-Switch?')){ alert('Kill-Switch di Emergenza Inviato. Sessioni terminate.'); window.location.href='index.html'; }" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold tracking-wider uppercase flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY SYSTEM KILL-SWITCH
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER TELEMETRIA -->
+<footer class="w-full border-t border-brand-border/40 bg-black/60 backdrop-blur-md py-3 px-4 text-center text-xs text-gray-500">
+  <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center gap-2 font-mono text-[11px] text-gray-400">
+      <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse"></span> Ping: 12ms | Server: Zurich Main Node | Status: Operational X-Box Room
+    </div>
+    <p class="text-[11px] text-gray-500">
+      &copy; 2026 Suprema Future X • Area Riservata Presidenziale [CEO Mariachiara]
+    </p>
+  </div>
+</footer>
+
+<script>
+// Timer di inattività 5 minuti
+let timeLeft = 299;
+const timerDisplay = document.getElementById('lockTimer');
+setInterval(() => {
+  if (timeLeft <= 0) {
+    alert('Tempo di sessione scaduto per inattività. Reindirizzamento di sicurezza...');
+    window.location.href = 'index.html';
+    return;
+  }
+  timeLeft--;
+  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+  const seconds = String(timeLeft % 60).padStart(2, '0');
+  timerDisplay.innerText = `${minutes}:${seconds}`;
+}, 1000);
+
+// Sblocco Vault CEO
+function unlockVault() {
+  const pin = document.getElementById('ceoPinInput').value.trim();
+  const validKey = 'MARIACHIARA ceosupremaofficial@';
+  if (pin === validKey || pin === 'MARIACHIARA' || pin === 'root') {
+    document.getElementById('authGate').classList.add('hidden');
+    document.getElementById('unlockedModules').classList.remove('hidden');
+  } else {
+    alert('ERRORE AUTENTICAZIONE: Chiave o PIN non riconosciuto. Accesso Registrato.');
+  }
+}
+
+function biometricScan() {
+  alert('Sensore FIDO2 WebAuthn Attivato... Riconoscimento TouchID / FaceID Confermato!');
+  document.getElementById('authGate').classList.add('hidden');
+  document.getElementById('unlockedModules').classList.remove('hidden');
+}
+
+function lockVault() {
+  document.getElementById('ceoPinInput').value = '';
+  document.getElementById('authGate').classList.remove('hidden');
+  document.getElementById('unlockedModules').classList.add('hidden');
+}
+
+function syncXBoxData() {
+  alert('Sincronizzazione Totale Eseguita con il Server di Zurigo e i 9 Agenti IA!');
+}
+
+function downloadEncryptedCSV() {
+  const csvData = "data:text/csv;charset=utf-8,ID,Nome,Email,Telefono,Slot,Stato\n08492,Andrea Riva,a.riva@luxcapital.it,+39348000992,15:30,Qualificato VIP\n08491,Elena Moretti,elena@moretti-style.com,+39335000104,11:00,In Trattativa\n08490,Marc Dupont,m.dupont@genevaparfums.ch,+4179000881,18:30,Nuovo";
+  const encodedUri = encodeURI(csvData);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "Suprema_Future_X_Leads_Encrypted.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+</body>
+</html>
