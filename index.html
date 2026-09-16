@@ -1,68 +1,170 @@
-<script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
-
-  async function handleBooking(e) {
-    e.preventDefault();
-    
-    const modal = document.getElementById('nexusModal');
-    const modalLoading = document.getElementById('modalLoading');
-    const modalSuccess = document.getElementById('modalSuccess');
-    const codeDisplay = document.getElementById('nexusCodeDisplay');
-
-    if (modal) {
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suprema Future X & Fashions Style - Official Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Space Grotesk"', 'sans-serif'] },
+          colors: { brand: { gold: '#d4af37', cyan: '#00f0ff', bgDark: '#0a0e14', border: '#243044' } }
+        }
+      }
     }
-    if (modalLoading) modalLoading.classList.remove('hidden');
-    if (modalSuccess) modalSuccess.classList.add('hidden');
+  </script>
+  <style>
+    body { background-color: #0a0e14; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; }
+    .glass-panel { background: rgba(17, 23, 34, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-gold-border { border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 0 25px rgba(212, 175, 55, 0.12); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
 
-    const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(5, '0');
-    const generatedCode = 'NEXUS ' + randomNum;
+  <header class="w-full border-b border-brand-border/40 bg-black/40 px-4 py-2.5 text-xs">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <span class="text-brand-cyan flex items-center gap-1.5"><i class="fa-solid fa-shield-halved"></i> Kyber-1024 Active</span>
+      <a href="admin.html" class="bg-brand-gold/10 text-brand-gold border border-brand-gold/30 px-3 py-1 rounded-full text-[11px] font-medium"><i class="fa-solid fa-lock"></i> X-BOX</a>
+    </div>
+  </header>
 
-    // Lettura completa di TUTTI i campi del form Stitch
-    const payload = {
-      nexus_code: generatedCode,
-      name: (document.getElementById('leadNome') || document.getElementById('nexus-name') || {}).value || "N/A",
-      city: (document.getElementById('leadCitta') || document.getElementById('nexus-city') || {}).value || "N/A",
-      email: (document.getElementById('leadEmail') || document.getElementById('nexus-email') || {}).value || "N/A",
-      phone: (document.getElementById('leadTel') || document.getElementById('nexus-phone') || {}).value || "N/A",
-      date: (document.getElementById('leadData') || {}).value || "Da Concordare",
-      slot: (document.getElementById('leadOrario') || {}).value || "Da Concordare"
-    };
+  <main class="w-full max-w-4xl mx-auto px-4 py-8 flex-1 flex flex-col gap-8">
+    <section class="text-center flex flex-col items-center">
+      <h1 class="text-3xl md:text-5xl font-bold mb-3 text-white">Insieme guidiamo il tuo domani</h1>
+      <p class="text-gray-400 text-sm max-w-xl">Alta Formazione in IA Neurale e Lusso Bio-Cosmetico Fashions Style.</p>
+    </section>
 
-    try {
-      await fetch(SCRIPT_URL, {
+    <!-- FORM DI PRENOTAZIONE -->
+    <section id="prenotazione" class="glass-panel glass-gold-border rounded-2xl p-6 md:p-8">
+      <h2 class="text-xl font-bold text-white mb-4">RISERVA CONFERENZA VIP DIRETTA (NEXUS)</h2>
+      
+      <form id="bookingForm" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs uppercase text-gray-400 mb-1">Nome Completo / Azienda *</label>
+            <input type="text" id="leadNome" name="name" required placeholder="Es. Marco Rossi" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-gold" />
+          </div>
+          <div>
+            <label class="block text-xs uppercase text-gray-400 mb-1">Città / Sede *</label>
+            <input type="text" id="leadCitta" name="city" required placeholder="Es. Milano, Lugano" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-gold" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs uppercase text-gray-400 mb-1">Email Aziendale *</label>
+            <input type="email" id="leadEmail" name="email" required placeholder="direzione@azienda.it" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-gold" />
+          </div>
+          <div>
+            <label class="block text-xs uppercase text-gray-400 mb-1">Telefono / WhatsApp *</label>
+            <input type="tel" id="leadTel" name="phone" required placeholder="+39 347 000 0000" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-gold" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <select id="leadData" name="date" class="bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-gray-200">
+            <option value="18 Settembre 2026">18 Settembre 2026</option>
+            <option value="19 Settembre 2026">19 Settembre 2026</option>
+            <option value="20 Settembre 2026">20 Settembre 2026</option>
+          </select>
+
+          <select id="leadOrario" name="slot" class="bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-gray-200">
+            <option value="09:30 - 10:30">09:30 - 10:30 (Mattina VIP)</option>
+            <option value="15:00 - 16:00">15:00 - 16:00 (Pomeriggio Strategy)</option>
+            <option value="18:30 - 19:30">18:30 - 19:30 (Executive Board)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-gold text-black font-bold text-sm uppercase tracking-wider hover:brightness-110 transition-all">
+          CONFERMA & GENERA CERTIFICATO NEXUS
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- MODALE CONFERMA -->
+  <div id="nexusModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="glass-panel glass-gold-border rounded-2xl max-w-md w-full p-6 text-center">
+      <div id="modalLoading" class="space-y-4">
+        <div class="w-12 h-12 mx-auto rounded-full border-2 border-brand-cyan border-t-transparent animate-spin"></div>
+        <p class="text-xs font-mono text-brand-cyan">Generazione Certificato Neural NEXUS in corso...</p>
+      </div>
+      <div id="modalSuccess" class="hidden space-y-4">
+        <h3 class="text-base font-bold text-white">CERTIFICATO NEXUS GENERATO</h3>
+        <div id="nexusCodeDisplay" class="py-2 px-4 rounded-xl bg-brand-gold/10 border border-brand-gold text-brand-gold font-mono text-lg font-bold"></div>
+        <button onclick="closeModal()" class="w-full py-2 rounded-xl bg-brand-gold text-black font-bold text-xs uppercase">Chiudi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
+
+    document.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var targetForm = e.target;
+      
+      var modal = document.getElementById('nexusModal');
+      var modalLoading = document.getElementById('modalLoading');
+      var modalSuccess = document.getElementById('modalSuccess');
+      var codeDisplay = document.getElementById('nexusCodeDisplay');
+
+      if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+      if (modalLoading) modalLoading.classList.remove('hidden');
+      if (modalSuccess) modalSuccess.classList.add('hidden');
+
+      var randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
+      var generatedCode = 'NX-' + randomNum;
+
+      // Estrazione dinamica via FormData
+      var formData = new FormData(targetForm);
+      var params = new URLSearchParams();
+      params.append('nexus_code', generatedCode);
+
+      formData.forEach(function(value, key) { params.append(key, value); });
+
+      // Fallback ricerca universale ID
+      function getVal(idList) {
+        for (var i = 0; i < idList.length; i++) {
+          var el = document.getElementById(idList[i]);
+          if (el && el.value) return el.value;
+        }
+        return "";
+      }
+
+      if (!params.get('name')) params.append('name', getVal(['leadNome', 'nexus-name', 'nome']));
+      if (!params.get('phone')) params.append('phone', getVal(['leadTel', 'nexus-phone', 'telefono']));
+      if (!params.get('email')) params.append('email', getVal(['leadEmail', 'nexus-email']));
+      if (!params.get('city')) params.append('city', getVal(['leadCitta', 'nexus-city', 'citta']));
+      if (!params.get('date')) params.append('date', getVal(['leadData', 'nexus-date']));
+      if (!params.get('slot')) params.append('slot', getVal(['leadOrario', 'nexus-slot']));
+
+      fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString()
       });
-    } catch (err) {
-      console.log("Invio inviato al server.");
+
+      if (codeDisplay) codeDisplay.innerText = generatedCode;
+
+      setTimeout(function() {
+        if (modalLoading) modalLoading.classList.add('hidden');
+        if (modalSuccess) modalSuccess.classList.remove('hidden');
+        targetForm.reset();
+      }, 1000);
+    });
+
+    function closeModal() {
+      var modal = document.getElementById('nexusModal');
+      if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
     }
-
-    if (codeDisplay) codeDisplay.innerText = generatedCode;
-
-    setTimeout(() => {
-      if (modalLoading) modalLoading.classList.add('hidden');
-      if (modalSuccess) modalSuccess.classList.remove('hidden');
-    }, 1000);
-  }
-
-  function closeModal() {
-    const modal = document.getElementById('nexusModal');
-    const form = document.getElementById('bookingForm') || document.getElementById('nexus-form');
-    if (modal) {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-    if (form) form.reset();
-  }
-
-  function handleAlisonSend() {
-    const input = document.getElementById('aiInput');
-    if (!input || !input.value.trim()) return;
-    alert('Alison AI ha ricevuto la richiesta: "' + input.value + '". Risposta in elaborazione sul canale Zurigo 42ms...');
-    input.value = '';
-  }
-</script>
+  </script>
+</body>
+</html>
