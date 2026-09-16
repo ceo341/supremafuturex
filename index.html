@@ -89,10 +89,12 @@
       </div>
       
       <div class="flex items-center gap-3">
+        <!-- Lingua -->
         <div class="flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full text-[11px] text-gray-300">
           <i class="fa-solid fa-language text-brand-cyan"></i>
           <span>IT (32 Attive)</span>
         </div>
+        <!-- Collegamento Diretto X-Box -->
         <a href="admin.html" title="Accesso Privato X-Box Control Room" class="flex items-center gap-1.5 bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold border border-brand-gold/30 px-3 py-1 rounded-full transition-all duration-300 text-[11px] font-medium">
           <i class="fa-solid fa-lock text-[10px]"></i>
           <span>X-BOX</span>
@@ -106,6 +108,7 @@
     
     <!-- HERO SECTION -->
     <section class="text-center flex flex-col items-center">
+      <!-- 3D Holographic Emblem -->
       <div class="relative w-44 h-44 mb-4 flex items-center justify-center">
         <div class="absolute inset-0 rounded-full bg-brand-cyan/20 blur-2xl animate-pulse"></div>
         <div class="relative w-40 h-40 rounded-full p-[3px] bg-gradient-to-tr from-brand-gold via-slate-400 to-brand-cyan shadow-[0_0_40px_rgba(0,240,255,0.25)] flex items-center justify-center">
@@ -144,6 +147,7 @@
 
     <!-- DUAL GATE BIFURCATION -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Gate 01 -->
       <div class="glass-panel rounded-2xl p-6 relative overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300">
         <div class="flex items-center justify-between mb-4">
           <span class="text-[10px] uppercase tracking-widest text-brand-cyan font-mono">GATE 01 // NEURAL AI</span>
@@ -159,6 +163,7 @@
         </div>
       </div>
 
+      <!-- Gate 02 -->
       <div class="glass-panel rounded-2xl p-6 relative overflow-hidden group hover:border-brand-gold/50 transition-all duration-300">
         <div class="flex items-center justify-between mb-4">
           <span class="text-[10px] uppercase tracking-widest text-brand-gold font-mono">GATE 02 // LUXURY BIO-TECH</span>
@@ -192,7 +197,7 @@
         <span><strong>Solo 3 slot giornalieri</strong> disponibili per la consulenza strategica con il CEO della Suprema Future X.</span>
       </div>
 
-      <form id="bookingForm" class="space-y-4" onsubmit="handleBooking(event)">
+      <form id="bookingForm" class="space-y-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1">Nome e Cognome *</label>
@@ -355,11 +360,29 @@
     </div>
   </div>
 
-  <!-- SCRIPT DEFINITIVO DI INVIO CON SBLOCCO MODALE E NO-CORS COMPATIBLE -->
+  <!-- SCRIPT BACKEND ANTI-CRASH E GESTIONE INVIO LEADS -->
   <script>
-    function handleBooking(e) {
-      e.preventDefault();
+    if (window.location.hash) { history.replaceState(null, null, ' '); }
 
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
+
+    // Intercettazione sicura di qualsiasi evento di submit o click sul pulsante
+    document.addEventListener('submit', function(e) {
+      if (e.target && e.target.id === 'bookingForm') {
+        e.preventDefault();
+        invioLead();
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('#submitBtn') || e.target.closest('button[type="submit"]');
+      if (btn && btn.closest('#bookingForm')) {
+        e.preventDefault();
+        invioLead();
+      }
+    });
+
+    function invioLead() {
       var modal = document.getElementById('nexusModal');
       var modalLoading = document.getElementById('modalLoading');
       var modalSuccess = document.getElementById('modalSuccess');
@@ -375,16 +398,18 @@
       var randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
       var generatedCode = 'NX-' + randomNum;
 
-      var nameVal = document.getElementById('leadNome') ? document.getElementById('leadNome').value : "N/A";
-      var cityVal = document.getElementById('leadCitta') ? document.getElementById('leadCitta').value : "N/A";
-      var emailVal = document.getElementById('leadEmail') ? document.getElementById('leadEmail').value : "N/A";
-      var phoneVal = document.getElementById('leadTel') ? document.getElementById('leadTel').value : "N/A";
-      var dateVal = document.getElementById('leadData') ? document.getElementById('leadData').value : "Da Concordare";
-      var slotVal = document.getElementById('leadOrario') ? document.getElementById('leadOrario').value : "Da Concordare";
+      function estrai(id) {
+        var el = document.getElementById(id);
+        return (el && el.value) ? el.value : "N/A";
+      }
 
-      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
+      var nameVal  = estrai('leadNome');
+      var cityVal  = estrai('leadCitta');
+      var emailVal = estrai('leadEmail');
+      var phoneVal = estrai('leadTel');
+      var dateVal  = estrai('leadData');
+      var slotVal  = estrai('leadOrario');
 
-      // Invio formattato URLSearchParams (garantisce sia l'invio che la sblocco del browser)
       var params = new URLSearchParams();
       params.append('nexus_code', generatedCode);
       params.append('leadNome', nameVal);
@@ -403,17 +428,12 @@
       fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: params.toString()
-      }).catch(function(err) {
-        console.log("Transazione completata.");
-      });
+      }).catch(function(err) { console.log("Invio inoltrato."); });
 
       if (codeDisplay) codeDisplay.innerText = generatedCode;
 
-      // Sblocco automatico modale ed esito
       setTimeout(function() {
         if (modalLoading) modalLoading.classList.add('hidden');
         if (modalSuccess) modalSuccess.classList.remove('hidden');
