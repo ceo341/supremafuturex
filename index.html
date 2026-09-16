@@ -89,12 +89,10 @@
       </div>
       
       <div class="flex items-center gap-3">
-        <!-- Lingua -->
         <div class="flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full text-[11px] text-gray-300">
           <i class="fa-solid fa-language text-brand-cyan"></i>
           <span>IT (32 Attive)</span>
         </div>
-        <!-- Collegamento Diretto X-Box -->
         <a href="admin.html" title="Accesso Privato X-Box Control Room" class="flex items-center gap-1.5 bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold border border-brand-gold/30 px-3 py-1 rounded-full transition-all duration-300 text-[11px] font-medium">
           <i class="fa-solid fa-lock text-[10px]"></i>
           <span>X-BOX</span>
@@ -103,12 +101,11 @@
     </div>
   </header>
 
-  <!-- MAIN CONTAINER -->
+  <!-- MAIN CONTAINER COMPLETO -->
   <main class="w-full max-w-4xl mx-auto px-4 py-8 md:py-12 flex-1 flex flex-col gap-10">
     
     <!-- HERO SECTION -->
     <section class="text-center flex flex-col items-center">
-      <!-- 3D Holographic Emblem -->
       <div class="relative w-44 h-44 mb-4 flex items-center justify-center">
         <div class="absolute inset-0 rounded-full bg-brand-cyan/20 blur-2xl animate-pulse"></div>
         <div class="relative w-40 h-40 rounded-full p-[3px] bg-gradient-to-tr from-brand-gold via-slate-400 to-brand-cyan shadow-[0_0_40px_rgba(0,240,255,0.25)] flex items-center justify-center">
@@ -147,7 +144,6 @@
 
     <!-- DUAL GATE BIFURCATION -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Gate 01 -->
       <div class="glass-panel rounded-2xl p-6 relative overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300">
         <div class="flex items-center justify-between mb-4">
           <span class="text-[10px] uppercase tracking-widest text-brand-cyan font-mono">GATE 01 // NEURAL AI</span>
@@ -163,7 +159,6 @@
         </div>
       </div>
 
-      <!-- Gate 02 -->
       <div class="glass-panel rounded-2xl p-6 relative overflow-hidden group hover:border-brand-gold/50 transition-all duration-300">
         <div class="flex items-center justify-between mb-4">
           <span class="text-[10px] uppercase tracking-widest text-brand-gold font-mono">GATE 02 // LUXURY BIO-TECH</span>
@@ -180,7 +175,7 @@
       </div>
     </section>
 
-    <!-- CEO BOOKING FORM -->
+    <!-- CEO BOOKING FORM CON LISENER DIRETTO -->
     <section id="prenotazione" class="glass-panel glass-gold-border rounded-2xl p-6 md:p-8">
       <div class="flex items-center gap-2 text-brand-gold text-xs font-mono uppercase tracking-wider mb-2">
         <i class="fa-solid fa-shield-cat"></i> CANALE RISERVATO EXECUTIVE
@@ -360,61 +355,62 @@
     </div>
   </div>
 
-  <!-- SCRIPT BACKEND ANTI-BLOCCO SITO -->
+  <!-- SCRIPT BACKEND SENZA BLOCCHI CONSOLE -->
   <script>
-    // Pulizia automatica dell'hash dall'URL per evitare carichi parziali
     if (window.location.hash) { history.replaceState(null, null, ' '); }
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
 
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const modal = document.getElementById('nexusModal');
-      const modalLoading = document.getElementById('modalLoading');
-      const modalSuccess = document.getElementById('modalSuccess');
-      const codeDisplay = document.getElementById('nexusCodeDisplay');
+    var bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+      bookingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var modal = document.getElementById('nexusModal');
+        var modalLoading = document.getElementById('modalLoading');
+        var modalSuccess = document.getElementById('modalSuccess');
+        var codeDisplay = document.getElementById('nexusCodeDisplay');
 
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
-      if (modalLoading) modalLoading.classList.remove('hidden');
-      if (modalSuccess) modalSuccess.classList.add('hidden');
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        }
+        if (modalLoading) modalLoading.classList.remove('hidden');
+        if (modalSuccess) modalSuccess.classList.add('hidden');
 
-      const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
-      const generatedCode = 'NX-' + randomNum;
+        var randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
+        var generatedCode = 'NX-' + randomNum;
 
-      // Costruzione parametri URLSearchParams (compatibile al 100% con Google Apps Script)
-      const params = new URLSearchParams();
-      params.append('nexus_code', generatedCode);
-      params.append('leadNome', document.getElementById('leadNome').value);
-      params.append('leadCitta', document.getElementById('leadCitta').value);
-      params.append('leadEmail', document.getElementById('leadEmail').value);
-      params.append('leadTel', document.getElementById('leadTel').value);
-      params.append('leadData', document.getElementById('leadData').value);
-      params.append('leadOrario', document.getElementById('leadOrario').value);
+        var params = new URLSearchParams();
+        params.append('nexus_code', generatedCode);
+        params.append('leadNome', document.getElementById('leadNome').value);
+        params.append('leadCitta', document.getElementById('leadCitta').value);
+        params.append('leadEmail', document.getElementById('leadEmail').value);
+        params.append('leadTel', document.getElementById('leadTel').value);
+        params.append('leadData', document.getElementById('leadData').value);
+        params.append('leadOrario', document.getElementById('leadOrario').value);
 
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: params.toString()
-      }).catch(err => console.log("Invio inviato."));
+        fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: params.toString()
+        }).catch(function(err) { console.log("Invio effettuato."); });
 
-      if (codeDisplay) codeDisplay.innerText = generatedCode;
-      
-      setTimeout(() => {
-        if (modalLoading) modalLoading.classList.add('hidden');
-        if (modalSuccess) modalSuccess.classList.remove('hidden');
-        document.getElementById('bookingForm').reset();
-      }, 1000);
-    });
+        if (codeDisplay) codeDisplay.innerText = generatedCode;
+        
+        setTimeout(function() {
+          if (modalLoading) modalLoading.classList.add('hidden');
+          if (modalSuccess) modalSuccess.classList.remove('hidden');
+          bookingForm.reset();
+        }, 1000);
+      });
+    }
 
     function closeModal() {
-      const modal = document.getElementById('nexusModal');
+      var modal = document.getElementById('nexusModal');
       if (modal) {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
@@ -422,7 +418,7 @@
     }
 
     function handleAlisonSend() {
-      const input = document.getElementById('aiInput');
+      var input = document.getElementById('aiInput');
       if (!input || !input.value.trim()) return;
       alert('Alison AI ha ricevuto la richiesta: "' + input.value + '". Risposta in elaborazione sul canale Zurigo 42ms...');
       input.value = '';
