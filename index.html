@@ -1,187 +1,222 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suprema Future X - Official Platform</title>
-    <!-- Google Fonts: Space Grotesk -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Space Grotesk"', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            gold: '#d4af37',
-                            goldLight: '#f3e5ab',
-                            cyan: '#00f0ff',
-                            bgDark: '#0e141b',
-                            surface: '#111722',
-                            surfaceCard: '#151c24',
-                            border: '#243044',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #0e141b;
-            background-image: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.05) 0%, transparent 60%), radial-gradient(circle at 100% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 50%), linear-gradient(180deg, #0a0f16 0%, #111722 100%);
-            color: #e2e8f0;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .glass-panel {
-            background: rgba(17, 23, 34, 0.78);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suprema Future X - Riserva Conferenza VIP</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #05070a;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .nexus-card {
+      background: #0d1117;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      padding: 30px 25px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nexus-title {
+      color: #ffffff;
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .nexus-subtitle {
+      color: #8b949e;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      color: #8b949e;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px;
+      background: #010409;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input:focus {
+      border-color: #e5c158;
+    }
+
+    .nexus-btn {
+      width: 100%;
+      padding: 15px;
+      background: #e5c158;
+      border: none;
+      border-radius: 6px;
+      color: #000000;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s ease;
+    }
+
+    .nexus-btn:hover {
+      opacity: 0.9;
+    }
+
+    .nexus-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Box Certificato: inizialmente NASCOSTO */
+    #nexus-result {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid #e5c158;
+      border-radius: 8px;
+      text-align: center;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .result-title {
+      color: #e5c158;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .result-code {
+      color: #ffffff;
+      font-size: 14px;
+      margin: 4px 0;
+    }
+
+    .result-code span {
+      color: #00f2fe;
+      font-weight: 700;
+    }
+
+    .result-note {
+      color: #8b949e;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between text-xs md:text-sm">
+<body>
 
-    <!-- HEADER CON TASTO COLLEGATO AD ADMIN.HTML -->
-    <header class="w-full border-b border-brand-border/40 bg-black/60 backdrop-blur-md px-4 py-3 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-brand-gold animate-ping"></span>
-                <span class="text-white font-bold tracking-wider text-sm md:text-base">SUPREMA FUTURE X</span>
-            </div>
-            
-            <nav class="flex items-center gap-4">
-                <a href="#nexus" class="text-gray-300 hover:text-white transition-colors hidden sm:inline-block">Prenota Call</a>
-                
-                <a href="admin.html" class="px-4 py-2 rounded-xl bg-brand-gold hover:brightness-110 text-black font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all">
-                    <i class="fa-solid fa-box-archive"></i> X-BOX
-                </a>
-            </nav>
-        </div>
-    </header>
+  <div class="nexus-card">
+    <h3 class="nexus-title">RISERVA CONFERENZA VIP DIRETTA (NEXUS)</h3>
+    <p class="nexus-subtitle">Compila i campi sottostanti per generare il tuo pass di priorità ed essere ricontattato.</p>
+    
+    <form id="nexus-form">
+      <div class="form-group">
+        <label class="form-label" for="nexus-name">NOME COMPLETO / AZIENDA</label>
+        <input type="text" id="nexus-name" class="form-input" required placeholder="Inserisci il tuo nome">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="nexus-phone">RECAPITO TELEFONICO / WHATSAPP</label>
+        <input type="tel" id="nexus-phone" class="form-input" required placeholder="Es. 3474429091">
+      </div>
+      
+      <button type="submit" id="nexus-btn" class="nexus-btn">CONFERMA & GENERA CERTIFICATO NEXUS</button>
+    </form>
 
-    <!-- HERO SECTION / DUAL GATE -->
-    <main class="max-w-7xl mx-auto w-full px-4 py-12 flex-1 flex flex-col gap-12">
-        <div class="text-center space-y-4 max-w-3xl mx-auto">
-            <span class="px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan text-xs font-mono">ECOSISTEMA UNIFICATO VIP</span>
-            <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight">
-                SUPREMA FUTURE X ACADEMY & BOUTIQUE
-            </h1>
-            <p class="text-gray-400 text-sm md:text-base">
-                Seleziona il gate di accesso desiderato o riserva una conferenza privata direttamente con la presidenza.
-            </p>
-        </div>
+    <!-- Box di esito: compare SOLO a invio effettuato -->
+    <div id="nexus-result">
+      <div class="result-title">CERTIFICATO NEXUS GENERATO CON SUCCESSO</div>
+      <div class="result-code">Codice Tracciamento: <span id="nexus-code-display"></span></div>
+      <div class="result-note">Il nostro agente Alison AI ha preso in carico la richiesta.</div>
+    </div>
+  </div>
 
-        <!-- BIFURCAZIONE DUAL GATE -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Gate 1: Academy -->
-            <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-t-brand-cyan">
-                <div class="space-y-3">
-                    <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan text-xl">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <h2 class="text-xl font-bold text-white">Suprema Future X Academy</h2>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Programmi di alta formazione, percorsi di leadership e sviluppo strategico avanzato guidati da agenti autonomi d'intelligence.
-                    </p>
-                </div>
-                <button onclick="alert('Accesso Accademia temporaneamente riservato ai membri registrati.')" class="mt-6 w-full py-2.5 rounded-xl bg-brand-cyan/10 hover:bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30 font-semibold transition-all">
-                    ESPLORA ACADEMY
-                </button>
-            </div>
+  <script>
+    document.getElementById("nexus-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      var btn = document.getElementById("nexus-btn");
+      btn.innerText = "GENERAZIONE CERTIFICATO IN CORSO...";
+      btn.disabled = true;
 
-            <!-- Gate 2: Boutique -->
-            <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between border-t-2 border-t-brand-gold">
-                <div class="space-y-3">
-                    <div class="w-12 h-12 rounded-xl bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold text-xl">
-                        <i class="fa-solid fa-gem"></i>
-                    </div>
-                    <h2 class="text-xl font-bold text-white">Fashions Style Boutique</h2>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Collezioni esclusive di lusso, sartoria su misura e accesso prioritario ai beni del catalogo riservato Suprema Gold.
-                    </p>
-                </div>
-                <button onclick="alert('Accesso Boutique in fase di sincronizzazione con il catalogo di Milano.')" class="mt-6 w-full py-2.5 rounded-xl bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold border border-brand-gold/30 font-semibold transition-all">
-                    ACCEDI ALLA BOUTIQUE
-                </button>
-            </div>
-        </div>
+      // URL del Webhook Google Apps Script
+      var webAppUrl = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
 
-        <!-- MODULO NEXUS PRENOTAZIONE CALL -->
-        <section id="nexus" class="glass-panel p-8 rounded-2xl border border-white/10 max-w-2xl mx-auto w-full space-y-6">
-            <div class="text-center space-y-2">
-                <h3 class="text-xl font-bold text-white">RISERVA CONFERENZA VIP DIRETTA (NEXUS)</h3>
-                <p class="text-xs text-gray-400">Compila i campi sottostanti per generare il tuo pass di priorità ed essere ricontattato.</p>
-            </div>
+      var payload = {
+        name: document.getElementById("nexus-name").value,
+        phone: document.getElementById("nexus-phone").value,
+        email: "N/A",
+        city: "N/A"
+      };
 
-            <form onsubmit="event.preventDefault(); generatePass();" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-mono text-gray-400 mb-1">NOME COMPLETO / AZIENDA</label>
-                    <input type="text" id="leadName" required placeholder="Es. Dott. Mario Rossi" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
-                </div>
-                <div>
-                    <label class="block text-xs font-mono text-gray-400 mb-1">RECAPITO TELEFONICO / WHATSAPP</label>
-                    <input type="tel" id="leadPhone" required placeholder="+39 347 ..." class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
-                </div>
-                <button type="submit" id="btnSubmit" class="w-full py-3 rounded-xl bg-brand-gold hover:brightness-110 text-black font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all">
-                    CONFERMA & GENERA CERTIFICATO NEXUS
-                </button>
-            </form>
+      fetch(webAppUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(function() {
+        // Genera un codice locale di conferma visiva
+        var generatedCode = "NX-" + Math.floor(1000 + Math.random() * 9000);
+        
+        // Mostra la scheda del Certificato solo ora
+        document.getElementById("nexus-code-display").innerText = generatedCode;
+        document.getElementById("nexus-result").style.display = "block";
+        
+        // Ripristina il form
+        btn.innerText = "CONFERMA & GENERA CERTIFICATO NEXUS";
+        btn.disabled = false;
+        document.getElementById("nexus-form").reset();
+      })
+      .catch(function(err) {
+        alert("Errore durante l'invio. Riprova.");
+        btn.innerText = "CONFERMA & GENERA CERTIFICATO NEXUS";
+        btn.disabled = false;
+      });
+    });
+  </script>
 
-            <div id="nexusCert" class="hidden p-4 rounded-xl bg-black/60 border border-brand-gold/40 text-center space-y-2">
-                <span class="text-brand-gold font-mono text-xs font-bold">CERTIFICATO NEXUS GENERATO CON SUCCESSO</span>
-                <p class="text-xs text-gray-300">Codice Tracciamento: <strong id="certCode" class="text-brand-cyan font-mono">NX-0000</strong></p>
-                <p class="text-[11px] text-gray-400">Il nostro agente Alison AI ha preso in carico la richiesta.</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="w-full border-t border-brand-border/40 bg-black/60 py-4 px-4 text-center text-xs text-gray-500">
-        &copy; 2026 Suprema Future X • All Rights Reserved
-    </footer>
-
-    <script>
-        async function generatePass() {
-            const name = document.getElementById('leadName').value;
-            const phone = document.getElementById('leadPhone').value;
-            const btn = document.getElementById('btnSubmit');
-
-            const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2lEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrl/exec";
-
-            btn.innerText = "INVIO IN CORSO...";
-            btn.disabled = true;
-
-            try {
-                await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: name, phone: phone })
-                });
-
-                const code = 'NX-' + Math.floor(1000 + Math.random() * 9000);
-                document.getElementById('certCode').innerText = code;
-                document.getElementById('nexusCert').classList.remove('hidden');
-                alert('Richiesta registrata per ' + name + '! Codice assegnato: ' + code);
-            } catch (error) {
-                console.error('Errore durante l\'invio:', error);
-                alert('Registrazione completata!');
-            } finally {
-                btn.innerText = "CONFERMA & GENERA CERTIFICATO NEXUS";
-                btn.disabled = false;
-            }
-        }
-    </script>
 </body>
 </html>
