@@ -360,8 +360,11 @@
     </div>
   </div>
 
-  <!-- SCRIPT COMANDI & BACKEND CRM -->
+  <!-- SCRIPT BACKEND ANTI-BLOCCO SITO -->
   <script>
+    // Pulizia automatica dell'hash dall'URL per evitare carichi parziali
+    if (window.location.hash) { history.replaceState(null, null, ' '); }
+
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
 
     document.getElementById('bookingForm').addEventListener('submit', function(e) {
@@ -382,7 +385,7 @@
       const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
       const generatedCode = 'NX-' + randomNum;
 
-      // Invio diretto URLSearchParams (compatibilità nativa Google Apps Script)
+      // Costruzione parametri URLSearchParams (compatibile al 100% con Google Apps Script)
       const params = new URLSearchParams();
       params.append('nexus_code', generatedCode);
       params.append('leadNome', document.getElementById('leadNome').value);
