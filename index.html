@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Suprema Future X & Fashions Style | Ecosistema Ufficiale</title>
   <meta name="description" content="Polo d'eccellenza in Formazione AI Neurale e Lusso Bio-Cosmetico Italiano Fashions Style." />
   
@@ -46,16 +46,21 @@
   </script>
   
   <style>
-    /* CORREZIONE STRUTTURALE PER SCROLL CONTINUO SENZA TAGLI */
-    html, body {
-      background-color: #0a0d14;
-      color: #e2e8f0;
-      font-family: 'Outfit', sans-serif;
-      min-height: 100%;
+    /* SBLOCCO TOTALE SCROLL PER QUALSIASI BROWSER E SMARTPHONE */
+    html {
       height: auto !important;
+      overflow-y: scroll !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    body {
+      background-color: #0a0d14 !important;
+      color: #e2e8f0 !important;
+      font-family: 'Outfit', sans-serif !important;
+      min-height: 100vh !important;
+      height: auto !important;
+      position: relative !important;
       overflow-x: hidden !important;
-      overflow-y: auto !important;
-      -webkit-overflow-scrolling: touch;
+      overflow-y: visible !important;
     }
     .font-tech { font-family: 'Space Grotesk', monospace; }
     .gold-gradient-text {
@@ -68,24 +73,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      height: 16px; width: 16px;
-      border-radius: 50%;
-      background: #00f0ff;
-      cursor: pointer;
-      box-shadow: 0 0 8px #00f0ff;
-      margin-top: -5px;
-    }
-    input[type=range]::-webkit-slider-runnable-track {
-      width: 100%; height: 6px;
-      cursor: pointer;
-      background: #2a3142;
-      border-radius: 3px;
-    }
   </style>
 </head>
-<body class="bg-[#0a0d14] text-slate-200 selection:bg-cyan-500 selection:text-black">
+<body class="bg-[#0a0d14] text-slate-200">
 
   <!-- TOP HEADER -->
   <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#0a0d14]/90 border-b border-brand-border px-4 py-3 sm:px-8">
@@ -120,8 +110,8 @@
     </div>
   </header>
 
-  <!-- MAIN WRAPPER COMPLETO SBLOCCATO PER LO SCROLL -->
-  <main class="w-full max-w-4xl mx-auto px-4 py-6 sm:py-10 space-y-10 pb-24">
+  <!-- CONTENITORE CON MARGINI DI SCROLL AMPLIATI -->
+  <main class="w-full max-w-4xl mx-auto px-4 py-6 sm:py-10 space-y-10 mb-20">
     
     <!-- HERO SECTION -->
     <section class="text-center space-y-5 pt-2 sm:pt-6">
@@ -316,14 +306,14 @@
 
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER SBLOCCATO -->
   <footer class="border-t border-brand-border bg-[#0a0d14] py-8 px-4 text-center text-xs text-slate-500 space-y-3">
     <p class="font-tech text-[11px]">
       © 2026 SUPREMA FUTURE X & FASHIONS STYLE. Tutti i diritti riservati. Governance Ufficiale del CEO della Suprema Future X.
     </p>
   </footer>
 
-  <!-- MODAL PIN GATE PER X-BOX CONTROL ROOM -->
+  <!-- MODAL PIN GATE -->
   <div id="pin-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
     <div class="w-full max-w-sm p-6 rounded-2xl bg-brand-surface border border-brand-cyan/50 shadow-[0_0_30px_rgba(0,240,255,0.2)] space-y-4">
       <div class="flex items-center justify-between border-b border-brand-border pb-3">
@@ -346,7 +336,6 @@
     </div>
   </div>
 
-  <!-- SCRIPT DEFINITIVO INTERATTIVO E TRASMISSIONE REAL-TIME -->
   <script>
     lucide.createIcons();
 
