@@ -360,63 +360,80 @@
     </div>
   </div>
 
-  <!-- SCRIPT COMANDI & BACKEND CRM INTEGRATO -->
+  <!-- SCRIPT BACKEND CRM COMPATIBILE E ANTI-ERRORE -->
   <script>
-    // URL WebApp UFFICIALE E AUTORIZZATO di Google Apps Script
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
 
     async function handleBooking(e) {
       e.preventDefault();
+      
       const modal = document.getElementById('nexusModal');
       const modalLoading = document.getElementById('modalLoading');
       const modalSuccess = document.getElementById('modalSuccess');
       const codeDisplay = document.getElementById('nexusCodeDisplay');
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      modalLoading.classList.remove('hidden');
-      modalSuccess.classList.add('hidden');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+      if (modalLoading) modalLoading.classList.remove('hidden');
+      if (modalSuccess) modalSuccess.classList.add('hidden');
 
-      const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(5, '0');
-      const generatedCode = 'NEXUS ' + randomNum;
+      const randomNum = String(Math.floor(Math.random() * 9999) + 1).padStart(4, '0');
+      const generatedCode = 'NX-' + randomNum;
+
+      // Recupero flessibile degli elementi HTML (supporta sia gli ID correnti che quelli vecchi)
+      const getName = document.getElementById('leadNome') || document.getElementById('nexus-name');
+      const getPhone = document.getElementById('leadTel') || document.getElementById('nexus-phone');
+      const getEmail = document.getElementById('leadEmail') || document.getElementById('nexus-email');
+      const getCity = document.getElementById('leadCitta') || document.getElementById('nexus-city');
+      const getDate = document.getElementById('leadData');
+      const getSlot = document.getElementById('leadOrario');
 
       const payload = {
-        name: document.getElementById('leadNome').value,
-        city: document.getElementById('leadCitta').value,
-        email: document.getElementById('leadEmail').value,
-        phone: document.getElementById('leadTel').value,
-        date: document.getElementById('leadData').value,
-        slot: document.getElementById('leadOrario').value
+        name: getName ? getName.value : "N/A",
+        phone: getPhone ? getPhone.value : "N/A",
+        email: getEmail ? getEmail.value : "N/A",
+        city: getCity ? getCity.value : "N/A",
+        date: getDate ? getDate.value : "Da Concordare",
+        slot: getSlot ? getSlot.value : "Da Concordare"
       };
 
-      // Invio asincrono a Google Sheets + Gmail + Telegram
       try {
         await fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
+          cache: "no-cache",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
           body: JSON.stringify(payload)
         });
       } catch (err) {
-        console.log("Invio completato.");
+        console.error("Errore invio:", err);
       }
 
-      codeDisplay.innerText = generatedCode;
+      if (codeDisplay) codeDisplay.innerText = generatedCode;
+      
       setTimeout(() => {
-        modalLoading.classList.add('hidden');
-        modalSuccess.classList.remove('hidden');
-      }, 1200);
+        if (modalLoading) modalLoading.classList.add('hidden');
+        if (modalSuccess) modalSuccess.classList.remove('hidden');
+      }, 1000);
     }
 
     function closeModal() {
-      document.getElementById('nexusModal').classList.add('hidden');
-      document.getElementById('nexusModal').classList.remove('flex');
-      document.getElementById('bookingForm').reset();
+      const modal = document.getElementById('nexusModal');
+      const form = document.getElementById('bookingForm') || document.getElementById('nexus-form');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      if (form) form.reset();
     }
 
     function handleAlisonSend() {
       const input = document.getElementById('aiInput');
-      if (!input.value.trim()) return;
+      if (!input || !input.value.trim()) return;
       alert('Alison AI ha ricevuto la richiesta: "' + input.value + '". Risposta in elaborazione sul canale Zurigo 42ms...');
       input.value = '';
     }
