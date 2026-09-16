@@ -245,7 +245,7 @@
       </div>
     </section>
 
-    <!-- FORM PRENOTAZIONE CEO CON PROTOCOLLO NEXUS CORRETTO -->
+    <!-- FORM PRENOTAZIONE CEO -->
     <section id="prenotazione" class="panel-glass rounded-2xl p-6 sm:p-8 border border-metal-700">
       <div class="max-w-3xl mx-auto">
         <div class="text-center mb-6">
@@ -339,18 +339,20 @@
     </div>
   </div>
 
-  <!-- SCRIPT DEFINITIVO DI TRASMISSIONE DATI -->
+  <!-- SCRIPT DEFINITIVO DI TRASMISSIONE DATI VIA IFRAME SILENZIOSO -->
   <script>
     lucide.createIcons();
 
-    // URL VERO E ATTIVO DEL TUO GOOGLE APPS SCRIPT
-    const APPS_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwysaZ7XC63ChZN9D311SYr_s55Yg4cX/exec";
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwysaZ7XC63ChZN9D311SYr_s55Yg4cX/exec";
 
-    function openXboxGateModal() { document.getElementById('xboxGateModal').classList.remove('hidden'); }
-    
+    function openXboxGateModal() { 
+      var m = document.getElementById('xboxGateModal');
+      if (m) m.classList.remove('hidden'); 
+    }
+
     function handleXboxLogin(e) {
       e.preventDefault();
-      const pwd = document.getElementById('xboxPasswordInput').value.trim();
+      var pwd = document.getElementById('xboxPasswordInput').value.trim();
       if (pwd === "MARIACHIARA ceosupremaofficial@" || pwd === "MARIACHIARA" || pwd === "9941") {
         window.location.href = "admin.html";
       } else {
@@ -358,51 +360,86 @@
       }
     }
 
-    async function handleNexusBooking(e) {
+    // MOTORE DI TRASMISSIONE ANTI-BLOCCO CORS
+    function handleNexusBooking(e) {
       e.preventDefault();
-      const btn = document.getElementById('btnSubmitLead');
-      btn.innerText = "TRASMISSIONE IN CORSO...";
-      btn.disabled = true;
 
-      const randomCode = "NX-" + Math.floor(1000 + Math.random() * 9000);
-      
-      const payload = {
-        nexus_code: randomCode,
-        leadNome: document.getElementById('leadName').value,
-        name: document.getElementById('leadName').value,
-        leadCitta: document.getElementById('leadCity').value,
-        city: document.getElementById('leadCity').value,
-        leadEmail: document.getElementById('leadEmail').value,
-        email: document.getElementById('leadEmail').value,
-        leadTel: document.getElementById('leadPhone').value,
-        phone: document.getElementById('leadPhone').value,
-        leadData: document.getElementById('leadDate').value,
-        date: document.getElementById('leadDate').value,
-        leadOrario: document.getElementById('leadSlot').value,
-        slot: document.getElementById('leadSlot').value
-      };
-
-      try {
-        await fetch(APPS_SCRIPT_WEBHOOK_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
-      } catch (err) {
-        console.log('Invio completato.');
+      var btn = document.getElementById('btnSubmitLead');
+      if (btn) {
+        btn.innerText = "TRASMISSIONE IN CORSO...";
+        btn.disabled = true;
       }
 
-      setTimeout(() => {
-        btn.innerText = "PRENOTAZIONE CONFERMATA";
-        btn.classList.remove('gold-button');
-        btn.classList.add('bg-emerald-600', 'text-white');
-        
-        const successBox = document.getElementById('nexusSuccessBox');
-        const successMsg = document.getElementById('nexusSuccessMsg');
-        successMsg.innerHTML = `Codice NEXUS: <strong>${randomCode}</strong>.<br/>Richiesta inviata per <strong>${payload.name}</strong> (${payload.email}).<br/>Notificato al CEO via Google Sheets, Gmail e Bot Telegram.`;
-        successBox.classList.remove('hidden');
-      }, 1000);
+      var randomCode = "NX-" + Math.floor(1000 + Math.random() * 9000);
+
+      function getVal(id) {
+        var el = document.getElementById(id);
+        return el ? el.value : "N/A";
+      }
+
+      var nameVal  = getVal('leadName');
+      var cityVal  = getVal('leadCity');
+      var emailVal = getVal('leadEmail');
+      var phoneVal = getVal('leadPhone');
+      var dateVal  = getVal('leadDate');
+      var slotVal  = getVal('leadSlot');
+
+      // Creazione Iframe Invisibile
+      var iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe_' + Date.now();
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = SCRIPT_URL;
+      form.target = iframe.name;
+
+      var fields = {
+        'nexus_code': randomCode,
+        'leadNome': nameVal,
+        'name': nameVal,
+        'leadCitta': cityVal,
+        'city': cityVal,
+        'leadEmail': emailVal,
+        'email': emailVal,
+        'leadTel': phoneVal,
+        'phone': phoneVal,
+        'leadData': dateVal,
+        'date': dateVal,
+        'leadOrario': slotVal,
+        'slot': slotVal
+      };
+
+      for (var key in fields) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key];
+        form.appendChild(input);
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+
+      setTimeout(function() {
+        if (btn) {
+          btn.innerText = "PRENOTAZIONE CONFERMATA";
+          btn.className = "w-full py-3.5 rounded-xl bg-emerald-600 text-white font-bold text-sm uppercase";
+        }
+
+        var successBox = document.getElementById('nexusSuccessBox');
+        var successMsg = document.getElementById('nexusSuccessMsg');
+        if (successBox && successMsg) {
+          successMsg.innerHTML = "Codice NEXUS: <strong>" + randomCode + "</strong>.<br/>Richiesta registrata per <strong>" + nameVal + "</strong>.<br/>Notifica inviata con successo su Google Sheets, Gmail e Telegram.";
+          successBox.classList.remove('hidden');
+        }
+
+        setTimeout(function() {
+          document.body.removeChild(form);
+          document.body.removeChild(iframe);
+        }, 2000);
+      }, 1200);
     }
   </script>
 </body>
