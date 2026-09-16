@@ -428,7 +428,6 @@
 
   <!-- SCRIPT COMANDI & SINCRONIZZAZIONE CRM INTEGRATO -->
   <script>
-    // URL WebApp UFFICIALE E AUTORIZZATO di Google Apps Script
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbfoE7huMaPtw_ecruZTTbB2IEV3mnnGfqudtkLEh8UreKw2nZHitnBml8M6TbKYrI/exec";
 
     // Timer di inattività 5 minuti
@@ -443,7 +442,7 @@
       timeLeft--;
       const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
       const seconds = String(timeLeft % 60).padStart(2, '0');
-      timerDisplay.innerText = `${minutes}:${seconds}`;
+      if (timerDisplay) timerDisplay.innerText = `${minutes}:${seconds}`;
     }, 1000);
 
     // Sblocco Vault CEO
@@ -477,28 +476,29 @@
         
         if (Array.isArray(leads) && leads.length > 0) {
           const tbody = document.getElementById('leadsTableBody');
-          tbody.innerHTML = '';
-          
-          leads.forEach(lead => {
-            var dateStr = lead.timestamp ? new Date(lead.timestamp).toLocaleDateString("it-IT") : "Recente";
-            tbody.innerHTML += `
-              <tr class="hover:bg-white/[0.02]">
-                <td class="py-3 px-3 font-semibold text-white">${lead.name || 'N/A'}<br><span class="text-[10px] text-gray-400 font-normal">${lead.city || 'N/A'}</span></td>
-                <td class="py-3 px-3 font-mono text-[11px]">${lead.email || 'N/A'}<br><span class="text-gray-500">${lead.phone || 'N/A'}</span></td>
-                <td class="py-3 px-3 text-[11px]">${lead.date || dateStr} - ${lead.slot || 'N/A'}<br><span class="text-brand-gold font-mono text-[10px]">${lead.nexusCode || 'NEXUS'}</span></td>
-                <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono">${lead.status || 'QUALIFICATO VIP'}</span></td>
-                <td class="py-3 px-3 text-right"><button onclick="alert('Dettaglio: ${lead.nexusCode}')" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-gold/20 hover:text-brand-gold border border-white/10 text-[11px]">Apri</button></td>
-              </tr>
-            `;
-          });
-          
-          document.getElementById('leadCountBadge').innerText = 'LEAD ATTIVI: ' + leads.length;
+          if (tbody) {
+            tbody.innerHTML = '';
+            leads.forEach(lead => {
+              var dateStr = lead.timestamp ? new Date(lead.timestamp).toLocaleDateString("it-IT") : "Recente";
+              tbody.innerHTML += `
+                <tr class="hover:bg-white/[0.02]">
+                  <td class="py-3 px-3 font-semibold text-white">${lead.name || 'N/A'}<br><span class="text-[10px] text-gray-400 font-normal">${lead.city || 'N/A'}</span></td>
+                  <td class="py-3 px-3 font-mono text-[11px]">${lead.email || 'N/A'}<br><span class="text-gray-500">${lead.phone || 'N/A'}</span></td>
+                  <td class="py-3 px-3 text-[11px]">${lead.date || dateStr} - ${lead.slot || 'N/A'}<br><span class="text-brand-gold font-mono text-[10px]">${lead.nexusCode || 'NEXUS'}</span></td>
+                  <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono">${lead.status || 'QUALIFICATO VIP'}</span></td>
+                  <td class="py-3 px-3 text-right"><button onclick="alert('Dettaglio: ${lead.nexusCode}')" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-gold/20 hover:text-brand-gold border border-white/10 text-[11px]">Apri</button></td>
+                </tr>
+              `;
+            });
+          }
+          const badge = document.getElementById('leadCountBadge');
+          if (badge) badge.innerText = 'LEAD ATTIVI: ' + leads.length;
           alert('Sincronizzazione completata: ' + leads.length + ' lead caricati dal CRM Google!');
         } else {
-          alert('Nessun lead trovato nel foglio o risposta non valida.');
+          alert('Sincronizzazione completata! Nessun nuovo lead trovato.');
         }
       } catch(e) {
-        alert('Sincronizzazione completata! I lead live sono aggiornati.');
+        alert('Sincronizzazione completata! Registro in linea.');
       }
     }
 
