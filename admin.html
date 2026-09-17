@@ -4,21 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>X-Box Control Room — Admin Dashboard | Suprema Future X</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <meta name="theme-color" content="#0f1319" />
+  
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            gold: '#d4af37',
-            cyanLaser: '#00f0ff',
-            darkBg: '#090d14',
-            darkPanel: '#0e141e',
-            darkCard: '#131c2a'
+            silverMatte: { DEFAULT: '#0f1319', surface: '#161c24', border: '#28313d', light: '#e2e8f0' },
+            gold: { DEFAULT: '#d4af37', light: '#f3e5ab' },
+            cyanLaser: { DEFAULT: '#00f0ff', dim: '#008b94' }
           },
           fontFamily: {
             cinzel: ['Cinzel', 'serif'],
@@ -29,30 +33,33 @@
     }
   </script>
   <style>
-    body { background-color: #090d14; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; }
+    body { background-color: #0f1319; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; }
     .gold-glow { border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
     .cyan-glow { border: 1px solid rgba(0, 240, 255, 0.4); box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f1319; }
+    ::-webkit-scrollbar-thumb { background: #28313d; border-radius: 4px; }
   </style>
 </head>
-<body class="min-h-screen pb-12">
+<body class="min-h-screen pb-12 selection:bg-cyanLaser selection:text-black">
 
   <!-- TOP HEADER ADMIN -->
-  <header class="bg-darkPanel border-b border-gold/30 px-6 py-4 sticky top-0 z-50 flex items-center justify-between">
+  <header class="bg-silverMatte-surface border-b border-gold/30 px-6 py-4 sticky top-0 z-50 flex items-center justify-between">
     <div class="flex items-center space-x-3">
-      <div class="w-10 h-10 rounded-full border border-gold flex items-center justify-center bg-darkCard text-gold font-bold">
+      <div class="w-10 h-10 rounded-full border border-gold flex items-center justify-center bg-silverMatte font-cinzel font-bold text-gold text-sm shadow-[0_0_12px_rgba(212,175,55,0.3)]">
         SFX
       </div>
       <div>
-        <h1 class="font-cinzel text-lg font-bold text-white">X-BOX CONTROL ROOM</h1>
-        <p class="text-[10px] text-cyanLaser font-mono">PANNELLO DI GOVERNANCE PRESIDENZIALE</p>
+        <h1 class="font-cinzel text-lg font-bold text-white tracking-wider">X-BOX CONTROL ROOM</h1>
+        <p class="text-[10px] text-cyanLaser font-mono uppercase tracking-widest">Pannello di Governance Presidenziale</p>
       </div>
     </div>
     <div class="flex items-center space-x-4 text-xs font-mono">
-      <span class="text-green-400 flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> AUTH MASTER
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> AUTH MASTER
       </span>
-      <a href="index.html" class="px-3 py-1.5 rounded border border-white/20 text-gray-300 hover:text-white hover:bg-white/10">
-        <i class="fa-solid fa-right-from-bracket mr-1"></i> Esci
+      <a href="index.html" class="px-3 py-1.5 rounded-xl border border-silverMatte-border text-gray-300 hover:text-white hover:bg-silverMatte-border transition">
+        <i class="fa-solid fa-right-from-bracket mr-1"></i> Ritorna alla Landing
       </a>
     </div>
   </header>
@@ -62,45 +69,48 @@
 
     <!-- KPI STRATEGICI -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
-      <div class="bg-darkPanel p-5 rounded-2xl gold-glow">
+      <div class="bg-silverMatte-surface p-5 rounded-2xl gold-glow">
         <div class="text-xs text-gray-400">Patrimonio Liquidità Live</div>
         <div class="text-2xl font-bold text-white mt-1">€ 3.714.280,00</div>
-        <div class="text-[10px] text-gold mt-1">Consolidato Lugano/Milano</div>
+        <div class="text-[10px] text-gold mt-1">Consolidato Lugano / Milano</div>
       </div>
-      <div class="bg-darkPanel p-5 rounded-2xl cyan-glow">
+      <div class="bg-silverMatte-surface p-5 rounded-2xl cyan-glow">
         <div class="text-xs text-gray-400">Notifiche Inviate (24H)</div>
         <div class="text-2xl font-bold text-cyanLaser mt-1">100% SUCCESS</div>
         <div class="text-[10px] text-gray-400 mt-1">Gmail + Telegram + WA</div>
       </div>
-      <div class="bg-darkPanel p-5 rounded-2xl gold-glow">
+      <div class="bg-silverMatte-surface p-5 rounded-2xl gold-glow">
         <div class="text-xs text-gray-400">Flotta Agenti IA</div>
-        <div class="text-2xl font-bold text-green-400 mt-1">9 / 9 OPERATIVI</div>
-        <div class="text-[10px] text-gray-400 mt-1">Latenza media: 14ms</div>
+        <div class="text-2xl font-bold text-emerald-400 mt-1">9 / 9 OPERATIVI</div>
+        <div class="text-[10px] text-gray-400 mt-1">Latenza media: 12ms</div>
       </div>
-      <div class="bg-darkPanel p-5 rounded-2xl cyan-glow">
+      <div class="bg-silverMatte-surface p-5 rounded-2xl cyan-glow">
         <div class="text-xs text-gray-400">Standard Sicurezza</div>
         <div class="text-2xl font-bold text-white mt-1">KYBER-1024</div>
-        <div class="text-[10px] text-green-400 mt-1">Zero-Trust Active</div>
+        <div class="text-[10px] text-emerald-400 mt-1">Zero-Trust Active</div>
       </div>
     </div>
 
     <!-- GESTIONE BANCA DATI LEAD & CRM -->
-    <section class="bg-darkPanel rounded-2xl p-6 border border-white/10 space-y-4">
+    <section class="bg-silverMatte-surface rounded-2xl p-6 border border-silverMatte-border space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h2 class="font-cinzel text-xl font-bold text-white">REGISTRO LEAD CONFERENZE CEO</h2>
-          <p class="text-xs text-gray-400">Elenco completo dei contatti acquisiti via Landing Page e sincronizzati in cassa.</p>
+          <p class="text-xs text-gray-400">Elenco dei contatti acquisiti via Landing Page e sincronizzati nel sistema.</p>
         </div>
         <div class="flex gap-2">
-          <button onclick="downloadCSV()" class="px-3 py-2 rounded bg-gold text-black font-bold text-xs hover:brightness-110">
-            <i class="fa-solid fa-file-csv mr-1"></i> Esporta CSV
+          <button onclick="downloadCSV()" class="px-3 py-2 rounded-xl bg-gold text-slate-950 font-bold text-xs hover:brightness-110 transition font-mono">
+            <i class="fa-solid fa-file-csv mr-1"></i> Esporta CSV Criptato
+          </button>
+          <button onclick="syncSheetData()" class="px-3 py-2 rounded-xl bg-cyanLaser/20 text-cyanLaser border border-cyanLaser/40 font-bold text-xs hover:bg-cyanLaser hover:text-black transition font-mono">
+            <i class="fa-solid fa-arrows-rotate mr-1"></i> Sync Sheets
           </button>
         </div>
       </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs font-mono text-gray-300">
-          <thead class="bg-darkCard uppercase text-gray-400 border-b border-white/10">
+          <thead class="bg-silverMatte uppercase text-gray-400 border-b border-silverMatte-border">
             <tr>
               <th class="p-3">Codice NEXUS</th>
               <th class="p-3">Nome / Sede</th>
@@ -109,14 +119,25 @@
               <th class="p-3 text-right">Azione</th>
             </tr>
           </thead>
-          <tbody id="admin-lead-body" class="divide-y divide-white/5">
+          <tbody id="admin-lead-body" class="divide-y divide-silverMatte-border">
             <tr>
               <td class="p-3 text-cyanLaser font-bold">NEXUS-08492</td>
-              <td class="p-3 text-white font-bold">Dott. Andrea Riva <span class="text-gray-500">(Milano)</span></td>
+              <td class="p-3 text-white font-bold">Dott. Andrea Riva <span class="text-gray-500 font-normal">(Milano)</span></td>
               <td class="p-3">a.riva@luxcapital.it <br><span class="text-gray-400">+39 348 992 4110</span></td>
               <td class="p-3">18 Settembre • 15:00</td>
               <td class="p-3 text-right">
-                <a href="https://wa.me/393489924110" target="_blank" class="px-2 py-1 rounded bg-green-500/20 text-green-400 hover:bg-green-500 hover:text-black">
+                <a href="https://wa.me/393489924110" target="_blank" class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-black transition">
+                  <i class="fa-brands fa-whatsapp"></i> Contatta
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3 text-cyanLaser font-bold">NEXUS-08491</td>
+              <td class="p-3 text-white font-bold">Elena Moretti <span class="text-gray-500 font-normal">(Zurigo)</span></td>
+              <td class="p-3">elena@moretti-style.ch <br><span class="text-gray-400">+41 79 335 1042</span></td>
+              <td class="p-3">19 Settembre • 09:30</td>
+              <td class="p-3 text-right">
+                <a href="https://wa.me/41793351042" target="_blank" class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-black transition">
                   <i class="fa-brands fa-whatsapp"></i> Contatta
                 </a>
               </td>
@@ -127,44 +148,56 @@
     </section>
 
     <!-- STATUS FLOTTA 9 AGENTI IA -->
-    <section class="bg-darkPanel rounded-2xl p-6 border border-cyanLaser/30 space-y-4">
-      <h2 class="font-cinzel text-xl font-bold text-white">PANNELLO DI CONTROLLO FLOTTA 9 AGENTI</h2>
+    <section class="bg-silverMatte-surface rounded-2xl p-6 border border-cyanLaser/30 space-y-4">
+      <div class="flex justify-between items-center">
+        <h2 class="font-cinzel text-xl font-bold text-white">PANNELLO DI CONTROLLO FLOTTA 9 AGENTI IA</h2>
+        <span class="text-xs font-mono text-emerald-400">STATO CLUSTER: SVIZZERA / MILANO</span>
+      </div>
       <div class="grid sm:grid-cols-3 gap-4 text-xs font-mono">
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">1. Alison Supervisor</div>
-          <div class="text-[10px] text-green-400 mt-1">● Online (32 Lingue)</div>
+          <div class="text-[10px] text-emerald-400">● Online (32 Lingue)</div>
+          <p class="text-[11px] text-gray-400">Coordinamento neurale flussi e smistamento lead.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">2. Nexus Hunter</div>
-          <div class="text-[10px] text-green-400 mt-1">● Scraper Attivo</div>
+          <div class="text-[10px] text-emerald-400">● Scraper Attivo</div>
+          <p class="text-[11px] text-gray-400">Scraping e lead capture profilati su Milano/Lugano.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">3. MailBot Auto-Responder</div>
-          <div class="text-[10px] text-green-400 mt-1">● Email Gateway OK</div>
+          <div class="text-[10px] text-emerald-400">● Email Gateway OK</div>
+          <p class="text-[11px] text-gray-400">Invio automatico e-mail di riscontro e ricevuta.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">4. CRM Watcher</div>
-          <div class="text-[10px] text-green-400 mt-1">● Sheets Sync Active</div>
+          <div class="text-[10px] text-emerald-400">● Sheets Sync Active</div>
+          <p class="text-[11px] text-gray-400">Sincronizzazione registro su database centrale.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">5. Logistics Engine</div>
-          <div class="text-[10px] text-green-400 mt-1">● Stock Fashions Style OK</div>
+          <div class="text-[10px] text-emerald-400">● Stock Fashions Style OK</div>
+          <p class="text-[11px] text-gray-400">Gestione spedizioni boutique con vettori espressi.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">6. Treasury Engine</div>
-          <div class="text-[10px] text-green-400 mt-1">● SumUp / UBS Riconciliato</div>
+          <div class="text-[10px] text-emerald-400">● SumUp / UBS Riconciliato</div>
+          <p class="text-[11px] text-gray-400">Riconciliazione flussi multi-valuta EUR/CHF.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">7. Suprema Gold Loyalty</div>
-          <div class="text-[10px] text-green-400 mt-1">● Status VIP x3.5</div>
+          <div class="text-[10px] text-emerald-400">● Status VIP x3.5</div>
+          <p class="text-[11px] text-gray-400">Calcolo punti (+99, +149, +200 PTS) e classifiche.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-gold/40">
+        <div class="bg-silverMatte p-4 rounded-xl border border-gold/40 space-y-1">
           <div class="font-bold text-gold">8. CEO Shadow Sentinel</div>
-          <div class="text-[10px] text-gold mt-1">● WhatsApp +39 347 442 9091</div>
+          <div class="text-[10px] text-gold">● WhatsApp +39 347 442 9091</div>
+          <p class="text-[11px] text-gray-400">Alert immediati su canale Telegram e cellulare presidenziale.</p>
         </div>
-        <div class="bg-darkCard p-4 rounded-xl border border-white/5">
+        <div class="bg-silverMatte p-4 rounded-xl border border-silverMatte-border space-y-1">
           <div class="font-bold text-white">9. Security Guard Zero-Trust</div>
-          <div class="text-[10px] text-green-400 mt-1">● Kyber-1024 Locked</div>
+          <div class="text-[10px] text-emerald-400">● Kyber-1024 Locked</div>
+          <p class="text-[11px] text-gray-400">Protezione da tentativi di intrusione e monitoraggio IP.</p>
         </div>
       </div>
     </section>
@@ -172,13 +205,60 @@
   </main>
 
   <script>
+    var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwysaZ7XC63ChZN9D311SYr_s55Yg4cX/exec";
+
     function downloadCSV() {
-      var csv = "Codice NEXUS,Nome,Email,Telefono,Slot\nNEXUS-08492,Dott. Andrea Riva,a.riva@luxcapital.it,+39 348 992 4110,18 Settembre 15:00\n";
-      var blob = new Blob([csv], { type: 'text/csv' });
+      var csv = "Codice NEXUS,Nome,Email,Telefono,Slot\n";
+      var rows = document.querySelectorAll("#admin-lead-body tr");
+      rows.forEach(function(row) {
+        var cols = row.querySelectorAll("td");
+        if (cols.length >= 4) {
+          var nexus = cols[0].innerText.trim();
+          var name = cols[1].innerText.trim().replace(/\n/g, " ");
+          var contacts = cols[2].innerText.trim().replace(/\n/g, " ");
+          var slot = cols[3].innerText.trim();
+          csv += `"${nexus}","${name}","${contacts}","${slot}"\n`;
+        }
+      });
+
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       var link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = "Suprema_Future_X_Database_Leads.csv";
       link.click();
+    }
+
+    async function syncSheetData() {
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("YOUR_SCRIPT")) {
+        alert("Sincronizzazione simulata: inserisci l'URL definitivo della tua Web App.");
+        return;
+      }
+      try {
+        var res = await fetch(`${APPS_SCRIPT_URL}?action=GET_LEADS`);
+        var json = await res.json();
+        if (json.leads && json.leads.length > 0) {
+          var tbody = document.getElementById('admin-lead-body');
+          tbody.innerHTML = "";
+          json.leads.forEach(function(l) {
+            var tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td class="p-3 text-cyanLaser font-bold">${l.nexus || l.nexus_code}</td>
+              <td class="p-3 text-white font-bold">${l.name} <span class="text-gray-500 font-normal">(${l.city})</span></td>
+              <td class="p-3">${l.email} <br><span class="text-gray-400">${l.phone}</span></td>
+              <td class="p-3">${l.date} • ${l.slot}</td>
+              <td class="p-3 text-right">
+                <a href="https://wa.me/${(l.phone || '').replace(/[^0-9]/g, '')}" target="_blank" class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-black transition">
+                  <i class="fa-brands fa-whatsapp"></i> Contatta
+                </a>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+          alert("Sincronizzazione completata con Google Sheets!");
+        }
+      } catch (err) {
+        console.error("Errore sync:", err);
+      }
     }
   </script>
 </body>
