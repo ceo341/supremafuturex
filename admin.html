@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X-Box Control Room — Admin Dashboard | Suprema Future X</title>
+  
+  <meta name="description" content="Plancia di comando presidenziale e telemetria agenti IA Suprema Future X." />
+  <meta name="theme-color" content="#0f1319" />
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            silverMatte: { DEFAULT: '#0f1319', surface: '#161c24', border: '#28313d', light: '#e2e8f0' },
+            gold: { DEFAULT: '#d4af37', light: '#f3e5ab' },
+            cyanLaser: { DEFAULT: '#00f0ff', dim: '#008b94' }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #0f1319; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; }
+    .gold-gradient-text { background: linear-gradient(135deg, #fff2b2 0%, #d4af37 50%, #aa8010 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .gold-glow { border: 1px solid rgba(212, 175, 55, 0.35); box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
+    .cyan-glow { border: 1px solid rgba(0, 240, 255, 0.35); box-shadow: 0 0 20px rgba(0, 240, 255, 0.1); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col pb-12 font-sans">
+
+  <!-- NAVBAR HEADER PRESIDENZIALE -->
+  <header class="bg-[#161c24] border-b border-[#d4af37]/30 px-6 py-4 sticky top-0 z-50 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-full border border-gold flex items-center justify-center bg-[#0f1319] font-cinzel font-bold text-gold text-sm shadow-[0_0_12px_rgba(212,175,55,0.3)]">
+        SFX
+      </div>
+      <div>
+        <h1 class="font-cinzel text-lg font-bold text-white tracking-wider">X-BOX CONTROL ROOM</h1>
+        <p class="text-[10px] text-cyanLaser font-mono uppercase tracking-widest">supremafuturex.com — Governance Presidenziale</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-3 text-xs font-mono">
+      <a href="index.html" class="px-3 py-2 rounded-xl border border-[#28313d] text-gray-300 hover:text-white hover:border-gold transition flex items-center gap-2">
+        <i class="fa-solid fa-globe text-gold"></i> Landing Page
+      </a>
+      <a href="crm.html" class="px-3 py-2 rounded-xl border border-[#00f0ff]/50 text-cyanLaser hover:bg-cyanLaser/10 transition flex items-center gap-2">
+        <i class="fa-solid fa-users text-cyanLaser"></i> Consolle CRM
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-8 space-y-8 flex-1">
+    
+    <!-- STATS OVERVIEW CARDS -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+      <div class="bg-[#161c24] p-5 rounded-2xl gold-glow space-y-2">
+        <div class="text-xs text-gray-400">Patrimonio Liquidità Live</div>
+        <div class="text-2xl font-bold text-white">€ 3.714.280,00</div>
+        <div class="text-[10px] text-gold">Consolidato Lugano / Milano</div>
+      </div>
+      <div class="bg-[#161c24] p-5 rounded-2xl cyan-glow space-y-2">
+        <div class="text-xs text-gray-400">Notifiche Inviate (24H)</div>
+        <div class="text-2xl font-bold text-cyanLaser">100% SUCCESS</div>
+        <div class="text-[10px] text-emerald-400">Gmail + Telegram + WA</div>
+      </div>
+      <div class="bg-[#161c24] p-5 rounded-2xl gold-glow space-y-2">
+        <div class="text-xs text-gray-400">Flotta Agenti IA</div>
+        <div class="text-2xl font-bold text-emerald-400">9 / 9 OPERATIVI</div>
+        <div class="text-[10px] text-gray-400">Latenza media: 12ms</div>
+      </div>
+      <div class="bg-[#161c24] p-5 rounded-2xl cyan-glow space-y-2">
+        <div class="text-xs text-gray-400">Standard Sicurezza</div>
+        <div class="text-2xl font-bold text-white">KYBER-1024</div>
+        <div class="text-[10px] text-emerald-400">Zero-Trust Active</div>
+      </div>
+    </div>
+
+    <!-- SEZIONE FLOTTA 9 AGENTI IA TELEMETRIA -->
+    <section class="bg-[#161c24] border border-[#28313d] rounded-2xl p-6 space-y-6">
+      <div class="flex items-center justify-between border-b border-[#28313d] pb-4">
+        <div>
+          <h2 class="font-cinzel text-xl font-bold text-white">TELEMETRIA FLOTTA 9 AGENTI IA</h2>
+          <p class="text-xs font-mono text-cyanLaser">Cluster di intelligenza artificiale serverless in costante attività</p>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono text-xs">
+          ● Status: Nominal
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-gold font-bold">1. Alison Supervisor</span>
+            <span class="text-emerald-400">Online</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Supervisione dialoghi, chat multilivello e routing riservato segreteria.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-cyanLaser font-bold">2. Nexus Hunter</span>
+            <span class="text-emerald-400">Active</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Prospezione esterna lead, qualifica contatti e tracciamento social.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-gold font-bold">3. MailBot Executive</span>
+            <span class="text-emerald-400">Ready</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Invio automatico e-mail HTML Dark Luxury con conferme prenotazione.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-cyanLaser font-bold">4. CRM Watcher</span>
+            <span class="text-emerald-400">Syncing</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Sincronizzazione real-time form landing con Google Sheets v23.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-gold font-bold">5. Logistics Engine</span>
+            <span class="text-emerald-400">OK</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Gestione spedizioni cosmesi Fashions Style e dogana Lugano/Milano.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-cyanLaser font-bold">6. Treasury Engine</span>
+            <span class="text-emerald-400">Live</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Riconciliazione entrate EUR/CHF, SumUp Checkout e ledger contabile.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-gold font-bold">7. Suprema Gold Engine</span>
+            <span class="text-emerald-400">Active</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Calcolo token punti (+99/+149/+200) e promo sconti VIP Black Diamond.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-cyanLaser font-bold">8. Shadow Sentinel</span>
+            <span class="text-emerald-400">Listening</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Notifiche push istantanee Telegram e WhatsApp (+39 347 442 9091).</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#0f1319] border border-[#28313d] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-emerald-400 font-bold">9. Security Guard</span>
+            <span class="text-emerald-400">Secured</span>
+          </div>
+          <p class="text-gray-400 text-[11px]">Protezione crittografica Kyber-1024 Quantum Safe e Zero-Trust.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATRICE DIVIDENDI & PRIVATO CEO VAULT SUMMARY -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 font-mono text-xs">
+      <div class="bg-[#161c24] border border-[#28313d] rounded-2xl p-6 space-y-4">
+        <h3 class="font-cinzel text-lg font-bold text-gold">EQUITY &amp; CAP TABLE PRESIDENZIALE</h3>
+        <div class="space-y-2 text-gray-300">
+          <div class="flex justify-between border-b border-[#28313d] pb-1">
+            <span>Suprema Ops &amp; Reinvestimento:</span>
+            <span class="text-gold font-bold">54%</span>
+          </div>
+          <div class="flex justify-between border-b border-[#28313d] pb-1">
+            <span>CEO Treasury (UBS Lugano):</span>
+            <span class="text-gold font-bold">30%</span>
+          </div>
+          <div class="flex justify-between border-b border-[#28313d] pb-1">
+            <span>MariaChiara Root Holder:</span>
+            <span class="text-gold font-bold">10%</span>
+          </div>
+          <div class="flex justify-between border-b border-[#28313d] pb-1">
+            <span>Advisory Board:</span>
+            <span class="text-gold font-bold">4%</span>
+          </div>
+          <div class="flex justify-between border-b border-[#28313d] pb-1">
+            <span>Tech Lead &amp; AI Development:</span>
+            <span class="text-gold font-bold">2%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-[#161c24] border border-[#28313d] rounded-2xl p-6 space-y-4">
+        <h3 class="font-cinzel text-lg font-bold text-cyanLaser">PRIVATO CEO VAULT SUMMARY</h3>
+        <div class="space-y-2 text-gray-300">
+          <p>• <strong>Stato Cassa Liquida:</strong> € 3.714.280,00</p>
+          <p>• <strong>Riserva Aurea Gotthard:</strong> 42.50 kg AU (999.9)</p>
+          <p>• <strong>Multi-Sig Ledger:</strong> 2 su 3 Firme Valide</p>
+          <p>• <strong>Brevetto CH-99281-OMPI:</strong> Neuro-Vectoring Active</p>
+          <p>• <strong>Kill-Switch Protocol:</strong> Armato e Pronto</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="mt-8 text-center text-[10px] font-mono text-gray-500 py-4 border-t border-[#28313d]">
+    Suprema Future X &copy; 2026 — Governance &amp; Security Layer Verified
+  </footer>
+
+</body>
+</html>
