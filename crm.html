@@ -1,515 +1,489 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suprema Future X — Master CRM & Lead Nexus</title>
-  
-  <!-- Font Istituzionali & Icone -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel:wght@500;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            surface: {
-              DEFAULT: '#0e141b',
-              dim: '#090d12',
-              bright: '#18222d',
-              card: '#121922',
-              border: '#22303e'
-            },
-            gold: {
-              DEFAULT: '#d4af37',
-              glow: '#ffd700',
-              dark: '#997d1e',
-              surface: 'rgba(212, 175, 55, 0.08)'
-            },
-            cyan: {
-              DEFAULT: '#00f0ff',
-              glow: '#70f8ff',
-              dark: '#009ba6',
-              surface: 'rgba(0, 240, 255, 0.08)'
-            },
-            silver: {
-              DEFAULT: '#94a3b8',
-              metallic: '#cbd5e1'
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPREMA CRM // Master Kanban & Lead Intelligence</title>
+    
+    <!-- Font Istituzionali & Icone -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel:wght@500;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        surface: {
+                            DEFAULT: '#0e141b',
+                            dim: '#090d12',
+                            bright: '#18222d',
+                            card: '#121922',
+                            border: '#22303e'
+                        },
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            glow: '#ffd700',
+                            dark: '#997d1e',
+                            surface: 'rgba(212, 175, 55, 0.08)'
+                        },
+                        cyan: {
+                            DEFAULT: '#00f0ff',
+                            glow: '#70f8ff',
+                            dark: '#009ba6',
+                            surface: 'rgba(0, 240, 255, 0.08)'
+                        },
+                        silver: {
+                            DEFAULT: '#94a3b8',
+                            metallic: '#cbd5e1'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
             }
-          },
-          fontFamily: {
-            sans: ['Space Grotesk', 'sans-serif'],
-            serif: ['Cinzel', 'serif'],
-            mono: ['JetBrains Mono', 'monospace']
-          }
         }
-      }
-    }
-  </script>
-  
-  <style>
-    body {
-      background-color: #090d12;
-      color: #e2e8f0;
-      font-family: 'Space Grotesk', sans-serif;
-      overflow-x: hidden;
-    }
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #fff2cc 0%, #d4af37 50%, #aa8214 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .cyan-gradient-text {
-      background: linear-gradient(135deg, #e0ffff 0%, #00f0ff 50%, #008b94 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .glass-card {
-      background: rgba(18, 25, 34, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(212, 175, 55, 0.18);
-    }
-    .glass-card-cyan {
-      background: rgba(18, 25, 34, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 240, 255, 0.2);
-    }
-    .shimmer-card {
-      position: relative;
-      overflow: hidden;
-    }
-    .shimmer-card::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(60deg, transparent 30%, rgba(212, 175, 55, 0.18) 50%, transparent 70%);
-      transform: rotate(30deg);
-      animation: shimmerAnim 6s infinite linear;
-    }
-    @keyframes shimmerAnim {
-      0% { transform: translateX(-100%) rotate(30deg); }
-      100% { transform: translateX(100%) rotate(30deg); }
-    }
-  </style>
+    </script>
+    
+    <!-- CSS Custom Cyber-Luxury Styles -->
+    <style>
+        body {
+            background-color: #090d12;
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Personalizzata */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #090d12; }
+        ::-webkit-scrollbar-thumb { background: #22303e; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fff2cc 0%, #d4af37 50%, #aa8214 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cyan-gradient-text {
+            background: linear-gradient(135deg, #e0ffff 0%, #00f0ff 50%, #008b94 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(18, 25, 34, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+        }
+        .glass-card-cyan {
+            background: rgba(18, 25, 34, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        .hud-border-cyan {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.12), inset 0 0 10px rgba(0, 240, 255, 0.05);
+        }
+        .kanban-column {
+            min-height: 70vh;
+        }
+    </style>
 </head>
-<body class="selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col selection:bg-cyan selection:text-black">
 
-  <!-- ========================================== -->
-  <!-- MODALE AUTHENTICATION CRM                  -->
-  <!-- ========================================== -->
-  <div id="authModal" class="fixed inset-0 z-50 bg-[#090d12]/95 backdrop-blur-xl flex items-center justify-center p-4">
-    <div class="glass-card max-w-md w-full rounded-2xl p-6 border-2 border-gold/40 shadow-2xl relative text-center space-y-5">
-      <div class="w-16 h-16 rounded-full border border-gold/40 p-1 mx-auto bg-surface-card flex items-center justify-center">
-        <img src="logo.png" alt="Logo SFX" class="w-full h-full rounded-full object-cover" onerror="this.onerror=null; this.src='Screenshot 2026-08-18 alle 16.13.00.png';" />
-      </div>
-      <div>
-        <h2 class="text-xl font-serif font-bold gold-gradient-text">SUPREMA FUTURE X</h2>
-        <p class="text-xs font-mono text-cyan uppercase mt-1">Master CRM & Lead Nexus Gateway</p>
-      </div>
-      <p class="text-xs text-gray-400">Inserisci il PIN di sicurezza per accedere al database contatti e provvigioni.</p>
-      <div class="space-y-3">
-        <input type="password" id="inputPin" placeholder="Codice PIN Accesso CRM" class="w-full bg-surface-dim border border-surface-border rounded-lg px-4 py-2.5 text-sm text-center text-white focus:border-gold outline-none font-mono" />
-        <button onclick="verifyAuth()" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-gold via-yellow-400 to-gold text-black font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg">
-          Autentica & Apri CRM
-        </button>
-      </div>
-      <div id="authError" class="hidden text-xs text-red-400 font-mono bg-red-500/10 p-2 rounded border border-red-500/30">
-        ❌ PIN errato. Tentativo registrato da Shadow Sentinel.
-      </div>
-      <div class="pt-2 border-t border-surface-border text-[10px] text-gray-500 font-mono flex justify-between">
-        <span>ISO 27001 AUDITED</span>
-        <span>AES-256 ENCRYPTED</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- BARRA NAVIGAZIONE & TELEMETRIA -->
-  <header class="border-b border-surface-border bg-surface-dim/95 sticky top-0 z-40 text-[11px] font-mono tracking-wider backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
-      <div class="flex items-center space-x-3 text-gray-400">
-        <span class="inline-flex items-center text-cyan"><i class="fa-solid fa-circle text-[7px] animate-pulse mr-1.5"></i> CRM DATABASE LIVE</span>
-        <span class="text-surface-border">|</span>
-        <span class="text-gold"><i class="fa-solid fa-database mr-1"></i> GOOGLE SHEETS SYNCED</span>
-        <span class="text-surface-border hidden sm:inline">|</span>
-        <span class="text-gray-400 hidden sm:inline">NEXUS PROTOCOL v28</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <button onclick="openAddLeadModal()" class="px-3 py-1 rounded bg-gold text-black font-semibold text-xs transition">
-          <i class="fa-solid fa-user-plus mr-1"></i> Nuovo Lead
-        </button>
-        <button onclick="forceSyncSheets()" class="px-3 py-1 rounded bg-surface-card border border-cyan/40 text-cyan text-xs hover:border-cyan transition">
-          <i class="fa-solid fa-rotate mr-1"></i> Sync Sheets
-        </button>
-        <a href="admin.html" class="px-3 py-1 rounded bg-surface-card border border-surface-border text-gray-300 text-xs hover:border-white transition">
-          <i class="fa-solid fa-terminal mr-1"></i> Control Room
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- CONTENUTO PRINCIPALE CRM -->
-  <main class="max-w-7xl mx-auto px-4 py-6 w-full space-y-6 flex-1">
-
-    <!-- Title Box & Metriche -->
-    <div class="glass-card-cyan rounded-2xl p-6 flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <span class="text-xs font-mono text-cyan uppercase tracking-widest"><i class="fa-solid fa-users-gear mr-1"></i> DATABASE CENTRALE // PROTOCOLLO NEXUS</span>
-        <h1 class="text-2xl md:text-3xl font-serif font-bold text-white mt-1">Master CRM & Lead Pipeline</h1>
-        <p class="text-xs text-gray-400 font-mono mt-1">Gestione, qualificazione e accreditamento punti per i candidati Suprema Future X</p>
-      </div>
-      <div class="flex items-center space-x-2">
-        <button onclick="exportCsvLeads()" class="px-4 py-2 rounded-lg bg-surface-bright border border-gold/40 text-gold font-bold text-xs hover:border-gold font-mono flex items-center">
-          <i class="fa-solid fa-file-csv mr-1.5"></i> Esporta Database CSV
-        </button>
-      </div>
-    </div>
-
-    <!-- 4 Dashboard Metriche -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="glass-card rounded-2xl p-4 border-t-2 border-gold">
-        <p class="text-[10px] font-mono text-gray-400 uppercase">Totale Lead Registrati</p>
-        <p class="text-2xl font-mono font-bold text-white mt-1" id="metricTotal">148</p>
-        <p class="text-[10px] text-emerald-400 mt-1 font-mono"><i class="fa-solid fa-arrow-trend-up mr-1"></i> +14.2% M/M</p>
-      </div>
-      <div class="glass-card rounded-2xl p-4 border-t-2 border-cyan">
-        <p class="text-[10px] font-mono text-gray-400 uppercase">Qualificati Presidenziali</p>
-        <p class="text-2xl font-mono font-bold text-cyan mt-1" id="metricQualified">42</p>
-        <p class="text-[10px] text-gray-400 mt-1 font-mono">Rating Medio: 94.8 PTS</p>
-      </div>
-      <div class="glass-card rounded-2xl p-4 border-t-2 border-purple-400">
-        <p class="text-[10px] font-mono text-gray-400 uppercase">Volume Pipeline Attivo</p>
-        <p class="text-2xl font-mono font-bold text-purple-300 mt-1">€ 428.900,00</p>
-        <p class="text-[10px] text-gray-400 mt-1 font-mono">Conversione Est. 73.4%</p>
-      </div>
-      <div class="glass-card rounded-2xl p-4 border-t-2 border-emerald-400">
-        <p class="text-[10px] font-mono text-gray-400 uppercase">Card Gold Rilasciate</p>
-        <p class="text-2xl font-mono font-bold text-emerald-400 mt-1">38 PASS</p>
-        <p class="text-[10px] text-gray-400 mt-1 font-mono">Saldo: 24.850 PTS Med.</p>
-      </div>
-    </div>
-
-    <!-- PIPELINE KANBAN (4 STADI) -->
-    <div class="space-y-3">
-      <h2 class="text-xs font-mono text-gold uppercase tracking-widest"><i class="fa-solid fa-diagram-project mr-2"></i> Pipeline Avanzamento Candidati</h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        
-        <!-- Stadio 01: Ingestion Neurale -->
-        <div class="glass-card rounded-xl p-4 border-t-2 border-gray-500 space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span class="text-gray-300 font-bold">01. Ingestion Neurale</span>
-            <span class="px-2 py-0.5 rounded bg-gray-500/20 text-gray-300 font-mono text-[10px]">12</span>
-          </div>
-          
-          <div class="space-y-2">
-            <div class="p-3 bg-surface-dim rounded-lg border border-surface-border text-xs space-y-1">
-              <div class="flex justify-between font-bold text-white">
-                <span>Ing. Roberto D'Amico</span>
-                <span class="text-gold font-mono">82 PTS</span>
-              </div>
-              <p class="text-[10px] font-mono text-gray-400">Milano, IT • Form Landing</p>
-              <p class="text-[10px] text-cyan">Interesse: Academy Gold</p>
+    <!-- BARRA SUPERIORE DI NAVIGAZIONE E TELEMETRIA -->
+    <header class="border-b border-surface-border bg-surface-dim/95 sticky top-0 z-40 text-[11px] font-mono tracking-wider backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center space-x-3 text-gray-400">
+                <span class="inline-flex items-center text-cyan font-bold"><i class="fa-solid fa-users-gear text-[10px] mr-1.5"></i> SUPREMA CRM NEXUS</span>
+                <span class="text-surface-border">|</span>
+                <span class="text-gold"><i class="fa-solid fa-chart-line mr-1"></i> PIPELINE ATTIVA</span>
+                <span class="text-surface-border hidden sm:inline">|</span>
+                <span class="text-gray-400 hidden sm:inline">ELENA AI SCORE ENGINE ON</span>
             </div>
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="px-3 py-1 rounded bg-surface-card border border-surface-border text-gray-300 hover:text-white text-xs transition flex items-center">
+                    <i class="fa-solid fa-globe mr-1"></i> Landing Page
+                </a>
+                <a href="admin.html" class="px-3 py-1 rounded bg-surface-card border border-cyan/40 text-cyan hover:border-cyan text-xs font-semibold transition flex items-center">
+                    <i class="fa-solid fa-terminal mr-1"></i> Control Room
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+
+        <!-- HEADER PRINCIPALE PREDISPOSIZIONE PIPELINE -->
+        <section class="glass-card-cyan rounded-2xl p-6 relative overflow-hidden hud-border-cyan flex flex-wrap justify-between items-center gap-6">
+            <div>
+                <div class="flex items-center space-x-2 text-xs font-mono text-cyan">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="uppercase tracking-widest font-bold">Gestore Candidature & Conversione Lead</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-serif font-black text-white mt-1">
+                    Master CRM <span class="cyan-gradient-text">Kanban Board</span>
+                </h1>
+                <p class="text-xs md:text-sm text-gray-400 max-w-2xl mt-1">
+                    Visualizza, sposta e qualifica le richieste di accesso. L'Agente Elena valuta automaticamente ogni candidato calcolando il valore di Scout Index.
+                </p>
+            </div>
+
+            <!-- Pulsanti di Controllo -->
+            <div class="flex flex-wrap gap-3">
+                <button onclick="syncLeadsFromBackend()" class="px-4 py-2.5 rounded-xl bg-surface-bright border border-cyan/40 text-cyan font-mono text-xs font-bold hover:bg-cyan/10 transition flex items-center">
+                    <i class="fa-solid fa-rotate mr-2" id="syncSpinner"></i> Sincronizza DB
+                </button>
+                <button onclick="toggleModal('modal-add-lead', true)" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold via-gold-glow to-gold text-black font-bold text-xs shadow-lg hover:brightness-110 transition flex items-center">
+                    <i class="fa-solid fa-user-plus mr-2"></i> Nuovo Candidato +
+                </button>
+            </div>
+        </section>
+
+        <!-- STATISTICHE VELOCI PIPELINE -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
+                <p class="text-gray-400 text-[10px] uppercase">CANDIDATURE TOTALI</p>
+                <p class="text-2xl font-bold text-white mt-1" id="statTotalLeads">24</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
+                <p class="text-gray-400 text-[10px] uppercase">MEDIA SCOUT INDEX (ELENA AI)</p>
+                <p class="text-2xl font-bold text-cyan mt-1" id="statAvgScore">88 / 100</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
+                <p class="text-gray-400 text-[10px] uppercase">ZOOM PROGRAMMATE</p>
+                <p class="text-2xl font-bold text-gold mt-1" id="statZoomCount">6</p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
+                <p class="text-gray-400 text-[10px] uppercase">SOCI ATTIVI CONVERTITI</p>
+                <p class="text-2xl font-bold text-emerald-400 mt-1" id="statMembersCount">12</p>
+            </div>
+        </section>
+
+        <!-- BARRA RICERCA E FILTRO RAPIDO -->
+        <div class="flex flex-wrap items-center justify-between gap-4 bg-surface-dim p-4 rounded-xl border border-surface-border text-xs font-mono">
+            <div class="flex items-center space-x-2 flex-1 max-w-md">
+                <i class="fa-solid fa-magnifying-glass text-gray-500"></i>
+                <input type="text" id="kanbanSearchInput" onkeyup="filterKanbanCards()" placeholder="Filtra per nome, città, email o codice NEXUS..." class="w-full bg-transparent text-white outline-none">
+            </div>
+            <div class="flex items-center space-x-2 text-gray-400">
+                <span>Visualizzazione:</span>
+                <span class="text-cyan font-bold">Standard Kanban (4 Fasi)</span>
+            </div>
+        </div>
+
+        <!-- TABELLONE KANBAN A 4 COLONNE -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <div class="p-3 bg-surface-dim rounded-lg border border-surface-border text-xs space-y-1">
-              <div class="flex justify-between font-bold text-white">
-                <span>Dr.ssa Chiara Conti</span>
-                <span class="text-gold font-mono">78 PTS</span>
-              </div>
-              <p class="text-[10px] font-mono text-gray-400">Torino, IT • Referral Social</p>
-              <p class="text-[10px] text-cyan">Interesse: Boutique Style</p>
-            </div>
-          </div>
-        </div>
+            <!-- COLONNA 1: NUOVI INGRESSI -->
+            <div class="glass-card rounded-2xl p-4 border-t-2 border-cyan flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-cyan"></span>
+                            <h3 class="font-bold text-xs font-mono text-white uppercase">1. Nuovi Ingressi</h3>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-cyan/10 text-cyan text-xs font-mono font-bold" id="count-col-1">2</span>
+                    </div>
+                    <div class="kanban-column space-y-3" id="col-nuovi">
+                        <!-- Card 1 -->
+                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-cyan transition shadow-lg space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-cyan font-bold">NX-8410</span>
+                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 94</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Dr. Marco Ferraris</h4>
+                                <p class="text-xs text-gray-400">Milano, IT • Holding Investment</p>
+                            </div>
+                            <div class="text-[11px] font-mono text-gray-400 bg-surface/50 p-2 rounded border border-surface-border/50">
+                                Slot: A (Mattina) • Gate 01
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
+                                <div class="flex space-x-2">
+                                    <a href="https://wa.me/393351294881" target="_blank" class="text-emerald-400 hover:underline"><i class="fa-brands fa-whatsapp"></i></a>
+                                    <a href="mailto:ferraris@holding.it" class="text-cyan hover:underline"><i class="fa-solid fa-envelope"></i></a>
+                                </div>
+                                <button onclick="moveLeadStatus('NX-8410', 'contatto')" class="text-[11px] font-mono text-cyan hover:text-white font-bold">
+                                    Avanza ➔
+                                </button>
+                            </div>
+                        </div>
 
-        <!-- Stadio 02: Qualificazione VIP -->
-        <div class="glass-card rounded-xl p-4 border-t-2 border-cyan space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span class="text-cyan font-bold">02. Qualificazione VIP</span>
-            <span class="px-2 py-0.5 rounded bg-cyan/20 text-cyan font-mono text-[10px]">8</span>
-          </div>
-          
-          <div class="space-y-2">
-            <div class="p-3 bg-surface-dim rounded-lg border border-cyan/30 text-xs space-y-1">
-              <div class="flex justify-between font-bold text-white">
-                <span>Avv. Elena Bernardi</span>
-                <span class="text-gold font-mono">94 PTS</span>
-              </div>
-              <p class="text-[10px] font-mono text-gray-400">Lugano, CH • Direct Contact</p>
-              <div class="flex justify-between items-center pt-1">
-                <span class="text-[10px] text-emerald-400 font-mono">NEXUS Code: NX-842</span>
-                <a href="https://wa.me/41794021109" target="_blank" class="text-emerald-400 hover:underline text-[11px]"><i class="fa-brands fa-whatsapp"></i></a>
-              </div>
+                        <!-- Card 2 -->
+                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-cyan transition shadow-lg space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-cyan font-bold">NX-8411</span>
+                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 88</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Avv. Elena Bernardi</h4>
+                                <p class="text-xs text-gray-400">Lugano, CH • Studio Legale</p>
+                            </div>
+                            <div class="text-[11px] font-mono text-gray-400 bg-surface/50 p-2 rounded border border-surface-border/50">
+                                Slot: B (Pomeriggio) • Gate 01
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
+                                <div class="flex space-x-2">
+                                    <a href="https://wa.me/41794021109" target="_blank" class="text-emerald-400 hover:underline"><i class="fa-brands fa-whatsapp"></i></a>
+                                    <a href="mailto:bernardi@lex.ch" class="text-cyan hover:underline"><i class="fa-solid fa-envelope"></i></a>
+                                </div>
+                                <button onclick="moveLeadStatus('NX-8411', 'contatto')" class="text-[11px] font-mono text-cyan hover:text-white font-bold">
+                                    Avanza ➔
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Stadio 03: Slot CEO Fissato -->
-        <div class="glass-card rounded-xl p-4 border-t-2 border-gold space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span class="text-gold font-bold">03. Slot CEO Fissato</span>
-            <span class="px-2 py-0.5 rounded bg-gold/20 text-gold font-mono text-[10px]">5</span>
-          </div>
-          
-          <div class="space-y-2">
-            <div class="p-3 bg-surface-dim rounded-lg border border-gold/40 text-xs space-y-1">
-              <div class="flex justify-between font-bold text-white">
-                <span>Dr. Marco Ferraris</span>
-                <span class="text-gold font-mono">98 PTS</span>
-              </div>
-              <p class="text-[10px] font-mono text-gray-400">Milano, IT • Slot A 16:30 CET</p>
-              <div class="flex justify-between items-center pt-1">
-                <span class="text-[10px] text-gold font-mono">Stanza: Reserved Meet</span>
-                <a href="https://wa.me/393351294881" target="_blank" class="text-emerald-400 hover:underline text-[11px]"><i class="fa-brands fa-whatsapp"></i></a>
-              </div>
+            <!-- COLONNA 2: IN CONTATTO -->
+            <div class="glass-card rounded-2xl p-4 border-t-2 border-gold flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-gold"></span>
+                            <h3 class="font-bold text-xs font-mono text-white uppercase">2. In Contatto</h3>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-gold/10 text-gold text-xs font-mono font-bold" id="count-col-2">1</span>
+                    </div>
+                    <div class="kanban-column space-y-3" id="col-contatto">
+                        <!-- Card -->
+                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-gold transition shadow-lg space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-cyan font-bold">NX-8390</span>
+                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 90</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Ing. Stefano Riva</h4>
+                                <p class="text-xs text-gray-400">Zurich, CH • Tech Corp</p>
+                            </div>
+                            <div class="text-[11px] font-mono text-gray-400 bg-surface/50 p-2 rounded border border-surface-border/50">
+                                Messaggio WhatsApp Inviato
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
+                                <button onclick="moveLeadStatus('NX-8390', 'nuovi')" class="text-[11px] font-mono text-gray-500 hover:text-white">
+                                    Focus ⬅
+                                </button>
+                                <button onclick="moveLeadStatus('NX-8390', 'zoom')" class="text-[11px] font-mono text-gold hover:text-white font-bold">
+                                    Fissa Zoom ➔
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Stadio 04: Accreditati Gold (Onboarding) -->
-        <div class="glass-card rounded-xl p-4 border-t-2 border-emerald-400 space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span class="text-emerald-400 font-bold">04. Accreditati Gold</span>
-            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">13</span>
-          </div>
-          
-          <div class="space-y-2">
-            <div class="p-3 bg-surface-dim rounded-lg border border-emerald-500/30 text-xs space-y-1">
-              <div class="flex justify-between font-bold text-white">
-                <span>Giuseppe Visconti</span>
-                <span class="text-emerald-400 font-mono">100 PTS</span>
-              </div>
-              <p class="text-[10px] font-mono text-gray-400">Zurich, CH • Workspace Activated</p>
-              <p class="text-[9px] text-gold font-mono">Pass Card: SG-9941-XBOX</p>
+            <!-- COLONNA 3: ZOOM SETTATA -->
+            <div class="glass-card rounded-2xl p-4 border-t-2 border-purple-500 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                            <h3 class="font-bold text-xs font-mono text-white uppercase">3. Zoom Settata</h3>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 text-xs font-mono font-bold" id="count-col-3">1</span>
+                    </div>
+                    <div class="kanban-column space-y-3" id="col-zoom">
+                        <!-- Card -->
+                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-purple-400 transition shadow-lg space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-cyan font-bold">NX-8350</span>
+                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 96</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Matteo Visconti</h4>
+                                <p class="text-xs text-gray-400">Roma, IT • Luxury Real Estate</p>
+                            </div>
+                            <div class="text-[11px] font-mono text-purple-300 bg-surface/50 p-2 rounded border border-surface-border/50">
+                                Conferenza CEO: Domani 17:30
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
+                                <button onclick="moveLeadStatus('NX-8350', 'contatto')" class="text-[11px] font-mono text-gray-500 hover:text-white">
+                                    ⬅
+                                </button>
+                                <button onclick="moveLeadStatus('NX-8350', 'soci')" class="text-[11px] font-mono text-emerald-400 hover:text-white font-bold">
+                                    Attiva Socio ➔
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
 
-      </div>
+            <!-- COLONNA 4: SOCI ATTIVI -->
+            <div class="glass-card rounded-2xl p-4 border-t-2 border-emerald-500 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <h3 class="font-bold text-xs font-mono text-white uppercase">4. Soci Attivi Gold</h3>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-mono font-bold" id="count-col-4">2</span>
+                    </div>
+                    <div class="kanban-column space-y-3" id="col-soci">
+                        <!-- Card -->
+                        <div class="p-4 rounded-xl bg-surface-dim border border-emerald-900 hover:border-emerald-500 transition shadow-lg space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-cyan font-bold">NX-8001</span>
+                                <span class="text-emerald-400 font-bold">GOLD PASS ACTIVE</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Roberto Baroni</h4>
+                                <p class="text-xs text-gray-400">Milano, IT • Academy Gold</p>
+                            </div>
+                            <div class="text-[11px] font-mono text-gold bg-surface/50 p-2 rounded border border-surface-border/50">
+                                Saldo: 24.850 Punti Gold
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- MODALE AGGIUNTA NUOVO LEAD MANUALE -->
+    <div id="modal-add-lead" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card-cyan rounded-2xl p-6 max-w-md w-full border border-cyan/50 shadow-2xl relative">
+            <button onclick="toggleModal('modal-add-lead', false)" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-lg font-bold font-serif text-white mb-1">Inserimento Nuovo Candidato</h3>
+            <p class="text-xs font-mono text-gray-400 mb-4">Aggiungi manualmente un lead nel CRM Nexus</p>
+
+            <form onsubmit="handleManualAddLead(event)" class="space-y-3 text-xs font-mono">
+                <div>
+                    <label class="block text-gray-400 mb-1">NOME E COGNOME *</label>
+                    <input type="text" id="manualName" required placeholder="Es. Giancarlo Rossi" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1">EMAIL *</label>
+                    <input type="email" id="manualEmail" required placeholder="rossi@azienda.it" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1">TELEFONO / WHATSAPP *</label>
+                    <input type="tel" id="manualPhone" required placeholder="+39 333 000 1122" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1">SEDE / CITTÀ *</label>
+                    <input type="text" id="manualCity" required placeholder="Es. Milano / Lugano" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                </div>
+
+                <button type="submit" class="w-full mt-4 py-3 bg-cyan text-black font-bold text-xs uppercase rounded-lg hover:bg-cyan-glow transition">
+                    Salva ed Inserisci in Pipeline
+                </button>
+            </form>
+        </div>
     </div>
 
-    <!-- REGISTRO GENERALE LEADS & TABELLA AZIONI -->
-    <div class="glass-card rounded-2xl p-6 overflow-x-auto space-y-4">
-      <div class="flex flex-wrap justify-between items-center gap-2">
-        <div>
-          <h3 class="text-sm font-bold text-white font-serif">Registro Anagrafico Lead NEXUS & Punti Fedeltà</h3>
-          <p class="text-xs text-gray-400">Elenco contatti sincronizzato in tempo reale con Google Sheets</p>
-        </div>
-        <div class="flex items-center space-x-2">
-          <input type="text" id="searchLead" onkeyup="filterLeadsTable()" placeholder="Cerca nome, codice o città..." class="bg-surface-dim border border-surface-border rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-gold font-mono" />
-          <button onclick="openAddLeadModal()" class="px-3 py-1.5 bg-gold text-black font-bold text-xs rounded hover:bg-gold-glow">
-            + Aggiungi Lead
-          </button>
-        </div>
-      </div>
+    <!-- FOOTER ISTITUZIONALE -->
+    <footer class="border-t border-surface-border bg-surface-dim py-6 text-center text-xs text-gray-500 font-mono mt-auto">
+        SUPREMA FUTURE X © 2026 // MASTER CRM NEXUS // DOMINIO: SUPREMAFUTUREX.COM
+    </footer>
 
-      <table class="w-full text-left text-xs font-mono" id="leadsTable">
-        <thead class="text-gray-500 border-b border-surface-border text-[11px]">
-          <tr>
-            <th class="pb-2">CODICE</th>
-            <th class="pb-2">CANDIDATO & RUOLO</th>
-            <th class="pb-2">CITTÀ</th>
-            <th class="pb-2">CONTATTOCONTATTO</th>
-            <th class="pb-2">SLOT CONFERENZA</th>
-            <th class="pb-2">PUNTI GOLD</th>
-            <th class="pb-2 text-right">AZIONI DIRETTE</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-surface-border/50 text-gray-300" id="crmLeadRows">
-          <tr>
-            <td class="py-3 text-cyan font-bold">NX-2026-0841</td>
-            <td>
-              <p class="text-white font-bold">Dr. Marco Ferraris</p>
-              <p class="text-[10px] text-gray-400">Managing Director • Financial Group</p>
-            </td>
-            <td>Milano, IT</td>
-            <td>
-              <p class="text-gray-200">+39 335 129 4881</p>
-              <p class="text-[10px] text-gray-400">ferraris@holding.it</p>
-            </td>
-            <td>Oggi 16:30 CET</td>
-            <td class="text-gold font-bold">98 PTS</td>
-            <td class="text-right space-x-2">
-              <a href="https://wa.me/393351294881?text=Gentile%20Dr.%20Ferraris,%20confermiamo%20lo%20slot%20conferenza%20CEO%20Suprema%20Future%20X." target="_blank" class="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded hover:bg-emerald-500/30 text-[10px]">
-                <i class="fa-brands fa-whatsapp mr-1"></i> WA
-              </a>
-              <button onclick="addPointsLead('NX-2026-0841')" class="px-2 py-1 bg-gold/20 text-gold rounded hover:bg-gold/30 text-[10px]">
-                +50 PTS
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="py-3 text-cyan font-bold">NX-2026-0842</td>
-            <td>
-              <p class="text-white font-bold">Avv. Elena Bernardi</p>
-              <p class="text-[10px] text-gray-400">Partner • Legal Practice CH</p>
-            </td>
-            <td>Lugano, CH</td>
-            <td>
-              <p class="text-gray-200">+41 79 402 1109</p>
-              <p class="text-[10px] text-gray-400">bernardi@lex.ch</p>
-            </td>
-            <td>Domani 11:00 CET</td>
-            <td class="text-gold font-bold">94 PTS</td>
-            <td class="text-right space-x-2">
-              <a href="https://wa.me/41794021109?text=Gentile%20Avv.%20Bernardi,%20confermiamo%20l'appuntamento%20Suprema%20Future%20X." target="_blank" class="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded hover:bg-emerald-500/30 text-[10px]">
-                <i class="fa-brands fa-whatsapp mr-1"></i> WA
-              </a>
-              <button onclick="addPointsLead('NX-2026-0842')" class="px-2 py-1 bg-gold/20 text-gold rounded hover:bg-gold/30 text-[10px]">
-                +50 PTS
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <!-- JAVASCRIPT ENGINE CRM -->
+    <script>
+        const CONFIG = {
+            APPS_SCRIPT_WEBHOOK: "https://script.google.com/macros/s/AKfycbxZszCcuo6oOV5XiCCbD6Adr6cfViJLA7h8XK9M4kO-hbeNdTmarOmcL82-yru_xv0JrQ/exec"
+        };
 
-  </main>
+        function toggleModal(modalId, show) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                if (show) modal.classList.remove('hidden');
+                else modal.classList.add('hidden');
+            }
+        }
 
-  <!-- MODALE AGGIUNTA NUOVO LEAD -->
-  <div id="addLeadModal" class="hidden fixed inset-0 z-50 bg-[#090d12]/90 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-card max-w-lg w-full rounded-2xl p-6 border border-gold/40 space-y-4">
-      <div class="flex justify-between items-center border-b border-surface-border pb-3">
-        <h3 class="text-base font-bold text-white font-serif">Inserimento Nuovo Lead NEXUS</h3>
-        <button onclick="closeAddLeadModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <form onsubmit="submitNewLeadForm(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block text-gray-400 mb-1">NOME E COGNOME *</label>
-          <input type="text" id="newLeadName" required placeholder="Es. Ing. Carlo Rossi" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white outline-none focus:border-gold" />
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-gray-400 mb-1">CITTÀ / SEDE *</label>
-            <input type="text" id="newLeadCity" required placeholder="Es. Zurigo" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white outline-none focus:border-gold" />
-          </div>
-          <div>
-            <label class="block text-gray-400 mb-1">TELEFONO / WHATSAPP *</label>
-            <input type="tel" id="newLeadPhone" required placeholder="+39 340 ..." class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white outline-none focus:border-gold" />
-          </div>
-        </div>
-        <div>
-          <label class="block text-gray-400 mb-1">EMAIL *</label>
-          <input type="email" id="newLeadEmail" required placeholder="carlo.r@holding.ch" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white outline-none focus:border-cyan" />
-        </div>
-        <div>
-          <label class="block text-gray-400 mb-1">CORSO / INTERESSE *</label>
-          <select id="newLeadInterest" class="w-full bg-surface-dim border border-surface-border rounded p-2 text-white outline-none focus:border-gold">
-            <option>Academy Gold (149 €)</option>
-            <option>Academy Premium (179 €)</option>
-            <option>Academy Silver (99 €)</option>
-            <option>Boutique Fashion Style</option>
-          </select>
-        </div>
-        <button type="submit" class="w-full py-2.5 bg-gold text-black font-bold rounded uppercase hover:bg-gold-glow mt-2">
-          Registra Lead & Assegna Punti
-        </button>
-      </form>
-    </div>
-  </div>
+        // Filtra schede nel Kanban
+        function filterKanbanCards() {
+            const query = document.getElementById('kanbanSearchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.kanban-column > div');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
 
-  <!-- FOOTER -->
-  <footer class="border-t border-surface-border bg-surface-dim py-4 text-center text-[10px] font-mono text-gray-500">
-    SUPREMA FUTURE X — MASTER CRM & LEAD NEXUS // CONFIDENTIAL DATA ISO 27001
-  </footer>
+        // Spostamento di stato candidato
+        function moveLeadStatus(nexusId, targetCol) {
+            alert(`Spostamento candidato ${nexusId} alla fase: ${targetCol.toUpperCase()}`);
+            
+            try {
+                fetch(CONFIG.APPS_SCRIPT_WEBHOOK, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "UPDATE_LEAD_STATUS", nexus: nexusId, status: targetCol })
+                });
+            } catch(e) {}
+        }
 
-  <!-- JAVASCRIPT MASTER INTERATTIVO -->
-  <script>
-    const VALID_PINS = ["3474429091", "347000", "XBOX2026", "MARIACHIARA", "341", "admin"];
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwysaZ7XC63ChZN9D311SYr_s55Yg4cX1-5hZqM7irKspXQExlYEqKMhbpWgKWzIXy7Gw/exec";
+        // Inserimento manuale
+        function handleManualAddLead(e) {
+            e.preventDefault();
+            const name = document.getElementById('manualName').value;
+            const email = document.getElementById('manualEmail').value;
+            const phone = document.getElementById('manualPhone').value;
+            const city = document.getElementById('manualCity').value;
+            
+            const nexusCode = "NX-" + Math.floor(10000 + Math.random() * 90000);
 
-    function verifyAuth() {
-      const pin = document.getElementById('inputPin').value.trim();
-      if (VALID_PINS.includes(pin)) {
-        document.getElementById('authModal').classList.add('hidden');
-      } else {
-        document.getElementById('authError').classList.remove('hidden');
-      }
-    }
+            const container = document.getElementById('col-nuovi');
+            const card = document.createElement('div');
+            card.className = "p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-cyan transition shadow-lg space-y-3";
+            card.innerHTML = `
+                <div class="flex justify-between items-center text-[10px] font-mono">
+                    <span class="text-cyan font-bold">${nexusCode}</span>
+                    <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 85</span>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white text-sm">${name}</h4>
+                    <p class="text-xs text-gray-400">${city} • Manual Entry</p>
+                </div>
+                <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
+                    <div class="flex space-x-2">
+                        <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" target="_blank" class="text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="mailto:${email}" class="text-cyan"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                    <button onclick="moveLeadStatus('${nexusCode}', 'contatto')" class="text-[11px] font-mono text-cyan hover:text-white font-bold">Avanza ➔</button>
+                </div>
+            `;
+            container.prepend(card);
 
-    function filterLeadsTable() {
-      const input = document.getElementById('searchLead').value.toLowerCase();
-      const rows = document.querySelectorAll('#crmLeadRows tr');
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(input) ? '' : 'none';
-      });
-    }
+            toggleModal('modal-add-lead', false);
+            
+            // Invia al backend
+            try {
+                fetch(CONFIG.APPS_SCRIPT_WEBHOOK, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "NEW_LEAD", nexus: nexusCode, name: name, email: email, phone: phone, city: city, source: "Manual CRM Entry" })
+                });
+            } catch(e) {}
+        }
 
-    function openAddLeadModal() {
-      document.getElementById('addLeadModal').classList.remove('hidden');
-    }
-
-    function closeAddLeadModal() {
-      document.getElementById('addLeadModal').classList.add('hidden');
-    }
-
-    function submitNewLeadForm(e) {
-      e.preventDefault();
-      const name = document.getElementById('newLeadName').value;
-      const city = document.getElementById('newLeadCity').value;
-      const phone = document.getElementById('newLeadPhone').value;
-      const email = document.getElementById('newLeadEmail').value;
-      const interest = document.getElementById('newLeadInterest').value;
-      const code = "NX-" + Math.floor(1000 + Math.random() * 9000);
-
-      const tbody = document.getElementById('crmLeadRows');
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td class="py-3 text-cyan font-bold">${code}</td>
-        <td>
-          <p class="text-white font-bold">${name}</p>
-          <p class="text-[10px] text-gray-400">${interest}</p>
-        </td>
-        <td>${city}</td>
-        <td>
-          <p class="text-gray-200">${phone}</p>
-          <p class="text-[10px] text-gray-400">${email}</p>
-        </td>
-        <td>Nuovo Inserimento</td>
-        <td class="text-gold font-bold">50 PTS</td>
-        <td class="text-right space-x-2">
-          <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded hover:bg-emerald-500/30 text-[10px]">
-            <i class="fa-brands fa-whatsapp mr-1"></i> WA
-          </a>
-          <button onclick="addPointsLead('${code}')" class="px-2 py-1 bg-gold/20 text-gold rounded hover:bg-gold/30 text-[10px]">
-            +50 PTS
-          </button>
-        </td>
-      `;
-      tbody.prepend(row);
-
-      // Invia a Google Apps Script
-      fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "REGISTER_LEAD", name: name, city: city, phone: phone, email: email, course: interest, nexus: code })
-      }).catch(() => {});
-
-      closeAddLeadModal();
-      alert(`Lead ${name} registrato con successo! Assegnati +50 PTS Gold.`);
-    }
-
-    function addPointsLead(code) {
-      alert(`Accreditati +50 Punti Gold al candidato con codice ${code}. Saldo aggiornato!`);
-    }
-
-    function forceSyncSheets() {
-      alert("Sincronizzazione forzata con Google Sheets CRM completata. 0 errori.");
-    }
-
-    function exportCsvLeads() {
-      alert("Generazione e download del file Leads_CRM_SupremaFutureX.csv avviato!");
-    }
-  </script>
+        // Sincronizza con Google Apps Script
+        function syncLeadsFromBackend() {
+            const spinner = document.getElementById('syncSpinner');
+            spinner.classList.add('fa-spin');
+            
+            fetch(CONFIG.APPS_SCRIPT_WEBHOOK, {
+                method: "POST",
+                body: JSON.stringify({ action: "GET_LEADS" })
+            })
+            .then(res => res.json())
+            .then(data => {
+                spinner.classList.remove('fa-spin');
+            })
+            .catch(() => {
+                spinner.classList.remove('fa-spin');
+            });
+        }
+    </script>
 </body>
 </html>
