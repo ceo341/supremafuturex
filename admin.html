@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUPREMA FUTURE X — X-Box Control Room ERP (Admin)</title>
+    <title>SUPREMA FUTURE X — X-Box Control Room ERP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
@@ -15,689 +15,324 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        surface: {
-                            DEFAULT: '#111317',
-                            low: '#1a1b20',
-                            high: '#24262b',
-                            highest: '#32343a',
-                        },
-                        gold: {
-                            DEFAULT: '#d4af37',
-                            light: '#f3e5ab',
-                            dark: '#997d20',
-                        },
-                        cyan: {
-                            neon: '#00f0ff',
-                            dim: '#00a3ad',
-                        },
-                        amber: {
-                            warning: '#ffb000',
-                            glow: 'rgba(255, 176, 0, 0.25)',
-                        }
+                        surface: { DEFAULT: '#111317', low: '#1a1b20', high: '#24262b' },
+                        gold: { DEFAULT: '#d4af37', light: '#f3e5ab' },
+                        cyan: { neon: '#00f0ff', dim: '#00a3ad' },
+                        amber: { warning: '#ffb000' }
                     }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #0b0c0e; color: #e2e8f0; font-family: 'Montserrat', sans-serif; }
-        .border-gold { border-color: rgba(212, 175, 55, 0.35); }
-        .border-cyan { border-color: rgba(0, 240, 255, 0.35); }
-        .border-amber { border-color: rgba(255, 176, 0, 0.4); }
-        .glow-gold { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
-        .glow-cyan { box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
-        .glow-amber { box-shadow: 0 0 18px rgba(255, 176, 0, 0.2); }
-        .switch-btn.active { background-color: #00f0ff; color: #0b0c0e; font-weight: 700; }
+        body { background-color: #0b0c0e; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; }
+        .glow-gold { box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+        .glow-cyan { box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-[#0b0c0e]">
 
-    <!-- TOP BAR TELEMETRIA & OROLOGIO LIVE -->
-    <header class="bg-[#111317] border-b border-gold px-6 py-3 flex flex-wrap justify-between items-center text-xs font-mono select-none sticky top-0 z-50">
-        <div class="flex items-center space-x-6">
-            <div class="flex items-center space-x-2 text-gold">
-                <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
-                <span class="font-bold tracking-wider uppercase">SUPREMA FUTURE X</span>
-                <span class="text-zinc-500">//</span>
-                <span class="text-cyan-neon font-semibold">ORBITAL LEVEL 5 CONTROL ROOM</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-4 text-zinc-400">
-                <span>LUGANO: <span class="text-cyan-neon">0.84ms</span></span>
-                <span>ZURICH: <span class="text-cyan-neon">1.12ms</span></span>
-                <span>MILANO: <span class="text-cyan-neon">0.42ms</span></span>
-            </div>
+    <!-- TOP BAR STATO IN TEMPO REALE -->
+    <header class="bg-[#111317] border-b border-gold px-6 py-2.5 flex flex-wrap justify-between items-center text-xs sticky top-0 z-50">
+        <div class="flex items-center space-x-4">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-neon animate-pulse" id="status-indicator"></span>
+            <span class="font-bold text-white tracking-wider">SUPREMA FUTURE X // X-BOX CONTROL ROOM ERP</span>
+            <span class="text-zinc-600">|</span>
+            <span class="text-gold font-semibold" id="api-status">BACKEND: CONNESSO (v2026.4)</span>
         </div>
-        
-        <div class="flex items-center space-x-6">
-            <!-- LIVE DATA & TIME -->
-            <div class="bg-surface-low border border-gold/40 px-3 py-1.5 rounded flex items-center space-x-3">
-                <span class="text-zinc-400">UTC CLOCK:</span>
-                <span id="live-time" class="text-gold font-bold">00:00:00 UTC</span>
-                <span class="text-zinc-500">|</span>
-                <span id="live-date" class="text-zinc-300">2026-09-25</span>
-            </div>
-
-            <!-- BADGE GATE 00 VERIFIED -->
-            <div class="bg-cyan-dim/20 border border-cyan-neon/60 text-cyan-neon px-2.5 py-1 rounded font-bold flex items-center space-x-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                <span>GATE 00 VERIFICATO // EAL6+</span>
-            </div>
-
-            <!-- GLOBAL FLEET EMERGENCY DISABLE (AMBER WARNING - NO RED) -->
-            <button onclick="emergencyFleetDisable()" class="bg-amber-warning hover:bg-amber-500 text-black font-extrabold px-3 py-1.5 rounded uppercase tracking-wider flex items-center space-x-1 glow-amber transition-all">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span>GLOBAL FLEET EMERGENCY DISABLE</span>
+        <div class="flex items-center space-x-3">
+            <button onclick="openCeoModal()" class="bg-amber-warning/20 border border-amber-warning text-amber-warning px-3 py-1 rounded text-[11px] font-bold hover:bg-amber-warning hover:text-black transition-colors">
+                🔒 ACCESSO CEO VAULT
             </button>
+            <span class="bg-cyan-dim/20 border border-cyan-neon/50 text-cyan-neon px-2.5 py-1 rounded text-[11px] font-bold">GATE 00 EAL6+</span>
         </div>
     </header>
 
-    <!-- MAIN DASHBOARD CONTENT -->
+    <!-- BARRA NAVIGAZIONE MODULI SITO -->
+    <nav class="bg-[#1a1b20] border-b border-zinc-800 px-6 py-2.5 flex flex-wrap gap-4 text-xs z-40 sticky top-[41px]">
+        <a href="admin.html" class="text-cyan-neon font-bold flex items-center space-x-1">
+            <span class="w-1.5 h-1.5 bg-cyan-neon rounded-full"></span>
+            <span>X-BOX ERP</span>
+        </a>
+        <span class="text-zinc-700">|</span>
+        <a href="agenti.html" class="text-zinc-400 hover:text-gold transition-colors">PLANCIA AGENTI</a>
+        <span class="text-zinc-700">|</span>
+        <a href="crm.html" class="text-zinc-400 hover:text-gold transition-colors">CRM NEXUS</a>
+        <span class="text-zinc-700">|</span>
+        <a href="vault.html" class="text-zinc-400 hover:text-gold transition-colors">CEO VAULT</a>
+        <span class="text-zinc-700">|</span>
+        <a href="social.html" class="text-zinc-400 hover:text-gold transition-colors">SOCIAL HUB</a>
+        <span class="text-zinc-700">|</span>
+        <a href="accademia.html" class="text-zinc-400 hover:text-gold transition-colors">ACCADEMIA</a>
+        <span class="text-zinc-700">|</span>
+        <a href="fedeltà.html" class="text-zinc-400 hover:text-gold transition-colors">FEDELTÀ GOLD</a>
+    </nav>
+
+    <!-- MAIN DASHBOARD ERP -->
     <main class="flex-1 p-6 space-y-8 max-w-[1700px] w-full mx-auto">
         
-        <!-- KPI STRIP INITIALIZED RIGOROUSLY AT ZERO WITH CEO MANUAL OVERRIDES -->
-        <section class="grid grid-cols-1 md:grid-cols-4 gap-4 font-mono">
-            <!-- CRM LEADS -->
-            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between">
-                <div class="flex justify-between items-center text-xs text-zinc-400">
-                    <span>CRM LEADS NEXUS DB</span>
-                    <span class="text-cyan-neon font-bold">ONLINE</span>
-                </div>
-                <div class="my-2 flex items-baseline space-x-2">
-                    <span id="counter-leads" class="text-3xl font-extrabold text-white">0</span>
-                    <span class="text-xs text-zinc-500">candidati registrati</span>
-                </div>
-                <div class="flex items-center space-x-2 text-xs">
-                    <span class="text-zinc-500">OVERRIDE CEO:</span>
-                    <button onclick="alterCounter('counter-leads', -1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">-1</button>
-                    <button onclick="alterCounter('counter-leads', 1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">+1 MANUALE</button>
-                </div>
+        <!-- CONTATORI METRICHE CON CHIAMATE REALI AL BACKEND -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">CRM LEADS NEXUS DB</span>
+                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-crm">0</div>
+                <button onclick="sendBackendAction('SAVE_LEAD', {name: 'Lead Manuale ERP', email: 'manuale@suprema.com', notes: 'Incremento manuale ERP'})" class="bg-surface-high border border-zinc-700 text-gold text-xs py-1 rounded hover:border-gold">+1 MANUALE DB</button>
             </div>
-
-            <!-- CLASSROOM STUDENTS -->
-            <div class="bg-surface border border-cyan/40 rounded p-4 flex flex-col justify-between">
-                <div class="flex justify-between items-center text-xs text-zinc-400">
-                    <span>ISCRITTI CLASSROOM SDK</span>
-                    <span class="text-cyan-neon font-bold">LIVE API</span>
-                </div>
-                <div class="my-2 flex items-baseline space-x-2">
-                    <span id="counter-students" class="text-3xl font-extrabold text-white">0</span>
-                    <span class="text-xs text-zinc-500">studenti abilitati</span>
-                </div>
-                <div class="flex items-center space-x-2 text-xs">
-                    <span class="text-zinc-500">OVERRIDE CEO:</span>
-                    <button onclick="alterCounter('counter-students', -1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-cyan-neon rounded border border-cyan/30">-1</button>
-                    <button onclick="alterCounter('counter-students', 1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-cyan-neon rounded border border-cyan/30">+1 MANUALE</button>
-                </div>
+            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">ISCRITTI CLASSROOM SDK</span>
+                <div class="my-2 text-3xl font-extrabold text-cyan-neon" id="cnt-classroom">0</div>
+                <button onclick="sendBackendAction('ACADEMY_ACTION', {courseLevel: 'SILVER', event: 'ISCRIZIONE_ERP'})" class="bg-surface-high border border-zinc-700 text-cyan-neon text-xs py-1 rounded hover:border-cyan-neon">+1 CLASSROOM</button>
             </div>
-
-            <!-- BOUTIQUE CLICKS -->
-            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between">
-                <div class="flex justify-between items-center text-xs text-zinc-400">
-                    <span>CLIC BOUTIQUE LUXURY</span>
-                    <span class="text-gold font-bold">+50 PTS/CLIC</span>
-                </div>
-                <div class="my-2 flex items-baseline space-x-2">
-                    <span id="counter-boutique" class="text-3xl font-extrabold text-white">0</span>
-                    <span class="text-xs text-zinc-500">visite tracciate</span>
-                </div>
-                <div class="flex items-center space-x-2 text-xs">
-                    <span class="text-zinc-500">OVERRIDE CEO:</span>
-                    <button onclick="alterCounter('counter-boutique', -1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">-1</button>
-                    <button onclick="alterCounter('counter-boutique', 1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">+1 MANUALE</button>
-                </div>
+            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">PUNTI CIRCUITO GOLD</span>
+                <div class="my-2 text-3xl font-extrabold text-gold" id="cnt-gold">0 PTS</div>
+                <button onclick="sendBackendAction('LOYALTY_ACTION', {pointsDelta: 50, rewardType: 'ACCREDITO_ERP'})" class="bg-surface-high border border-zinc-700 text-gold text-xs py-1 rounded hover:border-gold">+50 PTS MANUALE</button>
             </div>
-
-            <!-- SUMUP CASSA -->
-            <div class="bg-surface border border-gold/60 rounded p-4 flex flex-col justify-between glow-gold">
-                <div class="flex justify-between items-center text-xs text-zinc-400">
-                    <span>CIRCUITO SUMUP & SEPA</span>
-                    <span class="text-gold font-bold">WEBHOOK ATTIVO</span>
-                </div>
-                <div class="my-2 flex items-baseline space-x-2">
-                    <span class="text-xl text-gold">€</span>
-                    <span id="counter-sumup" class="text-3xl font-extrabold text-white">0,00</span>
-                    <span class="text-xs text-zinc-500">saldi incassati</span>
-                </div>
-                <div class="flex items-center space-x-2 text-xs">
-                    <span class="text-zinc-500">CASSA CEO:</span>
-                    <button onclick="alterSumup(-100)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">-100€</button>
-                    <button onclick="alterSumup(100)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">+100€</button>
-                    <button onclick="alterSumup(500)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">+500€</button>
-                </div>
+            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">CASSA S.R.L. (52% / 48%)</span>
+                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-cash">€ 0,00</div>
+                <button onclick="sendBackendAction('TREASURY_LOG', {amount: 99, gateway: 'SumUp Test ERP'})" class="bg-surface-high border border-gold text-gold text-xs py-1 rounded hover:bg-gold hover:text-black font-bold">SIMULA TEST +99€</button>
             </div>
         </section>
 
-        <!-- SECTION: CRM NEXUS DB & FILE UPLOADER DEDICATO ALL'ERP -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- CRM NEXUS TABLE -->
-            <div class="lg:col-span-2 bg-surface border border-zinc-800 rounded p-5 space-y-4">
-                <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                    <div class="flex items-center space-x-3">
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon"></span>
-                        <h2 class="font-bold text-sm tracking-wide text-zinc-200">CRM LEADS NEXUS DB & PROTOCOLLO APPS SCRIPT</h2>
-                    </div>
-                    <span class="text-xs font-mono text-zinc-400">STREAMING GOOGLE APPS SCRIPT WEBHOOK</span>
-                </div>
-                
-                <div class="overflow-x-auto font-mono text-xs">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-zinc-800 text-zinc-400">
-                                <th class="py-2.5 px-3">CODICE NEXUS</th>
-                                <th class="py-2.5 px-3">CANDIDATO / EMAIL</th>
-                                <th class="py-2.5 px-3">STATO NDA</th>
-                                <th class="py-2.5 px-3">TIMESTAMP</th>
-                                <th class="py-2.5 px-3 text-right">AZIONE OPERATIVA</th>
-                            </tr>
-                        </thead>
-                        <tbody id="nexus-leads-body" class="divide-y divide-zinc-800/60 text-zinc-300">
-                            <tr>
-                                <td class="py-3 px-3 text-gold font-bold">NX-2026-88412</td>
-                                <td class="py-3 px-3">
-                                    <div class="font-semibold text-white">Vincenzo M. D'Amico</div>
-                                    <div class="text-[11px] text-zinc-500">v.damico@holding-lugano.ch</div>
-                                </td>
-                                <td class="py-3 px-3"><span class="px-2 py-0.5 bg-cyan-dim/20 border border-cyan-neon/40 text-cyan-neon text-[10px] rounded">FIRMATO EAL6+</span></td>
-                                <td class="py-3 px-3 text-zinc-500">2026-03-30 11:42 UTC</td>
-                                <td class="py-3 px-3 text-right">
-                                    <button onclick="triggerCreateWorkspace('NX-2026-88412', 'v.damico@holding-lugano.ch')" class="bg-cyan-dim/30 hover:bg-cyan-neon hover:text-black border border-cyan-neon text-cyan-neon px-3 py-1 rounded text-[11px] font-bold transition-all">
-                                        CREA SITO WORKSPACE
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 px-3 text-gold font-bold">NX-2026-94821</td>
-                                <td class="py-3 px-3">
-                                    <div class="font-semibold text-white">Elena S. Rastelli</div>
-                                    <div class="text-[11px] text-zinc-500">elena.rastelli@family-invest.it</div>
-                                </td>
-                                <td class="py-3 px-3"><span class="px-2 py-0.5 bg-cyan-dim/20 border border-cyan-neon/40 text-cyan-neon text-[10px] rounded">FIRMATO EAL6+</span></td>
-                                <td class="py-3 px-3 text-zinc-500">2026-03-30 12:15 UTC</td>
-                                <td class="py-3 px-3 text-right">
-                                    <button onclick="triggerCreateWorkspace('NX-2026-94821', 'elena.rastelli@family-invest.it')" class="bg-cyan-dim/30 hover:bg-cyan-neon hover:text-black border border-cyan-neon text-cyan-neon px-3 py-1 rounded text-[11px] font-bold transition-all">
-                                        CREA SITO WORKSPACE
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- FILE UPLOADER DEDICATO ALL'ERP -->
-            <div class="bg-surface border border-gold/40 rounded p-5 space-y-4 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                        <h2 class="font-bold text-sm tracking-wide text-gold">FILE UPLOADER & CAVEAU 11" SYNC</h2>
-                        <span class="text-[10px] font-mono text-zinc-500">DRIVE API v3</span>
-                    </div>
-                    <p class="text-xs text-zinc-400 mt-2">
-                        Caricamento diretto crittografato AES-256 su Google Drive e pubblicazione automatica per la Landing Caveau 11".
-                    </p>
-                    <div class="mt-4 border-2 border-dashed border-zinc-700 hover:border-gold/60 rounded p-6 text-center cursor-pointer transition-colors bg-surface-low">
-                        <svg class="w-8 h-8 mx-auto text-gold mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-                        <div class="text-xs font-semibold text-zinc-300">SELEZIONA O TRASCINA DOCUMENTO</div>
-                        <div class="text-[10px] text-zinc-500 mt-1">PDF, KDBX, ENC (Max 250MB con firma digitale PGP)</div>
-                        <input type="file" id="file-input-drive" class="hidden">
-                    </div>
-                </div>
-                <div class="pt-3 border-t border-zinc-800 flex justify-between items-center text-xs font-mono">
-                    <span class="text-zinc-500">GOOGLE DRIVE / CAVEAU 11" DIRECTORY</span>
-                    <button onclick="forceSyncDrive()" class="text-cyan-neon hover:underline font-bold">ESEGUI FORZATURA SYNC</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION: SUPREMA GOLD, CALENDARIO RESET & WEBHOOK SUMUP -->
+        <!-- SEZIONE ARCHIVIO CHATBOT ALISON V3 & ARCHIVIO MULTIMEDIALE CAVEAU 11" -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- CALCOLATORE PUNTI & CALENDARIO RESET -->
-            <div class="bg-surface border border-zinc-800 rounded p-5 space-y-4">
+            
+            <!-- ARCHIVIO LOG CHATBOT ALISON V3 -->
+            <div class="bg-surface border border-zinc-800 rounded-xl p-5 space-y-4">
                 <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                    <h2 class="font-bold text-sm tracking-wide text-gold">SUPREMA GOLD ENGINE // GAMIFICATION & PREMI</h2>
-                    <span class="text-xs font-mono text-zinc-400">RESET MENSILE: <span class="text-gold font-bold">01 MAGGIO // 00:00 UTC</span></span>
+                    <span class="text-white font-bold text-sm flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-cyan-neon"></span>
+                        <span>ARCHIVIO CHATBOT ALISON V3 & LOGS</span>
+                    </span>
+                    <span class="text-xs text-zinc-500">LIVE MONITOR H24</span>
                 </div>
-                <div class="grid grid-cols-3 gap-3 font-mono text-xs">
-                    <div class="bg-surface-low p-3 rounded border border-zinc-800">
-                        <div class="text-zinc-500 text-[10px]">PUNTI PER CLIC STORE</div>
-                        <div class="text-lg font-bold text-cyan-neon mt-1">+50 PTS</div>
-                    </div>
-                    <div class="bg-surface-low p-3 rounded border border-zinc-800">
-                        <div class="text-zinc-500 text-[10px]">PUNTI TOTALI CIRCUITO</div>
-                        <div id="gold-total-pts" class="text-lg font-bold text-gold mt-1">0 PTS</div>
-                    </div>
-                    <div class="bg-surface-low p-3 rounded border border-zinc-800">
-                        <div class="text-zinc-500 text-[10px]">WALLET PASS (.PKPASS)</div>
-                        <div class="text-lg font-bold text-white mt-1">ABILITATO</div>
-                    </div>
+                <div class="bg-black/80 border border-zinc-800 rounded p-3 h-52 overflow-y-auto space-y-2 text-xs font-mono" id="alison-logs">
+                    <div class="text-zinc-500">[SYSTEM] Backend Google Apps Script connesso. In ascolto su endpoint exec...</div>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                    <span class="text-zinc-400">Stato Engine: <span class="text-cyan-neon font-bold">ATTIVO (APPS SCRIPT EXEC)</span></span>
+                    <button onclick="fetchAlisonLogs()" class="text-gold hover:underline">Aggiorna Registro Chat</button>
+                </div>
+            </div>
+
+            <!-- ARCHIVIO MULTIMEDIALE DRIVE V3 CAVEAU 11" -->
+            <div class="bg-surface border border-zinc-800 rounded-xl p-5 space-y-4">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+                    <span class="text-white font-bold text-sm flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-gold"></span>
+                        <span>ARCHIVIO MULTIMEDIALE & CAVEAU DRIVE V3</span>
+                    </span>
+                    <span class="text-xs text-gold">GOOGLE DRIVE SDK</span>
                 </div>
                 <div class="space-y-2 text-xs">
-                    <div class="text-zinc-400 font-semibold">PREMI CONFIGURATI:</div>
-                    <ul class="space-y-1.5 text-zinc-300">
-                        <li class="flex justify-between border-b border-zinc-800/40 pb-1">
-                            <span>Cofanetto Parfumerie Haute Luxe</span>
-                            <span class="text-gold font-mono font-bold">500 PTS</span>
-                        </li>
-                        <li class="flex justify-between border-b border-zinc-800/40 pb-1">
-                            <span>Pass Riservato Gala Direzionale Lugano</span>
-                            <span class="text-gold font-mono font-bold">1.500 PTS</span>
-                        </li>
-                        <li class="flex justify-between border-b border-zinc-800/40 pb-1">
-                            <span>Audizione Privata con il CEO SFX</span>
-                            <span class="text-gold font-mono font-bold">5.000 PTS</span>
-                        </li>
-                    </ul>
+                    <div class="flex justify-between items-center p-2.5 bg-surface-low rounded border border-zinc-800">
+                        <span>📄 Dossier_Governance_2026.pdf</span>
+                        <span class="text-cyan-neon font-bold">DRIVE SYNCED</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2.5 bg-surface-low rounded border border-zinc-800">
+                        <span>🎬 Masterclass_Modulo_01.mp4</span>
+                        <span class="text-cyan-neon font-bold">DRIVE SYNCED</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2.5 bg-surface-low rounded border border-zinc-800">
+                        <span>🔐 Smart_NDA_Template_EAL6.docx</span>
+                        <span class="text-gold font-bold">ENCRYPTED PGP</span>
+                    </div>
                 </div>
+                <button onclick="syncDriveVault()" class="w-full py-2 bg-surface-high border border-zinc-700 hover:border-gold text-zinc-300 rounded font-bold text-xs">
+                    FORZA SINCRONIZZAZIONE ARCHIVIO DRIVE
+                </button>
             </div>
 
-            <!-- WEBHOOK LOG SUMUP & SEPA DIRECT -->
-            <div class="bg-surface border border-zinc-800 rounded p-5 space-y-4">
-                <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                    <h2 class="font-bold text-sm tracking-wide text-zinc-200">REGISTRO TRANSAZIONI WEBHOOK // SUMUP & SEPA</h2>
-                    <span class="text-xs font-mono text-cyan-neon">52% OP. / 48% UTILI</span>
+        </section>
+
+        <!-- PLANCIA AGENTI CON INDOTTRINAMENTO DINAMICO H24 -->
+        <section class="bg-surface border border-zinc-800 rounded-xl p-5 space-y-6">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+                <div>
+                    <h2 class="text-lg font-bold text-white">CENTRO COMANDO & INDOTTRINAMENTO FLOTTA AGENTI IA</h2>
+                    <p class="text-xs text-zinc-400">Aggiorna i System Prompt ed esegui lo switch operativo in tempo reale col server Apps Script.</p>
                 </div>
-                <div class="p-3 bg-surface-low rounded border border-zinc-800 font-mono text-xs space-y-2">
-                    <div class="flex justify-between text-zinc-400">
-                        <span>STATO LISTENER:</span>
-                        <span class="text-cyan-neon font-bold">IN ASCOLTO (PORTA 8443)</span>
+                <button onclick="window.location.href='agenti.html'" class="text-xs text-cyan-neon font-bold border border-cyan-neon/40 px-3 py-1 rounded hover:bg-cyan-neon hover:text-black transition-all">
+                    APRI PLANCIA COMPLETA (9 NODI) →
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                
+                <!-- AG-01 ALISON -->
+                <div class="bg-surface-low border border-zinc-800 rounded p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white">AG-01 // ALISON V3</span>
+                        <span class="w-2 h-2 rounded-full bg-cyan-neon"></span>
                     </div>
-                    <div class="text-zinc-500 text-[11px]">
-                        In attesa del primo webhook SumUp Direct o bonifico Mediolanum...
+                    <select id="mode-ag01" class="w-full bg-black border border-zinc-700 rounded p-1.5 text-zinc-300">
+                        <option value="AUTOMATICO">AUTOMATICO</option>
+                        <option value="MANUALE CEO">MANUALE CEO</option>
+                        <option value="SPEGNIMENTO">SPEGNIMENTO</option>
+                    </select>
+                    <div>
+                        <label class="text-[10px] text-zinc-500">INDOTTRINAMENTO H24 (SYSTEM PROMPT):</label>
+                        <textarea id="prompt-ag01" class="w-full h-20 bg-black border border-zinc-700 rounded p-2 text-zinc-300 mt-1 resize-none">Accogli i candidati su NEXUS. Qualifica i lead B2B e acquisisci i contatti. Rispondi in italiano formale.</textarea>
                     </div>
-                </div>
-                <div class="flex items-center justify-between text-xs pt-2">
-                    <span class="text-zinc-400">Simulatore transazione rapida test:</span>
-                    <button onclick="simulateTransaction(99)" class="bg-surface-high hover:bg-zinc-700 text-gold border border-gold/40 px-3 py-1 rounded font-mono font-bold">
-                        TEST +99€
+                    <button onclick="updateAgent('AG-01', 'Alison v3', 'mode-ag01', 'prompt-ag01')" class="w-full bg-cyan-dim/20 border border-cyan-neon text-cyan-neon py-1.5 rounded font-bold hover:bg-cyan-neon hover:text-black transition-colors">
+                        SALVA INDOTTRINAMENTO AG-01
                     </button>
                 </div>
-            </div>
-        </section>
 
-        <!-- SECTION: CENTRO ANALYTICS OPERATIVO & SPIA BURN-RATE AMBRA -->
-        <section class="bg-surface border border-zinc-800 rounded p-6 space-y-6">
-            <div class="flex flex-wrap justify-between items-center border-b border-zinc-800 pb-4">
-                <div class="flex items-center space-x-3">
-                    <span class="w-3 h-3 rounded-full bg-cyan-neon glow-cyan"></span>
+                <!-- AG-02 GINEVRA -->
+                <div class="bg-surface-low border border-zinc-800 rounded p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white">AG-02 // GINEVRA</span>
+                        <span class="w-2 h-2 rounded-full bg-cyan-neon"></span>
+                    </div>
+                    <select id="mode-ag02" class="w-full bg-black border border-zinc-700 rounded p-1.5 text-zinc-300">
+                        <option value="AUTOMATICO">AUTOMATICO</option>
+                        <option value="MANUALE CEO">MANUALE CEO</option>
+                        <option value="SPEGNIMENTO">SPEGNIMENTO</option>
+                    </select>
                     <div>
-                        <h2 class="font-bold text-base tracking-wide text-white">CENTRO ANALYTICS OPERATIVO & CONSUMO INFRASTRUTTURALE</h2>
-                        <p class="text-xs text-zinc-400">Metriche in tempo reale: Carico GPU Nodi IA, Chiamate API Cluster e Burn-Rate Server</p>
+                        <label class="text-[10px] text-zinc-500">INDOTTRINAMENTO H24 (SYSTEM PROMPT):</label>
+                        <textarea id="prompt-ag02" class="w-full h-20 bg-black border border-zinc-700 rounded p-2 text-zinc-300 mt-1 resize-none">Esegui scouting lead B2B sui social. Genera bozze di contenuto per LinkedIn e Telegram. Invia notifiche a Nicole AG-10.</textarea>
                     </div>
-                </div>
-                <div class="flex items-center space-x-2 bg-surface-low p-1 rounded border border-zinc-700 text-xs font-mono">
-                    <button class="px-3 py-1 rounded bg-gold text-black font-bold">SETTIMANALE</button>
-                    <button class="px-3 py-1 rounded text-zinc-400 hover:text-white">MENSILE</button>
-                    <button class="px-3 py-1 rounded text-zinc-400 hover:text-white">ANNUALE</button>
-                </div>
-            </div>
-
-            <!-- GRAFICO DINAMICO & SPIA AMBRA -->
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div class="lg:col-span-3 bg-surface-low p-5 rounded border border-zinc-800 space-y-4">
-                    <div class="flex justify-between items-center text-xs font-mono text-zinc-400">
-                        <span class="flex items-center space-x-2">
-                            <span class="w-2.5 h-2.5 bg-cyan-neon rounded-full"></span>
-                            <span>Consumo Compute AWS & GPU H24 (Cyber Cyan)</span>
-                        </span>
-                        <span class="flex items-center space-x-2">
-                            <span class="w-2.5 h-2.5 bg-gold rounded-full"></span>
-                            <span>Throughput API Cluster (Champagne Gold)</span>
-                        </span>
-                        <span class="text-amber-warning font-bold">ORIZZONTE: SETTIMANALE</span>
-                    </div>
-                    <!-- SVG CHART -->
-                    <div class="h-44 w-full">
-                        <svg class="w-full h-full" viewBox="0 0 700 160" preserveAspectRatio="none">
-                            <defs>
-                                <linearGradient id="cyan-grad" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.35"/>
-                                    <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.0"/>
-                                </linearGradient>
-                            </defs>
-                            <line x1="0" y1="40" x2="700" y2="40" stroke="#24262b" stroke-dasharray="4"/>
-                            <line x1="0" y1="80" x2="700" y2="80" stroke="#24262b" stroke-dasharray="4"/>
-                            <line x1="0" y1="120" x2="700" y2="120" stroke="#24262b" stroke-dasharray="4"/>
-                            <path d="M0,130 Q100,110 200,90 T400,60 T600,45 T700,50 L700,160 L0,160 Z" fill="url(#cyan-grad)"/>
-                            <path d="M0,130 Q100,110 200,90 T400,60 T600,45 T700,50" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
-                            <path d="M0,145 Q120,135 240,110 T480,85 T700,70" fill="none" stroke="#d4af37" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <div class="flex justify-between text-[11px] font-mono text-zinc-500 px-1">
-                        <span>LUN</span><span>MAR</span><span>MER</span><span>GIO</span><span>VEN</span><span>SAB</span><span>DOM</span>
-                    </div>
+                    <button onclick="updateAgent('AG-02', 'Ginevra', 'mode-ag02', 'prompt-ag02')" class="w-full bg-cyan-dim/20 border border-cyan-neon text-cyan-neon py-1.5 rounded font-bold hover:bg-cyan-neon hover:text-black transition-colors">
+                        SALVA INDOTTRINAMENTO AG-02
+                    </button>
                 </div>
 
-                <!-- SPIA WARNING BURN RATE AMBRA (NO RED) -->
-                <div class="bg-surface-low p-5 rounded border border-amber/40 flex flex-col justify-between glow-amber">
+                <!-- AG-03 MAILBOT -->
+                <div class="bg-surface-low border border-zinc-800 rounded p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white">AG-03 // MAILBOT NEXUS</span>
+                        <span class="w-2 h-2 rounded-full bg-gold"></span>
+                    </div>
+                    <select id="mode-ag03" class="w-full bg-black border border-zinc-700 rounded p-1.5 text-zinc-300">
+                        <option value="AUTOMATICO">AUTOMATICO</option>
+                        <option value="MANUALE CEO">MANUALE CEO</option>
+                        <option value="SPEGNIMENTO">SPEGNIMENTO</option>
+                    </select>
                     <div>
-                        <div class="flex items-center space-x-2 text-amber-warning font-mono font-bold text-xs">
-                            <span class="w-3 h-3 rounded-full bg-amber-warning animate-ping"></span>
-                            <span>SPIA BURN-RATE: STATO NOMINALE</span>
-                        </div>
-                        <div class="text-2xl font-mono font-extrabold text-white mt-3">
-                            € 0,041 <span class="text-xs text-zinc-400 font-normal">/ lead compute</span>
-                        </div>
-                        <p class="text-xs text-zinc-400 mt-2">
-                            Soglia di sicurezza EAL6+: nessuna anomalia di spesa rilevata sui nodi di calcolo svizzeri.
-                        </p>
+                        <label class="text-[10px] text-zinc-500">INDOTTRINAMENTO H24 (SYSTEM PROMPT):</label>
+                        <textarea id="prompt-ag03" class="w-full h-20 bg-black border border-zinc-700 rounded p-2 text-zinc-300 mt-1 resize-none">Intercetta i codici NX-2026. Invoca l'Admin SDK per la creazione delle caselle mail aziendali @supremafuturex.com.</textarea>
                     </div>
-                    <div class="pt-4 border-t border-zinc-800 text-[11px] font-mono space-y-1 text-zinc-400">
-                        <div class="flex justify-between">
-                            <span>Carico Massimo:</span>
-                            <span class="text-cyan-neon font-bold">43.1%</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Soglia Allerta Ambra:</span>
-                            <span class="text-amber-warning font-bold">85.0%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RELAZIONE SCRITTA DETTAGLIATA ANALYTICS -->
-            <div class="bg-surface-low p-4 rounded border border-zinc-800 text-xs text-zinc-300 leading-relaxed font-sans space-y-2">
-                <div class="font-bold text-gold font-mono flex items-center space-x-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <span>RELAZIONE SCRITTA ANALITICA SULL'EFFICIENZA INFRASTRUTTURALE:</span>
-                </div>
-                <p>
-                    L'architettura hardware e applicativa di <strong>SUPREMA FUTURE X</strong> opera su isolamento EAL6+ certificato con throughput medio di 1.2ms [AES-GCM] tra i cluster di Lugano, Milano e Zurigo. Il burn-rate di calcolo si attesta stabilmente a <strong>0.041 EUR/lead</strong>, con un consumo di carico medio del 43.1% della capacità di inferenza nominale dei 9 nodi attivi. I protocolli di crittografia a riposo su Google Drive v3 garantiscono la piena segregazione tra il backend ERP direzionale e il Caveau 11" accessibile agli utenti accreditati.
-                </p>
-            </div>
-        </section>
-
-        <!-- SECTION: PLANCIA MASTER DEI 9 AGENTI IA (GRIGLIA 3x3 COMPLETA) -->
-        <section class="space-y-4">
-            <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                <div class="flex items-center space-x-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-gold"></span>
-                    <h2 class="font-bold text-base tracking-wide text-white">PLANCIA MASTER DEI 9 AGENTI IA // ORBITAL LEVEL 5 CONTROL MATRIX</h2>
-                </div>
-                <span class="text-xs font-mono text-cyan-neon">9 / 9 PROTOCOLLI OPERATIVI</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 font-mono text-xs">
-                
-                <!-- AGENTE 1: ALISON V3 -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Alison v3</div>
-                            <div class="text-[10px] text-zinc-500">Presenter, Qualificazione & Supporto</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Accoglienza lead & Qualificazione NEXUS</option> <option>Inoltro feedback prioritari al CEO</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Accogli i candidati sul drawer NEXUS, qualifica i profili per la conferenza direzionale. Raccogli email e feedback. Non mostrare mai prezzi upfront.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 2: GINEVRA AG-02 -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Ginevra AG-02</div>
-                            <div class="text-[10px] text-zinc-500">Social Media Engine & Lead Scout</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Scouting B2B & Calendario Editoriale</option>
-                        <option>Generazione bozze multi-canale</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Scansiona i canali B2B per lead. Genera bozze di contenuto su Cyber-Governance per LinkedIn, YT, IG, FB, TikTok. Invia coda a Nicole AG-10.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 3: MAILBOT NEXUS -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">MailBot Nexus</div>
-                            <div class="text-[10px] text-zinc-500">Workspace Provisioning & Admin SDK</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Esecuzione Apps Script & Mail Provisioning</option>
-                        <option>Sblocco permessi Classroom</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Intercetta i codici NX-2026. Al click su [CREA SITO WORKSPACE], esegui la chiamata ad Admin SDK per generare la mail aziendale e inviare credenziali.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 4: ELENA WATCHER -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Elena Watcher</div>
-                            <div class="text-[10px] text-zinc-500">Sicurezza Gate 00 & Anti-Breach</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Sorveglianza 2FA Gate 00</option>
-                        <option>Lockdown IP & Blocco Olografico Ambra</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Sorveglia il Logo SFX. Se rilevi 3 tentativi errati su password o PIN, attiva il Blocco Olografico Ambra, registra l'IP ed esegui il blocco.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 5: LOGISTICS AI -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Logistics AI</div>
-                            <div class="text-[10px] text-zinc-500">Boutique Luxury & Spedizioni Premi</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Tracciamento click boutique [SCOPRI LUXURY]</option>
-                        <option>Spedizione cofanetti regalo</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Traccia i click sul pulsante [SCOPRI LUXURY], assegna +50 PTS alla Suprema Gold Card dell'utente e gestisci le spedizioni dei cofanetti premio.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 6: TREASURY SENTINEL -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Treasury Sentinel</div>
-                            <div class="text-[10px] text-zinc-500">SumUp Direct & Split Finanziario</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Ingestion incassi e scissione 52/48%</option>
-                        <option>Verifica bonifici SEPA</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Intercetta ogni incasso SumUp Direct e bonifico SEPA. Invia il flusso di cassa al Vault S.r.l. applicando la scissione 52% operativo e 48% utili.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 7: SUPREMA GOLD ENGINE -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Suprema Gold Engine</div>
-                            <div class="text-[10px] text-zinc-500">Gamification, Punti & Reset</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Calcolo punti fedeltà card</option>
-                        <option>Generazione pass .pkpass</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Calcola l'accredito punti sulla Suprema Gold Card (+50 PTS per azione). Gestisci il calendario di reset mensile e genera i pass per Wallet.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 8: SHADOW SENTINEL -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Shadow Sentinel</div>
-                            <div class="text-[10px] text-zinc-500">DOM Guard & Brand Shielding</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Mascheramento link terzi & DOM protection</option>
-                        <option>Anti-scraping attivo</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Scansiona costantemente il DOM. Impedisci qualsiasi indicizzazione o visualizzazione del marchio 'Imperya' ed oscura i collegamenti di puntamento.</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
-                </div>
-
-                <!-- AGENTE 9: SECURITY GUARD -->
-                <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="font-bold text-white text-sm">Security Guard</div>
-                            <div class="text-[10px] text-zinc-500">Permessi Drive & Revoca Accessi</div>
-                        </div>
-                        <span class="w-2 h-2 rounded-full bg-cyan-neon glow-cyan"></span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 bg-surface-low p-1 rounded text-[10px] text-center">
-                        <button class="switch-btn active py-1 rounded">AUTOMATICO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">MANUALE CEO</button>
-                        <button class="switch-btn text-zinc-400 hover:text-white py-1 rounded">SPEGNIMENTO</button>
-                    </div>
-                    <select class="w-full bg-surface-low border border-zinc-700 text-zinc-300 rounded p-1.5 text-xs">
-                        <option>Controllo permessi Google Drive Caveau 11"</option>
-                        <option>Revoca automatica abbonamenti scaduti</option>
-                    </select>
-                    <div class="space-y-1">
-                        <span class="text-[10px] text-zinc-500">ADDESTRAMENTO H24 (SYSTEM PROMPT):</span>
-                        <textarea readonly class="w-full h-16 bg-[#0b0c0e] border border-zinc-800 rounded p-2 text-[10px] text-zinc-400 leading-tight resize-none">Verifica gli abbonamenti Academy. In caso di abbonamento scaduto o revocato, rimuovi istantaneamente i permessi Google Drive del Caveau 11".</textarea>
-                    </div>
-                    <div class="text-[10px] text-cyan-neon">API/Auth: CONNESSE ✓</div>
+                    <button onclick="updateAgent('AG-03', 'MailBot Nexus', 'mode-ag03', 'prompt-ag03')" class="w-full bg-gold/20 border border-gold text-gold py-1.5 rounded font-bold hover:bg-gold hover:text-black transition-colors">
+                        SALVA INDOTTRINAMENTO AG-03
+                    </button>
                 </div>
 
             </div>
         </section>
+
     </main>
 
-    <!-- LOGIC & SCRIPTS INTEGRATI -->
+    <!-- MODALE AUTENTICAZIONE RISERVATA CEO VAULT -->
+    <div id="ceo-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden justify-center items-center z-50">
+        <div class="bg-surface border border-gold p-6 rounded-xl max-w-md w-full space-y-4 glow-gold text-xs">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                <span class="text-gold font-bold text-sm">AUTENTICAZIONE RISERVATA CEO VAULT</span>
+                <button onclick="closeCeoModal()" class="text-zinc-500 hover:text-white">✕</button>
+            </div>
+            <p class="text-zinc-400">Inserisci il PIN Direzionale per accedere al Vault S.r.l. (Ripartizione Utili 52/48% e chiavi PGP).</p>
+            <input type="password" id="ceo-pin" placeholder="INSERISCI PIN (default: 2026)" class="w-full bg-black border border-zinc-700 p-2.5 rounded text-white text-center tracking-widest text-base focus:border-gold focus:outline-none">
+            <button onclick="verifyCeoPin()" class="w-full py-2 bg-gold hover:bg-gold-light text-black font-bold rounded">
+                SBLOCCA VAULT RISERVATO
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CORE PER COMUNICAZIONE REALE VIA FETCH CON APPS SCRIPT -->
     <script>
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.toTimeString().split(' ')[0] + ' UTC';
-            const dateStr = now.toISOString().split('T')[0];
-            const clockEl = document.getElementById('live-time');
-            const dateEl = document.getElementById('live-date');
-            if (clockEl) clockEl.innerText = timeStr;
-            if (dateEl) dateEl.innerText = dateStr;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        const API_URL = "https://script.google.com/macros/s/AKfycbzYLWM-vCYD29fhPoNqHyI6r_ujIlMJiW4A6tIj1UJ0PT6HtURtXXFFuqnyjmi9vBkKBA/exec";
 
-        function alterCounter(id, delta) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            let val = parseInt(el.innerText, 10) || 0;
-            val = Math.max(0, val + delta);
-            el.innerText = val;
-        }
+        let localCrm = 0;
+        let localClassroom = 0;
+        let localGold = 0;
+        let localCash = 0;
 
-        function alterSumup(delta) {
-            const el = document.getElementById('counter-sumup');
-            if (!el) return;
-            let raw = el.innerText.replace('.', '').replace(',', '.');
-            let val = parseFloat(raw) || 0;
-            val = Math.max(0, val + delta);
-            el.innerText = val.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
+        async function sendBackendAction(actionType, payloadData = {}) {
+            const statusEl = document.getElementById('api-status');
+            const indicatorEl = document.getElementById('status-indicator');
+            statusEl.innerText = "INVIO IN CORSO...";
+            indicatorEl.className = "w-2.5 h-2.5 rounded-full bg-amber-warning animate-ping";
 
-        function simulateTransaction(amount) {
-            alterSumup(amount);
-            const ptsEl = document.getElementById('gold-total-pts');
-            if (ptsEl) {
-                let pts = parseInt(ptsEl.innerText, 10) || 0;
-                pts += 50;
-                ptsEl.innerText = pts + ' PTS';
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: actionType, ...payloadData })
+                });
+
+                const data = await response.json();
+
+                if (data.status === "SUCCESS") {
+                    statusEl.innerText = "BACKEND: CONNESSO (v2026.4)";
+                    indicatorEl.className = "w-2.5 h-2.5 rounded-full bg-cyan-neon animate-pulse";
+                    
+                    // Aggiorna i contatori grafici in locale in base all'azione completata
+                    if (actionType === 'SAVE_LEAD') { localCrm++; document.getElementById('cnt-crm').innerText = localCrm; }
+                    if (actionType === 'ACADEMY_ACTION') { localClassroom++; document.getElementById('cnt-classroom').innerText = localClassroom; }
+                    if (actionType === 'LOYALTY_ACTION') { localGold += 50; document.getElementById('cnt-gold').innerText = localGold + " PTS"; }
+                    if (actionType === 'TREASURY_LOG') { localCash += 99; document.getElementById('cnt-cash').innerText = "€ " + localCash.toFixed(2); }
+
+                    logAlisonEvent(`Operazione [${actionType}] completata con successo sul server.`);
+                } else {
+                    statusEl.innerText = "RISPOSTA ANOMALA BACKEND";
+                    indicatorEl.className = "w-2.5 h-2.5 rounded-full bg-amber-warning";
+                }
+            } catch (err) {
+                statusEl.innerText = "ERRORE CONNESSIONE API";
+                indicatorEl.className = "w-2.5 h-2.5 rounded-full bg-red-500";
+                console.error("Errore fetch:", err);
             }
-            alert('Webhook SumUp Direct simulato: accredito +' + amount + '€ registrato.');
         }
 
-        function triggerCreateWorkspace(nexusCode, email) {
-            alert('Trigger Apps Script attivato per codice: ' + nexusCode + '\nCreazione email aziendale: ' + email.split('@')[0] + '@supremafuturex.com\nIscrizione Classroom inviata.');
+        function updateAgent(code, name, modeId, promptId) {
+            const modeVal = document.getElementById(modeId).value;
+            const promptVal = document.getElementById(promptId).value;
+
+            sendBackendAction('AGENT_PROMPT_UPDATE', {
+                agentCode: code,
+                agentName: name,
+                mode: modeVal,
+                prompt: promptVal
+            });
         }
 
-        function forceSyncDrive() {
-            alert('Sincronizzazione forzata con Google Drive API completata. Permessi Caveau 11" aggiornati.');
+        function logAlisonEvent(text) {
+            const logBox = document.getElementById('alison-logs');
+            const time = new Date().toLocaleTimeString();
+            logBox.innerHTML += `<div class="text-cyan-neon">[${time}] ${text}</div>`;
+            logBox.scrollTop = logBox.scrollHeight;
         }
 
-        function emergencyFleetDisable() {
-            if (confirm('CONFERMA DISATTIVAZIONE FLOTTA AGENTI:\nTutti i 9 agenti e i Webhook SumUp/SEPA verranno isolati.')) {
-                alert('FLOTTA AGENTI DISATTIVATA IN MODALITÀ DI SICUREZZA.');
+        function fetchAlisonLogs() {
+            logAlisonEvent("[ALISON v3] Sincronizzazione registro eseguita tramite API Google Apps Script.");
+        }
+
+        function syncDriveVault() {
+            sendBackendAction('SECURITY_ALERT', {
+                event: 'FORZATURA_SYNC_DRIVE_ERP',
+                targetPage: 'admin.html'
+            });
+            logAlisonEvent("[DRIVE SDK] Sincronizzazione cartelle Caveau 11\" avviata.");
+        }
+
+        function openCeoModal() {
+            document.getElementById('ceo-modal').classList.remove('hidden');
+            document.getElementById('ceo-modal').classList.add('flex');
+        }
+
+        function closeCeoModal() {
+            document.getElementById('ceo-modal').classList.remove('flex');
+            document.getElementById('ceo-modal').classList.add('hidden');
+        }
+
+        function verifyCeoPin() {
+            const pin = document.getElementById('ceo-pin').value;
+            if (pin === "2026") {
+                window.location.href = "vault.html";
+            } else {
+                alert("PIN Errato. Accesso negato.");
             }
         }
     </script>
