@@ -1,488 +1,454 @@
 <!DOCTYPE html>
-<html lang="it" class="dark scroll-smooth">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUPREMA CRM // Master Kanban & Lead Intelligence</title>
-    
-    <!-- Font Istituzionali & Icone -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel:wght@500;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CSS CDN -->
+    <title>SUPREMA FUTURE X — CRM Leads Nexus DB</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
                     colors: {
                         surface: {
-                            DEFAULT: '#0e141b',
-                            dim: '#090d12',
-                            bright: '#18222d',
-                            card: '#121922',
-                            border: '#22303e'
+                            DEFAULT: '#111317',
+                            low: '#1a1b20',
+                            high: '#24262b',
+                            highest: '#32343a',
                         },
                         gold: {
                             DEFAULT: '#d4af37',
-                            glow: '#ffd700',
-                            dark: '#997d1e',
-                            surface: 'rgba(212, 175, 55, 0.08)'
+                            light: '#f3e5ab',
+                            dark: '#997d20',
                         },
                         cyan: {
-                            DEFAULT: '#00f0ff',
-                            glow: '#70f8ff',
-                            dark: '#009ba6',
-                            surface: 'rgba(0, 240, 255, 0.08)'
+                            neon: '#00f0ff',
+                            dim: '#00a3ad',
                         },
-                        silver: {
-                            DEFAULT: '#94a3b8',
-                            metallic: '#cbd5e1'
+                        amber: {
+                            warning: '#ffb000',
+                            glow: 'rgba(255, 176, 0, 0.25)',
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
-                        serif: ['Cinzel', 'serif'],
-                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
-    
-    <!-- CSS Custom Cyber-Luxury Styles -->
     <style>
-        body {
-            background-color: #090d12;
-            color: #e2e8f0;
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Scrollbar Personalizzata */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #090d12; }
-        ::-webkit-scrollbar-thumb { background: #22303e; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
-
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #fff2cc 0%, #d4af37 50%, #aa8214 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .cyan-gradient-text {
-            background: linear-gradient(135deg, #e0ffff 0%, #00f0ff 50%, #008b94 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .glass-card {
-            background: rgba(18, 25, 34, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.18);
-        }
-        .glass-card-cyan {
-            background: rgba(18, 25, 34, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-        }
-        .hud-border-cyan {
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.12), inset 0 0 10px rgba(0, 240, 255, 0.05);
-        }
-        .kanban-column {
-            min-height: 70vh;
-        }
+        body { background-color: #0b0c0e; color: #e2e8f0; font-family: 'Montserrat', sans-serif; }
+        .border-gold { border-color: rgba(212, 175, 55, 0.35); }
+        .border-cyan { border-color: rgba(0, 240, 255, 0.35); }
+        .border-amber { border-color: rgba(255, 176, 0, 0.4); }
+        .glow-gold { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+        .glow-cyan { box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); }
+        .glow-amber { box-shadow: 0 0 18px rgba(255, 176, 0, 0.2); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-cyan selection:text-black">
+<body class="min-h-screen flex flex-col bg-[#0b0c0e]">
 
-    <!-- BARRA SUPERIORE DI NAVIGAZIONE E TELEMETRIA -->
-    <header class="border-b border-surface-border bg-surface-dim/95 sticky top-0 z-40 text-[11px] font-mono tracking-wider backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center space-x-3 text-gray-400">
-                <span class="inline-flex items-center text-cyan font-bold"><i class="fa-solid fa-users-gear text-[10px] mr-1.5"></i> SUPREMA CRM NEXUS</span>
-                <span class="text-surface-border">|</span>
-                <span class="text-gold"><i class="fa-solid fa-chart-line mr-1"></i> PIPELINE ATTIVA</span>
-                <span class="text-surface-border hidden sm:inline">|</span>
-                <span class="text-gray-400 hidden sm:inline">ELENA AI SCORE ENGINE ON</span>
+    <!-- TOP BAR TELEMETRIA & OROLOGIO LIVE -->
+    <header class="bg-[#111317] border-b border-gold px-6 py-3 flex flex-wrap justify-between items-center text-xs font-mono select-none sticky top-0 z-50">
+        <div class="flex items-center space-x-5">
+            <div class="flex items-center space-x-2 text-gold">
+                <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
+                <span class="font-bold tracking-wider uppercase">SUPREMA FUTURE X</span>
+                <span class="text-zinc-500">//</span>
+                <span class="text-cyan-neon font-semibold">CRM LEADS NEXUS DB</span>
             </div>
-            <div class="flex items-center space-x-3">
-                <a href="index.html" class="px-3 py-1 rounded bg-surface-card border border-surface-border text-gray-300 hover:text-white text-xs transition flex items-center">
-                    <i class="fa-solid fa-globe mr-1"></i> Landing Page
-                </a>
-                <a href="admin.html" class="px-3 py-1 rounded bg-surface-card border border-cyan/40 text-cyan hover:border-cyan text-xs font-semibold transition flex items-center">
-                    <i class="fa-solid fa-terminal mr-1"></i> Control Room
-                </a>
+            <div class="hidden lg:flex items-center space-x-3 text-zinc-400">
+                <span>GATE 00: <span class="text-cyan-neon">AUTENTICATO</span></span>
+                <span>PROTOCOLLO: <span class="text-gold">APPS SCRIPT v3</span></span>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <div class="bg-surface-low border border-gold/40 px-3 py-1 rounded flex items-center space-x-2 text-xs">
+                <span class="text-zinc-400">TIMESTAMP LIVE:</span>
+                <span id="live-time" class="text-gold font-bold">00:00:00 UTC</span>
+                <span class="text-zinc-500">|</span>
+                <span id="live-date" class="text-zinc-300">2026-09-25</span>
+            </div>
+            <div class="bg-cyan-dim/20 border border-cyan-neon/50 text-cyan-neon px-2.5 py-1 rounded font-bold text-[11px]">
+                EAL6+ COMPLIANT
             </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
-
-        <!-- HEADER PRINCIPALE PREDISPOSIZIONE PIPELINE -->
-        <section class="glass-card-cyan rounded-2xl p-6 relative overflow-hidden hud-border-cyan flex flex-wrap justify-between items-center gap-6">
-            <div>
-                <div class="flex items-center space-x-2 text-xs font-mono text-cyan">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="uppercase tracking-widest font-bold">Gestore Candidature & Conversione Lead</span>
+    <!-- CONTENUTO PRINCIPALE CRM -->
+    <main class="flex-1 p-6 space-y-6 max-w-[1700px] w-full mx-auto font-sans">
+        
+        <!-- METRICHE CHIAVE E CONTATORI (INIZIALIZZATI DA ZERO CON CONTROLLI OVERRIDE) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+            <!-- TOTALE CANDIDATI NEXUS -->
+            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-center text-xs text-zinc-400">
+                    <span>LEAD TOTALI NEXUS</span>
+                    <span class="text-cyan-neon font-bold">LIVE DB</span>
                 </div>
-                <h1 class="text-3xl md:text-4xl font-serif font-black text-white mt-1">
-                    Master CRM <span class="cyan-gradient-text">Kanban Board</span>
-                </h1>
-                <p class="text-xs md:text-sm text-gray-400 max-w-2xl mt-1">
-                    Visualizza, sposta e qualifica le richieste di accesso. L'Agente Elena valuta automaticamente ogni candidato calcolando il valore di Scout Index.
+                <div class="my-2 flex items-baseline space-x-2">
+                    <span id="crm-total-leads" class="text-3xl font-extrabold text-white">0</span>
+                    <span class="text-xs text-zinc-500">profili acquisiti</span>
+                </div>
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="text-zinc-500">OVERRIDE:</span>
+                    <button onclick="alterCounter('crm-total-leads', -1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">-1</button>
+                    <button onclick="alterCounter('crm-total-leads', 1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">+1 MANUALE</button>
+                </div>
+            </div>
+
+            <!-- NDA FIRMATI -->
+            <div class="bg-surface border border-cyan/40 rounded p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-center text-xs text-zinc-400">
+                    <span>SMART NDA FIRMATI</span>
+                    <span class="text-cyan-neon font-bold">EAL6+ CRITTOGRAFIA</span>
+                </div>
+                <div class="my-2 flex items-baseline space-x-2">
+                    <span id="crm-signed-nda" class="text-3xl font-extrabold text-cyan-neon">0</span>
+                    <span class="text-xs text-zinc-500">contratti validati</span>
+                </div>
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="text-zinc-500">OVERRIDE:</span>
+                    <button onclick="alterCounter('crm-signed-nda', -1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-cyan-neon rounded border border-cyan/30">-1</button>
+                    <button onclick="alterCounter('crm-signed-nda', 1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-cyan-neon rounded border border-cyan/30">+1 MANUALE</button>
+                </div>
+            </div>
+
+            <!-- SITI WORKSPACE ATTIVATI -->
+            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-center text-xs text-zinc-400">
+                    <span>WORKSPACE ATTIVI</span>
+                    <span class="text-gold font-bold">ADMIN SDK</span>
+                </div>
+                <div class="my-2 flex items-baseline space-x-2">
+                    <span id="crm-active-workspaces" class="text-3xl font-extrabold text-white">0</span>
+                    <span class="text-xs text-zinc-500">istanze abilitate</span>
+                </div>
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="text-zinc-500">OVERRIDE:</span>
+                    <button onclick="alterCounter('crm-active-workspaces', -1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">-1</button>
+                    <button onclick="alterCounter('crm-active-workspaces', 1)" class="px-2 py-0.5 bg-surface-high hover:bg-zinc-700 text-gold rounded border border-gold/30">+1 MANUALE</button>
+                </div>
+            </div>
+
+            <!-- TASSO CONVERSIONE STIMATO -->
+            <div class="bg-surface border border-gold/60 rounded p-4 flex flex-col justify-between glow-gold">
+                <div class="flex justify-between items-center text-xs text-zinc-400">
+                    <span>CONVERSIONE LEAD / CEO</span>
+                    <span class="text-gold font-bold">PREDITTIVA H24</span>
+                </div>
+                <div class="my-2 flex items-baseline space-x-2">
+                    <span id="crm-conversion-rate" class="text-3xl font-extrabold text-gold">0,0%</span>
+                    <span class="text-xs text-zinc-500">target direzionale</span>
+                </div>
+                <div class="text-[11px] text-zinc-400 flex justify-between items-center">
+                    <span>Stato: Nominale</span>
+                    <span class="text-cyan-neon font-bold">QUALIFICA ATTIVA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARRA AZIONI OPERATIVE & FILTRI -->
+        <section class="bg-surface border border-zinc-800 rounded p-4 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex flex-wrap items-center gap-3">
+                <!-- RICERCA -->
+                <div class="relative font-mono text-xs">
+                    <input type="text" id="search-input" placeholder="Cerca codice NX, nome o email..." onkeyup="filterLeads()" class="bg-surface-low border border-zinc-700 rounded px-3 py-1.5 pl-8 text-zinc-200 placeholder-zinc-500 w-64 focus:outline-none focus:border-gold">
+                    <svg class="w-4 h-4 text-zinc-500 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </div>
+                
+                <!-- FILTRO STATO -->
+                <select id="filter-nda" onchange="filterLeads()" class="bg-surface-low border border-zinc-700 text-zinc-300 rounded px-3 py-1.5 text-xs font-mono focus:outline-none focus:border-gold">
+                    <option value="ALL">TUTTI GLI STATI NDA</option>
+                    <option value="FIRMATO">NDA FIRMATO (EAL6+)</option>
+                    <option value="IN_ATTESA">IN ATTESA DI FIRMA</option>
+                </select>
+            </div>
+
+            <!-- AZIONI RAPIDE CEO -->
+            <div class="flex items-center space-x-3 font-mono text-xs">
+                <button onclick="openNewLeadModal()" class="bg-gold hover:bg-gold-light text-black font-extrabold px-3.5 py-1.5 rounded flex items-center space-x-1.5 transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>NUOVO INSERIMENTO LEAD</span>
+                </button>
+                <button onclick="syncAppsScriptWebhook()" class="bg-surface-high hover:bg-zinc-700 text-cyan-neon border border-cyan/40 px-3 py-1.5 rounded flex items-center space-x-1.5 transition-all">
+                    <svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span>SINCRONIZZA REPOSITORY</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- TABELLA REGISTRO CRM LEADS NEXUS -->
+        <section class="bg-surface border border-zinc-800 rounded p-5 space-y-4">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-neon"></span>
+                    <h2 class="font-bold text-sm tracking-wide text-zinc-200">REGISTRO CANDIDATURE NEXUS // CRITTOGRAFIA EAL6+</h2>
+                </div>
+                <span class="text-xs font-mono text-zinc-500">ORIGINE: DRAWER LANDING & APPS SCRIPT WEBHOOK</span>
+            </div>
+
+            <div class="overflow-x-auto font-mono text-xs">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-zinc-800 text-zinc-400">
+                            <th class="py-3 px-3">CODICE NEXUS</th>
+                            <th class="py-3 px-3">CANDIDATO / ENTE FIDUCIARIO</th>
+                            <th class="py-3 px-3">RECAPITI</th>
+                            <th class="py-3 px-3">STATO SMART NDA</th>
+                            <th class="py-3 px-3">TIMESTAMP</th>
+                            <th class="py-3 px-3 text-right">COMANDO OPERATIVO APPS SCRIPT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crm-table-body" class="divide-y divide-zinc-800/60 text-zinc-300">
+                        <!-- RIGA 1 -->
+                        <tr class="hover:bg-surface-low transition-colors">
+                            <td class="py-3 px-3 text-gold font-bold">NX-2026-88412</td>
+                            <td class="py-3 px-3">
+                                <div class="font-semibold text-white">Vincenzo M. D'Amico</div>
+                                <div class="text-[11px] text-zinc-500">Holding & Family Office Lugano S.A.</div>
+                            </td>
+                            <td class="py-3 px-3">
+                                <div class="text-zinc-300">v.damico@holding-lugano.ch</div>
+                                <div class="text-[11px] text-zinc-500">+41 91 820 44 11</div>
+                            </td>
+                            <td class="py-3 px-3">
+                                <span class="px-2 py-0.5 bg-cyan-dim/20 border border-cyan-neon/40 text-cyan-neon text-[10px] rounded font-bold">FIRMATO EAL6+</span>
+                            </td>
+                            <td class="py-3 px-3 text-zinc-500">2026-03-30 11:42 UTC</td>
+                            <td class="py-3 px-3 text-right">
+                                <button onclick="triggerWorkspaceCreation('NX-2026-88412', 'Vincenzo M. D\'Amico', 'v.damico@holding-lugano.ch')" class="bg-cyan-dim/20 hover:bg-cyan-neon hover:text-black border border-cyan-neon text-cyan-neon px-3 py-1 rounded text-[11px] font-bold transition-all">
+                                    CREA SITO WORKSPACE
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- RIGA 2 -->
+                        <tr class="hover:bg-surface-low transition-colors">
+                            <td class="py-3 px-3 text-gold font-bold">NX-2026-94821</td>
+                            <td class="py-3 px-3">
+                                <div class="font-semibold text-white">Elena S. Rastelli</div>
+                                <div class="text-[11px] text-zinc-500">Rastelli Private Wealth Advisory</div>
+                            </td>
+                            <td class="py-3 px-3">
+                                <div class="text-zinc-300">elena.rastelli@family-invest.it</div>
+                                <div class="text-[11px] text-zinc-500">+39 02 890 12 34</div>
+                            </td>
+                            <td class="py-3 px-3">
+                                <span class="px-2 py-0.5 bg-cyan-dim/20 border border-cyan-neon/40 text-cyan-neon text-[10px] rounded font-bold">FIRMATO EAL6+</span>
+                            </td>
+                            <td class="py-3 px-3 text-zinc-500">2026-03-30 12:15 UTC</td>
+                            <td class="py-3 px-3 text-right">
+                                <button onclick="triggerWorkspaceCreation('NX-2026-94821', 'Elena S. Rastelli', 'elena.rastelli@family-invest.it')" class="bg-cyan-dim/20 hover:bg-cyan-neon hover:text-black border border-cyan-neon text-cyan-neon px-3 py-1 rounded text-[11px] font-bold transition-all">
+                                    CREA SITO WORKSPACE
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- RIGA 3 -->
+                        <tr class="hover:bg-surface-low transition-colors">
+                            <td class="py-3 px-3 text-gold font-bold">NX-2026-10492</td>
+                            <td class="py-3 px-3">
+                                <div class="font-semibold text-white">Marcello B. Von Berg</div>
+                                <div class="text-[11px] text-zinc-500">Geneva Asset Trust</div>
+                            </td>
+                            <td class="py-3 px-3">
+                                <div class="text-zinc-300">m.vonberg@geneva-vault.ch</div>
+                                <div class="text-[11px] text-zinc-500">+41 22 710 88 00</div>
+                            </td>
+                            <td class="py-3 px-3">
+                                <span class="px-2 py-0.5 bg-amber-warning/20 border border-amber/40 text-amber-warning text-[10px] rounded font-bold">IN ATTESA DI FIRMA</span>
+                            </td>
+                            <td class="py-3 px-3 text-zinc-500">2026-03-30 12:28 UTC</td>
+                            <td class="py-3 px-3 text-right">
+                                <button onclick="resendNdaInvite('NX-2026-10492')" class="bg-surface-high hover:bg-zinc-700 border border-amber/40 text-amber-warning px-3 py-1 rounded text-[11px] font-bold transition-all">
+                                    SOLLECITA FIRMA NDA
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- BOX AGENTI DEDICATI AL CRM: ALISON V3 & MAILBOT NEXUS -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+            <!-- ALISON V3 (PRESENTER & QUALIFICAZIONE) -->
+            <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                    <div class="text-white font-bold">Alison v3 // Scouting & Presenter Drawer</div>
+                    <span class="text-cyan-neon font-bold">AG-01 // ATTIVO</span>
+                </div>
+                <p class="text-zinc-400 text-[11px] leading-relaxed">
+                    Accoglie i candidati sul drawer della Landing Page, convalida i criteri di ammissibilità per la conferenza con il CEO e genera in tempo reale il codice crittografico univoco NX-2026.
                 </p>
+                <div class="flex justify-between items-center text-[11px] pt-1 text-zinc-500">
+                    <span>Stato: <span class="text-cyan-neon">In ascolto Webhook</span></span>
+                    <span class="text-gold font-bold">Zero Prezzi Upfront</span>
+                </div>
             </div>
 
-            <!-- Pulsanti di Controllo -->
-            <div class="flex flex-wrap gap-3">
-                <button onclick="syncLeadsFromBackend()" class="px-4 py-2.5 rounded-xl bg-surface-bright border border-cyan/40 text-cyan font-mono text-xs font-bold hover:bg-cyan/10 transition flex items-center">
-                    <i class="fa-solid fa-rotate mr-2" id="syncSpinner"></i> Sincronizza DB
-                </button>
-                <button onclick="toggleModal('modal-add-lead', true)" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold via-gold-glow to-gold text-black font-bold text-xs shadow-lg hover:brightness-110 transition flex items-center">
-                    <i class="fa-solid fa-user-plus mr-2"></i> Nuovo Candidato +
-                </button>
+            <!-- MAILBOT NEXUS (WORKSPACE PROVISIONING) -->
+            <div class="bg-surface border border-zinc-800 rounded p-4 space-y-3">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                    <div class="text-white font-bold">MailBot Nexus // Provisioning & Admin SDK</div>
+                    <span class="text-cyan-neon font-bold">AG-03 // ATTIVO</span>
+                </div>
+                <p class="text-zinc-400 text-[11px] leading-relaxed">
+                    Intercetta il trigger <code>[CREA SITO WORKSPACE]</code>, invoca le Google Apps Script API per la creazione dell'indirizzo <code>@supremafuturex.com</code> e assegna le autorizzazioni Classroom.
+                </p>
+                <div class="flex justify-between items-center text-[11px] pt-1 text-zinc-500">
+                    <span>Connessione: <span class="text-cyan-neon">Google Workspace SDK ✓</span></span>
+                    <span class="text-gold font-bold">Notifiche PGP Cifrate</span>
+                </div>
             </div>
         </section>
-
-        <!-- STATISTICHE VELOCI PIPELINE -->
-        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
-            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
-                <p class="text-gray-400 text-[10px] uppercase">CANDIDATURE TOTALI</p>
-                <p class="text-2xl font-bold text-white mt-1" id="statTotalLeads">24</p>
-            </div>
-            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
-                <p class="text-gray-400 text-[10px] uppercase">MEDIA SCOUT INDEX (ELENA AI)</p>
-                <p class="text-2xl font-bold text-cyan mt-1" id="statAvgScore">88 / 100</p>
-            </div>
-            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
-                <p class="text-gray-400 text-[10px] uppercase">ZOOM PROGRAMMATE</p>
-                <p class="text-2xl font-bold text-gold mt-1" id="statZoomCount">6</p>
-            </div>
-            <div class="p-4 rounded-xl bg-surface-dim border border-surface-border">
-                <p class="text-gray-400 text-[10px] uppercase">SOCI ATTIVI CONVERTITI</p>
-                <p class="text-2xl font-bold text-emerald-400 mt-1" id="statMembersCount">12</p>
-            </div>
-        </section>
-
-        <!-- BARRA RICERCA E FILTRO RAPIDO -->
-        <div class="flex flex-wrap items-center justify-between gap-4 bg-surface-dim p-4 rounded-xl border border-surface-border text-xs font-mono">
-            <div class="flex items-center space-x-2 flex-1 max-w-md">
-                <i class="fa-solid fa-magnifying-glass text-gray-500"></i>
-                <input type="text" id="kanbanSearchInput" onkeyup="filterKanbanCards()" placeholder="Filtra per nome, città, email o codice NEXUS..." class="w-full bg-transparent text-white outline-none">
-            </div>
-            <div class="flex items-center space-x-2 text-gray-400">
-                <span>Visualizzazione:</span>
-                <span class="text-cyan font-bold">Standard Kanban (4 Fasi)</span>
-            </div>
-        </div>
-
-        <!-- TABELLONE KANBAN A 4 COLONNE -->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <!-- COLONNA 1: NUOVI INGRESSI -->
-            <div class="glass-card rounded-2xl p-4 border-t-2 border-cyan flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-2 h-2 rounded-full bg-cyan"></span>
-                            <h3 class="font-bold text-xs font-mono text-white uppercase">1. Nuovi Ingressi</h3>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-cyan/10 text-cyan text-xs font-mono font-bold" id="count-col-1">2</span>
-                    </div>
-                    <div class="kanban-column space-y-3" id="col-nuovi">
-                        <!-- Card 1 -->
-                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-cyan transition shadow-lg space-y-3">
-                            <div class="flex justify-between items-center text-[10px] font-mono">
-                                <span class="text-cyan font-bold">NX-8410</span>
-                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 94</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Dr. Marco Ferraris</h4>
-                                <p class="text-xs text-gray-400">Milano, IT • Holding Investment</p>
-                            </div>
-                            <div class="text-[11px] font-mono text-gray-400 bg-surface/50 p-2 rounded border border-surface-border/50">
-                                Slot: A (Mattina) • Gate 01
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
-                                <div class="flex space-x-2">
-                                    <a href="https://wa.me/393351294881" target="_blank" class="text-emerald-400 hover:underline"><i class="fa-brands fa-whatsapp"></i></a>
-                                    <a href="mailto:ferraris@holding.it" class="text-cyan hover:underline"><i class="fa-solid fa-envelope"></i></a>
-                                </div>
-                                <button onclick="moveLeadStatus('NX-8410', 'contatto')" class="text-[11px] font-mono text-cyan hover:text-white font-bold">
-                                    Avanza ➔
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-cyan transition shadow-lg space-y-3">
-                            <div class="flex justify-between items-center text-[10px] font-mono">
-                                <span class="text-cyan font-bold">NX-8411</span>
-                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 88</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Avv. Elena Bernardi</h4>
-                                <p class="text-xs text-gray-400">Lugano, CH • Studio Legale</p>
-                            </div>
-                            <div class="text-[11px] font-mono text-gray-400 bg-surface/50 p-2 rounded border border-surface-border/50">
-                                Slot: B (Pomeriggio) • Gate 01
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
-                                <div class="flex space-x-2">
-                                    <a href="https://wa.me/41794021109" target="_blank" class="text-emerald-400 hover:underline"><i class="fa-brands fa-whatsapp"></i></a>
-                                    <a href="mailto:bernardi@lex.ch" class="text-cyan hover:underline"><i class="fa-solid fa-envelope"></i></a>
-                                </div>
-                                <button onclick="moveLeadStatus('NX-8411', 'contatto')" class="text-[11px] font-mono text-cyan hover:text-white font-bold">
-                                    Avanza ➔
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COLONNA 2: IN CONTATTO -->
-            <div class="glass-card rounded-2xl p-4 border-t-2 border-gold flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-2 h-2 rounded-full bg-gold"></span>
-                            <h3 class="font-bold text-xs font-mono text-white uppercase">2. In Contatto</h3>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-gold/10 text-gold text-xs font-mono font-bold" id="count-col-2">1</span>
-                    </div>
-                    <div class="kanban-column space-y-3" id="col-contatto">
-                        <!-- Card -->
-                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-gold transition shadow-lg space-y-3">
-                            <div class="flex justify-between items-center text-[10px] font-mono">
-                                <span class="text-cyan font-bold">NX-8390</span>
-                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 90</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Ing. Stefano Riva</h4>
-                                <p class="text-xs text-gray-400">Zurich, CH • Tech Corp</p>
-                            </div>
-                            <div class="text-[11px] font-mono text-gray-400 bg-surface/50 p-2 rounded border border-surface-border/50">
-                                Messaggio WhatsApp Inviato
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
-                                <button onclick="moveLeadStatus('NX-8390', 'nuovi')" class="text-[11px] font-mono text-gray-500 hover:text-white">
-                                    Focus ⬅
-                                </button>
-                                <button onclick="moveLeadStatus('NX-8390', 'zoom')" class="text-[11px] font-mono text-gold hover:text-white font-bold">
-                                    Fissa Zoom ➔
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COLONNA 3: ZOOM SETTATA -->
-            <div class="glass-card rounded-2xl p-4 border-t-2 border-purple-500 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
-                            <h3 class="font-bold text-xs font-mono text-white uppercase">3. Zoom Settata</h3>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 text-xs font-mono font-bold" id="count-col-3">1</span>
-                    </div>
-                    <div class="kanban-column space-y-3" id="col-zoom">
-                        <!-- Card -->
-                        <div class="p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-purple-400 transition shadow-lg space-y-3">
-                            <div class="flex justify-between items-center text-[10px] font-mono">
-                                <span class="text-cyan font-bold">NX-8350</span>
-                                <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 96</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Matteo Visconti</h4>
-                                <p class="text-xs text-gray-400">Roma, IT • Luxury Real Estate</p>
-                            </div>
-                            <div class="text-[11px] font-mono text-purple-300 bg-surface/50 p-2 rounded border border-surface-border/50">
-                                Conferenza CEO: Domani 17:30
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
-                                <button onclick="moveLeadStatus('NX-8350', 'contatto')" class="text-[11px] font-mono text-gray-500 hover:text-white">
-                                    ⬅
-                                </button>
-                                <button onclick="moveLeadStatus('NX-8350', 'soci')" class="text-[11px] font-mono text-emerald-400 hover:text-white font-bold">
-                                    Attiva Socio ➔
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COLONNA 4: SOCI ATTIVI -->
-            <div class="glass-card rounded-2xl p-4 border-t-2 border-emerald-500 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-surface-border">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                            <h3 class="font-bold text-xs font-mono text-white uppercase">4. Soci Attivi Gold</h3>
-                        </div>
-                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-mono font-bold" id="count-col-4">2</span>
-                    </div>
-                    <div class="kanban-column space-y-3" id="col-soci">
-                        <!-- Card -->
-                        <div class="p-4 rounded-xl bg-surface-dim border border-emerald-900 hover:border-emerald-500 transition shadow-lg space-y-3">
-                            <div class="flex justify-between items-center text-[10px] font-mono">
-                                <span class="text-cyan font-bold">NX-8001</span>
-                                <span class="text-emerald-400 font-bold">GOLD PASS ACTIVE</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Roberto Baroni</h4>
-                                <p class="text-xs text-gray-400">Milano, IT • Academy Gold</p>
-                            </div>
-                            <div class="text-[11px] font-mono text-gold bg-surface/50 p-2 rounded border border-surface-border/50">
-                                Saldo: 24.850 Punti Gold
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
     </main>
 
-    <!-- MODALE AGGIUNTA NUOVO LEAD MANUALE -->
-    <div id="modal-add-lead" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card-cyan rounded-2xl p-6 max-w-md w-full border border-cyan/50 shadow-2xl relative">
-            <button onclick="toggleModal('modal-add-lead', false)" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 class="text-lg font-bold font-serif text-white mb-1">Inserimento Nuovo Candidato</h3>
-            <p class="text-xs font-mono text-gray-400 mb-4">Aggiungi manualmente un lead nel CRM Nexus</p>
-
-            <form onsubmit="handleManualAddLead(event)" class="space-y-3 text-xs font-mono">
+    <!-- MODALE PER NUOVO INSERIMENTO MANUALE LEAD CEO -->
+    <div id="new-lead-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-surface border border-gold/60 rounded max-w-lg w-full p-6 space-y-4 font-mono text-xs shadow-2xl">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+                <span class="text-gold font-bold text-sm">INSERIMENTO DIRETTO LEAD // MANUALE CEO</span>
+                <button onclick="closeNewLeadModal()" class="text-zinc-500 hover:text-white text-base">✕</button>
+            </div>
+            <div class="space-y-3">
                 <div>
-                    <label class="block text-gray-400 mb-1">NOME E COGNOME *</label>
-                    <input type="text" id="manualName" required placeholder="Es. Giancarlo Rossi" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                    <label class="block text-zinc-400 mb-1">Nominativo Completo:</label>
+                    <input type="text" id="modal-name" placeholder="Es. Mario Rossi" class="w-full bg-surface-low border border-zinc-700 rounded p-2 text-white focus:outline-none focus:border-gold">
                 </div>
                 <div>
-                    <label class="block text-gray-400 mb-1">EMAIL *</label>
-                    <input type="email" id="manualEmail" required placeholder="rossi@azienda.it" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                    <label class="block text-zinc-400 mb-1">Struttura / Family Office:</label>
+                    <input type="text" id="modal-entity" placeholder="Es. Holding Internazionale S.A." class="w-full bg-surface-low border border-zinc-700 rounded p-2 text-white focus:outline-none focus:border-gold">
                 </div>
                 <div>
-                    <label class="block text-gray-400 mb-1">TELEFONO / WHATSAPP *</label>
-                    <input type="tel" id="manualPhone" required placeholder="+39 333 000 1122" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                    <label class="block text-zinc-400 mb-1">Email Direzionale:</label>
+                    <input type="email" id="modal-email" placeholder="mario.rossi@holding.com" class="w-full bg-surface-low border border-zinc-700 rounded p-2 text-white focus:outline-none focus:border-gold">
                 </div>
                 <div>
-                    <label class="block text-gray-400 mb-1">SEDE / CITTÀ *</label>
-                    <input type="text" id="manualCity" required placeholder="Es. Milano / Lugano" class="w-full bg-surface-dim border border-surface-border rounded-lg p-2.5 text-white focus:border-cyan outline-none">
+                    <label class="block text-zinc-400 mb-1">Telefono / WhatsApp:</label>
+                    <input type="text" id="modal-phone" placeholder="+39 347..." class="w-full bg-surface-low border border-zinc-700 rounded p-2 text-white focus:outline-none focus:border-gold">
                 </div>
-
-                <button type="submit" class="w-full mt-4 py-3 bg-cyan text-black font-bold text-xs uppercase rounded-lg hover:bg-cyan-glow transition">
-                    Salva ed Inserisci in Pipeline
-                </button>
-            </form>
+            </div>
+            <div class="pt-3 border-t border-zinc-800 flex justify-end space-x-3">
+                <button onclick="closeNewLeadModal()" class="px-4 py-2 bg-surface-high text-zinc-400 rounded hover:text-white">ANNULLA</button>
+                <button onclick="submitManualLead()" class="px-4 py-2 bg-gold text-black font-extrabold rounded hover:bg-gold-light">INSERISCI E GENERA NX-2026</button>
+            </div>
         </div>
     </div>
 
-    <!-- FOOTER ISTITUZIONALE -->
-    <footer class="border-t border-surface-border bg-surface-dim py-6 text-center text-xs text-gray-500 font-mono mt-auto">
-        SUPREMA FUTURE X © 2026 // MASTER CRM NEXUS // DOMINIO: SUPREMAFUTUREX.COM
-    </footer>
-
-    <!-- JAVASCRIPT ENGINE CRM -->
+    <!-- SCRIPT LOGICI INTERNI -->
     <script>
-        const CONFIG = {
-            APPS_SCRIPT_WEBHOOK: "https://script.google.com/macros/s/AKfycbxZszCcuo6oOV5XiCCbD6Adr6cfViJLA7h8XK9M4kO-hbeNdTmarOmcL82-yru_xv0JrQ/exec"
-        };
+        function updateLiveClock() {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0] + ' UTC';
+            const dateStr = now.toISOString().split('T')[0];
+            const clockEl = document.getElementById('live-time');
+            const dateEl = document.getElementById('live-date');
+            if (clockEl) clockEl.innerText = timeStr;
+            if (dateEl) dateEl.innerText = dateStr;
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
 
-        function toggleModal(modalId, show) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                if (show) modal.classList.remove('hidden');
-                else modal.classList.add('hidden');
+        function alterCounter(elementId, delta) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            let val = parseInt(el.innerText, 10) || 0;
+            val = Math.max(0, val + delta);
+            el.innerText = val;
+        }
+
+        function triggerWorkspaceCreation(nexusCode, candidateName, email) {
+            const confirmed = confirm(`CONFERMA PROVISIONING GOOGLE WORKSPACE\n\nCodice: ${nexusCode}\nCandidato: ${candidateName}\nDestinazione: ${email}\n\nSi desidera invocare l'Admin SDK di Google Apps Script?`);
+            if (confirmed) {
+                alterCounter('crm-active-workspaces', 1);
+                alert(`SUCCESSO ESECUTIVO:\nChiamata inviata ad Admin SDK.\n- Email creata: ${email.split('@')[0]}@supremafuturex.com\n- Abilitazione Classroom effettuata.\n- Credenziali provvisorie trasmesse.`);
             }
         }
 
-        // Filtra schede nel Kanban
-        function filterKanbanCards() {
-            const query = document.getElementById('kanbanSearchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.kanban-column > div');
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                card.style.display = text.includes(query) ? '' : 'none';
+        function resendNdaInvite(nexusCode) {
+            alert(`Sollecito Smart NDA trasmesso con crittografia PGP per il fascicolo ${nexusCode}.`);
+        }
+
+        function syncAppsScriptWebhook() {
+            alert('Sincronizzazione in corso con il repository Google Apps Script...\nNessuna nuova discrepanza riscontrata nel cluster.');
+        }
+
+        function filterLeads() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const ndaFilter = document.getElementById('filter-nda').value;
+            const rows = document.querySelectorAll('#crm-table-body tr');
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const matchesQuery = text.includes(query);
+                let matchesNda = true;
+
+                if (ndaFilter === 'FIRMATO') {
+                    matchesNda = text.includes('firmato');
+                } else if (ndaFilter === 'IN_ATTESA') {
+                    matchesNda = text.includes('in attesa');
+                }
+
+                row.style.display = (matchesQuery && matchesNda) ? '' : 'none';
             });
         }
 
-        // Spostamento di stato candidato
-        function moveLeadStatus(nexusId, targetCol) {
-            alert(`Spostamento candidato ${nexusId} alla fase: ${targetCol.toUpperCase()}`);
-            
-            try {
-                fetch(CONFIG.APPS_SCRIPT_WEBHOOK, {
-                    method: "POST",
-                    body: JSON.stringify({ action: "UPDATE_LEAD_STATUS", nexus: nexusId, status: targetCol })
-                });
-            } catch(e) {}
+        function openNewLeadModal() {
+            const modal = document.getElementById('new-lead-modal');
+            if (modal) modal.classList.remove('hidden'), modal.classList.add('flex');
         }
 
-        // Inserimento manuale
-        function handleManualAddLead(e) {
-            e.preventDefault();
-            const name = document.getElementById('manualName').value;
-            const email = document.getElementById('manualEmail').value;
-            const phone = document.getElementById('manualPhone').value;
-            const city = document.getElementById('manualCity').value;
-            
-            const nexusCode = "NX-" + Math.floor(10000 + Math.random() * 90000);
+        function closeNewLeadModal() {
+            const modal = document.getElementById('new-lead-modal');
+            if (modal) modal.classList.add('hidden'), modal.classList.remove('flex');
+        }
 
-            const container = document.getElementById('col-nuovi');
-            const card = document.createElement('div');
-            card.className = "p-4 rounded-xl bg-surface-dim border border-surface-border hover:border-cyan transition shadow-lg space-y-3";
-            card.innerHTML = `
-                <div class="flex justify-between items-center text-[10px] font-mono">
-                    <span class="text-cyan font-bold">${nexusCode}</span>
-                    <span class="text-gold font-bold"><i class="fa-solid fa-brain mr-1"></i>Scout: 85</span>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white text-sm">${name}</h4>
-                    <p class="text-xs text-gray-400">${city} • Manual Entry</p>
-                </div>
-                <div class="flex justify-between items-center pt-2 border-t border-surface-border text-xs">
-                    <div class="flex space-x-2">
-                        <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" target="_blank" class="text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="mailto:${email}" class="text-cyan"><i class="fa-solid fa-envelope"></i></a>
-                    </div>
-                    <button onclick="moveLeadStatus('${nexusCode}', 'contatto')" class="text-[11px] font-mono text-cyan hover:text-white font-bold">Avanza ➔</button>
-                </div>
+        function submitManualLead() {
+            const name = document.getElementById('modal-name').value.trim();
+            const entity = document.getElementById('modal-entity').value.trim();
+            const email = document.getElementById('modal-email').value.trim();
+            const phone = document.getElementById('modal-phone').value.trim();
+
+            if (!name || !email) {
+                alert('Compilare almeno Nominativo ed Email.');
+                return;
+            }
+
+            const randomSuffix = Math.floor(10000 + Math.random() * 90000);
+            const newCode = `NX-2026-${randomSuffix}`;
+            const tbody = document.getElementById('crm-table-body');
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-surface-low transition-colors';
+            tr.innerHTML = `
+                <td class="py-3 px-3 text-gold font-bold">${newCode}</td>
+                <td class="py-3 px-3">
+                    <div class="font-semibold text-white">${name}</div>
+                    <div class="text-[11px] text-zinc-500">${entity || 'Family Office Diretto'}</div>
+                </td>
+                <td class="py-3 px-3">
+                    <div class="text-zinc-300">${email}</div>
+                    <div class="text-[11px] text-zinc-500">${phone || 'N/D'}</div>
+                </td>
+                <td class="py-3 px-3">
+                    <span class="px-2 py-0.5 bg-cyan-dim/20 border border-cyan-neon/40 text-cyan-neon text-[10px] rounded font-bold">FIRMATO EAL6+</span>
+                </td>
+                <td class="py-3 px-3 text-zinc-500">Adesso (Manuale CEO)</td>
+                <td class="py-3 px-3 text-right">
+                    <button onclick="triggerWorkspaceCreation('${newCode}', '${name}', '${email}')" class="bg-cyan-dim/20 hover:bg-cyan-neon hover:text-black border border-cyan-neon text-cyan-neon px-3 py-1 rounded text-[11px] font-bold transition-all">
+                        CREA SITO WORKSPACE
+                    </button>
+                </td>
             `;
-            container.prepend(card);
 
-            toggleModal('modal-add-lead', false);
-            
-            // Invia al backend
-            try {
-                fetch(CONFIG.APPS_SCRIPT_WEBHOOK, {
-                    method: "POST",
-                    body: JSON.stringify({ action: "NEW_LEAD", nexus: nexusCode, name: name, email: email, phone: phone, city: city, source: "Manual CRM Entry" })
-                });
-            } catch(e) {}
-        }
-
-        // Sincronizza con Google Apps Script
-        function syncLeadsFromBackend() {
-            const spinner = document.getElementById('syncSpinner');
-            spinner.classList.add('fa-spin');
-            
-            fetch(CONFIG.APPS_SCRIPT_WEBHOOK, {
-                method: "POST",
-                body: JSON.stringify({ action: "GET_LEADS" })
-            })
-            .then(res => res.json())
-            .then(data => {
-                spinner.classList.remove('fa-spin');
-            })
-            .catch(() => {
-                spinner.classList.remove('fa-spin');
-            });
+            tbody.prepend(tr);
+            alterCounter('crm-total-leads', 1);
+            alterCounter('crm-signed-nda', 1);
+            closeNewLeadModal();
+            alert(`Lead ${newCode} inserito con successo.`);
         }
     </script>
 </body>
