@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPREMA FUTURE X — Gold Engine & Boutique Loyalty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        surface: { DEFAULT: '#111317', low: '#1a1b20', high: '#24262b' },
+                        gold: { DEFAULT: '#d4af37', light: '#f3e5ab' },
+                        cyan: { neon: '#00f0ff', dim: '#00a3ad' },
+                        amber: { warning: '#ffb000' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0b0c0e; color: #e2e8f0; font-family: 'Montserrat', sans-serif; }
+        .glow-gold { box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#0b0c0e]">
+
+    <!-- TOP BAR -->
+    <header class="bg-[#111317] border-b border-gold px-6 py-3 flex flex-wrap justify-between items-center text-xs font-mono sticky top-0 z-50">
+        <div class="flex items-center space-x-5">
+            <div class="flex items-center space-x-2 text-gold">
+                <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
+                <span class="font-bold tracking-wider uppercase">SUPREMA FUTURE X</span>
+                <span class="text-zinc-500">//</span>
+                <span class="text-gold font-semibold">GOLD ENGINE & LOYALTY REWARDS</span>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="admin.html" class="bg-surface-low border border-zinc-700 hover:border-gold px-3 py-1 rounded text-zinc-300 hover:text-white transition-colors">
+                ← Torna a X-Box ERP
+            </a>
+            <div class="bg-surface-low border border-gold/50 text-gold px-2.5 py-1 rounded font-bold text-[11px]">
+                GAMIFICATION ENGINE
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 p-6 space-y-8 max-w-[1700px] w-full mx-auto font-sans">
+        
+        <!-- HEADER -->
+        <div class="flex flex-wrap justify-between items-center border-b border-zinc-800 pb-4 gap-4">
+            <div>
+                <h1 class="text-2xl font-extrabold text-white uppercase tracking-wide">GESTIONE SUPREMA GOLD CARD & PREMI BOUTIQUE</h1>
+                <p class="text-xs text-zinc-400 font-mono mt-1">Monitoraggio accredito punti (+50 PTS/clic), esportazione pass Wallet e gestione spedizioni Logistics AI.</p>
+            </div>
+            <button onclick="resetMonthlyCycle()" class="bg-surface-high hover:bg-zinc-700 text-gold border border-gold/40 px-4 py-2 rounded font-mono text-xs font-bold transition-all">
+                ESAGUI RESET MENSILE CICLO
+            </button>
+        </div>
+
+        <!-- CONTATORI LOYALTY INIZIALIZZATI A ZERO -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between glow-gold">
+                <span class="text-xs text-zinc-400">PUNTI TOTALI CIRCUITO</span>
+                <div class="my-2 text-3xl font-extrabold text-gold" id="cnt-pts">0,00 PTS</div>
+                <div class="flex space-x-1 text-xs">
+                    <button onclick="alterPts(-50)" class="px-2 py-0.5 bg-surface-high text-gold rounded">-50 PTS</button>
+                    <button onclick="alterPts(50)" class="px-2 py-0.5 bg-surface-high text-gold rounded">+50 MANUALE</button>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">PASS WALLET (.PKPASS) GENERATI</span>
+                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-pkpass">0</div>
+                <div class="text-[10px] text-zinc-500">APPLE & GOOGLE WALLET</div>
+            </div>
+
+            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">COFANETTI BOUTIQUE SPEDITI</span>
+                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-shipments">0</div>
+                <div class="text-[10px] text-cyan-neon font-bold">LOGISTICS AI ACTIVE</div>
+            </div>
+
+            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">CLIC STORE REGISTRATI</span>
+                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-clicks">0</div>
+                <div class="text-[10px] text-gold font-bold">+50 PTS ACCREDITATI/VISITA</div>
+            </div>
+        </section>
+
+        <!-- REGISTRO SPEDIZIONI LOGISTICS AI -->
+        <section class="bg-surface border border-zinc-800 rounded-xl p-5 space-y-4 font-mono text-xs">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+                <span class="text-white font-bold text-sm">CODA RISCATTO PREMI & SPEDIZIONI LOGISTICS AI</span>
+                <span class="text-gold font-bold">DISPATCH AUTOMATICO</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-zinc-800 text-zinc-400">
+                            <th class="py-2.5 px-3">CARD ID / SOCIO</th>
+                            <th class="py-2.5 px-3">PREMIO RISCATTATO</th>
+                            <th class="py-2.5 px-3">PUNTI DETRATTI</th>
+                            <th class="py-2.5 px-3">STATO SPEDIZIONE</th>
+                            <th class="py-2.5 px-3 text-right">COMANDO OPERATIVO</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-800/60 text-zinc-300">
+                        <tr>
+                            <td class="py-3 px-3">
+                                <div class="font-bold text-white">SFX-GOLD-0001</div>
+                                <div class="text-[10px] text-zinc-500">CEO SUPREMA FUTURE X</div>
+                            </td>
+                            <td class="py-3 px-3 text-gold">Cofanetto Parfumerie Haute Luxe</td>
+                            <td class="py-3 px-3 font-bold">500 PTS</td>
+                            <td class="py-3 px-3"><span class="text-cyan-neon font-bold">IN PREPARAZIONE</span></td>
+                            <td class="py-3 px-3 text-right">
+                                <button onclick="confirmShipping('SFX-GOLD-0001')" class="bg-gold hover:bg-gold-light text-black px-3 py-1 rounded font-bold">
+                                    CONFERMA SPEDIZIONE COFANETTO
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        let pts = 0;
+        function alterPts(delta) {
+            pts = Math.max(0, pts + delta);
+            document.getElementById('cnt-pts').innerText = pts.toFixed(2).replace('.', ',') + ' PTS';
+        }
+        function resetMonthlyCycle() {
+            if (confirm('Confermi il reset mensile dei punti per tutti i soci della Gold Card?')) {
+                pts = 0;
+                document.getElementById('cnt-pts').innerText = '0,00 PTS';
+                alert('Reset ciclico eseguito con successo.');
+            }
+        }
+        function confirmShipping(cardId) {
+            alert(`Logistics AI: Spedizione cofanetto avviata per il titolare della tessera ${cardId}.`);
+            let countEl = document.getElementById('cnt-shipments');
+            countEl.innerText = parseInt(countEl.innerText, 10) + 1;
+        }
+    </script>
+</body>
+</html>
