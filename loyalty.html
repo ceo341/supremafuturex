@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUPREMA FUTURE X — Gold Engine & Fedeltà</title>
+    <title>SUPREMA FUTURE X — Accademia Masterclass & Classroom SDK</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
@@ -26,7 +26,8 @@
     </script>
     <style>
         body { background-color: #0b0c0e; color: #e2e8f0; font-family: 'Montserrat', sans-serif; }
-        .glow-gold { box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
+        .glow-gold { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+        .glow-cyan { box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-[#0b0c0e]">
@@ -35,18 +36,18 @@
     <header class="bg-[#111317] border-b border-gold px-6 py-3 flex flex-wrap justify-between items-center text-xs font-mono sticky top-0 z-50">
         <div class="flex items-center space-x-5">
             <div class="flex items-center space-x-2 text-gold">
-                <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-neon animate-pulse"></span>
                 <span class="font-bold tracking-wider uppercase">SUPREMA FUTURE X</span>
                 <span class="text-zinc-500">//</span>
-                <span class="text-gold font-semibold">GOLD ENGINE & PROGRAMMA FEDELTÀ</span>
+                <span class="text-cyan-neon font-semibold">ACCADEMIA MASTERCLASS ENGINE</span>
             </div>
         </div>
         <div class="flex items-center space-x-4">
             <a href="admin.html" class="bg-surface-low border border-zinc-700 hover:border-gold px-3 py-1 rounded text-zinc-300 hover:text-white transition-colors">
                 ← Torna a X-Box ERP
             </a>
-            <div class="bg-surface-low border border-gold/50 text-gold px-2.5 py-1 rounded font-bold text-[11px]">
-                GAMIFICATION ENGINE
+            <div class="bg-cyan-dim/20 border border-cyan-neon/50 text-cyan-neon px-2.5 py-1 rounded font-bold text-[11px]">
+                CLASSROOM SDK ACTIVE
             </div>
         </div>
     </header>
@@ -63,13 +64,12 @@
         <span class="text-zinc-700">|</span>
         <a href="social.html" class="text-zinc-400 hover:text-gold transition-colors">SOCIAL HUB</a>
         <span class="text-zinc-700">|</span>
-        <a href="accademia.html" class="text-zinc-400 hover:text-gold transition-colors">ACCADEMIA</a>
-        <span class="text-zinc-700">|</span>
-        <!-- QUI IL COLLEGAMENTO USA IL NOME ESATTO "fedeltà.html" -->
-        <a href="fedeltà.html" class="text-gold font-bold hover:text-white transition-colors flex items-center space-x-1">
-            <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
-            <span>FEDELTÀ GOLD</span>
+        <a href="accademia.html" class="text-cyan-neon font-bold hover:text-white transition-colors flex items-center space-x-1">
+            <span class="w-1.5 h-1.5 bg-cyan-neon rounded-full"></span>
+            <span>ACCADEMIA</span>
         </a>
+        <span class="text-zinc-700">|</span>
+        <a href="fedeltà.html" class="text-zinc-400 hover:text-gold transition-colors">FEDELTÀ GOLD</a>
     </nav>
 
     <!-- CONTENUTO PRINCIPALE -->
@@ -78,74 +78,84 @@
         <!-- HEADER SEZIONE -->
         <div class="flex flex-wrap justify-between items-center border-b border-zinc-800 pb-4 gap-4">
             <div>
-                <h1 class="text-2xl font-extrabold text-white uppercase tracking-wide">GESTIONE SUPREMA GOLD CARD & PREMI BOUTIQUE</h1>
-                <p class="text-xs text-zinc-400 font-mono mt-1">Monitoraggio accredito punti (+50 PTS/clic), esportazione pass Wallet e gestione spedizioni Logistics AI.</p>
+                <h1 class="text-2xl font-extrabold text-white uppercase tracking-wide">GESTIONE DIDATTICA & PERCORSI ACCADEMIA</h1>
+                <p class="text-xs text-zinc-400 font-mono mt-1">Controllo iscrizioni, sincronizzazione Google Classroom API e permessi Drive per il Caveau 11".</p>
             </div>
-            <button onclick="resetMonthlyCycle()" class="bg-surface-high hover:bg-zinc-700 text-gold border border-gold/40 px-4 py-2 rounded font-mono text-xs font-bold transition-all">
-                ESEGUI RESET MENSILE CICLO
-            </button>
+            <div class="font-mono text-xs flex space-x-2">
+                <span class="px-3 py-1.5 bg-surface-low border border-gold text-gold rounded font-bold">SILVER</span>
+                <span class="px-3 py-1.5 bg-surface-low border border-gold text-gold rounded font-bold">GOLD</span>
+                <span class="px-3 py-1.5 bg-surface-low border border-cyan-neon text-cyan-neon rounded font-bold">PREMIUM</span>
+            </div>
         </div>
 
-        <!-- CONTATORI LOYALTY INIZIALIZZATI A ZERO -->
+        <!-- CONTATORI ISCRITTI INIZIALIZZATI A ZERO -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
-            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between glow-gold">
-                <span class="text-xs text-zinc-400">PUNTI TOTALI CIRCUITO</span>
-                <div class="my-2 text-3xl font-extrabold text-gold" id="cnt-pts">0,00 PTS</div>
+            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">CORSI SILVER ATTIVI</span>
+                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-silver">0</div>
                 <div class="flex space-x-1 text-xs">
-                    <button onclick="alterPts(-50)" class="px-2 py-0.5 bg-surface-high text-gold rounded">-50 PTS</button>
-                    <button onclick="alterPts(50)" class="px-2 py-0.5 bg-surface-high text-gold rounded">+50 MANUALE</button>
+                    <button onclick="alter('cnt-silver', -1)" class="px-2 py-0.5 bg-surface-high text-gold rounded">-1</button>
+                    <button onclick="alter('cnt-silver', 1)" class="px-2 py-0.5 bg-surface-high text-gold rounded">+1 MANUALE</button>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gold/40 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">CORSI GOLD ATTIVI</span>
+                <div class="my-2 text-3xl font-extrabold text-gold" id="cnt-gold">0</div>
+                <div class="flex space-x-1 text-xs">
+                    <button onclick="alter('cnt-gold', -1)" class="px-2 py-0.5 bg-surface-high text-gold rounded">-1</button>
+                    <button onclick="alter('cnt-gold', 1)" class="px-2 py-0.5 bg-surface-high text-gold rounded">+1 MANUALE</button>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-cyan/40 rounded p-4 flex flex-col justify-between">
+                <span class="text-xs text-zinc-400">CORSI PREMIUM ATTIVI</span>
+                <div class="my-2 text-3xl font-extrabold text-cyan-neon" id="cnt-premium">0</div>
+                <div class="flex space-x-1 text-xs">
+                    <button onclick="alter('cnt-premium', -1)" class="px-2 py-0.5 bg-surface-high text-cyan-neon rounded">-1</button>
+                    <button onclick="alter('cnt-premium', 1)" class="px-2 py-0.5 bg-surface-high text-cyan-neon rounded">+1 MANUALE</button>
                 </div>
             </div>
 
             <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
-                <span class="text-xs text-zinc-400">PASS WALLET (.PKPASS) GENERATI</span>
-                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-pkpass">0</div>
-                <div class="text-[10px] text-zinc-500">APPLE & GOOGLE WALLET</div>
-            </div>
-
-            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
-                <span class="text-xs text-zinc-400">COFANETTI BOUTIQUE SPEDITI</span>
-                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-shipments">0</div>
-                <div class="text-[10px] text-cyan-neon font-bold">LOGISTICS AI ACTIVE</div>
-            </div>
-
-            <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
-                <span class="text-xs text-zinc-400">CLIC STORE REGISTRATI</span>
-                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-clicks">0</div>
-                <div class="text-[10px] text-gold font-bold">+50 PTS ACCREDITATI/VISITA</div>
+                <span class="text-xs text-zinc-400">CERTIFICATI PGP EMESSI</span>
+                <div class="my-2 text-3xl font-extrabold text-white" id="cnt-cert">0</div>
+                <div class="text-[11px] text-zinc-500">MARCA TEMPORALE EAL6+</div>
             </div>
         </section>
 
-        <!-- REGISTRO SPEDIZIONI LOGISTICS AI -->
+        <!-- TABELLA REGISTRO STUDENTI CLASSROOM -->
         <section class="bg-surface border border-zinc-800 rounded-xl p-5 space-y-4 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                <span class="text-white font-bold text-sm">CODA RISCATTO PREMI & SPEDIZIONI LOGISTICS AI</span>
-                <span class="text-gold font-bold">DISPATCH AUTOMATICO</span>
+                <span class="text-white font-bold text-sm">STUDENTI ABILITATI SU GOOGLE CLASSROOM SDK</span>
+                <button onclick="syncClassroom()" class="bg-surface-high hover:bg-zinc-700 text-cyan-neon border border-cyan/40 px-3 py-1 rounded font-bold">
+                    FORZA SYNC CLASSROOM API
+                </button>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b border-zinc-800 text-zinc-400">
-                            <th class="py-2.5 px-3">CARD ID / SOCIO</th>
-                            <th class="py-2.5 px-3">PREMIO RISCATTATO</th>
-                            <th class="py-2.5 px-3">PUNTI DETRATTI</th>
-                            <th class="py-2.5 px-3">STATO SPEDIZIONE</th>
-                            <th class="py-2.5 px-3 text-right">COMANDO OPERATIVO</th>
+                            <th class="py-2.5 px-3">STUDENTE / EMAIL WORKSPACE</th>
+                            <th class="py-2.5 px-3">LIVELLO CORSO</th>
+                            <th class="py-2.5 px-3">PERMESSI DRIVE CAVEAU 11"</th>
+                            <th class="py-2.5 px-3">STATO ABBONAMENTO</th>
+                            <th class="py-2.5 px-3 text-right">AZIONI DI SICUREZZA</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-zinc-800/60 text-zinc-300">
                         <tr>
                             <td class="py-3 px-3">
-                                <div class="font-bold text-white">SFX-GOLD-0001</div>
-                                <div class="text-[10px] text-zinc-500">CEO SUPREMA FUTURE X</div>
+                                <div class="font-bold text-white">v.damico@supremafuturex.com</div>
+                                <div class="text-[10px] text-zinc-500">Ref: NX-2026-88412</div>
                             </td>
-                            <td class="py-3 px-3 text-gold">Cofanetto Parfumerie Haute Luxe</td>
-                            <td class="py-3 px-3 font-bold">500 PTS</td>
-                            <td class="py-3 px-3"><span class="text-cyan-neon font-bold">IN PREPARAZIONE</span></td>
+                            <td class="py-3 px-3"><span class="px-2 py-0.5 bg-cyan-dim/20 border border-cyan-neon text-cyan-neon text-[10px] rounded font-bold">PREMIUM</span></td>
+                            <td class="py-3 px-3 text-gold">LETTURA + DOWNLOAD</td>
+                            <td class="py-3 px-3"><span class="text-cyan-neon font-bold">ATTIVO ✓</span></td>
                             <td class="py-3 px-3 text-right">
-                                <button onclick="confirmShipping('SFX-GOLD-0001')" class="bg-gold hover:bg-gold-light text-black px-3 py-1 rounded font-bold">
-                                    CONFERMA SPEDIZIONE COFANETTO
+                                <button onclick="revokeStudent('v.damico@supremafuturex.com')" class="bg-surface-high hover:bg-zinc-700 text-amber-warning border border-amber/40 px-2.5 py-1 rounded text-[10px] font-bold">
+                                    REVOCA ACCESSI DRIVE
                                 </button>
                             </td>
                         </tr>
@@ -157,22 +167,19 @@
     </main>
 
     <script>
-        let pts = 0;
-        function alterPts(delta) {
-            pts = Math.max(0, pts + delta);
-            document.getElementById('cnt-pts').innerText = pts.toFixed(2).replace('.', ',') + ' PTS';
+        function alter(id, d) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            let v = parseInt(el.innerText, 10) || 0;
+            el.innerText = Math.max(0, v + d);
         }
-        function resetMonthlyCycle() {
-            if (confirm('Confermi il reset mensile dei punti per tutti i soci della Gold Card?')) {
-                pts = 0;
-                document.getElementById('cnt-pts').innerText = '0,00 PTS';
-                alert('Reset ciclico eseguito con successo.');
+        function syncClassroom() {
+            alert('Chiamata ad Admin SDK & Google Classroom API completata.\nElenco studenti aggiornato.');
+        }
+        function revokeStudent(email) {
+            if (confirm(`Confermi la revoca dei permessi Drive per l'utente ${email}?`)) {
+                alert(`Security Guard: Permessi Drive revocati per ${email}.`);
             }
-        }
-        function confirmShipping(cardId) {
-            alert(`Logistics AI: Spedizione cofanetto avviata per il titolare della tessera ${cardId}.`);
-            let countEl = document.getElementById('cnt-shipments');
-            countEl.innerText = parseInt(countEl.innerText, 10) + 1;
         }
     </script>
 </body>
