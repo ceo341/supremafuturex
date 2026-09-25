@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPREMA FUTURE X — Secret CEO Vault & Family Office</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        surface: {
+                            DEFAULT: '#111317',
+                            low: '#1a1b20',
+                            high: '#24262b',
+                            highest: '#32343a',
+                        },
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#997d20',
+                        },
+                        cyan: {
+                            neon: '#00f0ff',
+                            dim: '#00a3ad',
+                        },
+                        amber: {
+                            warning: '#ffb000',
+                            glow: 'rgba(255, 176, 0, 0.25)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0b0c0e; color: #e2e8f0; font-family: 'Montserrat', sans-serif; }
+        .border-gold { border-color: rgba(212, 175, 55, 0.35); }
+        .border-cyan { border-color: rgba(0, 240, 255, 0.35); }
+        .border-amber { border-color: rgba(255, 176, 0, 0.4); }
+        .glow-gold { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+        .glow-cyan { box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
+        .glow-amber { box-shadow: 0 0 18px rgba(255, 176, 0, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#0b0c0e]">
+
+    <!-- TOP BAR ENCLAVE SVIZZERA & OROLOGIO LIVE -->
+    <header class="bg-[#111317] border-b border-gold px-6 py-3 flex flex-wrap justify-between items-center text-xs font-mono select-none sticky top-0 z-50">
+        <div class="flex items-center space-x-5">
+            <div class="flex items-center space-x-2 text-gold">
+                <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
+                <span class="font-bold tracking-wider uppercase">SUPREMA FUTURE X</span>
+                <span class="text-zinc-500">//</span>
+                <span class="text-cyan-neon font-semibold">ZURICH ENCLAVE CEO VAULT</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-3 text-zinc-400">
+                <span>ISOLAMENTO: <span class="text-cyan-neon">AIR-GAPPED ATTIVO</span></span>
+                <span>SIGILLO: <span class="text-gold">HARDWARE HSM EAL6+</span></span>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <div class="bg-surface-low border border-gold/40 px-3 py-1 rounded flex items-center space-x-2 text-xs">
+                <span class="text-zinc-400">TIMESTAMP ISO:</span>
+                <span id="live-time" class="text-gold font-bold">00:00:00 UTC</span>
+                <span class="text-zinc-500">|</span>
+                <span id="live-date" class="text-zinc-300">2026-09-25</span>
+            </div>
+            <div class="bg-cyan-dim/20 border border-cyan-neon/50 text-cyan-neon px-2.5 py-1 rounded font-bold text-[11px]">
+                SHARED LEDGER SHA-256
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENUTO PRINCIPALE VAULT -->
+    <main class="flex-1 p-6 space-y-8 max-w-[1700px] w-full mx-auto font-sans">
+        
+        <!-- SEZIONE 1: GOVERNANCE FINANZIARIA S.R.L. (RIPARTIZIONE 52/48%) -->
+        <section class="bg-surface border border-gold/40 rounded-2xl p-6 space-y-6 glow-gold">
+            <div class="flex flex-wrap justify-between items-center border-b border-zinc-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-3 h-3 rounded-full bg-gold animate-ping"></span>
+                    <div>
+                        <h2 class="font-bold text-lg text-white tracking-wide">GOVERNANCE S.R.L. // RIPARTIZIONE MATEMATICA AUTOMATICA</h2>
+                        <p class="text-xs text-zinc-400">Algoritmo Fiscale di Scissione Flussi: 52% Fondo Operativo / 48% Riserva Utili</p>
+                    </div>
+                </div>
+                <div class="font-mono text-xs text-right">
+                    <span class="text-zinc-400 block">INCASSO NETTO TOTALE (SUMUP / SEPA):</span>
+                    <span class="text-2xl font-black text-gold">€ <span id="vault-tot-revenue">0,00</span></span>
+                </div>
+            </div>
+
+            <!-- CARDS SCISSIONE 52% / 48% -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+                <!-- CASSA 52% FONDO OPERATIVO -->
+                <div class="bg-surface-low border border-zinc-800 rounded-xl p-5 space-y-4">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                        <span class="text-cyan-neon font-bold text-sm">52% CASSA OPERATIVA S.R.L.</span>
+                        <span class="text-zinc-400">DISPONIBILE: <strong class="text-white">€ <span id="vault-op-fund">0,00</span></strong></span>
+                    </div>
+                    <div class="space-y-2 text-zinc-300">
+                        <div class="text-[11px] text-zinc-400 font-sans">RIPARTIZIONE STIPENDI FISSI PARTECIPANTI:</div>
+                        <ul class="space-y-1 bg-surface p-3 rounded border border-zinc-800/80">
+                            <li class="flex justify-between"><span>CEO Stipendio Fisso:</span><span class="text-gold font-bold">€ 3.000,00 / mese</span></li>
+                            <li class="flex justify-between text-zinc-400"><span>Partner 1 (Mariachiara):</span><span>€ 500,00 / mese</span></li>
+                            <li class="flex justify-between text-zinc-400"><span>Partner 2 (Marco):</span><span>€ 500,00 / mese</span></li>
+                            <li class="flex justify-between text-zinc-400"><span>Partner 3 (Elena):</span><span>€ 500,00 / mese</span></li>
+                            <li class="flex justify-between text-zinc-400"><span>Partner 4 (Roberto):</span><span>€ 500,00 / mese</span></li>
+                            <li class="flex justify-between text-zinc-400"><span>Partner 5 (Andrea):</span><span>€ 500,00 / mese</span></li>
+                        </ul>
+                    </div>
+                    <div class="p-3 bg-surface rounded border border-amber/40 text-[11px] flex justify-between items-center text-amber-warning">
+                        <span>CALCOLATORE TASSE S.R.L. (IRES/IRAP/INPS):</span>
+                        <span class="font-bold">IN REGOLA // SHIELD FISCALE</span>
+                    </div>
+                </div>
+
+                <!-- CASSA 48% RISERVA UTILI & DIVIDENDI -->
+                <div class="bg-surface-low border border-gold/40 rounded-xl p-5 space-y-4">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                        <span class="text-gold font-bold text-sm">48% RISERVA UTILI & DIVIDENDI</span>
+                        <span class="text-zinc-400">ACCUMULATO: <strong class="text-gold">€ <span id="vault-div-fund">0,00</span></strong></span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-surface rounded border border-zinc-800 space-y-1">
+                            <div class="flex justify-between text-zinc-400"><span>Quota Spettante CEO (30% Diretto):</span><span class="text-gold font-bold">€ <span id="vault-ceo-share">0,00</span></span></div>
+                            <div class="flex justify-between text-zinc-500 text-[10px]"><span>Quota Residua Dividendi Soci:</span><span>€ <span id="vault-partners-share">0,00</span></span></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <button onclick="liquidateDividends()" class="py-2.5 bg-gold hover:bg-gold-light text-black font-extrabold uppercase rounded transition-all">
+                                Liquida Utili
+                            </button>
+                            <button onclick="reinvestDividends()" class="py-2.5 bg-surface-high hover:bg-zinc-700 text-cyan-neon border border-cyan/40 font-bold uppercase rounded transition-all">
+                                Reinvesti in Fondo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 2: NICOLE AG-10 SUB-AGENT HUB (MIND-SYNC SOCIAL ENGINE) -->
+        <section class="bg-surface border border-zinc-800 rounded-2xl p-6 space-y-6">
+            <div class="flex flex-wrap justify-between items-center border-b border-zinc-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-3 h-3 rounded-full bg-cyan-neon glow-cyan"></span>
+                    <div>
+                        <h2 class="font-bold text-base text-white">NICOLE AG-10 // HUB APPROVAZIONE & DISPATCH SOCIAL</h2>
+                        <p class="text-xs text-zinc-400">Bridge Esecutivo con Ginevra AG-02 — Validazione Mind-Sync prima della pubblicazione multi-canale</p>
+                    </div>
+                </div>
+                <span class="text-xs font-mono text-cyan-neon">OAUTH 2.0 TOKENS: VALIDATI ✓</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 font-mono text-xs">
+                <!-- CANALI SOCIAL SELEZIONABILI -->
+                <div class="lg:col-span-4 bg-surface-low p-4 rounded-xl border border-zinc-800 space-y-3">
+                    <span class="text-gold font-bold block text-sm border-b border-zinc-800 pb-2">CANALI ABILITATI AL DISPATCH:</span>
+                    <div class="space-y-2 text-zinc-300">
+                        <label class="flex items-center space-x-2"><input type="checkbox" checked class="accent-gold"> <span>Facebook Suprema</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" checked class="accent-gold"> <span>Canale Instagram Suprema</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" checked class="accent-gold"> <span>Canale YouTube Suprema</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" checked class="accent-gold"> <span>Telegram Suprema</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" checked class="accent-gold"> <span>LinkedIn Direzionale</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" checked class="accent-gold"> <span>TikTok Informazioni Rapide</span></label>
+                    </div>
+                </div>
+
+                <!-- EDITOR MIND-SYNC & BOZZA DA GINEVRA AG-02 -->
+                <div class="lg:col-span-8 bg-surface-low p-4 rounded-xl border border-zinc-800 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between text-zinc-400 mb-1">
+                            <span>BOZZA IN CODA DA GINEVRA AG-02:</span>
+                            <span class="text-cyan-neon">MIND-SYNC REVISION READY</span>
+                        </div>
+                        <textarea id="social-post-text" class="w-full h-24 bg-surface border border-zinc-700 rounded p-3 text-zinc-200 focus:outline-none focus:border-gold resize-none leading-relaxed">SUPREMA FUTURE X presenta i nuovi standard di protezione patrimoniale e sovranità digitale per il 2026. L'integrazione di hardware HSM EAL6+ garantisce il totale isolamento dalle minacce di rete. #SupremaFutureX #CyberGovernance #ZurichEnclave</textarea>
+                    </div>
+                    <div class="flex flex-wrap justify-between items-center gap-3">
+                        <span class="text-[11px] text-zinc-500">Sottomissione simultanea via API OAuth 2.0</span>
+                        <button onclick="publishApprovedSocial()" class="px-5 py-2.5 bg-gradient-to-r from-gold to-yellow-600 hover:from-gold-light hover:to-gold text-black font-extrabold uppercase rounded shadow-lg transition-all">
+                            Approva e Pubblica sui Social (Multi-Channel Dispatch)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 3: FAMILY OFFICE PRIVATO (PATRIMONIO PERSONALE SCISSO) -->
+        <section class="bg-surface border border-cyan/40 rounded-2xl p-6 space-y-6 glow-cyan">
+            <div class="flex flex-wrap justify-between items-center border-b border-zinc-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-3 h-3 rounded-full bg-cyan-neon"></span>
+                    <div>
+                        <h2 class="font-bold text-lg text-white">FAMILY OFFICE PRIVATO // PATRIMONIO PERSONALE CEO</h2>
+                        <p class="text-xs text-zinc-400">Modulo completamente scisso dalla S.r.l. — Auto Inbound: € 3.000 stipendio fisso + 30% Utili Netti</p>
+                    </div>
+                </div>
+                <div class="font-mono text-xs text-right">
+                    <span class="text-zinc-400 block">SVIZZERA GOTTHARD CAVEAU:</span>
+                    <span class="text-cyan-neon font-bold">REGIME SEPOSITATO</span>
+                </div>
+            </div>
+
+            <!-- MULTI-ASSET PORTFOLIO TRACKER -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+                <!-- LIQUIDITÀ ACCREDITATA -->
+                <div class="bg-surface-low border border-zinc-800 p-4 rounded-xl space-y-2">
+                    <span class="text-zinc-500 block text-[10px]">LIQUIDITÀ PERSONALE</span>
+                    <div class="text-2xl font-extrabold text-white">€ <span id="fo-liquid-cash">0,00</span></div>
+                    <div class="flex space-x-1 pt-1">
+                        <button onclick="alterFoCash(-500)" class="px-2 py-0.5 bg-surface text-gold rounded border border-zinc-700">-500€</button>
+                        <button onclick="alterFoCash(500)" class="px-2 py-0.5 bg-surface text-gold rounded border border-zinc-700">+500€</button>
+                    </div>
+                </div>
+
+                <!-- ORO FISICO GOTTARDO -->
+                <div class="bg-surface-low border border-zinc-800 p-4 rounded-xl space-y-2">
+                    <span class="text-zinc-500 block text-[10px]">ORO FISICO GOTTARDO</span>
+                    <div class="text-2xl font-extrabold text-gold"><span id="fo-gold-gram">0,00</span> gr</div>
+                    <div class="text-[10px] text-zinc-500">Lingotti 999.9/1000 Certificati</div>
+                </div>
+
+                <!-- CRYPTO COLD STORAGE LEDGER (INAMOVIBILE A 3.85 BTC) -->
+                <div class="bg-surface-low border border-cyan/40 p-4 rounded-xl space-y-2 glow-cyan">
+                    <span class="text-zinc-500 block text-[10px]">COLD LEDGER CRYPTO (INAMOVIBILE)</span>
+                    <div class="text-2xl font-extrabold text-cyan-neon">3.85 BTC</div>
+                    <div class="text-[10px] text-cyan-dim font-bold">HARDWARE WALLET OFFLINE</div>
+                </div>
+
+                <!-- IMMOBILIARE PRIME -->
+                <div class="bg-surface-low border border-zinc-800 p-4 rounded-xl space-y-2">
+                    <span class="text-zinc-500 block text-[10px]">IMMOBILIARE PRIME</span>
+                    <div class="text-2xl font-extrabold text-white">4 ASSET</div>
+                    <div class="text-[10px] text-zinc-500">Lugano • Zurigo • Milano • St. Moritz</div>
+                </div>
+            </div>
+
+            <!-- NICOLE WEALTH MANAGER (CONTATORI ANTI-SPRECO) -->
+            <div class="bg-surface-low p-4 rounded-xl border border-zinc-800 space-y-3 font-mono text-xs">
+                <div class="flex justify-between items-center text-zinc-300">
+                    <span class="font-bold text-gold">NICOLE WEALTH MANAGER // CONTATORI ANTI-SPRECO:</span>
+                    <span class="text-cyan-neon font-bold">RESET GIORNALIERO/SETTIMANALE AUTOMATICO</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                    <div class="bg-surface p-2.5 rounded border border-zinc-800">
+                        <span class="text-zinc-500 block text-[10px]">SPESA GIORNALIERA TARGET</span>
+                        <span class="text-white font-bold">€ 0,00 / € 200,00</span>
+                    </div>
+                    <div class="bg-surface p-2.5 rounded border border-zinc-800">
+                        <span class="text-zinc-500 block text-[10px]">SPESA SETTIMANALE TARGET</span>
+                        <span class="text-white font-bold">€ 0,00 / € 1.400,00</span>
+                    </div>
+                    <div class="bg-surface p-2.5 rounded border border-zinc-800">
+                        <span class="text-zinc-500 block text-[10px]">SOGLIA ALLERTA ANOMALIE</span>
+                        <span class="text-amber-warning font-bold">ZERO ANOMALIE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 4: CENTRO ANALYTICS FINANZIARIO SCRITTO & GRAFICO (S.R.L. & FAMILY OFFICE) -->
+        <section class="bg-surface border border-zinc-800 rounded-2xl p-6 space-y-6">
+            <div class="flex flex-wrap justify-between items-center border-b border-zinc-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-3 h-3 rounded-full bg-gold"></span>
+                    <div>
+                        <h2 class="font-bold text-base text-white">CENTRO ANALYTICS FINANZIARIO & PREVISIONALE</h2>
+                        <p class="text-xs text-zinc-400">Relazioni analitiche scritte e grafici di crescita (Settimanale, Mensile, Annuale)</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 bg-surface-low p-1 rounded border border-zinc-700 text-xs font-mono">
+                    <button class="px-3 py-1 rounded bg-gold text-black font-bold">SETTIMANALE</button>
+                    <button class="px-3 py-1 rounded text-zinc-400 hover:text-white">MENSILE</button>
+                    <button class="px-3 py-1 rounded text-zinc-400 hover:text-white">ANNUALE</button>
+                </div>
+            </div>
+
+            <!-- GRAFICO DINAMICO PROIETTIVO -->
+            <div class="bg-surface-low p-5 rounded-xl border border-zinc-800 space-y-4">
+                <div class="flex justify-between items-center text-xs font-mono text-zinc-400">
+                    <span class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 bg-gold rounded-full"></span>
+                        <span>Flusso Entrate S.r.l. (Champagne Gold)</span>
+                    </span>
+                    <span class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 bg-cyan-neon rounded-full"></span>
+                        <span>Inbound Family Office (Cyber Cyan)</span>
+                    </span>
+                    <span class="text-gold font-bold">PREVISIONE CRESCITA: +18.4%</span>
+                </div>
+                <!-- SVG CHART -->
+                <div class="h-44 w-full">
+                    <svg class="w-full h-full" viewBox="0 0 700 160" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gold-grad-v" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#d4af37" stop-opacity="0.35"/>
+                                <stop offset="100%" stop-color="#d4af37" stop-opacity="0.0"/>
+                            </linearGradient>
+                        </defs>
+                        <line x1="0" y1="40" x2="700" y2="40" stroke="#24262b" stroke-dasharray="4"/>
+                        <line x1="0" y1="80" x2="700" y2="80" stroke="#24262b" stroke-dasharray="4"/>
+                        <line x1="0" y1="120" x2="700" y2="120" stroke="#24262b" stroke-dasharray="4"/>
+                        <path d="M0,140 Q150,110 300,80 T600,40 T700,30 L700,160 L0,160 Z" fill="url(#gold-grad-v)"/>
+                        <path d="M0,140 Q150,110 300,80 T600,40 T700,30" fill="none" stroke="#d4af37" stroke-width="2.5"/>
+                        <path d="M0,150 Q150,130 300,105 T600,65 T700,50" fill="none" stroke="#00f0ff" stroke-width="2" stroke-dasharray="2"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- RELAZIONE SCRITTA ANALITICA S.R.L. E FAMILY OFFICE -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans text-zinc-300">
+                <div class="bg-surface-low p-4 rounded-xl border border-zinc-800 space-y-2">
+                    <div class="font-bold text-gold font-mono">RELAZIONE S.R.L. OPERATIVA:</div>
+                    <p class="leading-relaxed text-zinc-400">
+                        La struttura finanziaria aziendale mantiene la rigorosa ripartizione del 52% dedicato alla copertura dei costi operativi (inclusi i fisso-mensili destinati ai 5 partner ed al CEO) e del 48% destinato a riserva dividendi. L'integrazione con i webhook di SumUp Direct assicura la registrazione istantanea dei margini netti senza scoperti di cassa.
+                    </p>
+                </div>
+                <div class="bg-surface-low p-4 rounded-xl border border-zinc-800 space-y-2">
+                    <div class="font-bold text-cyan-neon font-mono">RELAZIONE FAMILY OFFICE PERSONALE:</div>
+                    <p class="leading-relaxed text-zinc-400">
+                        L'inbound personale procede regolarmente con il trasferimento degli stipendi fissi e delle quote dividendi liquidate. Il portafoglio multi-asset evidenzia la stabilità del perimetro crypto bloccato a <strong>3.85 BTC</strong>, integrato con il presidio fisico sui lingotti d'oro nel forziere del San Gottardo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- COMPLIANCE & DOWNLOAD LEDGER .PADES -->
+            <div class="pt-4 border-t border-zinc-800 flex flex-wrap justify-between items-center text-xs font-mono text-zinc-400">
+                <span>COMPLIANCE LEGALE: CERTIFICAZIONE .PAdES-B-LTA / CAdES</span>
+                <button onclick="downloadLedgerPades()" class="px-4 py-2 bg-surface-high hover:bg-zinc-700 text-gold border border-gold/40 rounded font-bold transition-all">
+                    .PAdES LEDGER DOWNLOAD
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- LOGIC & SCRIPTS INTEGRATI -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0] + ' UTC';
+            const dateStr = now.toISOString().split('T')[0];
+            const clockEl = document.getElementById('live-time');
+            const dateEl = document.getElementById('live-date');
+            if (clockEl) clockEl.innerText = timeStr;
+            if (dateEl) dateEl.innerText = dateStr;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        let totalRevenue = 0;
+
+        function updateLedgerDisplays() {
+            const opFund = totalRevenue * 0.52;
+            const divFund = totalRevenue * 0.48;
+            const ceoShare = divFund * 0.30;
+            const partnersShare = divFund * 0.70;
+
+            document.getElementById('vault-tot-revenue').innerText = totalRevenue.toLocaleString('it-IT', {minimumFractionDigits:2});
+            document.getElementById('vault-op-fund').innerText = opFund.toLocaleString('it-IT', {minimumFractionDigits:2});
+            document.getElementById('vault-div-fund').innerText = divFund.toLocaleString('it-IT', {minimumFractionDigits:2});
+            document.getElementById('vault-ceo-share').innerText = ceoShare.toLocaleString('it-IT', {minimumFractionDigits:2});
+            document.getElementById('vault-partners-share').innerText = partnersShare.toLocaleString('it-IT', {minimumFractionDigits:2});
+        }
+
+        function liquidateDividends() {
+            if (totalRevenue <= 0) {
+                alert('Nessun utile accumulato da liquidare al momento.');
+                return;
+            }
+            alert('Scissione ed accredito dividendi eseguiti con successo verso il Family Office.');
+        }
+
+        function reinvestDividends() {
+            alert('Riserva Utili trasferita integralmente nel Fondo Operativo S.r.l.');
+        }
+
+        function publishApprovedSocial() {
+            const text = document.getElementById('social-post-text').value;
+            alert('POST APPROVATO DA NICOLE AG-10 // DISPATCH MULTI-CANALE ESEGUITO VIA OAUTH 2.0:\n\n' + text);
+        }
+
+        let foCash = 0;
+        function alterFoCash(delta) {
+            foCash = Math.max(0, foCash + delta);
+            document.getElementById('fo-liquid-cash').innerText = foCash.toLocaleString('it-IT', {minimumFractionDigits:2});
+        }
+
+        function downloadLedgerPades() {
+            alert('Generazione estratto conto notarile .PAdES-B-LTA con marca temporale svizzera in corso...');
+        }
+    </script>
+</body>
+</html>
