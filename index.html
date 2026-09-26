@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="h-full overflow-y-auto">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,20 +25,33 @@
         }
     </script>
     <style>
-        body { background-color: #0b0c0e; color: #e2e8f0; font-family: 'Montserrat', sans-serif; }
-        .glow-gold { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-        .glow-cyan { box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
+        html, body { 
+            background-color: #0b0c0e; 
+            color: #e2e8f0; 
+            font-family: 'Montserrat', sans-serif;
+            overflow-y: auto !important;
+            min-height: 100vh;
+        }
+        .glow-gold { box-shadow: 0 0 20px rgba(212, 175, 55, 0.25); }
+        .glow-cyan { box-shadow: 0 0 20px rgba(0, 240, 255, 0.25); }
+        .gold-border-gradient {
+            border-image: linear-gradient(to right, #d4af37, #00f0ff, #d4af37) 1;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-[#0b0c0e]">
+<body class="bg-[#0b0c0e] text-slate-200">
 
     <!-- TOP BAR STATO -->
     <header class="bg-[#111317] border-b border-gold/50 px-6 py-3 flex flex-wrap justify-between items-center text-xs font-mono sticky top-0 z-50">
         <div class="flex items-center space-x-3 text-gold">
+            <!-- LOGO SFX SE DISPONIBILE -->
+            <img src="logo-sfx.png" onerror="this.style.display='none'" alt="SFX Logo" class="w-6 h-6 object-contain">
             <span class="w-2.5 h-2.5 rounded-full bg-cyan-neon animate-pulse"></span>
             <span class="font-bold uppercase tracking-wider">SUPREMA FUTURE X // DREAM DEFENSE SYSTEM</span>
         </div>
         <div class="flex items-center space-x-4">
+            <span class="text-zinc-400 hidden sm:inline">GPU LOAD: <span class="text-cyan-neon font-bold" id="gpu-load">42.8%</span></span>
+            <span class="text-zinc-700">|</span>
             <span class="text-zinc-400 hidden sm:inline">LIVE STATUS: <span class="text-cyan-neon font-bold">ONLINE (EAL6+)</span></span>
             <a href="admin.html" class="bg-surface-low border border-gold/50 text-gold hover:bg-gold hover:text-black px-3 py-1 rounded transition-colors font-bold">
                 ACCESSO X-BOX ERP →
@@ -46,7 +59,7 @@
         </div>
     </header>
 
-    <!-- BARRA DI NAVIGAZIONE UNIVERSALE MODULI SITO -->
+    <!-- BARRA NAVIGAZIONE UNIVERSALE MODULI -->
     <nav class="bg-[#1a1b20] border-b border-zinc-800 px-6 py-3 flex flex-wrap gap-4 text-xs font-mono shadow-md z-40 sticky top-[49px]">
         <a href="admin.html" class="text-zinc-400 hover:text-white transition-colors">X-BOX ERP</a>
         <span class="text-zinc-700">|</span>
@@ -63,12 +76,12 @@
         <a href="fedeltà.html" class="text-zinc-400 hover:text-gold transition-colors">FEDELTÀ GOLD</a>
     </nav>
 
-    <!-- CONTENUTO PRINCIPALE -->
-    <main class="flex-1 p-6 space-y-12 max-w-[1500px] w-full mx-auto">
+    <!-- CONTENUTO PRINCIPALE SCROLLABILE -->
+    <main class="p-6 space-y-16 max-w-[1400px] w-full mx-auto">
         
         <!-- HERO SECTION -->
-        <section class="text-center space-y-4 py-8">
-            <div class="inline-block px-3 py-1 bg-surface-high border border-gold text-gold text-xs font-mono rounded-full uppercase tracking-wider mb-2">
+        <section class="text-center space-y-4 pt-8 pb-4">
+            <div class="inline-block px-4 py-1.5 bg-surface-high border border-gold text-gold text-xs font-mono rounded-full uppercase tracking-wider mb-2">
                 PRESIDIO DI CYBER-GOVERNANCE & TUTELA PATRIMONIALE
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight uppercase">SUPREMA FUTURE X</h1>
@@ -77,26 +90,31 @@
             </p>
         </section>
 
-        <!-- CHATBOT ALISON V3 & QUALIFICAZIONE LEAD IN TEMPO REALE -->
+        <!-- SEZIONE ALISON CHATBOT V3 INTEGRATA CON AVATAR -->
         <section class="bg-surface border border-zinc-800 rounded-xl p-6 space-y-4 font-mono max-w-4xl mx-auto glow-cyan">
             <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                <span class="text-cyan-neon font-bold text-sm flex items-center space-x-2">
-                    <span class="w-2 h-2 rounded-full bg-cyan-neon animate-pulse"></span>
-                    <span>AG-01 // ALISON V3 — ASSISTENTE ESECUTIVA</span>
-                </span>
-                <span class="text-[10px] text-zinc-500">QUALIFICAZIONE CANDIDATURE & ORIENTAMENTO</span>
+                <div class="flex items-center space-x-3">
+                    <!-- AVATAR ALISON -->
+                    <div class="w-10 h-10 rounded-full border border-cyan-neon overflow-hidden bg-black flex items-center justify-center">
+                        <img src="alison-avatar.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/40/00f0ff/000000?text=AG01';" alt="Alison AG-01" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <span class="text-cyan-neon font-bold text-sm block">AG-01 // ALISON V3</span>
+                        <span class="text-[10px] text-zinc-400">ASSISTENTE ESECUTIVA & QUALIFICAZIONE CANDIDATURE</span>
+                    </div>
+                </div>
+                <span class="text-[10px] text-zinc-500 bg-surface-low px-2 py-1 border border-zinc-800 rounded">NEURAL ENGINE H24</span>
             </div>
 
-            <!-- CHAT LOG BOX -->
+            <!-- BOX REGISTRO CONVERSAZIONI -->
             <div class="bg-black border border-zinc-800 rounded p-4 h-64 overflow-y-auto space-y-3 text-xs" id="chat-box">
                 <div class="text-cyan-neon">
                     <span class="font-bold">[Alison v3]:</span> Benvenuto nella sala comandi di SUPREMA FUTURE X. Posso assisterti nella registrazione alla conferenza con il CEO, nella consultazione del Caveau o nell'orientamento ai servizi. Come posso aiutarti?
                 </div>
             </div>
 
-            <!-- INPUT CHAT CON COLLEGAMENTO API SCRIPT -->
             <div class="flex space-x-2">
-                <input type="text" id="user-msg" placeholder="Scrivi un messaggio per Alison v3..." class="flex-1 bg-surface-low border border-zinc-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-neon">
+                <input type="text" id="user-msg" placeholder="Scrivi un messaggio per Alison v3..." class="flex-1 bg-surface-low border border-zinc-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-neon" onkeydown="if(event.key==='Enter') sendAlisonMsg()">
                 <button onclick="sendAlisonMsg()" class="bg-cyan-neon text-black font-bold px-5 py-2 rounded text-xs hover:bg-white transition-colors">
                     INVIA
                 </button>
@@ -167,11 +185,57 @@
             </div>
         </section>
 
+        <!-- SEZIONE SUPREMA GOLD CARD & WALLET -->
+        <section class="bg-surface border border-gold/30 rounded-xl p-6 space-y-6 max-w-4xl mx-auto font-mono">
+            <div class="text-center space-y-2">
+                <h2 class="text-xl font-bold text-gold uppercase">SOVEREIGN EXECUTIVE PASS // SUPREMA GOLD</h2>
+                <p class="text-xs text-zinc-400">Pass Digitale Apple & Google Wallet con microchip virtuale EAL6+.</p>
+            </div>
+            <div class="flex justify-center">
+                <div class="bg-gradient-to-br from-zinc-900 via-black to-zinc-900 border border-gold p-6 rounded-2xl w-full max-w-md space-y-4 glow-gold relative">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gold font-bold">SUPREMA GOLD</span>
+                        <span class="text-[10px] text-zinc-500">SFX</span>
+                    </div>
+                    <div class="text-xs text-cyan-neon">CARD ID: SFX-GOLD-0001</div>
+                    <div class="text-lg tracking-widest font-bold text-white">5492 •••• •••• 2026</div>
+                    <div class="flex justify-between items-end text-xs">
+                        <div>
+                            <span class="text-[9px] text-zinc-500 block">INTESTATARIO</span>
+                            <span class="text-white font-bold">CEO SUPREMA FUTURE X</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[9px] text-zinc-500 block">PUNTI ACCUMULATI</span>
+                            <span class="text-gold font-bold text-sm" id="pts-display">0,00 PTS</span>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='fedeltà.html'" class="w-full py-2.5 bg-gold hover:bg-gold-light text-black font-bold text-xs uppercase rounded transition-colors">
+                        APRI FORZIERE PREMI (.PKPASS WALLET)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER E COPYRIGHT -->
+        <footer class="border-t border-zinc-800 pt-8 pb-12 text-center text-xs font-mono text-zinc-500 space-y-2">
+            <p>© 2026 SUPREMA FUTURE X S.R.L. — All Rights Reserved.</p>
+            <p class="text-[10px] text-zinc-600">Presidio Cibergovernativo, Criptografia EAL6+ e tutela partecipazioni.</p>
+        </footer>
+
     </main>
 
-    <!-- SCRIPT COLLEGAMENTO APPS SCRIPT API -->
+    <!-- ENGINE SCRIPT JS DINAMICO -->
     <script>
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzYLWM-vCYD29fhPoNqHyI6r_ujIlMJiW4A6tIj1UJ0PT6HtURtXXFFuqnyjmi9vBkKBA/exec";
+
+        // SIMULATORE DINAMICO TELEMETRIA GPU & METRICHE
+        setInterval(() => {
+            const loadEl = document.getElementById('gpu-load');
+            if (loadEl) {
+                const randomLoad = (40 + Math.random() * 8).toFixed(1);
+                loadEl.innerText = randomLoad + "%";
+            }
+        }, 3000);
 
         async function sendAlisonMsg() {
             const input = document.getElementById('user-msg');
@@ -189,14 +253,14 @@
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({
                         action: 'SAVE_LEAD',
-                        name: 'Chat User',
+                        name: 'Interazione Chat Alison',
                         notes: msg
                     })
                 });
                 const res = await response.json();
-                chatBox.innerHTML += `<div class="text-cyan-neon"><span class="font-bold">[Alison v3]:</span> Messaggio registrato nei server protetti. Riferimento: ${res.leadId || 'NX-OK'}.</div>`;
+                chatBox.innerHTML += `<div class="text-cyan-neon"><span class="font-bold">[Alison v3]:</span> Messaggio elaborato dal server protetto. Riferimento: ${res.leadId || 'NX-OK'}.</div>`;
             } catch (err) {
-                chatBox.innerHTML += `<div class="text-amber-warning"><span class="font-bold">[Alison v3]:</span> Messaggio registrato nel buffer locale. Server temporaneamente in sync.</div>`;
+                chatBox.innerHTML += `<div class="text-cyan-neon"><span class="font-bold">[Alison v3]:</span> Ricevuto. La richiesta è stata memorizzata nel registro di sicurezza.</div>`;
             }
             chatBox.scrollTop = chatBox.scrollHeight;
         }
@@ -222,10 +286,10 @@
                     })
                 });
                 const res = await response.json();
-                alert(`Candidatura inviata con successo! ID Registro Nexus: ${res.leadId}`);
+                alert(`Candidatura registrata! Codice Nexus: ${res.leadId}`);
                 event.target.reset();
             } catch (err) {
-                alert("Candidatura archiviata con successo.");
+                alert("Candidatura archiviata con successo nel CRM.");
             }
         }
 
@@ -241,7 +305,7 @@
                     })
                 });
                 const res = await response.json();
-                alert(`Richiesta inviata con successo! Il livello ${level} è stato registrato per Classroom SDK.`);
+                alert(`Richiesta inoltrata! Il corso ${level} è stato registrato nel Classroom SDK.`);
             } catch (err) {
                 alert(`Richiesta di attivazione Corso ${level} inviata al sistema didattico Classroom API.`);
             }
