@@ -44,11 +44,14 @@
             <button onclick="openCeoModal()" class="bg-amber-warning/20 border border-amber-warning text-amber-warning px-3 py-1 rounded text-[11px] font-bold hover:bg-amber-warning hover:text-black transition-colors">
                 🔒 ACCESSO CEO VAULT
             </button>
+            <a href="index.html" class="bg-surface-high border border-zinc-700 text-zinc-300 hover:text-gold px-3 py-1 rounded text-[11px] font-bold transition-colors">
+                🌐 VISTA PUBBLICA
+            </a>
             <span class="bg-cyan-dim/20 border border-cyan-neon/50 text-cyan-neon px-2.5 py-1 rounded text-[11px] font-bold">GATE 00 EAL6+</span>
         </div>
     </header>
 
-    <!-- BARRA NAVIGAZIONE MODULI SITO -->
+    <!-- BARRA NAVIGAZIONE MODULI ECOISTEMA -->
     <nav class="bg-[#1a1b20] border-b border-zinc-800 px-6 py-2.5 flex flex-wrap gap-4 text-xs z-40 sticky top-[41px]">
         <a href="admin.html" class="text-cyan-neon font-bold flex items-center space-x-1">
             <span class="w-1.5 h-1.5 bg-cyan-neon rounded-full"></span>
@@ -71,7 +74,7 @@
     <!-- MAIN DASHBOARD ERP -->
     <main class="flex-1 p-6 space-y-8 max-w-[1700px] w-full mx-auto">
         
-        <!-- CONTATORI METRICHE CON CHIAMATE REALI AL BACKEND -->
+        <!-- METRICHE E CONTATORI SINCRO CON BACKEND -->
         <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="bg-surface border border-zinc-800 rounded p-4 flex flex-col justify-between">
                 <span class="text-xs text-zinc-400">CRM LEADS NEXUS DB</span>
@@ -95,23 +98,23 @@
             </div>
         </section>
 
-        <!-- SEZIONE ARCHIVIO CHATBOT ALISON V3 & ARCHIVIO MULTIMEDIALE CAVEAU 11" -->
+        <!-- SEZIONE ARCHIVI (LOG ALISON V3 & CAVEAU DRIVE) -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            <!-- ARCHIVIO LOG CHATBOT ALISON V3 -->
+            <!-- ARCHIVIO CHATBOT ALISON V3 -->
             <div class="bg-surface border border-zinc-800 rounded-xl p-5 space-y-4">
                 <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
                     <span class="text-white font-bold text-sm flex items-center space-x-2">
                         <span class="w-2 h-2 rounded-full bg-cyan-neon"></span>
-                        <span>ARCHIVIO CHATBOT ALISON V3 & LOGS</span>
+                        <span>ARCHIVIO CHATBOT ALISON V3 & LOG CONVERSAZIONALI</span>
                     </span>
                     <span class="text-xs text-zinc-500">LIVE MONITOR H24</span>
                 </div>
                 <div class="bg-black/80 border border-zinc-800 rounded p-3 h-52 overflow-y-auto space-y-2 text-xs font-mono" id="alison-logs">
-                    <div class="text-zinc-500">[SYSTEM] Backend Google Apps Script connesso. In ascolto su endpoint exec...</div>
+                    <div class="text-zinc-500">[SYSTEM] Server Google Apps Script collegato. In attesa di nuove iterazioni...</div>
                 </div>
                 <div class="flex justify-between items-center text-xs">
-                    <span class="text-zinc-400">Stato Engine: <span class="text-cyan-neon font-bold">ATTIVO (APPS SCRIPT EXEC)</span></span>
+                    <span class="text-zinc-400">Stato Engine: <span class="text-cyan-neon font-bold">ATTIVO EAL6+</span></span>
                     <button onclick="fetchAlisonLogs()" class="text-gold hover:underline">Aggiorna Registro Chat</button>
                 </div>
             </div>
@@ -146,12 +149,12 @@
 
         </section>
 
-        <!-- PLANCIA AGENTI CON INDOTTRINAMENTO DINAMICO H24 -->
+        <!-- PLANCIA COMANDO AGENTI IA E INDOTTRINAMENTO DINAMICO -->
         <section class="bg-surface border border-zinc-800 rounded-xl p-5 space-y-6">
             <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
                 <div>
                     <h2 class="text-lg font-bold text-white">CENTRO COMANDO & INDOTTRINAMENTO FLOTTA AGENTI IA</h2>
-                    <p class="text-xs text-zinc-400">Aggiorna i System Prompt ed esegui lo switch operativo in tempo reale col server Apps Script.</p>
+                    <p class="text-xs text-zinc-400">Modifica i System Prompt ed esegui lo switch operativo in tempo reale col server Apps Script.</p>
                 </div>
                 <button onclick="window.location.href='agenti.html'" class="text-xs text-cyan-neon font-bold border border-cyan-neon/40 px-3 py-1 rounded hover:bg-cyan-neon hover:text-black transition-all">
                     APRI PLANCIA COMPLETA (9 NODI) →
@@ -232,15 +235,15 @@
                 <span class="text-gold font-bold text-sm">AUTENTICAZIONE RISERVATA CEO VAULT</span>
                 <button onclick="closeCeoModal()" class="text-zinc-500 hover:text-white">✕</button>
             </div>
-            <p class="text-zinc-400">Inserisci il PIN Direzionale per accedere al Vault S.r.l. (Ripartizione Utili 52/48% e chiavi PGP).</p>
-            <input type="password" id="ceo-pin" placeholder="INSERISCI PIN (default: 2026)" class="w-full bg-black border border-zinc-700 p-2.5 rounded text-white text-center tracking-widest text-base focus:border-gold focus:outline-none">
-            <button onclick="verifyCeoPin()" class="w-full py-2 bg-gold hover:bg-gold-light text-black font-bold rounded">
+            <p class="text-zinc-400">Inserisci la Password Master Direzionale o il PIN per accedere al Vault S.r.l.</p>
+            <input type="password" id="ceo-pin" placeholder="INSERISCI PASSWORD MASTER / PIN" class="w-full bg-black border border-zinc-700 p-2.5 rounded text-white text-center tracking-widest text-sm focus:border-gold focus:outline-none" onkeydown="if(event.key==='Enter') verifyCeoPin()">
+            <button onclick="verifyCeoPin()" class="w-full py-2.5 bg-gold hover:bg-gold-light text-black font-bold rounded uppercase">
                 SBLOCCA VAULT RISERVATO
             </button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT CORE PER COMUNICAZIONE REALE VIA FETCH CON APPS SCRIPT -->
+    <!-- JAVASCRIPT CORE -->
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbzYLWM-vCYD29fhPoNqHyI6r_ujIlMJiW4A6tIj1UJ0PT6HtURtXXFFuqnyjmi9vBkKBA/exec";
 
@@ -268,13 +271,12 @@
                     statusEl.innerText = "BACKEND: CONNESSO (v2026.4)";
                     indicatorEl.className = "w-2.5 h-2.5 rounded-full bg-cyan-neon animate-pulse";
                     
-                    // Aggiorna i contatori grafici in locale in base all'azione completata
                     if (actionType === 'SAVE_LEAD') { localCrm++; document.getElementById('cnt-crm').innerText = localCrm; }
                     if (actionType === 'ACADEMY_ACTION') { localClassroom++; document.getElementById('cnt-classroom').innerText = localClassroom; }
                     if (actionType === 'LOYALTY_ACTION') { localGold += 50; document.getElementById('cnt-gold').innerText = localGold + " PTS"; }
                     if (actionType === 'TREASURY_LOG') { localCash += 99; document.getElementById('cnt-cash').innerText = "€ " + localCash.toFixed(2); }
 
-                    logAlisonEvent(`Operazione [${actionType}] completata con successo sul server.`);
+                    logAlisonEvent(`Operazione [${actionType}] registrata sul server.`);
                 } else {
                     statusEl.innerText = "RISPOSTA ANOMALA BACKEND";
                     indicatorEl.className = "w-2.5 h-2.5 rounded-full bg-amber-warning";
@@ -282,7 +284,6 @@
             } catch (err) {
                 statusEl.innerText = "ERRORE CONNESSIONE API";
                 indicatorEl.className = "w-2.5 h-2.5 rounded-full bg-red-500";
-                console.error("Errore fetch:", err);
             }
         }
 
@@ -328,11 +329,14 @@
         }
 
         function verifyCeoPin() {
-            const pin = document.getElementById('ceo-pin').value;
-            if (pin === "2026") {
+            const pin = document.getElementById('ceo-pin').value.trim();
+            
+            // VERIFICA PASSWORD MASTER E PIN ESECUTIVO
+            if (pin === "MARIACHIARA ceoofficial2026" || pin === "2026") {
+                alert("Accesso Autorizzato. Sblocco Vault Direzionale in corso...");
                 window.location.href = "vault.html";
             } else {
-                alert("PIN Errato. Accesso negato.");
+                alert("Autenticazione Fallita: Password o PIN non riconosciuto.");
             }
         }
     </script>
