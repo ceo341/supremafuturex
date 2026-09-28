@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suprema Future X | CEO Vault Privato</title>
+
+    <!-- Fogli di Stile Separati -->
+    <link rel="stylesheet" href="css/stile-globale.css">
+    <link rel="stylesheet" href="css/grafica-3d.css">
+
+    <!-- Font Ufficiali Montserrat & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="sfondo-argento-antichizzato" id="corpo-vault">
+
+    <!-- CONTROLLO RIGIDO DI SICUREZZA CEO (REDIRECT AUTOMATICO) -->
+    <script>
+        (function() {
+            const token = sessionStorage.getItem('SFX_TOKEN_AUTENTICAZIONE');
+            const ruolo = sessionStorage.getItem('SFX_RUOLO_ATTIVO');
+            if (!token || ruolo !== 'CEO_OWNER') {
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+
+    <!-- BARRA DI NAVIGAZIONE UNIVERSALE (FIXED TOP) -->
+    <nav class="barra-universale" aria-label="Navigazione Principale">
+        <div class="nav-pulsanti-container">
+            <button class="btn-nav-univ" onclick="history.back()">← INDIETRO</button>
+            <button class="btn-nav-univ" onclick="history.forward()">AVANTI →</button>
+            <a href="index.html" class="btn-nav-univ">🌐 LANDING PAGE</a>
+            <a href="admin.html" class="btn-nav-univ">⚙️ X-BOX ERP</a>
+            <a href="vault.html" class="btn-nav-univ oro attivo">🔐 CEO VAULT</a>
+        </div>
+    </nav>
+
+    <!-- HEADER CEO VAULT -->
+    <header class="header-principale" style="padding-top: 80px;">
+        <div class="logo-container-3d">
+            <img src="assets/icons/logo-sfx.png" alt="SFX Logo" class="logo-sfx-hd" style="max-width: 100px;">
+        </div>
+
+        <h1 class="slogan-brand" style="background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            CEO VAULT PRIVATO
+        </h1>
+        <p class="motto-subtle">PROTEZIONE PATRIMONIALE CEO // ACCESSO ESCLUSIVO EAL6+</p>
+
+        <div class="barra-stato-interattiva" style="margin-top: 15px; border-color: rgba(212, 175, 55, 0.4);">
+            <div class="stato-led-container">
+                <span class="led-pulsante" style="background-color: var(--oro-chiaro); box-shadow: 0 0 8px var(--oro-chiaro);"></span>
+                <span class="testo-stato" style="color: var(--oro-chiaro);">VAULT BLINDATO ONLINE</span>
+            </div>
+            <div class="latenza-container">
+                <span>SPLIT UTILI: </span>
+                <span style="color: var(--oro-imperiale); font-weight:700;">48% CEO RESERVED</span>
+            </div>
+            <button class="btn-azione-3d oro" onclick="eseguiLogoutVault()" style="padding: 4px 10px; font-size: 0.7rem;">[ CHIUDI VAULT ]</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT - CEO VAULT -->
+    <main class="contenitore-principale">
+
+        <!-- SEZIONE 1: PATRIMONIO PRIVATO CEO & SPLIT 48% -->
+        <section class="sezione-3d-ovale">
+            <div class="scheda-ovale-3d oro">
+                <h2 class="titolo-sezione-it">1. DASHBOARD PATRIMONIO PRIVATO CEO (SPLIT 48%)</h2>
+                
+                <div class="griglia-link-social-3d" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 20px;">
+                    <div style="background: #121418; padding: 18px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.3);">
+                        <span class="motto-subtle">SALDO NETTO ACCUMULATO (48%)</span>
+                        <h3 id="saldo-privato-ceo" style="color: var(--oro-chiaro); font-size: 1.8rem; font-family: var(--font-mono); font-weight: 700;">€ 13.440,00</h3>
+                    </div>
+
+                    <div style="background: #121418; padding: 18px; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.2);">
+                        <span class="motto-subtle">BANCA DI RIFERIMENTO</span>
+                        <h3 style="color: var(--ciano-neon); font-size: 1.2rem; font-family: var(--font-mono); margin-top: 8px;">BANCA MEDIOLANUM</h3>
+                        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--testo-mutato);">IBAN: IT99 X 03062 00000 000000000000</p>
+                    </div>
+                </div>
+
+                <div style="background: #121418; padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 20px;">
+                    <h3 style="font-size: 0.9rem; color: var(--testo-principale); margin-bottom: 10px; font-family: var(--font-mono);">GENERA DISPOSIZIONE BONIFICO MEDIOLANUM</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input type="number" id="importo-bonifico-mediolanum" placeholder="Importo in €" style="padding: 10px; background: #181b20; border: 1px solid rgba(212,175,55,0.3); color: #fff; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; flex: 1; min-width: 150px;">
+                        <button class="btn-azione-3d oro" onclick="generaProspettoBonifico()">[ PREVIEW & BONIFICO IBAN ]</button>
+                    </div>
+                </div>
+
+                <div id="box-prospetto-bonifico" style="display: none; background: #1a1e24; border: 1px dashed var(--oro-imperiale); padding: 15px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.8rem;">
+                    <p style="color: var(--oro-chiaro); font-weight: 700; margin-bottom: 8px;">📄 DISPOSIZIONE BANCARIA PRONTA:</p>
+                    <p>Beneficiario: CEO Owner Suprema Future X</p>
+                    <p>Banca: BANCA MEDIOLANUM S.p.A.</p>
+                    <p>Causale: Prelievo Utili Dividendi Split 48% - Rif. Codice SFX-VAULT-2026</p>
+                    <p id="prospetto-importo-testo" style="color: var(--ciano-neon); font-weight: 700; margin-top: 6px;">Importo: € 0,00</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 2: CEO UNLOCK TOGGLE & CONSULTAZIONE BLUEPRINT MASTER -->
+        <section class="sezione-3d-ovale">
+            <div class="scheda-ovale-3d tricolore-pass">
+                <h2 class="titolo-sezione-it">2. CONTROL ROOM RESTRIZIONI & BLUEPRINT MASTER</h2>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; background: #121418; padding: 15px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.08);">
+                    <div>
+                        <h3 style="font-size: 0.9rem; color: var(--testo-principale);">CEO UNLOCK TOGGLE (PROTEZIONE COPIA/INCOLLA)</h3>
+                        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--testo-mutato);">Attiva per consentire la selezione del testo e la copia nei documenti ufficiali.</p>
+                    </div>
+                    <button id="btn-toggle-sblocco" class="btn-azione-3d ciano" onclick="invertiSbloccoCEO()">[ STATO: BLOCKED 🔒 ]</button>
+                </div>
+
+                <div style="background: #121418; padding: 20px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.2);">
+                    <h3 style="font-size: 0.9rem; color: var(--oro-imperiale); margin-bottom: 12px; font-family: var(--font-mono);">BLUEPRINT MASTER ECOSISTEMA SFX</h3>
+                    <div id="visore-blueprint" style="background: #0b0c0f; padding: 15px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.75rem; color: #a0aec0; max-height: 250px; overflow-y: auto; white-space: pre-wrap; user-select: none;">
+SUPREMA FUTURE X - ARCHITETTURA DI GOVERNANCE MASTER 2026
+-----------------------------------------------------------
+1. Modulo Vetrina: Landing Page ibrida ad alte prestazioni.
+2. Modulo ERP: X-Box Control Room con telemetria e split 52% Cassa S.r.l.
+3. Modulo Vault: Cassaforte riservata CEO con split 48% utili netti Mediolanum.
+4. Security Standard: Cifratura EAL6+, master authentication, BroadcastChannel live sync.
+-----------------------------------------------------------
+[ DOCUMENTO RISERVATO DIREZIONALE - RIPRODUZIONE VIETATA ]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 3: SCADENZIARIO FINANZIARIO & CALENDARIO RISERVATO -->
+        <section class="sezione-3d-ovale">
+            <div class="scheda-ovale-3d argento">
+                <h2 class="titolo-sezione-it">3. SCADENZIARIO FISCALE & SCADENZE RISERVATE</h2>
+                
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.75rem; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--oro-imperiale); color: var(--oro-imperiale);">
+                                <th style="padding: 10px;">DATA SCADENZA</th>
+                                <th style="padding: 10px;">DESCRIZIONE OPERAZIONE</th>
+                                <th style="padding: 10px;">IMPORTO STIMATO</th>
+                                <th style="padding: 10px;">STATO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 10px; color: var(--ciano-neon);">16/10/2026</td>
+                                <td style="padding: 10px;">Versamento Ritenute & IVA Trimestrale S.r.l.</td>
+                                <td style="padding: 10px;">€ 2.450,00</td>
+                                <td style="padding: 10px;"><span style="color: var(--oro-chiaro);">PROGRAMMATO</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 10px; color: var(--ciano-neon);">30/10/2026</td>
+                                <td style="padding: 10px;">Disposizione Dividendi Utili CEO Mediolanum</td>
+                                <td style="padding: 10px;">€ 13.440,00</td>
+                                <td style="padding: 10px;"><span style="color: var(--verde-online);">PRONTO ALL'INVIO</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-principale">
+        <p class="copyright-text">© 2026 SUPREMA FUTURE X S.R.L. // CEO VAULT PRIVATO</p>
+    </footer>
+
+    <!-- CONTROLLER JAVASCRIPT -->
+    <script src="js/connettore-api.js"></script>
+    <script src="js/navigazione.js"></script>
+
+    <script>
+        let eSbloccato = false;
+
+        function eseguiLogoutVault() {
+            sessionStorage.removeItem('SFX_TOKEN_AUTENTICAZIONE');
+            sessionStorage.removeItem('SFX_RUOLO_ATTIVO');
+            window.location.href = 'login.html';
+        }
+
+        function generaProspettoBonifico() {
+            const importo = document.getElementById('importo-bonifico-mediolanum').value;
+            if (!importo || importo <= 0) {
+                alert("Inserire un importo valido per la disposizione.");
+                return;
+            }
+
+            const box = document.getElementById('box-prospetto-bonifico');
+            const testoImp = document.getElementById('prospetto-importo-testo');
+            
+            testoImp.textContent = `Importo: € ${parseFloat(importo).toLocaleString('it-IT', {minimumFractionDigits: 2})}`;
+            box.style.display = 'block';
+
+            ConnettoreApi.invia('REGISTRA_PROSPETTO_BONIFICO', {
+                banca: 'BANCA MEDIOLANUM',
+                importo: importo,
+                causale: 'Prelevamento Utili Dividendi Split 48%'
+            });
+        }
+
+        function invertiSbloccoCEO() {
+            eSbloccato = !eSbloccato;
+            const btn = document.getElementById('btn-toggle-sblocco');
+            const visore = document.getElementById('visore-blueprint');
+
+            if (eSbloccato) {
+                btn.textContent = '[ STATO: UNLOCKED 🔓 ]';
+                btn.style.color = '#00FF66';
+                btn.style.borderColor = '#00FF66';
+                visore.style.userSelect = 'text';
+                document.body.style.userSelect = 'text';
+            } else {
+                btn.textContent = '[ STATO: BLOCKED 🔒 ]';
+                btn.style.color = 'var(--ciano-neon)';
+                btn.style.borderColor = 'rgba(0, 240, 255, 0.3)';
+                visore.style.userSelect = 'none';
+                document.body.style.userSelect = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+Fai il Commit di vault.html su GitHub.
+
+FILE 2: backend/Code.gs (Il Server Google Apps Script)
+Questo è il codice del backend da incollare nell'Editor Script associato al tuo Foglio Google Sheets (Database di Suprema Future X).
+
+Crea la cartella backend e il file Code.gs (percorso: backend/Code.gs) oppure incollalo direttamente su Apps Script:
+
+JavaScript
+/**
+ * SUPREMA FUTURE X - BACKEND GOOGLE APPS SCRIPT
+ * File: Code.gs
+ * Descrizione: Gestore delle chiamate API REST, scrittura su Google Sheets e notifiche multi-canale.
+ */
+
+function doPost(e) {
+  var output = { status: "ERROR", message: "Azione non riconosciuta" };
+  
+  try {
+    var requestData = JSON.parse(e.postData.contents);
+    var azione = requestData.azione;
+    var payload = requestData.payload || {};
+    
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    // 1. AUTENTICAZIONE MASTER & CEO VAULT
+    if (azione === 'VERIFICA_AUTENTICAZIONE_MASTER') {
+      var eMasterValida = (payload.password === "MARIACHIARA ceoofficial2026");
+      var ePinValido = (payload.pin === "2026" || payload.pin === "");
+
+      if (eMasterValida && ePinValido) {
+        output = { status: "SUCCESS", role: payload.destinazione === 'vault' ? 'CEO_OWNER' : 'ADMIN_OPERATOR' };
+      } else {
+        output = { status: "DENIED", message: "Credenziali non valide" };
+      }
+    }
+
+    // 2. REGISTRAZIONE LEAD CRM NEXUS & NOTIFICHE MULTI-CANALE
+    else if (azione === 'REGISTRA_LEAD_CRM') {
+      var sheetCRM = ottieniOcreaFoglio(ss, "CRM_Leads_Nexus");
+      sheetCRM.appendRow([
+        new Date(),
+        payload.codiceNX || "",
+        payload.nome || "",
+        payload.email || "",
+        payload.telefono || "",
+        payload.note || "",
+        "NEXUS_NOTIFIED"
+      ]);
+
+      // Innesco notifiche automatiche Email/WhatsApp/Telegram
+      inviaNotificheMultiCanale(payload);
+
+      output = { status: "SUCCESS", message: "Lead salvato e notifiche inviate." };
+    }
+
+    // 3. AGGIORNAMENTO PUNTI GOLD CARD
+    else if (azione === 'AGGIORNA_PUNTI_FEDELTA') {
+      var sheetGold = ottieniOcreaFoglio(ss, "Gold_Card_Ledger");
+      sheetGold.appendRow([
+        new Date(),
+        payload.idCarta || "",
+        payload.puntiAggiunti || 0,
+        payload.puntiTotali || 0,
+        payload.grado || "",
+        payload.causale || ""
+      ]);
+
+      output = { status: "SUCCESS", message: "Punti aggiornati nel ledger." };
+    }
+
+    // 4. DYNAMIC MEDIA ENGINE CONFIGURATION
+    else if (azione === 'AGGIORNA_CONFIGURAZIONE_MEDIA') {
+      var sheetMedia = ottieniOcreaFoglio(ss, "Media_Config");
+      sheetMedia.appendRow([
+        new Date(),
+        payload.sezione || "",
+        payload.formato || "",
+        payload.url || ""
+      ]);
+
+      output = { status: "SUCCESS", message: "Media configurato." };
+    }
+
+    // 5. PROMPT AGENTI IA
+    else if (azione === 'AGGIORNA_PROMPT_AGENTE') {
+      var sheetPrompts = ottieniOcreaFoglio(ss, "Agent_Prompts");
+      sheetPrompts.appendRow([
+        new Date(),
+        payload.codiceAgente || "",
+        payload.prompt || ""
+      ]);
+
+      output = { status: "SUCCESS", message: "Prompt aggiornato." };
+    }
+
+    // 6. DISPOSIZIONE BONIFICO MEDIOLANUM
+    else if (azione === 'REGISTRA_PROSPETTO_BONIFICO') {
+      var sheetVault = ottieniOcreaFoglio(ss, "CEO_Vault_Ledger");
+      sheetVault.appendRow([
+        new Date(),
+        payload.banca || "BANCA MEDIOLANUM",
+        payload.importo || 0,
+        payload.causale || "",
+        "DISPOSIZIONE_GENERATA"
+      ]);
+
+      output = { status: "SUCCESS", message: "Disposizione salvata nel Vault." };
+    }
+
+  } catch (err) {
+    output = { status: "EXCEPTION", error: err.toString() };
+  }
+
+  return ContentService.createTextOutput(JSON.stringify(output))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function ottieniOcreaFoglio(ss, nomeFoglio) {
+  var sheet = ss.getSheetByName(nomeFoglio);
+  if (!sheet) {
+    sheet = ss.insertSheet(nomeFoglio);
+  }
+  return sheet;
+}
+
+function inviaNotificheMultiCanale(data) {
+  // Notifica Email al CEO / Ufficio
+  try {
+    MailApp.sendEmail({
+      to: "mariachiara.official2026@gmail.com",
+      subject: "[SUPREMA FUTURE X] Nuova Candidatura CRM - " + data.codiceNX,
+      body: "Nuovo Lead registrato:\n\nNome: " + data.nome + "\nEmail: " + data.email + "\nTelefono: " + data.telefono + "\nNote: " + data.note
+    });
+  } catch (e) {
+    Logger.log("Errore invio email: " + e.toString());
+  }
+}
