@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suprema Future X | X-Box Control Room ERP</title>
+    <title>Suprema Future X | X-Box ERP Control Room</title>
     
     <!-- Fogli di Stile Separati -->
     <link rel="stylesheet" href="css/stile-globale.css">
@@ -16,17 +16,7 @@
 </head>
 <body class="sfondo-argento-antichizzato">
 
-    <!-- CONTROLLO DI SICUREZZA DI SISSIONE (REDIRECT AUTOMATICO) -->
-    <script>
-        (function() {
-            const token = sessionStorage.getItem('SFX_TOKEN_AUTENTICAZIONE');
-            if (!token) {
-                window.location.href = 'login.html';
-            }
-        })();
-    </script>
-
-    <!-- BARRA DI NAVIGAZIONE UNIVERSALE (FIXED TOP) -->
+    <!-- BARRA DI NAVIGAZIONE UNIVERSALE MULTI-PAGINA (FIXED TOP) -->
     <nav class="barra-universale" aria-label="Navigazione Principale">
         <div class="nav-pulsanti-container">
             <button class="btn-nav-univ" onclick="history.back()">← INDIETRO</button>
@@ -37,154 +27,128 @@
         </div>
     </nav>
 
-    <!-- HEADER ERP CON LIVE STATUS -->
-    <header class="header-principale" style="padding-top: 80px;">
+    <!-- HEADER ERP CONTROL ROOM -->
+    <header class="header-principale">
         <div class="logo-container-3d">
-            <img src="assets/icons/logo-sfx.png" alt="SFX Logo" class="logo-sfx-hd" style="max-width: 100px;">
+            <img src="assets/icons/logo-sfx.png" alt="Suprema Future X Logo" class="logo-sfx-hd" id="logo-sfx-admin">
         </div>
+        <h1 class="slogan-brand">X-BOX ERP // CONTROL ROOM DIREZIONALE</h1>
+        <p class="motto-subtle">SISTEMA DI CRITTOGRAFIA ED AMMINISTRAZIONE EAL6+</p>
 
-        <h1 class="slogan-brand">X-BOX CONTROL ROOM ERP</h1>
-        <p class="motto-subtle">PLANCIA GESTIONALE AZIENDALE // OPERATORE: <span id="operatore-ruolo" style="color: var(--ciano-neon);">ADMIN_OPERATOR</span></p>
-
-        <!-- BARRA DI STATO CONTROL ROOM -->
-        <div class="barra-stato-interattiva" style="margin-top: 15px;">
+        <div class="barra-stato-interattiva">
             <div class="stato-led-container">
                 <span class="led-pulsante verde"></span>
-                <span class="testo-stato">ERP SYNC: ATTIVO</span>
+                <span class="testo-stato">PANNELLO OPERATIVO ONLINE</span>
             </div>
             <div class="latenza-container">
-                <span>CANALE LIVE: </span>
-                <span style="color: var(--verde-online); font-weight:700;">BroadcastChannel OK</span>
+                <span class="label-latenza">OPERATORE:</span>
+                <span class="valore-latenza">ADMIN MASTER</span>
             </div>
-            <button class="btn-azione-3d argento" onclick="eseguiLogout()" style="padding: 4px 10px; font-size: 0.7rem;">[ DISCONNESSIONE ]</button>
         </div>
     </header>
 
-    <!-- MAIN CONTENT - MODULI GESTIONALI ERP -->
+    <!-- MAIN CONTENT - PANNELLO DI CONTROLLO ERP -->
     <main class="contenitore-principale">
 
-        <!-- MODULO 1: TELEMETRIA & METRICHE IN TEMPO REALE -->
+        <!-- MODULO 1: AGENTI IA E PROMPTS -->
         <section class="sezione-3d-ovale">
             <div class="scheda-ovale-3d nero-ciano">
-                <h2 class="titolo-sezione-it">1. TELEMETRIA & STATUS OPERATIVO S.R.L.</h2>
-                
-                <div class="griglia-link-social-3d" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                    <div style="background: #121418; padding: 15px; border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.2);">
-                        <span class="motto-subtle">CANDIDATURE CRM</span>
-                        <h3 id="stat-totale-lead" style="color: var(--ciano-neon); font-size: 1.6rem; font-family: var(--font-mono);">28</h3>
+                <h2 class="titolo-sezione-it">MODULO 1: CONFIGURAZIONE PROMPT AGENTI IA</h2>
+                <form id="form-prompts-agenti" onsubmit="event.preventDefault(); inviaPromptAgente();">
+                    <div class="campo-form">
+                        <label for="selettore-agente-ia">Seleziona Agente IA Target:</label>
+                        <select id="selettore-agente-ia" class="selettore-custom-lang">
+                            <option value="ALISON_V3">AG-01: ALISON V3 (Executive Assistant)</option>
+                            <option value="MAILBOT_NEXUS">AG-02: MAILBOT NEXUS (Email Automation)</option>
+                            <option value="TELEGRAM_BOT">AG-03: TELEGRAM BOT (Community Manager)</option>
+                        </select>
                     </div>
 
-                    <div style="background: #121418; padding: 15px; border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.2);">
-                        <span class="motto-subtle">CASSA S.R.L. (52%)</span>
-                        <h3 id="stat-cassa-srl" style="color: var(--oro-imperiale); font-size: 1.6rem; font-family: var(--font-mono);">€ 14.560,00</h3>
+                    <div class="campo-form">
+                        <label for="prompt-agente-testo">Istruzioni / System Prompt:</label>
+                        <textarea id="prompt-agente-testo" rows="4" placeholder="Inserire qui le nuove istruzioni di sistema per l'agente..."></textarea>
                     </div>
 
-                    <div style="background: #121418; padding: 15px; border-radius: 10px; border: 1px solid rgba(0, 255, 102, 0.2);">
-                        <span class="motto-subtle">FLOTTA AGENTI IA</span>
-                        <h3 style="color: var(--verde-online); font-size: 1.6rem; font-family: var(--font-mono);">9 / 9 OPERATIVI</h3>
-                    </div>
-                </div>
+                    <button type="submit" class="btn-azione-3d ciano">[ AGGIORNA PROMPT AGENTE ]</button>
+                </form>
             </div>
         </section>
 
-        <!-- MODULO 2: DATABASE ANAGRAFICHE & CARDS CRM NEXUS -->
+        <!-- MODULO 2: DYNAMIC MEDIA & DOCUMENT ENGINE (FOTO, VIDEO, PDF, SLIDE, TESTI) -->
+        <section class="sezione-3d-ovale">
+            <div class="scheda-ovale-3d argento-oro">
+                <h2 class="titolo-sezione-it">MODULO 2: DYNAMIC MEDIA & DOCUMENT ENGINE</h2>
+                <form id="form-media-engine" onsubmit="event.preventDefault(); window.applicaModificaMedia();">
+                    <div class="campo-form">
+                        <label for="selettore-sezione-media">Sezione Target Ecosistema:</label>
+                        <select id="selettore-sezione-media" class="selettore-custom-lang">
+                            <option value="logo">Logo Principale Ecosistema</option>
+                            <option value="hero">Sezione 1 - Landing Page Hero</option>
+                            <option value="governance">Sezione 2 - Governance & CEO</option>
+                            <option value="chat">Sezione 3 - Chat Alison Avatar</option>
+                            <option value="accademia">Sezione 5 - Accademia Corsi</option>
+                            <option value="vault">CEO Vault - Blueprint & Doc</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="tipo-media-switch">Formato Contenuto:</label>
+                        <select id="tipo-media-switch" class="selettore-custom-lang">
+                            <option value="FOTO">FOTO / LOGO (PNG, JPG, WEBP)</option>
+                            <option value="VIDEO">VIDEO LOOP (MP4, WebM)</option>
+                            <option value="PDF">DOCUMENTO PDF (Visore Sfogliabile)</option>
+                            <option value="SLIDE">PRESENTATION SLIDE (Google Slides / Embed)</option>
+                            <option value="TESTO">DOCUMENTO TESTO / BLUEPRINT (TXT)</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="url-risorsa-media">URL / Link Esterno (Google Drive, YouTube, Web):</label>
+                        <input type="text" id="url-risorsa-media" placeholder="https://...">
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="file-upload-logo">Oppure carica File da PC (Foto, PDF, TXT):</label>
+                        <input type="file" id="file-upload-logo" accept="image/*,.pdf,.txt">
+                    </div>
+
+                    <button type="submit" class="btn-azione-3d oro">[ APPLICA MEDIA & AGGIORNA ECOSISTEMA ]</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- MODULO 3: GESTIONE PUNTI FEDELTÀ E SUPREMA GOLD CARD -->
+        <section class="sezione-3d-ovale">
+            <div class="scheda-ovale-3d tricolore-pass">
+                <h2 class="titolo-sezione-it">MODULO 3: GESTIONE SUPREMA GOLD CARD</h2>
+                <form id="form-gestione-card" onsubmit="event.preventDefault(); accreditaPuntiManuale();">
+                    <div class="campo-form">
+                        <label for="id-card-utente">ID Carta Membro (es. SFX-102030):</label>
+                        <input type="text" id="id-card-utente" required placeholder="SFX-XXXXXX">
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="punti-da-accreditare">Punti da Accreditare / Detrarre:</label>
+                        <input type="number" id="punti-da-accreditare" required placeholder="es. 500">
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="causale-accredito">Causale Operazione:</label>
+                        <input type="text" id="causale-accredito" required placeholder="es. Frequenza Corso Gold">
+                    </div>
+
+                    <button type="submit" class="btn-azione-3d oro">[ ACCREDITA PUNTI ED AGGIORNA LEDGER ]</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- MODULO 4: MONITORAGGIO CRM NEXUS & LEADS -->
         <section class="sezione-3d-ovale">
             <div class="scheda-ovale-3d argento">
-                <h2 class="titolo-sezione-it">2. DATABASE ANAGRAFICHE CRM NEXUS</h2>
-                
-                <div style="margin-bottom: 15px; display: flex; gap: 10px;">
-                    <input type="text" id="filtro-crm-ricerca" placeholder="Cerca per nome, email o Codice NX..." onkeyup="filtraTabellaCRM()" style="flex: 1; padding: 10px; background: #121418; border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; font-family: var(--font-mono); font-size: 0.8rem;">
-                    <button class="btn-azione-3d ciano" onclick="caricaDatiCRM()">[ AGGIORNA DB ]</button>
-                </div>
-
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.75rem; text-align: left;">
-                        <thead>
-                            <tr style="border-bottom: 1px solid var(--oro-imperiale); color: var(--oro-imperiale);">
-                                <th style="padding: 10px;">CODICE NX</th>
-                                <th style="padding: 10px;">NOME / RAGIONE SOCIALE</th>
-                                <th style="padding: 10px;">CONTATTO EMAIL</th>
-                                <th style="padding: 10px;">TELEFONO</th>
-                                <th style="padding: 10px;">NOTIFICHE</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabella-crm-corpo">
-                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                <td style="padding: 10px; color: var(--ciano-neon);">NX-2026-8812</td>
-                                <td style="padding: 10px;">Marco Rossi</td>
-                                <td style="padding: 10px;">m.rossi@azienda.it</td>
-                                <td style="padding: 10px;">+39 335 1234567</td>
-                                <td style="padding: 10px;"><span style="color: var(--verde-online);">INVIATE</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- MODULO 3: DYNAMIC MEDIA ENGINE (GESTIONE FOTO / VIDEO A SCELTA) -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d oro">
-                <h2 class="titolo-sezione-it">3. DYNAMIC MEDIA ENGINE (FOTO / VIDEO LANDING PAGE)</h2>
-                <p class="motto-subtle" style="margin-bottom: 15px;">Seleziona la risorsa multimediale da mostrare in tempo reale nelle sezioni della Landing Page:</p>
-
-                <div class="form-nexus-3d">
-                    <div class="campo-form">
-                        <label for="selettore-sezione-media">Sezione Target *</label>
-                        <select id="selettore-sezione-media" class="selettore-custom-lang" style="width: 100%; padding: 10px;">
-                            <option value="hero">Accoglienza & Hero Brand (sezione-hero)</option>
-                            <option value="governance">Governance & Scheda CEO (sezione-governance)</option>
-                            <option value="chat">Alison Chatbot Avatar (sezione-chat-alison)</option>
-                        </select>
-                    </div>
-
-                    <div class="campo-form">
-                        <label for="tipo-media-switch">Formato Risorsa *</label>
-                        <select id="tipo-media-switch" class="selettore-custom-lang" style="width: 100%; padding: 10px;">
-                            <option value="FOTO">📷 FOTO HD (.webp / .jpg)</option>
-                            <option value="VIDEO">🎥 VIDEO HD IN LOOP (.mp4)</option>
-                        </select>
-                    </div>
-
-                    <div class="campo-form">
-                        <label for="url-risorsa-media">URL File o Cartella Google Drive *</label>
-                        <input type="text" id="url-risorsa-media" placeholder="assets/images/hero-brand.webp oppure URL Drive">
-                    </div>
-
-                    <div class="azioni-sezione">
-                        <button type="button" class="btn-azione-3d oro" onclick="applicaModificaMedia()">[ SALVA & AGGIORNA LANDING PAGE ]</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MODULO 4: PLANCIA INDOTTRINAMENTO AGENTI IA (9 NODI) -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d nero-ciano">
-                <h2 class="titolo-sezione-it">4. INDOTTRINAMENTO FLOTTA AGENTI IA (9 NODI)</h2>
-                
-                <div class="campo-form" style="margin-bottom: 15px;">
-                    <label for="selettore-agente-ia">Seleziona Nodo Agente *</label>
-                    <select id="selettore-agente-ia" class="selettore-custom-lang" style="width: 100%; padding: 10px;" onchange="caricaPromptAgente()">
-                        <option value="AG-01">AG-01 ALISON V3 (Assistente Direzionale)</option>
-                        <option value="AG-02">AG-02 NEXUS CORE (Validatore CRM Leads)</option>
-                        <option value="AG-03">AG-03 ACADEMY TUTOR (Docente & Diplomi EAL6+)</option>
-                        <option value="AG-04">AG-04 GOLD ENGINE (Gestore Loyalty 6 Gradi)</option>
-                        <option value="AG-05">AG-05 TREASURY SPLIT (Calcolatore 52/48%)</option>
-                        <option value="AG-06">AG-06 MEDIA DISPATCHER (Dynamic Media Controller)</option>
-                        <option value="AG-07">AG-07 SHADOW SENTINEL (Cifratura & Security Audit)</option>
-                        <option value="AG-08">AG-08 SOCIAL PUBLISHER (Schedulatore Post)</option>
-                        <option value="AG-09">AG-09 VAULT GUARDIAN (Protocollo Backup CEO)</option>
-                    </select>
-                </div>
-
-                <div class="campo-form">
-                    <label for="prompt-sistema-agente">System Prompt & Direttive di Comportamento *</label>
-                    <textarea id="prompt-sistema-agente" rows="5" style="width: 100%; background: #121418; border: 1px solid rgba(0,240,255,0.2); color: #fff; padding: 10px; font-family: var(--font-mono); font-size: 0.8rem; border-radius: 8px;"></textarea>
-                </div>
-
-                <div class="azioni-sezione">
-                    <button type="button" class="btn-azione-3d ciano" onclick="salvaPromptAgente()">[ AGGIORNA SYSTEM PROMPT AGENTE ]</button>
+                <h2 class="titolo-sezione-it">MODULO 4: REGISTRO CANDIDATURE CRM NEXUS</h2>
+                <div class="tabella-contenitore-3d">
+                    <p class="motto-subtle">I dati dei Lead accreditati vengono sincronizzati in tempo reale con il foglio Google CRM_Leads_Nexus e notificati via Email / Telegram API.</p>
+                    <button class="btn-azione-3d ciano" onclick="location.reload()">[ RICARICA DATI CRM ]</button>
                 </div>
             </div>
         </section>
@@ -193,78 +157,69 @@
 
     <!-- FOOTER -->
     <footer class="footer-principale">
-        <p class="copyright-text">© 2026 SUPREMA FUTURE X S.R.L. // X-BOX CONTROL ROOM ERP</p>
+        <nav class="barra-universale" aria-label="Navigazione Footer">
+            <div class="nav-pulsanti-container">
+                <button class="btn-nav-univ" onclick="history.back()">← INDIETRO</button>
+                <button class="btn-nav-univ" onclick="history.forward()">AVANTI →</button>
+                <a href="index.html" class="btn-nav-univ">🌐 LANDING PAGE</a>
+                <a href="admin.html" class="btn-nav-univ attivo">⚙️ X-BOX ERP</a>
+                <a href="vault.html" class="btn-nav-univ oro">🔐 CEO VAULT</a>
+            </div>
+        </nav>
+        <p class="copyright-text">© 2026 SUPREMA FUTURE X S.R.L. // CONTROL ROOM ADMIN // EAL6+ ENCRYPTED</p>
     </footer>
 
-    <!-- CONTROLLER JAVASCRIPT -->
+    <!-- CONTROLLER JAVASCRIPT SEPARATI -->
     <script src="js/connettore-api.js"></script>
     <script src="js/navigazione.js"></script>
+    <script src="js/carta-oro.js"></script>
+    <script src="js/chat-alison.js"></script>
+    <script src="js/moduli-crm.js"></script>
+    <script src="js/gestore-media.js"></script>
 
+    <!-- SCRIPT OPERATIVI PER IL PANNELLO ADMIN -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            caricaPromptAgente();
-        });
+        async function inviaPromptAgente() {
+            const agente = document.getElementById('selettore-agente-ia').value;
+            const promptTesto = document.getElementById('prompt-agente-testo').value;
 
-        function eseguiLogout() {
-            sessionStorage.removeItem('SFX_TOKEN_AUTENTICAZIONE');
-            sessionStorage.removeItem('SFX_RUOLO_ATTIVO');
-            window.location.href = 'login.html';
-        }
-
-        function filtraTabellaCRM() {
-            const query = document.getElementById('filtro-crm-ricerca').value.toLowerCase();
-            const righe = document.querySelectorAll('#tabella-crm-corpo tr');
-            
-            righe.forEach(riga => {
-                const testo = riga.textContent.toLowerCase();
-                riga.style.display = testo.includes(query) ? '' : 'none';
-            });
-        }
-
-        async function caricaDatiCRM() {
-            const risposta = await ConnettoreApi.invia('OTTIENI_DATABASE_CRM', {});
-            if (risposta && risposta.leads) {
-                console.log("[X-BOX ERP]: Database CRM aggiornato.", risposta.leads);
+            if (!promptTesto.trim()) {
+                alert("Inserire il testo del prompt prima di inviare.");
+                return;
             }
+
+            if (typeof ConnettoreApi !== 'undefined') {
+                await ConnettoreApi.invia('AGGIORNA_PROMPT_AGENTE', {
+                    codiceAgente: agente,
+                    prompt: promptTesto
+                });
+            }
+
+            alert(`PROMPT AGGIORNATO CON SUCCESSO!\n\nAgente Target: ${agente}\nStato: Sincronizzato sul foglio Agent_Prompts.`);
+            document.getElementById('prompt-agente-testo').value = '';
         }
 
-        function applicaModificaMedia() {
-            const sezione = document.getElementById('selettore-sezione-media').value;
-            const formato = document.getElementById('tipo-media-switch').value;
-            const url = document.getElementById('url-risorsa-media').value;
+        async function accreditaPuntiManuale() {
+            const idCard = document.getElementById('id-card-utente').value;
+            const punti = parseInt(document.getElementById('punti-da-accreditare').value) || 0;
+            const causale = document.getElementById('causale-accredito').value;
 
-            ConnettoreApi.invia('AGGIORNA_CONFIGURAZIONE_MEDIA', {
-                sezione: sezione,
-                formato: formato,
-                url: url
-            }).then(() => {
-                alert(`DYNAMIC MEDIA ENGINE AGGIORNATO!\n\nSezione Target: ${sezione}\nFormato: ${formato}\nURL: ${url}`);
-            });
-        }
+            if (!idCard || punti === 0) {
+                alert("Inserire un ID Carta valido e un ammontare di punti.");
+                return;
+            }
 
-        const PROMPTS_DEFAULT = {
-            'AG-01': "Sei Alison v3, l'assistente conversazionale direzionale di Suprema Future X. Rispondi con tono professionale, autorevole e conciso.",
-            'AG-02': "Sei Nexus Core. Valida i dati dei lead CRM, attribuisci il Codice NX e innesca le notifiche multi-canale (Email, WhatsApp, Telegram).",
-            'AG-07': "Sei Shadow Sentinel. Monitora gli accessi EAL6+ e garantisci l'assenza di credenziali nei file pubblici."
-        };
+            if (typeof ConnettoreApi !== 'undefined') {
+                await ConnettoreApi.invia('AGGIORNA_PUNTI_FEDELTA', {
+                    idCarta: idCard,
+                    puntiAggiunti: punti,
+                    puntiTotali: punti,
+                    causale: causale
+                });
+            }
 
-        function caricaPromptAgente() {
-            const codice = document.getElementById('selettore-agente-ia').value;
-            const areaPrompt = document.getElementById('prompt-sistema-agente');
-            areaPrompt.value = PROMPTS_DEFAULT[codice] || `Sei l'agente ${codice} dell'ecosistema Suprema Future X. Esegui i compiti assegnati con massima precisione.`;
-        }
-
-        function salvaPromptAgente() {
-            const codice = document.getElementById('selettore-agente-ia').value;
-            const nuovoPrompt = document.getElementById('prompt-sistema-agente').value;
-
-            ConnettoreApi.invia('AGGIORNA_PROMPT_AGENTE', {
-                codiceAgente: codice,
-                prompt: nuovoPrompt
-            }).then(() => {
-                PROMPTS_DEFAULT[codice] = nuovoPrompt;
-                alert(`PROMPT AGENTE ${codice} AGGIORNATO CON SUCCESSO!`);
-            });
+            alert(`ACCREDITO REGISTRATO CON SUCCESSO!\n\nID Carta: ${idCard}\nPunti: +${punti}\nCausale: ${causale}`);
+            document.getElementById('form-gestione-card').reset();
         }
     </script>
 </body>
