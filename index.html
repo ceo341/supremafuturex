@@ -9,147 +9,492 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* STILI GRAFICI DEDICATI - COLORI NATIVI (NO ROSSO) CON LUCI FLUORESCENTI 3D */
+        :root {
+            --ciano-neon: #00f3ff;
+            --oro-imperiale: #ffd700;
+            --argento-platinato: #e0e0e0;
+            --sfondo-scuro: #0a0b0e;
+            --antracite-3d: #12151c;
+        }
+
+        body.sfondo-effetto-luce {
+            background-color: var(--sfondo-scuro);
+            color: var(--argento-platinato);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* LED FLUORESCENTE DINAMICO TRA LE SEZIONI (SWEEP AVANTI/INDIETRO) */
+        @keyframes ledFluorescenteSweep {
+            0% { background-position: 0% 50%; box-shadow: 0 0 10px var(--ciano-neon); }
+            50% { background-position: 100% 50%; box-shadow: 0 0 25px var(--oro-imperiale), 0 0 15px var(--ciano-neon); }
+            100% { background-position: 0% 50%; box-shadow: 0 0 10px var(--ciano-neon); }
+        }
+
+        .divisore-led-fluorescente {
+            height: 4px;
+            width: 85%;
+            margin: 45px auto;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--ciano-neon), var(--oro-imperiale), var(--argento-platinato), var(--ciano-neon));
+            background-size: 300% 300%;
+            animation: ledFluorescenteSweep 4s ease-in-out infinite;
+        }
+
+        /* HEADER E BRANDING */
+        .header-principale-sfx {
+            text-align: center;
+            padding: 30px 15px 15px 15px;
+            position: relative;
+        }
+
+        .logo-sfx-interattivo {
+            max-width: 180px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .logo-sfx-interattivo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.7));
+        }
+
+        .slogan-ufficiale {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--argento-platinato);
+            letter-spacing: 2px;
+            margin: 10px 0 5px 0;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .motto-system {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--oro-imperiale);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        /* BARRA DI STATO E MENU HAMBURGER */
+        .barra-stato-interattiva-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(18, 21, 28, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 25px;
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+        }
+
+        .btn-hamburger-toggle {
+            background: transparent;
+            border: 1px solid var(--oro-imperiale);
+            color: var(--oro-imperiale);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hamburger-toggle:hover {
+            background: var(--oro-imperiale);
+            color: var(--sfondo-scuro);
+            box-shadow: 0 0 15px var(--oro-imperiale);
+        }
+
+        /* PANNELLO HAMBURGER DROPDOWN */
+        .menu-hamburger-dropdown {
+            display: none;
+            position: fixed;
+            top: 75px;
+            left: 5%;
+            width: 90%;
+            max-width: 1100px;
+            background: rgba(10, 11, 14, 0.95);
+            border: 2px solid var(--ciano-neon);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+            z-index: 1001;
+        }
+
+        .menu-hamburger-dropdown.attivo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .voce-menu-hb {
+            display: block;
+            padding: 12px 18px;
+            background: rgba(18, 21, 28, 0.9);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            color: var(--argento-platinato);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .voce-menu-hb:hover {
+            border-color: var(--ciano-neon);
+            color: var(--ciano-neon);
+            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
+        }
+
+        /* SEZIONI OVALI 3D AD ALTERNANZA CROMATICA */
+        .sezione-ovale-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+
+        .scheda-ovale-3d {
+            border-radius: 35px;
+            padding: 35px;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .scheda-ovale-3d:hover {
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        /* ALTERNANZA CROMATICA INTERSECATA */
+        .ovale-argento-oro {
+            background: linear-gradient(135deg, rgba(224, 224, 224, 0.05) 0%, rgba(255, 215, 0, 0.08) 100%);
+            border: 2px solid var(--oro-imperiale);
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .ovale-nero-ciano {
+            background: linear-gradient(135deg, rgba(18, 21, 28, 0.95) 0%, rgba(0, 243, 255, 0.08) 100%);
+            border: 2px solid var(--ciano-neon);
+            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.1), 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .ovale-ciano-oro {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid var(--argento-platinato);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.25);
+        }
+
+        .titolo-sezione-ufficiale {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-top: 0;
+            color: var(--argento-platinato);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        /* MODALE MULTILINGUE ENGINE */
+        .modale-multilingue-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modale-multilingue-contenuto {
+            background: var(--antracite-3d);
+            border: 2px solid var(--oro-imperiale);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 30px var(--oro-imperiale);
+        }
+    </style>
 </head>
-<body class="sfondo-argento-antichizzato">
+<body class="sfondo-effetto-luce">
 
-    <!-- BARRA DI NAVIGAZIONE UNIVERSALE -->
-    <nav class="barra-universale" aria-label="Navigazione Principale">
-        <div class="nav-pulsanti-container">
-            <button class="btn-nav-univ" onclick="history.back()">← INDIETRO</button>
-            <button class="btn-nav-univ" onclick="history.forward()">AVANTI →</button>
-            <a href="index.html" class="btn-nav-univ attivo">🌐 LANDING PAGE</a>
-            <a href="admin.html" class="btn-nav-univ">⚙️ X-BOX ERP</a>
-            <a href="vault.html" class="btn-nav-univ oro">🔐 CEO VAULT</a>
-        </div>
-    </nav>
-
-    <!-- HEADER LANDING PAGE -->
-    <header class="header-principale">
-        <div class="logo-container-3d">
-            <img src="attività/logo-sfx.png" alt="Suprema Future X Logo" class="logo-sfx-hd" id="logo-sfx-main">
-        </div>
-        <h1 class="slogan-brand">SUPREMA FUTURE X</h1>
-        <p class="motto-subtle">ECOSISTEMA NATIVO DIGITALE // ARCHITETTURA IBRIDA EAL6+</p>
-        <div class="barra-stato-interattiva">
-            <div class="stato-led-container">
-                <span class="led-pulsante verde"></span>
-                <span class="testo-stato">ECOSISTEMA OPERATIVO</span>
-            </div>
-            <div class="latenza-container">
-                <span class="label-latenza">BACKEND STATUS:</span>
-                <span class="valore-latenza">GOOGLE APPS SCRIPT LIVE</span>
-            </div>
-        </div>
+    <!-- HEADER INTEGRATO -->
+    <header class="header-principale-sfx">
+        <!-- LOGO SFX CON DETECTOR STEALTH CLICK (2 Click = Vault, 3 Click = ERP) -->
+        <img src="attività/logo-sfx.png" alt="Suprema Future X Logo" class="logo-sfx-interattivo" id="logo-sfx-main" title="Suprema Future X">
+        
+        <h1 class="slogan-ufficiale">Insieme guidiamo il tuo domani</h1>
+        <div class="motto-system">(DREAM DEFENSE SYSTEM)</div>
     </header>
 
-    <!-- MAIN CONTENT - SEZIONI LANDING PAGE -->
-    <main class="contenitore-principale">
+    <!-- BARRA DI STATO INTERATTIVA E TRIGGER HAMBURGER -->
+    <nav class="barra-stato-interattiva-top">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="height: 10px; width: 10px; background-color: var(--ciano-neon); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--ciano-neon);"></span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--argento-platinato);">SERVER: ONLINE EAL6+ | LATENZA: 12ms</span>
+        </div>
 
-        <!-- SEZIONE 1: HERO DISPLAY -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d argento-oro">
-                <h2 class="titolo-sezione-it">FUTURE VISION & INNOVAZIONE</h2>
-                <div class="media-container-3d">
-                    <img src="attività/hero-placeholder.png" alt="Hero Display" class="immagine-dinamica-3d" id="media-hero-display">
+        <button class="btn-hamburger-toggle" onclick="toggleMenuHamburger()">MENU SUPREMA ☰</button>
+    </nav>
+
+    <!-- MENU HAMBURGER DROPDOWN CON TIMEOUT AUTO-CHIUSURA A 15 SECONDI -->
+    <div class="menu-hamburger-dropdown" id="main-hamburger">
+        <a href="#sezione-1" class="voce-menu-hb" onclick="chiudiMenuHamburger()">🏠 HOME & LANDING PAGE</a>
+        <a href="#sezione-2" class="voce-menu-hb" onclick="chiudiMenuHamburger()">👑 CHIAMATE DIREZIONALE E RICHIAMO CEO</a>
+        <a href="#sezione-3" class="voce-menu-hb" onclick="chiudiMenuHamburger()">🤖 ASSISTENTE ALISON V3 & CHATBOT</a>
+        <a href="#sezione-4" class="voce-menu-hb" onclick="chiudiMenuHamburger()">🔔 CANDIDATURA & NOTIFICATORE CRM</a>
+        <a href="#sezione-5" class="voce-menu-hb" onclick="chiudiMenuHamburger()">🎓 ACCADEMIA CORSI & INVESTIMENTI</a>
+        <a href="#sezione-6" class="voce-menu-hb" onclick="chiudiMenuHamburger()">💳 BOUTIQUE, SUMUP & GOLD CARD</a>
+        <a href="#sezione-7" class="voce-menu-hb" onclick="chiudiMenuHamburger()">📲 CENTRO MEDIA & COMMUNITY SOCIAL</a>
+        <a href="javascript:void(0)" class="voce-menu-hb" onclick="apriModaleMultilingue()">🌐 ENGINE MULTILINGUE GOOGLE API</a>
+        <a href="#sezione-5" class="voce-menu-hb" onclick="chiudiMenuHamburger()">⏰ SCADENZARIO PAGAMENTI & PROMEMORIA</a>
+        <a href="#sezione-4" class="voce-menu-hb" onclick="chiudiMenuHamburger()">✉️ CONTATTI DIRECT NEXUS</a>
+    </div>
+
+    <!-- CONTENUTO PRINCIPALE - 8 SEZIONI DELL'ECOSISTEMA -->
+    <main style="margin-top: 30px;">
+
+        <!-- SEZIONE 1 -->
+        <section id="sezione-1" class="sezione-ovale-container">
+            <div class="scheda-ovale-3d ovale-argento-oro">
+                <h2 class="titolo-sezione-ufficiale">SEZIONE 1: IDENTITÀ VISIVA, LOGO, SLOGAN E BARRA DI STATO INTERATTIVA</h2>
+                <div class="media-container-3d" style="text-align: center; margin: 20px 0;">
+                    <img src="attività/hero-placeholder.png" alt="Hero Display" class="immagine-dinamica-3d" id="media-hero-display" style="max-width: 100%; border-radius: 15px; border: 1px solid var(--oro-imperiale);">
                 </div>
                 <p class="descrizione-sezione">Ecosistema integrato per la gestione avanzata di contatti CRM, tessere di fedeltà Gold Card e automazioni IA direzionali.</p>
             </div>
         </section>
 
-        <!-- SEZIONE 2: GOVERNANCE CEO -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d nero-ciano">
-                <h2 class="titolo-sezione-it">GOVERNANCE & DIREZIONE GENERALE</h2>
-                <div class="media-container-3d">
-                    <img src="attività/ceo-placeholder.png" alt="Governance CEO Display" class="immagine-dinamica-3d" id="media-ceo-display">
+        <!-- LUCE LED FLUORESCENTE INTERSECATA SWEEP -->
+        <div class="divisore-led-fluorescente"></div>
+
+        <!-- SEZIONE 2 -->
+        <section id="sezione-2" class="sezione-ovale-container">
+            <div class="scheda-ovale-3d ovale-nero-ciano">
+                <h2 class="titolo-sezione-ufficiale">SEZIONE 2: CHIAMATE DIREZIONALE E RICHIAMO CEO</h2>
+                <div class="media-container-3d" style="text-align: center; margin: 20px 0;">
+                    <img src="attività/ceo-placeholder.png" alt="Governance CEO Display" class="immagine-dinamica-3d" id="media-ceo-display" style="max-width: 100%; border-radius: 15px; border: 1px solid var(--ciano-neon);">
                 </div>
-                <p class="descrizione-sezione">Controllo totale degli asset, pianificazione finanziaria Mediolanum e ripartizione dividendi cifrata tramite Vault.</p>
+                <p class="descrizione-sezione">Controllo totale degli asset, pianificazione finanziaria e ripartizione dividendi cifrata tramite Vault.</p>
+                <button class="btn-azione-3d oro" style="background: transparent; border: 1px solid var(--oro-imperiale); color: var(--oro-imperiale); padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold;" onclick="richiediAccreditoDirezionale()">[ RICHIEDI ACCREDITO DIREZIONALE ]</button>
             </div>
         </section>
 
-        <!-- SEZIONE 3: ALISON IA -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d ciano">
-                <h2 class="titolo-sezione-it">ALISON V3 // EXECUTIVE AI ASSISTANT</h2>
-                <div class="media-container-3d">
-                    <img src="attività/alison-avatar.png" alt="Alison IA Avatar" class="immagine-dinamica-3d" id="media-alison-display">
+        <!-- LUCE LED FLUORESCENTE INTERSECATA SWEEP -->
+        <div class="divisore-led-fluorescente"></div>
+
+        <!-- SEZIONE 3 -->
+        <section id="sezione-3" class="sezione-ovale-container">
+            <div class="scheda-ovale-3d ovale-ciano-oro">
+                <h2 class="titolo-sezione-ufficiale">SEZIONE 3: ASSISTENTE ALISON V3 E RICHIAMO CHATBOT</h2>
+                <div class="media-container-3d" style="text-align: center; margin: 20px 0;">
+                    <img src="attività/alison-avatar.png" alt="Alison IA Avatar" class="immagine-dinamica-3d" id="media-alison-display" style="max-width: 220px; border-radius: 50%; border: 2px solid var(--ciano-neon); box-shadow: 0 0 20px var(--ciano-neon);">
                 </div>
-                <div class="chat-container-3d">
-                    <div id="chat-cronologia" class="chat-finestra-messaggi">
-                        <div class="messaggio-ia">
-                            <strong>ALISON V3:</strong> Benvenuto nell'ecosistema Suprema Future X. Come posso assisterti oggi?
-                        </div>
+                <div class="chat-container-3d" style="background: rgba(10, 11, 14, 0.8); padding: 20px; border-radius: 15px; border: 1px solid var(--ciano-neon);">
+                    <div id="chat-cronologia" style="min-height: 80px; margin-bottom: 15px;">
+                        <div style="color: var(--ciano-neon); font-family: 'JetBrains Mono', monospace;"><strong>ALISON V3:</strong> Benvenuto nell'ecosistema Suprema Future X. Come posso assisterti oggi?</div>
                     </div>
-                    <form id="form-chat-alison" onsubmit="event.preventDefault(); inviaMessaggioAlison();" class="chat-input-form">
-                        <input type="text" id="chat-input-testo" placeholder="Poni una domanda ad Alison..." required>
-                        <button type="submit" class="btn-azione-3d ciano">[ INVIA ]</button>
+                    <form id="form-chat-alison" onsubmit="event.preventDefault(); inviaMessaggioAlison();" style="display: flex; gap: 10px;">
+                        <input type="text" id="chat-input-testo" placeholder="Poni una domanda ad Alison..." required style="flex: 1; padding: 12px; background: #12151c; border: 1px solid var(--argento-platinato); color: white; border-radius: 8px;">
+                        <button type="submit" style="background: var(--ciano-neon); color: #000; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">[ INVIA ]</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- SEZIONE 4: GOLD CARD -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d tricolore-pass">
-                <h2 class="titolo-sezione-it">SUPREMA GOLD CARD // PRIVILEGE CLUB</h2>
-                <div class="media-container-3d">
-                    <img src="attività/suprema-gold-card.png" alt="Suprema Gold Card" class="immagine-dinamica-3d" id="media-goldcard-display">
-                </div>
-                <p class="motto-subtle">Consulta lo stato dei tuoi punti fedeltà e il grado associato alla tua tessera membro.</p>
-                <form id="form-verifica-card" onsubmit="event.preventDefault(); verificaStatoCarta();" class="form-standard-3d">
-                    <div class="campo-form">
-                        <label for="input-id-card">Inserisci ID Carta (es. SFX-102030):</label>
-                        <input type="text" id="input-id-card" placeholder="SFX-XXXXXX" required>
-                    </div>
-                    <button type="submit" class="btn-azione-3d oro">[ VERIFICA LEDGER GOLD CARD ]</button>
-                </form>
-                <div id="risultato-card-display" class="riquadro-risultato-hidden"></div>
-            </div>
-        </section>
+        <!-- LUCE LED FLUORESCENTE INTERSECATA SWEEP -->
+        <div class="divisore-led-fluorescente"></div>
 
-        <!-- SEZIONE 5: ACCADEMIA -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d argento">
-                <h2 class="titolo-sezione-it">ACCADEMIA CORSI & BLUEPRINT STRATEGICI</h2>
-                <div id="contenuto-subpagina-dinamica" class="contenitore-subpagina-3d">
-                    <p class="descrizione-sezione">Seleziona dal pannello Admin o consulta qui i documenti ufficiali, i PDF dell'accademia e le slide informative.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SEZIONE 6: CRM CANDIDATURA -->
-        <section class="sezione-3d-ovale">
-            <div class="scheda-ovale-3d nero-ciano">
-                <h2 class="titolo-sezione-it">CANDIDATURA & ADMISSION NEXUS</h2>
-                <form id="form-crm-nexus" onsubmit="event.preventDefault(); registraLeadCrmNexus();" class="form-standard-3d">
-                    <div class="campo-form">
-                        <label for="crm-nome">Nome / Ragione Sociale:</label>
-                        <input type="text" id="crm-nome" required placeholder="Inserisci il tuo nome intero">
+        <!-- SEZIONE 4 -->
+        <section id="sezione-4" class="sezione-ovale-container">
+            <div class="scheda-ovale-3d ovale-argento-oro">
+                <h2 class="titolo-sezione-ufficiale">SEZIONE 4: CANDIDATURA, NOTIFICATORE MULTI-CANALE</h2>
+                <form id="form-crm-nexus" onsubmit="event.preventDefault(); registraLeadCrmNexus();" style="display: grid; gap: 15px; margin-top: 15px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Nome / Ragione Sociale:</label>
+                        <input type="text" id="crm-nome" required placeholder="Inserisci il tuo nome intero" style="width: 100%; padding: 10px; background: #12151c; border: 1px solid var(--oro-imperiale); color: white; border-radius: 6px; box-sizing: border-box;">
                     </div>
-                    <div class="campo-form">
-                        <label for="crm-email">Indirizzo Email Ufficiale:</label>
-                        <input type="email" id="crm-email" required placeholder="nome@dominio.com">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Indirizzo Email Ufficiale:</label>
+                        <input type="email" id="crm-email" required placeholder="nome@dominio.com" style="width: 100%; padding: 10px; background: #12151c; border: 1px solid var(--oro-imperiale); color: white; border-radius: 6px; box-sizing: border-box;">
                     </div>
-                    <div class="campo-form">
-                        <label for="crm-telefono">Recapito Telefonico:</label>
-                        <input type="tel" id="crm-telefono" required placeholder="+39 333 0000000">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Recapito Telefonico:</label>
+                        <input type="tel" id="crm-telefono" required placeholder="+39 333 0000000" style="width: 100%; padding: 10px; background: #12151c; border: 1px solid var(--oro-imperiale); color: white; border-radius: 6px; box-sizing: border-box;">
                     </div>
-                    <div class="campo-form">
-                        <label for="crm-note">Note / Profilo Candidatura:</label>
-                        <textarea id="crm-note" rows="3" placeholder="Descrivi brevemente la tua richiesta o progetto..."></textarea>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Note / Profilo Candidatura:</label>
+                        <textarea id="crm-note" rows="3" placeholder="Descrivi brevemente la tua richiesta..." style="width: 100%; padding: 10px; background: #12151c; border: 1px solid var(--oro-imperiale); color: white; border-radius: 6px; box-sizing: border-box;"></textarea>
                     </div>
-                    <button type="submit" class="btn-azione-3d ciano">[ INVIA CANDIDATURA CRM NEXUS ]</button>
+                    <button type="submit" style="background: var(--oro-imperiale); color: #000; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">[ INVIA CANDIDATURA CRM NEXUS ]</button>
                 </form>
             </div>
         </section>
+
+        <!-- LUCE LED FLUORESCENTE INTERSECATA SWEEP -->
+        <div class="divisore-led-fluorescente"></div>
+
+        <!-- SEZIONE 5 -->
+        <section id="sezione-5" class="sezione-ovale-container">
+            <div class="scheda-ovale-3d ovale-nero-ciano">
+                <h2 class="titolo-sezione-ufficiale">SEZIONE 5: ACCADEMIA DI ALTA FORMAZIONE, CORSI SUPREMA .INVESTIMENTI CRESCITA</h2>
+                <div id="contenuto-subpagina-dinamica" style="padding: 15px; background: rgba(18, 21, 28, 0.6); border-radius: 12px; margin-top: 15px;">
+                    <p class="descrizione-sezione">Seleziona dal pannello Admin o consulta qui i documenti ufficiali, i PDF dell'accademia e le slide informative sui percorsi Silver, Gold e Premium.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LUCE LED FLUORESCENTE INTERSECATA SWEEP -->
+        <div class="divisore-led-fluorescente"></div>
+
+        <!-- SEZIONE 6 -->
+        <section id="sezione-6" class="sezione-ovale-container">
+            <div class="scheda-ovale-3d ovale-ciano-oro">
+                <h2 class="titolo-sezione-ufficiale">SEZIONE 6: BOUTIQUE DI LUSSO, PAYMENT GATEWAY MULTI-CANALE E GOLD CARD 6 GRADI</h2>
+                <div class="media-container-3d" style="text-align: center; margin: 20px 0;">
+                    <img src="attività/suprema-gold-card.png" alt="Suprema Gold Card" class="immagine-dinamica-3d" id="media-goldcard-display" style="max-width: 300px; border-radius: 15px; border: 1px solid var(--oro-imperiale); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">
+                </div>
+                <form id="form-verifica-card" onsubmit="event.preventDefault(); verificaStatoCarta();" style="display: flex; gap: 10px; margin-top: 15px;">
+                    <input type="text" id="input-id-card" placeholder="SFX-XXXXXX" required style="flex: 1; padding: 12px; background: #12151c; border: 1px solid var(--oro-imperiale); color: white; border-radius: 8px;">
+                    <button type="submit" style="background: transparent; border: 1px solid var(--oro-imperiale); color: var(--oro-imperiale); padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">[ VERIFICA CARD ]</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- LUCE LED FLUORESCENTE INTERSECATA SWEEP -->
+        <div class="divisore-led-fluorescente"></div>
+
+        <!-- SEZIONE 7 -->
+        <section id="sezione-7" class="sezione-ovale-container">
+            <div class="scheda-ovale-3d ovale-argento-oro">
+                <h2 class="titolo-sezione-ufficiale">SEZIONE 7: CENTRO MEDIA E SOCIAL COMMUNITY</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <a href="https://www.instagram.com/supremafuturex" target="_blank" style="padding: 15px; background: #12151c; border: 1px solid var(--ciano-neon); color: var(--argento-platinato); text-decoration: none; text-align: center; border-radius: 10px; font-weight: bold;">INSTAGRAM</a>
+                    <a href="https://www.facebook.com/supremafuturex" target="_blank" style="padding: 15px; background: #12151c; border: 1px solid var(--ciano-neon); color: var(--argento-platinato); text-decoration: none; text-align: center; border-radius: 10px; font-weight: bold;">FACEBOOK</a>
+                    <a href="https://www.youtube.com/@supremafuturex" target="_blank" style="padding: 15px; background: #12151c; border: 1px solid var(--ciano-neon); color: var(--argento-platinato); text-decoration: none; text-align: center; border-radius: 10px; font-weight: bold;">YOUTUBE</a>
+                    <a href="https://www.tiktok.com/@supremafuturex" target="_blank" style="padding: 15px; background: #12151c; border: 1px solid var(--ciano-neon); color: var(--argento-platinato); text-decoration: none; text-align: center; border-radius: 10px; font-weight: bold;">TIKTOK</a>
+                    <a href="https://www.linkedin.com/company/supremafuturex" target="_blank" style="padding: 15px; background: #12151c; border: 1px solid var(--ciano-neon); color: var(--argento-platinato); text-decoration: none; text-align: center; border-radius: 10px; font-weight: bold;">LINKEDIN</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 8 STEALTH BACKEND ROUTING (NESSUNA CARD PUBBLICA VISIBILE) -->
 
     </main>
 
-    <footer class="footer-principale">
-        <p class="copyright-text">© 2026 SUPREMA FUTURE X S.R.L. // TUTTI I DIRITTI RISERVATI // PROTOCOLLO EAL6+</p>
+    <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px;">
+        <p style="font-size: 0.8rem; color: var(--argento-platinato); font-family: 'JetBrains Mono', monospace;">© 2026 SUPREMA FUTURE X S.R.L. // TUTTI I DIRITTI RISERVATI // PROTOCOLLO EAL6+</p>
     </footer>
 
-    <!-- SCRIPT OPERATIVI -->
+    <!-- MODALE FALLBACK MULTILINGUE ENGINE -->
+    <div class="modale-multilingue-overlay" id="modale-multilingue">
+        <div class="modale-multilingue-contenuto">
+            <h3 style="color: var(--oro-imperiale); margin-top: 0;">INTEGRAZIONE MULTILINGUE</h3>
+            <p style="font-size: 0.9rem; line-height: 1.5;">Integrazione API Google Translate richiesta.<br>Inserire API Key nel pannello X-Box per attivare il selettore automatico delle lingue.</p>
+            <button onclick="chiudiModaleMultilingue()" style="background: var(--oro-imperiale); color: #000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 15px;">[ HO CAPITO ]</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DI CONTROLLO LOGICA INTERATTIVA (HAMBURGER 15S & STEALTH LOGO CLICK) -->
+    <script>
+        // 1. GESTIONE HAMBURGER MENU CON AUTO-CHIUSURA A 15 SECONDI
+        let hamburgerTimer;
+
+        function toggleMenuHamburger() {
+            const menu = document.getElementById('main-hamburger');
+            if (menu.classList.contains('attivo')) {
+                chiudiMenuHamburger();
+            } else {
+                menu.classList.add('attivo');
+                resetHamburgerTimer();
+            }
+        }
+
+        function chiudiMenuHamburger() {
+            const menu = document.getElementById('main-hamburger');
+            menu.classList.remove('attivo');
+            clearTimeout(hamburgerTimer);
+        }
+
+        function resetHamburgerTimer() {
+            clearTimeout(hamburgerTimer);
+            hamburgerTimer = setTimeout(chiudiMenuHamburger, 15000);
+        }
+
+        // Reset timer ad ogni movimento o click nel menu
+        const menuHb = document.getElementById('main-hamburger');
+        menuHb.addEventListener('mousemove', resetHamburgerTimer);
+        menuHb.addEventListener('click', resetHamburgerTimer);
+
+        // 2. DETECTOR STEALTH CLICK SUL LOGO SFX
+        // 2 Click = CEO Vault (vault.html) | 3 Click = X-Box ERP (admin.html)
+        let logoClicks = 0;
+        let logoClickTimer;
+
+        document.getElementById('logo-sfx-main').addEventListener('click', function() {
+            logoClicks++;
+            clearTimeout(logoClickTimer);
+            logoClickTimer = setTimeout(() => {
+                if (logoClicks === 2) {
+                    window.location.href = 'vault.html';
+                } else if (logoClicks >= 3) {
+                    window.location.href = 'admin.html';
+                }
+                logoClicks = 0;
+            }, 400);
+        });
+
+        // 3. MODALE MULTILINGUE
+        function apriModaleMultilingue() {
+            chiudiMenuHamburger();
+            document.getElementById('modale-multilingue').style.display = 'flex';
+        }
+
+        function chiudiModaleMultilingue() {
+            document.getElementById('modale-multilingue').style.display = 'none';
+        }
+
+        // FUNZIONI STUB PER CHAT E VERIFICHE
+        function richiediAccreditoDirezionale() {
+            alert("L'ufficio Suprema la contatterà nelle prossime 24 ore per confermare l'accredito.");
+        }
+
+        function inviaMessaggioAlison() {
+            const input = document.getElementById('chat-input-testo');
+            if (!input.value.trim()) return;
+            const cronologia = document.getElementById('chat-cronologia');
+            cronologia.innerHTML += `<div style="color: var(--argento-platinato); margin-top: 5px;"><strong>UTENTE:</strong> ${input.value}</div>`;
+            cronologia.innerHTML += `<div style="color: var(--ciano-neon); margin-top: 5px;"><strong>ALISON V3:</strong> Ho registrato le sue preferenze nei nostri sistemi protetti. L'ufficio Suprema la contatterà nelle prossime 24 ore.</div>`;
+            input.value = '';
+        }
+
+        function registraLeadCrmNexus() {
+            alert("Candidatura registrata con Codice identificativo NX-2026. L'ufficio Suprema la contatterà nelle prossime 24 ore.");
+        }
+
+        function verificaStatoCarta() {
+            const idCard = document.getElementById('input-id-card').value;
+            alert(`Stato Ledger per ${idCard}: VERIFICATO [GRADO 1 // SILVER MEMBER]. Punti accreditati.`);
+        }
+    </script>
+
+    <!-- SCRIPT OPERATIVI BACKEND -->
     <script src="js/connettore-api.js"></script>
     <script src="js/navigazione.js"></script>
     <script src="js/carta-oro.js"></script>
