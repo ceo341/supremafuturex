@@ -82,10 +82,6 @@
                 <li><a href="#sezione-candidatura" onclick="GestoreNavigazione.chiudiMenu()">📝 ACCREDITO CRM NEXUS & CANDIDATURA</a></li>
                 <li><a href="#sezione-boutique-gold" onclick="GestoreNavigazione.chiudiMenu()">💳 SUPREMA GOLD CARD & 6 GRADI</a></li>
                 <li><a href="#sezione-social-community" onclick="GestoreNavigazione.chiudiMenu()">🌐 CANALI SOCIAL UFFICIALI & COMMUNITY</a></li>
-                <li class="separatore-menu"></li>
-                <li><a href="#" onclick="mostraModalitaPagamento()">💳 PAYMENT GATEWAYS (SUMUP, BONIFICO, POSTEPAY, CARTE)</a></li>
-                <li><a href="#" onclick="mostraScadenzarioPagamenti()">⏰ SCADENZARIO PAGAMENTI & PROMEMORIA UTENTI</a></li>
-                <li><a href="#" onclick="mostraModuloNotifiche()">🔔 NOTIFICATORE MULTI-CANALE (EMAIL, WHATSAPP, TELEGRAM)</a></li>
             </ul>
         </div>
     </header>
@@ -98,7 +94,6 @@
             <div class="scheda-ovale-3d argento">
                 <h2 class="titolo-sezione-it">ACCOGLIENZA E IDENTITÀ DI MARCA</h2>
                 
-                <!-- Dynamic Media Engine Container Hero -->
                 <div class="media-container-3d" data-sezione="hero">
                     <img src="assets/images/hero-brand.webp" alt="Suprema Future X Brand" class="media-risorsa-hd" id="media-hero-display">
                 </div>
@@ -118,7 +113,6 @@
             <div class="scheda-ovale-3d oro-invertito">
                 <h2 class="titolo-sezione-it">GOVERNANCE DIREZIONALE E VISIONE CEO</h2>
                 
-                <!-- Dynamic Media Engine Container CEO -->
                 <div class="media-container-3d" data-sezione="governance">
                     <img src="assets/images/ceo-portrait.webp" alt="CEO Suprema Future X" class="media-risorsa-hd" id="media-ceo-display">
                 </div>
@@ -135,7 +129,7 @@
 
                 <div class="azioni-sezione griglia-2">
                     <button class="btn-azione-3d oro" onclick="apriSubPagina('governance-dettagli')">[ SCOPRI LA GOVERNANCE ]</button>
-                    <button class="btn-azione-3d ciano" onclick="richiediAccreditoDirezionale()">[ RICHIEDI ACCREDITO DIREZIONALE ]</button>
+                    <button class="btn-azione-3d ciano" onclick="apriSubPagina('candidatura-requisiti')">[ RICHIEDI ACCREDITO DIREZIONALE ]</button>
                 </div>
             </div>
         </section>
@@ -152,7 +146,7 @@
 
                 <div class="anteprima-chat-box" id="box-chat-anteprima">
                     <div class="messaggio-alison">
-                        <p>Buongioro. Sono Alison, il vostro assistente direzionale. Come posso supportare le vostre decisioni patrimoniali o formative oggi?</p>
+                        <p>Buongiorno. Sono Alison, il vostro assistente direzionale. Come posso supportare le vostre decisioni patrimoniali o formative oggi?</p>
                     </div>
                 </div>
 
@@ -196,7 +190,7 @@
                     </div>
 
                     <div class="autorizzazioni-api-notifiche">
-                        <span class="label-notifica">NOTIFICHE ATTI VATED:</span>
+                        <span class="label-notifica">NOTIFICHE ATTIVATE:</span>
                         <span class="badge-api">📧 Email MailBot</span>
                         <span class="badge-api">📱 WhatsApp API</span>
                         <span class="badge-api">✈️ Telegram Bot API</span>
@@ -216,26 +210,23 @@
                 <h2 class="titolo-sezione-it">ACCADEMIA DI ALTA FORMAZIONE E CRESCITA PERSONALE</h2>
                 
                 <div class="griglia-corsi-3d">
-                    <!-- Corso Silver -->
                     <div class="scheda-corso-3d">
                         <h3>LIVELLO SILVER</h3>
                         <p class="sotto-titolo-corso">Fondamenti di Crescita Personale e Autonomia</p>
-                        <button class="btn-azione-3d ciano" onclick="apriDettaglioCorso('silver')">[ SCOPRI DI PIÙ ]</button>
+                        <button class="btn-azione-3d ciano" onclick="apriSubPagina('corso-silver')">[ SCOPRI DI PIÙ ]</button>
                     </div>
 
-                    <!-- Corso Gold -->
                     <div class="scheda-corso-3d evidenziata">
                         <span class="badge-popolare">PIÙ RICHIESTO</span>
                         <h3>LIVELLO GOLD</h3>
                         <p class="sotto-titolo-corso">Masterclass Direzionale & Gestione Avanzata</p>
-                        <button class="btn-azione-3d oro" onclick="apriDettaglioCorso('gold')">[ SCOPRI DI PIÙ ]</button>
+                        <button class="btn-azione-3d oro" onclick="apriSubPagina('corso-gold')">[ SCOPRI DI PIÙ ]</button>
                     </div>
 
-                    <!-- Corso Premium -->
                     <div class="scheda-corso-3d">
                         <h3>LIVELLO PREMIUM</h3>
                         <p class="sotto-titolo-corso">Percorso Executive Sovereign 1-to-1</p>
-                        <button class="btn-azione-3d ciano" onclick="apriDettaglioCorso('premium')">[ SCOPRI DI PIÙ ]</button>
+                        <button class="btn-azione-3d ciano" onclick="apriSubPagina('corso-premium')">[ SCOPRI DI PIÙ ]</button>
                     </div>
                 </div>
             </div>
@@ -246,7 +237,6 @@
             <div class="scheda-ovale-3d tricolore-pass">
                 <h2 class="titolo-sezione-it">SUPREMA GOLD CARD & BOUTIQUE DI LUSSO</h2>
                 
-                <!-- WIDGET CARTA ORO TRICOLORE 3D -->
                 <div class="card-pass-3d-container" id="widget-gold-card">
                     <div class="card-pass-front">
                         <div class="card-header-pass">
@@ -270,7 +260,7 @@
             </div>
         </section>
 
-        <!-- SEZIONE 7: CENTRO MEDIA E SOCIAL COMMUNITY (LINK DIRETTI) -->
+        <!-- SEZIONE 7: CENTRO MEDIA E SOCIAL COMMUNITY -->
         <section id="sezione-social-community" class="sezione-3d-ovale">
             <div class="scheda-ovale-3d argento-oro">
                 <h2 class="titolo-sezione-it">CENTRO MEDIA E CANALI SOCIAL UFFICIALI</h2>
@@ -278,29 +268,21 @@
                 <p class="testo-intro-social">Accedi direttamente ai profili ufficiali della Community Suprema Future X per contenuti di formazione e aggiornamenti direzionali:</p>
 
                 <div class="griglia-link-social-3d">
-                    <a href="https://www.instagram.com/supremafuturex" target="_blank" class="btn-social-link instagram" onclick="tracciaClickSocial('Instagram')">
+                    <a href="https://www.instagram.com/supremafuturex" target="_blank" class="btn-social-link instagram">
                         <span class="icona-social">📸</span> INSTAGRAM UFFICIALE
                     </a>
-
-                    <a href="https://www.facebook.com/supremafuturex" target="_blank" class="btn-social-link facebook" onclick="tracciaClickSocial('Facebook')">
+                    <a href="https://www.facebook.com/supremafuturex" target="_blank" class="btn-social-link facebook">
                         <span class="icona-social">📘</span> FACEBOOK PAGE
                     </a>
-
-                    <a href="https://www.youtube.com/@supremafuturex" target="_blank" class="btn-social-link youtube" onclick="tracciaClickSocial('YouTube')">
+                    <a href="https://www.youtube.com/@supremafuturex" target="_blank" class="btn-social-link youtube">
                         <span class="icona-social">🎥</span> YOUTUBE CHANNEL
                     </a>
-
-                    <a href="https://www.tiktok.com/@supremafuturex" target="_blank" class="btn-social-link tiktok" onclick="tracciaClickSocial('TikTok')">
+                    <a href="https://www.tiktok.com/@supremafuturex" target="_blank" class="btn-social-link tiktok">
                         <span class="icona-social">🎵</span> TIKTOK COMMUNITY
                     </a>
-
-                    <a href="https://www.linkedin.com/company/supremafuturex" target="_blank" class="btn-social-link linkedin" onclick="tracciaClickSocial('LinkedIn')">
+                    <a href="https://www.linkedin.com/company/supremafuturex" target="_blank" class="btn-social-link linkedin">
                         <span class="icona-social">💼</span> LINKEDIN EXECUTIVE
                     </a>
-                </div>
-
-                <div class="azioni-sezione">
-                    <button class="btn-azione-3d ciano" onclick="apriSubPagina('community-hub')">[ ESPLORA LA COMMUNITY ]</button>
                 </div>
             </div>
         </section>
@@ -331,40 +313,15 @@
         </div>
     </div>
 
-    <!-- CONTROLLER JAVASCRIPT INSERITI IN SEQUENZA CORRETTA -->
+    <!-- CONTROLLER JAVASCRIPT SEPARATI (INCLUSIONE DEFINITIVA) -->
     <script src="js/connettore-api.js"></script>
     <script src="js/navigazione.js"></script>
     <script src="js/carta-oro.js"></script>
+    <script src="js/chat-alison.js"></script>
+    <script src="js/moduli-crm.js"></script>
 
-    <!-- LOGICA DI INTERAZIONE LOCALE LANDING PAGE -->
+    <!-- LOGICA DI APERTURA MODALI SUB-PAGINE -->
     <script>
-        function inviaCandidaturaCRM(event) {
-            event.preventDefault();
-            const nome = document.getElementById('crm-nome').value;
-            const email = document.getElementById('crm-email').value;
-            const telefono = document.getElementById('crm-telefono').value;
-            const note = document.getElementById('crm-note').value;
-
-            const codiceNX = 'NX-2026-' + Math.floor(1000 + Math.random() * 9000);
-
-            // Invio payload tramite ConnettoreApi verso Google Apps Script (Code.gs)
-            ConnettoreApi.invia('REGISTRA_LEAD_CRM', {
-                codiceNX: codiceNX,
-                nome: nome,
-                email: email,
-                telefono: telefono,
-                note: note
-            }).then(risposta => {
-                // Accredito Punti Gold Card (+250 PTS per candidatura)
-                if (typeof MotoreCartaOro !== 'undefined') {
-                    MotoreCartaOro.aggiungiPunti(250, 'CANDIDATURA_CRM_NEXUS');
-                }
-
-                alert(`CANDIDATURA REGISTRATA CON SUCCESSO!\n\nCodice Identificativo: ${codiceNX}\nStato: NOTIFICHE MULTI-CANALE ATTIVATE (Email, WhatsApp, Telegram)\n\nL'ufficio Suprema la contatterà nelle prossime 24 ore.`);
-                document.getElementById('form-candidatura-nexus').reset();
-            });
-        }
-
         function apriSubPagina(chiaveSubpagina) {
             const modale = document.getElementById('modale-subpagina-dinamica');
             const contenitore = document.getElementById('contenuto-subpagina-dinamica');
@@ -385,12 +342,6 @@
 
         function chiudiSubPagina() {
             document.getElementById('modale-subpagina-dinamica').classList.add('hidden');
-        }
-
-        function tracciaClickSocial(nomePiattaforma) {
-            if (typeof ConnettoreApi !== 'undefined') {
-                ConnettoreApi.invia('TRACCIA_CLICK_SOCIAL', { piattaforma: nomePiattaforma });
-            }
         }
     </script>
 </body>
