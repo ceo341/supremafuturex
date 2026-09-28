@@ -1,18 +1,19 @@
 /**
  * SUPREMA FUTURE X - DYNAMIC MEDIA ENGINE CONTROLLER
  * File: /js/gestore-media.js
- * Descrizione: Gestore unico per Foto, Video, PDF, Slide e Documenti di Testo.
+ * Descrizione: Gestore per Foto, Video, PDF, Slide e Documenti di Testo (INCLUSA GOLD CARD)
  */
 
 const GestoreMedia = (function () {
     'use strict';
 
-    // Mappa degli elementi visivi presenti nel sito web
+    // Mappa degli elementi visivi presenti nel sito web (AGGIUNTO GOLDCARD)
     const MAPPA_TARGET = {
         'logo': '#logo-sfx-main',
         'hero': '#media-hero-display',
         'governance': '#media-ceo-display',
         'chat': '#media-alison-display',
+        'goldcard': '#media-goldcard-display',
         'accademia': '#contenuto-subpagina-dinamica',
         'vault': '#visore-blueprint'
     };
@@ -29,10 +30,10 @@ const GestoreMedia = (function () {
         if (!elSezione || !elFormato) return;
 
         const sezione = elSezione.value;
-        const formato = elFormato.value; // FOTO, VIDEO, PDF, SLIDE, TESTO
+        const formato = elFormato.value;
         let urlRisorsa = elUrl ? elUrl.value.trim() : '';
 
-        // Se l'utente carica un file da computer (Foto, PDF, TXT)
+        // Lettura file locale (Foto, PDF, TXT)
         if (elFileInput && elFileInput.files && elFileInput.files[0]) {
             const file = elFileInput.files[0];
             urlRisorsa = await leggiFileLocale(file, formato);
@@ -75,7 +76,7 @@ const GestoreMedia = (function () {
     }
 
     /**
-     * Sostituisce l'elemento visivo nella pagina con il tag HTML corretto (IMG, VIDEO, IFRAME o PRE).
+     * Sostituisce l'elemento visivo nella pagina con il tag HTML corretto.
      */
     function aggiornaElementoVisivo(sezione, formato, sorgente) {
         const selettore = MAPPA_TARGET[sezione];
@@ -90,7 +91,6 @@ const GestoreMedia = (function () {
         switch (formato.toUpperCase()) {
             case 'PDF':
             case 'SLIDE': {
-                // Visore per PDF e Presentazioni Slide (Google Slides, Canva, PPT)
                 nuovoElemento = document.createElement('iframe');
                 let urlEmbed = sorgente;
                 if (sorgente.includes('docs.google.com') && !sorgente.includes('embed')) {
@@ -103,9 +103,7 @@ const GestoreMedia = (function () {
                 nuovoElemento.style.borderRadius = '8px';
                 break;
             }
-
             case 'TESTO': {
-                // Riquadro per documenti di testo e Blueprint
                 nuovoElemento = document.createElement('pre');
                 nuovoElemento.textContent = sorgente;
                 nuovoElemento.style.background = '#0b0c0f';
@@ -118,9 +116,7 @@ const GestoreMedia = (function () {
                 nuovoElemento.style.whiteSpace = 'pre-wrap';
                 break;
             }
-
             case 'VIDEO': {
-                // Riproduttore video in loop continuo (MP4)
                 nuovoElemento = document.createElement('video');
                 nuovoElemento.src = sorgente;
                 nuovoElemento.autoplay = true;
@@ -130,10 +126,8 @@ const GestoreMedia = (function () {
                 nuovoElemento.setAttribute('playsinline', '');
                 break;
             }
-
             case 'FOTO':
             default: {
-                // Tag Immagine Standard (PNG, JPG, WEBP)
                 nuovoElemento = document.createElement('img');
                 nuovoElemento.src = sorgente;
                 nuovoElemento.alt = "Risorsa Multimediale Suprema";
