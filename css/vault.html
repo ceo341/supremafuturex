@@ -50,7 +50,7 @@
       color: #E5E7EB;
       font-family: 'Montserrat', sans-serif;
       overflow-x: hidden;
-      user-select: none; /* Inibizione selezione testo predefinita per modalità Vault Locked */
+      user-select: none;
     }
     
     .cyber-grid {
@@ -93,7 +93,6 @@
       border-radius: 3px;
     }
 
-    /* Effetto sfocatura di sicurezza in modalità Locked */
     .vault-blur-locked {
       filter: blur(8px);
       pointer-events: none;
@@ -109,17 +108,17 @@
   <header class="sticky top-0 z-50 bg-[#090A0D]/95 backdrop-blur-md border-b border-sfx-panelBorder">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- LOGO SFX & DEDICA VAULT -->
-      <div class="flex items-center space-x-4">
-        <a href="index.html" class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-gold/50 hover:border-sfx-cyan transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)] block">
-          <img src="attività/logo-sfx.png" alt="Logo SFX" class="w-full h-full object-cover">
-        </a>
+      <!-- LOGO SFX HD CON ROUTER STEALTH (2 CLIC = VAULT / 3 CLIC = ADMIN) -->
+      <div class="flex items-center space-x-4 cursor-pointer select-none group" id="sfx-logo-btn" title="SUPREMA FUTURE X (Clicca 2 volte per Vault, 3 volte per ERP)">
+        <div class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-gold/50 group-hover:border-sfx-cyan transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+          <img src="assets/logo.png" alt="Logo SFX" class="w-full h-full object-cover">
+        </div>
         <div>
           <div class="flex items-center space-x-2">
             <span class="font-cyber font-bold tracking-wider text-base gold-gradient-text">CASSAFORTE PRIVATA CEO</span>
             <span class="px-2 py-0.5 rounded bg-sfx-gold/10 border border-sfx-gold text-[10px] text-sfx-gold font-mono font-bold uppercase">VAULT 48% UTILI</span>
           </div>
-          <span class="text-[10px] tracking-widest text-sfx-cyan font-mono block">PROTOCOLLO SAN GOTTARDO // CIFRATURA EAL6+</span>
+          <span class="text-[10px] tracking-widest text-sfx-cyan font-mono block">PROTOCOLLO SAN GOTTARDO // GEK CAREL CEO</span>
         </div>
       </div>
 
@@ -127,7 +126,7 @@
       <div class="hidden lg:flex items-center space-x-4 text-xs font-mono">
         <div class="bg-black/60 px-3 py-1.5 rounded border border-gray-800">
           <span class="text-gray-500 text-[10px] block">RUOLO ACCREDITATO</span>
-          <span class="text-sfx-gold font-bold">CEO_OWNER_PATRIMONIALE</span>
+          <span class="text-sfx-gold font-bold">GEK CAREL // CEO OWNER</span>
         </div>
         <div class="bg-black/60 px-3 py-1.5 rounded border border-gray-800">
           <span class="text-gray-500 text-[10px] block">CAVEAU FISICO ORO</span>
@@ -135,11 +134,15 @@
         </div>
       </div>
 
-      <!-- SELETTORE MODALITÀ LOCK & NAVIGAZIONE RAPIDA -->
+      <!-- SELETTORE MODALITÀ LOCK, RESET PIN & NAVIGAZIONE RAPIDA -->
       <div class="flex items-center space-x-3">
         <button id="btn-toggle-lock" class="px-4 py-2 bg-sfx-gold text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-gold flex items-center">
           <i class="fa-solid fa-lock mr-2" id="icon-lock-status"></i>
           <span id="text-lock-status">MODE: LOCKED</span>
+        </button>
+
+        <button onclick="resetPinSicurezza()" class="px-3 py-2 bg-sfx-panelBg border border-sfx-gold text-sfx-gold hover:bg-sfx-gold hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-gold" title="Resetta PIN / Password CEO">
+          <i class="fa-solid fa-key mr-1.5"></i> RESET PIN
         </button>
 
         <a href="admin.html" class="px-3 py-2 bg-sfx-panelBg border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-cyan" title="Vai all'ERP Control Room">
@@ -167,7 +170,7 @@
       <div class="lg:col-span-7 bg-sfx-panelBg border border-sfx-panelBorder rounded-2xl p-6 sm:p-8 space-y-6 glow-gold relative overflow-hidden">
         <div class="flex justify-between items-start pb-4 border-b border-gray-800">
           <div>
-            <span class="px-2.5 py-0.5 rounded bg-sfx-gold/20 border border-sfx-gold text-sfx-gold text-[10px] font-mono font-bold uppercase">DIVIDENDI UTILI ACCUMULATI (48%)</span>
+            <span class="px-2.5 py-0.5 rounded bg-sfx-gold/20 border border-sfx-gold text-sfx-gold text-[10px] font-mono font-bold uppercase">DIVIDENDI UTILI ACCUMULATI (48% CEO GEK CAREL)</span>
             <h2 class="text-3xl font-cyber font-bold gold-gradient-text mt-1">CHF 14.882.490,35</h2>
             <span class="text-xs font-mono text-sfx-cyan block mt-0.5">Controvalore Nominale: € 15.620.000,00</span>
           </div>
@@ -193,12 +196,13 @@
           </div>
 
           <div>
-            <label class="block text-gray-400 mb-1">IBAN RISERVATO DI ACCREDITO</label>
+            <label class="block text-gray-400 mb-1">IBAN RISERVATO DI ACCREDITO CEO</label>
             <input type="text" readonly value="IT99 M 03062 01600 000001234567" class="w-full bg-black/80 border border-gray-800 rounded p-2.5 text-sfx-cyan font-bold tracking-wider">
           </div>
 
           <div>
-            <label class="block text-gray-400 mb-1">CAUSALE STATUTARIA</label> <input type="text" required value="Liquidazione dividendi utili privati CEO - Quota 48% Delibera 2026" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
+            <label class="block text-gray-400 mb-1">CAUSALE STATUTARIA</label>
+            <input type="text" required value="Liquidazione dividendi utili privati CEO Gek Carel - Quota 48% Delibera 2026" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
           </div>
 
           <button type="submit" class="w-full py-3.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs uppercase tracking-wider rounded transition-colors shadow-lg">
@@ -271,7 +275,7 @@
             <tr class="hover:bg-black/30">
               <td class="py-3.5 px-4 font-bold text-sfx-gold">Suprema Future X S.r.l.</td>
               <td class="py-3.5 px-4">Milano (IT)</td>
-              <td class="py-3.5 px-4 font-bold text-sfx-cyan">52% Cassa / 48% CEO</td>
+              <td class="py-3.5 px-4 font-bold text-sfx-cyan">52% Cassa / 48% CEO Gek Carel</td>
               <td class="py-3.5 px-4">€ 25.000.000,00</td>
               <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-green-950/60 border border-green-400 text-green-300 text-[10px]">OPERATIVO</span></td>
             </tr>
@@ -310,7 +314,7 @@
         </div>
 
         <p class="text-xs text-gray-400 font-mono">
-          Riproduzione sintetica dei briefing giornalieri generati dagli agenti IA per la direzione CEO.
+          Riproduzione sintetica dei briefing giornalieri generati dagli agenti IA per il CEO Gek Carel.
         </p>
 
         <div class="space-y-3 font-mono text-xs">
@@ -362,7 +366,6 @@
 
         <!-- GRIGLIA SIMULATA 24 TERMINALI -->
         <div class="grid grid-cols-6 gap-2 pt-2">
-          <!-- Generazione dinamica visiva 24 nodi -->
           <script>
             for(let i=1; i<=24; i++) {
               document.write(`
@@ -405,12 +408,42 @@
   </main>
 
   <!-- ========================================== -->
-  <!-- JAVASCRIPT: LOGICA DI BLOCCO, AUDIO & UPLOAD -->
+  <!-- JAVASCRIPT: LOGICA DI BLOCCO, RESET PIN & ROUTER STEALTH -->
   <!-- ========================================== -->
   <script>
-    // ==========================================
-    // 1. LOGICA MANTENIMENTO / SBLOCCO VAULT (TOGGLE LOCK)
-    // ==========================================
+    const DEFAULT_PIN = "3474429091";
+
+    // 1. RECUPERO & RESET DYNAMICO DEL PIN CEO (GEK CAREL)
+    function getPinSicurezza() {
+      return localStorage.getItem('SFX_CEO_PIN') || DEFAULT_PIN;
+    }
+
+    function resetPinSicurezza() {
+      const pinAttuale = prompt("INSERISCI IL PIN ATTUALE PER AUTORIZZARE LA MODIFICA:");
+      const pinValido = getPinSicurezza();
+
+      if (pinAttuale !== pinValido && pinAttuale !== "2026") {
+        alert("ERRORE: PIN attuale non corretto. Modifica annullata.");
+        return;
+      }
+
+      const nuovoPin = prompt("INSERISCI IL NUOVO PIN DI SICUREZZA (minimo 4 cifre):");
+      if (!nuovoPin || nuovoPin.trim().length < 4) {
+        alert("ERRORE: Il PIN deve contenere almeno 4 cifre.");
+        return;
+      }
+
+      const confermaPin = prompt("CONFERMA IL NUOVO PIN DI SICUREZZA:");
+      if (nuovoPin.trim() !== confermaPin.trim()) {
+        alert("ERRORE: I PIN non coincidono.");
+        return;
+      }
+
+      localStorage.setItem('SFX_CEO_PIN', nuovoPin.trim());
+      alert("SUCCESSO ESECUTIVO: Il PIN di sicurezza del Vault CEO è stato aggiornato con successo!");
+    }
+
+    // 2. TOGGLE LOCK & VERIFICA PIN
     let isVaultLocked = true;
 
     const btnToggleLock = document.getElementById('btn-toggle-lock');
@@ -418,31 +451,35 @@
     const textLockStatus = document.getElementById('text-lock-status');
     const blueprintContainer = document.getElementById('blueprint-table-container');
 
-    btnToggleLock.addEventListener('click', () => {
-      isVaultLocked = !isVaultLocked;
+    if (btnToggleLock) {
+      btnToggleLock.addEventListener('click', () => {
+        isVaultLocked = !isVaultLocked;
 
-      if (isVaultLocked) {
-        textLockStatus.innerText = "MODE: LOCKED";
-        iconLockStatus.className = "fa-solid fa-lock mr-2";
-        btnToggleLock.className = "px-4 py-2 bg-sfx-gold text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-gold flex items-center";
-        blueprintContainer.classList.add('vault-blur-locked');
-        document.body.style.userSelect = "none";
-      } else {
-        const pin = prompt("INSERIRE PIN CEO OWNER PER LO SBLOCCO RISERVATO:");
-        if (pin === "3474429091" || pin === "2026") {
-          textLockStatus.innerText = "MODE: UNLOCKED";
-          iconLockStatus.className = "fa-solid fa-lock-open mr-2";
-          btnToggleLock.className = "px-4 py-2 bg-sfx-cyan text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-cyan flex items-center";
-          blueprintContainer.classList.remove('vault-blur-locked');
-          document.body.style.userSelect = "auto";
+        if (isVaultLocked) {
+          textLockStatus.innerText = "MODE: LOCKED";
+          iconLockStatus.className = "fa-solid fa-lock mr-2";
+          btnToggleLock.className = "px-4 py-2 bg-sfx-gold text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-gold flex items-center";
+          if (blueprintContainer) blueprintContainer.classList.add('vault-blur-locked');
+          document.body.style.userSelect = "none";
         } else {
-          alert("PIN ERRATO: Accesso negato al Vault CEO.");
-          isVaultLocked = true;
-        }
-      }
-    });
+          const pinInput = prompt("INSERIRE PIN CEO OWNER (GEK CAREL) PER LO SBLOCCO RISERVATO:");
+          const pinValido = getPinSicurezza();
 
-    // INIBIZIONE TASTO DESTRO, COPIA (CTRL+C) E STAMPA (CTRL+P) IN MODALITÀ LOCKED
+          if (pinInput === pinValido || pinInput === "2026" || pinInput === "3474429091") {
+            textLockStatus.innerText = "MODE: UNLOCKED";
+            iconLockStatus.className = "fa-solid fa-lock-open mr-2";
+            btnToggleLock.className = "px-4 py-2 bg-sfx-cyan text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-cyan flex items-center";
+            if (blueprintContainer) blueprintContainer.classList.remove('vault-blur-locked');
+            document.body.style.userSelect = "auto";
+          } else {
+            alert("PIN ERRATO: Accesso negato al Vault CEO Gek Carel.");
+            isVaultLocked = true;
+          }
+        }
+      });
+    }
+
+    // 3. INIBIZIONE TASTO DESTRO E COPIA QUANDO IN MODALITÀ LOCKED
     document.addEventListener('contextmenu', (e) => {
       if (isVaultLocked) {
         e.preventDefault();
@@ -457,34 +494,55 @@
       }
     });
 
-    // ==========================================
-    // 2. DISPOSIZIONE BONIFICO MEDIOLANUM
-    // ==========================================
-    document.getElementById('form-bonifico-vault').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert("DISPOSIZIONE BONIFICO GENERATA CON SUCCESSO!\n\nImporto inoltrato a Banca Mediolanum.\nNotifica crittografata inviata all'Amministratore Unico.");
-    });
+    // 4. ROUTER STEALTH SU LOGO SFX (2 CLIC = VAULT, 3 CLIC = ADMIN)
+    const logoBtn = document.getElementById('sfx-logo-btn');
+    let logoClicks = 0;
+    let logoTimer = null;
 
-    // ==========================================
-    // 3. PLAY AUDIO BRIEFING SIMULATO
-    // ==========================================
-    function playAudioBriefing(orario) {
-      alert(`RIPRODUZIONE AUDIO BRIEFING DEDICATO [${orario}]\n\nSintesi neurale generata dall'Agente AG-01 Alison in corso...`);
+    if (logoBtn) {
+      logoBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        logoClicks++;
+        clearTimeout(logoTimer);
+        
+        logoTimer = setTimeout(() => {
+          if (logoClicks === 2) {
+            window.location.href = 'vault.html';
+          } else if (logoClicks >= 3) {
+            window.location.href = 'admin.html';
+          }
+          logoClicks = 0;
+        }, 500);
+      });
     }
 
-    // ==========================================
-    // 4. UPLOADER CAVEAU 11"
-    // ==========================================
+    // 5. DISPOSIZIONE BONIFICO MEDIOLANUM
+    const formBonifico = document.getElementById('form-bonifico-vault');
+    if (formBonifico) {
+      formBonifico.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert("DISPOSIZIONE BONIFICO GENERATA CON SUCCESSO!\n\nImporto inoltrato a Banca Mediolanum.\nNotifica crittografata inviata al CEO Gek Carel.");
+      });
+    }
+
+    // 6. PLAY AUDIO BRIEFING SIMULATO
+    function playAudioBriefing(orario) {
+      alert(`RIPRODUZIONE AUDIO BRIEFING DEDICATO [${orario}]\n\nSintesi neurale generata dall'Agente AG-01 Alison in corso per il CEO Gek Carel...`);
+    }
+
+    // 7. UPLOADER CAVEAU 11"
     const dropZoneCaveau = document.getElementById('drop-zone-caveau');
     const fileCaveauInput = document.getElementById('file-caveau-input');
 
-    dropZoneCaveau.addEventListener('click', () => fileCaveauInput.click());
+    if (dropZoneCaveau && fileCaveauInput) {
+      dropZoneCaveau.addEventListener('click', () => fileCaveauInput.click());
 
-    fileCaveauInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        alert(`Atto Notarile "${e.target.files[0].name}" cifrato e depositato nel Caveau Digitale San Gottardo!`);
-      }
-    });
+      fileCaveauInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          alert(`Atto Notarile "${e.target.files[0].name}" cifrato e depositato nel Caveau Digitale San Gottardo!`);
+        }
+      });
+    }
   </script>
 </body>
 </html>
