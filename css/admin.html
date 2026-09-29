@@ -104,7 +104,7 @@
       <!-- LOGO SFX & IDENTIFICATIVO AMBIENTE -->
       <div class="flex items-center space-x-4">
         <a href="index.html" class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-gold/50 hover:border-sfx-cyan transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)] block">
-          <img src="attività/logo-sfx.png" alt="Logo SFX" class="w-full h-full object-cover">
+          <img src="assets/logo-sfx.png" alt="Logo SFX" class="w-full h-full object-cover">
         </a>
         <div>
           <div class="flex items-center space-x-2">
@@ -131,7 +131,7 @@
         </div>
       </div>
 
-      <!-- PULSANTI DIREZIONALI & EMERGENZA (STRICTLY NO RED) -->
+      <!-- PULSANTI DIREZIONALI & EMERGENZA -->
       <div class="flex items-center space-x-3">
         <a href="crm.html" class="px-3 py-2 bg-sfx-panelBg border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-cyan" title="Vai al CRM Nexus">
           <i class="fa-solid fa-users-gear mr-1.5"></i> Nexus CRM
@@ -227,7 +227,7 @@
         <div class="bg-sfx-panelBg border border-sfx-cyanBorder rounded-2xl p-5 space-y-4 hover:border-sfx-cyan transition-colors glow-cyan">
           <div class="flex justify-between items-start">
             <div class="flex items-center space-x-3">
-              <img src="attività/alison-avatar.png" alt="AG-01" class="w-10 h-10 rounded-full border border-sfx-cyan">
+              <img src="assets/alison-avatar.png" alt="AG-01" class="w-10 h-10 rounded-full border border-sfx-cyan">
               <div>
                 <h4 class="font-cyber font-bold text-xs text-white">AG-01: ALISON FUTURE X</h4>
                 <span class="text-[10px] font-mono text-sfx-cyan">Lead Reception & Dialogo</span>
@@ -517,6 +517,8 @@
   <!-- JAVASCRIPT: LOGICA ERP, SPLIT & COMANDI -->
   <!-- ========================================== -->
   <script>
+    const APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAiwpjrU33wRkogEvuQr9YduJpssGHs9ewFHlpke2Ar9NgG2YbNoZ5ZfyRGr9IVAZkew/exec";
+
     // ==========================================
     // 1. CALCOLO INTERATTIVO SPLIT STATUTARIO 52/48
     // ==========================================
@@ -540,12 +542,29 @@
     // ==========================================
     // 2. BOX ADDESTRAMENTO NEURALE H24
     // ==========================================
-    function inviaAddestramento() {
+    async function inviaAddestramento() {
       const textarea = document.getElementById('prompt-addestramento');
-      if (!textarea.value.trim()) {
+      const testoPrompt = textarea.value.trim();
+      if (!testoPrompt) {
         alert('Inserisci una direttiva prima di inviare alla flotta.');
         return;
       }
+
+      try {
+        await fetch(APPSCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            azione: "AGGIORNA_PROMPT",
+            prompt: testoPrompt,
+            operatore: "MARIACHIARA"
+          })
+        });
+      } catch (e) {
+        console.error("Errore invio prompt backend:", e);
+      }
+
       alert('DIRETTIVA TRASMESSA CON SUCCESSO!\n\n1. Iniezione prompt completata su AG-01, AG-02 e AG-05\n2. Modelli neurali aggiornati in 12ms AWS\n3. Log registrato in audit trail');
       textarea.value = '';
     }
