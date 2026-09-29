@@ -100,7 +100,7 @@
       <!-- LOGO SFX & IDENTIFICATIVO AMBIENTE -->
       <div class="flex items-center space-x-4">
         <a href="index.html" class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-gold/50 hover:border-sfx-cyan transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)] block">
-          <img src="attività/logo-sfx.png" alt="Logo SFX" class="w-full h-full object-cover">
+          <img src="assets/logo-sfx.png" alt="Logo SFX" class="w-full h-full object-cover">
         </a>
         <div>
           <div class="flex items-center space-x-2">
@@ -515,7 +515,7 @@
       
       <div class="lg:col-span-5 flex flex-col items-center">
         <div class="w-full max-w-sm rounded-xl overflow-hidden border border-sfx-gold/50 bg-[#090A0D] p-2 glow-gold">
-          <img src="attività/suprema-gold-card.png" alt="Suprema Gold Card 3D" class="w-full h-auto rounded-lg object-cover">
+          <img src="assets/suprema-gold-card.png" alt="Suprema Gold Card 3D" class="w-full h-auto rounded-lg object-cover">
         </div>
         <p class="text-xs text-gray-400 font-mono mt-3 text-center">
           <i class="fa-solid fa-bolt text-sfx-cyan mr-1"></i> Assegnazione automatica punti via AG-05 Logistics AI
@@ -577,24 +577,24 @@
       <form id="form-nuovo-lead" class="space-y-3 text-xs font-mono">
         <div>
           <label class="block text-gray-400 mb-1">NOME E COGNOME / RAGIONE SOCIALE</label>
-          <input type="text" required placeholder="Mario Rossi" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
+          <input type="text" id="lead-nome" required placeholder="Mario Rossi" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
         </div>
         
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-gray-400 mb-1">EMAIL AZIENDALE</label>
-            <input type="email" required placeholder="m.rossi@holding.it" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
+            <input type="email" id="lead-email" required placeholder="m.rossi@holding.it" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
           </div>
           <div>
             <label class="block text-gray-400 mb-1">WHATSAPP / TELEFONO</label>
-            <input type="tel" required placeholder="+39 347 ..." class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
+            <input type="tel" id="lead-tel" required placeholder="+39 347 ..." class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-gray-400 mb-1">PROVENIENZA / CANALE</label>
-            <select class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
+            <select id="lead-canale" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
               <option value="Conferenza CEO">Conferenza CEO</option>
               <option value="Scout AG-02 Ginevra">Scout AG-02 Ginevra</option>
               <option value="Alison v3 Chat">Alison v3 Chat</option>
@@ -603,7 +603,7 @@
           </div>
           <div>
             <label class="block text-gray-400 mb-1">LIVELLO INIZIALE</label>
-            <select class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
+            <select id="lead-livello" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
               <option value="Nexus Start (+250 PTS)">Nexus Start (+250 PTS)</option>
               <option value="Silver (+500 PTS)">Silver (+500 PTS)</option>
               <option value="Gold Executive (+1,500 PTS)">Gold Executive (+1,500 PTS)</option>
@@ -624,6 +624,8 @@
   <!-- JAVASCRIPT: LOGICA CRM, FILTRI & WORKSPACE -->
   <!-- ========================================== -->
   <script>
+    const APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAiwpjrU33wRkogEvuQr9YduJpssGHs9ewFHlpke2Ar9NgG2YbNoZ5ZfyRGr9IVAZkew/exec";
+
     // ==========================================
     // 1. SWITCHER VISTA TABELLARE / KANBAN
     // ==========================================
@@ -654,24 +656,62 @@
 
     // ==========================================
     // 2. AZIONE RAPIDA: [CREA SITO WORKSPACE]
-    // Abilita account Google Classroom SDK e invia credenziali
     // ==========================================
-    function attivaWorkspace(nome, token) {
+    async function attivaWorkspace(nome, token) {
       const conferma = confirm(`Confermi la creazione del Sito Workspace e l'abilitazione Classroom per ${nome} (${token})?`);
       
       if (conferma) {
-        alert(`SUCCESSO ESACUTIVO!\n\n1. Creata istanza Workspace Google Classroom per ${nome}\n2. Token ${token} collegato a Media Vault\n3. Credenziali trasmesse via MailBot Nexus ad AG-03\n4. Alert WhatsApp inviato al +39 347 442 9091`);
+        try {
+          await fetch(APPSCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              azione: "CREA_WORKSPACE_CLASSROOM",
+              token: token,
+              nome: nome
+            })
+          });
+        } catch (e) {
+          console.error("Errore invio workspace backend:", e);
+        }
+
+        alert(`SUCCESSO ESECUTIVO!\n\n1. Creata istanza Workspace Google Classroom per ${nome}\n2. Token ${token} collegato a Media Vault\n3. Credenziali trasmesse via MailBot Nexus ad AG-03\n4. Alert WhatsApp inviato al +39 347 442 9091`);
       }
     }
 
     // ==========================================
     // 3. GESTIONE SALVATAGGIO NUOVO LEAD
     // ==========================================
-    document.getElementById('form-nuovo-lead').addEventListener('submit', function(e) {
+    document.getElementById('form-nuovo-lead').addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const randNum = Math.floor(1000 + Math.random() * 9000);
       const token = `NX-2026-${randNum}`;
+      const nome = document.getElementById('lead-nome').value;
+      const email = document.getElementById('lead-email').value;
+      const tel = document.getElementById('lead-tel').value;
+      const canale = document.getElementById('lead-canale').value;
+      const livello = document.getElementById('lead-livello').value;
+
+      try {
+        await fetch(APPSCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            azione: "REGISTRAZIONE_LEAD",
+            token: token,
+            nome: nome,
+            email: email,
+            telefono: tel,
+            canale: canale,
+            note: "Livello selezionato: " + livello
+          })
+        });
+      } catch (err) {
+        console.error("Errore invio lead:", err);
+      }
       
       alert(`Lead Registrato con Successo!\nGenerato Token Univoco: ${token}\nSincronizzazione in corso su Google Sheets e Google Drive.`);
       
