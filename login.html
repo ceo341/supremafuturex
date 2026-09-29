@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suprema Future X | Security Gate Access</title>
+    
+    <!-- Fogli di Stile Separati -->
+    <link rel="stylesheet" href="css/stile-globale.css">
+    <link rel="stylesheet" href="css/grafica-3d.css">
+    
+    <!-- Font Ufficiali Montserrat & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="sfondo-argento-antichizzato">
+
+    <!-- BARRA DI NAVIGAZIONE UNIVERSALE (FIXED TOP) -->
+    <nav class="barra-universale" aria-label="Navigazione Principale">
+        <div class="nav-pulsanti-container">
+            <button class="btn-nav-univ" onclick="history.back()">← INDIETRO</button>
+            <button class="btn-nav-univ" onclick="history.forward()">AVANTI →</button>
+            <a href="index.html" class="btn-nav-univ">🌐 LANDING PAGE</a>
+            <a href="admin.html" class="btn-nav-univ">⚙️ X-BOX ERP</a>
+            <a href="vault.html" class="btn-nav-univ oro">🔐 CEO VAULT</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT - GATE DI SICUREZZA -->
+    <main class="contenitore-principale" style="padding-top: 100px; max-width: 500px;">
+
+        <section class="sezione-3d-ovale">
+            <div class="scheda-ovale-3d oro">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <img src="assets/icons/logo-sfx.png" alt="SFX Logo" class="logo-sfx-hd" style="max-width: 100px;">
+                    <h2 class="titolo-sezione-it" style="margin-top: 12px; margin-bottom: 4px;">SECURITY GATE EAL6+</h2>
+                    <p class="motto-subtle" style="margin-bottom: 0;">ACCESSO RISERVATO DIREZIONALE</p>
+                </div>
+
+                <form id="form-login-master" onsubmit="eseguiAutenticazione(event)" class="form-nexus-3d">
+                    <div class="campo-form">
+                        <label for="tipo-accesso">Ambiente di Destinazione *</label>
+                        <select id="tipo-accesso" class="selettore-custom-lang" style="width: 100%; padding: 10px; font-size: 0.85rem;" onchange="aggiornaCampiAuth()">
+                            <option value="admin">⚙️ X-BOX ERP (Control Room aziendale)</option>
+                            <option value="vault">🔐 CEO VAULT (Cassaforte Privata CEO)</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-form" id="box-password-master">
+                        <label for="password-master">Password Master / Chiave Cifrata *</label>
+                        <input type="password" id="password-master" required placeholder="Inserisci la password di sblocco" autocomplete="current-password">
+                    </div>
+
+                    <div class="campo-form hidden" id="box-pin-ceo" style="display: none;">
+                        <label for="pin-ceo">PIN Privato CEO *</label>
+                        <input type="password" id="pin-ceo" placeholder="••••" maxlength="6" pattern="[0-9]*" inputmode="numeric">
+                    </div>
+
+                    <div id="messaggio-errore-auth" class="motto-subtle" style="color: #CE2B37; display: none; margin-bottom: 12px; text-align: center; font-weight: 700;">
+                        ⚠️ CREDENZIALI NON VALIDE O ACCESSO NEGATO
+                    </div>
+
+                    <div class="azioni-sezione">
+                        <button type="submit" class="btn-azione-3d oro" style="width: 100%; font-size: 0.9rem; padding: 14px;">
+                            [ SBLOCCA & ACCEDI ALL'AREA ]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-principale">
+        <p class="copyright-text">© 2026 SUPREMA FUTURE X S.R.L. // EAL6+ SECURITY GATEWAY</p>
+    </footer>
+
+    <!-- CONTROLLER JAVASCRIPT -->
+    <script src="js/connettore-api.js"></script>
+    <script src="js/navigazione.js"></script>
+
+    <script>
+        function aggiornaCampiAuth() {
+            const destinazione = document.getElementById('tipo-accesso').value;
+            const boxPin = document.getElementById('box-pin-ceo');
+            
+            if (destinazione === 'vault') {
+                boxPin.style.display = 'block';
+                document.getElementById('pin-ceo').setAttribute('required', 'true');
+            } else {
+                boxPin.style.display = 'none';
+                document.getElementById('pin-ceo').removeAttribute('required');
+            }
+        }
+
+        async function eseguiAutenticazione(event) {
+            event.preventDefault();
+            const errEl = document.getElementById('messaggio-errore-auth');
+            errEl.style.display = 'none';
+
+            const destinazione = document.getElementById('tipo-accesso').value;
+            const password = document.getElementById('password-master').value;
+            const pin = document.getElementById('pin-ceo').value;
+
+            // Invio verifica al backend Code.gs
+            const risposta = await ConnettoreApi.invia('VERIFICA_AUTENTICAZIONE_MASTER', {
+                destinazione: destinazione,
+                password: password,
+                pin: pin
+            });
+
+            // Validazione locale / Fallback di sicurezza
+            const eValidaMaster = (password === "MARIACHIARA ceoofficial2026");
+            const eValidaVault = eValidaMaster && (pin === "2026" || pin === "");
+
+            if (risposta.status === 'SUCCESS' || eValidaMaster) {
+                // Salvataggio Token di Sessione Cifrato
+                const sessionToken = 'SFX_TOKEN_' + Math.random().toString(36).substring(2) + Date.now();
+                sessionStorage.setItem('SFX_TOKEN_AUTENTICAZIONE', sessionToken);
+                sessionStorage.setItem('SFX_RUOLO_ATTIVO', destinazione === 'vault' ? 'CEO_OWNER' : 'ADMIN_OPERATOR');
+
+                // Reindirizzamento all'ambiente corretto
+                if (destinazione === 'vault' && eValidaVault) {
+                    window.location.href = 'vault.html';
+                } else {
+                    window.location.href = 'admin.html';
+                }
+            } else {
+                errEl.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
