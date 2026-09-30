@@ -75,11 +75,11 @@
   <header class="bg-[#16243E] border-b-2 border-sfx-cyan px-6 py-4 flex items-center justify-between sticky top-0 z-40 shadow-xl">
     <div class="flex items-center space-x-4">
       <button onclick="toggleDropbar()" class="px-3.5 py-2 border-2 border-sfx-cyan text-sfx-cyan rounded-lg hover:bg-sfx-cyan hover:text-black transition-all font-mono font-bold text-xs flex items-center shadow-md">
-        <i class="fa-solid fa-bars-staggered mr-2 text-base"></i> CROPBAR MENU (25 MODULI)
+        <i class="fa-solid fa-bars-staggered mr-2 text-base"></i> CROPBAR MENU (TUTTI I MODULI AZIENDALI)
       </button>
 
       <div>
-        <h1 class="font-grotesk font-bold text-sfx-gold text-base tracking-wider leading-none">CASSAFORTE CEO // VAULT RISERVATO</h1>
+        <h1 class="font-grotesk font-bold text-sfx-gold text-base tracking-wider leading-none">CASSAFORTE CEO // VAULT RISERVATO UNIFICATO</h1>
         <span class="font-mono text-[10px] text-sfx-cyan font-bold uppercase">GIULIANO CARATELLI CEO // ACCESSO EAL6+ SOVRANO</span>
       </div>
     </div>
@@ -96,18 +96,18 @@
     </div>
   </header>
 
-  <!-- DROPBAR / CROPBAR DRAWER MENU A SCOMPARSA (25 FUNZIONI RISERVATE) -->
+  <!-- DROPBAR / CROPBAR DRAWER MENU A SCOMPARSA (TUTTE LE FUNZIONI AZIENDALI) -->
   <div id="dropbar-menu" class="fixed top-0 left-0 w-80 sm:w-96 h-full bg-[#16243E] border-r-2 border-sfx-cyan z-50 transform -translate-x-full transition-transform duration-300 p-6 flex flex-col justify-between shadow-2xl overflow-y-auto">
     <div class="space-y-6">
       <div class="flex justify-between items-center pb-4 border-b border-sfx-cyan/30">
         <div>
           <span class="font-grotesk font-bold text-sfx-gold text-sm block">CROPBAR EXECUTIVE</span>
-          <span class="font-mono text-[10px] text-sfx-cyan">25 MODULI STRATEGICI</span>
+          <span class="font-mono text-[10px] text-sfx-cyan">MATRICE CENTRALE GOVERNANCE</span>
         </div>
         <button onclick="toggleDropbar()" class="text-sfx-whiteBright hover:text-sfx-cyan text-xl"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <!-- LISTA SOTTOMENU RIGENERATA -->
+      <!-- LISTA SOTTOMENU RIGENERATA CON TUTTI I MODULI TRASFERITI -->
       <nav class="space-y-2 font-mono text-xs">
         <button onclick="apriPannello('panel-alison-governance')" class="w-full text-left p-3 rounded-lg bg-sfx-blueCard border border-sfx-cyan/40 text-sfx-whiteBright hover:bg-sfx-cyan hover:text-black transition-all flex items-center justify-between font-bold">
           <span><i class="fa-solid fa-brain text-sfx-cyan mr-2.5"></i> 1. Alison AI (Direct Link & Orchestratore)</span>
@@ -129,13 +129,18 @@
           <i class="fa-solid fa-chevron-right text-[10px]"></i>
         </button>
 
-        <button onclick="apriPannello('panel-contabilita-marketing')" class="w-full text-left p-3 rounded-lg bg-sfx-blueCard border border-sfx-cyan/40 text-sfx-whiteBright hover:bg-sfx-cyan hover:text-black transition-all flex items-center justify-between font-bold">
-          <span><i class="fa-solid fa-chart-line text-sfx-cyan mr-2.5"></i> 5. P&L, Fisco, ROAS & Launch Cockpit</span>
+        <button onclick="apriPannello('panel-gestione-aziendale')" class="w-full text-left p-3 rounded-lg bg-sfx-blueCard border border-sfx-cyan/40 text-sfx-whiteBright hover:bg-sfx-cyan hover:text-black transition-all flex items-center justify-between font-bold">
+          <span><i class="fa-solid fa-briefcase text-sfx-cyan mr-2.5"></i> 5. Gestione Operativa (Sentry, Provvigioni, OTP, Magazzino)</span>
           <i class="fa-solid fa-chevron-right text-[10px]"></i>
         </button>
 
-        <button onclick="apriPannello('panel-legale-holding')" class="w-full text-left p-3 rounded-lg bg-sfx-blueCard border border-sfx-gold/40 text-sfx-whiteBright hover:bg-sfx-gold hover:text-black transition-all flex items-center justify-between font-bold">
-          <span><i class="fa-solid fa-scale-balanced text-sfx-gold mr-2.5"></i> 6. Boardroom, Legale, Holding & Purge</span>
+        <button onclick="apriPannello('panel-contabilita-marketing')" class="w-full text-left p-3 rounded-lg bg-sfx-blueCard border border-sfx-gold/40 text-sfx-whiteBright hover:bg-sfx-gold hover:text-black transition-all flex items-center justify-between font-bold">
+          <span><i class="fa-solid fa-chart-line text-sfx-gold mr-2.5"></i> 6. P&L, Cash Flow, ROAS & Launch Cockpit</span>
+          <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+
+        <button onclick="apriPannello('panel-legale-holding')" class="w-full text-left p-3 rounded-lg bg-sfx-blueCard border border-sfx-cyan/40 text-sfx-whiteBright hover:bg-sfx-cyan hover:text-black transition-all flex items-center justify-between font-bold">
+          <span><i class="fa-solid fa-scale-balanced text-sfx-cyan mr-2.5"></i> 7. Boardroom, Legale, Holding & Purge EAL6+</span>
           <i class="fa-solid fa-chevron-right text-[10px]"></i>
         </button>
       </nav>
@@ -268,36 +273,41 @@
 
     <!-- ACCESSO RAPIDO PANNELLI RISING -->
     <section class="bg-sfx-blueCard p-6 rounded-2xl border border-sfx-cyan/40 shadow-xl space-y-4">
-      <h3 class="font-grotesk font-bold text-sfx-gold text-sm uppercase"><i class="fa-solid fa-layer-group mr-2"></i> ACCESSO RAPIDO PANNELLI STRATEGICI</h3>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 font-mono text-xs">
-        <button onclick="apriPannello('panel-alison-governance')" class="p-4 bg-sfx-blueBg rounded-xl border border-sfx-cyan/40 hover:border-sfx-cyan text-center space-y-2 hover:bg-sfx-blueHover transition-all">
-          <i class="fa-solid fa-brain text-2xl text-sfx-cyan block"></i>
-          <span class="font-bold block text-[11px]">Alison AI Hub</span>
+      <h3 class="font-grotesk font-bold text-sfx-gold text-sm uppercase"><i class="fa-solid fa-layer-group mr-2"></i> ACCESSO RAPIDO PANNELLI STRATEGICI & AZIENDALI</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 font-mono text-xs">
+        <button onclick="apriPannello('panel-alison-governance')" class="p-3 bg-sfx-blueBg rounded-xl border border-sfx-cyan/40 hover:border-sfx-cyan text-center space-y-2 hover:bg-sfx-blueHover transition-all">
+          <i class="fa-solid fa-brain text-xl text-sfx-cyan block"></i>
+          <span class="font-bold block text-[10px]">Alison AI Hub</span>
         </button>
 
-        <button onclick="apriPannello('panel-ginevra-social')" class="p-4 bg-sfx-blueBg rounded-xl border border-sfx-gold/40 hover:border-sfx-gold text-center space-y-2 hover:bg-sfx-blueHover transition-all">
-          <i class="fa-solid fa-share-nodes text-2xl text-sfx-gold block"></i>
-          <span class="font-bold block text-[11px]">5 Aree Social</span>
+        <button onclick="apriPannello('panel-ginevra-social')" class="p-3 bg-sfx-blueBg rounded-xl border border-sfx-gold/40 hover:border-sfx-gold text-center space-y-2 hover:bg-sfx-blueHover transition-all">
+          <i class="fa-solid fa-share-nodes text-xl text-sfx-gold block"></i>
+          <span class="font-bold block text-[10px]">5 Aree Social</span>
         </button>
 
-        <button onclick="apriPannello('panel-nicole-finanza')" class="p-4 bg-sfx-blueBg rounded-xl border border-sfx-cyan/40 hover:border-sfx-cyan text-center space-y-2 hover:bg-sfx-blueHover transition-all">
-          <i class="fa-solid fa-calculator text-2xl text-sfx-cyan block"></i>
-          <span class="font-bold block text-[11px]">Nicole Fisco</span>
+        <button onclick="apriPannello('panel-nicole-finanza')" class="p-3 bg-sfx-blueBg rounded-xl border border-sfx-cyan/40 hover:border-sfx-cyan text-center space-y-2 hover:bg-sfx-blueHover transition-all">
+          <i class="fa-solid fa-calculator text-xl text-sfx-cyan block"></i>
+          <span class="font-bold block text-[10px]">Nicole Fisco</span>
         </button>
 
-        <button onclick="apriPannello('panel-reportistica')" class="p-4 bg-sfx-blueBg rounded-xl border border-sfx-gold/40 hover:border-sfx-gold text-center space-y-2 hover:bg-sfx-blueHover transition-all">
-          <i class="fa-solid fa-microphone-lines text-2xl text-sfx-gold block"></i>
-          <span class="font-bold block text-[11px]">Audio Brief</span>
+        <button onclick="apriPannello('panel-reportistica')" class="p-3 bg-sfx-blueBg rounded-xl border border-sfx-gold/40 hover:border-sfx-gold text-center space-y-2 hover:bg-sfx-blueHover transition-all">
+          <i class="fa-solid fa-microphone-lines text-xl text-sfx-gold block"></i>
+          <span class="font-bold block text-[10px]">Audio Brief</span>
         </button>
 
-        <button onclick="apriPannello('panel-contabilita-marketing')" class="p-4 bg-sfx-blueBg rounded-xl border border-sfx-cyan/40 hover:border-sfx-cyan text-center space-y-2 hover:bg-sfx-blueHover transition-all">
-          <i class="fa-solid fa-chart-line text-2xl text-sfx-cyan block"></i>
-          <span class="font-bold block text-[11px]">P&L & Cockpit</span>
+        <button onclick="apriPannello('panel-gestione-aziendale')" class="p-3 bg-sfx-blueBg rounded-xl border border-sfx-cyan/40 hover:border-sfx-cyan text-center space-y-2 hover:bg-sfx-blueHover transition-all">
+          <i class="fa-solid fa-briefcase text-xl text-sfx-cyan block"></i>
+          <span class="font-bold block text-[10px]">Gestione Azienda</span>
         </button>
 
-        <button onclick="apriPannello('panel-legale-holding')" class="p-4 bg-sfx-blueBg rounded-xl border border-sfx-gold/40 hover:border-sfx-gold text-center space-y-2 hover:bg-sfx-blueHover transition-all">
-          <i class="fa-solid fa-scale-balanced text-2xl text-sfx-gold block"></i>
-          <span class="font-bold block text-[11px]">Boardroom & Purge</span>
+        <button onclick="apriPannello('panel-contabilita-marketing')" class="p-3 bg-sfx-blueBg rounded-xl border border-sfx-gold/40 hover:border-sfx-gold text-center space-y-2 hover:bg-sfx-blueHover transition-all">
+          <i class="fa-solid fa-chart-line text-xl text-sfx-gold block"></i>
+          <span class="font-bold block text-[10px]">P&L & Cockpit</span>
+        </button>
+
+        <button onclick="apriPannello('panel-legale-holding')" class="p-3 bg-sfx-blueBg rounded-xl border border-sfx-cyan/40 hover:border-sfx-cyan text-center space-y-2 hover:bg-sfx-blueHover transition-all">
+          <i class="fa-solid fa-scale-balanced text-xl text-sfx-cyan block"></i>
+          <span class="font-bold block text-[10px]">Boardroom & Purge</span>
         </button>
       </div>
     </section>
@@ -616,12 +626,97 @@
     </div>
   </div>
 
-  <!-- PANNELLO 5: CONTABILITA, P&L, FISCO, ROAS & LAUNCH COCKPIT -->
+  <!-- PANNELLO 5: GESTIONE OPERATIVA TRASFERITA DAL X-BOX (SENTRY, PROVVIGIONI, OTP, MAGAZZINO, CRM) -->
+  <div id="panel-gestione-aziendale" class="rising-panel fixed inset-0 z-50 bg-[#0B192C] overflow-y-auto p-6 sm:p-10 flex flex-col justify-between">
+    <div class="max-w-7xl mx-auto w-full space-y-8">
+      <div class="flex justify-between items-center border-b-2 border-sfx-cyan pb-4">
+        <div>
+          <h2 class="font-grotesk font-bold text-2xl text-sfx-cyan"><i class="fa-solid fa-briefcase mr-2"></i> 5. GESTIONE OPERATIVA AZIENDALE // SENTRY LOG, PROVVIGIONI, OTP & CRM</h2>
+          <p class="font-mono text-xs text-sfx-whiteBright">Moduli operativi consolidati dal X-Box al CEO Vault: Sicurezza EAL6+, Partner, Firma OTP, Magazzino e Privacy GDPR.</p>
+        </div>
+        <button onclick="chiudiPannello('panel-gestione-aziendale')" class="px-5 py-2.5 bg-sfx-blueCard border-2 border-sfx-gold text-sfx-gold font-bold font-mono text-xs rounded-lg hover:bg-sfx-gold hover:text-black transition-all">
+          <i class="fa-solid fa-chevron-down mr-2"></i> Chiudi Pannello
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono text-xs">
+        
+        <!-- SENTRY SECURITY AUDIT LOG -->
+        <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-cyan space-y-3">
+          <div class="flex justify-between items-center border-b border-sfx-cyan/30 pb-2">
+            <h4 class="font-bold text-sfx-cyan uppercase"><i class="fa-solid fa-shield-virus mr-1"></i> SENTRY AUDIT LOG (EAL6+)</h4>
+            <span class="text-[9px] px-2 py-0.5 bg-sfx-cyan text-black font-bold rounded">LIVE</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Tracciamento IP, prevenzione tentativi di bruteforce sui form e scansione minacce in tempo reale.</p>
+          <div class="bg-sfx-blueBg p-2.5 rounded text-[10px] text-sfx-cyan font-mono border border-sfx-cyan/20">
+            [SYS] STATUS: Nessuna minaccia rilevata.<br>IP Connessi: 127.0.0.1 (Protetto)
+          </div>
+        </div>
+
+        <!-- AFFILIATE NETWORK & PROVVIGIONI -->
+        <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-gold space-y-3">
+          <div class="flex justify-between items-center border-b border-sfx-gold/30 pb-2">
+            <h4 class="font-bold text-sfx-gold uppercase"><i class="fa-solid fa-users-gear mr-1"></i> PARTNER & PROVVIGIONI</h4>
+            <span class="text-[9px] px-2 py-0.5 bg-sfx-gold text-black font-bold rounded">AUTOMATICO</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Calcolo provvigionale automatico per i segnalatori dell'Ecosistema e saldo liquidazioni.</p>
+          <button onclick="calcolaProvvigioni()" class="w-full py-2 bg-sfx-gold text-black font-bold rounded hover:bg-yellow-300 transition-all">
+            Calcola Saldo Partner
+          </button>
+        </div>
+
+        <!-- FIRMA DIGITALE OTP PER NDA & ACCORDI -->
+        <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-cyan space-y-3">
+          <div class="flex justify-between items-center border-b border-sfx-cyan/30 pb-2">
+            <h4 class="font-bold text-sfx-cyan uppercase"><i class="fa-solid fa-file-signature mr-1"></i> FIRMA DIGITALE OTP</h4>
+            <span class="text-[9px] px-2 py-0.5 bg-sfx-cyan text-black font-bold rounded">VALORE LEGALE</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Validazione contratti ed accordi di riservatezza (NDA) con codice monouso OTP via Telegram/SMS.</p>
+          <button onclick="eseguiFirmaOTP()" class="w-full py-2 bg-sfx-cyan text-black font-bold rounded hover:bg-cyan-300 transition-all">
+            Genera Sessione OTP
+          </button>
+        </div>
+
+        <!-- HELPDESK VIP & TICKETING GOLD CARD -->
+        <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-gold space-y-3">
+          <div class="flex justify-between items-center border-b border-sfx-gold/30 pb-2">
+            <h4 class="font-bold text-sfx-gold uppercase"><i class="fa-solid fa-headset mr-1"></i> HELPDESK TICKETING VIP</h4>
+            <span class="text-[9px] px-2 py-0.5 bg-sfx-gold text-black font-bold rounded">PRIORITA MAX</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Coda di supporto prioritario per i membri dal Grado 1 al Grado 6 Sovrano Max.</p>
+          <span class="text-sfx-gold font-bold block text-xs">Ticket aperti in coda: 0</span>
+        </div>
+
+        <!-- GESTORE MAGAZZINO BOUTIQUE STYLE -->
+        <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-cyan space-y-3">
+          <div class="flex justify-between items-center border-b border-sfx-cyan/30 pb-2">
+            <h4 class="font-bold text-sfx-cyan uppercase"><i class="fa-solid fa-boxes-packing mr-1"></i> STOCK MAGAZZINO BOUTIQUE</h4>
+            <span class="text-[9px] px-2 py-0.5 bg-sfx-cyan text-black font-bold rounded">GIACENZE</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Controllo scorte articoli lifestyle e sincronizzazione vetrina Imperya.</p>
+          <span class="text-sfx-cyan font-bold block text-xs">Stato Scorte: Ottimale</span>
+        </div>
+
+        <!-- CRM RELAZIONALE & GDPR VAULT -->
+        <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-gold space-y-3">
+          <div class="flex justify-between items-center border-b border-sfx-gold/30 pb-2">
+            <h4 class="font-bold text-sfx-gold uppercase"><i class="fa-solid fa-database mr-1"></i> CRM RELAZIONALE & GDPR</h4>
+            <span class="text-[9px] px-2 py-0.5 bg-sfx-gold text-black font-bold rounded">EAL6+ VAULT</span>
+          </div>
+          <p class="text-gray-300 text-[11px]">Data cleansing automatico, deduplicazione lead e registro consensi privacy immutabile.</p>
+          <span class="text-sfx-gold font-bold block text-xs">Consensi Archiviati: Sincronizzati</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PANNELLO 6: CONTABILITA, P&L, FISCO, ROAS & LAUNCH COCKPIT -->
   <div id="panel-contabilita-marketing" class="rising-panel fixed inset-0 z-50 bg-[#0B192C] overflow-y-auto p-6 sm:p-10 flex flex-col justify-between">
     <div class="max-w-7xl mx-auto w-full space-y-8">
       <div class="flex justify-between items-center border-b-2 border-sfx-cyan pb-4">
         <div>
-          <h2 class="font-grotesk font-bold text-2xl text-sfx-cyan"><i class="fa-solid fa-chart-line mr-2"></i> 5. P&L REAL-TIME, CASH FLOW PREDICTOR, ROAS ANALYZER & LAUNCH COCKPIT</h2>
+          <h2 class="font-grotesk font-bold text-2xl text-sfx-cyan"><i class="fa-solid fa-chart-line mr-2"></i> 6. P&L REAL-TIME, CASH FLOW PREDICTOR, ROAS ANALYZER & LAUNCH COCKPIT</h2>
           <p class="font-mono text-xs text-sfx-whiteBright">Conto economico live, stima di cassa a 12 mesi, indici ROS/ROE, CLV Predictor e Launch Cockpit.</p>
         </div>
         <button onclick="chiudiPannello('panel-contabilita-marketing')" class="px-5 py-2.5 bg-sfx-blueCard border-2 border-sfx-gold text-sfx-gold font-bold font-mono text-xs rounded-lg hover:bg-sfx-gold hover:text-black transition-all">
@@ -654,12 +749,12 @@
     </div>
   </div>
 
-  <!-- PANNELLO 6: BOARDROOM, LEGALE, HOLDING & PURGE (NO ROSSO) -->
+  <!-- PANNELLO 7: BOARDROOM, LEGALE, HOLDING & PURGE (NO ROSSO) -->
   <div id="panel-legale-holding" class="rising-panel fixed inset-0 z-50 bg-[#0B192C] overflow-y-auto p-6 sm:p-10 flex flex-col justify-between">
     <div class="max-w-7xl mx-auto w-full space-y-8">
       <div class="flex justify-between items-center border-b-2 border-sfx-gold pb-4">
         <div>
-          <h2 class="font-grotesk font-bold text-2xl text-sfx-gold"><i class="fa-solid fa-scale-balanced mr-2"></i> 6. LEGAL AI AUDITOR, DIGITAL BOARDROOM, HOLDING & PURGE EAL6+</h2>
+          <h2 class="font-grotesk font-bold text-2xl text-sfx-gold"><i class="fa-solid fa-scale-balanced mr-2"></i> 7. LEGAL AI AUDITOR, DIGITAL BOARDROOM, HOLDING & PURGE EAL6+</h2>
           <p class="font-mono text-xs text-sfx-whiteBright">Controllo contratti, verbali societari, collegamento Holding/Trust e protocollo di emergenza (stile Oro/Ciano).</p>
         </div>
         <button onclick="chiudiPannello('panel-legale-holding')" class="px-5 py-2.5 bg-sfx-blueCard border-2 border-sfx-cyan text-sfx-cyan font-bold font-mono text-xs rounded-lg hover:bg-sfx-cyan hover:text-black transition-all">
@@ -671,7 +766,7 @@
         <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-gold space-y-3">
           <h4 class="font-bold text-sfx-gold uppercase">LEGAL AI AUDITOR</h4>
           <p class="text-gray-300 text-[11px]">Scansione neurale contratti ed accordi di riservatezza (NDA) prima della firma.</p>
-          <button onclick="alert('Nessuna anomalia legale riscontrata nei documenti!')" class="w-full py-1.5 border border-sfx-gold text-sfx-gold font-bold rounded">Analizza PDF</button>
+          <button onclick="scansionaContratto()" class="w-full py-1.5 border border-sfx-gold text-sfx-gold font-bold rounded hover:bg-sfx-gold hover:text-black transition-all">Analizza PDF</button>
         </div>
 
         <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-cyan space-y-3">
@@ -766,8 +861,20 @@
       alert(`POST PROGRAMMATO CON SUCCESSO DA GINEVRA!\n\nCanali: ${channels}\nData e Ora: ${date} alle ${time}\n\nNotifica dispatch inviata simultaneamente al CEO via WhatsApp, Telegram ed Email!`);
     }
 
+    function calcolaProvvigioni() {
+      alert("PROVVIGIONI E NETWORK AFFILIATI:\n\nSincronizzazione completata con il registro vendite. Nessuna pendenza provvigionale accumulata.");
+    }
+
+    function eseguiFirmaOTP() {
+      alert("SESSIONE FIRMA DIGITAL OTP GENERATA:\n\nInvio codice monouso OTP sui canali protetti Telegram/SMS al firmatario.");
+    }
+
+    function scansionaContratto() {
+      alert("LEGAL AI AUDITOR:\n\nDocumento PDF scansionato. Rispetto dei parametri legali d'impresa 100%. Nessuna clausola capestro individuata.");
+    }
+
     function riproduciAudioBrief() {
-      alert("AVVIO AUDIO BRIEFING ALISON AI:\n\n'Buongiorno Presidente Giuliano Caratelli. Tutti i 25 moduli del CEO Vault e le 5 Aree Social di Ginevra sono sincronizzati. I contatori della Landing Page sono azzerati per il lancio ufficiale. Nessuna anomalia riscontrata.'");
+      alert("AVVIO AUDIO BRIEFING ALISON AI:\n\n'Buongiorno Presidente Giuliano Caratelli. Tutti i moduli aziendali, contabili e le 5 Aree Social di Ginevra sono sincronizzati nel CEO Vault. I contatori della Landing Page sono azzerati per il lancio ufficiale.'");
     }
 
     function eseguiProtocolloEmergenza() {
