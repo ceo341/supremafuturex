@@ -1,259 +1,196 @@
-/**
- * =========================================================================
- * SUPREMA FUTURE X - BACKEND GOOGLE APPS SCRIPT (MASTER ECOSISTEMA)
- * File: /backend/Code.gs (su GitHub può essere nominato Code.js)
- * Descrizione: Gestore chiamate API REST, scrittura Google Sheets,
- *              Notifiche Multi-Canale (Email, Telegram) e Autenticazione.
- * =========================================================================
- */
+// SUPREMA FUTURE X S.R.L. - BACKEND ENGINE (Code.gs)
+// Google Apps Script per la gestione automatica dei form, database Google Sheets e notifiche email/Telegram.
 
-// ==========================================
-// CONFIGURAZIONE AMBIENTE
-// ==========================================
-const CONFIG = {
-  EMAIL_DIREZIONE: "mariachiara.official2026@gmail.com",
-  EMAIL_CEO: "ceo@supremaofficial.com",
-  TELEFONO_WHATSAPP: "+393474429091",
-  TELEGRAM_BOT_TOKEN: "INSERISCI_BOT_TOKEN", // Sostituire con il token del Bot Telegram
-  TELEGRAM_CHAT_ID: "INSERISCI_CHAT_ID"      // Sostituire con l'ID chat della Direzione
-};
+const EMAIL_CEO_1 = "ceo@supremaofficial.com";
+const EMAIL_CEO_2 = "supremaofficia1@gmail.com";
+const TELEGRAM_BOT_TOKEN = ""; // Opzionale: Inserire Token Bot Telegram se attivo
+const TELEGRAM_CHAT_ID = "";   // Opzionale: Inserire Chat ID Telegram se attivo
 
 /**
- * GESTIONE CHIAMATE GET (Per leggere dati da Apps Script)
- */
-function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({ status: "SUCCESS", message: "Suprema Future X Backend API Online. Server EAL6+ Attivo." }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-/**
- * GESTIONE CHIAMATE POST (Ricezione dati da index.html, admin.html, vault.html)
+ * Gestione chiamate POST in arrivo dalla Landing Page (index.html)
  */
 function doPost(e) {
-  // Impostazione risposta predefinita
-  let output = { status: "ERROR", message: "Azione non riconosciuta o payload vuoto." };
-  
-  // Prevenzione conflitti in scritture simultanee
   const lock = LockService.getScriptLock();
-  lock.tryLock(10000); 
-  
+  lock.tryLock(10000);
+
   try {
-    // Parsing dei dati in ingresso
-    let requestData;
-    if (e.postData && e.postData.contents) {
-      requestData = JSON.parse(e.postData.contents);
-    } else {
-      requestData = e.parameter; // Fallback per form normali
-    }
-
-    const azione = requestData.azione;
-    const payload = requestData.payload || requestData; // Gestisce sia la struttura nidificata che quella piatta
-    
     const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const data = JSON.parse(e.postData.contents);
+    const azione = data.azione || "REGISTRAZIONE_GENERICA";
+    const dataOra = new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" });
 
-    // ==========================================
-    // 1. AUTENTICAZIONE MASTER & CEO VAULT
-    // ==========================================
-    if (azione === 'VERIFICA_AUTENTICAZIONE_MASTER') {
-      const psw = payload.password || "";
-      const pin = payload.pin || "";
-      
-      const eMasterValida = (psw === "MARIACHIARA ceoofficial2026");
-      const ePinValido = (pin === "2026" || pin === "3474429091" || pin === "");
-
-      if (eMasterValida && ePinValido) {
-        output = { status: "SUCCESS", role: payload.destinazione === 'vault' ? 'CEO_OWNER' : 'ADMIN_OPERATOR' };
-      } else {
-        output = { status: "DENIED", message: "Credenziali non valide. Accesso negato dal sistema EAL6+." };
-      }
+    if (azione === "CANDIDATURA_CONFERENZA") {
+      gestisciConferenzaCEO(ss, data, dataOra);
+    } else if (azione === "REGISTRAZIONE_LEAD") {
+      gestisciLeadNexus(ss, data, dataOra);
+    } else if (azione === "SENTRY_VISITA_QUALIFICATA" || azione === "SENTRY_CLICK_SEZIONE") {
+      gestisciSentryAnalytics(ss, data, dataOra);
+    } else {
+      gestisciGenerico(ss, data, dataOra);
     }
 
-    // ==========================================
-    // 2. REGISTRAZIONE LEAD CRM NEXUS & CANDIDATURE
-    // ==========================================
-    else if (azione === 'REGISTRA_LEAD_CRM' || azione === 'REGISTRAZIONE_LEAD' || azione === 'CANDIDATURA_CONFERENZA') {
-      const sheetCRM = ottieniOcreaFoglio(ss, "CRM_Leads_Nexus");
-      
-      // Creazione Token se non esiste
-      const tokenUnivoco = payload.token || payload.codiceNX || ("NX-2026-" + Math.floor(1000 + Math.random() * 9000));
-      
-      sheetCRM.appendRow([
-        new Date(),
-        tokenUnivoco,
-        payload.nome || "Lead Anonimo",
-        payload.email || "Non fornita",
-        payload.telefono || "Non fornito",
-        payload.corso || payload.canale || "Landing Page",
-        payload.note || "",
-        "NEXUS_NOTIFIED"
-      ]);
+    return ContentService.createTextOutput(JSON.stringify({ 
+      status: "SUCCESS", 
+      message: "Dati elaborati e registrati correttamente.",
+      timestamp: dataOra 
+    })).setMimeType(ContentService.MimeType.JSON);
 
-      // Scatena la notifica su Email e (se configurato) Telegram
-      inviaNotificheMultiCanale(payload, tokenUnivoco, azione);
-      
-      output = { status: "SUCCESS", token: tokenUnivoco, message: "Lead salvato nel CRM e notifiche direzionali inviate." };
-    }
-
-    // ==========================================
-    // 3. AGGIORNAMENTO PUNTI GOLD CARD
-    // ==========================================
-    else if (azione === 'AGGIORNA_PUNTI_FEDELTA' || azione === 'AGGIORNA_PUNTI') {
-      const sheetGold = ottieniOcreaFoglio(ss, "Gold_Card_Ledger");
-      sheetGold.appendRow([
-        new Date(),
-        payload.idCarta || payload.token || "SCONOSCIUTO",
-        payload.puntiAggiunti || payload.punti || 0,
-        payload.puntiTotali || 0,
-        payload.grado || "1. Membro Nexus Start",
-        payload.causale || "Accredito Sistema"
-      ]);
-
-      output = { status: "SUCCESS", message: "Punti aggiornati nel ledger Gold Card." };
-    }
-
-    // ==========================================
-    // 4. DYNAMIC MEDIA ENGINE CONFIGURATION (FOTO/VIDEO)
-    // ==========================================
-    else if (azione === 'AGGIORNA_CONFIGURAZIONE_MEDIA') {
-      const sheetMedia = ottieniOcreaFoglio(ss, "Media_Config");
-      sheetMedia.appendRow([
-        new Date(),
-        payload.sezione || "Non definita",
-        payload.formato || "Sconosciuto",
-        payload.url || "Nessun URL"
-      ]);
-
-      output = { status: "SUCCESS", message: "Asset Media configurato e registrato nel DB." };
-    }
-
-    // ==========================================
-    // 5. PROMPT AGENTI IA (ALISON)
-    // ==========================================
-    else if (azione === 'AGGIORNA_PROMPT_AGENTE' || azione === 'AGGIORNA_PROMPT') {
-      const sheetPrompts = ottieniOcreaFoglio(ss, "Agent_Prompts");
-      sheetPrompts.appendRow([
-        new Date(),
-        payload.codiceAgente || "AG-01_ALISON",
-        payload.prompt || "Nessun testo",
-        payload.operatore || "Sconosciuto"
-      ]);
-
-      output = { status: "SUCCESS", message: "Prompt neurale aggiornato." };
-    }
-
-    // ==========================================
-    // 6. DISPOSIZIONE BONIFICO MEDIOLANUM (VAULT CEO)
-    // ==========================================
-    else if (azione === 'REGISTRA_PROSPETTO_BONIFICO') {
-      const sheetVault = ottieniOcreaFoglio(ss, "CEO_Vault_Ledger");
-      sheetVault.appendRow([
-        new Date(),
-        payload.banca || "BANCA MEDIOLANUM S.P.A.",
-        payload.importo || 0,
-        payload.causale || "Liquidazione dividendi",
-        "DISPOSIZIONE_GENERATA_CEO"
-      ]);
-
-      output = { status: "SUCCESS", message: "Disposizione salvata nel ledger del Vault CEO." };
-    }
-
-  } catch (err) {
-    // Logica di gestione errori globale
-    Logger.log("ERRORE SISTEMA: " + err.toString());
-    output = { status: "EXCEPTION", error: err.toString() };
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ 
+      status: "ERROR", 
+      message: error.toString() 
+    })).setMimeType(ContentService.MimeType.JSON);
   } finally {
     lock.releaseLock();
   }
-
-  // Ritorno JSON abilitato per CORS (Cross-Origin Resource Sharing)
-  return ContentService.createTextOutput(JSON.stringify(output))
-    .setMimeType(ContentService.MimeType.JSON);
 }
 
-
 /**
- * =========================================================================
- * FUNZIONI HELPER (SUPPORTO INTERNO)
- * =========================================================================
+ * Gestione Candidature Conferenza CEO Giuliano Caratelli
  */
-
-/**
- * Ottiene un foglio di Google Sheets per nome, se non esiste lo crea e formatta l'intestazione.
- */
-function ottieniOcreaFoglio(ss, nomeFoglio) {
-  let sheet = ss.getSheetByName(nomeFoglio);
+function gestisciConferenzaCEO(ss, data, dataOra) {
+  let sheet = ss.getSheetByName("Conferenze CEO");
   if (!sheet) {
-    sheet = ss.insertSheet(nomeFoglio);
-    // Imposta una colorazione base per le nuove schede
-    sheet.getRange("A1:Z1").setBackground("#090A0D").setFontColor("#D4AF37").setFontWeight("bold");
-    sheet.setFrozenRows(1);
+    sheet = ss.insertSheet("Conferenze CEO");
+    sheet.appendRow(["Data/Ora", "Nome e Cognome / Azienda", "Email", "Telefono", "Ambito Partecipazione", "Note Riservate", "Stato"]);
+    sheet.getRange("A1:G1").setFontWeight("bold").setBackground("#B8860B").setFontColor("#FFFFFF");
   }
-  return sheet;
+
+  sheet.appendRow([
+    dataOra,
+    data.nome || "Non specificato",
+    data.email || "Non specificata",
+    data.telefono || "Non specificato",
+    data.canale || data.ambito || "Generico",
+    data.note || "Nessuna nota fornita",
+    "DA CONTATTARE (RICONTATTO 24H)"
+  ]);
+
+  const oggetto = "🚨 NUOVA CANDIDATURA CONFERENZA CEO - " + (data.nome || "Utente");
+  const corpo = "RICEVUTA NUOVA CANDIDATURA ALLA CONFERENZA CEO GIULIANO CARATELLI\n\n" +
+                "Data/Ora: " + dataOra + "\n" +
+                "Nome e Cognome / Ragione Sociale: " + (data.nome || "N/D") + "\n" +
+                "Email Istituzionale: " + (data.email || "N/D") + "\n" +
+                "Telefono / WhatsApp: " + (data.telefono || "N/D") + "\n" +
+                "Ambito di Partecipazione: " + (data.canale || "N/D") + "\n" +
+                "Note Riservate: " + (data.note || "Nessuna nota") + "\n\n" +
+                "Piattaforma EAL6+ Suprema Future X S.r.l.";
+
+  inviaNotificaEmail(oggetto, corpo);
+  inviaNotificaTelegram("🎙️ *CANDIDATURA CONFERENZA CEO*\n*Nome:* " + (data.nome || "N/D") + "\n*Tel:* " + (data.telefono || "N/D"));
 }
 
 /**
- * Motore di Dispatch Notifiche Multi-Canale (Email e Telegram)
+ * Gestione Leads Chatbot Alison & CRM Nexus
  */
-function inviaNotificheMultiCanale(data, token, tipoAzione) {
-  const nome = data.nome || "Candidato";
-  const email = data.email || "Non fornita";
-  const telefono = data.telefono || "Non fornito";
-  const note = data.note || "Nessuna nota aggiuntiva";
-  const corsoOCanale = data.corso || data.canale || "Sito Web";
+function gestisciLeadNexus(ss, data, dataOra) {
+  let sheet = ss.getSheetByName("Leads Nexus");
+  if (!sheet) {
+    sheet = ss.insertSheet("Leads Nexus");
+    sheet.appendRow(["Data/Ora", "Token NX", "Nome e Cognome", "Email", "Telefono", "Canale / Fonte", "Note"]);
+    sheet.getRange("A1:G1").setFontWeight("bold").setBackground("#008B99").setFontColor("#FFFFFF");
+  }
 
-  // 1. INVIO EMAIL ALLA DIREZIONE (MailBot Nexus)
+  const token = data.token || ("NX-2026-" + Math.floor(1000 + Math.random() * 9000));
+
+  sheet.appendRow([
+    dataOra,
+    token,
+    data.nome || "Lead Anonimo",
+    data.email || "Non specificata",
+    data.telefono || "Non specificato",
+    data.canale || "Landing Page",
+    data.note || "Nessuna nota"
+  ]);
+
+  const oggetto = "⚡ NUOVO LEAD CRM NEXUS - Token " + token;
+  const corpo = "NUOVO LEAD REGISTRATO NEL CRM NEXUS (AG-01 ALISON)\n\n" +
+                "Token Assegnato: " + token + "\n" +
+                "Data/Ora: " + dataOra + "\n" +
+                "Nome: " + (data.nome || "N/D") + "\n" +
+                "Email: " + (data.email || "N/D") + "\n" +
+                "Telefono: " + (data.telefono || "N/D") + "\n" +
+                "Fonte/Canale: " + (data.canale || "N/D") + "\n" +
+                "Note / Corso: " + (data.note || "Nessuna nota") + "\n\n" +
+                "Suprema Future X S.r.l. - Flotta Neurale Agente Alison";
+
+  inviaNotificaEmail(oggetto, corpo);
+  inviaNotificaTelegram("⚡ *NUOVO LEAD CRM NEXUS*\n*Token:* " + token + "\n*Nome:* " + (data.nome || "N/D") + "\n*Email:* " + (data.email || "N/D"));
+}
+
+/**
+ * Gestione Log Sentry Analytics
+ */
+function gestisciSentryAnalytics(ss, data, dataOra) {
+  let sheet = ss.getSheetByName("Analytics Sentry");
+  if (!sheet) {
+    sheet = ss.insertSheet("Analytics Sentry");
+    sheet.appendRow(["Data/Ora", "Tipo Evento", "Dettaglio / Sezione", "Permanenza Utente"]);
+    sheet.getRange("A1:D1").setFontWeight("bold").setBackground("#333333").setFontColor("#FFFFFF");
+  }
+
+  sheet.appendRow([
+    dataOra,
+    data.azione,
+    data.sezione || "Visita Generica Landing",
+    data.permanenza || "N/D"
+  ]);
+}
+
+/**
+ * Gestione Log Generici e Feedback
+ */
+function gestisciGenerico(ss, data, dataOra) {
+  let sheet = ss.getSheetByName("Log Generici");
+  if (!sheet) {
+    sheet = ss.insertSheet("Log Generici");
+    sheet.appendRow(["Data/Ora", "Azione", "Payload JSON Completo"]);
+  }
+  sheet.appendRow([dataOra, data.azione || "INFO", JSON.stringify(data)]);
+}
+
+/**
+ * Funzione di Invio Email Simultaneo alla Direzione
+ */
+function inviaNotificaEmail(oggetto, corpo) {
   try {
-    const oggettoMail = `[SUPREMA FUTURE X] Nuovo Lead Ecosistema - ${token}`;
-    const corpoMailHtml = `
-      <div style="font-family: Arial, sans-serif; background-color: #090A0D; color: #E5E7EB; padding: 20px; border: 1px solid #D4AF37;">
-        <h2 style="color: #D4AF37; margin-bottom: 5px;">NOTIFICA CRM NEXUS</h2>
-        <p style="color: #00F0FF; font-size: 12px; margin-top: 0;">Evento: ${tipoAzione}</p>
-        <hr style="border-top: 1px solid #333;">
-        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-          <tr><td style="padding: 8px; border: 1px solid #333;"><strong>Token:</strong></td><td style="padding: 8px; border: 1px solid #333; color: #00F0FF;">${token}</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #333;"><strong>Nome:</strong></td><td style="padding: 8px; border: 1px solid #333;">${nome}</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #333;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #333;">${email}</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #333;"><strong>Telefono:</strong></td><td style="padding: 8px; border: 1px solid #333; color: #D4AF37;">${telefono}</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #333;"><strong>Canale/Corso:</strong></td><td style="padding: 8px; border: 1px solid #333;">${corsoOCanale}</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #333;"><strong>Note:</strong></td><td style="padding: 8px; border: 1px solid #333;">${note}</td></tr>
-        </table>
-      </div>
-    `;
+    MailApp.sendEmail(EMAIL_CEO_1, oggetto, corpo);
+    MailApp.sendEmail(EMAIL_CEO_2, oggetto, corpo);
+  } catch (err) {
+    Logger.log("Errore invio notifica mail: " + err.toString());
+  }
+}
 
-    MailApp.sendEmail({
-      to: CONFIG.EMAIL_DIREZIONE + "," + CONFIG.EMAIL_CEO,
-      subject: oggettoMail,
-      htmlBody: corpoMailHtml
+/**
+ * Funzione Opzionale Invio Telegram Bot
+ */
+function inviaNotificaTelegram(testo) {
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
+  try {
+    const url = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage";
+    const payload = {
+      chat_id: TELEGRAM_CHAT_ID,
+      text: testo,
+      parse_mode: "Markdown"
+    };
+    UrlFetchApp.fetch(url, {
+      method: "post",
+      contentType: "application/json",
+      payload: JSON.stringify(payload)
     });
-  } catch (eMail) {
-    Logger.log("Errore invio Email Direzionale: " + eMail.toString());
+  } catch (err) {
+    Logger.log("Errore invio notifica Telegram: " + err.toString());
   }
+}
 
-  // 2. INVIO ALERT TELEGRAM (Se configurato)
-  if (CONFIG.TELEGRAM_BOT_TOKEN !== "INSERISCI_BOT_TOKEN") {
-    try {
-      const testoTelegram = `💎 *NUOVO LEAD NEXUS* 💎\n\n` +
-                            `👤 *Nome:* ${nome}\n` +
-                            `📧 *Email:* ${email}\n` +
-                            `📞 *Tel/WA:* ${telefono}\n` +
-                            `🔑 *Token:* \`${token}\`\n` +
-                            `🎯 *Target:* ${corsoOCanale}\n` +
-                            `📝 *Note:* ${note}\n\n` +
-                            `_Notifica Automatica AG-01 Alison_`;
-
-      const urlTelegram = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
-      
-      UrlFetchApp.fetch(urlTelegram, {
-        method: "post",
-        contentType: "application/json",
-        payload: JSON.stringify({
-          chat_id: CONFIG.TELEGRAM_CHAT_ID,
-          text: testoTelegram,
-          parse_mode: "Markdown"
-        })
-      });
-    } catch (eTelegram) {
-      Logger.log("Errore invio Telegram: " + eTelegram.toString());
-    }
-  }
+/**
+ * Test dello stato del server tramite chiamata GET
+ */
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "ONLINE",
+    system: "SUPREMA FUTURE X S.R.L. BACKEND ENGINE EAL6+",
+    version: "2026.09",
+    timestamp: new Date().toISOString()
+  })).setMimeType(ContentService.MimeType.JSON);
 }
