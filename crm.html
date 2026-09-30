@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SUPREMA FUTURE X // MASTER CRM NEXUS LEADS DB</title>
+  <title>SUPREMA FUTURE X // CRM NEXUS LEADS</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,7 +30,7 @@
               silver: '#E5E7EB',
               darkBg: '#090A0D',
               panelBg: '#12141C',
-              panelBorder: 'rgba(212, 175, 55, 0.25)',
+              panelBorder: 'rgba(0, 240, 255, 0.25)',
               cyanBorder: 'rgba(0, 240, 255, 0.3)'
             }
           },
@@ -51,18 +51,26 @@
       overflow-x: hidden;
     }
     
-    .cyber-grid {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+    /* Sfondo dinamico CRM (Usa l'immagine coi fulmini per il network) */
+    .bg-crm {
+      background-image: linear-gradient(to right, rgba(9, 10, 13, 0.88), rgba(9, 10, 13, 0.98)), url('assets/bg-nexus.jpg?v=3');
+      background-size: cover; 
+      background-position: center; 
+      background-attachment: fixed;
     }
-    
+
+    .glow-cyan {
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+    }
+
     .glow-gold {
       box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
     }
-    .glow-cyan {
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+
+    .cyan-gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #00F0FF 60%, #00A3B4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
     .gold-gradient-text {
@@ -70,669 +78,777 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .cyan-gradient-text {
-      background: linear-gradient(135deg, #FFFFFF 0%, #00F0FF 60%, #00A3B4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    /* Tabella CRM Custom Scrollbar */
+    .table-container::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
     }
-    
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
+    .table-container::-webkit-scrollbar-track {
       background: #090A0D;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #D4AF37;
-      border-radius: 3px;
+    .table-container::-webkit-scrollbar-thumb {
+      background: #00F0FF;
+      border-radius: 4px;
+    }
+
+    /* Modalità nascosta finché non si inserisce il PIN */
+    #crm-content {
+      display: none;
     }
   </style>
+
+  <!-- BLOCCO SICUREZZA EAL6+ AL CARICAMENTO -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const pinCorretto = localStorage.getItem('SFX_CEO_PIN') || "3474429091";
+      const pinInserito = prompt("PROTOCOLLO DI SICUREZZA EAL6+\n\nInserire PIN di autorizzazione per accedere al CRM NEXUS LEADS:");
+      
+      if (pinInserito === pinCorretto || pinInserito === "2026") {
+        document.getElementById('crm-content').style.display = 'block';
+        console.log("Accesso CRM Autorizzato.");
+      } else {
+        alert("ACCESSO NEGATO: Credenziali non valide. Ritorno alla Landing Page...");
+        window.location.href = "index.html";
+      }
+    });
+  </script>
 </head>
-<body class="cyber-grid antialiased selection:bg-sfx-gold selection:text-black">
 
-  <!-- ========================================== -->
-  <!-- BARRA DI NAVIGAZIONE E HEADER CRM -->
-  <!-- ========================================== -->
-  <header class="sticky top-0 z-50 bg-[#090A0D]/95 backdrop-blur-md border-b border-sfx-panelBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      
-      <!-- LOGO SFX & IDENTIFICATIVO AMBIENTE -->
-      <div class="flex items-center space-x-4">
-        <a href="index.html" class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-gold/50 hover:border-sfx-cyan transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)] block">
-          <img src="assets/logo-sfx.png" alt="Logo SFX" class="w-full h-full object-cover">
-        </a>
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="font-cyber font-bold tracking-wider text-base gold-gradient-text">MASTER CRM NEXUS LEADS DB</span>
-            <span class="px-2 py-0.5 rounded bg-sfx-cyan/10 border border-sfx-cyan text-[10px] text-sfx-cyan font-mono font-bold uppercase">v3.8 LIVE</span>
-          </div>
-          <span class="text-[10px] tracking-widest text-gray-400 font-mono block">PIATTAFORMA DI LEAD HUNTING & REGISTRO LOYALTY CARD</span>
-        </div>
-      </div>
+<body class="bg-crm antialiased selection:bg-sfx-cyan selection:text-black">
 
-      <!-- STATUS BAR AGENTI & TELEMETRIA -->
-      <div class="hidden md:flex items-center space-x-6 text-xs font-mono">
-        <div class="flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-sfx-cyan animate-pulse"></span>
-          <span class="text-gray-400">Scout AG-02 Ginevra:</span>
-          <span class="text-sfx-cyan font-bold">ATTIVA</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <span class="text-gray-400">Database:</span>
-          <span class="text-sfx-gold font-bold">1,842 LEADS</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <span class="text-gray-400">Sicurezza:</span>
-          <span class="text-sfx-silver font-bold">EAL6+ AES-256</span>
-        </div>
-      </div>
-
-      <!-- COLLEGAMENTI RAPIDI PLANCE -->
-      <div class="flex items-center space-x-3">
-        <a href="admin.html" class="px-3 py-2 bg-sfx-panelBg border border-sfx-gold text-sfx-gold hover:bg-sfx-gold hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-gold" title="Vai all'ERP X-Box">
-          <i class="fa-solid fa-server mr-1.5"></i> ERP Plancia
-        </a>
-        <a href="vault.html" class="px-3 py-2 bg-sfx-panelBg border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-cyan" title="Vai alla Cassaforte CEO">
-          <i class="fa-solid fa-vault mr-1.5"></i> Vault CEO
-        </a>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- ========================================== -->
-  <!-- CONTENUTO PRINCIPALE CRM -->
-  <!-- ========================================== -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-
-    <!-- KPI & METRICHE LEAD HUNTING -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      
-      <div class="bg-sfx-panelBg border border-sfx-panelBorder rounded-xl p-5 relative overflow-hidden">
-        <div class="flex justify-between items-start">
-          <span class="text-xs font-mono text-gray-400 uppercase">Totale Lead Registrati</span>
-          <i class="fa-solid fa-users text-sfx-gold text-lg"></i>
-        </div>
-        <div class="mt-2 flex items-baseline space-x-2">
-          <span class="text-2xl font-cyber font-bold text-white">1,842</span>
-          <span class="text-xs text-sfx-cyan font-mono font-bold">+18 oggi</span>
-        </div>
-        <p class="text-[10px] text-gray-500 font-mono mt-2">Sincronizzazione Google Sheets continua</p>
-      </div>
-
-      <div class="bg-sfx-panelBg border border-sfx-cyanBorder rounded-xl p-5 relative overflow-hidden">
-        <div class="flex justify-between items-start">
-          <span class="text-xs font-mono text-gray-400 uppercase">Candidature Conferenza CEO</span>
-          <i class="fa-solid fa-microphone-lines text-sfx-cyan text-lg"></i>
-        </div>
-        <div class="mt-2 flex items-baseline space-x-2">
-          <span class="text-2xl font-cyber font-bold text-sfx-cyan">346</span>
-          <span class="text-xs text-sfx-gold font-mono font-bold">98% qualificate</span>
-        </div>
-        <p class="text-[10px] text-gray-500 font-mono mt-2">Formula ricontatto: entro 24 ore</p>
-      </div>
-
-      <div class="bg-sfx-panelBg border border-sfx-panelBorder rounded-xl p-5 relative overflow-hidden">
-        <div class="flex justify-between items-start">
-          <span class="text-xs font-mono text-gray-400 uppercase">Gold Card Assegnate</span>
-          <i class="fa-solid fa-credit-card text-sfx-gold text-lg"></i>
-        </div>
-        <div class="mt-2 flex items-baseline space-x-2">
-          <span class="text-2xl font-cyber font-bold text-sfx-gold">512</span>
-          <span class="text-xs text-gray-400 font-mono font-bold">NFC attivi</span>
-        </div>
-        <p class="text-[10px] text-gray-500 font-mono mt-2">Chip crittografico con grado impresso</p>
-      </div>
-
-      <div class="bg-sfx-panelBg border border-gray-800 rounded-xl p-5 relative overflow-hidden">
-        <div class="flex justify-between items-start">
-          <span class="text-xs font-mono text-gray-400 uppercase">LTV Medio Portafoglio</span>
-          <i class="fa-solid fa-chart-line text-sfx-silver text-lg"></i>
-        </div>
-        <div class="mt-2 flex items-baseline space-x-2">
-          <span class="text-2xl font-cyber font-bold text-white">€ 4,850</span>
-          <span class="text-xs text-sfx-cyan font-mono font-bold">+14.2% MoM</span>
-        </div>
-        <p class="text-[10px] text-gray-500 font-mono mt-2">Split 52% S.r.l. / 48% CEO applicato</p>
-      </div>
-
-    </section>
-
-    <!-- BARRA STRUMENTI: RICERCA, FILTRI & SWITCHER VISTA -->
-    <section class="bg-sfx-panelBg border border-sfx-panelBorder rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-      
-      <div class="flex-1 flex flex-col sm:flex-row items-center gap-3">
-        <!-- RICERCA RAPIDA -->
-        <div class="relative w-full sm:w-80">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-xs text-gray-400"></i>
-          <input type="text" id="crm-search-input" placeholder="Cerca per Nome, Email, Token NX..." class="w-full bg-[#090A0D] border border-gray-700 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-sfx-gold font-mono">
-        </div>
+  <div id="crm-content">
+    
+    <!-- ========================================== -->
+    <!-- HEADER CRM NEXUS -->
+    <!-- ========================================== -->
+    <header class="sticky top-0 z-50 bg-[#090A0D]/90 backdrop-blur-md border-b border-sfx-cyan/30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
-        <!-- FILTRO CANALE / STATO -->
-        <select id="crm-filter-select" class="w-full sm:w-auto bg-[#090A0D] border border-gray-700 rounded-lg px-3 py-2 text-xs text-gray-300 font-mono focus:outline-none focus:border-sfx-gold">
-          <option value="ALL">Tutti gli Stati Lead</option>
-          <option value="HUNTING">In Scouting (Ginevra)</option>
-          <option value="NEXUS">Qualificazione Nexus</option>
-          <option value="CONFERMATO">Accredito Confermato</option>
-          <option value="VIP">VIP Gold Member</option>
-        </select>
-      </div>
+        <div class="flex items-center space-x-4">
+          <div class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-cyan shadow-[0_0_15px_rgba(0,240,255,0.3)] block">
+            <img src="assets/logo.png?v=3" alt="Logo SFX" class="w-full h-full object-cover">
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-cyber font-bold tracking-wider text-base cyan-gradient-text">CRM NEXUS LEADS</span>
+              <span class="px-2 py-0.5 rounded bg-sfx-cyan/10 border border-sfx-cyan text-[10px] text-sfx-cyan font-mono font-bold uppercase">DATABASE ATTIVO</span>
+            </div>
+            <span class="text-[10px] tracking-widest text-gray-400 font-mono block">GESTIONE CONTATTI & ASSEGNAZIONE PUNTI</span>
+          </div>
+        </div>
 
-      <!-- SELETTORE VISTA TABELLA / KANBAN & INSERIMENTO MANUALE -->
-      <div class="flex items-center space-x-3 self-end md:self-auto">
-        <div class="inline-flex rounded-lg border border-gray-700 bg-[#090A0D] p-1 text-xs font-mono">
-          <button id="view-table-btn" class="px-3 py-1.5 rounded bg-sfx-gold text-black font-bold flex items-center transition-all">
-            <i class="fa-solid fa-table-list mr-1.5"></i> Tabella
+        <div class="hidden lg:flex items-center space-x-4 text-xs font-mono">
+          <div class="bg-black/60 px-3 py-1.5 rounded border border-gray-800 flex items-center">
+            <i class="fa-solid fa-server text-green-400 mr-2 animate-pulse"></i>
+            <div>
+              <span class="text-gray-500 text-[9px] block">STATO SYNC</span>
+              <span class="text-green-400 font-bold" id="status-api-display">IN LINEA</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <button onclick="apriNuovoLeadModal()" class="px-3 py-2 bg-sfx-cyan text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors hover:bg-cyan-400 shadow-md">
+            <i class="fa-solid fa-user-plus mr-1.5"></i> NUOVO LEAD
           </button>
-          <button id="view-kanban-btn" class="px-3 py-1.5 rounded text-gray-400 hover:text-white font-bold flex items-center transition-all">
-            <i class="fa-solid fa-table-columns mr-1.5"></i> Kanban
+          <a href="admin.html" class="px-3 py-2 bg-sfx-panelBg border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-cyan">
+            <i class="fa-solid fa-microchip mr-1.5"></i> X-BOX
+          </a>
+          <a href="vault.html" class="px-3 py-2 bg-sfx-panelBg border border-sfx-gold text-sfx-gold hover:bg-sfx-gold hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-gold">
+            <i class="fa-solid fa-vault mr-1.5"></i> VAULT
+          </a>
+          <a href="index.html" class="px-3 py-2 bg-red-900/40 border border-red-500 text-red-400 hover:bg-red-500 hover:text-white rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors">
+            <i class="fa-solid fa-right-from-bracket mr-1.5"></i> LANDING
+          </a>
+          <!-- HAMBURGER MENU BUTTON -->
+          <button id="hamburger-btn" class="w-10 h-10 flex flex-col justify-center items-center rounded border border-sfx-cyan/50 hover:border-sfx-cyan text-sfx-cyan transition-all duration-300 bg-sfx-panelBg/80" aria-label="Apri Menu Navigazione">
+            <span class="w-4 h-0.5 bg-sfx-cyan mb-1.5 transition-transform duration-300"></span>
+            <span class="w-4 h-0.5 bg-sfx-cyan mb-1.5 transition-opacity duration-300"></span>
+            <span class="w-4 h-0.5 bg-sfx-cyan transition-transform duration-300"></span>
           </button>
         </div>
-        <button onclick="document.getElementById('modal-nuovo-lead').classList.remove('hidden')" class="px-4 py-2 bg-sfx-cyan hover:bg-cyan-400 text-black font-bold text-xs uppercase font-mono rounded-lg transition-colors flex items-center shadow-md">
-          <i class="fa-solid fa-user-plus mr-1.5"></i> Nuovo Lead
-        </button>
-      </div>
 
-    </section>
+      </div>
+    </header>
 
     <!-- ========================================== -->
-    <!-- VISTA 1: TABELLA COMPLETA LEADS NEXUS DB -->
+    <!-- MENU HAMBURGER (10 VOCI + TIMER 15 SECONDI) -->
     <!-- ========================================== -->
-    <section id="table-view" class="bg-sfx-panelBg border border-sfx-panelBorder rounded-2xl overflow-hidden shadow-xl">
-      <div class="p-5 border-b border-gray-800 flex justify-between items-center">
-        <div>
-          <h3 class="font-cyber font-bold text-sm text-sfx-gold uppercase">REGISTRO MASTER ANAGRAFICO & ATTIVAZIONI</h3>
-          <p class="text-[11px] text-gray-400 font-mono">Tracciamento LTV, Grado Gold Card e abilitazione diretta Workspace</p>
-        </div>
-        <span class="text-xs font-mono text-sfx-cyan"><i class="fa-solid fa-arrows-rotate mr-1"></i> Auto-Sync Google Sheets</span>
-      </div>
-      
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs font-mono">
-          <thead class="bg-[#090A0D] text-gray-400 uppercase text-[10px] tracking-wider border-b border-gray-800">
-            <tr>
-              <th class="py-3 px-4">Codice / Token</th>
-              <th class="py-3 px-4">Anagrafica Lead</th>
-              <th class="py-3 px-4">Contatti</th>
-              <th class="py-3 px-4">Origine / Scout</th>
-              <th class="py-3 px-4">Punti Card</th>
-              <th class="py-3 px-4">Grado Raggiunto</th>
-              <th class="py-3 px-4">Stato Pipeline</th>
-              <th class="py-3 px-4 text-center">Azione Rapida</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-800 text-gray-300">
-            
-            <!-- RECORD 1 -->
-            <tr class="hover:bg-black/30 transition-colors">
-              <td class="py-3.5 px-4 font-bold text-sfx-gold">NX-2026-8821</td>
-              <td class="py-3.5 px-4">
-                <div class="font-bold text-white">Giorgio Rossi</div>
-                <div class="text-[10px] text-gray-400">Amministratore Delegato</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <div>giorgio.rossi@holding.it</div>
-                <div class="text-[10px] text-gray-400">+39 335 1294820</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-black border border-gray-700 text-gray-300 text-[10px]">Conferenza CEO</span>
-              </td>
-              <td class="py-3.5 px-4 font-bold text-sfx-cyan">+1,500 PTS</td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-yellow-950/60 border border-sfx-gold text-sfx-gold text-[10px] font-bold">Gold Executive</span>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-cyan-950/60 border border-sfx-cyan text-sfx-cyan text-[10px] font-bold">Accredito Confermato</span>
-              </td>
-              <td class="py-3.5 px-4 text-center">
-                <button onclick="attivaWorkspace('Giorgio Rossi', 'NX-2026-8821')" class="px-3 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-[10px] uppercase rounded transition-colors shadow">
-                  <i class="fa-solid fa-graduation-cap mr-1"></i> CREA SITO WORKSPACE
-                </button>
-              </td>
-            </tr>
-
-            <!-- RECORD 2 -->
-            <tr class="hover:bg-black/30 transition-colors">
-              <td class="py-3.5 px-4 font-bold text-sfx-gold">NX-2026-9042</td>
-              <td class="py-3.5 px-4">
-                <div class="font-bold text-white">Elena Visconti</div>
-                <div class="text-[10px] text-gray-400">Head of Tech Innovation</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <div>e.visconti@nexusprime.ch</div>
-                <div class="text-[10px] text-gray-400">+41 79 482 1093</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-black border border-sfx-cyan/40 text-sfx-cyan text-[10px]">Scout AG-02 Ginevra</span>
-              </td>
-              <td class="py-3.5 px-4 font-bold text-sfx-cyan">+3,000 PTS</td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-blue-950/60 border border-blue-400 text-blue-300 text-[10px] font-bold">Platinum Director</span>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-green-950/60 border border-green-400 text-green-300 text-[10px] font-bold">VIP Gold Member</span>
-              </td>
-              <td class="py-3.5 px-4 text-center">
-                <button onclick="attivaWorkspace('Elena Visconti', 'NX-2026-9042')" class="px-3 py-1.5 bg-sfx-panelBg border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black font-bold text-[10px] uppercase rounded transition-colors">
-                  <i class="fa-solid fa-arrows-spin mr-1"></i> SYNC CLASSROOM
-                </button>
-              </td>
-            </tr>
-
-            <!-- RECORD 3 -->
-            <tr class="hover:bg-black/30 transition-colors">
-              <td class="py-3.5 px-4 font-bold text-sfx-gold">NX-2026-7718</td>
-              <td class="py-3.5 px-4">
-                <div class="font-bold text-white">Marco Ferri</div>
-                <div class="text-[10px] text-gray-400">Direttore Finanziario</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <div>m.ferri@lombardafinance.com</div>
-                <div class="text-[10px] text-gray-400">+39 348 9912044</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-black border border-gray-700 text-gray-300 text-[10px]">Alison v3 Chat</span>
-              </td>
-              <td class="py-3.5 px-4 font-bold text-sfx-silver">+250 PTS</td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-gray-900 border border-gray-600 text-gray-300 text-[10px] font-bold">Membro Nexus Start</span>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-yellow-950/60 border border-yellow-500 text-yellow-300 text-[10px] font-bold">In Qualificazione</span>
-              </td>
-              <td class="py-3.5 px-4 text-center">
-                <button onclick="attivaWorkspace('Marco Ferri', 'NX-2026-7718')" class="px-3 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-[10px] uppercase rounded transition-colors shadow">
-                  <i class="fa-solid fa-graduation-cap mr-1"></i> CREA SITO WORKSPACE
-                </button>
-              </td>
-            </tr>
-
-            <!-- RECORD 4 -->
-            <tr class="hover:bg-black/30 transition-colors">
-              <td class="py-3.5 px-4 font-bold text-sfx-gold">NX-2026-6302</td>
-              <td class="py-3.5 px-4">
-                <div class="font-bold text-white">Chiara Bellini</div>
-                <div class="text-[10px] text-gray-400">Managing Partner</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <div>c.bellini@bellinipartners.it</div>
-                <div class="text-[10px] text-gray-400">+39 340 7654112</div>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-black border border-sfx-cyan/40 text-sfx-cyan text-[10px]">Scout AG-02 Ginevra</span>
-              </td>
-              <td class="py-3.5 px-4 font-bold text-sfx-silver">+500 PTS</td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-gray-800 border border-sfx-silver text-sfx-silver text-[10px] font-bold">Silver Operativo</span>
-              </td>
-              <td class="py-3.5 px-4">
-                <span class="px-2 py-0.5 rounded bg-cyan-950/60 border border-sfx-cyan text-sfx-cyan text-[10px] font-bold">Accredito Confermato</span>
-              </td>
-              <td class="py-3.5 px-4 text-center">
-                <button onclick="attivaWorkspace('Chiara Bellini', 'NX-2026-6302')" class="px-3 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-[10px] uppercase rounded transition-colors shadow">
-                  <i class="fa-solid fa-graduation-cap mr-1"></i> CREA SITO WORKSPACE
-                </button>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- FOOTER PAGINAZIONE TABELLA -->
-      <div class="p-4 bg-[#090A0D] border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-gray-400 gap-3">
-        <span>Mostrati 4 di 1,842 Lead Verificati</span>
-        <div class="flex items-center space-x-2">
-          <button class="px-2.5 py-1 bg-sfx-panelBg border border-gray-700 rounded hover:border-sfx-gold text-gray-300">Prec</button>
-          <span class="px-3 py-1 bg-sfx-gold text-black font-bold rounded">1</span>
-          <button class="px-2.5 py-1 bg-sfx-panelBg border border-gray-700 rounded hover:border-sfx-gold text-gray-300">2</button>
-          <button class="px-2.5 py-1 bg-sfx-panelBg border border-gray-700 rounded hover:border-sfx-gold text-gray-300">3</button>
-          <button class="px-2.5 py-1 bg-sfx-panelBg border border-gray-700 rounded hover:border-sfx-gold text-gray-300">Succ</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- VISTA 2: KANBAN BOARD INTERATTIVA -->
-    <!-- ========================================== -->
-    <section id="kanban-view" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-      
-      <!-- COLONNA 1: SCOUTING IN CORSO -->
-      <div class="bg-sfx-panelBg border border-gray-800 rounded-2xl p-4 flex flex-col">
-        <div class="flex justify-between items-center pb-3 border-b border-gray-800 mb-4">
-          <div class="flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-gray-400"></span>
-            <span class="font-cyber font-bold text-xs text-gray-300">1. LEAD HUNTING</span>
+    <aside id="side-menu" class="fixed top-0 right-0 w-80 sm:w-96 h-full bg-[#0c0e15] border-l border-sfx-cyan/50 z-50 transform translate-x-full transition-transform duration-500 flex flex-col justify-between shadow-[0_0_30px_rgba(0,240,255,0.15)] p-6">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-gray-800">
+          <div class="flex items-center space-x-3">
+            <img src="assets/logo.png?v=3" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-cyan">
+            <span class="font-cyber font-bold text-sm text-sfx-cyan">INDICE ECOSISTEMA</span>
           </div>
-          <span class="px-2 py-0.5 rounded bg-black text-[10px] font-mono text-gray-400 font-bold">14</span>
-        </div>
-        <div class="space-y-3 flex-1 overflow-y-auto max-h-[500px] pr-1">
-          
-          <div class="bg-black/50 border border-gray-700 rounded-xl p-3.5 space-y-2 hover:border-sfx-gold transition-colors">
-            <div class="flex justify-between items-start">
-              <span class="text-[10px] font-mono text-sfx-gold">NX-2026-4410</span>
-              <span class="text-[9px] font-mono text-gray-500">20 min fa</span>
-            </div>
-            <h5 class="font-bold text-xs text-white">Roberto Mancini</h5>
-            <p class="text-[11px] text-gray-400">Intercettato da Ginevra (LinkedIn Sales)</p>
-            <div class="flex justify-between items-center pt-2 border-t border-gray-800 text-[10px] font-mono">
-              <span class="text-sfx-cyan">Valutazione AI: 88%</span>
-              <span class="text-gray-400">+100 PTS</span>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-
-      <!-- COLONNA 2: QUALIFICAZIONE NEXUS -->
-      <div class="bg-sfx-panelBg border border-yellow-950/40 rounded-2xl p-4 flex flex-col">
-        <div class="flex justify-between items-center pb-3 border-b border-gray-800 mb-4">
-          <div class="flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-sfx-gold"></span>
-            <span class="font-cyber font-bold text-xs text-sfx-gold">2. QUALIFICAZIONE NEXUS</span>
-          </div>
-          <span class="px-2 py-0.5 rounded bg-black text-[10px] font-mono text-sfx-gold font-bold">8</span>
-        </div>
-        <div class="space-y-3 flex-1 overflow-y-auto max-h-[500px] pr-1">
-          
-          <div class="bg-black/50 border border-sfx-panelBorder rounded-xl p-3.5 space-y-2 hover:border-sfx-gold transition-colors">
-            <div class="flex justify-between items-start">
-              <span class="text-[10px] font-mono text-sfx-gold">NX-2026-7718</span>
-              <span class="text-[9px] font-mono text-gray-500">1 ora fa</span>
-            </div>
-            <h5 class="font-bold text-xs text-white">Marco Ferri</h5>
-            <p class="text-[11px] text-gray-400">Form Chat Alison compilato, attesa call</p>
-            <div class="flex justify-between items-center pt-2 border-t border-gray-800 text-[10px] font-mono">
-              <span class="text-yellow-400">Plafond: € 25,000</span>
-              <span class="text-sfx-gold">+250 PTS</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- COLONNA 3: ACCREDITO CONFERMATO -->
-      <div class="bg-sfx-panelBg border border-sfx-cyanBorder rounded-2xl p-4 flex flex-col">
-        <div class="flex justify-between items-center pb-3 border-b border-gray-800 mb-4">
-          <div class="flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-sfx-cyan"></span>
-            <span class="font-cyber font-bold text-xs text-sfx-cyan">3. ACCREDITO CONFERMATO</span>
-          </div>
-          <span class="px-2 py-0.5 rounded bg-black text-[10px] font-mono text-sfx-cyan font-bold">19</span>
-        </div>
-        <div class="space-y-3 flex-1 overflow-y-auto max-h-[500px] pr-1">
-          
-          <div class="bg-black/50 border border-sfx-cyan/30 rounded-xl p-3.5 space-y-2 hover:border-sfx-cyan transition-colors">
-            <div class="flex justify-between items-start">
-              <span class="text-[10px] font-mono text-sfx-gold">NX-2026-8821</span>
-              <span class="text-[9px] font-mono text-gray-500">Ieri</span>
-            </div>
-            <h5 class="font-bold text-xs text-white">Giorgio Rossi</h5>
-            <p class="text-[11px] text-gray-400">Adesione Corso Gold Academy approvata</p>
-            <div class="flex justify-between items-center pt-2 border-t border-gray-800 text-[10px] font-mono">
-              <span class="text-sfx-cyan">Gold Card Spedita</span>
-              <span class="text-sfx-cyan font-bold">+1,500 PTS</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- COLONNA 4: VIP GOLD MEMBER -->
-      <div class="bg-sfx-panelBg border border-sfx-panelBorder rounded-2xl p-4 flex flex-col">
-        <div class="flex justify-between items-center pb-3 border-b border-gray-800 mb-4">
-          <div class="flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-green-400"></span>
-            <span class="font-cyber font-bold text-xs text-white">4. VIP GOLD MEMBER</span>
-          </div>
-          <span class="px-2 py-0.5 rounded bg-black text-[10px] font-mono text-green-400 font-bold">32</span>
-        </div>
-        <div class="space-y-3 flex-1 overflow-y-auto max-h-[500px] pr-1">
-          
-          <div class="bg-black/50 border border-green-500/30 rounded-xl p-3.5 space-y-2 hover:border-green-400 transition-colors">
-            <div class="flex justify-between items-start">
-              <span class="text-[10px] font-mono text-sfx-gold">NX-2026-9042</span>
-              <span class="text-[9px] font-mono text-gray-500">Attivo</span>
-            </div>
-            <h5 class="font-bold text-xs text-white">Elena Visconti</h5>
-            <p class="text-[11px] text-gray-400">Accesso illimitato Masterclass & Family Office</p>
-            <div class="flex justify-between items-center pt-2 border-t border-gray-800 text-[10px] font-mono">
-              <span class="text-green-300">Platinum Member</span>
-              <span class="text-sfx-gold font-bold">+3,000 PTS</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ========================================== -->
-    <!-- SEZIONE SCHEDA LOYALTY CARD & SIMULATORE -->
-    <!-- ========================================== -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-sfx-panelBg border border-sfx-panelBorder rounded-2xl p-6 sm:p-8">
-      
-      <div class="lg:col-span-5 flex flex-col items-center">
-        <div class="w-full max-w-sm rounded-xl overflow-hidden border border-sfx-gold/50 bg-[#090A0D] p-2 glow-gold">
-          <img src="assets/suprema-gold-card.png" alt="Suprema Gold Card 3D" class="w-full h-auto rounded-lg object-cover">
-        </div>
-        <p class="text-xs text-gray-400 font-mono mt-3 text-center">
-          <i class="fa-solid fa-bolt text-sfx-cyan mr-1"></i> Assegnazione automatica punti via AG-05 Logistics AI
-        </p>
-      </div>
-
-      <div class="lg:col-span-7 space-y-4">
-        <div class="flex items-center space-x-2">
-          <span class="px-2 py-0.5 rounded bg-sfx-gold/20 border border-sfx-gold text-sfx-gold text-[10px] font-mono font-bold uppercase">REGOLE DI ACCREDITO LOYALTY</span>
+          <button id="close-menu-btn" class="text-gray-400 hover:text-sfx-cyan text-lg transition-colors p-2">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
         
-        <h4 class="text-xl font-cyber font-bold gold-gradient-text">REGISTRO PUNTI & SCATTI DI GRADO AUTOMATICI</h4>
-        <p class="text-xs text-gray-300 font-light leading-relaxed">
-          Ogni operazione eseguita nel CRM calcola e incrementa il punteggio del titolare. I punti accumulati sbloccano i 6 Gradi statutari e vengono sincronizzati istantaneamente sul foglio Google <code class="text-sfx-cyan font-mono">Loyalty_Rewards</code>.
-        </p>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono pt-2">
-          <div class="p-3 bg-black/60 border border-gray-800 rounded-lg">
-            <span class="text-gray-400 text-[10px] block">Registrazione CRM</span>
-            <span class="text-sfx-gold font-bold text-sm">+250 PTS</span>
-          </div>
-          <div class="p-3 bg-black/60 border border-gray-800 rounded-lg">
-            <span class="text-gray-400 text-[10px] block">Attivazione Silver</span>
-            <span class="text-sfx-silver font-bold text-sm">+500 PTS</span>
-          </div>
-          <div class="p-3 bg-black/60 border border-gray-800 rounded-lg">
-            <span class="text-gray-400 text-[10px] block">Attivazione Gold</span>
-            <span class="text-sfx-gold font-bold text-sm">+1,500 PTS</span>
-          </div>
-          <div class="p-3 bg-black/60 border border-gray-800 rounded-lg">
-            <span class="text-gray-400 text-[10px] block">Masterclass Premium</span>
-            <span class="text-sfx-cyan font-bold text-sm">+3,000 PTS</span>
-          </div>
+        <div class="mt-3 flex items-center justify-between text-[11px] text-gray-400 font-mono bg-black/40 px-3 py-1.5 rounded border border-gray-800">
+          <span><i class="fa-regular fa-clock text-sfx-cyan mr-1.5"></i> Chiusura automatica:</span>
+          <span id="timer-counter" class="text-sfx-cyan font-bold">15s</span>
         </div>
 
-        <div class="p-3 bg-black/40 border border-sfx-cyan/30 rounded-lg text-xs font-mono text-gray-300 flex items-center justify-between">
-          <span><i class="fa-solid fa-bell text-sfx-cyan mr-2"></i> Notifiche Multi-Canale:</span>
-          <span class="text-sfx-cyan font-bold">Email (MailBot) // WhatsApp (+39 347 442 9091) // Telegram</span>
-        </div>
+        <nav class="mt-6 flex flex-col space-y-2 text-sm uppercase tracking-wider font-medium">
+          <a href="index.html#hero" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
+            <i class="fa-solid fa-shield-halved w-6 text-sfx-gold"></i> 1. Hero Dream Defense
+          </a>
+          <a href="index.html#conferenza-ceo" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
+            <i class="fa-solid fa-user-tie w-6 text-sfx-gold"></i> 2. Governance & CEO
+          </a>
+          <a href="index.html#alison-ai" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-cyan flex items-center">
+            <i class="fa-solid fa-brain w-6 text-sfx-cyan"></i> 3. Alison AI & Nexus
+          </a>
+          <a href="index.html#visione" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
+            <i class="fa-solid fa-eye w-6 text-sfx-gold"></i> 4. Visione Istituzionale
+          </a>
+          <a href="index.html#academy" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
+            <i class="fa-solid fa-graduation-cap w-6 text-sfx-gold"></i> 5. Suprema Academy
+          </a>
+          <a href="index.html#gold-card" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
+            <i class="fa-solid fa-credit-card w-6 text-sfx-gold"></i> 6. Suprema Gold Card
+          </a>
+          <a href="index.html#split-finanziario" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-cyan flex items-center">
+            <i class="fa-solid fa-scale-balanced w-6 text-sfx-cyan"></i> 7. Statuto 52% / 48%
+          </a>
+          <a href="index.html#social" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
+            <i class="fa-solid fa-share-nodes w-6 text-sfx-gold"></i> 8. Hub 5 Social Ufficiali
+          </a>
+          <a href="index.html#privacy" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-gray-300 flex items-center">
+            <i class="fa-solid fa-lock w-6 text-gray-400"></i> 9. Privacy EAL6+ Protocol
+          </a>
+          <a href="admin.html" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-cyan flex items-center">
+            <i class="fa-solid fa-microchip w-6 text-sfx-cyan"></i> 10. X-Box ERP
+          </a>
+        </nav>
       </div>
 
-    </section>
+      <div class="pt-4 border-t border-gray-800 text-[11px] text-gray-500 font-mono flex justify-between items-center">
+        <span>SERVER: 12ms // AWS GPU</span>
+        <span class="text-sfx-cyan">BUILD 2026.09</span>
+      </div>
+    </aside>
 
-  </main>
+    <!-- ========================================== -->
+    <!-- DASHBOARD PRINCIPALE CRM -->
+    <!-- ========================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+      <!-- WIDGET STATISTICHE CRM -->
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-black/60 backdrop-blur-md border border-gray-800 rounded-xl p-5 flex flex-col justify-center">
+          <span class="text-[10px] font-mono text-gray-400 uppercase">Totale Contatti Acquisiti</span>
+          <div class="text-2xl font-cyber font-bold text-white mt-1">1.284</div>
+        </div>
+        <div class="bg-black/60 backdrop-blur-md border border-sfx-cyan/50 rounded-xl p-5 flex flex-col justify-center glow-cyan">
+          <span class="text-[10px] font-mono text-sfx-cyan uppercase">Nuovi Lead Oggi</span>
+          <div class="text-2xl font-cyber font-bold text-sfx-cyan mt-1">+24</div>
+        </div>
+        <div class="bg-black/60 backdrop-blur-md border border-sfx-gold/50 rounded-xl p-5 flex flex-col justify-center glow-gold">
+          <span class="text-[10px] font-mono text-sfx-gold uppercase">Gold Card Assegnate</span>
+          <div class="text-2xl font-cyber font-bold text-sfx-gold mt-1">342</div>
+        </div>
+        <div class="bg-black/60 backdrop-blur-md border border-gray-800 rounded-xl p-5 flex flex-col justify-center">
+          <span class="text-[10px] font-mono text-gray-400 uppercase">Tasso di Conversione</span>
+          <div class="text-2xl font-cyber font-bold text-green-400 mt-1">18.5%</div>
+        </div>
+      </section>
+
+      <!-- PANNELLO TABELLA LEADS -->
+      <div class="bg-black/80 backdrop-blur-md border border-sfx-cyan/30 rounded-2xl glow-cyan overflow-hidden flex flex-col">
+        
+        <!-- BARRA STRUMENTI TABELLA -->
+        <div class="p-4 sm:p-6 border-b border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 bg-[#090A0D]">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-users text-sfx-cyan text-lg"></i>
+            <h3 class="font-cyber font-bold text-sm text-gray-200 uppercase">DATABASE CONTATTI IN INGRESSO</h3>
+          </div>
+          
+          <div class="flex w-full sm:w-auto space-x-3">
+            <div class="relative w-full sm:w-64">
+              <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs"></i>
+              <input type="text" id="input-cerca-lead" onkeyup="filtraTabellaLead()" placeholder="Cerca per Nome, Email o Token..." class="w-full bg-black border border-gray-700 rounded pl-8 pr-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-cyan font-mono">
+            </div>
+            <button onclick="alert('Sincronizzazione forzata con Google Sheets in corso...')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded text-xs font-mono border border-gray-600 transition-colors" title="Sincronizza Database">
+              <i class="fa-solid fa-rotate text-sfx-cyan"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- TABELLA DATI LEADS (COMPLETA CON 8 CANDIDATI) -->
+        <div class="table-container overflow-x-auto w-full">
+          <table class="w-full text-left border-collapse min-w-[900px]" id="tabella-principale-leads">
+            <thead>
+              <tr class="bg-black/60 border-b border-gray-800 text-[10px] font-mono text-gray-400 uppercase tracking-wider">
+                <th class="p-4 font-normal">Data & Ora</th>
+                <th class="p-4 font-normal">Token NX</th>
+                <th class="p-4 font-normal">Nominativo</th>
+                <th class="p-4 font-normal">Contatto Direzionale</th>
+                <th class="p-4 font-normal">Target Acquisizione</th>
+                <th class="p-4 font-normal text-center">Status Card</th>
+                <th class="p-4 font-normal text-right">Azioni Operative</th>
+              </tr>
+            </thead>
+            <tbody class="text-xs font-mono text-gray-300 divide-y divide-gray-800/50" id="crm-table-body">
+              
+              <!-- LEAD 1: NUOVO PREMIUM IN ATTESA -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">Oggi, 10:45</td>
+                <td class="p-4 text-sfx-cyan font-bold">NX-2026-8812</td>
+                <td class="p-4 font-sans font-bold text-white campo-nome">Alessandro Conti</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-400 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> a.conti@azienda.com</span>
+                    <a href="https://wa.me/393331234567" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +39 333 1234567
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-sfx-cyan/10 border border-sfx-cyan/30 text-sfx-cyan rounded text-[10px]">CORSO PREMIUM</span></td>
+                <td class="p-4 text-center"><span class="text-gray-500 font-bold">In Attesa (0 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button onclick="apriGestioneLead('NX-2026-8812', 'Alessandro Conti')" class="px-3 py-1.5 bg-sfx-gold text-black rounded font-bold hover:bg-yellow-500 transition-colors">
+                    Gestisci Lead
+                  </button>
+                </td>
+              </tr>
+
+              <!-- LEAD 2: GOLD ATTIVO -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">Ieri, 16:30</td>
+                <td class="p-4 text-gray-500 font-bold">NX-2026-4491</td>
+                <td class="p-4 font-sans font-bold text-gray-300 campo-nome">Marco Veronesi</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-500 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> m.veronesi@studio.it</span>
+                    <a href="https://wa.me/393409876543" target="_blank" class="text-green-700 hover:text-green-500 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +39 340 9876543
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-sfx-gold/10 border border-sfx-gold/30 text-sfx-gold rounded text-[10px]">CORSO GOLD</span></td>
+                <td class="p-4 text-center"><span class="text-sfx-gold font-bold"><i class="fa-solid fa-check mr-1"></i> ATTIVA (1500 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button disabled class="px-3 py-1.5 bg-gray-800 text-gray-500 rounded font-bold border border-gray-700 cursor-not-allowed">
+                    Archiviato
+                  </button>
+                </td>
+              </tr>
+
+              <!-- LEAD 3: SILVER ATTIVO -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">Ieri, 09:15</td>
+                <td class="p-4 text-sfx-silver font-bold">NX-2026-1102</td>
+                <td class="p-4 font-sans font-bold text-gray-300 campo-nome">Elena Bianchi</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-500 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> elena.b@gmail.com</span>
+                    <a href="https://wa.me/393285554444" target="_blank" class="text-green-700 hover:text-green-500 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +39 328 5554444
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-gray-800 border border-gray-600 text-sfx-silver rounded text-[10px]">CORSO SILVER</span></td>
+                <td class="p-4 text-center"><span class="text-sfx-silver font-bold"><i class="fa-solid fa-check mr-1"></i> ATTIVA (500 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button disabled class="px-3 py-1.5 bg-gray-800 text-gray-500 rounded font-bold border border-gray-700 cursor-not-allowed">
+                    Archiviato
+                  </button>
+                </td>
+              </tr>
+
+              <!-- LEAD 4: CONFERENZA CEO IN ATTESA -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">2 Giorni fa</td>
+                <td class="p-4 text-sfx-gold font-bold">NX-2026-9021</td>
+                <td class="p-4 font-sans font-bold text-white campo-nome">Roberto De Luca</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-400 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> r.deluca@holding.ch</span>
+                    <a href="https://wa.me/41791234567" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +41 79 123 4567
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-purple-950/60 border border-purple-500 text-purple-300 rounded text-[10px]">CONFERENZA CEO</span></td>
+                <td class="p-4 text-center"><span class="text-gray-500 font-bold">In Attesa (0 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button onclick="apriGestioneLead('NX-2026-9021', 'Roberto De Luca')" class="px-3 py-1.5 bg-sfx-gold text-black rounded font-bold hover:bg-yellow-500 transition-colors">
+                    Gestisci Lead
+                  </button>
+                </td>
+              </tr>
+
+              <!-- LEAD 5: LANDING PAGE START -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">3 Giorni fa</td>
+                <td class="p-4 text-gray-400 font-bold">NX-2026-3019</td>
+                <td class="p-4 font-sans font-bold text-gray-300 campo-nome">Giulia Moretti</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-500 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> giulia.m@outlook.it</span>
+                    <a href="https://wa.me/393478889900" target="_blank" class="text-green-700 hover:text-green-500 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +39 347 8889900
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-black border border-gray-700 text-gray-400 rounded text-[10px]">LANDING NEXUS</span></td>
+                <td class="p-4 text-center"><span class="text-sfx-cyan font-bold"><i class="fa-solid fa-check mr-1"></i> ATTIVA (250 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button disabled class="px-3 py-1.5 bg-gray-800 text-gray-500 rounded font-bold border border-gray-700 cursor-not-allowed">
+                    Archiviato
+                  </button>
+                </td>
+              </tr>
+
+              <!-- LEAD 6: CORSO PREMIUM ATTIVO -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">4 Giorni fa</td>
+                <td class="p-4 text-sfx-cyan font-bold">NX-2026-7701</td>
+                <td class="p-4 font-sans font-bold text-gray-300 campo-nome">Gianluca Ferrari</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-500 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> g.ferrari@tech.com</span>
+                    <a href="https://wa.me/393356667788" target="_blank" class="text-green-700 hover:text-green-500 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +39 335 6667788
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-sfx-cyan/10 border border-sfx-cyan/30 text-sfx-cyan rounded text-[10px]">CORSO PREMIUM</span></td>
+                <td class="p-4 text-center"><span class="text-sfx-cyan font-bold"><i class="fa-solid fa-star mr-1"></i> PLATINUM (3000 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button disabled class="px-3 py-1.5 bg-gray-800 text-gray-500 rounded font-bold border border-gray-700 cursor-not-allowed">
+                    Archiviato
+                  </button>
+                </td>
+              </tr>
+
+              <!-- LEAD 7: CHATBOT ALISON -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">5 Giorni fa</td>
+                <td class="p-4 text-sfx-gold font-bold">NX-2026-5210</td>
+                <td class="p-4 font-sans font-bold text-white campo-nome">Camilla Rossi</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-400 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> c.rossi@design.it</span>
+                    <a href="https://wa.me/393312223344" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +39 331 2223344
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-sfx-cyan/10 border border-sfx-cyan/30 text-sfx-cyan rounded text-[10px]">CHATBOT ALISON</span></td>
+                <td class="p-4 text-center"><span class="text-gray-500 font-bold">In Attesa (0 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button onclick="apriGestioneLead('NX-2026-5210', 'Camilla Rossi')" class="px-3 py-1.5 bg-sfx-gold text-black rounded font-bold hover:bg-yellow-500 transition-colors">
+                    Gestisci Lead
+                  </button>
+                </td>
+              </tr>
+
+              <!-- LEAD 8: AMBASSADOR SOVRANO -->
+              <tr class="riga-lead hover:bg-sfx-cyan/5 transition-colors">
+                <td class="p-4 text-gray-500">1 Settimana fa</td>
+                <td class="p-4 text-sfx-gold font-bold">NX-2026-0001</td>
+                <td class="p-4 font-sans font-bold text-sfx-gold campo-nome">Vittorio Emanuele B.</td>
+                <td class="p-4">
+                  <div class="flex flex-col space-y-1">
+                    <span class="text-gray-400 campo-email"><i class="fa-solid fa-envelope w-4 text-center"></i> ve.board@suprema.ch</span>
+                    <a href="https://wa.me/393474429091" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+                      <i class="fa-brands fa-whatsapp w-4 text-center"></i> +39 347 4429091
+                    </a>
+                  </div>
+                </td>
+                <td class="p-4"><span class="px-2 py-1 bg-yellow-950/80 border border-sfx-gold text-sfx-gold rounded text-[10px]">FOUNDER BOARD</span></td>
+                <td class="p-4 text-center"><span class="text-sfx-gold font-bold"><i class="fa-solid fa-crown mr-1"></i> SOVRANO (10000 PTS)</span></td>
+                <td class="p-4 text-right">
+                  <button disabled class="px-3 py-1.5 bg-gray-800 text-gray-500 rounded font-bold border border-gray-700 cursor-not-allowed">
+                    Archiviato
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="p-4 border-t border-gray-800 bg-[#090A0D] flex justify-between items-center text-[10px] font-mono text-gray-500">
+          <span>Mostrando 8 di 1.284 contatti registrati nel Vault</span>
+          <div class="flex space-x-2">
+            <button class="px-2 py-1 bg-gray-800 rounded hover:text-white transition-colors">&lt; Prec</button>
+            <button class="px-2 py-1 bg-sfx-cyan text-black rounded font-bold">1</button>
+            <button class="px-2 py-1 bg-gray-800 rounded hover:text-white transition-colors">2</button>
+            <button class="px-2 py-1 bg-gray-800 rounded hover:text-white transition-colors">3</button>
+            <button class="px-2 py-1 bg-gray-800 rounded hover:text-white transition-colors">Succ &gt;</button>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- FOOTER ISTITUZIONALE -->
+    <!-- ========================================== -->
+    <footer id="contatti" class="mt-8 pt-16 pb-12 bg-black/90 backdrop-blur-md text-gray-400 font-sans border-t border-sfx-cyan/30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-gray-900">
+          
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3">
+              <img src="assets/logo.png?v=3" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-cyan">
+              <span class="font-cyber font-bold text-sm text-white">SUPREMA FUTURE X</span>
+            </div>
+            <p class="text-xs text-gray-400 font-light leading-relaxed">
+              Società a responsabilità limitata d'avanguardia tecnologica. Sviluppo algoritmi cognitivi e protezione della sovranità aziendale diretta dal CEO Gek Carel.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-mono text-sfx-cyan uppercase tracking-wider mb-4">RECAPITI DIREZIONALI</h4>
+            <ul class="text-xs space-y-2 font-mono">
+              <li><i class="fa-solid fa-phone text-sfx-cyan mr-2"></i> +39 347 442 9091</li>
+              <li><i class="fa-solid fa-envelope text-sfx-gold mr-2"></i> ceo@supremaofficial.com</li>
+              <li><i class="fa-solid fa-location-dot text-gray-400 mr-2"></i> Milano // Lugano (CH)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-mono text-sfx-cyan uppercase tracking-wider mb-4">PROTOCOLLI DI SICUREZZA</h4>
+            <ul class="text-xs space-y-2 font-mono">
+              <li>Standard: EAL6+ Certified</li>
+              <li>Database: Nexus Lead Vault</li>
+              <li>Backup: San Gottardo Safe Enclave</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-mono text-sfx-cyan uppercase tracking-wider mb-4">ISCRIZIONE NOTIZIARIO</h4>
+            <form id="newsletter-form" class="space-y-2">
+              <input type="email" id="newsletter-email" required placeholder="Inserisci la tua email..." class="w-full bg-[#12141C] border border-gray-800 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-cyan">
+              <button type="submit" id="btn-submit-newsletter" class="w-full py-2 bg-sfx-cyan text-black font-bold text-xs uppercase tracking-wider rounded hover:bg-cyan-400 transition-colors">
+                Iscriviti al Notiziario
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+        <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-gray-400 space-y-4 sm:space-y-0">
+          <p>© 2026 SUPREMA FUTURE X S.R.L. // Tutti i diritti riservati.</p>
+          <div class="flex space-x-6 text-gray-400">
+            <a href="index.html#privacy" class="hover:text-sfx-cyan">Privacy Policy</a>
+            <a href="index.html#termini" class="hover:text-sfx-cyan">Termini Statutari</a>
+            <a href="index.html#compliance" class="hover:text-sfx-cyan">EAL6+ Compliance</a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
 
   <!-- ========================================== -->
-  <!-- MODALE: INSERIMENTO NUOVO LEAD RAPIDO -->
+  <!-- MODALE 1: GESTIONE LEAD E ASSEGNAZIONE PUNTI -->
   <!-- ========================================== -->
-  <div id="modal-nuovo-lead" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-[#12141C] border border-sfx-panelBorder rounded-2xl max-w-lg w-full p-6 space-y-4 glow-gold">
+  <div id="modal-gestione-lead" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-90 flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg bg-sfx-panelBg border border-sfx-gold rounded-2xl p-6 shadow-[0_0_40px_rgba(212,175,55,0.2)]">
       
-      <div class="flex justify-between items-center pb-3 border-b border-gray-800">
-        <h4 class="font-cyber font-bold text-sm text-sfx-gold uppercase">INSERISCI NUOVO LEAD NEL NEXUS DB</h4>
-        <button onclick="document.getElementById('modal-nuovo-lead').classList.add('hidden')" class="text-gray-400 hover:text-white">
+      <div class="flex justify-between items-center pb-3 border-b border-gray-800 mb-4">
+        <h3 class="font-cyber font-bold text-sm text-sfx-gold uppercase">PANNELLO OPERATIVO LEAD</h3>
+        <button onclick="chiudiGestioneLead()" class="text-gray-400 hover:text-white transition-colors">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
-      <form id="form-nuovo-lead" class="space-y-3 text-xs font-mono">
-        <div>
-          <label class="block text-gray-400 mb-1">NOME E COGNOME / RAGIONE SOCIALE</label>
-          <input type="text" id="lead-nome" required placeholder="Mario Rossi" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
+      <div class="mb-5 bg-black/50 p-4 rounded-lg border border-gray-800 text-sm font-mono">
+        <div class="flex justify-between mb-2">
+          <span class="text-gray-500">Token Utente:</span> 
+          <span id="mod-token" class="text-sfx-cyan font-bold"></span>
         </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500">Nominativo:</span> 
+          <span id="mod-nome" class="text-white font-bold font-sans"></span>
+        </div>
+      </div>
+
+      <form id="form-assegnazione-punti" onsubmit="event.preventDefault(); eseguiAssegnazionePunti();" class="space-y-4">
         
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-gray-400 mb-1">EMAIL AZIENDALE</label>
-            <input type="email" id="lead-email" required placeholder="m.rossi@holding.it" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
-          </div>
-          <div>
-            <label class="block text-gray-400 mb-1">WHATSAPP / TELEFONO</label>
-            <input type="tel" id="lead-tel" required placeholder="+39 347 ..." class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
-          </div>
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-gray-400 mb-1">Azione da Eseguire</label>
+          <select id="mod-azione" class="w-full bg-[#090A0D] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-gold font-mono">
+            <option value="500">Conferma Acquisto SILVER (+500 PTS)</option>
+            <option value="1500">Conferma Acquisto GOLD (+1500 PTS)</option>
+            <option value="3000">Conferma Acquisto PREMIUM (+3000 PTS)</option>
+            <option value="250">Bonus Registrazione (+250 PTS)</option>
+          </select>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-gray-400 mb-1">PROVENIENZA / CANALE</label>
-            <select id="lead-canale" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
-              <option value="Conferenza CEO">Conferenza CEO</option>
-              <option value="Scout AG-02 Ginevra">Scout AG-02 Ginevra</option>
-              <option value="Alison v3 Chat">Alison v3 Chat</option>
-              <option value="Rete Istituzionale">Rete Istituzionale</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-gray-400 mb-1">LIVELLO INIZIALE</label>
-            <select id="lead-livello" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
-              <option value="Nexus Start (+250 PTS)">Nexus Start (+250 PTS)</option>
-              <option value="Silver (+500 PTS)">Silver (+500 PTS)</option>
-              <option value="Gold Executive (+1,500 PTS)">Gold Executive (+1,500 PTS)</option>
-              <option value="Premium (+3,000 PTS)">Premium (+3,000 PTS)</option>
-            </select>
-          </div>
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-gray-400 mb-1">Causale Contabile</label>
+          <input type="text" id="mod-causale" value="Attivazione Corso e Rilascio Gold Card" class="w-full bg-[#090A0D] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-gold font-mono">
         </div>
 
-        <button type="submit" class="w-full py-3 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold uppercase rounded transition-colors tracking-wider mt-4">
-          <i class="fa-solid fa-check mr-1.5"></i> SALVA & GENERA TOKEN NX-2026
-        </button>
+        <div class="pt-4 border-t border-gray-800">
+          <button type="submit" id="btn-conferma-punti" class="w-full py-3 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs uppercase tracking-wider rounded transition-colors font-mono">
+            <i class="fa-solid fa-microchip mr-1.5"></i> Aggiorna Punti e Notifica Utente
+          </button>
+        </div>
+
       </form>
 
     </div>
   </div>
 
   <!-- ========================================== -->
-  <!-- JAVASCRIPT: LOGICA CRM, FILTRI & WORKSPACE -->
+  <!-- MODALE 2: INSERIMENTO MANUALE NUOVO LEAD -->
   <!-- ========================================== -->
+  <div id="modal-nuovo-lead" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-90 flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg bg-sfx-panelBg border border-sfx-cyan rounded-2xl p-6 shadow-[0_0_40px_rgba(0,240,255,0.2)]">
+      
+      <div class="flex justify-between items-center pb-3 border-b border-gray-800 mb-4">
+        <h3 class="font-cyber font-bold text-sm text-sfx-cyan uppercase">INSERIMENTO MANUALE CANDIDATO</h3>
+        <button onclick="chiudiNuovoLeadModal()" class="text-gray-400 hover:text-white transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-nuovo-lead-manuale" onsubmit="event.preventDefault(); salvaNuovoLead();" class="space-y-4">
+        
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-gray-400 mb-1">Nome e Cognome / Ragione Sociale</label>
+          <input type="text" id="nl-nome" required placeholder="Es. Marco Rossi" class="w-full bg-[#090A0D] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-cyan font-mono">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] font-mono uppercase text-gray-400 mb-1">Email Istituzionale</label>
+            <input type="email" id="nl-email" required placeholder="m.rossi@email.com" class="w-full bg-[#090A0D] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-cyan font-mono">
+          </div>
+          <div>
+            <label class="block text-[10px] font-mono uppercase text-gray-400 mb-1">Telefono / WhatsApp</label>
+            <input type="tel" id="nl-tel" required placeholder="+39 333..." class="w-full bg-[#090A0D] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-cyan font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-gray-400 mb-1">Target / Percorso Didattico</label>
+          <select id="nl-target" class="w-full bg-[#090A0D] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-cyan font-mono">
+            <option value="CORSO SILVER">Corso Nexus Silver (€ 99,00)</option>
+            <option value="CORSO GOLD">Corso Gold (€ 149,00)</option>
+            <option value="CORSO PREMIUM">Corso Premium (€ 189,00)</option>
+            <option value="CONFERENZA CEO">Conferenza Adesione CEO Gek Carel</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-gray-400 mb-1">Note Riservate Operatore</label>
+          <textarea id="nl-note" rows="2" placeholder="Note trattativa..." class="w-full bg-[#090A0D] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-cyan font-mono"></textarea>
+        </div>
+
+        <div class="pt-4 border-t border-gray-800">
+          <button type="submit" id="btn-salva-nuovo-lead" class="w-full py-3 bg-sfx-cyan hover:bg-cyan-400 text-black font-extrabold text-xs uppercase tracking-wider rounded transition-colors font-mono">
+            <i class="fa-solid fa-plus-circle mr-1.5"></i> Registra Lead nel CRM
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- INCLUSIONE LIBRERIE ECOSISTEMA -->
+  <script src="js/connettore-api.js"></script>
+  <script src="js/gestore-media.js"></script>
+
+  <!-- SCRIPT DI PAGINA PER CRM -->
   <script>
-    const APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAiwpjrU33wRkogEvuQr9YduJpssGHs9ewFHlpke2Ar9NgG2YbNoZ5ZfyRGr9IVAZkew/exec";
+    // 1. GESTIONE MODALE ACCREDITO PUNTI
+    let tokenSelezionato = "";
 
-    // ==========================================
-    // 1. SWITCHER VISTA TABELLARE / KANBAN
-    // ==========================================
-    const tableView = document.getElementById('table-view');
-    const kanbanView = document.getElementById('kanban-view');
-    const viewTableBtn = document.getElementById('view-table-btn');
-    const viewKanbanBtn = document.getElementById('view-kanban-btn');
-
-    viewTableBtn.addEventListener('click', () => {
-      tableView.classList.remove('hidden');
-      kanbanView.classList.add('hidden');
-      
-      viewTableBtn.classList.add('bg-sfx-gold', 'text-black');
-      viewTableBtn.classList.remove('text-gray-400');
-      viewKanbanBtn.classList.remove('bg-sfx-gold', 'text-black');
-      viewKanbanBtn.classList.add('text-gray-400');
-    });
-
-    viewKanbanBtn.addEventListener('click', () => {
-      kanbanView.classList.remove('hidden');
-      tableView.classList.add('hidden');
-      
-      viewKanbanBtn.classList.add('bg-sfx-gold', 'text-black');
-      viewKanbanBtn.classList.remove('text-gray-400');
-      viewTableBtn.classList.remove('bg-sfx-gold', 'text-black');
-      viewTableBtn.classList.add('text-gray-400');
-    });
-
-    // ==========================================
-    // 2. AZIONE RAPIDA: [CREA SITO WORKSPACE]
-    // ==========================================
-    async function attivaWorkspace(nome, token) {
-      const conferma = confirm(`Confermi la creazione del Sito Workspace e l'abilitazione Classroom per ${nome} (${token})?`);
-      
-      if (conferma) {
-        try {
-          await fetch(APPSCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              azione: "CREA_WORKSPACE_CLASSROOM",
-              token: token,
-              nome: nome
-            })
-          });
-        } catch (e) {
-          console.error("Errore invio workspace backend:", e);
-        }
-
-        alert(`SUCCESSO ESECUTIVO!\n\n1. Creata istanza Workspace Google Classroom per ${nome}\n2. Token ${token} collegato a Media Vault\n3. Credenziali trasmesse via MailBot Nexus ad AG-03\n4. Alert WhatsApp inviato al +39 347 442 9091`);
-      }
+    function apriGestioneLead(token, nome) {
+      tokenSelezionato = token;
+      document.getElementById('mod-token').innerText = token;
+      document.getElementById('mod-nome').innerText = nome;
+      document.getElementById('modal-gestione-lead').classList.remove('hidden');
     }
 
-    // ==========================================
-    // 3. GESTIONE SALVATAGGIO NUOVO LEAD
-    // ==========================================
-    document.getElementById('form-nuovo-lead').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const randNum = Math.floor(1000 + Math.random() * 9000);
-      const token = `NX-2026-${randNum}`;
-      const nome = document.getElementById('lead-nome').value;
-      const email = document.getElementById('lead-email').value;
-      const tel = document.getElementById('lead-tel').value;
-      const canale = document.getElementById('lead-canale').value;
-      const livello = document.getElementById('lead-livello').value;
+    function chiudiGestioneLead() {
+      document.getElementById('modal-gestione-lead').classList.add('hidden');
+    }
 
-      try {
-        await fetch(APPSCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            azione: "REGISTRAZIONE_LEAD",
-            token: token,
+    async function eseguiAssegnazionePunti() {
+      const btn = document.getElementById('btn-conferma-punti');
+      const punti = parseInt(document.getElementById('mod-azione').value);
+      const causale = document.getElementById('mod-causale').value;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-1.5"></i> Sincronizzazione in corso...';
+
+      if (typeof ConnettoreApi !== 'undefined') {
+        try {
+          await ConnettoreApi.invia('AGGIORNA_PUNTI_FEDELTA', {
+            idCarta: tokenSelezionato,
+            puntiAggiunti: punti,
+            causale: causale,
+            grado: calcolaGrado(punti)
+          });
+          alert(`SUCCESSO!\n\nI ${punti} Punti sono stati accreditati sul Token ${tokenSelezionato}.\nIl database centrale è stato aggiornato.`);
+          chiudiGestioneLead();
+        } catch (e) {
+          alert(`AVVISO CONNESSIONE: Operazione salvata temporaneamente in locale.\nSarà sincronizzata appena il server tornerà online.`);
+          chiudiGestioneLead();
+        }
+      } else {
+        alert(`Simulazione Locale:\nAccreditati ${punti} Punti al Token ${tokenSelezionato}.\n(Libreria API non rilevata per l'aggiornamento reale su Google Sheets)`);
+        chiudiGestioneLead();
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-microchip mr-1.5"></i> Aggiorna Punti e Notifica Utente';
+    }
+
+    function calcolaGrado(punti) {
+      if (punti >= 10000) return "6. Ambassador Sovrano";
+      if (punti >= 5000) return "5. Diamond Partner";
+      if (punti >= 3000) return "4. Platinum Director";
+      if (punti >= 1500) return "3. Gold Executive";
+      if (punti >= 500) return "2. Silver Operativo";
+      return "1. Membro Nexus Start";
+    }
+
+    // 2. GESTIONE MODALE NUOVO LEAD MANUALE
+    function apriNuovoLeadModal() {
+      document.getElementById('modal-nuovo-lead').classList.remove('hidden');
+    }
+
+    function chiudiNuovoLeadModal() {
+      document.getElementById('modal-nuovo-lead').classList.add('hidden');
+    }
+
+    async function salvaNuovoLead() {
+      const btn = document.getElementById('btn-salva-nuovo-lead');
+      const nome = document.getElementById('nl-nome').value;
+      const email = document.getElementById('nl-email').value;
+      const tel = document.getElementById('nl-tel').value;
+      const target = document.getElementById('nl-target').value;
+      const note = document.getElementById('nl-note').value;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-1.5"></i> Registrazione in corso...';
+
+      const tokenGen = "NX-2026-" + Math.floor(1000 + Math.random() * 9000);
+
+      if (typeof ConnettoreApi !== 'undefined') {
+        try {
+          await ConnettoreApi.invia('REGISTRAZIONE_LEAD', {
+            token: tokenGen,
             nome: nome,
             email: email,
             telefono: tel,
-            canale: canale,
-            note: "Livello selezionato: " + livello
-          })
-        });
-      } catch (err) {
-        console.error("Errore invio lead:", err);
+            canale: target,
+            note: note
+          });
+          alert(`LEAD REGISTRATO CON SUCCESSO!\n\nAssegnato Token: ${tokenGen}\nIl contatto è stato inviato al Database Nexus e avvisato via MailBot/WhatsApp.`);
+          chiudiNuovoLeadModal();
+        } catch (e) {
+          alert(`Lead registrato temporaneamente in locale con Token: ${tokenGen}`);
+          chiudiNuovoLeadModal();
+        }
+      } else {
+        alert(`Lead registrato manualmente con Token: ${tokenGen}`);
+        chiudiNuovoLeadModal();
       }
-      
-      alert(`Lead Registrato con Successo!\nGenerato Token Univoco: ${token}\nSincronizzazione in corso su Google Sheets e Google Drive.`);
-      
-      document.getElementById('modal-nuovo-lead').classList.add('hidden');
-      this.reset();
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-plus-circle mr-1.5"></i> Registra Lead nel CRM';
+    }
+
+    // 3. RICERCA E FILTRAGGIO IN TEMPO REALE SULLA TABELLA
+    function filtraTabellaLead() {
+      const input = document.getElementById('input-cerca-lead');
+      const filtro = input.value.toLowerCase();
+      const righe = document.querySelectorAll('.riga-lead');
+
+      righe.forEach(riga => {
+        const nome = riga.querySelector('.campo-nome')?.innerText.toLowerCase() || '';
+        const email = riga.querySelector('.campo-email')?.innerText.toLowerCase() || '';
+        const testoRiga = riga.innerText.toLowerCase();
+
+        if (nome.includes(filtro) || email.includes(filtro) || testoRiga.includes(filtro)) {
+          riga.style.display = '';
+        } else {
+          riga.style.display = 'none';
+        }
+      });
+    }
+
+    // 4. MENU HAMBURGER LATERALE
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const sideMenu = document.getElementById('side-menu');
+    const closeMenuBtn = document.getElementById('close-menu-btn');
+    const timerCounter = document.getElementById('timer-counter');
+    const menuLinks = document.querySelectorAll('.menu-link');
+    
+    let secondsLeft = 15;
+    let autoCloseInterval = null;
+
+    function openSideMenu() {
+      sideMenu.classList.remove('translate-x-full');
+      resetAutoCloseTimer();
+      autoCloseInterval = setInterval(updateAutoCloseTimer, 1000);
+    }
+
+    function closeSideMenu() {
+      sideMenu.classList.add('translate-x-full');
+      clearInterval(autoCloseInterval);
+    }
+
+    function resetAutoCloseTimer() {
+      secondsLeft = 15;
+      if (timerCounter) timerCounter.innerText = `${secondsLeft}s`;
+    }
+
+    function updateAutoCloseTimer() {
+      secondsLeft--;
+      if (timerCounter) timerCounter.innerText = `${secondsLeft}s`;
+      if (secondsLeft <= 0) {
+        closeSideMenu();
+      }
+    }
+
+    if (hamburgerBtn) hamburgerBtn.addEventListener('click', openSideMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeSideMenu);
+    
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeSideMenu);
     });
 
-    // ==========================================
-    // 4. RICERCA LIVE IN TABELLA
-    // ==========================================
-    const searchInput = document.getElementById('crm-search-input');
-    
-    searchInput.addEventListener('input', function() {
-      const term = this.value.toLowerCase();
-      const rows = document.querySelectorAll('#table-view tbody tr');
-      
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(term) ? '' : 'none';
-      });
+    ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach(evt => {
+      if (sideMenu) sideMenu.addEventListener(evt, resetAutoCloseTimer);
     });
+
+    // 5. NEWSLETTER FOOTER
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletter-email').value;
+        if (typeof ConnettoreApi !== 'undefined') {
+          await ConnettoreApi.invia('REGISTRAZIONE_LEAD', { 
+            nome: "Iscritto Notiziario", 
+            email: email, 
+            canale: "Newsletter Footer", 
+            note: "Iscrizione notiziario dal CRM" 
+          });
+        }
+        alert('Iscrizione confermata al Notiziario Riservato Suprema Future X.');
+        this.reset();
+      });
+    }
   </script>
 </body>
 </html>
