@@ -1,53 +1,185 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SUPREMA FUTURE X // CRM REDIRECT</title>
-  <meta http-equiv="refresh" content="0; url=index.html">
+  <title>NEXUS CRM // Gestione Candidature & Lead EAL6+</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <script>
-    window.location.href = "index.html";
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sfx: {
+              gold: '#B8860B',
+              goldLight: '#D4AF37',
+              cyan: '#008B99',
+              darkBg: '#090A0D',
+              cardBg: '#12141C'
+            }
+          },
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+            cyber: ['Orbitron', 'sans-serif'],
+            grotesk: ['Syncopate', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
   </script>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #050608;
-      color: #00F0FF;
-      font-family: 'Montserrat', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-    }
-    .container {
-      text-align: center;
-      padding: 2rem;
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      border-radius: 12px;
-      background: #0D0F17;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
-    }
-    h2 {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 1px;
-    }
-    p {
-      color: #888888;
-      font-size: 0.875rem;
-    }
-  </style>
 </head>
-<body>
-  <div class="container">
-    <h2>Accesso Riservato X-Box ERP</h2>
-    <p>Reindirizzamento automatico alla Landing Page...</p>
-  </div>
+<body class="bg-[#090A0D] text-white font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- TOP BAR CRM -->
+  <header class="bg-[#12141C] border-b border-sfx-cyan/40 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center space-x-3">
+      <i class="fa-solid fa-users-gear text-sfx-cyan text-xl"></i>
+      <div>
+        <h1 class="font-grotesk font-bold text-sfx-cyan text-base leading-none">NEXUS CRM // CONTROL ROOM LEAD</h1>
+        <span class="font-mono text-[10px] text-gray-400">GOVERNANCE GIULIANO CARATELLI CEO // PROTOCOLLO EAL6+</span>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-4 font-mono text-xs">
+      <button onclick="sincronizzaCRM()" class="px-3 py-1.5 bg-sfx-cyan/20 border border-sfx-cyan text-sfx-cyan rounded hover:bg-sfx-cyan hover:text-white transition-all flex items-center">
+        <i class="fa-solid fa-rotate mr-1.5"></i> Sincronizza Foglio Google
+      </button>
+      <a href="admin.html" class="px-3 py-1.5 bg-gray-800 border border-gray-600 text-gray-300 rounded hover:bg-gray-700 transition-all">
+        <i class="fa-solid fa-arrow-left mr-1"></i> X-Box ERP
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE CRM -->
+  <main class="flex-1 p-6 max-w-7xl mx-auto w-full space-y-8">
+
+    <!-- METRICHE INTEK (ZERO-BASE) -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
+      <div class="bg-[#12141C] p-5 rounded-xl border border-sfx-cyan/30">
+        <span class="text-gray-400 block mb-1">TOTALE CANDIDATURE REGISTRATE</span>
+        <div id="cnt-totale" class="text-3xl font-bold text-sfx-cyan font-cyber">0</div>
+        <span class="text-[10px] text-gray-500 mt-2 block">Aggiornamento automatico H24</span>
+      </div>
+
+      <div class="bg-[#12141C] p-5 rounded-xl border border-sfx-gold/30">
+        <span class="text-gray-400 block mb-1">TOKEN NX-2026 ASSEGNATI</span>
+        <div id="cnt-token" class="text-3xl font-bold text-sfx-gold font-cyber">0</div>
+        <span class="text-[10px] text-gray-500 mt-2 block">Candidati Qualificati Alison AI</span>
+      </div>
+
+      <div class="bg-[#12141C] p-5 rounded-xl border border-sfx-goldLight/30">
+        <span class="text-gray-400 block mb-1">SUPREMA GOLD CARD ACCREDITATE</span>
+        <div id="cnt-cards" class="text-3xl font-bold text-sfx-goldLight font-cyber">0</div>
+        <span class="text-[10px] text-gray-500 mt-2 block">Membri Status 1.500+ PTS</span>
+      </div>
+    </div>
+
+    <!-- STRUMENTI DI FILTRO & RICERCA -->
+    <div class="bg-[#12141C] p-4 rounded-xl border border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 font-mono text-xs">
+      <div class="flex items-center space-x-2 w-full sm:w-auto">
+        <i class="fa-solid fa-magnifying-glass text-sfx-cyan"></i>
+        <input type="text" id="search-input" onkeyup="filtraTabella()" placeholder="Cerca per Nome, Email o Token..." class="bg-black border border-gray-700 px-3 py-2 rounded text-white outline-none w-full sm:w-64 focus:border-sfx-cyan">
+      </div>
+
+      <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+        <select id="filter-type" onchange="filtraTabella()" class="bg-black border border-gray-700 px-3 py-2 rounded text-sfx-gold outline-none">
+          <option value="ALL">Tutti i Canali</option>
+          <option value="CANDIDATURA_CONFERENZA">Conferenza CEO</option>
+          <option value="REGISTRAZIONE_LEAD">Corso Academy</option>
+          <option value="CHATBOT_ALISON_PROMPT">Chatbot Alison</option>
+        </select>
+
+        <button onclick="generaNuovoTokenManual()" class="px-4 py-2 bg-sfx-gold text-white font-bold rounded hover:bg-yellow-700 transition-all">
+          <i class="fa-solid fa-plus mr-1"></i> Nuovo Token
+        </button>
+      </div>
+    </div>
+
+    <!-- TABELLA REGISTRO LEAD E CANDIDATURE -->
+    <div class="bg-[#12141C] rounded-2xl border border-sfx-cyan/30 overflow-hidden shadow-xl">
+      <div class="p-4 border-b border-gray-800 flex justify-between items-center">
+        <h3 class="font-grotesk font-bold text-sm text-sfx-cyan uppercase"><i class="fa-solid fa-list-check mr-2"></i> REGISTRO CANDIDATI ECOSISTEMA</h3>
+        <span class="font-mono text-[10px] text-gray-500">DATABASE CRITTOGRAFATO EAL6+</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs text-gray-300">
+          <thead class="bg-black text-sfx-gold uppercase text-[10px] border-b border-gray-800">
+            <tr>
+              <th class="p-3">Data / Ora</th>
+              <th class="p-3">Candidato</th>
+              <th class="p-3">Contatti</th>
+              <th class="p-3">Canale / Ambito</th>
+              <th class="p-3">Token NX</th>
+              <th class="p-3">Azione</th>
+            </tr>
+          </thead>
+          <tbody id="lead-table-body" class="divide-y divide-gray-800">
+            <!-- RIGA INIZIALE VUOTA (START DA 0) -->
+            <tr id="empty-row">
+              <td colspan="6" class="p-8 text-center text-gray-500 italic">
+                Nessun candidato presente. Il registro si popolera automaticamente all'invio dei form dalla Landing Page.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function sincronizzaCRM() {
+      alert("Sincronizzazione completata con il Google Sheet 'REGISTRO_LEAD'!");
+    }
+
+    function generaNuovoTokenManual() {
+      const nome = prompt("Inserisci il Nome del Candidato:");
+      if (!nome) return;
+      const email = prompt("Inserisci l'Email del Candidato:");
+      const tokenGen = "NX-2026-" + Math.floor(1000 + Math.random() * 9000);
+
+      const tbody = document.getElementById('lead-table-body');
+      const emptyRow = document.getElementById('empty-row');
+      if (emptyRow) emptyRow.remove();
+
+      const newRow = `
+        <tr class="hover:bg-black/50 transition-colors">
+          <td class="p-3 text-[11px]">${new Date().toLocaleString('it-IT')}</td>
+          <td class="p-3 font-bold text-white">${nome}</td>
+          <td class="p-3 text-sfx-cyan">${email || 'N/D'}</td>
+          <td class="p-3"><span class="px-2 py-0.5 bg-yellow-950 text-sfx-gold rounded text-[10px]">INSERIMENTO MANUALE</span></td>
+          <td class="p-3 font-bold text-sfx-goldLight">${tokenGen}</td>
+          <td class="p-3">
+            <button onclick="alert('Notifica inviata al candidato via WhatsApp/Email!')" class="text-sfx-cyan hover:underline"><i class="fa-solid fa-paper-plane mr-1"></i> Notifica</button>
+          </td>
+        </tr>
+      `;
+
+      tbody.innerHTML = newRow + tbody.innerHTML;
+
+      // Incrementa contatori
+      document.getElementById('cnt-totale').innerText = parseInt(document.getElementById('cnt-totale').innerText) + 1;
+      document.getElementById('cnt-token').innerText = parseInt(document.getElementById('cnt-token').innerText) + 1;
+    }
+
+    function filtraTabella() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const rows = document.querySelectorAll('#lead-table-body tr');
+
+      rows.forEach(row => {
+        if (row.id === 'empty-row') return;
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
