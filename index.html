@@ -88,7 +88,51 @@
     }
   </style>
 </head>
-<body class="cyber-grid antialiased selection:bg-sfx-gold selection:text-black">
+<body class="cyber-grid antialiased selection:bg-sfx-gold selection:text-black relative">
+
+  <!-- ========================================== -->
+  <!-- MODALE TERMINALE DI SICUREZZA CUSTOM (LOGIN X-BOX / VAULT) -->
+  <!-- ========================================== -->
+  <div id="security-terminal" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95 flex items-center justify-center p-4">
+    <!-- Sfondo Dinamico che cambia in base a dove si entra -->
+    <div id="terminal-bg" class="absolute inset-0 bg-cover bg-center opacity-30 blur-sm" style="background-image: url('assets/bg-sfx.jpg');"></div>
+    
+    <div class="relative w-full max-w-lg bg-sfx-panelBg border-2 border-sfx-cyan/50 rounded-2xl p-8 shadow-[0_0_50px_rgba(0,240,255,0.2)] z-10">
+      <div class="text-center mb-6 border-b border-gray-800 pb-4">
+        <i class="fa-solid fa-shield-halved text-4xl text-sfx-cyan mb-3 animate-pulse"></i>
+        <h2 id="terminal-title" class="text-xl font-cyber font-bold cyan-gradient-text tracking-widest uppercase">PROTOCOLLO DI SICUREZZA EAL6+</h2>
+        <p class="text-[10px] font-mono text-gray-500 mt-1">Identificazione biometrica richiesta</p>
+      </div>
+
+      <!-- FASE 1: PASSWORD MASTER -->
+      <div id="fase-password">
+        <label class="block text-xs font-mono text-gray-400 mb-2">INSERIRE PASSWORD MASTER:</label>
+        <input type="password" id="input-psw" class="w-full bg-black border border-gray-700 rounded px-4 py-3 text-white font-mono focus:border-sfx-cyan focus:outline-none mb-3">
+        <button onclick="verificaPassword()" class="w-full py-3 bg-sfx-cyan text-black font-bold font-mono text-xs uppercase rounded hover:bg-cyan-400 transition-colors">Verifica Password</button>
+      </div>
+
+      <!-- RISPOSTA FASE 1 -->
+      <div id="risposta-psw" class="hidden text-center py-4">
+        <p class="text-green-500 font-cyber font-bold text-xl drop-shadow-[0_0_10px_rgba(34,197,94,0.8)]"><i class="fa-solid fa-check-circle"></i> AUTORIZZATO</p>
+      </div>
+
+      <!-- FASE 2: PIN DI SICUREZZA -->
+      <div id="fase-pin" class="hidden mt-4">
+        <label class="block text-xs font-mono text-gray-400 mb-2">INSERIRE PIN DI SICUREZZA:</label>
+        <input type="password" id="input-pin" class="w-full bg-black border border-gray-700 rounded px-4 py-3 text-white font-mono focus:border-sfx-gold focus:outline-none mb-3">
+        <button onclick="verificaPin()" class="w-full py-3 bg-sfx-gold text-black font-bold font-mono text-xs uppercase rounded hover:bg-yellow-500 transition-colors">Verifica PIN</button>
+      </div>
+
+      <!-- RISPOSTA FASE 2 E MESSAGGIO FINALE BENVENUTO -->
+      <div id="risposta-finale" class="hidden text-center py-6">
+        <p class="text-green-500 font-cyber font-bold text-2xl mb-4 drop-shadow-[0_0_15px_rgba(34,197,94,0.8)]"><i class="fa-solid fa-check-double"></i> AUTORIZZATO</p>
+        <p id="msg-benvenuto" class="text-sm font-mono text-white"></p>
+        <div class="mt-6 flex justify-center"><i class="fa-solid fa-spinner animate-spin text-sfx-gold text-2xl"></i></div>
+      </div>
+
+      <button onclick="chiudiTerminale()" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+    </div>
+  </div>
 
   <!-- ========================================== -->
   <!-- BARRA UNIVERSALE, HEADER & ROUTER STEALTH PROTETTO -->
@@ -98,7 +142,8 @@
       
       <div class="flex items-center space-x-4 cursor-pointer select-none group" id="sfx-logo-btn" title="SUPREMA FUTURE X (2 Clic = Vault CEO, 3 Clic = X-Box ERP)">
         <div class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-gold/50 group-hover:border-sfx-cyan transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-          <img src="assets/logo.png" alt="Logo SFX" class="w-full h-full object-cover">
+          <!-- CACHE BUSTING: Aggiunto ?v=3 per forzare il ricaricamento del logo -->
+          <img src="assets/logo.png?v=3" alt="Logo SFX" class="w-full h-full object-cover">
         </div>
         <div>
           <span class="font-cyber font-bold tracking-wider text-lg gold-gradient-text block leading-none">SUPREMA FUTURE X</span>
@@ -136,7 +181,7 @@
     <div>
       <div class="flex items-center justify-between pb-6 border-b border-gray-800">
         <div class="flex items-center space-x-3">
-          <img src="assets/logo.png" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-gold">
+          <img src="assets/logo.png?v=3" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-gold">
           <span class="font-cyber font-bold text-sm text-sfx-gold">INDICE SISTEMA</span>
         </div>
         <button id="close-menu-btn" class="text-gray-400 hover:text-sfx-gold text-lg transition-colors p-2">
@@ -219,7 +264,7 @@
         <div class="lg:col-span-5 relative">
           <div class="relative rounded-2xl overflow-hidden border border-sfx-gold/40 bg-sfx-panelBg p-2 glow-gold">
             <div class="relative rounded-xl overflow-hidden h-96 sm:h-[450px]">
-              <img src="assets/hero-placeholder.png" alt="Suprema Future X Vision" class="w-full h-full object-cover">
+              <img src="assets/sfondo-hero.jpg?v=2" alt="Suprema Future X Vision" class="w-full h-full object-cover">
               <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20"></div>
               <div class="absolute bottom-6 left-6 right-6 p-4 rounded-lg bg-black/75 backdrop-blur-md border border-sfx-cyan/30">
                 <span class="text-[10px] font-mono text-sfx-cyan uppercase tracking-wider block">Manifesto Fondatore</span>
@@ -249,7 +294,7 @@
         
         <div class="lg:col-span-6">
           <div class="relative rounded-2xl overflow-hidden border border-sfx-gold/50 bg-sfx-panelBg p-2.5 glow-gold">
-            <img src="assets/ceo-placeholder.png" alt="CEO Suprema Future X sul Palco" class="w-full h-auto rounded-xl object-cover shadow-2xl">
+            <img src="assets/ceo-placeholder.png?v=2" alt="CEO Suprema Future X sul Palco" class="w-full h-auto rounded-xl object-cover shadow-2xl">
             <div class="absolute bottom-6 left-6 right-6 bg-black/80 backdrop-blur-md p-4 rounded-lg border border-sfx-gold/30 flex justify-between items-center">
               <div>
                 <h4 class="font-cyber font-bold text-sm text-sfx-gold">GEK CAREL</h4>
@@ -329,7 +374,7 @@
         
         <div class="lg:col-span-5 bg-sfx-panelBg border border-sfx-cyanBorder rounded-2xl p-6 flex flex-col items-center text-center glow-cyan">
           <div class="relative w-44 h-44 rounded-full overflow-hidden border-2 border-sfx-cyan shadow-[0_0_30px_rgba(0,240,255,0.4)] mb-4">
-            <img src="assets/alison-avatar.png" alt="Alison AI Avatar" class="w-full h-full object-cover">
+            <img src="assets/alison-avatar.png?v=2" alt="Alison AI Avatar" class="w-full h-full object-cover">
           </div>
           <h4 class="font-cyber font-bold text-lg text-white">ALISON FUTURE X</h4>
           <span class="text-xs font-mono text-sfx-cyan tracking-wider uppercase mb-3">AI COGNITIVE DIRECTOR (AG-01)</span>
@@ -408,7 +453,7 @@
 
       <div class="relative rounded-2xl overflow-hidden border border-sfx-gold/30 mb-16 glow-gold">
         <div class="h-64 sm:h-96 w-full">
-          <img src="assets/accademia-corsi.jpg" alt="Accademia Corsi Tavolo Olografico" class="w-full h-full object-cover">
+          <img src="assets/accademia-corsi.jpg?v=2" alt="Accademia Corsi Tavolo Olografico" class="w-full h-full object-cover">
         </div>
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent flex items-center p-8 sm:p-12">
           <div class="max-w-md space-y-3">
@@ -513,7 +558,7 @@
         
         <div class="lg:col-span-6 flex flex-col items-center">
           <div class="relative w-full max-w-md rounded-2xl overflow-hidden border border-sfx-gold/60 p-2 bg-sfx-panelBg glow-gold shadow-2xl">
-            <img src="assets/suprema-gold-card.png" alt="Suprema Gold Card 3D con Chip" class="w-full h-auto rounded-xl object-cover">
+            <img src="assets/suprema-gold-card.png?v=2" alt="Suprema Gold Card 3D con Chip" class="w-full h-auto rounded-xl object-cover">
           </div>
           <p class="text-xs text-gray-400 font-mono mt-4 text-center">
             <i class="fa-solid fa-microchip text-sfx-gold mr-1.5"></i> Dotata di NFC integrato, crittografia a chip e ologramma anti-contraffazione.
@@ -599,10 +644,10 @@
 
       <!-- BANNER GRAFICO SOCIAL UFFICIALE -->
       <div class="max-w-3xl mx-auto rounded-2xl overflow-hidden border border-sfx-cyan/40 bg-sfx-panelBg p-2 glow-cyan">
-        <img src="assets/social.png" alt="Hub Social Ufficiale Suprema Future X" class="w-full h-auto rounded-xl object-cover">
+        <img src="assets/social.png?v=2" alt="Hub Social Ufficiale Suprema Future X" class="w-full h-auto rounded-xl object-cover">
       </div>
 
-      <!-- CANALI SOCIAL DIRETTI (LINK UFFICIALI) -->
+      <!-- CANALI SOCIAL DIRETTI (LINK UFFICIALI AZIENDALI) -->
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 max-w-4xl mx-auto pt-4">
         <a href="https://instagram.com/supremafuturex_official" target="_blank" rel="noopener noreferrer" class="p-5 bg-sfx-panelBg border border-gray-800 rounded-xl hover:border-sfx-gold hover:scale-105 transition-all group">
           <i class="fa-brands fa-instagram text-2xl text-gray-400 group-hover:text-sfx-gold transition-colors mb-2 block"></i>
@@ -643,7 +688,7 @@
         
         <div class="space-y-4">
           <div class="flex items-center space-x-3">
-            <img src="assets/logo.png" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-gold">
+            <img src="assets/logo.png?v=3" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-gold">
             <span class="font-cyber font-bold text-sm text-white">SUPREMA FUTURE X</span>
           </div>
           <p class="text-xs text-gray-400 font-light leading-relaxed">
@@ -789,10 +834,24 @@
       return localStorage.getItem('SFX_CEO_PIN') || DEFAULT_PIN;
     }
 
-    // 1. ROUTER STEALTH PROTETTO CON PIN (2 Clic = vault.html, 3 Clic = admin.html)
+    // 1. ROUTER STEALTH PROTETTO (2 Clic = vault.html, 3 Clic = admin.html)
     const logoBtn = document.getElementById('sfx-logo-btn');
     let logoClicks = 0;
     let logoTimer = null;
+    
+    // Variabili per il Terminale Modale
+    const modal = document.getElementById('security-terminal');
+    const fPassword = document.getElementById('fase-password');
+    const rPassword = document.getElementById('risposta-psw');
+    const fPin = document.getElementById('fase-pin');
+    const rFinale = document.getElementById('risposta-finale');
+    const termTitle = document.getElementById('terminal-title');
+    const msgBenvenuto = document.getElementById('msg-benvenuto');
+    const termBg = document.getElementById('terminal-bg');
+    let destinazioneLink = "";
+
+    const PWD_GIUSTA = "MARIACHIARA ceoofficial2026@";
+    const PIN_GIUSTO = "3474429091";
 
     if (logoBtn) {
       logoBtn.addEventListener('click', (e) => {
@@ -801,29 +860,74 @@
         clearTimeout(logoTimer);
         
         logoTimer = setTimeout(() => {
-          const currentPin = getPinSicurezza();
-
           if (logoClicks === 2) {
-            const pinVal = prompt("INSERIRE PIN DI SICUREZZA PER ACCEDERE AL VAULT CEO:");
-            if (pinVal === currentPin || pinVal === "2026") {
-              window.location.href = 'vault.html';
-            } else if (pinVal !== null) {
-              alert("PIN ERRATO: Accesso negato alla Cassaforte CEO.");
-            }
+            apriTerminale('vault', 'CASSAFORTE PRIVATA CEO', 'assets/bg-governance.jpg');
           } else if (logoClicks >= 3) {
-            const pinVal = prompt("INSERIRE PIN DI SICUREZZA PER ACCEDERE ALL'ERP X-BOX:");
-            if (pinVal === currentPin || pinVal === "2026") {
-              window.location.href = 'admin.html';
-            } else if (pinVal !== null) {
-              alert("PIN ERRATO: Accesso negato all'ERP X-Box.");
-            }
+            apriTerminale('admin', 'X-BOX DEL CEO SUPREMA', 'assets/bg-nexus.jpg');
           }
           logoClicks = 0;
         }, 500);
       });
     }
 
-    // 2. MENU HAMBURGER & TIMER 15 SECONDI
+    function apriTerminale(dest, titolo, bgImg) {
+      destinazioneLink = dest;
+      termTitle.innerText = titolo;
+      termTitle.className = dest === 'vault' ? 'text-xl font-cyber font-bold gold-gradient-text tracking-widest uppercase' : 'text-xl font-cyber font-bold cyan-gradient-text tracking-widest uppercase';
+      termBg.style.backgroundImage = `url('${bgImg}')`;
+      
+      // Reset campi
+      document.getElementById('input-psw').value = '';
+      document.getElementById('input-pin').value = '';
+      fPassword.classList.remove('hidden');
+      rPassword.classList.add('hidden');
+      fPin.classList.add('hidden');
+      rFinale.classList.add('hidden');
+      
+      modal.classList.remove('hidden');
+    }
+
+    function chiudiTerminale() {
+      modal.classList.add('hidden');
+    }
+
+    function verificaPassword() {
+      const val = document.getElementById('input-psw').value;
+      if (val === PWD_GIUSTA) {
+        fPassword.classList.add('hidden');
+        rPassword.classList.remove('hidden');
+        setTimeout(() => {
+          fPin.classList.remove('hidden');
+        }, 800);
+      } else {
+        alert("ACCESSO NEGATO: Password errata.");
+        chiudiTerminale();
+      }
+    }
+
+    function verificaPin() {
+      const val = document.getElementById('input-pin').value;
+      if (val === PIN_GIUSTO) {
+        fPin.classList.add('hidden');
+        rPassword.classList.add('hidden');
+        rFinale.classList.remove('hidden');
+        
+        if (destinazioneLink === 'vault') {
+          msgBenvenuto.innerText = "BENVENUTO CEO NEL GOVERNANCE DIREZIONALE E PATRIMONI PRIVATO";
+        } else {
+          msgBenvenuto.innerText = "BENVENUTO CEO NELLA X-BOX ERP";
+        }
+
+        setTimeout(() => {
+          window.location.href = destinazioneLink + ".html";
+        }, 2000);
+      } else {
+        alert("ACCESSO NEGATO: PIN errato.");
+        chiudiTerminale();
+      }
+    }
+
+    // 2. MENU HAMBURGER LATERALE
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const sideMenu = document.getElementById('side-menu');
     const closeMenuBtn = document.getElementById('close-menu-btn');
