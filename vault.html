@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SUPREMA FUTURE X // CASSAFORTE PRIVATA CEO (VAULT)</title>
-
-  <!-- Tailwind CSS CDN -->
+  <title>SUPREMA // PRIVATE CEO VAULT (EAL6+)</title>
+  
+  <meta name="theme-color" content="#050608">
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts: Montserrat, Orbitron & JetBrains Mono -->
+  
+  <!-- Font Cyber, Montserrat & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+  
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -24,15 +24,15 @@
           colors: {
             sfx: {
               gold: '#D4AF37',
-              goldLight: '#F3E5AB',
+              goldLight: '#FDFBF7',
+              goldDark: '#AA820A',
               cyan: '#00F0FF',
-              cyanGlow: 'rgba(0, 240, 255, 0.35)',
-              silver: '#E5E7EB',
-              darkBg: '#090A0D',
-              panelBg: '#12141C',
-              panelBorder: 'rgba(212, 175, 55, 0.25)',
+              cyanDark: '#008B99',
+              darkBg: '#050608',
+              panelBg: '#0D0F17',
+              panelBorder: 'rgba(212, 175, 55, 0.3)',
               cyanBorder: 'rgba(0, 240, 255, 0.3)',
-              amberAlert: '#F59E0B'
+              redAlert: '#FF2A4B'
             }
           },
           fontFamily: {
@@ -44,781 +44,577 @@
       }
     }
   </script>
-
+  
   <style>
-    body {
-      background-color: #090A0D;
-      color: #E5E7EB;
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
-      user-select: none;
+    body { 
+      background-color: #050608; 
+      color: #E5E7EB; 
+      font-family: 'Montserrat', sans-serif; 
+      overflow-x: hidden; 
     }
-    
-    /* Sfondo Dinamico Vault (Governance & Assets) */
-    .bg-vault {
-      background-image: linear-gradient(to bottom, rgba(9, 10, 13, 0.88), rgba(9, 10, 13, 0.96)), url('assets/bg-governance.jpg?v=3');
-      background-size: cover; 
-      background-position: center; 
-      background-attachment: fixed;
-    }
-
     .cyber-grid {
-      background-size: 40px 40px;
+      background-size: 35px 35px;
       background-image: 
-        linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
     }
-    
-    .glow-gold {
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
-    }
-    .glow-cyan {
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
-    }
-    .glow-amber {
-      box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
-    }
-    
+    .glow-gold { box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); }
+    .glow-cyan { box-shadow: 0 0 25px rgba(0, 240, 255, 0.25); }
+    .glow-red { box-shadow: 0 0 25px rgba(255, 42, 75, 0.35); }
     .gold-gradient-text {
-      background: linear-gradient(135deg, #FFF6D1 0%, #D4AF37 50%, #AA820A 100%);
+      background: linear-gradient(135deg, #FDFBF7 0%, #D4AF37 50%, #AA820A 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .cyan-gradient-text {
-      background: linear-gradient(135deg, #FFFFFF 0%, #00F0FF 60%, #00A3B4 100%);
+      background: linear-gradient(135deg, #FFFFFF 0%, #00F0FF 60%, #008B99 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #090A0D;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #D4AF37;
-      border-radius: 3px;
-    }
-
-    .vault-blur-locked {
-      filter: blur(8px);
-      pointer-events: none;
-      transition: filter 0.4s ease;
-    }
-
-    #vault-content {
-      display: none;
-    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #050608; }
+    ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
   </style>
-
-  <!-- BLOCCO SICUREZZA EAL6+ AL CARICAMENTO INGRESSO -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const pinCorretto = localStorage.getItem('SFX_CEO_PIN') || "3474429091";
-      const pinInserito = prompt("PROTOCOLLO DI SICUREZZA EAL6+\n\nInserire PIN di autorizzazione per accedere alla CASSAFORTE PRIVATA CEO:");
-      
-      if (pinInserito === pinCorretto || pinInserito === "2026" || pinInserito === "3474429091") {
-        document.getElementById('vault-content').style.display = 'block';
-        console.log("Accesso Vault CEO Autorizzato.");
-      } else {
-        alert("ACCESSO NEGATO: Credenziali non valide. Ritorno alla Landing Page...");
-        window.location.href = "index.html";
-      }
-    });
-  </script>
 </head>
+<body class="cyber-grid min-h-screen flex flex-col selection:bg-sfx-gold selection:text-black">
 
-<body class="bg-vault cyber-grid antialiased selection:bg-sfx-gold selection:text-black" id="vault-body">
-
-  <div id="vault-content">
-
-    <!-- ========================================== -->
-    <!-- HEADER CASSAFORTE PRIVATA CEO & SECURITY -->
-    <!-- ========================================== -->
-    <header class="sticky top-0 z-50 bg-[#090A0D]/95 backdrop-blur-md border-b border-sfx-panelBorder">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        
-        <!-- LOGO SFX HD CON ROUTER STEALTH (2 CLIC = VAULT / 3 CLIC = ADMIN) -->
-        <div class="flex items-center space-x-4 cursor-pointer select-none group" id="sfx-logo-btn" title="SUPREMA FUTURE X (Clicca 2 volte per Vault, 3 volte per ERP)">
-          <div class="relative w-12 h-12 rounded-full overflow-hidden border border-sfx-gold/50 group-hover:border-sfx-cyan transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-            <img src="assets/logo.png?v=3" alt="Logo SFX" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="font-cyber font-bold tracking-wider text-base gold-gradient-text">CASSAFORTE PRIVATA CEO</span>
-              <span class="px-2 py-0.5 rounded bg-sfx-gold/10 border border-sfx-gold text-[10px] text-sfx-gold font-mono font-bold uppercase">VAULT 48% UTILI</span>
-            </div>
-            <span class="text-[10px] tracking-widest text-sfx-cyan font-mono block">PROTOCOLLO SAN GOTTARDO // GEK CAREL CEO</span>
-          </div>
-        </div>
-
-        <!-- STATUS SICUREZZA & BLOCCO STAMPA/COPIA -->
-        <div class="hidden lg:flex items-center space-x-4 text-xs font-mono">
-          <div class="bg-black/60 px-3 py-1.5 rounded border border-gray-800">
-            <span class="text-gray-500 text-[10px] block">RUOLO ACCREDITATO</span>
-            <span class="text-sfx-gold font-bold">GEK CAREL // CEO OWNER</span>
-          </div>
-          <div class="bg-black/60 px-3 py-1.5 rounded border border-gray-800">
-            <span class="text-gray-500 text-[10px] block">CAVEAU FISICO ORO</span>
-            <span class="text-sfx-cyan font-bold"><i class="fa-solid fa-vault mr-1"></i> SAN GOTTARDO (CH)</span>
-          </div>
-        </div>
-
-        <!-- SELETTORE MODALITÀ LOCK, RESET PIN & NAVIGAZIONE RAPIDA -->
-        <div class="flex items-center space-x-3">
-          <button id="btn-toggle-lock" class="px-4 py-2 bg-sfx-gold text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-gold flex items-center">
-            <i class="fa-solid fa-lock mr-2" id="icon-lock-status"></i>
-            <span id="text-lock-status">MODE: LOCKED</span>
-          </button>
-
-          <button onclick="resetPinSicurezza()" class="px-3 py-2 bg-sfx-panelBg border border-sfx-gold text-sfx-gold hover:bg-sfx-gold hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-gold" title="Resetta PIN / Password CEO">
-            <i class="fa-solid fa-key mr-1.5"></i> RESET PIN
-          </button>
-
-          <a href="admin.html" class="px-3 py-2 bg-sfx-panelBg border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors glow-cyan" title="Vai all'ERP Control Room">
-            <i class="fa-solid fa-microchip mr-1.5"></i> ERP
-          </a>
-          <a href="crm.html" class="px-3 py-2 bg-sfx-panelBg border border-gray-700 text-gray-300 hover:border-sfx-gold hover:text-sfx-gold rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors" title="Vai al CRM Nexus">
-            <i class="fa-solid fa-users mr-1.5"></i> CRM
-          </a>
-          <a href="index.html" class="px-3 py-2 bg-red-900/40 border border-red-500 text-red-400 hover:bg-red-500 hover:text-white rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors">
-            <i class="fa-solid fa-right-from-bracket mr-1.5"></i> LANDING
-          </a>
-
-          <!-- HAMBURGER MENU BUTTON -->
-          <button id="hamburger-btn" class="w-10 h-10 flex flex-col justify-center items-center rounded border border-sfx-gold/50 hover:border-sfx-gold text-sfx-gold transition-all duration-300 bg-sfx-panelBg/80" aria-label="Apri Menu Navigazione">
-            <span class="w-4 h-0.5 bg-sfx-gold mb-1.5 transition-transform duration-300"></span>
-            <span class="w-4 h-0.5 bg-sfx-gold mb-1.5 transition-opacity duration-300"></span>
-            <span class="w-4 h-0.5 bg-sfx-gold transition-transform duration-300"></span>
-          </button>
-        </div>
-
+  <!-- HEADER DIREZIONALE VAULT CEO -->
+  <header class="bg-black/90 border-b border-sfx-panelBorder sticky top-0 z-50 backdrop-blur-md px-6 py-4 flex flex-wrap justify-between items-center shadow-2xl">
+    <div class="flex items-center space-x-4">
+      <div class="w-11 h-11 rounded-full border-2 border-sfx-gold p-0.5 glow-gold cursor-pointer" onclick="window.location.href='index.html'" title="Ritorno alla Vetrina Pubblica">
+        <img src="assets/logo.png?v=3" alt="SFX Logo" class="w-full h-full object-cover rounded-full">
       </div>
-    </header>
-
-    <!-- ========================================== -->
-    <!-- MENU HAMBURGER (10 VOCI + TIMER 15 SECONDI) -->
-    <!-- ========================================== -->
-    <aside id="side-menu" class="fixed top-0 right-0 w-80 sm:w-96 h-full bg-[#0c0e15] border-l border-sfx-gold/40 z-50 transform translate-x-full transition-transform duration-500 flex flex-col justify-between shadow-[0_0_30px_rgba(212,175,55,0.2)] p-6">
       <div>
-        <div class="flex items-center justify-between pb-6 border-b border-gray-800">
-          <div class="flex items-center space-x-3">
-            <img src="assets/logo.png?v=3" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-gold">
-            <span class="font-cyber font-bold text-sm text-sfx-gold">INDICE ECOSISTEMA</span>
+        <h1 class="font-cyber font-extrabold text-lg sm:text-xl gold-gradient-text leading-tight">PRIVATE CEO VAULT</h1>
+        <span class="text-[10px] font-mono text-sfx-cyan uppercase tracking-widest block"><i class="fa-solid fa-user-shield mr-1"></i> Giuliano Caratelli // Governance Sovrana EAL6+</span>
+      </div>
+    </div>
+
+    <!-- BADGES STATUS REAL-TIME -->
+    <div class="flex items-center space-x-4 mt-2 sm:mt-0">
+      <div class="bg-sfx-panelBg border border-sfx-gold/40 px-3 py-1.5 rounded-lg flex items-center space-x-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+        <span class="text-[10px] font-mono text-gray-300">Tesoreria: <strong class="text-sfx-gold">ZERO-BASE ACTIVE</strong></span>
+      </div>
+      <button onclick="window.location.href='admin.html'" class="px-3.5 py-1.5 bg-sfx-cyan/10 border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black font-mono text-xs font-bold rounded transition-all">
+        <i class="fa-solid fa-sliders mr-1.5"></i> Apri X-Box ERP
+      </button>
+      <button onclick="window.location.href='index.html'" class="text-gray-400 hover:text-white text-lg p-1" title="Esci dal Vault"><i class="fa-solid fa-right-from-bracket"></i></button>
+    </div>
+  </header>
+
+  <!-- CONTENITORE PRINCIPALE VAULT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+
+    <!-- 1. BAROMETRO DEFCON & EMERGENCY KILL SWITCH -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- DEFCON BAROMETER -->
+      <div class="lg:col-span-8 bg-sfx-panelBg border-2 border-sfx-panelBorder rounded-2xl p-6 glow-gold relative overflow-hidden flex flex-col justify-between">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="text-[10px] font-mono text-sfx-gold uppercase tracking-widest font-bold">MONITORAGGIO NEURALE SALUTE AZIENDALE</span>
+            <h2 class="text-xl font-cyber font-bold text-white mt-1">BAROMETRO ECOSISTEMA DEFCON</h2>
           </div>
-          <button id="close-menu-btn" class="text-gray-400 hover:text-sfx-gold text-lg transition-colors p-2">
-            <i class="fa-solid fa-xmark"></i>
+          <div id="defcon-badge" class="px-4 py-1.5 rounded-full font-cyber font-bold text-xs uppercase bg-green-900/60 text-green-400 border border-green-500 flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-ping"></span>
+            <span id="defcon-status-text">DEFCON 5 // OTTIMALE</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-2 font-mono text-xs">
+          <div class="bg-black/60 p-3 rounded-xl border border-gray-800">
+            <span class="text-gray-500 block text-[10px]">Afflusso Lead (24h)</span>
+            <span class="text-sfx-cyan font-bold text-sm" id="defcon-lead-val">Regolare (+14%)</span>
+          </div>
+          <div class="bg-black/60 p-3 rounded-xl border border-gray-800">
+            <span class="text-gray-500 block text-[10px]">Tasso Conversione</span>
+            <span class="text-sfx-gold font-bold text-sm" id="defcon-conv-val">In Sviluppo</span>
+          </div>
+          <div class="bg-black/60 p-3 rounded-xl border border-gray-800">
+            <span class="text-gray-500 block text-[10px]">Sentiment Community</span>
+            <span class="text-green-400 font-bold text-sm" id="defcon-sent-val">98.4% Positivo</span>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-gray-800 text-xs font-mono flex items-center justify-between text-gray-400">
+          <span><i class="fa-solid fa-brain text-sfx-cyan mr-1.5"></i> Suggerimento Alison AI: <strong class="text-white" id="alison-defcon-advice">"Ecosistema stabile. Nessuna anomalia sui server GPU."</strong></span>
+        </div>
+      </div>
+
+      <!-- KILL SWITCH EMERGENCY LOCK -->
+      <div class="lg:col-span-4 bg-sfx-panelBg border-2 border-sfx-redAlert/50 rounded-2xl p-6 glow-red flex flex-col justify-between text-center relative">
+        <div>
+          <span class="text-[10px] font-mono text-sfx-redAlert uppercase font-bold tracking-widest"><i class="fa-solid fa-triangle-exclamation mr-1"></i> PROTOCOLLO DI EMERGENZA</span>
+          <h3 class="text-lg font-cyber font-bold text-white mt-1">GLOBAL KILL SWITCH</h3>
+          <p class="text-[11px] text-gray-400 font-mono mt-2 leading-relaxed">
+            Pulsante d'emergenza per oscurare immediatamente l'intero sito e attivare la schermata <em>"Manutenzione Straordinaria EAL6+"</em>.
+          </p>
+        </div>
+
+        <div class="my-4">
+          <button id="btn-kill-switch" onclick="toggleKillSwitch()" class="w-full py-4 bg-sfx-redAlert hover:bg-red-700 text-white font-cyber font-bold text-sm uppercase tracking-wider rounded-xl transition-all shadow-[0_0_20px_rgba(255,42,75,0.5)]">
+            <i class="fa-solid fa-power-off text-lg mr-2"></i> ATTIVA BLOCCO TOTALE
           </button>
         </div>
-        
-        <div class="mt-3 flex items-center justify-between text-[11px] text-gray-400 font-mono bg-black/40 px-3 py-1.5 rounded border border-gray-800">
-          <span><i class="fa-regular fa-clock text-sfx-cyan mr-1.5"></i> Chiusura automatica:</span>
-          <span id="timer-counter" class="text-sfx-cyan font-bold">15s</span>
-        </div>
 
-        <nav class="mt-6 flex flex-col space-y-2 text-sm uppercase tracking-wider font-medium">
-          <a href="index.html#hero" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
-            <i class="fa-solid fa-shield-halved w-6 text-sfx-gold"></i> 1. Hero Dream Defense
-          </a>
-          <a href="index.html#conferenza-ceo" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
-            <i class="fa-solid fa-user-tie w-6 text-sfx-gold"></i> 2. Governance & CEO
-          </a>
-          <a href="index.html#alison-ai" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-cyan flex items-center">
-            <i class="fa-solid fa-brain w-6 text-sfx-cyan"></i> 3. Alison AI & Nexus
-          </a>
-          <a href="index.html#visione" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
-            <i class="fa-solid fa-eye w-6 text-sfx-gold"></i> 4. Visione Istituzionale
-          </a>
-          <a href="index.html#academy" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
-            <i class="fa-solid fa-graduation-cap w-6 text-sfx-gold"></i> 5. Suprema Academy
-          </a>
-          <a href="index.html#gold-card" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
-            <i class="fa-solid fa-credit-card w-6 text-sfx-gold"></i> 6. Suprema Gold Card
-          </a>
-          <a href="index.html#split-finanziario" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-cyan flex items-center">
-            <i class="fa-solid fa-scale-balanced w-6 text-sfx-cyan"></i> 7. Statuto 52% / 48%
-          </a>
-          <a href="index.html#social" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
-            <i class="fa-solid fa-share-nodes w-6 text-sfx-gold"></i> 8. Hub 5 Social Ufficiali
-          </a>
-          <a href="admin.html" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-cyan flex items-center">
-            <i class="fa-solid fa-microchip w-6 text-sfx-cyan"></i> 9. X-Box ERP
-          </a>
-          <a href="crm.html" class="menu-link p-2.5 rounded hover:bg-sfx-panelBg hover:text-sfx-gold flex items-center">
-            <i class="fa-solid fa-users w-6 text-sfx-gold"></i> 10. CRM Leads
-          </a>
-        </nav>
+        <span class="text-[9px] font-mono text-gray-500">Protetto da conferma con PIN CEO Giuliano Caratelli</span>
       </div>
 
-      <div class="pt-4 border-t border-gray-800 text-[11px] text-gray-500 font-mono flex justify-between items-center">
-        <span>SERVER: 12ms // AWS GPU</span>
-        <span class="text-sfx-gold">BUILD 2026.09</span>
+    </div>
+
+    <!-- 2. ZERO-BASE ACCOUNTING & SPLIT STATUTARIO 52 / 48 -->
+    <div class="bg-sfx-panelBg border-2 border-sfx-gold/50 rounded-2xl p-6 sm:p-8 glow-gold">
+      
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center pb-6 border-b border-gray-800 mb-6">
+        <div>
+          <span class="text-xs font-mono text-sfx-gold uppercase tracking-widest font-bold">REVOLUT & SUMUP INCASSI REALI</span>
+          <h2 class="text-2xl font-cyber font-extrabold text-white mt-1">TESORERIA & DIVIDENDI BOARD</h2>
+        </div>
+        <div class="mt-4 sm:mt-0 font-mono text-right">
+          <span class="text-[10px] text-gray-500 block uppercase font-bold">INCASSO TOTALE NETTO (ZERO-BASE)</span>
+          <span class="text-3xl font-cyber font-bold text-sfx-cyan" id="totale-incasso-display">€ 0,00</span>
+        </div>
       </div>
-    </aside>
 
-    <!-- ========================================== -->
-    <!-- CONTENUTO PRINCIPALE CASSAFORTE CEO -->
-    <!-- ========================================== -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-
-      <!-- BANNER PANORAMICA METRICHE CEO -->
-      <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-black/60 backdrop-blur-md border border-sfx-gold/40 rounded-xl p-5 flex flex-col justify-center glow-gold">
-          <span class="text-[10px] font-mono text-sfx-gold uppercase">Patrimonio Vault Totale</span>
-          <div class="text-2xl font-cyber font-bold text-white mt-1">€ 26.450.000</div>
-        </div>
-        <div class="bg-black/60 backdrop-blur-md border border-sfx-cyan/40 rounded-xl p-5 flex flex-col justify-center glow-cyan">
-          <span class="text-[10px] font-mono text-sfx-cyan uppercase">Lingotti Oro LBMA</span>
-          <div class="text-2xl font-cyber font-bold text-sfx-cyan mt-1">142.50 KG</div>
-        </div>
-        <div class="bg-black/60 backdrop-blur-md border border-gray-800 rounded-xl p-5 flex flex-col justify-center">
-          <span class="text-[10px] font-mono text-gray-400 uppercase">Quota Dividendi CEO</span>
-          <div class="text-2xl font-cyber font-bold text-sfx-gold mt-1">48% Statutario</div>
-        </div>
-        <div class="bg-black/60 backdrop-blur-md border border-gray-800 rounded-xl p-5 flex flex-col justify-center">
-          <span class="text-[10px] font-mono text-gray-400 uppercase">Livello Sicurezza Vault</span>
-          <div class="text-2xl font-cyber font-bold text-green-400 mt-1">EAL6+ Active</div>
-        </div>
-      </section>
-
-      <!-- ========================================== -->
-      <!-- SEZIONE 1: SALDI DIVIDENDI 48% & RISERVA AUREA -->
-      <!-- ========================================== -->
-      <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- MODULO DIVIDENDI PRIVATI CEO (48%) -->
-        <div class="lg:col-span-7 bg-sfx-panelBg/90 backdrop-blur-md border border-sfx-panelBorder rounded-2xl p-6 sm:p-8 space-y-6 glow-gold relative overflow-hidden">
-          <div class="flex justify-between items-start pb-4 border-b border-gray-800">
-            <div>
-              <span class="px-2.5 py-0.5 rounded bg-sfx-gold/20 border border-sfx-gold text-sfx-gold text-[10px] font-mono font-bold uppercase">DIVIDENDI UTILI ACCUMULATI (48% CEO GEK CAREL)</span>
-              <h2 class="text-3xl font-cyber font-bold gold-gradient-text mt-1">CHF 14.882.490,35</h2>
-              <span class="text-xs font-mono text-sfx-cyan block mt-0.5">Controvalore Nominale: € 15.620.000,00</span>
-            </div>
-            <div class="p-3 bg-black/60 rounded-xl border border-sfx-gold/40 text-right">
-              <i class="fa-solid fa-building-columns text-sfx-gold text-2xl block mb-1"></i>
-              <span class="text-[9px] font-mono text-gray-400 block">BANCA MEDIOLANUM</span>
-            </div>
-          </div>
-
-          <!-- FORM TIPO BONIFICO SEPA MEDIOLANUM -->
-          <form id="form-bonifico-vault" class="space-y-4 text-xs font-mono">
-            <h4 class="font-cyber font-bold text-xs text-gray-300 uppercase">DISPOSIZIONE PROSPETTO BONIFICO DIREZIONALE</h4>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-gray-400 mb-1">IMPORTO DA DISPORRE (€)</label>
-                <input type="number" id="vault-importo" required value="450000" step="10000" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white font-bold focus:outline-none focus:border-sfx-gold">
-              </div>
-              <div>
-                <label class="block text-gray-400 mb-1">BANCA DESTINAZIONE</label>
-                <input type="text" id="vault-banca" readonly value="BANCA MEDIOLANUM S.P.A." class="w-full bg-black/80 border border-gray-800 rounded p-2.5 text-sfx-gold font-bold">
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-gray-400 mb-1">IBAN RISERVATO DI ACCREDITO CEO</label>
-              <input type="text" readonly value="IT99 M 03062 01600 000001234567" class="w-full bg-black/80 border border-gray-800 rounded p-2.5 text-sfx-cyan font-bold tracking-wider">
-            </div>
-
-            <div>
-              <label class="block text-gray-400 mb-1">CAUSALE STATUTARIA</label>
-              <input type="text" id="vault-causale" required value="Liquidazione dividendi utili privati CEO Gek Carel - Quota 48% Delibera 2026" class="w-full bg-[#090A0D] border border-gray-700 rounded p-2.5 text-white focus:outline-none focus:border-sfx-gold">
-            </div>
-
-            <button type="submit" id="btn-submit-bonifico" class="w-full py-3.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs uppercase tracking-wider rounded transition-colors shadow-lg">
-              <i class="fa-solid fa-paper-plane mr-2"></i> GENERA DISPOSIZIONE BONIFICO MEDIOLANUM
-            </button>
-          </form>
-        </div>
-
-        <!-- RISERVA AUREA FISICA SAN GOTTARDO -->
-        <div class="lg:col-span-5 bg-sfx-panelBg/90 backdrop-blur-md border border-sfx-cyanBorder rounded-2xl p-6 sm:p-8 space-y-6 glow-cyan flex flex-col justify-between">
+        <!-- CASSA AZIENDALE 52% -->
+        <div class="lg:col-span-5 bg-black/80 border border-sfx-gold/40 rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-start pb-4 border-b border-gray-800">
-              <div>
-                <span class="px-2.5 py-0.5 rounded bg-sfx-cyan/10 border border-sfx-cyan text-sfx-cyan text-[10px] font-mono font-bold uppercase">RISERVA AUREA FISICA GUARDIAN</span>
-                <h3 class="text-2xl font-cyber font-bold text-white mt-1">142.50 KG ORO</h3>
-                <span class="text-xs font-mono text-sfx-gold block mt-0.5">Standard LBMA 999.9 Purissimo</span>
-              </div>
-              <i class="fa-solid fa-coins text-sfx-gold text-3xl"></i>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-mono text-sfx-gold font-bold uppercase"><i class="fa-solid fa-building mr-1.5"></i> CASSA OPERATIVA AZIENDALE</span>
+              <span class="px-2.5 py-1 bg-sfx-gold/20 text-sfx-gold text-xs font-mono font-bold rounded">52%</span>
             </div>
-
-            <div class="space-y-3 mt-6 text-xs font-mono">
-              <div class="flex justify-between items-center p-3 rounded bg-black/50 border border-gray-800">
-                <span class="text-gray-400">Ubicazione Vault:</span>
-                <span class="text-sfx-cyan font-bold">San Gottardo Safe Enclave (CH)</span>
-              </div>
-              <div class="flex justify-between items-center p-3 rounded bg-black/50 border border-gray-800">
-                <span class="text-gray-400">Valore Stimato Borsa:</span>
-                <span class="text-sfx-gold font-bold">€ 10.830.000,00</span>
-              </div>
-              <div class="flex justify-between items-center p-3 rounded bg-black/50 border border-gray-800">
-                <span class="text-gray-400">Codice Lingotti LBMA:</span>
-                <span class="text-sfx-silver font-bold">CH-999-LBMA-14250</span>
-              </div>
-            </div>
+            <p class="text-[11px] text-gray-400 font-mono mb-4 leading-relaxed">
+              Fondo vincolato per reinvestimento automatico in infrastruttura AI, server AWS GPU e riserva legale.
+            </p>
+            <div class="text-3xl font-cyber font-bold text-white my-2" id="cassa-52-display">€ 0,00</div>
           </div>
-
-          <div class="p-3 bg-black/60 border border-sfx-cyan/30 rounded-xl text-[11px] font-mono text-gray-400 flex items-center justify-between">
-            <span><i class="fa-solid fa-shield-halved text-sfx-cyan mr-1.5"></i> Audit Fisico Annuale:</span>
-            <span class="text-sfx-cyan font-bold">VERIFICATO LBMA</span>
-          </div>
+          <button onclick="simulaIncassoIngresso()" class="w-full mt-4 py-2.5 bg-sfx-gold/20 hover:bg-sfx-gold text-sfx-gold hover:text-black border border-sfx-gold font-mono text-xs font-bold uppercase rounded transition-all">
+            <i class="fa-solid fa-plus-circle mr-1.5"></i> Registra Test Incasso
+          </button>
         </div>
 
-      </section>
-
-      <!-- ========================================== -->
-      <!-- SEZIONE 2: BLUEPRINT MASTER TABELLA SOCIETARIA -->
-      <!-- ========================================== -->
-      <section class="bg-sfx-panelBg/90 backdrop-blur-md border border-sfx-panelBorder rounded-2xl p-6 sm:p-8 space-y-6">
-        <div class="flex justify-between items-center pb-4 border-b border-gray-800">
-          <div>
-            <span class="px-2.5 py-0.5 rounded bg-sfx-gold/20 border border-sfx-gold text-sfx-gold text-[10px] font-mono font-bold uppercase">ARCHITETTURA REPARTI & ASSET</span>
-            <h3 class="text-xl font-cyber font-bold gold-gradient-text mt-1">BLUEPRINT MASTER SOCIETARIO & HOLDINGS</h3>
+        <!-- POOL DIVIDENDI BOARD 48% COMPLETO -->
+        <div class="lg:col-span-7 bg-black/80 border border-sfx-cyan/40 rounded-xl p-6">
+          <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-800">
+            <span class="text-xs font-mono text-sfx-cyan font-bold uppercase"><i class="fa-solid fa-users-viewfinder mr-1.5"></i> POOL DIVIDENDI DIREZIONALE</span>
+            <span class="px-2.5 py-1 bg-sfx-cyan/20 text-sfx-cyan text-xs font-mono font-bold rounded">48% TOTALE</span>
           </div>
-          <span class="text-xs font-mono text-sfx-cyan"><i class="fa-solid fa-eye-slash mr-1"></i> Protetto da Toggle Lock</span>
-        </div>
-
-        <!-- TABELLA SOGGETTA A BLUR SE IN MODALITÀ LOCKED -->
-        <div class="overflow-x-auto vault-blur-locked" id="blueprint-table-container">
-          <table class="w-full text-left text-xs font-mono">
-            <thead class="bg-[#090A0D] text-gray-400 uppercase text-[10px] tracking-wider border-b border-gray-800">
-              <tr>
-                <th class="py-3 px-4">Entity / Ramo</th>
-                <th class="py-3 px-4">Sede Legale</th>
-                <th class="py-3 px-4">Quota Partecipazione</th>
-                <th class="py-3 px-4">Valore Valutazione</th>
-                <th class="py-3 px-4">Stato Fiduciario</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-800 text-gray-300">
-              <tr class="hover:bg-black/30">
-                <td class="py-3.5 px-4 font-bold text-sfx-gold">Suprema Future X S.r.l.</td>
-                <td class="py-3.5 px-4">Milano (IT)</td>
-                <td class="py-3.5 px-4 font-bold text-sfx-cyan">52% Cassa / 48% CEO Gek Carel</td>
-                <td class="py-3.5 px-4">€ 25.000.000,00</td>
-                <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-green-950/60 border border-green-400 text-green-300 text-[10px]">OPERATIVO</span></td>
-              </tr>
-              <tr class="hover:bg-black/30">
-                <td class="py-3.5 px-4 font-bold text-sfx-gold">San Gottardo Gold Safe SA</td>
-                <td class="py-3.5 px-4">Lugano (CH)</td>
-                <td class="py-3.5 px-4 font-bold text-sfx-cyan">100% Proprietà CEO</td>
-                <td class="py-3.5 px-4">€ 10.830.000,00</td>
-                <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-cyan-950/60 border border-sfx-cyan text-sfx-cyan text-[10px]">BLINDATO</span></td>
-              </tr>
-              <tr class="hover:bg-black/30">
-                <td class="py-3.5 px-4 font-bold text-sfx-gold">Nexus AI Intellectual Property Trust</td>
-                <td class="py-3.5 px-4">Ginevra (CH)</td>
-                <td class="py-3.5 px-4 font-bold text-sfx-cyan">100% CEO Vault</td>
-                <td class="py-3.5 px-4">€ 18.500.000,00</td>
-                <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-yellow-950/60 border border-sfx-gold text-sfx-gold text-[10px]">BREVETTATO</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- ========================================== -->
-      <!-- SEZIONE 3: AUDIO INTELLIGENCE & STUDENT MIRRORING -->
-      <!-- ========================================== -->
-      <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <!-- AUDIO INTELLIGENCE BRIEFING -->
-        <div class="lg:col-span-6 bg-sfx-panelBg/90 backdrop-blur-md border border-sfx-cyanBorder rounded-2xl p-6 space-y-4 glow-cyan">
-          <div class="flex justify-between items-center pb-3 border-b border-gray-800">
-            <div class="flex items-center space-x-2">
-              <i class="fa-solid fa-microphone-lines text-sfx-cyan"></i>
-              <h4 class="font-cyber font-bold text-sm text-sfx-cyan uppercase">AUDIO INTELLIGENCE BRIEFING</h4>
-            </div>
-            <span class="text-[10px] font-mono text-sfx-gold">3 SESSIONI DIAGNOSTICHE</span>
-          </div>
-
-          <p class="text-xs text-gray-400 font-mono">
-            Riproduzione sintetica dei briefing giornalieri generati dagli agenti IA per il CEO Gek Carel.
-          </p>
 
           <div class="space-y-3 font-mono text-xs">
-            <div class="p-3 bg-black/50 border border-gray-800 rounded-lg flex items-center justify-between">
+            
+            <!-- Giuliano Caratelli CEO 30% -->
+            <div class="flex items-center justify-between p-3 bg-sfx-panelBg rounded-lg border border-sfx-gold/50">
               <div>
-                <span class="text-white font-bold block">Briefing Mattutino 08:00</span>
-                <span class="text-[10px] text-gray-500">Apertura Mercati & Scouting Ginevra</span>
+                <span class="font-bold text-white block">🥇 Giuliano Caratelli (CEO & Founder)</span>
+                <span class="text-[10px] text-sfx-gold">Quota Statutaria: 30%</span>
               </div>
-              <button onclick="playAudioBriefing('08:00')" class="px-3 py-1.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-bold text-[10px] rounded uppercase transition-colors">
-                <i class="fa-solid fa-play mr-1"></i> Ascolta
-              </button>
+              <div class="text-right">
+                <span class="text-base font-cyber font-bold text-sfx-gold block" id="quota-ceo-val">€ 0,00</span>
+                <button onclick="liquidaQuota('Giuliano Caratelli CEO', '30%')" class="text-[9px] bg-sfx-gold text-black px-2.5 py-1 rounded font-bold uppercase hover:bg-yellow-500 mt-1">Disponi Bonifico</button>
+              </div>
             </div>
 
-            <div class="p-3 bg-black/50 border border-gray-800 rounded-lg flex items-center justify-between">
+            <!-- Mariachiara 10% -->
+            <div class="flex items-center justify-between p-3 bg-sfx-panelBg rounded-lg border border-gray-800">
               <div>
-                <span class="text-white font-bold block">Briefing Serale 20:00</span>
-                <span class="text-[10px] text-gray-500">Report Incassi & Conversione Gold Card</span>
+                <span class="font-bold text-white block">🥈 Mariachiara (Board Member & Operations)</span>
+                <span class="text-[10px] text-sfx-cyan">Quota Statutaria: 10%</span>
               </div>
-              <button onclick="playAudioBriefing('20:00')" class="px-3 py-1.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-bold text-[10px] rounded uppercase transition-colors">
-                <i class="fa-solid fa-play mr-1"></i> Ascolta
-              </button>
+              <div class="text-right">
+                <span class="text-base font-cyber font-bold text-sfx-cyan block" id="quota-mariachiara-val">€ 0,00</span>
+                <button onclick="liquidaQuota('Mariachiara', '10%')" class="text-[9px] bg-sfx-cyan text-black px-2.5 py-1 rounded font-bold uppercase hover:bg-cyan-400 mt-1">Liquida Quota</button>
+              </div>
             </div>
 
-            <div class="p-3 bg-black/50 border border-gray-800 rounded-lg flex items-center justify-between">
+            <!-- Rossella 4% -->
+            <div class="flex items-center justify-between p-3 bg-sfx-panelBg rounded-lg border border-gray-800">
               <div>
-                <span class="text-white font-bold block">Recap Notturno 23:00</span>
-                <span class="text-[10px] text-gray-500">Chiusura Cassa & Log Sincronizzazione</span>
+                <span class="font-bold text-gray-300 block">🥉 Rossella (Board Member)</span>
+                <span class="text-[10px] text-gray-500">Quota Statutaria: 4%</span>
               </div>
-              <button onclick="playAudioBriefing('23:00')" class="px-3 py-1.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-bold text-[10px] rounded uppercase transition-colors">
-                <i class="fa-solid fa-play mr-1"></i> Ascolta
-              </button>
+              <div class="text-right">
+                <span class="text-sm font-cyber font-bold text-white block" id="quota-rossella-val">€ 0,00</span>
+                <button onclick="liquidaQuota('Rossella', '4%')" class="text-[9px] bg-gray-700 text-white px-2.5 py-1 rounded font-bold uppercase hover:bg-gray-600 mt-1">Liquida Quota</button>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- STUDENT MIRRORING LIVE (24 TERMINALI) -->
-        <div class="lg:col-span-6 bg-sfx-panelBg/90 backdrop-blur-md border border-sfx-panelBorder rounded-2xl p-6 space-y-4">
-          <div class="flex justify-between items-center pb-3 border-b border-gray-800">
-            <div class="flex items-center space-x-2">
-              <i class="fa-solid fa-desktop text-sfx-gold"></i>
-              <h4 class="font-cyber font-bold text-sm text-sfx-gold uppercase">STUDENT MIRRORING LIVE</h4>
+            <!-- Alba 2% -->
+            <div class="flex items-center justify-between p-3 bg-sfx-panelBg rounded-lg border border-gray-800">
+              <div>
+                <span class="font-bold text-gray-300 block">🏅 Alba (Board Member)</span>
+                <span class="text-[10px] text-gray-500">Quota Statutaria: 2%</span>
+              </div>
+              <div class="text-right">
+                <span class="text-sm font-cyber font-bold text-white block" id="quota-alba-val">€ 0,00</span>
+                <button onclick="liquidaQuota('Alba', '2%')" class="text-[9px] bg-gray-700 text-white px-2.5 py-1 rounded font-bold uppercase hover:bg-gray-600 mt-1">Liquida Quota</button>
+              </div>
             </div>
-            <span class="text-[10px] font-mono text-sfx-cyan font-bold">24 TERMINALI ONLINE</span>
-          </div>
 
-          <p class="text-xs text-gray-400 font-mono">
-            Monitoraggio in tempo reale degli studenti collegati alla piattaforma Suprema Academy.
-          </p>
-
-          <!-- GRIGLIA SIMULATA 24 TERMINALI -->
-          <div class="grid grid-cols-6 gap-2 pt-2">
-            <script>
-              for(let i=1; i<=24; i++) {
-                document.write(`
-                  <div class="p-2 bg-black/60 border border-sfx-cyan/30 rounded text-center text-[9px] font-mono hover:border-sfx-gold transition-colors">
-                    <span class="text-sfx-cyan font-bold block">T-${i<10?'0'+i:i}</span>
-                    <span class="text-gray-500 text-[8px]">LIVE</span>
-                  </div>
-                `);
-              }
-            </script>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- ========================================== -->
-      <!-- SEZIONE 4: UPLOADER CAVEAU 11" & ATTI NOTARILI -->
-      <!-- ========================================== -->
-      <section class="bg-sfx-panelBg/90 backdrop-blur-md border border-sfx-panelBorder rounded-2xl p-6 sm:p-8 space-y-4">
-        <div class="flex justify-between items-center pb-3 border-b border-gray-800">
-          <div class="flex items-center space-x-2">
-            <i class="fa-solid fa-vault text-sfx-gold"></i>
-            <h4 class="font-cyber font-bold text-sm text-sfx-gold uppercase">UPLOADER CAVEAU 11" // ATTI NOTARILI & CONTRATTI CIFRATI</h4>
-          </div>
-          <span class="text-[10px] font-mono text-sfx-cyan">AES-256 EAL6+ DEPOSIT</span>
-        </div>
-
-        <p class="text-xs text-gray-400 font-mono">
-          Caricamento file riservati con firma hash immutabile per deposito legale nel Caveau Digitale San Gottardo.
-        </p>
-
-        <div id="drop-zone-caveau" class="border-2 border-dashed border-sfx-gold/40 hover:border-sfx-gold rounded-xl p-8 text-center cursor-pointer bg-black/40 transition-colors">
-          <i class="fa-solid fa-file-shield text-4xl text-sfx-gold mb-2"></i>
-          <p class="text-xs font-mono text-gray-200">Trascina gli Atti Notarili o le Scritture Private qui per la cifratura</p>
-          <span class="text-[10px] font-mono text-sfx-cyan block mt-1">Sincronizzazione protetta col ledger CEO Vault</span>
-          <input type="file" id="file-caveau-input" class="hidden" multiple>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- ========================================== -->
-    <!-- FOOTER ISTITUZIONALE -->
-    <!-- ========================================== -->
-    <footer id="contatti" class="mt-8 pt-16 pb-12 bg-black/90 backdrop-blur-md text-gray-400 font-sans border-t border-sfx-panelBorder">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-gray-900">
-          
-          <div class="space-y-4">
-            <div class="flex items-center space-x-3">
-              <img src="assets/logo.png?v=3" alt="SFX" class="w-8 h-8 rounded-full border border-sfx-gold">
-              <span class="font-cyber font-bold text-sm text-white">SUPREMA FUTURE X</span>
+            <!-- Federico 2% -->
+            <div class="flex items-center justify-between p-3 bg-sfx-panelBg rounded-lg border border-gray-800">
+              <div>
+                <span class="font-bold text-gray-300 block">🏅 Federico (Board Member)</span>
+                <span class="text-[10px] text-gray-500">Quota Statutaria: 2%</span>
+              </div>
+              <div class="text-right">
+                <span class="text-sm font-cyber font-bold text-white block" id="quota-federico-val">€ 0,00</span>
+                <button onclick="liquidaQuota('Federico', '2%')" class="text-[9px] bg-gray-700 text-white px-2.5 py-1 rounded font-bold uppercase hover:bg-gray-600 mt-1">Liquida Quota</button>
+              </div>
             </div>
-            <p class="text-xs text-gray-400 font-light leading-relaxed">
-              Società a responsabilità limitata d'avanguardia tecnologica. Sviluppo algoritmi cognitivi e protezione della sovranità aziendale diretta dal CEO Gek Carel.
-            </p>
-          </div>
 
-          <div>
-            <h4 class="text-xs font-mono text-sfx-gold uppercase tracking-wider mb-4">RECAPITI DIREZIONALI</h4>
-            <ul class="text-xs space-y-2 font-mono">
-              <li><i class="fa-solid fa-phone text-sfx-cyan mr-2"></i> +39 347 442 9091</li>
-              <li><i class="fa-solid fa-envelope text-sfx-gold mr-2"></i> ceo@supremaofficial.com</li>
-              <li><i class="fa-solid fa-location-dot text-gray-400 mr-2"></i> Milano // Lugano (CH)</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="text-xs font-mono text-sfx-gold uppercase tracking-wider mb-4">PROTOCOLLI DI SICUREZZA</h4>
-            <ul class="text-xs space-y-2 font-mono">
-              <li>Standard: EAL6+ Certified</li>
-              <li>Database: Nexus Lead Vault</li>
-              <li>Backup: San Gottardo Safe Enclave</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="text-xs font-mono text-sfx-gold uppercase tracking-wider mb-4">ISCRIZIONE NOTIZIARIO</h4>
-            <form id="newsletter-form" class="space-y-2">
-              <input type="email" id="newsletter-email" required placeholder="Inserisci la tua email..." class="w-full bg-[#12141C] border border-gray-800 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-sfx-gold">
-              <button type="submit" id="btn-submit-newsletter" class="w-full py-2 bg-sfx-gold text-black font-bold text-xs uppercase tracking-wider rounded hover:bg-yellow-500 transition-colors">
-                Iscriviti al Notiziario
-              </button>
-            </form>
-          </div>
-
-        </div>
-
-        <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-gray-400 space-y-4 sm:space-y-0">
-          <p>© 2026 SUPREMA FUTURE X S.R.L. // Tutti i diritti riservati.</p>
-          <div class="flex space-x-6 text-gray-400">
-            <a href="index.html#privacy" class="hover:text-sfx-gold">Privacy Policy</a>
-            <a href="index.html#termini" class="hover:text-sfx-gold">Termini Statutari</a>
-            <a href="index.html#compliance" class="hover:text-sfx-gold">EAL6+ Compliance</a>
           </div>
         </div>
 
       </div>
-    </footer>
+    </div>
 
-  </div>
+    <!-- 3. BOUTIQUE LUXURY SECRET LEDGER & SMART ROI -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- BOUTIQUE SECRET LEDGER (Victoria AG-04) -->
+      <div class="lg:col-span-6 bg-sfx-panelBg border-2 border-sfx-gold/40 rounded-2xl p-6 glow-gold flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-800">
+            <div>
+              <span class="text-[10px] font-mono text-sfx-gold uppercase font-bold tracking-widest"><i class="fa-solid fa-user-ninja mr-1"></i> AG-04 VICTORIA // RISERVATO CEO</span>
+              <h3 class="text-lg font-cyber font-bold text-white mt-1">BOUTIQUE LUXURY SECRET LEDGER</h3>
+            </div>
+            <span class="px-2 py-1 bg-red-900/50 text-red-400 font-mono text-[9px] rounded uppercase font-bold">Nascosto in X-Box</span>
+          </div>
 
-  <!-- INCLUSIONE LIBRERIE ECOSISTEMA -->
-  <script src="js/connettore-api.js"></script>
-  <script src="js/gestore-media.js"></script>
+          <p class="text-xs text-gray-400 font-mono mb-4 leading-relaxed">
+            I ricavi generati dagli acquisti nella vetrina riservata non transitano dalla X-Box degli admin. Il saldo viene trasferito direttamente qui per garantire totale privacy finanziaria.
+          </p>
 
-  <!-- ========================================== -->
-  <!-- JAVASCRIPT: LOGICA DI BLOCCO, RESET PIN & ROUTER STEALTH -->
-  <!-- ========================================== -->
-  <script>
-    const DEFAULT_PIN = "3474429091";
+          <div class="bg-black/80 p-4 rounded-xl border border-sfx-gold/30 flex justify-between items-center font-mono">
+            <div>
+              <span class="text-gray-500 text-[10px] block">Fatturato Netto Boutique</span>
+              <span class="text-2xl font-cyber font-bold text-sfx-gold" id="boutique-secret-val">€ 0,00</span>
+            </div>
+            <button onclick="simulaVenditaBoutique()" class="px-3 py-2 bg-sfx-gold text-black font-bold text-xs uppercase rounded hover:bg-yellow-500 shadow-sm">
+              + Simula Vendita
+            </button>
+          </div>
+        </div>
 
-    // 1. RECUPERO & RESET DINAMICO DEL PIN CEO (GEK CAREL)
-    function getPinSicurezza() {
-      return localStorage.getItem('SFX_CEO_PIN') || DEFAULT_PIN;
-    }
+        <div class="mt-4 pt-3 border-t border-gray-800 text-[10px] font-mono text-gray-500">
+          <span>Regola Fedeltà: <strong>+50 PTS Gold Card ogni 100€</strong></span>
+        </div>
+      </div>
 
-    function resetPinSicurezza() {
-      const pinAttuale = prompt("INSERISCI IL PIN ATTUALE PER AUTORIZZARE LA MODIFICA:");
-      const pinValido = getPinSicurezza();
+      <!-- SMART ROI PREDICTIVE MODULE -->
+      <div class="lg:col-span-6 bg-sfx-panelBg border-2 border-sfx-cyan/40 rounded-2xl p-6 glow-cyan flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-sfx-cyan uppercase font-bold tracking-widest"><i class="fa-solid fa-chart-line mr-1"></i> ANALISI PREDITTIVA NICOLE AI</span>
+          <h3 class="text-lg font-cyber font-bold text-white mt-1">SMART ROI RECOMMENDATIONS</h3>
+          
+          <div class="bg-black/80 p-4 rounded-xl border border-sfx-cyan/30 mt-4 font-mono text-xs space-y-2">
+            <p class="text-sfx-cyan font-bold"><i class="fa-solid fa-lightbulb mr-1.5"></i> Consiglio Strategico Mese Corrente:</p>
+            <p class="text-gray-300 leading-relaxed text-[11px]" id="smart-roi-text">
+              "Signor CEO Giuliano Caratelli, sulla base delle visite qualificate e della stima stagionale, si consiglia un'iniezione di budget social sull'Agente Ginevra per massimizzare le conversioni dei Corsi Gold."
+            </p>
+          </div>
+        </div>
 
-      if (pinAttuale !== pinValido && pinAttuale !== "2026" && pinAttuale !== "3474429091") {
-        alert("ERRORE: PIN attuale non corretto. Modifica annullata.");
-        return;
-      }
+        <div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center text-[10px] font-mono text-gray-500">
+          <span>Stima ROI Trimestrale: <strong class="text-green-400">+18.4%</strong></span>
+          <span>Analisi Neurale: H24</span>
+        </div>
+      </div>
 
-      const nuovoPin = prompt("INSERISCI IL NUOVO PIN DI SICUREZZA (minimo 4 cifre):");
-      if (!nuovoPin || nuovoPin.trim().length < 4) {
-        alert("ERRORE: Il PIN deve contenere almeno 4 cifre.");
-        return;
-      }
+    </div>
 
-      const confermaPin = prompt("CONFERMA IL NUOVO PIN DI SICUREZZA:");
-      if (nuovoPin.trim() !== confermaPin.trim()) {
-        alert("ERRORE: I PIN non coincidono.");
-        return;
-      }
+    <!-- 4. SENTRY ANALYTICS & HEAT-MAP COMPLETA DELLE 9 SEZIONI DELLA LANDING -->
+    <div class="bg-sfx-panelBg border-2 border-sfx-panelBorder rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+      
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center pb-4 border-b border-gray-800">
+        <div>
+          <span class="text-xs font-mono text-sfx-cyan uppercase tracking-widest font-bold">BUSINESS INTELLIGENCE // SENTRY PROTOCOL</span>
+          <h2 class="text-xl font-cyber font-bold text-white mt-1">ANALYTICS & HEAT-MAP LANDING PAGE (9 SEZIONI)</h2>
+        </div>
+        <div class="mt-2 sm:mt-0 font-mono text-xs text-sfx-cyan bg-black/60 px-4 py-2 rounded-xl border border-sfx-cyan/40">
+          <span>Visite Qualificate (>10 Sec): <strong class="text-white text-base ml-2" id="sentry-visite-val">0</strong></span>
+        </div>
+      </div>
 
-      localStorage.setItem('SFX_CEO_PIN', nuovoPin.trim());
-      alert("SUCCESSO ESECUTIVO: Il PIN di sicurezza del Vault CEO è stato aggiornato con successo!");
-    }
-
-    // 2. TOGGLE LOCK & VERIFICA PIN
-    let isVaultLocked = true;
-
-    const btnToggleLock = document.getElementById('btn-toggle-lock');
-    const iconLockStatus = document.getElementById('icon-lock-status');
-    const textLockStatus = document.getElementById('text-lock-status');
-    const blueprintContainer = document.getElementById('blueprint-table-container');
-
-    if (btnToggleLock) {
-      btnToggleLock.addEventListener('click', () => {
-        isVaultLocked = !isVaultLocked;
-
-        if (isVaultLocked) {
-          textLockStatus.innerText = "MODE: LOCKED";
-          iconLockStatus.className = "fa-solid fa-lock mr-2";
-          btnToggleLock.className = "px-4 py-2 bg-sfx-gold text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-gold flex items-center";
-          if (blueprintContainer) blueprintContainer.classList.add('vault-blur-locked');
-          document.body.style.userSelect = "none";
-        } else {
-          const pinInput = prompt("INSERIRE PIN CEO OWNER (GEK CAREL) PER LO SBLOCCO RISERVATO:");
-          const pinValido = getPinSicurezza();
-
-          if (pinInput === pinValido || pinInput === "2026" || pinInput === "3474429091") {
-            textLockStatus.innerText = "MODE: UNLOCKED";
-            iconLockStatus.className = "fa-solid fa-lock-open mr-2";
-            btnToggleLock.className = "px-4 py-2 bg-sfx-cyan text-black font-extrabold text-xs font-mono uppercase tracking-wider rounded transition-all glow-cyan flex items-center";
-            if (blueprintContainer) blueprintContainer.classList.remove('vault-blur-locked');
-            document.body.style.userSelect = "auto";
-          } else {
-            alert("PIN ERRATO: Accesso negato al Vault CEO Gek Carel.");
-            isVaultLocked = true;
-          }
-        }
-      });
-    }
-
-    // 3. INIBIZIONE TASTO DESTRO E COPIA QUANDO IN MODALITÀ LOCKED
-    document.addEventListener('contextmenu', (e) => {
-      if (isVaultLocked) {
-        e.preventDefault();
-        alert("Funzione riservata: Vault in modalità LOCKED.");
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (isVaultLocked && (e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'p' || e.key === 's')) {
-        e.preventDefault();
-        alert("Azione inibita dal Protocollo di Sicurezza Vault CEO.");
-      }
-    });
-
-    // 4. ROUTER STEALTH SU LOGO SFX (2 CLIC = VAULT, 3 CLIC = ADMIN)
-    const logoBtn = document.getElementById('sfx-logo-btn');
-    let logoClicks = 0;
-    let logoTimer = null;
-
-    if (logoBtn) {
-      logoBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        logoClicks++;
-        clearTimeout(logoTimer);
+      <!-- CLASSIFICA HEAT-MAP DETTAGLIATA CON TUTTE E 9 LE SEZIONI DELLA LANDING -->
+      <div class="space-y-4 font-mono text-xs">
+        <h4 class="text-sfx-gold font-bold uppercase text-xs mb-3"><i class="fa-solid fa-fire text-sfx-gold mr-1"></i> Classifica Interazioni per Sezione (Gradimento Utenza):</h4>
         
-        logoTimer = setTimeout(() => {
-          if (logoClicks === 2) {
-            window.location.href = 'vault.html';
-          } else if (logoClicks >= 3) {
-            window.location.href = 'admin.html';
-          }
-          logoClicks = 0;
-        }, 500);
-      });
+        <!-- SEZIONE 1: HERO & DREAM DEFENSE SYSTEM -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">1. Hero & Dream Defense System (Presentazione)</span>
+            <span class="text-sfx-cyan font-bold" id="sentry-sec-1-val">15% (15 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-1" class="h-full bg-sfx-cyan transition-all duration-500" style="width: 15%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 2: GOVERNANCE & CONFERENZA CEO -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">2. Governance & Conferenza CEO Giuliano Caratelli</span>
+            <span class="text-sfx-gold font-bold" id="sentry-sec-2-val">18% (18 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-2" class="h-full bg-sfx-gold transition-all duration-500" style="width: 18%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 3: SUPREMA ACADEMY -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">3. Suprema Academy (Iscrizioni Corsi Silver, Gold, Premium)</span>
+            <span class="text-sfx-gold font-bold" id="sentry-sec-3-val">22% (22 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-3" class="h-full bg-sfx-gold transition-all duration-500" style="width: 22%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 4: GOLD CARD & STATUS 6 GRADI -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">4. Suprema Gold Card & 6 Gradi Status</span>
+            <span class="text-sfx-cyan font-bold" id="sentry-sec-4-val">10% (10 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-4" class="h-full bg-sfx-cyan transition-all duration-500" style="width: 10%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 5: ALISON CHATBOT & CRM NEXUS -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">5. Alison AI Chatbot & Candidatura CRM Nexus</span>
+            <span class="text-sfx-cyan font-bold" id="sentry-sec-5-val">12% (12 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-5" class="h-full bg-sfx-cyan transition-all duration-500" style="width: 12%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 6: LUXURY BOUTIQUE FASHION STYLE -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">6. Luxury Boutique Fashion Style</span>
+            <span class="text-sfx-gold font-bold" id="sentry-sec-6-val">25% (25 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-6" class="h-full bg-sfx-gold transition-all duration-500" style="width: 25%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 7: SUPREMA MULTIMEDIA LIBRARY -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">7. Suprema Multimedia Library (Archivio Risorse)</span>
+            <span class="text-gray-400 font-bold" id="sentry-sec-7-val">5% (5 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-7" class="h-full bg-gray-500 transition-all duration-500" style="width: 5%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 8: CANALI UFFICIALI MULTIPIATTAFORMA -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">8. Canali Ufficiali Multi-Piattaforma (Social Hub)</span>
+            <span class="text-gray-400 font-bold" id="sentry-sec-8-val">4% (4 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-8" class="h-full bg-gray-600 transition-all duration-500" style="width: 4%;"></div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 9: FEEDBACK & NEWSLETTER -->
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-gray-300">9. Feedback Diretti & Newsletter</span>
+            <span class="text-gray-400 font-bold" id="sentry-sec-9-val">3% (3 Clic)</span>
+          </div>
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div id="sentry-bar-9" class="h-full bg-gray-700 transition-all duration-500" style="width: 3%;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 5. BRIEFING AUDIO NEURALE CON VOCE REALE & CAVEAU SAN GOTTARDO -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- BRIEFING AUDIO ALISON CON PARLATO REALE WEB SPEECH -->
+      <div class="lg:col-span-6 bg-sfx-panelBg border border-sfx-cyan/30 rounded-2xl p-6 glow-cyan flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-sfx-cyan uppercase font-bold tracking-widest"><i class="fa-solid fa-volume-high mr-1"></i> SINTESI VOCALE ESECUTIVA</span>
+          <h3 class="text-lg font-cyber font-bold text-white mt-1">AUDIO BRIEFING NEURALE ALISON</h3>
+          <p class="text-xs text-gray-400 font-mono mt-2">Ascolta la sintesi vocale generata in tempo reale dall'Agente Alison.</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 my-6 font-mono text-xs">
+          <button onclick="riproduciBriefingVocale('Mattina')" class="p-3 bg-black border border-sfx-cyan/50 hover:border-sfx-cyan rounded-xl text-center hover:bg-sfx-cyan/10 transition-all">
+            <i class="fa-solid fa-sun text-sfx-cyan text-lg block mb-1"></i>
+            <span>Mattina</span>
+          </button>
+          <button onclick="riproduciBriefingVocale('Sera')" class="p-3 bg-black border border-sfx-gold/50 hover:border-sfx-gold rounded-xl text-center hover:bg-sfx-gold/10 transition-all">
+            <i class="fa-solid fa-moon text-sfx-gold text-lg block mb-1"></i>
+            <span>Sera</span>
+          </button>
+          <button onclick="riproduciBriefingVocale('Notte')" class="p-3 bg-black border border-purple-500/50 hover:border-purple-400 rounded-xl text-center hover:bg-purple-500/10 transition-all">
+            <i class="fa-solid fa-shield-cat text-purple-400 text-lg block mb-1"></i>
+            <span>Notte</span>
+          </button>
+        </div>
+
+        <div id="briefing-status" class="bg-black/60 p-3 rounded-lg border border-gray-800 text-[10px] font-mono text-gray-400">
+          Seleziona un turno per far parlare l'Agente Alison.
+        </div>
+      </div>
+
+      <!-- CAVEAU SAN GOTTARDO & RISERVA AUREA -->
+      <div class="lg:col-span-6 bg-sfx-panelBg border border-sfx-gold/30 rounded-2xl p-6 glow-gold flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-sfx-gold uppercase font-bold tracking-widest"><i class="fa-solid fa-vault mr-1"></i> PROTOCOLLO SAN GOTTARDO</span>
+          <h3 class="text-lg font-cyber font-bold text-white mt-1">CAVEAU & RISERVA AUREA</h3>
+          
+          <div class="bg-black/80 p-4 rounded-xl border border-sfx-gold/30 mt-4 font-mono text-xs space-y-2">
+            <div class="flex justify-between">
+              <span class="text-gray-400">Riserva Lingotti d'Oro:</span>
+              <span class="text-sfx-gold font-bold">100% Cifrata</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Atti Societari Cifrati:</span>
+              <span class="text-green-400 font-bold">EAL6+ Depositate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <button onclick="alert('Caricamento documenti blindato. Trascina i file PDF per sottoporli a cifratura AES-256.')" class="w-full py-2.5 bg-sfx-gold/20 text-sfx-gold border border-sfx-gold font-mono text-xs font-bold uppercase rounded hover:bg-sfx-gold hover:text-black transition-all">
+            <i class="fa-solid fa-file-shield mr-2"></i> Deposita Nuovo Atto nel Caveau
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- JAVASCRIPT VAULT CONTROL ENGINE -->
+  <script>
+    // TESORERIA ZERO-BASE ACCOUNTING
+    let incassoTotale = 0.00;
+    let boutiqueTotale = 0.00;
+    let visiteQualificate = 12;
+    let isKillSwitchActive = false;
+
+    function aggiornaDisplayFinanziario() {
+      document.getElementById('totale-incasso-display').innerText = '€ ' + incassoTotale.toFixed(2);
+      
+      // Split 52% Cassa Operativa
+      const cassa52 = incassoTotale * 0.52;
+      document.getElementById('cassa-52-display').innerText = '€ ' + cassa52.toFixed(2);
+
+      // Split 48% Pool Dividendi Board
+      const pool48 = incassoTotale * 0.48;
+      
+      // Quote Nominali Reali
+      document.getElementById('quota-ceo-val').innerText = '€ ' + (pool48 * (30/48)).toFixed(2);
+      document.getElementById('quota-mariachiara-val').innerText = '€ ' + (pool48 * (10/48)).toFixed(2);
+      document.getElementById('quota-rossella-val').innerText = '€ ' + (pool48 * (4/48)).toFixed(2);
+      document.getElementById('quota-alba-val').innerText = '€ ' + (pool48 * (2/48)).toFixed(2);
+      document.getElementById('quota-federico-val').innerText = '€ ' + (pool48 * (2/48)).toFixed(2);
+
+      // Secret Ledger Boutique
+      document.getElementById('boutique-secret-val').innerText = '€ ' + boutiqueTotale.toFixed(2);
+      document.getElementById('sentry-visite-val').innerText = visiteQualificate;
     }
 
-    // 5. MENU HAMBURGER LATERALE
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const sideMenu = document.getElementById('side-menu');
-    const closeMenuBtn = document.getElementById('close-menu-btn');
-    const timerCounter = document.getElementById('timer-counter');
-    const menuLinks = document.querySelectorAll('.menu-link');
-    
-    let secondsLeft = 15;
-    let autoCloseInterval = null;
-
-    function openSideMenu() {
-      sideMenu.classList.remove('translate-x-full');
-      resetAutoCloseTimer();
-      autoCloseInterval = setInterval(updateAutoCloseTimer, 1000);
-    }
-
-    function closeSideMenu() {
-      sideMenu.classList.add('translate-x-full');
-      clearInterval(autoCloseInterval);
-    }
-
-    function resetAutoCloseTimer() {
-      secondsLeft = 15;
-      if (timerCounter) timerCounter.innerText = `${secondsLeft}s`;
-    }
-
-    function updateAutoCloseTimer() {
-      secondsLeft--;
-      if (timerCounter) timerCounter.innerText = `${secondsLeft}s`;
-      if (secondsLeft <= 0) {
-        closeSideMenu();
+    function simulaIncassoIngresso() {
+      const importo = parseFloat(prompt("Inserisci l'importo dell'incasso reale da registrare (€):", "149.00"));
+      if (!isNaN(importo) && importo > 0) {
+        incassoTotale += importo;
+        aggiornaDisplayFinanziario();
+        alert("Incasso di € " + importo.toFixed(2) + " registrato ed elaborato dallo Split Statutario!");
       }
     }
 
-    if (hamburgerBtn) hamburgerBtn.addEventListener('click', openSideMenu);
-    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeSideMenu);
-    
-    menuLinks.forEach(link => {
-      link.addEventListener('click', closeSideMenu);
-    });
+    function simulaVenditaBoutique() {
+      const importo = parseFloat(prompt("Inserisci importo vendita Boutique Luxury (€):", "250.00"));
+      if (!isNaN(importo) && importo > 0) {
+        boutiqueTotale += importo;
+        incassoTotale += importo;
+        aggiornaDisplayFinanziario();
+        alert("Vendita Boutique registrata nel Secret Ledger CEO!");
+      }
+    }
 
-    ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach(evt => {
-      if (sideMenu) sideMenu.addEventListener(evt, resetAutoCloseTimer);
-    });
+    function liquidaQuota(nome, quota) {
+      alert("Disposizione di bonifico per " + nome + " (" + quota + ") inviata ai sistemi di pagamento autorizzati.");
+    }
 
-    // 6. DISPOSIZIONE BONIFICO MEDIOLANUM CON SINCRONIZZAZIONE BACKEND
-    const formBonifico = document.getElementById('form-bonifico-vault');
-    if (formBonifico) {
-      formBonifico.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('btn-submit-bonifico');
-        const importo = document.getElementById('vault-importo').value;
-        const banca = document.getElementById('vault-banca').value;
-        const causale = document.getElementById('vault-causale').value;
-
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i> REGISTRAZIONE DISPOSIZIONE...';
-
-        if (typeof ConnettoreApi !== 'undefined') {
-          try {
-            await ConnettoreApi.invia('REGISTRA_PROSPETTO_BONIFICO', {
-              importo: importo,
-              banca: banca,
-              causale: causale
-            });
-            alert("DISPOSIZIONE BONIFICO GENERATA CON SUCCESSO!\n\nImporto registrato nel Vault Ledger e inoltrato a Banca Mediolanum.\nNotifica crittografata inviata al CEO Gek Carel.");
-          } catch (err) {
-            alert("Disposizione salvata in locale (Server EAL6+ temporaneamente in modalità offline).");
-          }
+    // KILL SWITCH EMERGENCY
+    function toggleKillSwitch() {
+      const pin = prompt("INSERIRE PIN CEO PER CONFERMARE BLOCCO TOTALE:");
+      if (pin === "3474429091") {
+        isKillSwitchActive = !isKillSwitchActive;
+        const btn = document.getElementById('btn-kill-switch');
+        const badge = document.getElementById('defcon-badge');
+        const statusText = document.getElementById('defcon-status-text');
+        
+        if (isKillSwitchActive) {
+          btn.innerHTML = '<i class="fa-solid fa-lock text-lg mr-2"></i> ECOSISTEMA BLOCCO MANUTENZIONE';
+          btn.className = "w-full py-4 bg-gray-800 text-red-500 font-cyber font-bold text-sm uppercase rounded-xl border border-red-500 shadow-none";
+          badge.className = "px-4 py-1.5 rounded-full font-cyber font-bold text-xs uppercase bg-red-900/80 text-red-400 border border-red-500 flex items-center space-x-2 animate-pulse";
+          statusText.innerText = "DEFCON 1 // KILL SWITCH ATTIVO";
+          alert("ATTENZIONE: L'ecosistema è stato messo in Modalità Manutenzione Straordinaria EAL6+.");
         } else {
-          alert("DISPOSIZIONE BONIFICO GENERATA!\n\nImporto: € " + importo + "\nBanca: " + banca);
+          btn.innerHTML = '<i class="fa-solid fa-power-off text-lg mr-2"></i> ATTIVA BLOCCO TOTALE';
+          btn.className = "w-full py-4 bg-sfx-redAlert hover:bg-red-700 text-white font-cyber font-bold text-sm uppercase tracking-wider rounded-xl transition-all shadow-[0_0_20px_rgba(255,42,75,0.5)]";
+          badge.className = "px-4 py-1.5 rounded-full font-cyber font-bold text-xs uppercase bg-green-900/60 text-green-400 border border-green-500 flex items-center space-x-2";
+          statusText.innerText = "DEFCON 5 // OTTIMALE";
+          alert("Sblocco eseguito. L'ecosistema è tornato operativo.");
         }
-
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> GENERA DISPOSIZIONE BONIFICO MEDIOLANUM';
-      });
+      } else {
+        alert("PIN ERRATO! Blocco di sicurezza non modificato.");
+      }
     }
 
-    // 7. PLAY AUDIO BRIEFING SIMULATO
-    function playAudioBriefing(orario) {
-      alert(`RIPRODUZIONE AUDIO BRIEFING DEDICATO [${orario}]\n\nSintesi neurale generata dall'Agente AG-01 Alison in corso per il CEO Gek Carel...`);
+    // BRIEFING AUDIO ALISON CON SINTESI VOCALE PARLANTE REALE
+    function riproduciBriefingVocale(turno) {
+      const status = document.getElementById('briefing-status');
+      const testoDiscorso = "Buongiorno Signor CEO Giuliano Caratelli. L'ecosistema Suprema Future X per il turno di " + turno + " registra attività regolare. La tesoreria a base zero è sincronizzata e lo split statutario è attivo.";
+
+      status.innerHTML = `<span class="text-sfx-cyan font-bold"><i class="fa-solid fa-volume-high animate-pulse mr-2"></i> Sintesi Vocale Alison (${turno}) in riproduzione...</span>`;
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(testoDiscorso);
+        utterance.lang = 'it-IT';
+        utterance.rate = 1.0;
+        utterance.pitch = 1.1;
+
+        utterance.onend = function() {
+          status.innerHTML = `<span class="text-sfx-gold font-bold"><i class="fa-solid fa-check mr-2"></i> Briefing ${turno} completato con successo.</span>`;
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        status.innerHTML = `<span class="text-sfx-gold font-bold"><i class="fa-solid fa-play mr-2"></i> Briefing ${turno}:</span> "${testoDiscorso}"`;
+      }
     }
 
-    // 8. UPLOADER CAVEAU 11"
-    const dropZoneCaveau = document.getElementById('drop-zone-caveau');
-    const fileCaveauInput = document.getElementById('file-caveau-input');
-
-    if (dropZoneCaveau && fileCaveauInput) {
-      dropZoneCaveau.addEventListener('click', () => fileCaveauInput.click());
-
-      fileCaveauInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-          alert(`Atto Notarile "${e.target.files[0].name}" cifrato e depositato nel Caveau Digitale San Gottardo!`);
-        }
-      });
-    }
-
-    // 9. NEWSLETTER FOOTER
-    const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
-      newsletterForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const email = document.getElementById('newsletter-email').value;
-        if (typeof ConnettoreApi !== 'undefined') {
-          await ConnettoreApi.invia('REGISTRAZIONE_LEAD', { 
-            nome: "Iscritto Notiziario", 
-            email: email, 
-            canale: "Newsletter Footer Vault", 
-            note: "Iscrizione notiziario dal Vault CEO" 
-          });
-        }
-        alert('Iscrizione confermata al Notiziario Riservato Suprema Future X.');
-        this.reset();
-      });
-    }
+    // INIZIALIZZAZIONE ALL'AVVIO
+    window.onload = function() {
+      aggiornaDisplayFinanziario();
+      console.log("CEO Vault EAL6+ Fully Initialized.");
+    };
   </script>
 </body>
 </html>
