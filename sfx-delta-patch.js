@@ -10,10 +10,10 @@
 (function () {
   'use strict';
 
-  // CONFIGURAZIONE ENGINE DELTA
+  // CONFIGURAZIONE ENGINE DELTA (AGGIORNATA A DEPLOYMENT v34)
   const SFX_DELTA_CONFIG = {
     VERSION: 'v31_EAL6',
-    APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbw6cDhjlvwnv5KAJUEz-ocgiey3QJu9uunGvyklI00nOjXkVDBuMn5B4iz-JMU1IuNxsw/exec',
+    APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec',
     SYNC_INTERVAL_MS: 30000, // Polling ogni 30 secondi
     STORAGE_KEYS: {
       USER_SESSION: 'SFX_LOGGED_USER',
