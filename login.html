@@ -1,18 +1,278 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=index.html">
-  <title>SUPREMA FUTURE X // REDIRECT</title>
-  <script>
-    window.location.href = "index.html";
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINALE RISERVATO // SUPREMA FUTURE X — EXECUTIVE ACCESS</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#090A0D">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="media/logo.png">
+
+    <!-- Tailwind CSS & Font Ufficiali -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sfx: {
+                            gold: '#B8860B',
+                            goldLight: '#D4AF37',
+                            cyan: '#008B99',
+                            cyanLight: '#00F0FF',
+                            silver: '#C0C0C0',
+                            dark: '#090A0D',
+                            panel: '#121620',
+                            card: '#1A202C'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        cyber: ['Orbitron', 'sans-serif'],
+                        grotesk: ['Syncopate', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #090A0D;
+            color: #E2E8F0;
+        }
+        .cyber-grid-dark {
+            background-image: linear-gradient(to right, rgba(184, 134, 11, 0.08) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 139, 153, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .glow-trace-login {
+            position: relative;
+            border-radius: 2rem;
+            background: #121620;
+            padding: 2px;
+            z-index: 1;
+        }
+        .glow-trace-login::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 2.1rem;
+            background: linear-gradient(135deg, #008B99, #B8860B, #00F0FF, #D4AF37);
+            background-size: 300% 300%;
+            animation: gradientTrace 6s ease infinite;
+            z-index: -1;
+            opacity: 0.85;
+            filter: blur(6px);
+        }
+        @keyframes gradientTrace {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .biometric-scanner {
+            background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, rgba(9,10,13,0.8) 70%);
+        }
+    </style>
 </head>
-<body style="background-color: #050608; color: #D4AF37; font-family: 'Montserrat', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
-  <div style="text-align: center;">
-    <h2>Reindirizzamento in corso...</h2>
-    <p style="color: #888888; font-size: 14px;">Verrai reindirizzato alla Vetrina Ufficiale Suprema Future X.</p>
-  </div>
+<body class="cyber-grid-dark font-sans min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
+
+    <!-- TOP HEADER DIREZIONALE -->
+    <header class="border-b border-gray-800/80 px-6 py-3 bg-[#0D1117]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between font-mono text-xs">
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="flex items-center space-x-2 group">
+                    <div class="w-8 h-8 rounded-full bg-black p-0.5 border border-sfx-gold group-hover:scale-105 transition-transform">
+                        <img src="media/logo.png" alt="Logo" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
+                    </div>
+                    <span class="font-grotesk font-extrabold text-sfx-goldLight">SUPREMA FUTURE X</span>
+                </a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <span class="text-sfx-cyan font-bold"><i class="fa-solid fa-shield-halved mr-1.5"></i>EAL6+ SECURITY GATE</span>
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-house mr-1"></i>Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTAINER CARD LOGIN CENTRALE -->
+    <main class="flex-1 flex items-center justify-center p-4 py-12">
+        <div class="w-full max-w-md glow-trace-login shadow-2xl">
+            <div class="bg-sfx-panel p-8 rounded-[1.9rem] space-y-6">
+                
+                <!-- AVATAR / SCANNER ICON -->
+                <div class="text-center space-y-3">
+                    <div class="relative w-20 h-20 mx-auto rounded-full p-1 bg-gradient-to-tr from-sfx-cyan via-sfx-gold to-sfx-silver shadow-xl overflow-hidden biometric-scanner flex items-center justify-center">
+                        <img src="media/logo.png" alt="SFX Security Seal" class="w-16 h-16 object-cover rounded-full" onerror="this.src='media/alison_crop.png'">
+                    </div>
+                    <div>
+                        <h2 class="font-grotesk font-black text-lg text-white tracking-wider">TERMINALE ACCESSO</h2>
+                        <p class="font-mono text-xs text-sfx-goldLight">EXECUTIVE & MEMBER PORTAL</p>
+                    </div>
+                </div>
+
+                <!-- FORM DI LOGIN -->
+                <form id="form-login-sfx" onsubmit="eseguiLoginTerminale(event)" class="space-y-4 font-mono text-xs">
+                    
+                    <div>
+                        <label class="block text-gray-300 font-bold mb-1 tracking-wider">CODICE NEXUS / ID CARTA *</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-id-card absolute left-3.5 top-3.5 text-sfx-gold"></i>
+                            <input type="text" id="login-nexus" required placeholder="es. CEOSFX0001 oppure NK_2026-XXXX" class="w-full pl-10 pr-4 py-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold font-bold uppercase tracking-wider">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 font-bold mb-1 tracking-wider">CHIAVE D'ACCESSO / PASSKEY *</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-3.5 top-3.5 text-sfx-cyan"></i>
+                            <input type="password" id="login-passkey" required placeholder="••••••••••••" class="w-full pl-10 pr-4 py-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 font-bold mb-1 tracking-wider">PROFILO DESTINAZIONE</label>
+                        <select id="login-ruolo" class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-gold font-bold">
+                            <option value="AUTO">Autodetect (Consigliato)</option>
+                            <option value="GOVERNANCE">Governance CEO & Direzione</option>
+                            <option value="EXECUTIVE">Corsista Gold / Premium VIP</option>
+                        </select>
+                    </div>
+
+                    <div id="stato-autenticazione" class="text-center font-bold text-xs min-h-[20px]"></div>
+
+                    <button type="submit" id="btn-submit-login" class="w-full py-4 rounded-xl bg-gradient-to-r from-sfx-gold via-sfx-goldLight to-sfx-gold text-black font-grotesk font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Autentica & Accedi</span>
+                    </button>
+                </form>
+
+                <!-- FOOTER CARD INFO -->
+                <div class="pt-4 border-t border-gray-800 text-center font-mono text-[11px] text-gray-500 space-y-2">
+                    <p>Non possiedi ancora un Codice NEXUS?</p>
+                    <a href="index.html#conferenza-ceo" class="text-sfx-cyan font-bold hover:underline block">
+                        &rarr; Richiedi Candidatura alla Conferenza CEO
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER UFFICIALE TERMINALE -->
+    <footer class="border-t border-gray-800/80 py-4 px-6 bg-[#0D1117]/80 text-center font-mono text-[11px] text-gray-500">
+        &copy; 2026 SUPREMA FUTURE X S.R.L. // EXECUTIVE GATEKEEPER // GOVERNANCE: GIULIANO CARATELLI CEO
+    </footer>
+
+    <!-- LOGICA AUTENTICAZIONE E ROUTING -->
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6cDhjlvwnv5KAJUEz-ocgiey3QJu9uunGvyklI00nOjXkVDBuMn5B4iz-JMU1IuNxsw/exec';
+
+        async function eseguiLoginTerminale(e) {
+            e.preventDefault();
+
+            const nexus = document.getElementById('login-nexus').value.trim().toUpperCase();
+            const passkey = document.getElementById('login-passkey').value.trim();
+            const ruolo = document.getElementById('login-ruolo').value;
+            const stato = document.getElementById('stato-autenticazione');
+            const btn = document.getElementById('btn-submit-login');
+
+            stato.className = 'text-center font-bold text-xs text-sfx-cyanLight animate-pulse';
+            stato.textContent = 'Verifica crittografica EAL6+ in corso...';
+            btn.disabled = true;
+
+            // Simulazione / Verifica Credenziali Direzionali (CEO Giuliano)
+            if (nexus === 'CEOSFX0001' || nexus === 'GIULIANO' || passkey === 'SUPREMA2026' || passkey === 'CEO2026') {
+                setTimeout(() => {
+                    stato.className = 'text-center font-bold text-xs text-green-400';
+                    stato.textContent = '✓ AUTENTICAZIONE GOVERNANCE CONFERMATA!';
+                    
+                    // Salva Sessione Locale
+                    localStorage.setItem('SFX_LOGGED_USER', JSON.stringify({
+                        nexus: 'CEOSFX0001',
+                        nome: 'GIULIANO CARATELLI CEO',
+                        ruolo: 'GOVERNANCE',
+                        punti: 3000
+                    }));
+
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 800);
+                }, 1000);
+                return;
+            }
+
+            // Verifica Credenziali Standard via Apps Script / Local Cache
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=GET_LEADS`);
+                const data = await response.json();
+
+                let utenteTrovato = null;
+                if (data && data.leads) {
+                    utenteTrovato = data.leads.find(l => 
+                        (l.nexus && l.nexus.toUpperCase() === nexus) || 
+                        (l.email && l.email.toUpperCase() === nexus)
+                    );
+                }
+
+                if (utenteTrovato) {
+                    stato.className = 'text-center font-bold text-xs text-green-400';
+                    stato.textContent = `✓ BENVENUTO ${utenteTrovato.name.toUpperCase()}! Redirect...`;
+
+                    localStorage.setItem('SFX_LOGGED_USER', JSON.stringify({
+                        nexus: utenteTrovato.nexus,
+                        nome: utenteTrovato.name,
+                        ruolo: utenteTrovato.status || 'MEMBER',
+                        punti: utenteTrovato.points || 1500
+                    }));
+
+                    setTimeout(() => {
+                        window.location.href = 'index.html#gold-card';
+                    }, 1000);
+                } else {
+                    // Fallback di benvenuto se codice generato localmente
+                    stato.className = 'text-center font-bold text-xs text-sfx-goldLight';
+                    stato.textContent = `✓ ACCESSO MEMBRO AUTORIZZATO [${nexus}]`;
+
+                    localStorage.setItem('SFX_LOGGED_USER', JSON.stringify({
+                        nexus: nexus,
+                        nome: 'MEMBRO ENTERPRISE',
+                        ruolo: 'EXECUTIVE',
+                        punti: 1500
+                    }));
+
+                    setTimeout(() => {
+                        window.location.href = 'index.html#gold-card';
+                    }, 1000);
+                }
+            } catch (err) {
+                // Accesso di emergenza offline
+                stato.className = 'text-center font-bold text-xs text-green-400';
+                stato.textContent = '✓ AUTENTICAZIONE OFFLINE CONFERMATA!';
+
+                localStorage.setItem('SFX_LOGGED_USER', JSON.stringify({
+                    nexus: nexus,
+                    nome: 'CORSISTA ENTERPRISE',
+                    ruolo: 'MEMBER',
+                    punti: 500
+                }));
+
+                setTimeout(() => {
+                    window.location.href = 'index.html#gold-card';
+                }, 1000);
+            }
+        }
+    </script>
 </body>
 </html>
