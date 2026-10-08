@@ -44,6 +44,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stile-globale.css">
 
     <script>
         tailwind.config = {
@@ -71,72 +72,6 @@
             }
         }
     </script>
-
-    <style>
-        /* Sfondo Unificato Cyber-Luxury Bianco Perlato */
-        .cyber-pearl-grid {
-            background-color: #FDFBF7;
-            background-size: 36px 36px;
-            background-image: linear-gradient(to right, rgba(184, 134, 11, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 139, 153, 0.04) 1px, transparent 1px);
-        }
-
-        /* Bordo Tracciante Animato (Neon Trace) Ciano/Oro/Argento */
-        .glow-trace-card {
-            position: relative;
-            border-radius: 1.75rem;
-            background: #FFFFFF;
-            padding: 2px;
-            z-index: 1;
-        }
-
-        .glow-trace-card::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 1.85rem;
-            background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
-            background-size: 300% 300%;
-            animation: gradientTrace 7s ease infinite;
-            z-index: -1;
-            opacity: 0.85;
-            filter: blur(4px);
-        }
-
-        @keyframes gradientTrace {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .text-gradient-tri {
-            background: linear-gradient(135deg, #008B99 0%, #B8860B 50%, #718096 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Widget Flottante Always-On Alison */
-        #widget-alison {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        #widget-alison:hover {
-            transform: scale(1.08);
-        }
-
-        .alison-avatar-glow {
-            box-shadow: 0 0 25px rgba(0, 139, 153, 0.7);
-            border: 2px solid #00F0FF;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #FDFBF7; }
-        ::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 3px; }
-    </style>
 </head>
 <body class="cyber-pearl-grid text-[#12141C] font-sans overflow-x-hidden selection:bg-sfx-gold selection:text-white">
 
@@ -267,7 +202,7 @@
                     <p class="text-xs text-gray-600 font-light leading-relaxed">
                         "Coordino le ammissioni dell'ecosistema Enterprise per la Direzione del CEO Giuliano. Posso interdire un appuntamento diretto in conferenza per guidarti verso i tuoi obiettivi."
                     </p>
-                    <button onclick="AlisonVoicePatch.parla('Benvenuto in Suprema Future X. Sono Alison. Posso interdire un appuntamento in conferenza con il CEO per guidarti?')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-[#090A0D] text-xs font-mono font-bold transition-colors">
+                    <button onclick="AlisonEngine.parla('Benvenuto in Suprema Future X. Sono Alison. Posso interdire un appuntamento in conferenza con il CEO per guidarti?')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-[#090A0D] text-xs font-mono font-bold transition-colors">
                         <i class="fa-solid fa-volume-high text-sfx-cyan mr-2"></i>Ascolta Messaggio Vocale
                     </button>
                 </div>
@@ -564,7 +499,7 @@
             <div class="bg-[#090A0D] rounded-3xl border-2 border-sfx-gold p-6 lg:p-8 shadow-2xl text-white font-mono">
                 <div class="flex justify-between items-center pb-4 border-b border-gray-800 text-xs">
                     <span class="text-sfx-gold font-bold"><i class="fa-solid fa-circle text-red-500 animate-pulse mr-2"></i>SUPREMA GOLD CARD SHOWCASE</span>
-                    <button onclick="toggleFullscreenMedia()" class="px-3 py-1 bg-gray-800 rounded hover:bg-gray-700">Full Screen</button>
+                    <button onclick="SFXMedia.toggleFullscreen('video-card-showcase')" class="px-3 py-1 bg-gray-800 rounded hover:bg-gray-700">Full Screen</button>
                 </div>
                 <div id="media-player-container" class="my-6 aspect-[16/9] bg-black rounded-2xl overflow-hidden border border-gray-800 relative flex items-center justify-center">
                     <video id="video-card-showcase" controls class="w-full h-full object-cover">
@@ -691,13 +626,13 @@
         </div>
     </div>
 
-    <!-- CATALOGO DATA & JS OPERATIVI -->
-    <script src="js/sfx-catalog-data.js"></script>
+    <!-- INCLUSIONE DEL FILE JS UNIFICATO CODE.JS E DELTA PATCH -->
+    <script src="js/code.js"></script>
+    <script src="sfx-delta-patch.js"></script>
 
+    <!-- INLINE HELPER FUNCTIONS & SERVICE WORKER REGISTRATION -->
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6cDhjlvwnv5KAJUEz-ocgiey3QJu9uunGvyklI00nOjXkVDBuMn5B4iz-JMU1IuNxsw/exec';
-
-        // 1. DIZIONARIO 10 LINGUE MULTI-LANGUAGE ENGINE
+        // 1. DIZIONARIO LINGUE ENGINE
         const DIZIONARIO_LINGUE = {
             IT: { "hero-desc": "Suprema Future X è una community, networking e academy ENTERPRISE potente e piena di risultati.", "nav-alison": "Alison Console", "nav-ceo": "Conferenza", "nav-academy": "Academy", "nav-card": "Gold Card", "nav-opal": "Boutique Opal", "nav-antigravity": "Antigravity", "nav-library": "Library" },
             EN: { "hero-desc": "Suprema Future X is a powerful ENTERPRISE community, networking, and academy full of results.", "nav-alison": "Alison Console", "nav-ceo": "Conference", "nav-academy": "Academy", "nav-card": "Gold Card", "nav-opal": "Opal Boutique", "nav-antigravity": "Antigravity", "nav-library": "Library" },
@@ -719,7 +654,7 @@
             });
         }
 
-        // 2. ROUTER STEALTH LOGO
+        // 2. ROUTER STEALTH LOGO (2 tap = Vault | 3 tap = Admin)
         (function() {
             const logo = document.getElementById('sfx-brand-logo');
             let clicks = 0, timer = null;
@@ -728,7 +663,7 @@
                 clicks++;
                 clearTimeout(timer);
                 timer = setTimeout(() => {
-                    if (clicks === 2) window.location.href = 'login.html';
+                    if (clicks === 2) window.location.href = 'vault.html';
                     else if (clicks >= 3) window.location.href = 'admin.html';
                     clicks = 0;
                 }, 400);
@@ -749,17 +684,15 @@
                 email: document.getElementById('cand-email').value,
                 telefono: document.getElementById('cand-tel').value,
                 canale: document.getElementById('cand-ambito').value,
-                note: document.getElementById('cand-note').value,
-                token: 'NX-2026-' + Math.floor(1000 + Math.random() * 9000)
+                note: document.getElementById('cand-note').value
             };
 
-            try {
-                await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-                stato.className = 'text-center font-mono text-[11px] text-green-700 font-bold mt-2';
-                stato.textContent = '✓ CANDIDATURA ACQUISITA! Un Executive ti contatterà a breve.';
-            } catch(err) {
-                stato.textContent = '✓ CANDIDATURA REGISTRATA IN CODA LOCAL.';
+            if (window.SFXConnector) {
+                await window.SFXConnector.inviaLead(payload);
             }
+
+            stato.className = 'text-center font-mono text-[11px] text-green-700 font-bold mt-2';
+            stato.textContent = '✓ CANDIDATURA ACQUISITA! Un Executive ti contatterà a breve.';
             btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Inviata';
             document.getElementById('form-candidatura-ceo').reset();
         }
@@ -769,9 +702,9 @@
             const box = document.getElementById('box-chat-centrale');
             box.innerHTML += `<div class="bg-sfx-cyan/10 p-3 rounded-xl ml-auto max-w-md text-right font-bold text-sfx-cyan">${testo}</div>`;
             
-            if (testo.includes('1. SI')) {
-                window.location.href = '#conferenza-ceo';
-            } else if (testo.includes('2. SI')) {
+            if (window.AlisonEngine) {
+                window.AlisonEngine.gestisciScelta(testo);
+            } else if (testo.includes('1. SI') || testo.includes('2. SI')) {
                 window.location.href = '#conferenza-ceo';
             } else if (testo.includes('3. NO')) {
                 box.innerHTML += `<div class="bg-white p-3 rounded-xl border max-w-md font-bold">Alison: Perfetto. Di cosa vorresti parlare in dettaglio?</div>`;
@@ -780,8 +713,12 @@
         }
 
         function GestoreObiezioni() {
-            alert("Alison: Che cosa non è chiaro? Proprio per questo un appuntamento con il CEO toglie ogni dubbio! Clicca OK per collegarti direttamente con Giuliano su WhatsApp.");
-            window.location.href = "https://wa.me/393474429091?text=Ciao%20Giuliano,%20vorrei%20togliere%20ogni%20dubbio%20sull'Ecosistema";
+            if (window.AlisonEngine) {
+                window.AlisonEngine.gestisciScelta(4);
+            } else {
+                alert("Alison: Che cosa non è chiaro? Un appuntamento con il CEO toglie ogni dubbio!");
+                window.location.href = "https://wa.me/393474429091?text=Ciao%20Giuliano,%20vorrei%20maggiori%20informazioni";
+            }
         }
 
         function inviaMessaggioCentrale() {
@@ -799,11 +736,10 @@
 
         // 5. SIMULATORE CARD PHYGITAL
         function GeneraCardSimulata() {
-            const nome = document.getElementById('sim-nome').value.toUpperCase() || "ALISON EXECUTIVE";
-            const idCode = "CEOSFX0001";
-            document.getElementById('render-nome').textContent = nome;
-            document.getElementById('render-id').textContent = idCode;
-            document.getElementById('render-pts').textContent = "1,500 PTS";
+            const inputNome = document.getElementById('sim-nome').value;
+            if (window.GoldCardEngine) {
+                window.GoldCardEngine.genera(inputNome);
+            }
         }
 
         // 6. EXIT INTENT TRIGGER
@@ -818,6 +754,10 @@
         async function InviaExitFeedback() {
             const email = document.getElementById('exit-email').value;
             if (!email) return;
+            
+            if (window.SFXConnector) {
+                await window.SFXConnector.inviaLead({ action: 'EXIT_INTENT_FEEDBACK', email: email, course: 'EXIT_INTENT' });
+            }
             alert("Grazie! Email registrata. Ti sono stati accreditati +50 PTS sulla Gold Card.");
             document.getElementById('modale-exit').classList.add('hidden');
         }
@@ -835,39 +775,24 @@
 
         async function inviaConsulenzaModale(e) {
             e.preventDefault();
+            const payload = {
+                action: 'LEAD_INGESTION',
+                nome: document.getElementById('modale-nome').value,
+                email: document.getElementById('modale-email').value,
+                telefono: document.getElementById('modale-tel').value,
+                course: prodottoSelezionato
+            };
+            if (window.SFXConnector) {
+                await window.SFXConnector.inviaLead(payload);
+            }
             alert("Richiesta acquisita per: " + prodottoSelezionato);
             chiudiConsulenza();
-        }
-
-        function toggleFullscreenMedia() {
-            const video = document.getElementById('video-card-showcase');
-            if (video.requestFullscreen) video.requestFullscreen();
         }
 
         function inviaNewsletter(e) { e.preventDefault(); alert("Iscrizione completata!"); e.target.reset(); }
         function inviaFeedback(e) { e.preventDefault(); alert("Feedback trasmesso alla Direzione!"); e.target.reset(); }
 
-        // VOICE SYNTHESIS PATCH
-        window.AlisonVoicePatch = {
-            parla: function(testo) {
-                if ('speechSynthesis' in window) {
-                    const utt = new SpeechSynthesisUtterance(testo);
-                    utt.lang = 'it-IT';
-                    window.speechSynthesis.speak(utt);
-                }
-            }
-        };
-    </script>
-
-    <!-- ENGINE CRITTOGRAFICO NATIVO DELTA PATCH -->
-    <script src="sfx-delta-patch.js"></script>
-</body>
-</html>
-<!-- ENGINE CRITTOGRAFICO NATIVO DELTA PATCH & SERVICE WORKER -->
-    <script src="sfx-delta-patch.js"></script>
-
-    <script>
-        // REGISTRAZIONE AUTOMATICA SERVICE WORKER PWA (sw.js)
+        // 8. REGISTRAZIONE AUTOMATICA SERVICE WORKER PWA (sw.js)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
