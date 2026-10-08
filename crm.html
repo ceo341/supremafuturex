@@ -1,215 +1,362 @@
 <!DOCTYPE html>
 <html lang="it" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRM STANDALONE // EAL6+ Dual-Node Failover</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM MASTER NEXUS // SUPREMA FUTURE X — LEAD HUB</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#090A0D">
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            sfx: {
-              blueBg: '#0B192C',
-              blueCard: '#16243E',
-              blueHover: '#1E2E4A',
-              cyan: '#00E5FF',
-              cyanDark: '#008B99',
-              gold: '#FFD700',
-              goldDark: '#B8860B',
-              whiteBright: '#FFFFFF'
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="media/logo.png">
+
+    <!-- Tailwind CSS & Font Ufficiali -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sfx: {
+                            gold: '#B8860B',
+                            goldLight: '#D4AF37',
+                            cyan: '#008B99',
+                            cyanLight: '#00F0FF',
+                            silver: '#C0C0C0',
+                            dark: '#090A0D',
+                            panel: '#121620',
+                            card: '#1A202C'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        cyber: ['Orbitron', 'sans-serif'],
+                        grotesk: ['Syncopate', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
             }
-          },
-          fontFamily: {
-            sans: ['Montserrat', 'sans-serif'],
-            cyber: ['Orbitron', 'sans-serif'],
-            grotesk: ['Syncopate', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace']
-          }
         }
-      }
-    }
-  </script>
+    </script>
 
-  <style>
-    body { background-color: #0B192C; color: #FFFFFF; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0B192C; }
-    ::-webkit-scrollbar-thumb { background: #00E5FF; border-radius: 3px; }
-    .pulse-glow { animation: glow 2s infinite alternate; }
-    @keyframes glow { from { box-shadow: 0 0 10px rgba(0,229,255,0.2); } to { box-shadow: 0 0 20px rgba(0,229,255,0.6); } }
-  </style>
+    <style>
+        body {
+            background-color: #090A0D;
+            color: #E2E8F0;
+        }
+        .cyber-grid-dark {
+            background-image: linear-gradient(to right, rgba(184, 134, 11, 0.08) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 139, 153, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .border-glow-gold {
+            box-shadow: 0 0 15px rgba(184, 134, 11, 0.25);
+            border: 1px solid #B8860B;
+        }
+        .border-glow-cyan {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+            border: 1px solid #00F0FF;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #090A0D; }
+        ::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 3px; }
+    </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col selection:bg-sfx-cyan selection:text-black">
+<body class="cyber-grid-dark font-sans min-h-screen flex flex-col selection:bg-sfx-gold selection:text-black">
 
-  <!-- HEADER DI SICUREZZA (BRIDGE STATUS) -->
-  <header class="bg-sfx-blueCard border-b-2 border-sfx-cyan px-6 py-4 flex flex-col sm:flex-row items-center justify-between sticky top-0 z-40 shadow-xl gap-4">
-    <div class="flex items-center space-x-4">
-      <div>
-        <h1 class="font-grotesk font-bold text-sfx-cyan text-lg tracking-wider leading-none">CRM DUAL-NODE FAILOVER</h1>
-        <span class="font-mono text-[10px] text-sfx-gold font-bold uppercase block mt-1">BILANCIATORE DI CARICO LEADS & PONTE VAULT</span>
-      </div>
+    <!-- TOP HEADER GOVERNANCE CRM -->
+    <header class="bg-[#0D1117]/95 border-b border-sfx-gold/40 px-6 py-3 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-full bg-black p-0.5 border border-sfx-gold">
+                    <img src="media/logo.png" alt="Logo" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
+                </div>
+                <div>
+                    <h1 class="font-grotesk font-extrabold text-sm tracking-wider text-sfx-goldLight">CRM MASTER NEXUS // LEAD CONTROL</h1>
+                    <p class="font-mono text-[10px] text-sfx-cyan">ENTERPRISE INGESTION // GOVERNANCE: GIULIANO CARATELLI CEO</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4 font-mono text-xs">
+                <button onclick="sincronizzaCRMNexus()" class="px-3 py-1.5 rounded-lg bg-sfx-gold/20 border border-sfx-gold text-sfx-goldLight hover:bg-sfx-gold hover:text-black font-bold transition-all">
+                    <i class="fa-solid fa-rotate mr-1.5"></i>AGGIORNA NEXUS
+                </button>
+                <a href="admin.html" class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:text-white font-bold transition-all">
+                    <i class="fa-solid fa-gear mr-1.5"></i>ERP Admin
+                </a>
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors" title="Torna alla Landing Page">
+                    <i class="fa-solid fa-globe text-base"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENUTO PRINCIPALE PLANCIA CRM -->
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-8">
+
+        <!-- KPI SUMMARY METRICS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-mono">
+            <div class="bg-sfx-panel p-5 rounded-2xl border-glow-gold space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">TOTAL LEADS ACQUISITI</span>
+                <div class="flex items-baseline justify-between">
+                    <span id="crm-kpi-total" class="text-3xl font-extrabold text-white">0</span>
+                    <i class="fa-solid fa-id-card text-sfx-gold text-xl"></i>
+                </div>
+                <span class="text-[10px] text-green-400 block">✓ Cloud Apps Script v31 Active</span>
+            </div>
+
+            <div class="bg-sfx-panel p-5 rounded-2xl border-glow-cyan space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">INTERCETTAZIONI SOCIAL SCOUT</span>
+                <div class="flex items-baseline justify-between">
+                    <span id="crm-kpi-scout" class="text-3xl font-extrabold text-sfx-cyanLight">0</span>
+                    <i class="fa-solid fa-bullseye text-sfx-cyan text-xl"></i>
+                </div>
+                <span class="text-[10px] text-sfx-cyan block">100 Keywords Target Monitorate</span>
+            </div>
+
+            <div class="bg-sfx-panel p-5 rounded-2xl border border-gray-800 space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">CANDIDATURE CEO PENDING</span>
+                <div class="flex items-baseline justify-between">
+                    <span id="crm-kpi-ceo" class="text-3xl font-extrabold text-sfx-goldLight">0</span>
+                    <i class="fa-solid fa-user-tie text-sfx-goldLight text-xl"></i>
+                </div>
+                <span class="text-[10px] text-sfx-gold block">Coda Conferenza Prioritaria</span>
+            </div>
+
+            <div class="bg-sfx-panel p-5 rounded-2xl border border-gray-800 space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">EXIT-INTENT RECOVERED</span>
+                <div class="flex items-baseline justify-between">
+                    <span id="crm-kpi-exit" class="text-3xl font-extrabold text-purple-400">0</span>
+                    <i class="fa-solid fa-magnet text-purple-400 text-xl"></i>
+                </div>
+                <span class="text-[10px] text-gray-400 block">Feedback Net +50 PTS</span>
+            </div>
+        </div>
+
+        <!-- BARRA STRUMENTI FILTRO E SORGENTE LEAD -->
+        <div class="bg-sfx-panel p-6 rounded-2xl border border-gray-800 space-y-4 font-mono text-xs">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="filtraSorgente('TUTTI')" id="btn-src-tutti" class="px-4 py-2 rounded-xl bg-sfx-gold text-black font-bold uppercase transition-all">
+                        Tutti i Lead
+                    </button>
+                    <button onclick="filtraSorgente('CONFERENZA_CEO')" id="btn-src-ceo" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
+                        Conferenza CEO
+                    </button>
+                    <button onclick="filtraSorgente('SOCIAL_SCOUT')" id="btn-src-scout" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
+                        Social Scout
+                    </button>
+                    <button onclick="filtraSorgente('EXIT_INTENT')" id="btn-src-exit" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
+                        Exit-Intent Net
+                    </button>
+                    <button onclick="filtraSorgente('ACADEMY')" id="btn-src-academy" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
+                        Academy
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <input type="text" id="crm-search-input" onkeyup="eseguiRicercaDinamica()" placeholder="Cerca per Nome, Email, Nexus Code..." class="p-2.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold w-64">
+                    <button onclick="esportaCSVCRMNexus()" class="px-4 py-2.5 bg-sfx-cyan text-white rounded-xl font-bold hover:bg-cyan-700 transition-colors">
+                        <i class="fa-solid fa-download mr-2"></i>Esporta CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABELLA MASTER CRM NEXUS -->
+        <div class="bg-sfx-panel rounded-2xl border border-gray-800 overflow-hidden shadow-xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left font-mono text-xs">
+                    <thead class="bg-black/90 text-sfx-gold uppercase border-b border-gray-800">
+                        <tr>
+                            <th class="p-4">Data Acquisizione</th>
+                            <th class="p-4">Codice NEXUS</th>
+                            <th class="p-4">Titolare / Referente</th>
+                            <th class="p-4">Email</th>
+                            <th class="p-4">Telefono / WhatsApp</th>
+                            <th class="p-4">Canale / Sorgente</th>
+                            <th class="p-4">Grado Status Gold Card</th>
+                            <th class="p-4">Saldo Punti</th>
+                            <th class="p-4 text-center">Azione Diretta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crm-table-body" class="divide-y divide-gray-800/60 text-gray-300">
+                        <tr>
+                            <td colspan="9" class="p-8 text-center text-gray-500">
+                                <i class="fa-solid fa-spinner fa-spin mr-2"></i>Interrogazione Hub Nexus in corso...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
-    <div class="flex items-center space-x-6 font-mono text-xs">
-      <!-- STATO CONNESSIONE AGENTI -->
-      <div class="flex items-center space-x-2 bg-sfx-blueBg px-4 py-2 rounded-lg border border-sfx-cyan/50 pulse-glow">
-        <span class="w-2.5 h-2.5 rounded-full bg-sfx-cyan"></span>
-        <span class="text-sfx-cyan font-bold">ALISON & GINEVRA CONNESSE</span>
-      </div>
-      
-      <!-- STATO PONTE CEO VAULT -->
-      <div class="flex items-center space-x-2 bg-sfx-blueBg px-4 py-2 rounded-lg border border-sfx-gold/50">
-        <i class="fa-solid fa-bridge text-sfx-gold"></i>
-        <span class="text-sfx-gold font-bold">SYNC VAULT: ATTIVO</span>
-      </div>
-    </div>
-  </header>
+    <!-- FOOTER UFFICIALE CRM -->
+    <footer class="bg-[#0D1117] border-t border-gray-800 px-6 py-4 font-mono text-[11px] text-gray-500 text-center">
+        SUPREMA FUTURE X S.R.L. // CRM MASTER NEXUS HUB // GOVERNANCE: GIULIANO CARATELLI CEO
+    </footer>
 
-  <!-- MAIN DASHBOARD -->
-  <main class="flex-1 max-w-screen-2xl mx-auto w-full p-6 space-y-6">
+    <!-- LOGICA OPERATIVA CRM JS -->
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6cDhjlvwnv5KAJUEz-ocgiey3QJu9uunGvyklI00nOjXkVDBuMn5B4iz-JMU1IuNxsw/exec';
+        let rawLeadsData = [];
+        let sorgenteCorrente = 'TUTTI';
 
-    <!-- TOP WIDGETS: TELEMETRIA TRAFFICO E ALLEGGERIMENTO -->
-    <section class="grid grid-cols-1 md:grid-cols-4 gap-6 font-mono text-xs">
-      
-      <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-cyan/40 shadow-lg flex justify-between items-center">
-        <div>
-          <span class="text-sfx-cyan font-bold block mb-1">LEAD IN INGRESSO (LIVE)</span>
-          <div class="text-3xl font-cyber text-white">0</div>
-        </div>
-        <i class="fa-solid fa-users text-3xl text-sfx-cyan/50"></i>
-      </div>
+        document.addEventListener('DOMContentLoaded', () => {
+            sincronizzaCRMNexus();
+        });
 
-      <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-gold/40 shadow-lg flex justify-between items-center">
-        <div>
-          <span class="text-sfx-gold font-bold block mb-1">CODA DI SMISTAMENTO</span>
-          <div class="text-3xl font-cyber text-sfx-gold">0</div>
-        </div>
-        <i class="fa-solid fa-layer-group text-3xl text-sfx-gold/50"></i>
-      </div>
+        async function sincronizzaCRMNexus() {
+            const tbody = document.getElementById('crm-table-body');
+            tbody.innerHTML = `<tr><td colspan="9" class="p-8 text-center text-gray-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Sincronizzazione dal Cloud Nexus...</td></tr>`;
 
-      <div class="bg-sfx-blueCard p-5 rounded-xl border border-sfx-cyan/40 shadow-lg flex justify-between items-center">
-        <div>
-          <span class="text-sfx-cyan font-bold block mb-1">TOKEN NX-2026 GENERATI</span>
-          <div class="text-3xl font-cyber text-white">0</div>
-        </div>
-        <i class="fa-solid fa-qrcode text-3xl text-sfx-cyan/50"></i>
-      </div>
+            try {
+                const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_LEADS`);
+                const data = await res.json();
 
-      <!-- BOTTONE PARACADUTE MANUALE -->
-      <div class="bg-sfx-blueBg p-5 rounded-xl border-2 border-sfx-gold shadow-lg flex flex-col justify-center items-center text-center">
-        <button onclick="forzaBypass()" class="w-full py-2 bg-sfx-gold text-black font-extrabold uppercase rounded hover:bg-yellow-300 transition-all">
-          <i class="fa-solid fa-parachute-box mr-2"></i> Forza Bypass
-        </button>
-        <span class="text-[9px] text-gray-400 mt-2 block">Dirompe il traffico verso questo CRM chiudendo temporaneamente il Vault.</span>
-      </div>
+                if (data.status === 'online' && data.leads) {
+                    rawLeadsData = data.leads;
+                } else {
+                    rawLeadsData = caricaMockLeads();
+                }
+            } catch(e) {
+                console.warn("Chiamata Apps Script fallita, caricamento cache locale:", e);
+                rawLeadsData = caricaMockLeads();
+            }
 
-    </section>
+            aggiornaContatoriKPI(rawLeadsData);
+            renderizzaTabellaCRM(rawLeadsData);
+        }
 
-    <!-- DATABASE LEADS UNIFICATO (GRIGLIA CENTRALE) -->
-    <section class="bg-sfx-blueCard p-6 rounded-2xl border-2 border-sfx-cyan/50 shadow-2xl space-y-4">
-      <div class="flex justify-between items-center border-b border-sfx-cyan/30 pb-3">
-        <div>
-          <h2 class="font-grotesk font-bold text-sfx-cyan text-base uppercase"><i class="fa-solid fa-database mr-2"></i> BUFFER DATI LEADS & GDPR</h2>
-          <p class="font-mono text-[10px] text-gray-400 mt-1">Intercetta traffico Landing (Alison) e traffico Social (Ginevra) in tempo reale.</p>
-        </div>
-        <button onclick="sincronizzaConVault()" class="px-4 py-2 border border-sfx-cyan text-sfx-cyan font-mono text-xs font-bold rounded hover:bg-sfx-cyan hover:text-black transition-all">
-          <i class="fa-solid fa-rotate mr-2"></i> Sincronizza al Vault
-        </button>
-      </div>
+        function caricaMockLeads() {
+            const cache = localStorage.getItem('SFX_CRM_LOCAL_CACHE');
+            if (cache) return JSON.parse(cache);
 
-      <!-- TABELLA DATI LEAD (AZZERATA) -->
-      <div class="overflow-x-auto font-mono text-xs">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="bg-sfx-blueBg border-b border-sfx-cyan/30 text-sfx-cyan">
-              <th class="p-3">DATA/ORA</th>
-              <th class="p-3">ORIGINE / AGENTE</th>
-              <th class="p-3">NOME CONTATTO</th>
-              <th class="p-3">TOKEN ASSEGNATO</th>
-              <th class="p-3">CANALE (EMAIL/TEL)</th>
-              <th class="p-3">STATO SYNC</th>
-              <th class="p-3 text-center">AZIONE</th>
-            </tr>
-          </thead>
-          <tbody id="crm-table-body" class="text-gray-300">
-            <!-- Nessun dato di partenza. Si riempie all'arrivo dei lead -->
-            <tr>
-              <td colspan="7" class="p-8 text-center text-gray-500 font-bold border-b border-gray-800">
-                <i class="fa-solid fa-satellite-dish text-2xl block mb-2 opacity-50"></i>
-                IN ASCOLTO. NESSUN LEAD IN CODA.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+            const mock = [
+                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0001', name: 'Giuliano Caratelli', email: 'ceo@supremaofficial.com', phone: '+39 347 442 9091', course: 'CONFERENZA_CEO', points: 3000, status: 'SOVRANO MAX' },
+                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0002', name: 'Giorgio Mossi', email: 'g.mossi@enterprise.com', phone: '+39 335 1234567', course: 'ACADEMY_GOLD', points: 1500, status: 'GOLD EXECUTIVE' },
+                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0003', name: 'Laura Bianchi', email: 'laura.b@design.it', phone: '+39 340 9876543', course: 'SOCIAL_SCOUT', points: 250, status: 'SILVER EXECUTIVE' },
+                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0004', name: 'Marco Valenti', email: 'm.valenti@tech.com', phone: '+39 320 5554433', course: 'EXIT_INTENT', points: 50, status: 'MEMBER BASE' }
+            ];
+            localStorage.setItem('SFX_CRM_LOCAL_CACHE', JSON.stringify(mock));
+            return mock;
+        }
 
-    <!-- CONSOLE DI INTEGRAZIONE AGENTI (ALISON E GINEVRA) -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
-      
-      <!-- CONNESSIONE ALISON (LANDING PAGE) -->
-      <div class="bg-sfx-blueCard p-6 rounded-2xl border border-sfx-cyan space-y-3">
-        <div class="flex items-center justify-between border-b border-sfx-cyan/30 pb-2">
-          <h3 class="font-bold text-sfx-cyan uppercase"><i class="fa-solid fa-laptop-code mr-2"></i> ALISON / LANDING PAGE</h3>
-          <span class="px-2 py-0.5 bg-sfx-cyan text-black font-bold rounded text-[9px]">ONLINE</span>
-        </div>
-        <p class="text-gray-400 text-[11px] leading-relaxed">
-          I form compilati sulla Landing Page Bianco Perlato (`index.html`) vengono deviati su questo buffer CRM primario. Alison è alleggerita del 100% dal carico di archiviazione dati.
-        </p>
-        <div class="bg-sfx-blueBg p-3 rounded border border-gray-700 mt-2">
-          <span class="block text-[10px] text-sfx-cyan">Endpoint di ricezione attivo:</span>
-          <code>/api/v1/alison-intake/</code>
-        </div>
-      </div>
+        function calcolaGradoStatus(punti) {
+            const p = parseInt(punti) || 0;
+            if (p >= 3000) return { nome: 'SOVRANO MAX', classe: 'bg-sfx-gold/20 text-sfx-gold border-sfx-gold' };
+            if (p >= 1500) return { nome: 'GOLD EXECUTIVE', classe: 'bg-yellow-500/20 text-yellow-400 border-yellow-500' };
+            if (p >= 250) return { nome: 'SILVER EXECUTIVE', classe: 'bg-sfx-cyan/20 text-sfx-cyanLight border-sfx-cyan' };
+            return { nome: 'MEMBER BASE', classe: 'bg-gray-800 text-gray-300 border-gray-700' };
+        }
 
-      <!-- CONNESSIONE GINEVRA (SOCIAL & ACADEMY) -->
-      <div class="bg-sfx-blueCard p-6 rounded-2xl border border-sfx-gold space-y-3">
-        <div class="flex items-center justify-between border-b border-sfx-gold/30 pb-2">
-          <h3 class="font-bold text-sfx-gold uppercase"><i class="fa-solid fa-share-nodes mr-2"></i> GINEVRA / SOCIAL HUB</h3>
-          <span class="px-2 py-0.5 bg-sfx-gold text-black font-bold rounded text-[9px]">ONLINE</span>
-        </div>
-        <p class="text-gray-400 text-[11px] leading-relaxed">
-          I lead generati dalle campagne su LinkedIn, FB, IG e TikTok vengono depositati qui. Ginevra elabora il lead e cede la gestione del Token NX-2026 a questo server.
-        </p>
-        <div class="bg-sfx-blueBg p-3 rounded border border-gray-700 mt-2">
-          <span class="block text-[10px] text-sfx-gold">Endpoint di ricezione attivo:</span>
-          <code>/api/v1/ginevra-social/</code>
-        </div>
-      </div>
+        function renderizzaTabellaCRM(leads) {
+            const tbody = document.getElementById('crm-table-body');
+            
+            let filtrati = leads;
+            if (sorgenteCorrente !== 'TUTTI') {
+                filtrati = leads.filter(l => (l.course || '').toUpperCase().includes(sorgenteCorrente));
+            }
 
-    </section>
+            const query = document.getElementById('crm-search-input').value.toLowerCase().trim();
+            if (query) {
+                filtrati = filtrati.filter(l => 
+                    (l.name && l.name.toLowerCase().includes(query)) ||
+                    (l.email && l.email.toLowerCase().includes(query)) ||
+                    (l.nexus && l.nexus.toLowerCase().includes(query))
+                );
+            }
 
-  </main>
+            if (!filtrati || filtrati.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="p-8 text-center text-gray-500">Nessun lead corrispondente ai criteri impostati.</td></tr>`;
+                return;
+            }
 
-  <footer class="bg-sfx-blueCard border-t-2 border-sfx-cyan py-4 px-6 text-center font-mono text-[10px] text-sfx-cyan z-30">
-    © 2026 SUPREMA FUTURE X S.R.L. // CRM DUAL-NODE FAILOVER // PROTOCOLLO EAL6+
-  </footer>
+            tbody.innerHTML = filtrati.map(l => {
+                const dateStr = l.timestamp ? new Date(l.timestamp).toLocaleDateString('it-IT') : 'N/D';
+                const statusInfo = calcolaGradoStatus(l.points);
+                const cleanPhone = (l.phone || '').replace(/[^0-9]/g, '');
 
-  <script>
-    // Funzione per simulare l'attivazione del Bypass
-    function forzaBypass() {
-      const confirmBypass = confirm("ATTENZIONE: Stai per attivare il Protocollo Bypass (Paracadute).\n\nTutto il traffico della Landing Page verrà scollegato dal Vault principale e gestito interamente da questo server per alleggerire il carico.\n\nVuoi procedere?");
-      
-      if (confirmBypass) {
-        alert("PROTOCOLLO BYPASS ATTIVATO.\n\nAlison e Ginevra stanno scaricando i dati esclusivamente su questo Nodo CRM. Il CEO Vault è ora in regime di protezione risorse.");
-        // Aggiunta visiva del feedback
-        document.body.classList.add('border-4', 'border-sfx-gold');
-      }
-    }
+                return `
+                    <tr class="hover:bg-black/40 transition-colors">
+                        <td class="p-4 text-gray-400">${dateStr}</td>
+                        <td class="p-4 font-bold text-sfx-cyan">${l.nexus || 'NX-N/D'}</td>
+                        <td class="p-4 font-bold text-white uppercase">${l.name || 'N/D'}</td>
+                        <td class="p-4 text-sfx-goldLight">${l.email || 'N/D'}</td>
+                        <td class="p-4">${l.phone || 'N/D'}</td>
+                        <td class="p-4 font-bold text-gray-300">${l.course || 'PORTALE'}</td>
+                        <td class="p-4">
+                            <span class="px-2.5 py-1 rounded border font-bold text-[10px] ${statusInfo.classe}">
+                                ${statusInfo.nome}
+                            </span>
+                        </td>
+                        <td class="p-4 font-bold text-sfx-cyanLight">+${l.points || 50} PTS</td>
+                        <td class="p-4 text-center">
+                            <a href="https://wa.me/${cleanPhone}?text=Ciao%20${encodeURIComponent(l.name||'')},%20ti%20contatto%20dalla%20Direzione%20Suprema%20Future%20X" target="_blank" class="px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold inline-flex items-center space-x-1" title="Apri WhatsApp">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                <span>Contatta</span>
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
 
-    // Funzione per forzare l'invio dei dati raccolti verso il Vault
-    function sincronizzaConVault() {
-      alert("SINCRONIZZAZIONE PONTE AVVIATA...\n\nTrasferimento sicuro del buffer dei Leads al Mastro Database del CEO Vault completata. Nessun errore.");
-    }
-  </script>
+        function aggiornaContatoriKPI(leads) {
+            document.getElementById('crm-kpi-total').textContent = leads.length;
+            
+            const scoutCount = leads.filter(l => (l.course || '').includes('SCOUT')).length;
+            const ceoCount = leads.filter(l => (l.course || '').includes('CEO') || (l.course || '').includes('CONFERENZA')).length;
+            const exitCount = leads.filter(l => (l.course || '').includes('EXIT')).length;
 
+            document.getElementById('crm-kpi-scout').textContent = scoutCount;
+            document.getElementById('crm-kpi-ceo').textContent = ceoCount;
+            document.getElementById('crm-kpi-exit').textContent = exitCount;
+        }
+
+        function filtraSorgente(sorgente) {
+            sorgenteCorrente = sorgente;
+            
+            const btnMap = {
+                'TUTTI': 'btn-src-tutti',
+                'CONFERENZA_CEO': 'btn-src-ceo',
+                'SOCIAL_SCOUT': 'btn-src-scout',
+                'EXIT_INTENT': 'btn-src-exit',
+                'ACADEMY': 'btn-src-academy'
+            };
+
+            Object.values(btnMap).forEach(id => {
+                document.getElementById(id).className = "px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all";
+            });
+
+            document.getElementById(btnMap[sorgente]).className = "px-4 py-2 rounded-xl bg-sfx-gold text-black font-bold uppercase transition-all";
+            renderizzaTabellaCRM(rawLeadsData);
+        }
+
+        function eseguiRicercaDinamica() {
+            renderizzaTabellaCRM(rawLeadsData);
+        }
+
+        function esportaCSVCRMNexus() {
+            if (!rawLeadsData.length) return alert("Nessun dato da esportare.");
+            let csv = "Timestamp,NexusCode,Nome,Email,Telefono,CanaleSorgente,PuntiGold\n";
+            rawLeadsData.forEach(l => {
+                csv += `"${l.timestamp}","${l.nexus}","${l.name}","${l.email}","${l.phone}","${l.course}","${l.points}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `CRM_LEADS_NEXUS_${new Date().toISOString().slice(0,10)}.csv`;
+            a.click();
+        }
+    </script>
 </body>
 </html>
