@@ -863,3 +863,18 @@
     <script src="sfx-delta-patch.js"></script>
 </body>
 </html>
+<!-- ENGINE CRITTOGRAFICO NATIVO DELTA PATCH & SERVICE WORKER -->
+    <script src="sfx-delta-patch.js"></script>
+
+    <script>
+        // REGISTRAZIONE AUTOMATICA SERVICE WORKER PWA (sw.js)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((reg) => console.log('✓ SFX PWA Service Worker registrato con successo:', reg.scope))
+                    .catch((err) => console.warn('✗ Errore registrazione Service Worker:', err));
+            });
+        }
+    </script>
+</body>
+</html>
