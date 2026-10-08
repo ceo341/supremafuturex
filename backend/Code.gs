@@ -1,6 +1,6 @@
 /**
  * SUPREMA FUTURE X S.R.L. // BACKEND DISPATCHER EAL6+
- * Governance: Giuliano Caratelli CEO
+ * Governance: Giuliano  CEO
  * Gestione Multi-Canale: Google Sheets + Email + Telegram Bot API
  */
 
