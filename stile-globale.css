@@ -1,161 +1,169 @@
-@charset "UTF-8";
-/* ============================================================
-   SUPREMA FUTURE X S.R.L. // STILE GLOBALE
-   Theme Landing: Bianco Perlato (#FDFBF7)
-   Theme Admin/Vault: Dark Operativo (#090A0D / #12141C)
-   ============================================================ */
+/**
+ * ====================================================================
+ * SUPREMA FUTURE X S.R.L. // STILE GLOBALE CYBER-LUXURY (v31 EAL6+)
+ * GOVERNANCE: GIULIANO CARATELLI CEO
+ * ====================================================================
+ */
 
+/* 1. VARIABILI CROMATICHE UFFICIALI SFX */
 :root {
   --sfx-gold: #B8860B;
   --sfx-gold-light: #D4AF37;
   --sfx-cyan: #008B99;
-  --sfx-pearl-bg: #FDFBF7;
-  --sfx-panel-bg: #FFFFFF;
-  --sfx-dark-bg: #090A0D;
-  --sfx-card-bg: #12141C;
+  --sfx-cyan-light: #00F0FF;
+  --sfx-silver: #C0C0C0;
+  --sfx-pearl: #FDFBF7;
+  --sfx-dark: #090A0D;
+  --sfx-panel: #121620;
+  --sfx-card: #1A202C;
 }
 
-/* Typography & Smooth Scroll */
+/* 2. RESET E FONT BASE */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--sfx-pearl-bg);
-  color: #12141C;
   font-family: 'Montserrat', sans-serif;
-  overflow-x: hidden;
+  background-color: var(--sfx-pearl);
+  color: #12141C;
 }
 
-/* Cyber Grid Background per Landing Chiaro */
-.cyber-grid {
-  background-size: 40px 40px;
+/* Classi Font Tematiche */
+.font-cyber { font-family: 'Orbitron', sans-serif; }
+.font-grotesk { font-family: 'Syncopate', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* 3. SFONDI CYBER GRID */
+/* Bianco Perlato per Landing Page */
+.cyber-pearl-grid {
+  background-color: var(--sfx-pearl);
+  background-size: 36px 36px;
   background-image: 
     linear-gradient(to right, rgba(184, 134, 11, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 139, 153, 0.04) 1px, transparent 1px);
 }
 
-/* Effetti Glow */
-.glow-gold {
-  box-shadow: 0 6px 30px rgba(184, 134, 11, 0.20);
+/* Nero Antracite per Admin, CRM, Vault e Login */
+.cyber-grid-dark {
+  background-color: var(--sfx-dark);
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(184, 134, 11, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 139, 153, 0.06) 1px, transparent 1px);
 }
 
-.glow-cyan {
-  box-shadow: 0 6px 30px rgba(0, 139, 153, 0.20);
+/* 4. ANIMAZIONI BORDI TRACCIANTI (NEON TRACE) */
+/* Bordo Tracciante per Cards Light */
+.glow-trace-card {
+  position: relative;
+  border-radius: 1.75rem;
+  background: #FFFFFF;
+  padding: 2px;
+  z-index: 1;
 }
 
-/* Testi Gradiente Metallico 3D */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #8B6508 0%, #B8860B 50%, #D4AF37 100%);
+.glow-trace-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 1.85rem;
+  background: linear-gradient(135deg, var(--sfx-cyan), var(--sfx-gold), var(--sfx-silver), var(--sfx-cyan-light), var(--sfx-gold-light));
+  background-size: 300% 300%;
+  animation: gradientTrace 7s ease infinite;
+  z-index: -1;
+  opacity: 0.85;
+  filter: blur(4px);
+}
+
+/* Bordo Tracciante per Card Login Dark */
+.glow-trace-login {
+  position: relative;
+  border-radius: 2rem;
+  background: var(--sfx-panel);
+  padding: 2px;
+  z-index: 1;
+}
+
+.glow-trace-login::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 2.1rem;
+  background: linear-gradient(135deg, var(--sfx-cyan), var(--sfx-gold), var(--sfx-cyan-light), var(--sfx-gold-light));
+  background-size: 300% 300%;
+  animation: gradientTrace 6s ease infinite;
+  z-index: -1;
+  opacity: 0.85;
+  filter: blur(6px);
+}
+
+@keyframes gradientTrace {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 5. EFFETTI LUMINOSI ED OMBRE BORDI */
+.border-glow-gold {
+  box-shadow: 0 0 18px rgba(184, 134, 11, 0.3);
+  border: 1px solid var(--sfx-gold);
+}
+
+.border-glow-cyan {
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.3);
+  border: 1px solid var(--sfx-cyan-light);
+}
+
+.text-gradient-tri {
+  background: linear-gradient(135deg, var(--sfx-cyan) 0%, var(--sfx-gold) 50%, #718096 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
 }
 
-.cyan-gradient-text {
-  background: linear-gradient(135deg, #090A0D 0%, #008B99 60%, #005F6B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+/* 6. WIDGET FLOTTANTE ALISON ALWAYS-ON */
+#widget-alison {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Custom Scrollbar */
+#widget-alison:hover {
+  transform: scale(1.08);
+}
+
+.alison-avatar-glow {
+  box-shadow: 0 0 25px rgba(0, 139, 153, 0.7);
+  border: 2px solid var(--sfx-cyan-light);
+}
+
+/* Scanner Biometrico (Login & Auth) */
+.biometric-scanner {
+  background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, rgba(9,10,13,0.8) 70%);
+}
+
+/* 7. PERSONALIZZAZIONE SCROLLBAR */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #FDFBF7;
+  background: var(--sfx-pearl);
 }
+
+body.cyber-grid-dark ::-webkit-scrollbar-track {
+  background: var(--sfx-dark);
+}
+
 ::-webkit-scrollbar-thumb {
-  background: #B8860B;
+  background: var(--sfx-gold);
   border-radius: 3px;
 }
-3️⃣ FILE login.html (Ingresso Riservato Direzionale)
-Pagina di login standalone per accedere direttamente alla X-Box ERP (admin.html) o al CEO Vault (vault.html):
 
-HTML
-<!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LOGIN // Accesso Riservato EAL6+</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            sfx: {
-              gold: '#B8860B',
-              cyan: '#008B99',
-              darkBg: '#090A0D',
-              cardBg: '#12141C'
-            }
-          },
-          fontFamily: {
-            sans: ['Montserrat', 'sans-serif'],
-            cyber: ['Orbitron', 'sans-serif'],
-            grotesk: ['Syncopate', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
-</head>
-<body class="bg-[#090A0D] text-white font-sans min-h-screen flex items-center justify-center p-4">
-
-  <div class="bg-[#12141C] border-2 border-sfx-gold p-8 rounded-2xl max-w-md w-full shadow-2xl space-y-6">
-    <div class="text-center space-y-2">
-      <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-sfx-gold mx-auto mb-3 shadow-md">
-        <img src="assets/logo.png" alt="Logo SFX" class="w-full h-full object-cover">
-      </div>
-      <h1 class="font-grotesk font-bold text-sfx-gold text-lg">SUPREMA FUTURE X</h1>
-      <p class="font-mono text-xs text-sfx-cyan">ACCESSO TERMINALE EAL6+</p>
-    </div>
-
-    <form onsubmit="gestisciLogin(event)" class="space-y-4 font-mono text-xs">
-      <div>
-        <label class="block text-gray-400 mb-1 font-bold">CREDENZIALE / PIN:</label>
-        <input type="password" id="login-pin" required placeholder="Inserisci PIN o Credenziale" class="w-full bg-black border border-sfx-gold p-3 rounded text-white outline-none focus:border-sfx-cyan">
-      </div>
-
-      <button type="submit" class="w-full py-3.5 bg-sfx-gold text-white font-extrabold font-grotesk text-xs uppercase rounded hover:bg-yellow-700 transition-all shadow-md">
-        <i class="fa-solid fa-key mr-2"></i> Entra nel Terminale
-      </button>
-    </form>
-
-    <div class="text-center">
-      <a href="index.html" class="font-mono text-xs text-gray-400 hover:text-sfx-cyan transition-colors">
-        <i class="fa-solid fa-arrow-left mr-1"></i> Torna alla Landing Page
-      </a>
-    </div>
-  </div>
-
-  <script>
-    function gestisciLogin(e) {
-      e.preventDefault();
-      const pin = document.getElementById('login-pin').value;
-      const PWD_GIUSTA = "MARIACHIARA ceoofficial2026@";
-      const PIN_GIUSTO = "3474429091";
-
-      if (pin === PWD_GIUSTA) {
-        alert("Accesso Autorizzato: CEO Vault");
-        window.location.href = "vault.html";
-      } else if (pin === PIN_GIUSTO) {
-        alert("Accesso Autorizzato: X-Box ERP");
-        window.location.href = "admin.html";
-      } else {
-        alert("ACCESSO NEGATO: Credenziale non valida.");
-      }
-    }
-  </script>
-</body>
-</html>
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sfx-gold-light);
+}
