@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stile-globale.css">
 
     <script>
         tailwind.config = {
@@ -43,45 +44,6 @@
             }
         }
     </script>
-
-    <style>
-        body {
-            background-color: #090A0D;
-            color: #E2E8F0;
-        }
-        .cyber-grid-dark {
-            background-image: linear-gradient(to right, rgba(184, 134, 11, 0.08) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 139, 153, 0.06) 1px, transparent 1px);
-            background-size: 32px 32px;
-        }
-        .glow-trace-login {
-            position: relative;
-            border-radius: 2rem;
-            background: #121620;
-            padding: 2px;
-            z-index: 1;
-        }
-        .glow-trace-login::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 2.1rem;
-            background: linear-gradient(135deg, #008B99, #B8860B, #00F0FF, #D4AF37);
-            background-size: 300% 300%;
-            animation: gradientTrace 6s ease infinite;
-            z-index: -1;
-            opacity: 0.85;
-            filter: blur(6px);
-        }
-        @keyframes gradientTrace {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .biometric-scanner {
-            background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, rgba(9,10,13,0.8) 70%);
-        }
-    </style>
 </head>
 <body class="cyber-grid-dark font-sans min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
 
@@ -198,7 +160,6 @@
                     stato.className = 'text-center font-bold text-xs text-green-400';
                     stato.textContent = '✓ AUTENTICAZIONE GOVERNANCE CONFERMATA!';
                     
-                    // Salva Sessione Locale
                     localStorage.setItem('SFX_LOGGED_USER', JSON.stringify({
                         nexus: 'CEOSFX0001',
                         nome: 'GIULIANO CARATELLI CEO',
@@ -213,7 +174,7 @@
                 return;
             }
 
-            // Verifica Credenziali Standard via Apps Script / Local Cache
+            // Verifica Credenziali Standard via Apps Script
             try {
                 const response = await fetch(`${APPS_SCRIPT_URL}?action=GET_LEADS`);
                 const data = await response.json();
@@ -241,7 +202,6 @@
                         window.location.href = 'index.html#gold-card';
                     }, 1000);
                 } else {
-                    // Fallback di benvenuto se codice generato localmente
                     stato.className = 'text-center font-bold text-xs text-sfx-goldLight';
                     stato.textContent = `✓ ACCESSO MEMBRO AUTORIZZATO [${nexus}]`;
 
@@ -257,7 +217,6 @@
                     }, 1000);
                 }
             } catch (err) {
-                // Accesso di emergenza offline
                 stato.className = 'text-center font-bold text-xs text-green-400';
                 stato.textContent = '✓ AUTENTICAZIONE OFFLINE CONFERMATA!';
 
