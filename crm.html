@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM MASTER NEXUS // SUPREMA FUTURE X — LEAD HUB</title>
+    <title>HUB LEADS NEXUS // SUPREMA FUTURE X — CRM MASTER</title>
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#090A0D">
 
@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stile-globale.css">
 
     <script>
         tailwind.config = {
@@ -43,33 +44,10 @@
             }
         }
     </script>
-
-    <style>
-        body {
-            background-color: #090A0D;
-            color: #E2E8F0;
-        }
-        .cyber-grid-dark {
-            background-image: linear-gradient(to right, rgba(184, 134, 11, 0.08) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 139, 153, 0.06) 1px, transparent 1px);
-            background-size: 32px 32px;
-        }
-        .border-glow-gold {
-            box-shadow: 0 0 15px rgba(184, 134, 11, 0.25);
-            border: 1px solid #B8860B;
-        }
-        .border-glow-cyan {
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
-            border: 1px solid #00F0FF;
-        }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #090A0D; }
-        ::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 3px; }
-    </style>
 </head>
-<body class="cyber-grid-dark font-sans min-h-screen flex flex-col selection:bg-sfx-gold selection:text-black">
+<body class="cyber-grid-dark font-sans min-h-screen text-gray-200 flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
 
-    <!-- TOP HEADER GOVERNANCE CRM -->
+    <!-- HEADER CRM LEADS NEXUS -->
     <header class="bg-[#0D1117]/95 border-b border-sfx-gold/40 px-6 py-3 sticky top-0 z-50 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center space-x-4">
@@ -77,118 +55,62 @@
                     <img src="media/logo.png" alt="Logo" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
                 </div>
                 <div>
-                    <h1 class="font-grotesk font-extrabold text-sm tracking-wider text-sfx-goldLight">CRM MASTER NEXUS // LEAD CONTROL</h1>
-                    <p class="font-mono text-[10px] text-sfx-cyan">ENTERPRISE INGESTION // GOVERNANCE: GIULIANO CARATELLI CEO</p>
+                    <h1 class="font-grotesk font-extrabold text-sm tracking-wider text-sfx-goldLight">HUB LEADS NEXUS // CRM MASTER</h1>
+                    <p class="font-mono text-[10px] text-sfx-cyan">GOVERNANCE: GIULIANO CARATELLI CEO // EAL6+ DATABASE</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-4 font-mono text-xs">
-                <button onclick="sincronizzaCRMNexus()" class="px-3 py-1.5 rounded-lg bg-sfx-gold/20 border border-sfx-gold text-sfx-goldLight hover:bg-sfx-gold hover:text-black font-bold transition-all">
-                    <i class="fa-solid fa-rotate mr-1.5"></i>AGGIORNA NEXUS
+                <button onclick="caricaLeadsCRM()" class="px-3 py-1.5 rounded-lg bg-sfx-gold text-black font-bold hover:bg-yellow-500 transition-all">
+                    <i class="fa-solid fa-rotate mr-1.5"></i>Aggiorna Nexus
                 </button>
                 <a href="admin.html" class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:text-white font-bold transition-all">
                     <i class="fa-solid fa-gear mr-1.5"></i>ERP Admin
                 </a>
-                <a href="index.html" class="text-gray-400 hover:text-white transition-colors" title="Torna alla Landing Page">
-                    <i class="fa-solid fa-globe text-base"></i>
+                <a href="vault.html" class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:text-white font-bold transition-all">
+                    <i class="fa-solid fa-vault mr-1.5"></i>Vault
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- CONTENUTO PRINCIPALE PLANCIA CRM -->
-    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-8">
+    <!-- CONTAINER TABELLA CRM -->
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-6">
 
-        <!-- KPI SUMMARY METRICS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-mono">
-            <div class="bg-sfx-panel p-5 rounded-2xl border-glow-gold space-y-2">
-                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">TOTAL LEADS ACQUISITI</span>
-                <div class="flex items-baseline justify-between">
-                    <span id="crm-kpi-total" class="text-3xl font-extrabold text-white">0</span>
-                    <i class="fa-solid fa-id-card text-sfx-gold text-xl"></i>
-                </div>
-                <span class="text-[10px] text-green-400 block">✓ Cloud Apps Script v31 Active</span>
+        <!-- RICERCA & FILTRI -->
+        <div class="bg-sfx-panel p-4 rounded-2xl border border-gray-800 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+            <div class="relative flex-1 min-w-[240px]">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-500"></i>
+                <input type="text" id="crm-search" onkeyup="filtraLeads()" placeholder="Cerca per Nome, Email o Codice NEXUS..." class="w-full pl-10 pr-4 py-2.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
             </div>
-
-            <div class="bg-sfx-panel p-5 rounded-2xl border-glow-cyan space-y-2">
-                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">INTERCETTAZIONI SOCIAL SCOUT</span>
-                <div class="flex items-baseline justify-between">
-                    <span id="crm-kpi-scout" class="text-3xl font-extrabold text-sfx-cyanLight">0</span>
-                    <i class="fa-solid fa-bullseye text-sfx-cyan text-xl"></i>
-                </div>
-                <span class="text-[10px] text-sfx-cyan block">100 Keywords Target Monitorate</span>
-            </div>
-
-            <div class="bg-sfx-panel p-5 rounded-2xl border border-gray-800 space-y-2">
-                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">CANDIDATURE CEO PENDING</span>
-                <div class="flex items-baseline justify-between">
-                    <span id="crm-kpi-ceo" class="text-3xl font-extrabold text-sfx-goldLight">0</span>
-                    <i class="fa-solid fa-user-tie text-sfx-goldLight text-xl"></i>
-                </div>
-                <span class="text-[10px] text-sfx-gold block">Coda Conferenza Prioritaria</span>
-            </div>
-
-            <div class="bg-sfx-panel p-5 rounded-2xl border border-gray-800 space-y-2">
-                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">EXIT-INTENT RECOVERED</span>
-                <div class="flex items-baseline justify-between">
-                    <span id="crm-kpi-exit" class="text-3xl font-extrabold text-purple-400">0</span>
-                    <i class="fa-solid fa-magnet text-purple-400 text-xl"></i>
-                </div>
-                <span class="text-[10px] text-gray-400 block">Feedback Net +50 PTS</span>
+            <div class="flex items-center space-x-3">
+                <span class="text-gray-400 font-bold">TOTALE LEADS: <strong id="crm-counter-total" class="text-sfx-goldLight">0</strong></span>
+                <button onclick="esportaCSV()" class="px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-xl hover:bg-gray-700 transition-all font-bold">
+                    <i class="fa-solid fa-file-csv mr-1.5"></i>Esporta CSV
+                </button>
             </div>
         </div>
 
-        <!-- BARRA STRUMENTI FILTRO E SORGENTE LEAD -->
-        <div class="bg-sfx-panel p-6 rounded-2xl border border-gray-800 space-y-4 font-mono text-xs">
-            <div class="flex flex-wrap items-center justify-between gap-4">
-                <div class="flex flex-wrap items-center gap-3">
-                    <button onclick="filtraSorgente('TUTTI')" id="btn-src-tutti" class="px-4 py-2 rounded-xl bg-sfx-gold text-black font-bold uppercase transition-all">
-                        Tutti i Lead
-                    </button>
-                    <button onclick="filtraSorgente('CONFERENZA_CEO')" id="btn-src-ceo" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
-                        Conferenza CEO
-                    </button>
-                    <button onclick="filtraSorgente('SOCIAL_SCOUT')" id="btn-src-scout" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
-                        Social Scout
-                    </button>
-                    <button onclick="filtraSorgente('EXIT_INTENT')" id="btn-src-exit" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
-                        Exit-Intent Net
-                    </button>
-                    <button onclick="filtraSorgente('ACADEMY')" id="btn-src-academy" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all">
-                        Academy
-                    </button>
-                </div>
-
-                <div class="flex items-center space-x-3">
-                    <input type="text" id="crm-search-input" onkeyup="eseguiRicercaDinamica()" placeholder="Cerca per Nome, Email, Nexus Code..." class="p-2.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold w-64">
-                    <button onclick="esportaCSVCRMNexus()" class="px-4 py-2.5 bg-sfx-cyan text-white rounded-xl font-bold hover:bg-cyan-700 transition-colors">
-                        <i class="fa-solid fa-download mr-2"></i>Esporta CSV
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- TABELLA MASTER CRM NEXUS -->
-        <div class="bg-sfx-panel rounded-2xl border border-gray-800 overflow-hidden shadow-xl">
+        <!-- TABELLA DATI LEADS -->
+        <div class="bg-sfx-panel rounded-2xl border border-gray-800 overflow-hidden shadow-2xl">
             <div class="overflow-x-auto">
-                <table class="w-full text-left font-mono text-xs">
-                    <thead class="bg-black/90 text-sfx-gold uppercase border-b border-gray-800">
-                        <tr>
-                            <th class="p-4">Data Acquisizione</th>
-                            <th class="p-4">Codice NEXUS</th>
-                            <th class="p-4">Titolare / Referente</th>
-                            <th class="p-4">Email</th>
-                            <th class="p-4">Telefono / WhatsApp</th>
-                            <th class="p-4">Canale / Sorgente</th>
-                            <th class="p-4">Grado Status Gold Card</th>
-                            <th class="p-4">Saldo Punti</th>
-                            <th class="p-4 text-center">Azione Diretta</th>
+                <table class="w-full text-left font-mono text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-black/80 border-b border-gray-800 text-sfx-gold font-bold">
+                            <th class="p-4">DATA / ORA</th>
+                            <th class="p-4">CODICE NEXUS</th>
+                            <th class="p-4">NOME E COGNOME</th>
+                            <th class="p-4">EMAIL ISTITUZIONALE</th>
+                            <th class="p-4">TELEFONO</th>
+                            <th class="p-4">CORSO / ASSET</th>
+                            <th class="p-4">PUNTI GOLD</th>
+                            <th class="p-4">STATUS CARD</th>
                         </tr>
                     </thead>
                     <tbody id="crm-table-body" class="divide-y divide-gray-800/60 text-gray-300">
                         <tr>
-                            <td colspan="9" class="p-8 text-center text-gray-500">
-                                <i class="fa-solid fa-spinner fa-spin mr-2"></i>Interrogazione Hub Nexus in corso...
+                            <td colspan="8" class="p-8 text-center text-gray-500 font-bold">
+                                <i class="fa-solid fa-spinner fa-spin mr-2"></i>Caricamento anagrafiche EAL6+ in corso...
                             </td>
                         </tr>
                     </tbody>
@@ -200,163 +122,93 @@
 
     <!-- FOOTER UFFICIALE CRM -->
     <footer class="bg-[#0D1117] border-t border-gray-800 px-6 py-4 font-mono text-[11px] text-gray-500 text-center">
-        SUPREMA FUTURE X S.R.L. // CRM MASTER NEXUS HUB // GOVERNANCE: GIULIANO CARATELLI CEO
+        SUPREMA FUTURE X S.R.L. // CRM MASTER V34 // GOVERNANCE: GIULIANO CARATELLI CEO
     </footer>
 
-    <!-- LOGICA OPERATIVA CRM JS -->
+    <!-- LOGICA DI CARICAMENTO E FILTRAGGIO LEADS -->
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6cDhjlvwnv5KAJUEz-ocgiey3QJu9uunGvyklI00nOjXkVDBuMn5B4iz-JMU1IuNxsw/exec';
-        let rawLeadsData = [];
-        let sorgenteCorrente = 'TUTTI';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec';
+        let tuttiILeads = [];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            sincronizzaCRMNexus();
-        });
-
-        async function sincronizzaCRMNexus() {
+        async function caricaLeadsCRM() {
             const tbody = document.getElementById('crm-table-body');
-            tbody.innerHTML = `<tr><td colspan="9" class="p-8 text-center text-gray-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Sincronizzazione dal Cloud Nexus...</td></tr>`;
+            const totalEl = document.getElementById('crm-counter-total');
+            
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="p-8 text-center text-sfx-cyan font-bold animate-pulse">
+                        <i class="fa-solid fa-sync fa-spin mr-2"></i>Sincronizzazione Cloud Apps Script v34...
+                    </td>
+                </tr>`;
 
             try {
                 const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_LEADS`);
                 const data = await res.json();
 
-                if (data.status === 'online' && data.leads) {
-                    rawLeadsData = data.leads;
+                if (data && data.leads) {
+                    tuttiILeads = data.leads;
+                    totalEl.textContent = tuttiILeads.length;
+                    renderizzaTabella(tuttiILeads);
                 } else {
-                    rawLeadsData = caricaMockLeads();
+                    throw new Error("Nessun dato restituito");
                 }
-            } catch(e) {
-                console.warn("Chiamata Apps Script fallita, caricamento cache locale:", e);
-                rawLeadsData = caricaMockLeads();
+            } catch (err) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="p-8 text-center text-yellow-500 font-bold">
+                            ⚠ Errore caricamento remoto. Verificare la connessione o l'URL Apps Script.
+                        </td>
+                    </tr>`;
             }
-
-            aggiornaContatoriKPI(rawLeadsData);
-            renderizzaTabellaCRM(rawLeadsData);
         }
 
-        function caricaMockLeads() {
-            const cache = localStorage.getItem('SFX_CRM_LOCAL_CACHE');
-            if (cache) return JSON.parse(cache);
-
-            const mock = [
-                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0001', name: 'Giuliano Caratelli', email: 'ceo@supremaofficial.com', phone: '+39 347 442 9091', course: 'CONFERENZA_CEO', points: 3000, status: 'SOVRANO MAX' },
-                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0002', name: 'Giorgio Mossi', email: 'g.mossi@enterprise.com', phone: '+39 335 1234567', course: 'ACADEMY_GOLD', points: 1500, status: 'GOLD EXECUTIVE' },
-                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0003', name: 'Laura Bianchi', email: 'laura.b@design.it', phone: '+39 340 9876543', course: 'SOCIAL_SCOUT', points: 250, status: 'SILVER EXECUTIVE' },
-                { timestamp: new Date().toISOString(), nexus: 'CEOSFX0004', name: 'Marco Valenti', email: 'm.valenti@tech.com', phone: '+39 320 5554433', course: 'EXIT_INTENT', points: 50, status: 'MEMBER BASE' }
-            ];
-            localStorage.setItem('SFX_CRM_LOCAL_CACHE', JSON.stringify(mock));
-            return mock;
-        }
-
-        function calcolaGradoStatus(punti) {
-            const p = parseInt(punti) || 0;
-            if (p >= 3000) return { nome: 'SOVRANO MAX', classe: 'bg-sfx-gold/20 text-sfx-gold border-sfx-gold' };
-            if (p >= 1500) return { nome: 'GOLD EXECUTIVE', classe: 'bg-yellow-500/20 text-yellow-400 border-yellow-500' };
-            if (p >= 250) return { nome: 'SILVER EXECUTIVE', classe: 'bg-sfx-cyan/20 text-sfx-cyanLight border-sfx-cyan' };
-            return { nome: 'MEMBER BASE', classe: 'bg-gray-800 text-gray-300 border-gray-700' };
-        }
-
-        function renderizzaTabellaCRM(leads) {
+        function renderizzaTabella(leads) {
             const tbody = document.getElementById('crm-table-body');
-            
-            let filtrati = leads;
-            if (sorgenteCorrente !== 'TUTTI') {
-                filtrati = leads.filter(l => (l.course || '').toUpperCase().includes(sorgenteCorrente));
-            }
-
-            const query = document.getElementById('crm-search-input').value.toLowerCase().trim();
-            if (query) {
-                filtrati = filtrati.filter(l => 
-                    (l.name && l.name.toLowerCase().includes(query)) ||
-                    (l.email && l.email.toLowerCase().includes(query)) ||
-                    (l.nexus && l.nexus.toLowerCase().includes(query))
-                );
-            }
-
-            if (!filtrati || filtrati.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="p-8 text-center text-gray-500">Nessun lead corrispondente ai criteri impostati.</td></tr>`;
+            if (leads.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-gray-500">Nessun lead trovato.</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = filtrati.map(l => {
-                const dateStr = l.timestamp ? new Date(l.timestamp).toLocaleDateString('it-IT') : 'N/D';
-                const statusInfo = calcolaGradoStatus(l.points);
-                const cleanPhone = (l.phone || '').replace(/[^0-9]/g, '');
-
-                return `
-                    <tr class="hover:bg-black/40 transition-colors">
-                        <td class="p-4 text-gray-400">${dateStr}</td>
-                        <td class="p-4 font-bold text-sfx-cyan">${l.nexus || 'NX-N/D'}</td>
-                        <td class="p-4 font-bold text-white uppercase">${l.name || 'N/D'}</td>
-                        <td class="p-4 text-sfx-goldLight">${l.email || 'N/D'}</td>
-                        <td class="p-4">${l.phone || 'N/D'}</td>
-                        <td class="p-4 font-bold text-gray-300">${l.course || 'PORTALE'}</td>
-                        <td class="p-4">
-                            <span class="px-2.5 py-1 rounded border font-bold text-[10px] ${statusInfo.classe}">
-                                ${statusInfo.nome}
-                            </span>
-                        </td>
-                        <td class="p-4 font-bold text-sfx-cyanLight">+${l.points || 50} PTS</td>
-                        <td class="p-4 text-center">
-                            <a href="https://wa.me/${cleanPhone}?text=Ciao%20${encodeURIComponent(l.name||'')},%20ti%20contatto%20dalla%20Direzione%20Suprema%20Future%20X" target="_blank" class="px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold inline-flex items-center space-x-1" title="Apri WhatsApp">
-                                <i class="fa-brands fa-whatsapp"></i>
-                                <span>Contatta</span>
-                            </a>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+            tbody.innerHTML = leads.map(l => `
+                <tr class="hover:bg-black/40 transition-colors">
+                    <td class="p-4 text-gray-400">${l.timestamp ? new Date(l.timestamp).toLocaleString('it-IT') : 'N/D'}</td>
+                    <td class="p-4 font-bold text-sfx-goldLight">${l.nexus || 'CEOSFX0002'}</td>
+                    <td class="p-4 font-bold text-white">${l.name || 'Utente Nexus'}</td>
+                    <td class="p-4 text-sfx-cyanLight">${l.email || 'non_indicata@sfx.com'}</td>
+                    <td class="p-4">${l.phone || 'N/D'}</td>
+                    <td class="p-4"><span class="px-2 py-1 bg-gray-800 border border-gray-700 rounded text-[10px] font-bold">${l.course || 'Conferenza CEO'}</span></td>
+                    <td class="p-4 font-bold text-green-400">${l.points || 100} PTS</td>
+                    <td class="p-4"><span class="px-2.5 py-1 bg-sfx-gold/20 text-sfx-gold border border-sfx-gold/40 rounded-full text-[10px] font-bold">${l.status || 'MEMBER'}</span></td>
+                </tr>
+            `).join('');
         }
 
-        function aggiornaContatoriKPI(leads) {
-            document.getElementById('crm-kpi-total').textContent = leads.length;
-            
-            const scoutCount = leads.filter(l => (l.course || '').includes('SCOUT')).length;
-            const ceoCount = leads.filter(l => (l.course || '').includes('CEO') || (l.course || '').includes('CONFERENZA')).length;
-            const exitCount = leads.filter(l => (l.course || '').includes('EXIT')).length;
-
-            document.getElementById('crm-kpi-scout').textContent = scoutCount;
-            document.getElementById('crm-kpi-ceo').textContent = ceoCount;
-            document.getElementById('crm-kpi-exit').textContent = exitCount;
+        function filtraLeads() {
+            const q = document.getElementById('crm-search').value.toLowerCase();
+            const filtrati = tuttiILeads.filter(l => 
+                (l.name && l.name.toLowerCase().includes(q)) ||
+                (l.email && l.email.toLowerCase().includes(q)) ||
+                (l.nexus && l.nexus.toLowerCase().includes(q))
+            );
+            renderizzaTabella(filtrati);
         }
 
-        function filtraSorgente(sorgente) {
-            sorgenteCorrente = sorgente;
-            
-            const btnMap = {
-                'TUTTI': 'btn-src-tutti',
-                'CONFERENZA_CEO': 'btn-src-ceo',
-                'SOCIAL_SCOUT': 'btn-src-scout',
-                'EXIT_INTENT': 'btn-src-exit',
-                'ACADEMY': 'btn-src-academy'
-            };
-
-            Object.values(btnMap).forEach(id => {
-                document.getElementById(id).className = "px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold uppercase hover:bg-gray-700 transition-all";
-            });
-
-            document.getElementById(btnMap[sorgente]).className = "px-4 py-2 rounded-xl bg-sfx-gold text-black font-bold uppercase transition-all";
-            renderizzaTabellaCRM(rawLeadsData);
-        }
-
-        function eseguiRicercaDinamica() {
-            renderizzaTabellaCRM(rawLeadsData);
-        }
-
-        function esportaCSVCRMNexus() {
-            if (!rawLeadsData.length) return alert("Nessun dato da esportare.");
-            let csv = "Timestamp,NexusCode,Nome,Email,Telefono,CanaleSorgente,PuntiGold\n";
-            rawLeadsData.forEach(l => {
-                csv += `"${l.timestamp}","${l.nexus}","${l.name}","${l.email}","${l.phone}","${l.course}","${l.points}"\n`;
+        function esportaCSV() {
+            if (tuttiILeads.length === 0) return alert("Nessun dato da esportare.");
+            let csv = "Timestamp,NexusCode,Nome,Email,Telefono,CorsoAsset,Punti,Status\n";
+            tuttiILeads.forEach(l => {
+                csv += `"${l.timestamp}","${l.nexus}","${l.name}","${l.email}","${l.phone}","${l.course}","${l.points}","${l.status}"\n`;
             });
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `CRM_LEADS_NEXUS_${new Date().toISOString().slice(0,10)}.csv`;
+            a.download = `LEADS_SUPREMA_NEXUS_${new Date().toISOString().slice(0,10)}.csv`;
             a.click();
         }
+
+        // Caricamento iniziale automatico
+        window.onload = caricaLeadsCRM;
     </script>
 </body>
 </html>
