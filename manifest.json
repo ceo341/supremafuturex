@@ -1,164 +1,22 @@
-/**
- * ====================================================================
- * SUPREMA FUTURE X S.R.L. // NATIVE DELTA PATCH ENGINE v31 (EAL6+)
- * GOVERNANCE: GIULIANO CARATELLI CEO
- * ====================================================================
- * Gestione dello stato locale, sincronizzazione della coda offline,
- * contatore progressivo Gold Card e resilienza di rete per la PWA.
- */
-
-(function () {
-  'use strict';
-
-  // CONFIGURAZIONE ENGINE DELTA
-  const SFX_DELTA_CONFIG = {
-    VERSION: 'v31_EAL6',
-    APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbw6cDhjlvwnv5KAJUEz-ocgiey3QJu9uunGvyklI00nOjXkVDBuMn5B4iz-JMU1IuNxsw/exec',
-    SYNC_INTERVAL_MS: 30000, // Polling ogni 30 secondi
-    STORAGE_KEYS: {
-      USER_SESSION: 'SFX_LOGGED_USER',
-      CARD_COUNTER: 'SFX_CARD_COUNTER',
-      OFFLINE_QUEUE: 'SFX_OFFLINE_LEAD_QUEUE',
-      CRM_CACHE: 'SFX_CRM_LOCAL_CACHE'
+{
+  "short_name": "SupremaFX",
+  "name": "Suprema Future X // Enterprise Community",
+  "description": "Enterprise Community, Networking & Academy. Governance: Giuliano CEO",
+  "icons": [
+    {
+      "src": "media/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "media/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
-  };
-
-  class SFXDeltaEngine {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      console.log(`[SFX Delta Patch Engine] Inizializzazione ${SFX_DELTA_CONFIG.VERSION} in corso...`);
-      this.initCardCounter();
-      this.setupEventListeners();
-      this.checkNetworkStatus();
-      this.startSyncLoop();
-    }
-
-    /**
-     * 1. INIZIALIZZAZIONE CONTATORE PROGRESSIVO GOLD CARD
-     * La Card #1 (CEOSFX0001) è della Governance/CEO; i corsisti partono dalla #2.
-     */
-    initCardCounter() {
-      let currentCounter = localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER);
-      if (!currentCounter || parseInt(currentCounter) < 2) {
-        localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER, '2');
-        console.log('[SFX Delta Engine] Contatore Gold Card inizializzato su CEOSFX0002');
-      }
-    }
-
-    /**
-     * GENERA PROSSIMO CODICE CARD E INCREMENTA IL CONTATORE
-     */
-    getNextCardCode() {
-      let current = parseInt(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER)) || 2;
-      const cardCode = 'CEOSFX' + String(current).padStart(4, '0');
-      localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER, (current + 1).toString());
-      return cardCode;
-    }
-
-    /**
-     * 2. GESTIONE CODA AZIONI OFFLINE (FALLBACK LOCAL-FIRST)
-     */
-    enqueueOfflineAction(payload) {
-      try {
-        let queue = JSON.parse(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE)) || [];
-        payload.queuedAt = new Date().toISOString();
-        queue.push(payload);
-        localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE, JSON.stringify(queue));
-        console.log('[SFX Delta Engine] Azione memorizzata in coda offline:', payload);
-      } catch (e) {
-        console.error('[SFX Delta Engine] Errore salvataggio coda locale:', e);
-      }
-    }
-
-    /**
-     * 3. FLUSH & TRANSMISSIONE DIFFERENZIALE AL CLOUD APPS SCRIPT
-     */
-    async flushOfflineQueue() {
-      if (!navigator.onLine) return;
-
-      let queue = JSON.parse(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE)) || [];
-      if (queue.length === 0) return;
-
-      console.log(`[SFX Delta Engine] Sincronizzazione di ${queue.length} azioni accumulate in coda offline...`);
-      let remainingQueue = [];
-
-      for (const item of queue) {
-        try {
-          let response = await fetch(SFX_DELTA_CONFIG.APPS_SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(item)
-          });
-          let resData = await response.json();
-          if (resData.status !== 'success') {
-            remainingQueue.push(item);
-          }
-        } catch (err) {
-          console.warn('[SFX Delta Engine] Server momentaneamente non raggiungibile, elemento rinviato:', err);
-          remainingQueue.push(item);
-        }
-      }
-
-      localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE, JSON.stringify(remainingQueue));
-      if (remainingQueue.length === 0) {
-        console.log('[SFX Delta Engine] Coda offline completamente sincronizzata con il Cloud Apps Script!');
-      }
-    }
-
-    /**
-     * 4. CICLO PERIODICO DI SINCRONIZZAZIONE (POLLING LOOP)
-     */
-    startSyncLoop() {
-      setInterval(() => {
-        if (navigator.onLine) {
-          this.flushOfflineQueue();
-        }
-      }, SFX_DELTA_CONFIG.SYNC_INTERVAL_MS);
-    }
-
-    /**
-     * 5. EVENT LISTENERS RETE E MONITORAGGIO
-     */
-    setupEventListeners() {
-      window.addEventListener('online', () => {
-        console.log('[SFX Delta Engine] Connessione ripristinata. Avvio trasmissione dati...');
-        this.checkNetworkStatus();
-        this.flushOfflineQueue();
-      });
-
-      window.addEventListener('offline', () => {
-        console.warn('[SFX Delta Engine] Modalità Offline attiva. Tutte le operazioni verranno gestite in cache.');
-        this.checkNetworkStatus();
-      });
-    }
-
-    checkNetworkStatus() {
-      const badge = document.getElementById('sfx-network-status');
-      if (badge) {
-        if (navigator.onLine) {
-          badge.className = 'text-green-500 font-bold';
-          badge.textContent = 'ONLINE (EAL6+)';
-        } else {
-          badge.className = 'text-yellow-500 font-bold';
-          badge.textContent = 'OFFLINE (LOCAL CACHE)';
-        }
-      }
-    }
-
-    /**
-     * 6. HELPER UTENTE E SESSIONE
-     */
-    getCurrentSession() {
-      try {
-        return JSON.parse(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.USER_SESSION)) || null;
-      } catch (e) {
-        return null;
-      }
-    }
-  }
-
-  // ISTANZA GLOBALE NEL BROWSER
-  window.SFXDelta = new SFXDeltaEngine();
-})();
+  ],
+  "start_url": "./index.html",
+  "background_color": "#090A0D",
+  "theme_color": "#008B99",
+  "display": "standalone",
+  "orientation": "portrait"
+}
