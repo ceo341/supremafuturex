@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // DELTA QUEUE OFFLINE ENGINE V35
+ * SUPREMA FUTURE X S.R.L. // DELTA QUEUE OFFLINE ENGINE V35 (INTEGRALE)
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // OFFLINE STORAGE & AUTO-SYNC
  * ====================================================================
@@ -10,7 +10,8 @@
     'use strict';
 
     const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v35';
-    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec';
+    // ENDPOINT REALE GOOGLE APPS SCRIPT CONFIGURATO:
+    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxnaL-1tkUz5DtwvBjDHN77TABy-WDCEdAY1ijTJHJXiackawN55ryX2kNc8So8t3MvSw/exec';
 
     const SFXDeltaQueue = {
         /**
