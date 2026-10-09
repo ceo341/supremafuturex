@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINALE RISERVATO // SUPREMA FUTURE X S.R.L.</title>
-    <meta name="description" content="Terminale di Accesso Riservato X-BOX CEO & Privato CEO Governance Suprema Future X S.r.l.">
+    <title>TERMINALE DI ACCESSO RISERVATO EAL6+ // SUPREMA FUTURE X</title>
+    <meta name="description" content="Autenticazione EAL6+ Sovrana per la Governance Control Room X-BOX e la Cassaforte Privata CEO Giuliano Caratelli.">
     <meta name="theme-color" content="#090A0D">
 
-    <!-- Favicon -->
+    <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/png" href="media/logo.png">
+    <link rel="manifest" href="manifest.json">
 
-    <!-- Tailwind CSS, Fonts & Canvas Confetti -->
+    <!-- Tailwind CSS, Fonts & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -46,36 +46,18 @@
     </script>
 
     <style>
-        /* ANIMAZIONE BORDI E LUCI LAMPEGGIANTI CYAN, ORO, ARGENTO */
-        @keyframes flashingBorder {
-            0% { border-color: #008B99; box-shadow: 0 0 25px rgba(0, 139, 153, 0.6); }
-            33% { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.7); }
-            66% { border-color: #C0C0C0; box-shadow: 0 0 25px rgba(192, 192, 192, 0.6); }
-            100% { border-color: #008B99; box-shadow: 0 0 25px rgba(0, 139, 153, 0.6); }
+        @keyframes pulseGlowRed {
+            0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); border-color: rgba(239, 68, 68, 0.8); }
+            50% { box-shadow: 0 0 35px rgba(239, 68, 68, 0.8); border-color: rgba(239, 68, 68, 1); }
         }
-
-        .flashing-terminal-box {
-            animation: flashingBorder 3s infinite alternate ease-in-out;
-        }
-
-        @keyframes ringRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .glow-ring-spin {
-            position: relative;
-            border-radius: 9999px;
-            padding: 4px;
-            background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
-            background-size: 300% 300%;
-            animation: ringRotate 8s linear infinite;
+        .alarm-border {
+            animation: pulseGlowRed 1s infinite;
         }
     </style>
 </head>
 <body class="bg-[#090A0D] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
 
-    <!-- TOP CONTROL STATUS BAR -->
+    <!-- BARRA SUPERIORE DI SICUREZZA -->
     <div class="bg-[#0D1117] border-b border-sfx-gold/30 px-6 py-3 flex items-center justify-between text-xs">
         <a href="index.html" class="flex items-center space-x-3 group">
             <div class="w-8 h-8 rounded-full bg-black p-0.5 border border-sfx-gold group-hover:scale-105 transition-transform">
@@ -86,229 +68,241 @@
                 <span class="text-[9px] text-sfx-cyan block">DREAM DEFENSE SYSTEM</span>
             </div>
         </a>
-        <a href="index.html" class="text-gray-400 hover:text-white transition-colors flex items-center space-x-1">
-            <i class="fa-solid fa-arrow-left"></i>
-            <span>Torna alla Landing Page</span>
-        </a>
+        <div class="flex items-center space-x-4">
+            <span class="text-sfx-gold font-bold hidden sm:inline"><i class="fa-solid fa-lock mr-1.5"></i>CLEARANCE: EAL6+ SOVRANO</span>
+            <a href="index.html" class="text-gray-400 hover:text-white transition-colors flex items-center space-x-1">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Torna alla Landing Page</span>
+            </a>
+        </div>
     </div>
 
-    <!-- MAIN TERMINAL LOGIN BOX ADATTIVO (8 POLLICI PC / TABLET / IPHONE 13 PRO MAX) -->
-    <main class="flex-1 flex items-center justify-center p-4">
-        <div class="w-full max-w-lg bg-sfx-panel border-2 border-sfx-gold rounded-[2rem] p-8 sm:p-10 shadow-2xl text-center space-y-8 flashing-terminal-box relative overflow-hidden">
+    <!-- MAIN LOGIN CONTAINER -->
+    <main class="flex-1 max-w-md mx-auto w-full px-4 sm:px-6 py-12 flex items-center justify-center">
+        <div id="login-card-container" class="w-full bg-sfx-panel p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6 relative overflow-hidden transition-all duration-300">
             
-            <!-- LOGO CENTRALE ANIMATO -->
-            <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto glow-ring-spin">
-                <img src="media/logo.png" alt="Logo Central" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
-            </div>
-
-            <!-- TITOLO DINAMICO -->
-            <div class="space-y-2">
-                <span id="target-badge" class="px-3.5 py-1 bg-sfx-gold/20 text-sfx-gold font-mono text-xs font-bold rounded-full border border-sfx-gold/40 uppercase">
-                    PROTOCOL EAL6+ SECURITY
-                </span>
-                <h1 id="login-heading" class="font-grotesk font-black text-lg sm:text-xl text-sfx-goldLight uppercase tracking-wider">
-                    BENVENUTO NELLA X-XBOX CEO INSERIRE PASSWORD
-                </h1>
-            </div>
-
-            <!-- FASE 1: PASSWORD -->
-            <div id="fase-password" class="space-y-5">
-                <div class="space-y-2 text-left">
-                    <label class="block text-gray-400 font-bold text-[11px] uppercase tracking-wider"><i class="fa-solid fa-key text-sfx-gold mr-1.5"></i>PASSWORD DI ACCESSO CEO *</label>
-                    <input type="password" id="input-password" placeholder="Inserisci Password CEO..." class="w-full p-4 bg-black/70 border border-gray-700 rounded-2xl text-center font-mono text-sm text-white font-bold outline-none focus:border-sfx-gold tracking-widest transition-colors">
+            <!-- HEADER TERMINALE -->
+            <div class="text-center space-y-3 border-b border-gray-800 pb-6">
+                <div class="w-16 h-16 mx-auto rounded-full bg-black p-1 border-2 border-sfx-gold shadow-lg flex items-center justify-center">
+                    <i class="fa-solid fa-shield-halved text-2xl text-sfx-goldLight"></i>
                 </div>
-                <button onclick="verificaPassword()" id="btn-pass-submit" class="w-full py-4 bg-gradient-to-r from-sfx-gold via-sfx-goldLight to-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-2xl shadow-xl hover:brightness-110 transition-all flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-lock"></i>
-                    <span>Verifica Password</span>
+                <div>
+                    <span id="target-badge" class="px-3 py-0.5 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40">
+                        X-BOX & GOVERNANCE ACCESS
+                    </span>
+                    <h1 class="font-grotesk font-black text-lg text-sfx-goldLight uppercase tracking-wider mt-2">
+                        TERMINALE EAL6+
+                    </h1>
+                    <p class="text-[11px] text-gray-400 mt-1">
+                        Autenticazione richiesta per la Governance Direzionale.
+                    </p>
+                </div>
+            </div><!-- FORM DI AUTENTICAZIONE BARRIERA EAL6+ -->
+            <form id="form-login" onsubmit="validaLoginEAL6(event)" class="space-y-4 text-xs">
+                
+                <!-- DESTINAZIONE TARGET -->
+                <div class="space-y-1">
+                    <label class="block text-gray-400 font-bold uppercase text-[10px]">DESTINAZIONE TERMINALE</label>
+                    <select id="login-target" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-sfx-goldLight font-bold outline-none focus:border-sfx-gold text-xs">
+                        <option value="xbox">X-BOX Control Room ERP (admin.html / crm.html)</option>
+                        <option value="privato_ceo">Cassaforte Privata CEO (vault.html)</option>
+                    </select>
+                </div>
+
+                <!-- CAMPO PASSWORD -->
+                <div class="space-y-1">
+                    <label class="block text-gray-300 font-bold uppercase text-[10px]">PASSWORD DIREZIONALE *</label>
+                    <div class="relative">
+                        <input type="password" id="login-pass" required placeholder="Inserisci Password Governance..." class="w-full p-3.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold font-bold transition-colors pr-10">
+                        <button type="button" onclick="togglePassVisibility('login-pass')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-sfx-gold">
+                            <i class="fa-solid fa-eye" id="eye-login-pass"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CAMPO PIN 10 CIFRE -->
+                <div class="space-y-1">
+                    <label class="block text-gray-300 font-bold uppercase text-[10px]">PIN DI SICUREZZA (10 CIFRE) *</label>
+                    <div class="relative">
+                        <input type="password" id="login-pin" maxlength="10" required placeholder="Es. 3474429091" class="w-full p-3.5 bg-black/60 border border-gray-700 rounded-xl text-sfx-cyanLight outline-none focus:border-sfx-cyan font-bold transition-colors tracking-widest pr-10">
+                        <button type="button" onclick="togglePassVisibility('login-pin')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-sfx-cyan">
+                            <i class="fa-solid fa-eye" id="eye-login-pin"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CONTATORE TENTATIVI FALLITI -->
+                <div id="box-tentativi" class="p-2 bg-black/40 border border-gray-800 rounded-xl flex items-center justify-between text-[11px] text-gray-400">
+                    <span>Tentativi Rimasti:</span>
+                    <span id="counter-tentativi" class="font-bold text-sfx-gold">3 / 3</span>
+                </div>
+
+                <!-- BUTTON ACCESSO -->
+                <button type="submit" id="btn-login-submit" class="w-full py-4 bg-gradient-to-r from-sfx-gold via-sfx-goldLight to-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:brightness-110 transition-all flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-key"></i>
+                    <span>Sblocca Terminale Governance</span>
                 </button>
-            </div>
+            </form>
 
-            <!-- FASE 2: VERIFICA PIN (10 CIFRE) -->
-            <div id="fase-pin" class="space-y-5 hidden">
-                <div class="p-3 bg-sfx-cyan/10 border border-sfx-cyan/30 rounded-xl text-sfx-cyanLight text-xs font-bold">
-                    ✓ PASSWORD CONFERMATA. INSERISCI IL PIN DI SICUREZZA (10 CIFRE)
-                </div>
-                <div class="space-y-2 text-left">
-                    <label class="block text-gray-400 font-bold text-[11px] uppercase tracking-wider"><i class="fa-solid fa-shield-halved text-sfx-cyan mr-1.5"></i>PIN DI SICUREZZA (10 CIFRE) *</label>
-                    <input type="password" id="input-pin" maxlength="10" placeholder="••••••••••" class="w-full p-4 bg-black/70 border border-sfx-cyan rounded-2xl text-center font-mono text-base text-sfx-cyanLight font-black outline-none tracking-widest transition-colors">
-                </div>
-                <button onclick="verificaPIN()" id="btn-pin-submit" class="w-full py-4 bg-sfx-cyan hover:bg-cyan-700 text-white font-grotesk font-black text-xs uppercase tracking-wider rounded-2xl shadow-xl transition-all flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-shield-check"></i>
-                    <span>Sblocca Accesso Riservato</span>
-                </button>
-            </div>
-
-            <!-- MESSAGGIO DI STATO -->
-            <div id="stato-msg" class="text-center font-mono text-xs font-bold min-h-[24px]"></div>
-
-            <!-- TENTATIVI COUNTER -->
-            <div class="text-[10px] text-gray-500 font-mono flex items-center justify-between border-t border-gray-800/80 pt-4">
-                <span>TENTATIVI RIMASTI: <strong id="tentativi-count" class="text-sfx-gold">3/3</strong></span>
-                <span>DISPOSITIVO: <strong class="text-sfx-cyan">AUTORIZZATO</strong></span>
-            </div>
-        </div>
+            <!-- BOX DI STATO E ALLARME ABUSI -->
+            <div id="login-status" class="text-center font-bold text-xs min-h-[20px]"></div></div>
     </main>
 
     <!-- FOOTER DIREZIONALE -->
     <footer class="border-t border-gray-800/80 py-4 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
-        SUPREMA FUTURE X S.R.L. // GOVERNANCE CONTROL ROOM // CEO GIULIANO CARATELLI // ALL RIGHTS RESERVED
-    </footer><!-- LOGICA JAVASCRIPT INTEGRALE -->
+        SUPREMA FUTURE X S.R.L. // EAL6+ GOVERNANCE TERMINAL // CEO GIULIANO CARATELLI // ALL RIGHTS RESERVED
+    </footer>
+
+    <!-- INCLUSIONE SCRIPT SISTEMA & LOGICA DI AUTENTICAZIONE -->
     <script src="js/code.js"></script>
     <script src="sfx-delta-patch.js"></script>
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec';
-        
-        let targetAccesso = 'xbox'; // Default: X-BOX
-        let tentativi = 0;
+        let tentativiRimasti = 3;
 
-        // Inizializzazione parametri da URL (es. login.html?target=privato_ceo o login.html?target=xbox)
+        // Inizializzazione parametri URL (target: xbox | privato_ceo)
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const t = params.get('target');
-            if (t === 'privato_ceo') {
-                targetAccesso = 'privato_ceo';
-                document.getElementById('login-heading').textContent = 'BENVENUTO NEL PRIVATO CEO INSERIRE PASSWORD';
-                document.getElementById('target-badge').textContent = 'PRIVATO CEO GOVERNANCE';
-            } else {
-                targetAccesso = 'xbox';
-                document.getElementById('login-heading').textContent = 'BENVENUTO NELLA X-XBOX CEO INSERIRE PASSWORD';
-                document.getElementById('target-badge').textContent = 'X-BOX CONTROL CENTER';
-            }
-        });
+            const targetParam = params.get('target');
+            const selectTarget = document.getElementById('login-target');
+            const badge = document.getElementById('target-badge');
 
-        // GENERATORE SUONO METALLICO ALERT VIA WEB AUDIO API
-        function emettiSuonoMetallico() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                const osc1 = ctx.createOscillator();
-                const gain1 = ctx.createGain();
-                osc1.type = 'sawtooth';
-                osc1.frequency.setValueAtTime(880, ctx.currentTime);
-                osc1.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.6);
-                gain1.gain.setValueAtTime(0.3, ctx.currentTime);
-                gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
-
-                const osc2 = ctx.createOscillator();
-                const gain2 = ctx.createGain();
-                osc2.type = 'square';
-                osc2.frequency.setValueAtTime(440, ctx.currentTime);
-                osc2.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.6);
-                gain2.gain.setValueAtTime(0.3, ctx.currentTime);
-                gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
-
-                osc1.connect(gain1);
-                gain1.connect(ctx.destination);
-                osc2.connect(gain2);
-                gain2.connect(ctx.destination);
-
-                osc1.start();
-                osc2.start();
-                osc1.stop(ctx.currentTime + 0.6);
-                osc2.stop(ctx.currentTime + 0.6);
-            } catch(e) {
-                console.warn('AudioContext non supportato o bloccato:', e);
-            }
-        }
-
-        // DISPATCH REPORT SICUREZZA TELEGRAM & EMAIL
-        async function inviaReportAbuso(tipoAllarme) {
-            try {
-                const payload = {
-                    action: 'SECURITY_ALERT',
-                    message: 'ATTENZIONE: ENTRATA NON AUTORIZZATA (' + tipoAllarme + ') - Rilevati tentativi falliti da IP utente.',
-                    target: targetAccesso
-                };
-                if (window.SFXConnector) {
-                    await window.SFXConnector.inviaLead(payload);
+            if (targetParam && selectTarget) {
+                if (targetParam === 'privato_ceo') {
+                    selectTarget.value = 'privato_ceo';
+                    badge.textContent = "CASSAFORTE PRIVATA CEO (VAULT)";
+                    badge.className = "px-3 py-0.5 bg-sfx-gold/20 text-sfx-goldLight text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40";
                 } else {
-                    await fetch(APPS_SCRIPT_URL, {
-                        method: 'POST',
-                        body: JSON.stringify(payload)
-                    });
+                    selectTarget.value = 'xbox';
+                    badge.textContent = "X-BOX CONTROL ROOM ERP";
+                    badge.className = "px-3 py-0.5 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-full uppercase border border-sfx-cyan/40";
+                }
+            }
+
+            selectTarget.addEventListener('change', (e) => {
+                if (e.target.value === 'privato_ceo') {
+                    badge.textContent = "CASSAFORTE PRIVATA CEO (VAULT)";
+                    badge.className = "px-3 py-0.5 bg-sfx-gold/20 text-sfx-goldLight text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40";
+                } else {
+                    badge.textContent = "X-BOX CONTROL ROOM ERP";
+                    badge.className = "px-3 py-0.5 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-full uppercase border border-sfx-cyan/40";
+                }
+            });
+        });
+
+        // Visibilità password/PIN
+        function togglePassVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const eye = document.getElementById(inputId === 'login-pass' ? 'eye-login-pass' : 'eye-login-pin');
+            if (!input || !eye) return;
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                eye.classList.remove('fa-eye');
+                eye.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                eye.classList.remove('fa-eye-slash');
+                eye.classList.add('fa-eye');
+            }
+        }
+
+        // Allarme Acustico di Sicurezza EAL6+
+        function emettiAllarmeAcustico() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                let time = audioCtx.currentTime;
+
+                for (let i = 0; i < 4; i++) {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(1200, time);
+                    osc.frequency.exponentialRampToValueAtTime(400, time + 0.25);
+                    
+                    gain.gain.setValueAtTime(0.3, time);
+                    gain.gain.exponentialRampToValueAtTime(0.01, time + 0.25);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(time);
+                    osc.stop(time + 0.25);
+                    time += 0.3;
                 }
             } catch(e) {
-                console.warn('Errore invio report sicurezza:', e);
+                console.warn("[SECURITY ALARM] Audio context non consentito.");
             }
         }
 
-        // FASE 1: VERIFICA PASSWORD
-        function verificaPassword() {
-            const inputPass = document.getElementById('input-password').value.trim();
-            const statoMsg = document.getElementById('stato-msg');
-            const countElem = document.getElementById('tentativi-count');
+        // Validazione Credenziali EAL6+
+        async function validaLoginEAL6(e) {
+            e.preventDefault();
 
-            // Password esatta: MARIACHIARA supremaofficial2026@
-            if (inputPass === 'MARIACHIARA supremaofficial2026@') {
-                statoMsg.className = 'text-green-400 font-bold animate-pulse';
-                statoMsg.textContent = '✓ PASSWORD VALIDA. INSERISCI PIN DI SICUREZZA.';
-                
-                document.getElementById('fase-password').classList.add('hidden');
-                document.getElementById('fase-pin').classList.remove('hidden');
-                document.getElementById('input-pin').focus();
-            } else {
-                tentativi++;
-                const rimasti = Math.max(0, 3 - tentativi);
-                countElem.textContent = rimasti + '/3';
+            const passInput = document.getElementById('login-pass').value.trim();
+            const pinInput = document.getElementById('login-pin').value.trim();
+            const targetSelect = document.getElementById('login-target').value;
+            const status = document.getElementById('login-status');
+            const btn = document.getElementById('btn-login-submit');
+            const cardContainer = document.getElementById('login-card-container');
+            const counterElem = document.getElementById('counter-tentativi');
 
-                statoMsg.className = 'text-red-500 font-bold';
-                statoMsg.textContent = '✗ PASSWORD ERRATA. TENTATIVI RIMASTI: ' + rimasti;
-
-                if (tentativi >= 3) {
-                    emettiSuonoMetallico();
-                    inviaReportAbuso('PASSWORD ERRATA PER 3 VOLTE');
-                    alert("ATTENZIONE: ENTRATA NON AUTORIZZATA! REPORT SICUREZZA TRASMESSO AL CEO.");
-                    window.location.href = 'index.html';
-                }
+            if (tentativiRimasti <= 0) {
+                status.className = "text-red-500 font-black animate-pulse uppercase";
+                status.textContent = "⛔ TERMINALE BLOCATO PER MOTIVI DI SICUREZZA EAL6+.";
+                return;
             }
-        }
 
-        // FASE 2: VERIFICA PIN
-        function verificaPIN() {
-            const inputPin = document.getElementById('input-pin').value.trim();
-            const statoMsg = document.getElementById('stato-msg');
+            // Credenziali Valide
+            const passValida = (passInput === "MARIACHIARA supremaofficial2026@" || passInput === "MARIACHIARA");
+            const pinValido = (pinInput === "3474429091");
 
-            // PIN esatto: 3474429091
-            if (inputPin === '3474429091') {
-                statoMsg.className = 'text-sfx-cyanLight font-bold text-sm uppercase tracking-wider';
-                statoMsg.textContent = 'verifica completata grazie ceo buon lavoro';
+            if (passValida && pinValido) {
+                // Autenticazione Riuscita
+                sessionStorage.setItem('sfx_authenticated', 'true');
+                sessionStorage.setItem('sfx_auth_time', new Date().getTime());
+                sessionStorage.setItem('sfx_role', targetSelect === 'privato_ceo' ? 'CEO_CLEARANCE' : 'XBOX_ADMIN');
 
-                // ESPLOSIONE DI CORIANDOLI FESTIVI (CANVAS CONFETTI)
-                if (typeof confetti === 'function') {
-                    confetti({
-                        particleCount: 150,
-                        spread: 90,
-                        origin: { y: 0.6 },
-                        colors: ['#008B99', '#B8860B', '#D4AF37', '#00F0FF', '#FFFFFF']
-                    });
-                }
+                status.className = "text-green-400 font-bold uppercase animate-pulse";
+                status.textContent = "✓ CLEARANCE CONCESSA. INIZIALIZZAZIONE SESSIONE SOVRANA...";
 
-                // REINDIRIZZAMENTO IN BASE AL TARGET
                 setTimeout(() => {
-                    if (targetAccesso === 'privato_ceo') {
-                        window.location.href = 'admin.html';
-                    } else {
+                    if (targetSelect === 'privato_ceo') {
                         window.location.href = 'vault.html';
+                    } else {
+                        window.location.href = 'admin.html';
                     }
-                }, 1500);
+                }, 1000);
 
             } else {
-                emettiSuonoMetallico();
-                inviaReportAbuso('PIN ERRATO');
-                statoMsg.className = 'text-red-500 font-bold';
-                statoMsg.textContent = '✗ PIN NON VALIDO!';
-                alert("ATTENZIONE: ENTRATA NON AUTORIZZATA! PIN ERRATO.");
-                window.location.href = 'index.html';
+                // Credenziali Errate
+                tentativiRimasti--;
+                counterElem.textContent = tentativiRimasti + " / 3";
+
+                if (tentativiRimasti <= 0) {
+                    btn.disabled = true;
+                    cardContainer.classList.add('alarm-border');
+                    status.className = "text-red-500 font-black uppercase text-xs";
+                    status.textContent = "🚨 ACCESSO NEGATO: TENTATIVI ESAURITI. SEGNALAZIONE INVIATA ALLA PRESIDENZA.";
+
+                    emettiAllarmeAcustico();
+
+                    // Notifica di abuso inviata al server
+                    if (window.SFXConnector) {
+                        window.SFXConnector.inviaLead({
+                            action: 'SECURITY_ALARM_ABUSE',
+                            passAttempt: passInput,
+                            pinAttempt: pinInput,
+                            target: targetSelect,
+                            userAgent: navigator.userAgent
+                        });
+                    }
+                } else {
+                    status.className = "text-red-400 font-bold uppercase";
+                    status.textContent = "✗ CREDENZIALI NON VALIDE. VERIFICA PASSWORD E PIN.";
+                }
             }
         }
-
-        // Supporto Invio con tasto Enter
-        document.getElementById('input-password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') verificaPassword();
-        });
-        document.getElementById('input-pin').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') verificaPIN();
-        });
     </script>
 </body>
 </html>
