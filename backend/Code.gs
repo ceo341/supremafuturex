@@ -1,366 +1,449 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // MASTER ENGINE V35 (EAL6+ SOVRANO)
+ * SUPREMA FUTURE X S.R.L. // GOVERNANCE BACKEND ENGINE V35 (Code.gs)
  * GOVERNANCE: CEO GIULIANO CARATELLI
+ * PROTOCOLLO: EAL6+ SOVRANO // REAL-TIME WEBHOOK & LEDGER
  * ====================================================================
  */
 
-var CONFIG = {
-  EMAIL_CEO: "ceo@supremaofficial.com",
-  PHONE_CEO: "+393474429091",
-  TELEGRAM_BOT_TOKEN: "789123456:AAFx_YOUR_TELEGRAM_BOT_TOKEN_HERE", // Inserisci il token Telegram se attivo
-  TELEGRAM_CHAT_ID: "123456789",                                     // Inserisci il tuo Chat ID Telegram
-  DOMAIN_URL: "https://supremafuturex.com/"
+// ⚙️ CONFIGURAZIONE PARAMETRI DI SISTEMA & NOTIFICHE
+const CONFIG = {
+    CEO_EMAIL: 'ceo@supremaofficial.com',
+    COMPANY_NAME: 'Suprema Future X S.r.l.',
+    TELEGRAM_BOT_TOKEN: '7890123456:AAFx_EXAMPLE_TOKEN_SUPREMA_2026', // Sostituire con Token Telegram Bot reale
+    TELEGRAM_CHAT_ID: '123456789', // Sostituire con Chat ID Telegram del CEO
+    WHATSAPP_CEO_NUMBER: '+393474429091',
+    SHEET_LEADS: 'Leads_Candidature',
+    SHEET_LEDGER: 'Mastro_Finanziario',
+    SHEET_PROMPTS: 'Prompt_Neurali'
 };
 
 /**
- * 1. GESTIONE RICHIESTE GET (Lettura Leads per CRM & Dashboard)
- */
-function doGet(e) {
-  var params = e ? e.parameter : {};
-  var action = params.action || params.azione || "GET_LEADS";
-
-  if (action === "GET_LEADS") {
-    var leads = recuperaTuttiILeads();
-    return rispostaJSON({
-      status: "online",
-      version: "v35_EAL6_FULL",
-      total: leads.length,
-      leads: leads
-    });
-  }
-
-  return rispostaJSON({ 
-    status: "online", 
-    message: "Suprema Future X Master Engine Active",
-    timestamp: new Date().toISOString()
-  });
-}
-
-/**
- * 2. GESTIONE RICHIESTE POST (Ingestion Candidature, Mastro, Prompts, Security Alert, Exit-Intent)
+ * 1. ENTRY POINT HTTP POST (INCOMING WEBHOOKS & DATA INGESTION)
  */
 function doPost(e) {
-  var lock = LockService.getScriptLock();
-  if (!lock.tryLock(10000)) {
-    return rispostaJSON({ status: "busy", message: "Server momentaneamente occupato. Riprovare." });
-  }
+    try {
+        let contents = "";
+        if (e && e.postData && e.postData.contents) {
+            contents = e.postData.contents;
+        } else {
+            return responseJSON({ status: "error", message: "Payload vuoto o non valido" });
+        }
 
-  try {
-    var contents = e.postData ? e.postData.contents : "{}";
-    var payload = JSON.parse(contents);
-    var action = payload.action || payload.azione || "CANDIDATURA_CONFERENZA_CEO";
+        const data = JSON.parse(contents);
+        const action = data.action || 'CANDIDATURA_CONFERENZA_CEO';
 
-    if (action === "CANDIDATURA_CONFERENZA_CEO" || action === "LEAD_INGESTION" || action === "REGISTER_LEAD") {
-      return gestisciNuovaCandidatura(payload);
-    } 
-    else if (action === "AGGIORNA_PROMPT_NEURALE") {
-      return aggiornaPromptAgente(payload);
-    } 
-    else if (action === "LEDGER_ENTRY") {
-      return registraMastroFinanziario(payload);
-    } 
-    else if (action === "EXIT_INTENT_FEEDBACK") {
-      return gestisciExitFeedback(payload);
-    } 
-    else if (action === "SECURITY_ALERT") {
-      return gestisciAllarmeSicurezza(payload);
+        if (action === 'CANDIDATURA_CONFERENZA_CEO') {
+            return gestisciCandidaturaLead(data);
+        } else if (action === 'LEDGER_ENTRY') {
+            return gestisciRegistrazioneMastro(data);
+        } else if (action === 'AGGIORNA_PROMPT_NEURALE') {
+            return gestisciAggiornamentoPrompt(data);
+        } else if (action === 'EXIT_INTENT_FEEDBACK') {
+            return gestisciExitFeedback(data);
+        } else if (action === 'NEWSLETTER_SUBSCRIPTION') {
+            return gestisciIscrizioneNewsletter(data);
+        } else if (action === 'FEEDBACK_DIRECT') {
+            return gestisciFeedbackDiretto(data);
+        } else {
+            return responseJSON({ status: "error", message: "Azione non riconosciuta: " + action });
+        }
+    } catch (err) {
+        return responseJSON({ status: "error", error: err.toString() });
+    }
+}
+
+/**
+ * 2. ENTRY POINT HTTP GET (DATA RETRIEVAL & HEALTH CHECK PING)
+ */
+function doGet(e) {
+    try {
+        const action = e && e.parameter ? e.parameter.action : '';
+
+        if (action === 'PING') {
+            return responseJSON({ status: "ok", message: "Gateway EAL6+ Reattivo", timestamp: new Date().toISOString() });
+        } else if (action === 'GET_LEADS') {
+            return recuperaTuttiILeads();
+        } else if (action === 'GET_LEDGER') {
+            return recuperaMastroFinanziario();
+        } else {
+            return responseJSON({ status: "ok", service: "Suprema Future X Governance Webhook Engine" });
+        }
+    } catch (err) {
+        return responseJSON({ status: "error", error: err.toString() });
+    }
+}
+
+/**
+ * 3. GESTORE INGESTION CANDIDATURE & GENERAZIONE CODICE ID (CEOSFX0002+)
+ */
+function gestisciCandidaturaLead(data) {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(CONFIG.SHEET_LEADS);
+
+    if (!sheet) {
+        sheet = ss.insertSheet(CONFIG.SHEET_LEADS);
+        sheet.appendRow([
+            'TIMESTAMP', 
+            'CODICE NEXUS ID', 
+            'NOME COGNOME', 
+            'AZIENDA / RUOLO', 
+            'EMAIL', 
+            'TELEFONO', 
+            'AMBITO / CORSO', 
+            'DATA PRENOTAZIONE', 
+            'ORA PRENOTAZIONE', 
+            'NOTE', 
+            'PUNTI GOLD', 
+            'STATUS'
+        ]);
+        sheet.getRange("1:1").setFontWeight("bold").setBackground("#B8860B").setFontColor("#FFFFFF");
     }
 
-    return rispostaJSON({ status: "success", message: "Azione generica registrata." });
-  } catch (err) {
-    Logger.log("Errore doPost: " + err.toString());
-    return rispostaJSON({ status: "error", error: err.toString() });
-  } finally {
-    lock.releaseLock();
-  }
-}
+    // Calcolo progressivo automatico a partire da CEOSFX0002 (CEOSFX0001 e' riservato esclusivamente al CEO Giuliano Caratelli)
+    const lastRow = sheet.getLastRow();
+    const progressivo = Math.max(2, lastRow); // Garantisce partenza da 2
+    const pad = (num, size) => {
+        let s = num + "";
+        while (s.length < size) s = "0" + s;
+        return s;
+    };
+    const nexusCode = "CEOSFX" + pad(progressivo, 4);
 
-/**
- * 3. INGESTION CANDIDATURA & GENERAZIONE GOLD CARD
+    const timestamp = new Date();
+    const nome = data.nome || 'N/D';
+    const azienda = data.azienda || 'N/D';
+    const email = data.email || 'N/D';
+    const telefono = data.telefono || 'N/D';
+    const ambito = data.canale || 'Conferenza CEO Giuliano';
+    const dataPrenotazione = data.data_prenotazione || 'In attesa';
+    const oraPrenotazione = data.ora_prenotazione || 'In attesa';
+    const note = data.note || 'Nessuna nota';
+    
+    // Assegnazione punti in base al percorso richiesto
+    let puntiAssociati = "1,500 PTS";
+    if (ambito.includes("Silver")) puntiAssociati = "100 PTS";
+    if (ambito.includes("Executive") || ambito.includes("Luxury")) puntiAssociati = "500 PTS";
+    if (ambito.includes("Premium") || ambito.includes("Antigravity")) puntiAssociati = "1,000 PTS";
+
+    sheet.appendRow([
+        timestamp,
+        nexusCode,
+        nome,
+        azienda,
+        email,
+        telefono,
+        ambito,
+        dataPrenotazione,
+        oraPrenotazione,
+        note,
+        puntiAssociati,
+        'CANDIDATO ACCREDITATO'
+    ]);
+
+    // Dispatch triplo canale notifiche (Email + Telegram + WhatsApp)
+    inviaNotificaEmailDirezione(nexusCode, nome, email, telefono, ambito, dataPrenotazione, oraPrenotazione, note, puntiAssociati);
+    inviaEmailConfermaCandidato(nexusCode, nome, email, ambito, puntiAssociati);
+    inviaNotificaTelegram(nexusCode, nome, telefono, ambito, dataPrenotazione, oraPrenotazione);
+
+    return responseJSON({
+        status: "success",
+        nexusCode: nexusCode,
+        message: "Candidatura accreditata con successo nel Registro EAL6+",
+        timestamp: timestamp
+    });
+}/**
+ * 4. GESTORE MASTRO FINANZIARIO & SPLIT STATUTARIO 54/30/16
  */
-function gestisciNuovaCandidatura(data) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ottieniFoglioFlessibile(ss, ["Leads_CRM", "Nexus_Leads"]);
+function gestisciRegistrazioneMastro(data) {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(CONFIG.SHEET_LEDGER);
 
-  var nome = data.nome || data.name || "Candidato Riservato";
-  var email = data.email || CONFIG.EMAIL_CEO;
-  var telefono = data.telefono || data.phone || CONFIG.PHONE_CEO;
-  var corsoAsset = data.canale || data.course || data.asset || "Conferenza CEO Giuliano";
-  var note = data.note || "";
-  
-  // Contatore ID progressivo (CEOSFX0001 riservato alla Governance)
-  var progressivo = sheet.getLastRow() + 1;
-  var nexusCode = "CEOSFX" + padNumero(progressivo, 4);
+    if (!sheet) {
+        sheet = ss.insertSheet(CONFIG.SHEET_LEDGER);
+        sheet.appendRow([
+            'TIMESTAMP',
+            'DESCRIZIONE TRANSAZIONE',
+            'IMPORTO TOTALE (€)',
+            'TIPO MOVIMENTO',
+            'OPERATIVITÀ (54%)',
+            'DIVIDENDI / RISERVA (30%)',
+            'TASSE / FISCALE (16%)',
+            'PROOF HASH SHA-256'
+        ]);
+        sheet.getRange("1:1").setFontWeight("bold").setBackground("#008B99").setFontColor("#FFFFFF");
+    }
 
-  // Calcolo Punti
-  var punti = 100;
-  if (corsoAsset.indexOf("Gold") !== -1 || corsoAsset.indexOf("Executive") !== -1) punti = 500;
-  if (corsoAsset.indexOf("Premium") !== -1 || corsoAsset.indexOf("CEO") !== -1) punti = 1500;
-  if (corsoAsset.indexOf("Opal") !== -1 || corsoAsset.indexOf("Boutique") !== -1) punti = 500;
-  if (corsoAsset.indexOf("Antigravity") !== -1) punti = 1000;
+    const timestamp = new Date();
+    const descrizione = data.description || 'Transazione Generica';
+    const importo = parseFloat(data.amount || 0);
+    const tipo = data.type || 'ENTRATA';
 
-  var timestamp = new Date();
-  var statusCard = calcolaStatusGrado(punti);
+    let ops = 0;
+    let dividendi = 0;
+    let tasse = 0;
 
-  // Scrittura riga su Google Sheets
-  sheet.appendRow([
-    timestamp,
-    nexusCode,
-    nome,
-    email,
-    telefono,
-    corsoAsset,
-    punti,
-    statusCard,
-    "ATTIVO",
-    note
-  ]);
+    if (tipo === 'ENTRATA') {
+        ops = importo * 0.54;
+        dividendi = importo * 0.30;
+        tasse = importo * 0.16;
+    } else {
+        ops = importo;
+    }
 
-  // Notifica Email al CEO
-  inviaEmailCEO("NUOVA CANDIDATURA RICEVUTA", 
-    "Nuova candidatura registrata nell'Ecosistema:\n\n" +
-    "Nome: " + nome + "\n" +
-    "Email: " + email + "\n" +
-    "Telefono/WhatsApp: " + telefono + "\n" +
-    "Ambito/Asset: " + corsoAsset + "\n" +
-    "Codice Assegnato: " + nexusCode + "\n" +
-    "Note: " + note
-  );
+    // Calcolo firma SHA-256 per l'integrita del Mastro EAL6+
+    const rawData = timestamp.toISOString() + descrizione + importo.toFixed(2) + tipo;
+    const signature = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, rawData);
+    const proofHash = "0x" + signature.map(b => (b < 0 ? b + 256 : b).toString(16).padStart(2, '0')).join('').toUpperCase().substring(0, 16);
 
-  // Notifica Telegram al CEO
-  inviaTelegramNotifica("👑 *NUOVA CANDIDATURA EXECUTIVA*\n\n" +
-    "👤 *Nome:* " + nome + "\n" +
-    "📧 *Email:* " + email + "\n" +
-    "📞 *Tel:* `" + telefono + "`\n" +
-    "🎯 *Ambito:* " + corsoAsset + "\n" +
-    "💳 *Codice ID:* `" + nexusCode + "`\n" +
-    "📝 *Note:* " + note
-  );
+    sheet.appendRow([
+        timestamp,
+        descrizione,
+        importo.toFixed(2),
+        tipo,
+        ops.toFixed(2),
+        dividendi.toFixed(2),
+        tasse.toFixed(2),
+        proofHash
+    ]);
 
-  // Invio Email con la Suprema Gold Card al Corsista
-  inviaEmailGoldCardCorsista(nome, email, nexusCode, punti, statusCard);
-
-  return rispostaJSON({
-    status: "success",
-    nexusCode: nexusCode,
-    punti: punti,
-    message: "Candidatura elaborata, registrata e notifiche inviate."
-  });
+    return responseJSON({
+        status: "success",
+        hashProof: proofHash,
+        opsAllocated: ops.toFixed(2),
+        dividendAllocated: dividendi.toFixed(2),
+        taxAllocated: tasse.toFixed(2),
+        message: "Transazione registrata con ripartizione 54/30/16"
+    });
 }
 
 /**
- * 4. RECUPERO FEEDBACK EXIT-INTENT (+50 PTS)
+ * 5. AGGIORNAMENTO SYSTEM PROMPT AGENTI NEURALI H24
+ */
+function gestisciAggiornamentoPrompt(data) {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(CONFIG.SHEET_PROMPTS);
+
+    if (!sheet) {
+        sheet = ss.insertSheet(CONFIG.SHEET_PROMPTS);
+        sheet.appendRow(['TIMESTAMP', 'AGENTE', 'OPERATORE', 'PROMPT TESTO']);
+        sheet.getRange("1:1").setFontWeight("bold").setBackground("#B8860B").setFontColor("#FFFFFF");
+    }
+
+    const timestamp = new Date();
+    const agente = data.agente || 'ALISON_CONCIERGE';
+    const operatore = data.operatore || 'CEO GIULIANO CARATELLI';
+    const prompt = data.prompt || 'Prompt base';
+
+    sheet.appendRow([timestamp, agente, operatore, prompt]);
+
+    return responseJSON({
+        status: "success",
+        message: "Prompt per " + agente + " salvato con successo."
+    });
+}
+
+/**
+ * 6. SISTEMA NOTIFICHE EMAIL (DIREZIONE & CANDIDATO)
+ */
+function inviaNotificaEmailDirezione(nexusCode, nome, email, telefono, ambito, dataPren, oraPren, note, punti) {
+    try {
+        const oggetto = `🚨 [NUOVA CANDIDATURA ${nexusCode}] - ${nome} (${ambito})`;
+        const corpoHtml = `
+            <div style="font-family: monospace; background: #090A0D; color: #ffffff; padding: 20px; border-radius: 12px; border: 2px solid #B8860B;">
+                <h2 style="color: #D4AF37;">SUPREMA FUTURE X S.R.L. // NOTIFICA CANDIDATURA</h2>
+                <p><strong>CODICE NEXUS ID:</strong> <span style="color: #00F0FF;">${nexusCode}</span></p>
+                <hr style="border-color: #333;" />
+                <p><strong>CANDIDATO:</strong> ${nome}</p>
+                <p><strong>EMAIL:</strong> ${email}</p>
+                <p><strong>TELEFONO:</strong> ${telefono}</p>
+                <p><strong>AMBITO RICHIESTO:</strong> ${ambito}</p>
+                <p><strong>SLOT PRENOTATO:</strong> ${dataPren} alle ${oraPren}</p>
+                <p><strong>NOTE:</strong> ${note}</p>
+                <p><strong>STATUS PUNTI:</strong> ${punti}</p>
+                <hr style="border-color: #333;" />
+                <p><a href="https://wa.me/${telefono.replace(/[^0-9]/g, '')}?text=Gentile%20${encodeURIComponent(nome)},%20la%20Direzione%20del%20CEO%20Giuliano%20Caratelli%20ha%20ricevuto%20la%20sua%20candidatura%20${nexusCode}" style="background: #25D366; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: bold;">PARLA SUBITO SU WHATSAPP</a></p>
+            </div>
+        `;
+
+        MailApp.sendEmail({
+            to: CONFIG.CEO_EMAIL,
+            subject: oggetto,
+            htmlBody: corpoHtml
+        });
+    } catch (err) {
+        Logger.log("Errore invio email direzione: " + err.toString());
+    }
+}
+
+function inviaEmailConfermaCandidato(nexusCode, nome, email, ambito, punti) {
+    try {
+        const oggetto = `✓ ACCREDITAMENTO RICEVUTO // SUPREMA GOLD CARD ${nexusCode}`;
+        const corpoHtml = `
+            <div style="font-family: Arial, sans-serif; background-color: #FDFBF7; color: #12141C; padding: 25px; border-radius: 16px; border: 1px solid #B8860B;">
+                <h1 style="color: #B8860B;">SUPREMA FUTURE X S.R.L.</h1>
+                <p>Gentile <strong>${nome}</strong>,</p>
+                <p>La tua candidatura per <strong>${ambito}</strong> è stata ricevuta ed elaborata con successo dall'Executive Concierge Alison.</p>
+                <div style="background: #090A0D; color: white; padding: 15px; border-radius: 10px; font-family: monospace;">
+                    <p style="color: #D4AF37; font-size: 16px; margin: 0;">SUPREMA GOLD CARD PHYGITAL</p>
+                    <p style="margin: 5px 0;">TITOLARE: ${nome.toUpperCase()}</p>
+                    <p style="margin: 5px 0;">CODICE ASSEGNATO: <strong style="color: #00F0FF;">${nexusCode}</strong></p>
+                    <p style="margin: 5px 0;">ACCREDITO INIZIALE: ${punti}</p>
+                </div>
+                <p style="margin-top: 15px;">La Direzione del <strong>CEO GIULIANO CARATELLI</strong> esaminerà la tua richiesta ed effettuerà il riscontro secondo lo slot prenotato.</p>
+                <p style="font-size: 11px; color: #777;">Insieme guidiamo il tuo domani..</p>
+            </div>
+        `;
+
+        MailApp.sendEmail({
+            to: email,
+            subject: oggetto,
+            htmlBody: corpoHtml
+        });
+    } catch (err) {
+        Logger.log("Errore invio email candidato: " + err.toString());
+    }
+}/**
+ * 7. NOTIFICA TELEGRAM BOT IN TEMPO REALE SULLO SMARTPHONE DEL CEO
+ */
+function inviaNotificaTelegram(nexusCode, nome, telefono, ambito, dataPren, oraPren) {
+    try {
+        if (!CONFIG.TELEGRAM_BOT_TOKEN || CONFIG.TELEGRAM_BOT_TOKEN.includes('EXAMPLE')) {
+            Logger.log("Telegram Bot Token non configurato o di esempio. Chiamata ignorata.");
+            return;
+        }
+
+        const url = "https://api.telegram.org/bot" + CONFIG.TELEGRAM_BOT_TOKEN + "/sendMessage";
+        const testoMessaggio = `👑 *SUPREMA FUTURE X // NUOVA CANDIDATURA*\n\n` +
+            `*Codice Nexus:* \`\${nexusCode}\`\n` +
+            `*Candidato:* ${nome}\n` +
+            `*Telefono:* ${telefono}\n` +
+            `*Ambito Richiesto:* ${ambito}\n` +
+            `*Slot Prenotato:* ${dataPren} alle ${oraPren}\n\n` +
+            `📲 [Apri Chat WhatsApp Diretta](https://wa.me/${telefono.replace(/[^0-9]/g, '')})`;
+
+        const payload = {
+            chat_id: CONFIG.TELEGRAM_CHAT_ID,
+            text: testoMessaggio,
+            parse_mode: 'Markdown',
+            disable_web_page_preview: false
+        };
+
+        const options = {
+            method: 'post',
+            contentType: 'application/json',
+            payload: JSON.stringify(payload),
+            muteHttpExceptions: true
+        };
+
+        UrlFetchApp.fetch(url, options);
+    } catch (err) {
+        Logger.log("Errore invio notifica Telegram: " + err.toString());
+    }
+}
+
+/**
+ * 8. GESTORI EXIT INTENT, NEWSLETTER & FEEDBACK DIRETTO
  */
 function gestisciExitFeedback(data) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ottieniFoglioFlessibile(ss, ["Feedback_Valutazioni", "Leads_CRM"]);
-  
-  sheet.appendRow([
-    new Date(),
-    "EXIT_INTENT_LEAD",
-    data.email || "anonimo@sfx.com",
-    5,
-    "Lead recuperato in uscita con pop-up (+50 PTS)"
-  ]);
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName('Exit_Feedback');
+    if (!sheet) {
+        sheet = ss.insertSheet('Exit_Feedback');
+        sheet.appendRow(['TIMESTAMP', 'EMAIL', 'CORSO / ORIENTAMENTO']);
+        sheet.getRange("1:1").setFontWeight("bold").setBackground("#008B99").setFontColor("#FFFFFF");
+    }
+    sheet.appendRow([new Date(), data.email || 'N/D', data.course || 'EXIT_INTENT']);
+    return responseJSON({ status: "success", message: "Exit feedback memorizzato con successo." });
+}
 
-  inviaEmailCEO("EXIT INTENT LEAD RECUPERATO", "Email registrata in uscita: " + data.email);
-  return rispostaJSON({ status: "success", message: "Feedback exit registrato." });
+function gestisciIscrizioneNewsletter(data) {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName('Iscritti_Newsletter');
+    if (!sheet) {
+        sheet = ss.insertSheet('Iscritti_Newsletter');
+        sheet.appendRow(['TIMESTAMP', 'EMAIL']);
+        sheet.getRange("1:1").setFontWeight("bold").setBackground("#B8860B").setFontColor("#FFFFFF");
+    }
+    sheet.appendRow([new Date(), data.email || 'N/D']);
+    return responseJSON({ status: "success", message: "Iscrizione newsletter completata." });
+}
+
+function gestisciFeedbackDiretto(data) {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName('Feedback_Direttivo');
+    if (!sheet) {
+        sheet = ss.insertSheet('Feedback_Direttivo');
+        sheet.appendRow(['TIMESTAMP', 'NOME', 'MESSAGGIO']);
+        sheet.getRange("1:1").setFontWeight("bold").setBackground("#12141C").setFontColor("#FFFFFF");
+    }
+    sheet.appendRow([new Date(), data.nome || 'N/D', data.messaggio || 'N/D']);
+    return responseJSON({ status: "success", message: "Feedback direttivo archiviato." });
 }
 
 /**
- * 5. SEGNALAZIONE ALLARME SICUREZZA X-BOX
+ * 9. FUNZIONI DI RECUPERO DATI PER CRM NEXUS E X-BOX ERP
  */
-function gestisciAllarmeSicurezza(data) {
-  var messaggioAlert = data.message || "Tentato accesso non autorizzato alla X-BOX.";
-  
-  inviaEmailCEO("⚠️ ATTENZIONE: ENTRATA NON AUTORIZZATA X-BOX", 
-    "REPORT DI SICUREZZA EAL6+:\n\n" +
-    "Messaggio: " + messaggioAlert + "\n" +
-    "Data e Ora: " + new Date().toLocaleString("it-IT") + "\n\n" +
-    "Il sistema ha bloccato il tentativo e reindirizzato l'utente."
-  );
-
-  inviaTelegramNotifica("⚠️ *ALLARME SICUREZZA X-BOX*\n\n" + messaggioAlert);
-
-  return rispostaJSON({ status: "alert_processed" });
-}
-
-/**
- * 6. MASTRO LEDGER FINANZIARIO (SPLIT 54% / 30% / 16%)
- */
-function registraMastroFinanziario(data) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ottieniFoglioFlessibile(ss, ["Ledger_Finanziario", "CEO_Ledger_Financials"]);
-  
-  var importo = parseFloat(data.amount) || 0;
-  var desc = data.description || "Transazione Ecosistema";
-  var tipo = data.type || "ENTRATA";
-  
-  var splitOps = (importo * 0.54).toFixed(2);
-  var splitReserve = (importo * 0.30).toFixed(2);
-  var splitTax = (importo * 0.16).toFixed(2);
-  
-  var hashProof = "0x" + Utilities.base64Encode(
-    Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, desc + importo + new Date().getTime())
-  ).substring(0, 16);
-
-  sheet.appendRow([
-    new Date(),
-    desc,
-    tipo,
-    importo,
-    splitOps,
-    splitReserve,
-    splitTax,
-    hashProof
-  ]);
-
-  return rispostaJSON({ status: "success", hashProof: hashProof });
-}
-
-/**
- * 7. INDOTTRINAMENTO PROMPTS AGENTI NEURALI
- */
-function aggiornaPromptAgente(data) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ottieniFoglioFlessibile(ss, ["System_Prompts", "Prompts_Neurali"]);
-  sheet.appendRow([
-    new Date(), 
-    data.operatore || "GIULIANO CARATELLI CEO", 
-    data.prompt || "Istruzione vuota"
-  ]);
-  return rispostaJSON({ status: "success", message: "System prompt memorizzato." });
-}
-
-/**
- * 8. INVIO EMAIL SUPREMA GOLD CARD AL CORSISTA
- */
-function inviaEmailGoldCardCorsista(name, email, nexusCode, points, statusName) {
-  var subject = "👑 Suprema Gold Card // Pass Ufficiale — " + name;
-
-  var htmlBody = "" +
-    "<div style='background-color: #090A0D; color: #ffffff; font-family: Montserrat, Arial, sans-serif; padding: 30px; max-width: 650px; margin: 0 auto; border-radius: 20px; border: 2px solid #B8860B;'>" +
-      "<div style='text-align: center; margin-bottom: 25px;'>" +
-        "<h1 style='color: #D4AF37; font-size: 20px; letter-spacing: 2px; margin: 0;'>SUPREMA FUTURE X S.R.L.</h1>" +
-        "<p style='color: #00F0FF; font-size: 11px; font-weight: bold; letter-spacing: 3px; margin-top: 5px;'>DREAM DEFENSE SYSTEM</p>" +
-      "</div>" +
-      "<p style='font-size: 13px; color: #cbd5e1; line-height: 1.6; text-align: center;'>" +
-        "Gentile <strong>" + name + "</strong>, la Direzione del <strong>CEO Giuliano Caratelli</strong> le rilascia la Sua tessera d'accesso ufficiale." +
-      "</p>" +
-      "<div style='position: relative; max-width: 550px; margin: 25px auto; border-radius: 16px; overflow: hidden; border: 1px solid #B8860B;'>" +
-        "<img src='" + CONFIG.DOMAIN_URL + "media/suprema-gold-card.png' alt='Suprema Gold Card' style='width: 100%; display: block;'>" +
-      "</div>" +
-      "<div style='background: #12141C; padding: 18px; border-radius: 14px; border: 1px solid #00F0FF; font-family: monospace; font-size: 12px; margin-bottom: 20px;'>" +
-        "<p style='margin: 5px 0; color: #94a3b8;'>TITOLARE: <strong style='color: #FFFFFF; font-size: 14px;'>" + name.toUpperCase() + "</strong></p>" +
-        "<p style='margin: 5px 0; color: #94a3b8;'>CODICE ID CARD: <strong style='color: #D4AF37; font-size: 14px;'>" + nexusCode + "</strong></p>" +
-        "<p style='margin: 5px 0; color: #94a3b8;'>STATUS GRADO: <strong style='color: #D4AF37;'>" + statusName + "</strong></p>" +
-        "<p style='margin: 5px 0; color: #94a3b8;'>SALDO ACCREDITATO: <strong style='color: #00F0FF; font-size: 16px;'>" + points + " PTS</strong></p>" +
-      "</div>" +
-      "<div style='text-align: center; margin-top: 25px;'>" +
-        "<a href='" + CONFIG.DOMAIN_URL + "#gold-card' style='display: inline-block; padding: 14px 28px; background: linear-gradient(135deg, #B8860B, #D4AF37); color: #000000; font-weight: bold; text-decoration: none; border-radius: 10px; font-size: 12px;'>SCARICA CARD SUL SITO &rarr;</a>" +
-      "</div>" +
-      "<hr style='border: 0; border-top: 1px solid #222; margin: 25px 0;'>" +
-      "<p style='font-size: 10px; color: #64748b; text-align: center;'>© 2026 SUPREMA FUTURE X S.R.L. // GOVERNANCE: CEO GIULIANO</p>" +
-    "</div>";
-
-  try {
-    MailApp.sendEmail({ to: email, subject: subject, htmlBody: htmlBody });
-  } catch (e) {
-    Logger.log("Errore invio Email Gold Card: " + e.toString());
-  }
-}
-
-/**
- * 9. UTILITY EMAIL CEO & TELEGRAM
- */
-function inviaEmailCEO(oggetto, testo) {
-  try {
-    MailApp.sendEmail({
-      to: CONFIG.EMAIL_CEO,
-      subject: "[SUPREMA FUTURE X] " + oggetto,
-      body: "ECOSISTEMA SUPREMA FUTURE X S.R.L.\nGovernance: CEO Giuliano Caratelli\n\n" + testo
-    });
-  } catch (e) {
-    Logger.log("Errore invio MailApp CEO: " + e.toString());
-  }
-}
-
-function inviaTelegramNotifica(messaggio) {
-  if (!CONFIG.TELEGRAM_BOT_TOKEN || CONFIG.TELEGRAM_BOT_TOKEN.indexOf("YOUR_") !== -1) return;
-  var url = "https://api.telegram.org/bot" + CONFIG.TELEGRAM_BOT_TOKEN + "/sendMessage";
-  var payload = { chat_id: CONFIG.TELEGRAM_CHAT_ID, text: messaggio, parse_mode: "Markdown" };
-  try {
-    UrlFetchApp.fetch(url, { 
-      method: "post", 
-      contentType: "application/json", 
-      payload: JSON.stringify(payload), 
-      muteHttpExceptions: true 
-    });
-  } catch (e) {
-    Logger.log("Errore Telegram: " + e.toString());
-  }
-}
-
-/**
- * 10. GESTIONE FOGLI MULTI-TAB FLESSIBILE
- */
-function ottieniFoglioFlessibile(ss, nomiPossibili) {
-  for (var i = 0; i < nomiPossibili.length; i++) {
-    var s = ss.getSheetByName(nomiPossibili[i]);
-    if (s) return s;
-  }
-  var newSheet = ss.insertSheet(nomiPossibili[0]);
-  newSheet.appendRow(["Timestamp", "NexusCode", "Nome", "Email", "Telefono", "CorsoAsset", "PuntiGold", "GradoStatus", "StatoPipeline", "Note"]);
-  return newSheet;
-}
-
 function recuperaTuttiILeads() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ottieniFoglioFlessibile(ss, ["Leads_CRM", "Nexus_Leads"]);
-  var data = sheet.getDataRange().getValues();
-  var leads = [];
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(CONFIG.SHEET_LEADS);
+    if (!sheet) return responseJSON({ status: "ok", leads: [] });
 
-  if (data.length <= 1) return [];
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return responseJSON({ status: "ok", leads: [] });
 
-  for (var i = 1; i < data.length; i++) {
-    leads.push({
-      timestamp: data[i][0],
-      nexus: data[i][1],
-      name: data[i][2],
-      email: data[i][3],
-      phone: data[i][4],
-      course: data[i][5],
-      points: data[i][6],
-      status: data[i][7],
-      notes: data[i][9]
-    });
-  }
-  return leads.reverse();
+    const leads = [];
+    for (let i = 1; i < data.length; i++) {
+        const row = data[i];
+        leads.push({
+            timestamp: row[0],
+            nexusCode: row[1],
+            nome: row[2],
+            azienda: row[3],
+            email: row[4],
+            telefono: row[5],
+            ambito: row[6],
+            dataPrenotazione: row[7],
+            oraPrenotazione: row[8],
+            note: row[9],
+            punti: row[10],
+            status: row[11]
+        });
+    }
+
+    return responseJSON({ status: "ok", leads: leads });
 }
 
-function calcolaStatusGrado(punti) {
-  var p = parseInt(punti) || 0;
-  if (p >= 3000) return "SOVRANO MAX";
-  if (p >= 1500) return "GOLD EXECUTIVE";
-  if (p >= 250) return "SILVER EXECUTIVE";
-  return "MEMBER BASE";
-}
+function recuperaMastroFinanziario() {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(CONFIG.SHEET_LEDGER);
+    if (!sheet) return responseJSON({ status: "ok", ledger: [] });
 
-function padNumero(num, size) {
-  var s = num + "";
-  while (s.length < size) s = "0" + s;
-  return s;
-}
+    const data = sheet.getDataRange().getValues();
+    if (data.length <= 1) return responseJSON({ status: "ok", ledger: [] });
 
-function rispostaJSON(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+    const ledger = [];
+    for (let i = 1; i < data.length; i++) {
+        const row = data[i];
+        ledger.push({
+            timestamp: row[0],
+            descrizione: row[1],
+            importo: row[2],
+            tipo: row[3],
+            operativita: row[4],
+            dividendi: row[5],
+            tasse: row[6],
+            proofHash: row[7]
+        });
+    }
+
+    return responseJSON({ status: "ok", ledger: ledger });
 }
 
 /**
- * 11. ESEGUI QUESTA FUNZIONE NELL'EDITOR PER AUTORIZZARE LE EMAIL/TELEGRAM
+ * 10. HELPER UTILITY RESPONSE JSON
  */
-function testAutorizzazioniGoogle() {
-  inviaEmailCEO("TEST AUTORIZZAZIONE EAL6+", "Notifiche attive e funzionanti al 100%!");
-  Logger.log("Test autorizzazioni completato con successo.");
+function responseJSON(data) {
+    return ContentService.createTextOutput(JSON.stringify(data))
+        .setMimeType(ContentService.MimeType.JSON);
 }
