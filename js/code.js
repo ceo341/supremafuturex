@@ -64,7 +64,7 @@ window.SFXConnector = {
             const data = await response.json();
             return data;
         } catch (error) {
-            console.warn("[SFX CONNECTOR] Connessione di rete non disponibile. Inserimento in coda offline:", error);
+            console.warn("[SFX CONNECTOR] Connessione non disponibile. Inserimento in coda offline:", error);
             if (window.SFXDeltaQueue) {
                 window.SFXDeltaQueue.accoda(payload);
             }
@@ -78,14 +78,14 @@ window.SFXConnector = {
             const data = await response.json();
             return data.leads || [];
         } catch (error) {
-            console.error("[SFX CONNECTOR] Errore durante il recupero dei leads:", error);
+            console.error("[SFX CONNECTOR] Errore recupero leads:", error);
             return [];
         }
     }
 };
 
 /**
- * 3. MOTORE CHATBOT ALISON V3 & SINTESI VOCALE WEBAUDIO
+ * 3. MOTORE CHATBOT ALISON V3 & SINTESI VOCALE
  */
 window.AlisonEngine = {
     sintesi: window.speechSynthesis || null,
@@ -93,7 +93,7 @@ window.AlisonEngine = {
     parla(testo) {
         if (!this.sintesi) return;
         
-        this.sintesi.cancel(); // Arresta eventuali riproduzioni in corso
+        this.sintesi.cancel();
 
         const utterance = new SpeechSynthesisUtterance(testo);
         utterance.lang = 'it-IT';
@@ -152,7 +152,6 @@ window.GoldCardEngine = {
 
         if (renderNome) renderNome.textContent = nome;
 
-        // Generazione progressiva ID (CEOSFX0002+)
         const randomNum = Math.floor(1000 + Math.random() * 8999) + 1000;
         const code = "CEOSFX" + randomNum;
         if (renderId) renderId.textContent = code;
@@ -174,7 +173,6 @@ window.SFXDrawer = {
 
         clearTimeout(this.timer);
         if (!drawer.classList.contains('hidden')) {
-            // Chiusura automatica dopo 10 secondi di inattività
             this.timer = setTimeout(() => {
                 drawer.classList.add('hidden');
             }, 10000);
