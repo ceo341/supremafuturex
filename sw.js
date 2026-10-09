@@ -1,79 +1,82 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // SERVICE WORKER PWA ENGINE v31 (EAL6+)
- * GOVERNANCE: GIULIANO CARATELLI CEO
+ * SUPREMA FUTURE X S.R.L. // SERVICE WORKER PWA ENGINE V35
+ * GOVERNANCE: CEO GIULIANO CARATELLI
  * ====================================================================
- * Gestione Caching Off-Line, Network Resiliency, Pre-Fetch Asset
- * e Tracciamento Fallback per l'Ecosistema Enterprise.
  */
 
-const CACHE_NAME = 'SFX-ENTERPRISE-PWA-V31';
+const CACHE_NAME = 'sfx-pwa-v35-full';
 
-// ASSET CRITICI DA PRE-CACHARE PER L'UTILIZZO OFFLINE
-const PRECACHE_ASSETS = [
+// Elenco integrale delle risorse dell'Ecosistema da memorizzare in cache
+const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './candidatura.html',
+  './login.html',
+  './vault.html',
   './admin.html',
   './crm.html',
-  './vault.html',
-  './login.html',
+  './stile-globale.css',
+  './js/code.js',
+  './sfx-delta-patch.js',
   './manifest.json',
-  './js/sfx-catalog-data.js',
   './media/logo.png',
-  './media/card_front.png',
-  './media/card_back_official_master.png',
-  './media/alison_crop.png',
-  './media/suprema_master_realistic.png',
-  './media/boutique-luxury png.png',
+  './media/alison-avatar.png',
+  './media/bg-sfx.png',
+  './media/bg-governance.png',
+  './media/accademia-corsi.png',
+  './media/suprema-gold-card.png',
+  './media/boutique-luxury.png',
   './media/alison-lifestyle.png',
-  './media/social.jpg',
+  './media/alison-multimedia.png',
   'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
-  'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap'
+  'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js'
 ];
 
-// 1. EVENTO INSTALL: CREAZIONE CACHE E SALVATAGGIO ASSET
+// FASE 1: INSTALLAZIONE SERVICE WORKER E CACHING RISORSE
 self.addEventListener('install', (event) => {
-  console.log('[SFX Service Worker] Installazione v31 in corso...');
+  console.log('[SERVICE WORKER] Installazione in corso. Caching delle risorse PWA...');
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[SFX Service Worker] Pre-caching asset EAL6+ completato.');
-        return cache.addAll(PRECACHE_ASSETS);
-      })
-      .then(() => self.skipWaiting())
-      .catch((err) => console.warn('[SFX Service Worker] Avviso Pre-cache parziale:', err))
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS_TO_CACHE);
+    }).then(() => {
+      console.log('[SERVICE WORKER] ✓ Caching completato al 100%.');
+      return self.skipWaiting();
+    }).catch((err) => {
+      console.warn('[SERVICE WORKER] ✗ Attenzione durante il caching:', err);
+    })
   );
 });
 
-// 2. EVENTO ACTIVATE: BONIFICA VECCHIE CACHE ED ELEVAZIONE REGIA
+// FASE 2: ATTIVAZIONE E PULIZIA VECCHIE CACHE
 self.addEventListener('activate', (event) => {
-  console.log('[SFX Service Worker] Attivazione Engine v31...');
+  console.log('[SERVICE WORKER] Attivazione in corso...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log('[SFX Service Worker] Eliminazione vecchia cache:', cache);
+            console.log('[SERVICE WORKER] Eliminazione vecchia cache:', cache);
             return caches.delete(cache);
           }
         })
       );
-    }).then(() => self.clients.claim())
+    }).then(() => {
+      return self.clients.claim();
+    })
   );
 });
 
-// 3. EVENTO FETCH: STRATEGIA IBRIDA (NETWORK FIRST CON FALLBACK CACHE)
+// FASE 3: INTERCETTAZIONE RICHIESTE RETE (NETWORK FIRST WITH CACHE FALLBACK)
 self.addEventListener('fetch', (event) => {
-  // Ignora le chiamate API dirette a Google Apps Script per evitare blocchi CORS/POST
-  if (event.request.url.includes('script.google.com') || event.request.method !== 'GET') {
-    return;
-  }
+  // Ignora le richieste non-GET (es. POST webhook) per farle gestire alla Delta Queue
+  if (event.request.method !== 'GET') return;
 
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        // Se la rete risponde correttamente, aggiorna la cache in background
+        // Se la risposta è valida, aggiorna la cache in background
         if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -83,55 +86,16 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       })
       .catch(() => {
-        // In caso di assenza di rete (Offline), recupera la risorsa dalla cache locale
+        // In caso di assenza di rete, recupera la risorsa dalla cache locale
         return caches.match(event.request).then((cachedResponse) => {
           if (cachedResponse) {
             return cachedResponse;
           }
-          // Fallback per pagine HTML navigate offline
+          // Se la pagina non è in cache ed è una navigazione, mostra index.html
           if (event.request.mode === 'navigate') {
             return caches.match('./index.html');
           }
         });
       })
-  );
-});
-
-// 4. BACKGROUND SYNC (RECUPERO CODA DI LEAD / FEEDBACK OFFLINE)
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-sfx-leads') {
-    console.log('[SFX Service Worker] Sincronizzazione coda lead offline in corso...');
-    event.waitUntil(sincronizzaCodaOffline());
-  }
-});
-
-async function sincronizzaCodaOffline() {
-  // Logica di trasmissione automatica quando la connessione viene ripristinata
-  console.log('[SFX Service Worker] Coda lead offline verificata e sincronizzata.');
-}
-
-// 5. GESTIONE NOTIFICHE PUSH (DISPATCH EXECUTIVES)
-self.addEventListener('push', (event) => {
-  const data = event.data ? event.data.json() : {};
-  const title = data.title || 'SUPREMA FUTURE X // NOTIFICA DIREZIONALE';
-  const options = {
-    body: data.body || 'Nuovo aggiornamento disponibile nell\'Ecosistema.',
-    icon: './media/logo.png',
-    badge: './media/logo.png',
-    vibrate: [100, 50, 100],
-    data: {
-      url: data.url || './index.html'
-    }
-  };
-
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
-});
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  event.waitUntil(
-    clients.openWindow(event.notification.data.url)
   );
 });
