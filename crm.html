@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUB LEADS NEXUS // SUPREMA FUTURE X — CRM MASTER</title>
-    <meta name="robots" content="noindex, nofollow">
+    <title>HUB CRM LEADS NEXUS // SUPREMA FUTURE X S.R.L.</title>
+    <meta name="description" content="Pannello CRM Governance EAL6+ per la gestione anagrafica, tracciamento leads e pipeline Suprema Future X S.r.l.">
     <meta name="theme-color" content="#090A0D">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="media/logo.png">
 
-    <!-- Tailwind CSS & Font Ufficiali -->
+    <!-- Tailwind CSS & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,9 +29,8 @@
                             cyan: '#008B99',
                             cyanLight: '#00F0FF',
                             silver: '#C0C0C0',
-                            dark: '#090A0D',
                             panel: '#121620',
-                            card: '#1A202C'
+                            dark: '#090A0D'
                         }
                     },
                     fontFamily: {
@@ -44,171 +43,252 @@
             }
         }
     </script>
+
+    <style>
+        .glow-border-gold {
+            border: 1px solid rgba(184, 134, 11, 0.4);
+            box-shadow: 0 0 20px rgba(184, 134, 11, 0.15);
+        }
+        .glow-border-cyan {
+            border: 1px solid rgba(0, 139, 153, 0.4);
+            box-shadow: 0 0 20px rgba(0, 139, 153, 0.15);
+        }
+    </style>
 </head>
-<body class="cyber-grid-dark font-sans min-h-screen text-gray-200 flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
+<body class="bg-[#090A0D] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
 
-    <!-- HEADER CRM LEADS NEXUS -->
-    <header class="bg-[#0D1117]/95 border-b border-sfx-gold/40 px-6 py-3 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 rounded-full bg-black p-0.5 border border-sfx-gold">
-                    <img src="media/logo.png" alt="Logo" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
+    <!-- BARRA DI STATO SUPERIORE -->
+    <div class="bg-[#0D1117] border-b border-sfx-gold/30 px-6 py-3 flex flex-wrap items-center justify-between text-xs">
+        <div class="flex items-center space-x-4">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-black p-0.5 border border-sfx-gold">
+                    <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
                 </div>
-                <div>
-                    <h1 class="font-grotesk font-extrabold text-sm tracking-wider text-sfx-goldLight">HUB LEADS NEXUS // CRM MASTER</h1>
-                    <p class="font-mono text-[10px] text-sfx-cyan">GOVERNANCE: GIULIANO CARATELLI CEO // EAL6+ DATABASE</p>
-                </div>
-            </div>
-
-            <div class="flex items-center space-x-4 font-mono text-xs">
-                <button onclick="caricaLeadsCRM()" class="px-3 py-1.5 rounded-lg bg-sfx-gold text-black font-bold hover:bg-yellow-500 transition-all">
-                    <i class="fa-solid fa-rotate mr-1.5"></i>Aggiorna Nexus
-                </button>
-                <a href="admin.html" class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:text-white font-bold transition-all">
-                    <i class="fa-solid fa-gear mr-1.5"></i>ERP Admin
-                </a>
-                <a href="vault.html" class="px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 hover:text-white font-bold transition-all">
-                    <i class="fa-solid fa-vault mr-1.5"></i>Vault
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- CONTAINER TABELLA CRM -->
-    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-6">
-
-        <!-- RICERCA & FILTRI -->
-        <div class="bg-sfx-panel p-4 rounded-2xl border border-gray-800 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
-            <div class="relative flex-1 min-w-[240px]">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-500"></i>
-                <input type="text" id="crm-search" onkeyup="filtraLeads()" placeholder="Cerca per Nome, Email o Codice NEXUS..." class="w-full pl-10 pr-4 py-2.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-            </div>
-            <div class="flex items-center space-x-3">
-                <span class="text-gray-400 font-bold">TOTALE LEADS: <strong id="crm-counter-total" class="text-sfx-goldLight">0</strong></span>
-                <button onclick="esportaCSV()" class="px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-xl hover:bg-gray-700 transition-all font-bold">
-                    <i class="fa-solid fa-file-csv mr-1.5"></i>Esporta CSV
-                </button>
-            </div>
+                <span class="font-grotesk font-black text-sfx-goldLight">SUPREMA CRM HUB</span>
+            </a>
+            <span class="text-gray-600">|</span>
+            <span class="text-sfx-cyan"><i class="fa-solid fa-users-gear mr-1"></i>INGESTION LEADS PROTOCOL EAL6+</span>
         </div>
 
-        <!-- TABELLA DATI LEADS -->
-        <div class="bg-sfx-panel rounded-2xl border border-gray-800 overflow-hidden shadow-2xl">
+        <div class="flex items-center space-x-6 text-[11px]">
+            <span class="text-gray-400">OPERATORE: <strong class="text-sfx-goldLight">CEO GIULIANO CARATELLI</strong></span>
+            <a href="admin.html" class="text-sfx-gold font-bold hover:underline"><i class="fa-solid fa-crown mr-1"></i>PRIVATO CEO (ERP)</a>
+            <a href="vault.html" class="text-sfx-cyan font-bold hover:underline"><i class="fa-solid fa-vault mr-1"></i>X-BOX VAULT</a>
+            <a href="index.html" class="text-red-400 hover:underline"><i class="fa-solid fa-power-off mr-1"></i>LOGOUT</a>
+        </div>
+    </div>
+
+    <!-- MAIN CRM CONTAINER -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- HEADER DASHBOARD & STATISTICHE ANAGRAFICHE -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-sfx-panel p-6 rounded-2xl glow-border-gold space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">TOTALE LEADS ACQUISITI</span>
+                <div class="text-3xl font-bold font-cyber text-sfx-goldLight" id="stat-total-leads">0</div>
+                <span class="text-[10px] text-green-400"><i class="fa-solid fa-database mr-1"></i>Sincronizzato con Sheets</span>
+            </div>
+
+            <div class="bg-sfx-panel p-6 rounded-2xl glow-border-cyan space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">MEMBER GOLD / SOVRANO</span>
+                <div class="text-3xl font-bold font-cyber text-sfx-cyanLight" id="stat-gold-leads">0</div>
+                <span class="text-[10px] text-sfx-cyan"><i class="fa-solid fa-crown mr-1"></i>Executive Card Titolari</span>
+            </div>
+
+            <div class="bg-sfx-panel p-6 rounded-2xl border border-gray-800 space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">CANDIDATURE CONFERENZA CEO</span>
+                <div class="text-3xl font-bold font-cyber text-sfx-silver" id="stat-ceo-leads">0</div>
+                <span class="text-[10px] text-sfx-goldLight"><i class="fa-solid fa-user-tie mr-1"></i>In Attesa di Colloquio</span>
+            </div>
+
+            <div class="bg-sfx-panel p-6 rounded-2xl border border-sfx-gold/50 space-y-2">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest block">STATUS CANALE NOTIFICHE</span>
+                <div class="text-3xl font-bold font-cyber text-green-400">ONLINE</div>
+                <span class="text-[10px] text-gray-400"><i class="fa-brands fa-telegram mr-1"></i>Telegram & Email Dispatch</span>
+            </div>
+        </section>
+
+        <!-- BARRA FILTRI, RICERCA ED ESPORTAZIONE CSV -->
+        <section class="bg-sfx-panel p-6 rounded-3xl border border-gray-800 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-3 flex-1">
+                    <div class="relative min-w-[240px] flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-gray-500"></i>
+                        <input type="text" id="search-input" onkeyup="filtraLeads()" placeholder="Cerca per Nome, Email, Telefono o ID..." class="w-full pl-10 pr-4 py-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold text-xs">
+                    </div>
+
+                    <select id="filter-course" onchange="filtraLeads()" class="p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-300 text-xs outline-none focus:border-sfx-cyan">
+                        <option value="">Tutti gli Ambiti/Asset</option>
+                        <option value="CEO">Conferenza CEO</option>
+                        <option value="Silver">Nexus Silver</option>
+                        <option value="Gold">Gold Executive</option>
+                        <option value="Premium">Premium VIP</option>
+                        <option value="Opal">Boutique Luxury</option>
+                        <option value="Antigravity">Linea Antigravity</option>
+                    </select>
+
+                    <select id="filter-status" onchange="filtraLeads()" class="p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-300 text-xs outline-none focus:border-sfx-gold">
+                        <option value="">Tutti i Gradi Status</option>
+                        <option value="SOVRANO">SOVRANO MAX</option>
+                        <option value="GOLD">GOLD EXECUTIVE</option>
+                        <option value="SILVER">SILVER EXECUTIVE</option>
+                        <option value="MEMBER">MEMBER BASE</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <button onclick="caricaLeadsCRM()" class="px-4 py-3 bg-gray-800 hover:bg-gray-700 text-sfx-cyan font-bold rounded-xl text-xs transition-all">
+                        <i class="fa-solid fa-rotate mr-1.5"></i>Rinfresca
+                    </button>
+                    <button onclick="esportaCSV()" class="px-5 py-3 bg-sfx-gold hover:bg-yellow-600 text-black font-bold rounded-xl text-xs transition-all shadow-md">
+                        <i class="fa-solid fa-file-csv mr-1.5"></i>Esporta CSV
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABELLA COMPLETA ANAGRAFICA LEADS -->
+        <section class="bg-sfx-panel p-6 rounded-3xl border border-gray-800 space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <h2 class="font-grotesk font-bold text-sm text-sfx-goldLight uppercase"><i class="fa-solid fa-table-list mr-2"></i>ANAGRAFICA CANDIDATI & REGISTRO LEADS</h2>
+                <span class="text-[10px] text-gray-500 font-mono">PROTOCOLLO CRITTOGRAFICO EAL6+</span>
+            </div>
+
             <div class="overflow-x-auto">
-                <table class="w-full text-left font-mono text-xs border-collapse">
+                <table class="w-full text-left text-xs border-collapse font-mono">
                     <thead>
-                        <tr class="bg-black/80 border-b border-gray-800 text-sfx-gold font-bold">
-                            <th class="p-4">DATA / ORA</th>
-                            <th class="p-4">CODICE NEXUS</th>
-                            <th class="p-4">NOME E COGNOME</th>
-                            <th class="p-4">EMAIL ISTITUZIONALE</th>
-                            <th class="p-4">TELEFONO</th>
-                            <th class="p-4">CORSO / ASSET</th>
-                            <th class="p-4">PUNTI GOLD</th>
-                            <th class="p-4">STATUS CARD</th>
+                        <tr class="border-b border-gray-800 text-gray-400 uppercase">
+                            <th class="p-3">CODICE ID</th>
+                            <th class="p-3">DATA / ORA</th>
+                            <th class="p-3">CANDIDATO / TITOLARE</th>
+                            <th class="p-3">EMAIL</th>
+                            <th class="p-3">TELEFONO / WHATSAPP</th>
+                            <th class="p-3">AMBITO ASSET</th>
+                            <th class="p-3">PUNTI GOLD</th>
+                            <th class="p-3">GRADO STATUS</th>
+                            <th class="p-3 text-right">AZIONI</th>
                         </tr>
                     </thead>
-                    <tbody id="crm-table-body" class="divide-y divide-gray-800/60 text-gray-300">
+                    <tbody id="crm-tbody" class="divide-y divide-gray-800/60 text-gray-300">
                         <tr>
-                            <td colspan="8" class="p-8 text-center text-gray-500 font-bold">
-                                <i class="fa-solid fa-spinner fa-spin mr-2"></i>Caricamento anagrafiche EAL6+ in corso...
-                            </td>
+                            <td colspan="9" class="p-6 text-center text-gray-500">Inizializzazione caricamento dati dal Server Apps Script...</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </main>
 
-    <!-- FOOTER UFFICIALE CRM -->
-    <footer class="bg-[#0D1117] border-t border-gray-800 px-6 py-4 font-mono text-[11px] text-gray-500 text-center">
-        SUPREMA FUTURE X S.R.L. // CRM MASTER V34 // GOVERNANCE: GIULIANO CARATELLI CEO
+    <!-- FOOTER DIREZIONALE -->
+    <footer class="border-t border-gray-800/80 py-4 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
+        SUPREMA FUTURE X S.R.L. // HUB CRM LEADS EAL6+ // CEO GIULIANO CARATELLI // ALL RIGHTS RESERVED
     </footer>
 
-    <!-- LOGICA DI CARICAMENTO E FILTRAGGIO LEADS -->
+    <!-- LOGICA JAVASCRIPT CRM HUB -->
+    <script src="js/code.js"></script>
+    <script src="sfx-delta-patch.js"></script>
     <script>
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec';
-        let tuttiILeads = [];
+        let tuttiLeads = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            caricaLeadsCRM();
+        });
 
         async function caricaLeadsCRM() {
-            const tbody = document.getElementById('crm-table-body');
-            const totalEl = document.getElementById('crm-counter-total');
-            
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="8" class="p-8 text-center text-sfx-cyan font-bold animate-pulse">
-                        <i class="fa-solid fa-sync fa-spin mr-2"></i>Sincronizzazione Cloud Apps Script v34...
-                    </td>
-                </tr>`;
+            const tbody = document.getElementById('crm-tbody');
+            tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-sfx-cyan animate-pulse">Caricamento anagrafica dal Server in corso...</td></tr>`;
 
             try {
-                const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_LEADS`);
+                const res = await fetch(APPS_SCRIPT_URL + '?action=GET_LEADS');
                 const data = await res.json();
 
-                if (data && data.leads) {
-                    tuttiILeads = data.leads;
-                    totalEl.textContent = tuttiILeads.length;
-                    renderizzaTabella(tuttiILeads);
+                if (data && data.leads && Array.isArray(data.leads)) {
+                    tuttiLeads = data.leads;
+                    aggiornaMetriche(tuttiLeads);
+                    renderizzaTabella(tuttiLeads);
                 } else {
-                    throw new Error("Nessun dato restituito");
+                    tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-gray-500">Nessun candidato presente nell'anagrafica.</td></tr>`;
                 }
-            } catch (err) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" class="p-8 text-center text-yellow-500 font-bold">
-                            ⚠ Errore caricamento remoto. Verificare la connessione o l'URL Apps Script.
-                        </td>
-                    </tr>`;
+            } catch(e) {
+                tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-red-400">✗ Errore di connessione con il Server Google Apps Script.</td></tr>`;
             }
+        }
+
+        function aggiornaMetriche(leads) {
+            document.getElementById('stat-total-leads').textContent = leads.length;
+            
+            const gold = leads.filter(l => (l.status || '').toUpperCase().includes('GOLD') || (l.status || '').toUpperCase().includes('SOVRANO'));
+            document.getElementById('stat-gold-leads').textContent = gold.length;
+
+            const ceo = leads.filter(l => (l.course || '').toUpperCase().includes('CEO') || (l.course || '').toUpperCase().includes('CONFERENZA'));
+            document.getElementById('stat-ceo-leads').textContent = ceo.length;
         }
 
         function renderizzaTabella(leads) {
-            const tbody = document.getElementById('crm-table-body');
+            const tbody = document.getElementById('crm-tbody');
             if (leads.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-gray-500">Nessun lead trovato.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-gray-500">Nessun risultato trovato con i filtri selezionati.</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = leads.map(l => `
-                <tr class="hover:bg-black/40 transition-colors">
-                    <td class="p-4 text-gray-400">${l.timestamp ? new Date(l.timestamp).toLocaleString('it-IT') : 'N/D'}</td>
-                    <td class="p-4 font-bold text-sfx-goldLight">${l.nexus || 'CEOSFX0002'}</td>
-                    <td class="p-4 font-bold text-white">${l.name || 'Utente Nexus'}</td>
-                    <td class="p-4 text-sfx-cyanLight">${l.email || 'non_indicata@sfx.com'}</td>
-                    <td class="p-4">${l.phone || 'N/D'}</td>
-                    <td class="p-4"><span class="px-2 py-1 bg-gray-800 border border-gray-700 rounded text-[10px] font-bold">${l.course || 'Conferenza CEO'}</span></td>
-                    <td class="p-4 font-bold text-green-400">${l.points || 100} PTS</td>
-                    <td class="p-4"><span class="px-2.5 py-1 bg-sfx-gold/20 text-sfx-gold border border-sfx-gold/40 rounded-full text-[10px] font-bold">${l.status || 'MEMBER'}</span></td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = leads.map(l => {
+                const phoneClean = (l.phone || '').replace(/[^0-9]/g, '');
+                return `
+                    <tr class="hover:bg-gray-900/60 transition-colors">
+                        <td class="p-3 font-bold text-sfx-goldLight">${l.nexus || 'CEOSFX0000'}</td>
+                        <td class="p-3 text-gray-400 text-[10px]">${l.timestamp ? new Date(l.timestamp).toLocaleString('it-IT') : '-'}</td>
+                        <td class="p-3 font-bold text-white">${l.name || 'Candidato'}</td>
+                        <td class="p-3 text-sfx-cyan">${l.email || '-'}</td>
+                        <td class="p-3 text-gray-300">${l.phone || '-'}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 bg-gray-800 rounded text-gray-200">${l.course || 'Generico'}</span></td>
+                        <td class="p-3 font-bold text-sfx-cyanLight">${l.points || 100} PTS</td>
+                        <td class="p-3"><span class="px-2 py-0.5 bg-sfx-gold/20 text-sfx-gold border border-sfx-gold/40 rounded font-bold text-[10px]">${l.status || 'MEMBER BASE'}</span></td>
+                        <td class="p-3 text-right space-x-2">
+                            ${phoneClean ? `<a href="https://wa.me/\${phoneClean}" target="_blank" class="px-2 py-1 bg-green-900/40 border border-green-600 text-green-400 rounded hover:bg-green-800/60" title="Apri WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>` : ''}
+                            ${l.email ? `<a href="mailto:\${l.email}" class="px-2 py-1 bg-cyan-900/40 border border-sfx-cyan text-sfx-cyanLight rounded hover:bg-cyan-800/60" title="Invia Mail"><i class="fa-solid fa-envelope"></i></a>` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function filtraLeads() {
-            const q = document.getElementById('crm-search').value.toLowerCase();
-            const filtrati = tuttiILeads.filter(l => 
-                (l.name && l.name.toLowerCase().includes(q)) ||
-                (l.email && l.email.toLowerCase().includes(q)) ||
-                (l.nexus && l.nexus.toLowerCase().includes(q))
-            );
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const course = document.getElementById('filter-course').value.toLowerCase();
+            const status = document.getElementById('filter-status').value.toLowerCase();
+
+            const filtrati = tuttiLeads.filter(l => {
+                const matchQ = !query || (l.name || '').toLowerCase().includes(query) || (l.email || '').toLowerCase().includes(query) || (l.phone || '').toLowerCase().includes(query) || (l.nexus || '').toLowerCase().includes(query);
+                const matchC = !course || (l.course || '').toLowerCase().includes(course);
+                const matchS = !status || (l.status || '').toLowerCase().includes(status);
+                return matchQ && matchC && matchS;
+            });
+
             renderizzaTabella(filtrati);
         }
 
         function esportaCSV() {
-            if (tuttiILeads.length === 0) return alert("Nessun dato da esportare.");
-            let csv = "Timestamp,NexusCode,Nome,Email,Telefono,CorsoAsset,Punti,Status\n";
-            tuttiILeads.forEach(l => {
-                csv += `"${l.timestamp}","${l.nexus}","${l.name}","${l.email}","${l.phone}","${l.course}","${l.points}","${l.status}"\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `LEADS_SUPREMA_NEXUS_${new Date().toISOString().slice(0,10)}.csv`;
-            a.click();
-        }
+            if (tuttiLeads.length === 0) {
+                alert("Nessun dato disponibile da esportare.");
+                return;
+            }
 
-        // Caricamento iniziale automatico
-        window.onload = caricaLeadsCRM;
+            let csv = "CodiceID,Data,Nome,Email,Telefono,Ambito,PuntiGold,StatusGrado\n";
+            tuttiLeads.forEach(l => {
+                csv += `"${l.nexus || ''}","${l.timestamp || ''}","${l.name || ''}","${l.email || ''}","${l.phone || ''}","${l.course || ''}","${l.points || 0}","${l.status || ''}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Leads_Nexus_Suprema_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     </script>
 </body>
 </html>
