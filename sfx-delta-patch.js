@@ -1,164 +1,129 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // NATIVE DELTA PATCH ENGINE v31 (EAL6+)
- * GOVERNANCE: GIULIANO CARATELLI CEO
+ * SUPREMA FUTURE X S.R.L. // OFFLINE DELTA QUEUE & SYNC ENGINE V35
+ * GOVERNANCE: CEO GIULIANO CARATELLI
+ * PROTOCOLLO: EAL6+ SOVRANO
  * ====================================================================
- * Gestione dello stato locale, sincronizzazione della coda offline,
- * contatore progressivo Gold Card e resilienza di rete per la PWA.
  */
 
-(function () {
-  'use strict';
+const APPS_SCRIPT_WEBHOOK = 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec';
 
-  // CONFIGURAZIONE ENGINE DELTA (AGGIORNATA A DEPLOYMENT v34)
-  const SFX_DELTA_CONFIG = {
-    VERSION: 'v31_EAL6',
-    APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec',
-    SYNC_INTERVAL_MS: 30000, // Polling ogni 30 secondi
-    STORAGE_KEYS: {
-      USER_SESSION: 'SFX_LOGGED_USER',
-      CARD_COUNTER: 'SFX_CARD_COUNTER',
-      OFFLINE_QUEUE: 'SFX_OFFLINE_LEAD_QUEUE',
-      CRM_CACHE: 'SFX_CRM_LOCAL_CACHE'
-    }
-  };
-
-  class SFXDeltaEngine {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      console.log(`[SFX Delta Patch Engine] Inizializzazione ${SFX_DELTA_CONFIG.VERSION} in corso...`);
-      this.initCardCounter();
-      this.setupEventListeners();
-      this.checkNetworkStatus();
-      this.startSyncLoop();
-    }
+window.SFXDeltaQueue = {
+    STORAGE_KEY: 'sfx_offline_queue_v35',
+    isSyncing: false,
 
     /**
-     * 1. INIZIALIZZAZIONE CONTATORE PROGRESSIVO GOLD CARD
-     * La Card #1 (CEOSFX0001) è della Governance/CEO; i corsisti partono dalla #2.
+     * Accoda una richiesta quando la rete non è disponibile
      */
-    initCardCounter() {
-      let currentCounter = localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER);
-      if (!currentCounter || parseInt(currentCounter) < 2) {
-        localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER, '2');
-        console.log('[SFX Delta Engine] Contatore Gold Card inizializzato su CEOSFX0002');
-      }
-    }
+    accoda(payload) {
+        const coda = this.recuperaCoda();
+        const elementoCoda = {
+            id: 'DELTA_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+            timestamp: new Date().toISOString(),
+            payload: payload
+        };
+
+        coda.push(elementoCoda);
+        this.salvaCoda(coda);
+        
+        console.log(`[DELTA QUEUE] Payload accodato offline. ID: ${elementoCoda.id} | Totale in coda: ${coda.length}`);
+        
+        // Notifica visiva nell'interfaccia se disponibile
+        if (typeof window.mostraNotificaBadge === 'function') {
+            window.mostraNotificaBadge(`Dati salvati in locale (${coda.length} in coda offline)`);
+        }
+    },
 
     /**
-     * GENERA PROSSIMO CODICE CARD E INCREMENTA IL CONTATORE
+     * Recupera la coda dal LocalStorage
      */
-    getNextCardCode() {
-      let current = parseInt(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER)) || 2;
-      const cardCode = 'CEOSFX' + String(current).padStart(4, '0');
-      localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.CARD_COUNTER, (current + 1).toString());
-      return cardCode;
-    }
+    recuperaCoda() {
+        const data = localStorage.getItem(this.STORAGE_KEY);
+        if (!data) return [];
+        try { 
+            return JSON.parse(data); 
+        } catch (e) { 
+            console.error("[DELTA QUEUE] Errore lettura LocalStorage:", e);
+            return []; 
+        }
+    },
 
     /**
-     * 2. GESTIONE CODA AZIONI OFFLINE (FALLBACK LOCAL-FIRST)
+     * Salva la coda aggiornata nel LocalStorage
      */
-    enqueueOfflineAction(payload) {
-      try {
-        let queue = JSON.parse(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE)) || [];
-        payload.queuedAt = new Date().toISOString();
-        queue.push(payload);
-        localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE, JSON.stringify(queue));
-        console.log('[SFX Delta Engine] Azione memorizzata in coda offline:', payload);
-      } catch (e) {
-        console.error('[SFX Delta Engine] Errore salvataggio coda locale:', e);
-      }
-    }
-
-    /**
-     * 3. FLUSH & TRASMISSIONE DIFFERENZIALE AL CLOUD APPS SCRIPT
-     */
-    async flushOfflineQueue() {
-      if (!navigator.onLine) return;
-
-      let queue = JSON.parse(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE)) || [];
-      if (queue.length === 0) return;
-
-      console.log(`[SFX Delta Engine] Sincronizzazione di ${queue.length} azioni accumulate in coda offline...`);
-      let remainingQueue = [];
-
-      for (const item of queue) {
+    salvaCoda(coda) {
         try {
-          let response = await fetch(SFX_DELTA_CONFIG.APPS_SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(item)
-          });
-          let resData = await response.json();
-          if (resData.status !== 'success') {
-            remainingQueue.push(item);
-          }
-        } catch (err) {
-          console.warn('[SFX Delta Engine] Server momentaneamente non raggiungibile, elemento rinviato:', err);
-          remainingQueue.push(item);
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(coda));
+        } catch (e) {
+            console.error("[DELTA QUEUE] Errore salvataggio LocalStorage:", e);
         }
-      }
-
-      localStorage.setItem(SFX_DELTA_CONFIG.STORAGE_KEYS.OFFLINE_QUEUE, JSON.stringify(remainingQueue));
-      if (remainingQueue.length === 0) {
-        console.log('[SFX Delta Engine] Coda offline completamente sincronizzata con il Cloud Apps Script!');
-      }
-    }
+    },
 
     /**
-     * 4. CICLO PERIODICO DI SINCRONIZZAZIONE (POLLING LOOP)
+     * Svuota completamente la coda
      */
-    startSyncLoop() {
-      setInterval(() => {
-        if (navigator.onLine) {
-          this.flushOfflineQueue();
-        }
-      }, SFX_DELTA_CONFIG.SYNC_INTERVAL_MS);
-    }
+    svuotaCoda() {
+        localStorage.removeItem(this.STORAGE_KEY);
+        console.log("[DELTA QUEUE] Coda locale completamente azzerata.");
+    },
 
     /**
-     * 5. ASCOLTATORI DELL'EVENTO RETE E MONITORAGGIO
+     * Sincronizza automaticamente tutti gli elementi della coda con il server
      */
-    setupEventListeners() {
-      window.addEventListener('online', () => {
-        console.log('[SFX Delta Engine] Connessione ripristinata. Avvio trasmissione dati...');
-        this.checkNetworkStatus();
-        this.flushOfflineQueue();
-      });
+    async sincronizza() {
+        if (!navigator.onLine || this.isSyncing) return;
 
-      window.addEventListener('offline', () => {
-        console.warn('[SFX Delta Engine] Modalità Offline attiva. Tutte le operazioni verranno gestite in cache.');
-        this.checkNetworkStatus();
-      });
-    }
+        const coda = this.recuperaCoda();
+        if (coda.length === 0) return;
 
-    checkNetworkStatus() {
-      const badge = document.getElementById('sfx-network-status');
-      if (badge) {
-        if (navigator.onLine) {
-          badge.className = 'text-green-500 font-bold';
-          badge.textContent = 'ONLINE (EAL6+)';
+        this.isSyncing = true;
+        console.log(`[DELTA QUEUE] Avvio sincronizzazione automatica per ${coda.length} elementi in coda...`);
+
+        const elementiFalliti = [];
+
+        for (const item of coda) {
+            try {
+                const response = await fetch(APPS_SCRIPT_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(item.payload)
+                });
+
+                if (response.ok) {
+                    console.log(`[DELTA QUEUE] ✓ Sincronizzato elemento ID: ${item.id}`);
+                } else {
+                    console.warn(`[DELTA QUEUE] ✗ Errore server per elemento ID: ${item.id}`);
+                    elementiFalliti.push(item);
+                }
+            } catch (err) {
+                console.warn(`[DELTA QUEUE] ✗ Connessione interrotta durante invio ID: ${item.id}`, err);
+                elementiFalliti.push(item);
+            }
+        }
+
+        if (elementiFalliti.length === 0) {
+            this.svuotaCoda();
+            console.log("[DELTA QUEUE] ✓ Sincronizzazione Delta completata al 100%. Tutti i dati inviati.");
         } else {
-          badge.className = 'text-yellow-500 font-bold';
-          badge.textContent = 'OFFLINE (LOCAL CACHE)';
+            this.salvaCoda(elementiFalliti);
+            console.warn(`[DELTA QUEUE] Sincronizzazione parziale. Elementi ancora in coda: ${elementiFalliti.length}`);
         }
-      }
-    }
 
-    /**
-     * 6. HELPER UTENTE E SESSIONE
-     */
-    getCurrentSession() {
-      try {
-        return JSON.parse(localStorage.getItem(SFX_DELTA_CONFIG.STORAGE_KEYS.USER_SESSION)) || null;
-      } catch (e) {
-        return null;
-      }
+        this.isSyncing = false;
     }
-  }
+};
 
-  // ISTANZA GLOBALE NEL BROWSER
-  window.SFXDelta = new SFXDeltaEngine();
-})();
+// Listener per ripristino automatico della connessione internet
+window.addEventListener('online', () => {
+    console.log("[NETWORK STATUS] Connessione ripristinata. Avvio immediato sincronizzazione Delta Queue...");
+    setTimeout(() => {
+        window.SFXDeltaQueue.sincronizza();
+    }, 1500);
+});
+
+// Listener caricamento pagina
+window.addEventListener('load', () => {
+    if (navigator.onLine) {
+        window.SFXDeltaQueue.sincronizza();
+    }
+});
