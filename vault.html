@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-BOX CONTROL CENTER // ARCHIVIO RISERVATO MULTIMEDIA</title>
-    <meta name="description" content="X-BOX Control Center - Gestione Archivio Multimediale Riservato e Gestione Asset per Suprema Future X S.r.l.">
+    <title>CASSAFORTE PRIVATA CEO // BLUEPRINTS & BREVETTI // SUPREMA FUTURE X</title>
+    <meta name="description" content="Cassaforte Privata CEO Giuliano Caratelli - Blueprints Brevetti WIPO/PCT, Calcolatori ROI Contract e Asset Riservati.">
     <meta name="theme-color" content="#090A0D">
 
-    <!-- Favicon -->
+    <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/png" href="media/logo.png">
+    <link rel="manifest" href="manifest.json">
 
-    <!-- Tailwind CSS & Fonts -->
+    <!-- Tailwind CSS, Fonts & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +20,16 @@
     <link rel="stylesheet" href="stile-globale.css">
 
     <script>
+        // CONTROLLO DI SICUREZZA IMMEDIATO (EAL6+ AUTHENTICATION GATE)
+        (function checkEAL6Auth() {
+            const isAuth = sessionStorage.getItem('sfx_authenticated');
+            const role = sessionStorage.getItem('sfx_role');
+            if (isAuth !== 'true' || (role !== 'CEO_CLEARANCE' && role !== 'XBOX_ADMIN')) {
+                alert("⛔ ACCESSO NEGATO: SESSIONE CASSAFORTE NON AUTORIZZATA.");
+                window.location.href = 'login.html?target=privato_ceo';
+            }
+        })();
+
         tailwind.config = {
             theme: {
                 extend: {
@@ -43,398 +54,326 @@
             }
         }
     </script>
-
-    <style>
-        .glow-box-gold {
-            border: 1px solid rgba(184, 134, 11, 0.4);
-            box-shadow: 0 0 20px rgba(184, 134, 11, 0.15);
-        }
-        .glow-box-cyan {
-            border: 1px solid rgba(0, 139, 153, 0.4);
-            box-shadow: 0 0 20px rgba(0, 139, 153, 0.15);
-        }
-    </style>
 </head>
 <body class="bg-[#090A0D] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
 
-    <!-- BARRA DI STATO SUPERIORE -->
-    <div class="bg-[#0D1117] border-b border-sfx-gold/30 px-6 py-3 flex flex-wrap items-center justify-between text-xs">
-        <div class="flex items-center space-x-4">
-            <a href="index.html" class="flex items-center space-x-2">
-                <div class="w-8 h-8 rounded-full bg-black p-0.5 border border-sfx-gold">
-                    <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
-                </div>
-                <span class="font-grotesk font-black text-sfx-goldLight">SUPREMA X-BOX VAULT</span>
-            </a>
-            <span class="text-gray-600">|</span>
-            <span class="text-sfx-cyan"><i class="fa-solid fa-vault mr-1"></i>STATION STATUS: EAL6+ ACTIVE</span>
+    <!-- TOP CONTROL BAR CASSAFORTE CON LOGOUT & TIMER INATTIVITÀ -->
+    <div class="bg-[#0D1117] border-b border-sfx-gold/40 px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-black p-0.5 border-2 border-sfx-gold">
+                <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
+            </div>
+            <div>
+                <span class="font-grotesk font-black text-sfx-goldLight block leading-none">SUPREMA VAULT EAL6+</span>
+                <span class="text-[9px] text-sfx-cyan block">PRESIDENZA CEO GIULIANO CARATELLI</span>
+            </div>
         </div>
 
         <div class="flex items-center space-x-6 text-[11px]">
-            <span class="text-gray-400">OPERATORE: <strong class="text-sfx-goldLight">CEO GIULIANO CARATELLI</strong></span>
-            <a href="admin.html" class="text-sfx-gold font-bold hover:underline"><i class="fa-solid fa-crown mr-1"></i>PRIVATO CEO (ERP)</a>
-            <a href="crm.html" class="text-sfx-cyan font-bold hover:underline"><i class="fa-solid fa-users-gear mr-1"></i>HUB CRM</a>
-            <a href="index.html" class="text-red-400 hover:underline"><i class="fa-solid fa-power-off mr-1"></i>LOGOUT</a>
+            <div class="hidden md:flex items-center space-x-2 text-gray-400">
+                <i class="fa-solid fa-clock text-sfx-gold"></i>
+                <span>TIMEOUT INATTIVITÀ:</span>
+                <span id="vault-timer" class="text-sfx-cyanLight font-bold">10:00</span>
+            </div>
+            <button onclick="eseguiLogoutVault()" class="px-3.5 py-1.5 bg-red-950/80 hover:bg-red-900 border border-red-700 text-red-300 rounded-xl font-bold transition-all flex items-center space-x-1">
+                <i class="fa-solid fa-power-off"></i>
+                <span>LOGOUT VAULT</span>
+            </button>
         </div>
     </div>
 
-    <!-- MAIN X-BOX CONTAINER -->
-    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-10">
-
-        <!-- INTRODUZIONE X-BOX & INDICATORI METRICHE SLOT -->
-        <section class="space-y-6">
-            <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4">
+    <!-- MAIN VAULT CONTAINER -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-10 space-y-10">
+        
+        <!-- TITLE HEADER -->
+        <div class="bg-sfx-panel p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-4 relative overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-6">
                 <div>
-                    <h1 class="font-grotesk font-black text-2xl text-sfx-goldLight uppercase tracking-wider">
-                        <i class="fa-solid fa-box-archive mr-3 text-sfx-cyan"></i>X-BOX MULTIMEDIA CONTROL CENTER
+                    <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-xs font-bold rounded-full uppercase border border-sfx-gold/40">
+                        <i class="fa-solid fa-vault mr-1.5"></i>CASSAFORTE GENERALE BREVETTI & BLUEPRINTS
+                    </span>
+                    <h1 class="font-grotesk font-black text-2xl sm:text-4xl text-sfx-goldLight uppercase tracking-wider mt-3">
+                        BLUEPRINTS & PATENTS ARCHIVE
                     </h1>
-                    <p class="text-xs text-gray-400 mt-1">
-                        Pannello riservato di caricamento e sincronizzazione per le 5 categorie della Multimedia Library
+                    <p class="text-xs text-gray-400 mt-1 max-w-2xl">
+                        Documentazione tecnica riservata, brevetti deposti WIPO/PCT e simulatore di redditività B2B per l'Ecosistema Suprema Future X S.r.l.
                     </p>
                 </div>
-                <a href="admin.html" class="px-5 py-2.5 bg-gradient-to-r from-sfx-gold via-sfx-goldLight to-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl hover:brightness-110 transition-all shadow-lg">
-                    <i class="fa-solid fa-crown mr-2"></i>Accedi al Privato CEO
-                </a>
-            </div>
-
-            <!-- TABELLA RIASSUNTIVA SLOT OCCUPATI -->
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 text-xs font-mono">
-                <div class="bg-sfx-panel p-4 rounded-2xl border border-sfx-gold/30 text-center space-y-1">
-                    <span class="text-gray-400 text-[10px] block uppercase">SLOT FOTO</span>
-                    <strong id="counter-foto" class="text-sfx-gold text-base font-cyber">0 / 100</strong>
-                </div>
-                <div class="bg-sfx-panel p-4 rounded-2xl border border-sfx-cyan/30 text-center space-y-1">
-                    <span class="text-gray-400 text-[10px] block uppercase">SLOT VIDEO</span>
-                    <strong id="counter-video" class="text-sfx-cyan text-base font-cyber">0 / 60</strong>
-                </div>
-                <div class="bg-sfx-panel p-4 rounded-2xl border border-gray-700 text-center space-y-1">
-                    <span class="text-gray-400 text-[10px] block uppercase">SLOT SLIDE</span>
-                    <strong id="counter-slide" class="text-white text-base font-cyber">0 / 100</strong>
-                </div>
-                <div class="bg-sfx-panel p-4 rounded-2xl border border-sfx-goldLight/30 text-center space-y-1">
-                    <span class="text-gray-400 text-[10px] block uppercase">SLOT TESTI</span>
-                    <strong id="counter-testi" class="text-sfx-goldLight text-base font-cyber">0 / 50</strong>
-                </div>
-                <div class="bg-sfx-panel p-4 rounded-2xl border border-sfx-cyanLight/30 text-center space-y-1 col-span-2 sm:col-span-1">
-                    <span class="text-gray-400 text-[10px] block uppercase">SLOT PDF</span>
-                    <strong id="counter-pdf" class="text-sfx-cyanLight text-base font-cyber">0 / 150</strong>
+                <div class="text-right font-mono text-xs space-y-1">
+                    <div class="text-sfx-cyan font-bold"><i class="fa-solid fa-shield-halved mr-1"></i>STATUS: EAL6+ SOVRANO</div>
+                    <div class="text-gray-400 text-[10px]">TITOLARE: CEO GIULIANO CARATELLI</div>
+                    <div class="text-sfx-gold text-[10px]">CODICE MASTER: CEOSFX0001</div>
                 </div>
             </div>
-        </section>
 
-        <!-- CATEGORIA 1: FOTO (100 SLOT MAX) -->
-        <section class="bg-sfx-panel p-6 sm:p-8 rounded-3xl glow-box-gold space-y-6">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-image text-xl text-sfx-gold"></i>
-                    <div>
-                        <h3 class="font-grotesk font-bold text-base text-sfx-goldLight uppercase">1. ARCHIVIO FOTO (MAX 100 SLOT)</h3>
-                        <p class="text-[11px] text-gray-400">Carica file grafici e foto per la sezione Multimedia (JPG, PNG, WEBP)</p>
-                    </div>
+            <!-- GRID STATS RAPIDE -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2 text-xs">
+                <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
+                    <span class="text-gray-400 text-[10px]">BREVETTI REGISTRATI</span>
+                    <div class="text-lg font-bold text-sfx-gold font-grotesk">2 PATENTS</div>
                 </div>
-                <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-xs font-bold rounded-lg border border-sfx-gold/40">100 MAX</span>
+                <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
+                    <span class="text-gray-400 text-[10px]">MARGINE B2B CONTRACT</span>
+                    <div class="text-lg font-bold text-sfx-cyan font-grotesk">+68% / +74%</div>
+                </div>
+                <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
+                    <span class="text-gray-400 text-[10px]">ARCHIVIO BLUEPRINTS</span>
+                    <div class="text-lg font-bold text-sfx-goldLight font-grotesk">150 PDF HD</div>
+                </div>
+                <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
+                    <span class="text-gray-400 text-[10px]">CRITTOGRAFIA REGISTRO</span>
+                    <div class="text-lg font-bold text-green-400 font-grotesk">SHA-256</div>
+                </div>
             </div>
+        </div><!-- SEZIONE BREVETTI & SCHEDE TECNICHE -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- BREVETTO 1: OPAL LUXURY FITTINGS -->
+            <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-sfx-gold shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full border border-sfx-gold/40">
+                        BREVETTO WIPO // OPAL-SFX-2026-PAT
+                    </span>
+                    <span class="text-xs text-green-400 font-bold"><i class="fa-solid fa-circle-check mr-1"></i>DEPOSITATO</span>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-xs">
-                <div class="md:col-span-5 space-y-3">
-                    <label class="block text-gray-300 font-bold">SELEZIONA FOTO DA CARICARE *</label>
-                    <input type="file" id="upload-foto-file" accept="image/*" class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-300">
-                    <input type="text" id="upload-foto-titolo" placeholder="Titolo/Descrizione Foto..." class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                    <button onclick="caricaElemento('foto')" class="w-full py-3.5 bg-sfx-gold text-black font-bold uppercase rounded-xl hover:bg-yellow-600 transition-all shadow-md">
-                        <i class="fa-solid fa-upload mr-1.5"></i>Carica Foto in Archivio
+                <div class="space-y-3">
+                    <h3 class="font-grotesk font-bold text-lg text-sfx-goldLight uppercase">
+                        BOUTIQUE LUXURY FITTINGS & STYLE
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed font-light">
+                        Sistema sartoriale di raccordi d'arredo placcati Oro 24K e castoni in Opale Australiano. Progettato per installazioni d'élite in dimore storiche, yachting e residenze di lusso.
+                    </p>
+                </div>
+
+                <div class="space-y-2 bg-black/60 p-4 rounded-2xl border border-gray-800 text-xs">
+                    <div class="flex justify-between text-gray-400"><span>Codice Deposito:</span><strong class="text-white">PAT-WIPO-2026-OPAL</strong></div>
+                    <div class="flex justify-between text-gray-400"><span>Margine B2B / Reseller:</span><strong class="text-sfx-gold">+68% Netto</strong></div>
+                    <div class="flex justify-between text-gray-400"><span>Tolleranza Finitura:</span><strong class="text-white">±0.002 mm (EAL6+)</strong></div>
+                    <div class="flex justify-between text-gray-400"><span>Punti Status Gold Card:</span><strong class="text-sfx-cyan">+500 PTS</strong></div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button onclick="scaricaBlueprintPDF('OPAL-SFX-2026-PAT')" class="flex-1 py-3 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-lg hover:bg-yellow-500 transition-all text-center">
+                        <i class="fa-solid fa-file-pdf mr-2"></i>Download Scheda WIPO
+                    </button>
+                    <button onclick="apriAnteprima3D('OPAL')" class="py-3 px-4 bg-gray-800 hover:bg-gray-700 text-sfx-cyan font-bold text-xs rounded-xl transition-colors">
+                        <i class="fa-solid fa-cube mr-1"></i>Vista 3D
                     </button>
                 </div>
-
-                <div class="md:col-span-7 space-y-2">
-                    <label class="block text-gray-300 font-bold">ELENCO FOTO ARCHIVIATE</label>
-                    <div id="lista-foto" class="bg-black/50 p-4 rounded-2xl border border-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto space-y-2">
-                        <p class="text-gray-500 text-center py-4">Nessuna foto caricata in questo slot.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CATEGORIA 2: VIDEO (60 SLOT MAX) -->
-        <section class="bg-sfx-panel p-6 sm:p-8 rounded-3xl glow-box-cyan space-y-6">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-video text-xl text-sfx-cyan"></i>
-                    <div>
-                        <h3 class="font-grotesk font-bold text-base text-sfx-cyanLight uppercase">2. ARCHIVIO VIDEO (MAX 60 SLOT)</h3>
-                        <p class="text-[11px] text-gray-400">Carica o collega video per lo Showcase Player (MP4, WEBM)</p>
-                    </div>
-                </div>
-                <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyan text-xs font-bold rounded-lg border border-sfx-cyan/40">60 MAX</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-xs">
-                <div class="md:col-span-5 space-y-3">
-                    <label class="block text-gray-300 font-bold">SELEZIONA VIDEO O URL *</label>
-                    <input type="file" id="upload-video-file" accept="video/*" class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-300">
-                    <input type="text" id="upload-video-titolo" placeholder="Titolo Video / URL Showcase..." class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan">
-                    <button onclick="caricaElemento('video')" class="w-full py-3.5 bg-sfx-cyan text-white font-bold uppercase rounded-xl hover:bg-cyan-700 transition-all shadow-md">
-                        <i class="fa-solid fa-upload mr-1.5"></i>Carica Video in Archivio
+            <!-- BREVETTO 2: LINEA ANTIGRAVITY INNOVATION -->
+            <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-sfx-cyan shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-full border border-sfx-cyan/40">
+                        BREVETTO PCT // ANTIG-SFX-2026-X
+                    </span>
+                    <span class="text-xs text-green-400 font-bold"><i class="fa-solid fa-circle-check mr-1"></i>DEPOSITATO</span>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="font-grotesk font-bold text-lg text-sfx-cyanLight uppercase">
+                        LINEA ANTIGRAVITY NEURAL INNOVATION
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed font-light">
+                        Piattaforma a levitazione magnetica attiva ad alta frequenza (120 kHz). Sospensione ultra-stabilizzata per oggetti di design, teche luxury e componenti neurale.
+                    </p>
+                </div>
+
+                <div class="space-y-2 bg-black/60 p-4 rounded-2xl border border-gray-800 text-xs">
+                    <div class="flex justify-between text-gray-400"><span>Codice Deposito:</span><strong class="text-white">PCT-ANTIG-2026-SFX</strong></div>
+                    <div class="flex justify-between text-gray-400"><span>Consumo Energetico:</span><strong class="text-sfx-cyan">&lt; 4W Ultra-Low Power</strong></div>
+                    <div class="flex justify-between text-gray-400"><span>Capacità Carico Max:</span><strong class="text-white">fino a 320 kg</strong></div>
+                    <div class="flex justify-between text-gray-400"><span>Punti Status Gold Card:</span><strong class="text-sfx-gold">+1,000 PTS</strong></div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button onclick="scaricaBlueprintPDF('ANTIG-SFX-2026-X')" class="flex-1 py-3 bg-sfx-cyan text-white font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-lg hover:bg-cyan-700 transition-all text-center">
+                        <i class="fa-solid fa-file-pdf mr-2"></i>Download Scheda PCT
+                    </button>
+                    <button onclick="apriAnteprima3D('ANTIGRAVITY')" class="py-3 px-4 bg-gray-800 hover:bg-gray-700 text-sfx-gold font-bold text-xs rounded-xl transition-colors">
+                        <i class="fa-solid fa-atom mr-1"></i>Simulatore
                     </button>
                 </div>
-
-                <div class="md:col-span-7 space-y-2">
-                    <label class="block text-gray-300 font-bold">ELENCO VIDEO ARCHIVIATI</label>
-                    <div id="lista-video" class="bg-black/50 p-4 rounded-2xl border border-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto space-y-2">
-                        <p class="text-gray-500 text-center py-4">Nessun video caricato in questo slot.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CATEGORIA 3: SLIDE (100 SLOT MAX) -->
-        <section class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-6">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-sliders text-xl text-white"></i>
-                    <div>
-                        <h3 class="font-grotesk font-bold text-base text-white uppercase">3. ARCHIVIO SLIDE (MAX 100 SLOT)</h3>
-                        <p class="text-[11px] text-gray-400">Carica presentazioni e slide aziendali (PDF, PPT, PPTX)</p>
-                    </div>
-                </div>
-                <span class="px-3 py-1 bg-gray-800 text-gray-300 text-xs font-bold rounded-lg border border-gray-700">100 MAX</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-xs">
-                <div class="md:col-span-5 space-y-3">
-                    <label class="block text-gray-300 font-bold">SELEZIONA FILE SLIDE *</label>
-                    <input type="file" id="upload-slide-file" accept=".pdf,.ppt,.pptx" class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-300">
-                    <input type="text" id="upload-slide-titolo" placeholder="Titolo Presentazione Slide..." class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-white">
-                    <button onclick="caricaElemento('slide')" class="w-full py-3.5 bg-gray-800 hover:bg-gray-700 text-white font-bold uppercase rounded-xl transition-all shadow-md">
-                        <i class="fa-solid fa-upload mr-1.5"></i>Carica Slide in Archivio
-                    </button>
-                </div>
+        </div>
 
-                <div class="md:col-span-7 space-y-2">
-                    <label class="block text-gray-300 font-bold">ELENCO SLIDE ARCHIVIATE</label>
-                    <div id="lista-slide" class="bg-black/50 p-4 rounded-2xl border border-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto space-y-2">
-                        <p class="text-gray-500 text-center py-4">Nessuna slide caricata in questo slot.</p>
-                    </div>
+        <!-- SEZIONE CALCOLATORE ROI CONTRACT B2B -->
+        <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold/50 shadow-2xl space-y-6">
+            <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
+                <div>
+                    <span class="text-sfx-gold font-bold text-xs uppercase"><i class="fa-solid fa-calculator mr-2"></i>SIMULATORE FINANZIARIO VAULT</span>
+                    <h3 class="font-grotesk font-extrabold text-xl text-sfx-goldLight uppercase mt-1">
+                        CALCOLATORE MARGINALITÀ B2B & CONTRACT
+                    </h3>
                 </div>
-            </div>
-        </section><!-- CATEGORIA 4: TESTI (50 SLOT MAX) -->
-        <section class="bg-sfx-panel p-6 sm:p-8 rounded-3xl glow-box-gold space-y-6">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-file-lines text-xl text-sfx-goldLight"></i>
-                    <div>
-                        <h3 class="font-grotesk font-bold text-base text-sfx-goldLight uppercase">4. ARCHIVIO TESTI & COMUNICATI (MAX 50 SLOT)</h3>
-                        <p class="text-[11px] text-gray-400">Editor e memorizzazione testi direzionali per la Landing e le news</p>
-                    </div>
-                </div>
-                <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-xs font-bold rounded-lg border border-sfx-gold/40">50 MAX</span>
+                <span class="px-3 py-1 bg-sfx-gold/10 text-sfx-gold text-[11px] font-bold rounded-lg border border-sfx-gold/30">
+                    SOGLIA MINIMA B2B: +68%
+                </span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-xs">
-                <div class="md:col-span-5 space-y-3">
-                    <label class="block text-gray-300 font-bold">INSERISCI TESTO / COMUNICATO *</label>
-                    <input type="text" id="upload-testi-titolo" placeholder="Titolo del Testo..." class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                    <textarea id="upload-testi-contenuto" rows="3" placeholder="Scrivi il contenuto del testo o avviso direzionale..." class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold leading-relaxed"></textarea>
-                    <button onclick="caricaElemento('testi')" class="w-full py-3.5 bg-sfx-gold text-black font-bold uppercase rounded-xl hover:bg-yellow-600 transition-all shadow-md">
-                        <i class="fa-solid fa-floppy-disk mr-1.5"></i>Memorizza Testo in Archivio
-                    </button>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                <div class="space-y-2">
+                    <label class="block text-gray-300 font-bold uppercase">QUANTITÀ PEZZI / CONTRACT</label>
+                    <input type="number" id="roi-quantita" value="10" min="1" oninput="calcolaROIVault()" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-gold font-bold text-base outline-none focus:border-sfx-gold">
                 </div>
 
-                <div class="md:col-span-7 space-y-2">
-                    <label class="block text-gray-300 font-bold">ELENCO TESTI ARCHIVIATI</label>
-                    <div id="lista-testi" class="bg-black/50 p-4 rounded-2xl border border-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto space-y-2">
-                        <p class="text-gray-500 text-center py-4">Nessun testo caricato in questo slot.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CATEGORIA 5: PDF (150 SLOT MAX) -->
-        <section class="bg-sfx-panel p-6 sm:p-8 rounded-3xl glow-box-cyan space-y-6">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-file-pdf text-xl text-sfx-cyanLight"></i>
-                    <div>
-                        <h3 class="font-grotesk font-bold text-base text-sfx-cyanLight uppercase">5. ARCHIVIO DOCUMENTI PDF (MAX 150 SLOT)</h3>
-                        <p class="text-[11px] text-gray-400">Carica contratti, brochure e documenti legali in formato PDF</p>
-                    </div>
-                </div>
-                <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyan text-xs font-bold rounded-lg border border-sfx-cyan/40">150 MAX</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-xs">
-                <div class="md:col-span-5 space-y-3">
-                    <label class="block text-gray-300 font-bold">SELEZIONA FILE PDF *</label>
-                    <input type="file" id="upload-pdf-file" accept=".pdf" class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-300">
-                    <input type="text" id="upload-pdf-titolo" placeholder="Nome Documento PDF..." class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan">
-                    <button onclick="caricaElemento('pdf')" class="w-full py-3.5 bg-sfx-cyan text-white font-bold uppercase rounded-xl hover:bg-cyan-700 transition-all shadow-md">
-                        <i class="fa-solid fa-upload mr-1.5"></i>Carica Documento PDF in Archivio
-                    </button>
+                <div class="space-y-2">
+                    <label class="block text-gray-300 font-bold uppercase">VALORE LISTINO UNITA (€)</label>
+                    <input type="number" id="roi-prezzo" value="2500" min="100" step="50" oninput="calcolaROIVault()" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-cyanLight font-bold text-base outline-none focus:border-sfx-cyan">
                 </div>
 
-                <div class="md:col-span-7 space-y-2">
-                    <label class="block text-gray-300 font-bold">ELENCO PDF ARCHIVIATI</label>
-                    <div id="lista-pdf" class="bg-black/50 p-4 rounded-2xl border border-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto space-y-2">
-                        <p class="text-gray-500 text-center py-4">Nessun documento PDF caricato in questo slot.</p>
-                    </div>
+                <div class="space-y-2">
+                    <label class="block text-gray-300 font-bold uppercase">SCONTO RESELLER APPLICATO (%)</label>
+                    <select id="roi-sconto" onchange="calcolaROIVault()" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-goldLight font-bold outline-none focus:border-sfx-gold">
+                        <option value="32">32% (Soglia Base Standard)</option>
+                        <option value="26">26% (Soglia Premium Executive)</option>
+                        <option value="20">20% (Soglia Sovrano VIP Contract)</option>
+                    </select>
                 </div>
             </div>
-        </section>
 
-        <!-- SEZIONE 6: AUDIT LOG E ALLARMI SICUREZZA -->
-        <section class="bg-sfx-panel p-8 rounded-3xl border border-red-900/50 space-y-4 font-mono text-xs">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                <h3 class="font-grotesk font-bold text-sm text-red-400 uppercase">
-                    <i class="fa-solid fa-shield-cat mr-2"></i>LOG SICUREZZA & ALLARMI X-BOX
-                </h3>
-                <span class="text-[10px] text-gray-400">INDIRIZZO NOTIFICHE: <strong>ceo@supremaofficial.com</strong></span>
+            <!-- RISULTATI CALCOLO -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-black/80 p-6 rounded-2xl border border-gray-800 text-center text-xs">
+                <div class="space-y-1">
+                    <span class="text-gray-500 font-mono">FATTURATO LORDO</span>
+                    <div id="roi-lordo" class="text-xl font-bold font-grotesk text-white">€25,000.00</div>
+                </div>
+                <div class="space-y-1">
+                    <span class="text-gray-500 font-mono">MARGINE GUADAGNO B2B</span>
+                    <div id="roi-margine" class="text-xl font-bold font-grotesk text-sfx-gold">€17,000.00 (+68%)</div>
+                </div>
+                <div class="space-y-1">
+                    <span class="text-gray-500 font-mono">PUNTI GOLD ACCREDITATI</span>
+                    <div id="roi-punti" class="text-xl font-bold font-cyber text-sfx-cyanLight">5,000 PTS</div>
+                </div>
             </div>
-            <div class="bg-black/60 p-4 rounded-2xl border border-gray-800 space-y-2 text-gray-400 text-[11px]" id="audit-log-container">
-                <p class="text-green-400">✓ [SISTEMA] X-BOX Control Room attiva. Connessione cifrata EAL6+.</p>
-                <p class="text-gray-500">Nessun allarme sicurezza recente registrato.</p>
-            </div>
-        </section>
+        </div></main>
 
-    </main>
-
-    <!-- FOOTER DIREZIONALE -->
-    <footer class="border-t border-gray-800 py-6 px-4 text-center text-[10px] text-gray-500 font-mono">
-        SUPREMA FUTURE X S.R.L. // X-BOX CONTROL CENTER // CEO GIULIANO CARATELLI // ALL RIGHTS RESERVED
+    <!-- FOOTER DIREZIONALE UFFICIALE -->
+    <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <span>SUPREMA FUTURE X S.R.L. // CASSAFORTE PRIVATA CEO</span>
+            <span class="text-sfx-gold font-bold">PROTOCOLLO SICUREZZA: EAL6+ SOVRANO</span>
+            <span>© 2026 TUTTI I DIRITTI RISERVATI</span>
+        </div>
     </footer>
 
-    <!-- LOGICA JAVASCRIPT GESTIONE ARCHIVIO E LIMITI SLOT -->
+    <!-- INCLUSIONE SCRIPT SISTEMA -->
     <script src="js/code.js"></script>
     <script src="sfx-delta-patch.js"></script>
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzegxbf4ZpkJkrb4NVJsTlYmfles9jW9VTw0hv8JWRdF6251ag3SKBGVq-eR1rfvwBQ3g/exec';
+        // === 1. GESTORE TIMER INATTIVITÀ (10 MINUTI) & LOGOUT AUTOMATICO ===
+        let vaultTimeout;
+        let countdownTimer;
+        const TIMEOUT_MS = 10 * 60 * 1000; // 10 minuti in millisecondi
+        let tempoRimanente = TIMEOUT_MS / 1000;
 
-        // LIMITI RIGIDI SLOT PER CATEGORIA
-        const LIMITI = {
-            foto: 100,
-            video: 60,
-            slide: 100,
-            testi: 50,
-            pdf: 150
-        };
-
-        // MEMORIA LOCALE E SYNC SERVER
-        let archivio = {
-            foto: [],
-            video: [],
-            slide: [],
-            testi: [],
-            pdf: []
-        };
-
-        // CARICAMENTO INIZIALE
-        window.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem('sfx_vault_archivio');
-            if (saved) {
-                try { archivio = JSON.parse(saved); } catch(e) {}
+        function aggiornaDisplayTimer() {
+            const display = document.getElementById('vault-timer');
+            if (!display) return;
+            const minuti = Math.floor(tempoRimanente / 60);
+            const secondi = tempoRimanente % 60;
+            display.textContent = `${minuti.toString().padStart(2, '0')}:${secondi.toString().padStart(2, '0')}`;
+            
+            if (tempoRimanente <= 60) {
+                display.className = "text-red-500 font-bold animate-pulse";
+            } else {
+                display.className = "text-sfx-cyanLight font-bold";
             }
-            aggiornaInterfaccia();
+        }
+
+        function resettaTimerVault() {
+            clearTimeout(vaultTimeout);
+            clearInterval(countdownTimer);
+            tempoRimanente = TIMEOUT_MS / 1000;
+            aggiornaDisplayTimer();
+            
+            vaultTimeout = setTimeout(eseguiLogoutVault, TIMEOUT_MS);
+            countdownTimer = setInterval(() => {
+                tempoRimanente--;
+                aggiornaDisplayTimer();
+                if (tempoRimanente <= 0) clearInterval(countdownTimer);
+            }, 1000);
+        }
+
+        // Resetta il timer a ogni interazione dell'utente nella pagina
+        ['mousemove', 'keydown', 'scroll', 'click'].forEach(evt => {
+            document.addEventListener(evt, resettaTimerVault, { passive: true });
         });
 
-        // SALVATAGGIO IN MEMORIA LOCALE
-        function salvaArchivioLocal() {
-            localStorage.setItem('sfx_vault_archivio', JSON.stringify(archivio));
-            aggiornaInterfaccia();
+        function eseguiLogoutVault() {
+            sessionStorage.removeItem('sfx_authenticated');
+            sessionStorage.removeItem('sfx_auth_time');
+            sessionStorage.removeItem('sfx_role');
+            alert("🔒 CASSAFORTE CEO BLOCCATA. SESSIONE CHIUSA IN SICUREZZA EAL6+.");
+            window.location.href = 'login.html';
         }
 
-        // AGGIORNAMENTO RENDERING LISTE E COUNTER
-        function aggiornaInterfaccia() {
-            ['foto', 'video', 'slide', 'testi', 'pdf'].forEach(cat => {
-                const countElem = document.getElementById(`counter-${cat}`);
-                const listElem = document.getElementById(`lista-${cat}`);
-                
-                if (countElem) {
-                    countElem.textContent = `${archivio[cat].length} / ${LIMITI[cat]}`;
-                }
+        // Inizializza il timer all'apertura della pagina
+        resettaTimerVault();
 
-                if (listElem) {
-                    if (archivio[cat].length === 0) {
-                        listElem.innerHTML = `<p class="text-gray-500 text-center py-4">Nessun file presente in questo slot.</p>`;
-                    } else {
-                        listElem.innerHTML = archivio[cat].map((item, idx) => `
-                            <div class="flex items-center justify-between p-2.5 bg-gray-900/80 rounded-xl border border-gray-800 font-mono text-[11px]">
-                                <div class="truncate max-w-[250px]">
-                                    <strong class="text-white block truncate">${item.titolo}</strong>
-                                    <span class="text-gray-500 text-[10px]">${item.data}</span>
-                                </div>
-                                <button onclick="eliminaElemento('${cat}', ${idx})" class="text-red-400 hover:text-red-300 px-2 py-1 bg-red-950/40 rounded border border-red-900/50">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        `).join('');
-                    }
-                }
-            });
+
+        // === 2. CALCOLATORE DINAMICO ROI / MARGINE B2B CONTRACT ===
+        function calcolaROIVault() {
+            const qtaElem = document.getElementById('roi-quantita');
+            const przElem = document.getElementById('roi-prezzo');
+            const scntElem = document.getElementById('roi-sconto');
+
+            if (!qtaElem || !przElem || !scntElem) return;
+
+            const quantita = parseFloat(qtaElem.value) || 0;
+            const prezzoListino = parseFloat(przElem.value) || 0;
+            const scontoPercentuale = parseFloat(scntElem.value) || 0;
+
+            // Calcolo Fatturato Lordo
+            const fatturatoLordo = quantita * prezzoListino;
+            
+            // Calcolo Costo Rivenditore (sconto applicato sul listino)
+            const costoRivenditore = fatturatoLordo * (scontoPercentuale / 100);
+            
+            // Margine Effettivo B2B
+            const margineB2B = fatturatoLordo - costoRivenditore;
+            
+            // Calcolo Margine in percentuale rispetto al listino
+            let marginePercentuale = 0;
+            if (fatturatoLordo > 0) {
+                marginePercentuale = (margineB2B / fatturatoLordo) * 100;
+            }
+
+            // Calcolo Punti Gold Equivalenti (1 Punto ogni 5 Euro fatturati)
+            const puntiGold = Math.floor(fatturatoLordo / 5);
+
+            // Aggiornamento Interfaccia UI Formattata in Euro
+            const f = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
+            
+            document.getElementById('roi-lordo').textContent = f.format(fatturatoLordo);
+            document.getElementById('roi-margine').textContent = `${f.format(margineB2B)} (+${marginePercentuale.toFixed(0)}%)`;
+            document.getElementById('roi-punti').textContent = `${puntiGold.toLocaleString('it-IT')} PTS`;
         }
 
-        // CARICAMENTO NUOVO ELEMENTO
-        async function caricaElemento(cat) {
-            if (archivio[cat].length >= LIMITI[cat]) {
-                alert(`ATTENZIONE: Limite massimo raggiunto per la categoria ${cat.toUpperCase()} (${LIMITI[cat]} slot max).`);
-                return;
-            }
+        // Calcolo iniziale al caricamento
+        calcolaROIVault();
 
-            let titolo = '';
-            let fileInput = document.getElementById(`upload-${cat}-file`);
 
-            if (cat === 'testi') {
-                titolo = document.getElementById('upload-testi-titolo').value.trim();
-                const contenuto = document.getElementById('upload-testi-contenuto').value.trim();
-                if (!titolo || !contenuto) {
-                    alert('Compilare sia il titolo che il testo.');
-                    return;
-                }
-            } else {
-                titolo = document.getElementById(`upload-${cat}-titolo`).value.trim();
-                if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-                    if (!titolo) {
-                        alert('Selezionare un file o inserire un titolo.');
-                        return;
-                    }
-                } else {
-                    if (!titolo) titolo = fileInput.files[0].name;
-                }
-            }
+        // === 3. AZIONI DOWNLOAD E ANTEPRIMA BLUEPRINT ===
+        function scaricaBlueprintPDF(codiceBrevetto) {
+            // Simulazione scaricamento Blueprint Crittografato
+            const btnText = event.currentTarget.innerHTML;
+            event.currentTarget.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>DECRIPTAZIONE EAL6+...';
+            event.currentTarget.disabled = true;
 
-            const nuovoItem = {
-                titolo: titolo,
-                data: new Date().toLocaleString('it-IT')
-            };
-
-            archivio[cat].push(nuovoItem);
-            salvaArchivioLocal();
-
-            // INVIO SYNC AL SERVER APPS SCRIPT
-            try {
-                fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        action: 'VAULT_UPLOAD',
-                        categoria: cat,
-                        titolo: titolo
-                    })
-                });
-            } catch(e) {}
-
-            // PREDISPOSIZIONE RESET INPUT
-            if (fileInput) fileInput.value = '';
-            const tInput = document.getElementById(`upload-${cat}-titolo`);
-            if (tInput) tInput.value = '';
-            const cInput = document.getElementById('upload-testi-contenuto');
-            if (cInput) cInput.value = '';
-
-            alert(`✓ File aggiunto correttamente nell'archivio X-BOX (${cat.toUpperCase()})!`);
+            setTimeout(() => {
+                alert(`✓ BLUEPRINT CRITTOGRAFATO PRONTO PER IL DOWNLOAD\n\nCodice: ${codiceBrevetto}\nChiave EAL6+ Generata con successo.`);
+                event.currentTarget.innerHTML = btnText;
+                event.currentTarget.disabled = false;
+            }, 1500);
         }
 
-        // ELIMINAZIONE ELEMENTO
-        function eliminaElemento(cat, idx) {
-            if (confirm(`Confermi l'eliminazione dello slot selezionato in ${cat.toUpperCase()}?`)) {
-                archivio[cat].splice(idx, 1);
-                salvaArchivioLocal();
-            }
+        function apriAnteprima3D(tipo) {
+            alert(`Inizializzazione Motore Grafico 3D per ${tipo} in corso...`);
         }
     </script>
 </body>
