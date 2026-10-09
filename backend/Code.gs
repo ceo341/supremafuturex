@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // MASTER SERVER ENGINE V35 (EAL6+ SOVRANO)
+ * SUPREMA FUTURE X S.R.L. // MASTER ENGINE V35 (EAL6+ SOVRANO)
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * ====================================================================
  */
@@ -8,8 +8,8 @@
 var CONFIG = {
   EMAIL_CEO: "ceo@supremaofficial.com",
   PHONE_CEO: "+393474429091",
-  TELEGRAM_BOT_TOKEN: "789123456:AAFx_YOUR_TELEGRAM_BOT_TOKEN_HERE", // Sostituisci con il tuo Token Bot se attivo
-  TELEGRAM_CHAT_ID: "123456789",                                     // Sostituisci con il tuo Chat ID Telegram
+  TELEGRAM_BOT_TOKEN: "789123456:AAFx_YOUR_TELEGRAM_BOT_TOKEN_HERE", // Inserisci il token Telegram se attivo
+  TELEGRAM_CHAT_ID: "123456789",                                     // Inserisci il tuo Chat ID Telegram
   DOMAIN_URL: "https://supremafuturex.com/"
 };
 
@@ -89,7 +89,7 @@ function gestisciNuovaCandidatura(data) {
   var corsoAsset = data.canale || data.course || data.asset || "Conferenza CEO Giuliano";
   var note = data.note || "";
   
-  // Contatore id progressivo (CEOSFX0001 riservato alla Governance)
+  // Contatore ID progressivo (CEOSFX0001 riservato alla Governance)
   var progressivo = sheet.getLastRow() + 1;
   var nexusCode = "CEOSFX" + padNumero(progressivo, 4);
 
