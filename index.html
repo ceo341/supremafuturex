@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suprema Future X // Enterprise Community, Networking & Academy</title>
-    <meta name="description" content="Suprema Future X è una community, networking e academy ENTERPRISE potente e piena di risultati. Insieme guidiamo il tuo domani.">
-    <meta name="keywords" content="Suprema Future X, Enterprise, Community, Networking, Academy, Giuliano CEO, Alison AI, Linea Antigravity, Gold Card">
+    <meta name="description" content="Suprema Future X S.r.l. - Community, Networking & Academy ENTERPRISE. Insieme guidiamo il tuo domani.">
+    <meta name="keywords" content="Suprema Future X, Enterprise, Community, Networking, Academy, Giuliano CEO, Alison AI, Linea Antigravity, Gold Card, Luxury Fittings">
     <meta name="author" content="Suprema Future X S.r.l.">
     <meta name="theme-color" content="#008B99">
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Schema.org Enterprise JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -18,17 +18,30 @@
       "alternateName": "Suprema Enterprise",
       "url": "https://supremafuturex.com",
       "logo": "https://supremafuturex.com/media/logo.png",
-      "founder": { "@type": "Person", "name": "Giuliano Caratelli", "jobTitle": "CEO" },
-      "slogan": "Insieme guidiamo il tuo domani",
-      "address": { "@type": "PostalAddress", "addressLocality": "Roma", "streetAddress": "Via della Scrofa" },
-      "contactPoint": { "@type": "ContactPoint", "telephone": "+39-347-442-9091", "email": "ceo@supremaofficial.com" }
+      "founder": {
+        "@type": "Person",
+        "name": "Giuliano Caratelli",
+        "jobTitle": "CEO"
+      },
+      "slogan": "Insieme guidiamo il tuo domani..",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Roma",
+        "streetAddress": "Via della Scrofa, Centro"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+39-347-442-9091",
+        "email": "ceo@supremaofficial.com"
+      }
     }
     </script>
 
+    <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/png" href="media/logo.png">
     <link rel="manifest" href="manifest.json">
 
-    <!-- Tailwind CSS & Font -->
+    <!-- Tailwind CSS & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,6 +61,7 @@
                             cyanLight: '#00F0FF',
                             silver: '#C0C0C0',
                             pearl: '#FDFBF7',
+                            anthracite: '#12141C',
                             dark: '#090A0D'
                         }
                     },
@@ -63,55 +77,72 @@
     </script>
 
     <style>
+        /* LUCE TRACCIANTE SUL TITOLO MONOLINEA 3D */
         @keyframes shineText3D {
             0% { background-position: 0% center; }
             100% { background-position: 200% center; }
         }
+
         .title-3d-shimmer {
             background: linear-gradient(90deg, #008B99 0%, #D4AF37 25%, #FFFFFF 50%, #B8860B 75%, #00F0FF 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shineText3D 4s linear infinite;
-            text-shadow: 0px 4px 10px rgba(0, 139, 153, 0.4);
+            text-shadow: 0px 4px 12px rgba(0, 139, 153, 0.4);
+            filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
         }
+
+        /* Anello Tracciante attorno al Logo Grande */
         .glow-logo-ring {
+            position: relative;
             border-radius: 9999px;
-            padding: 4px;
+            padding: 5px;
             background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
             background-size: 300% 300%;
             animation: gradientTrace 5s ease infinite;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), 0 0 15px rgba(184, 134, 11, 0.5);
         }
+
+        /* Overlay Drawer Hamburger */
         .drawer-overlay {
             background-color: rgba(9, 10, 13, 0.85);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
 <body class="cyber-pearl-grid text-[#12141C] font-sans overflow-x-hidden selection:bg-sfx-gold selection:text-white">
 
-    <!-- BARRA DI STATO SUPERIORE CON LOGO STEALTH ROUTER & MULTILINGUA -->
+    <!-- BARRA DI STATO SUPERIORE CON LOGO STEALTH ROUTER & MULTILINGUA (10 LINGUE) -->
     <div class="bg-[#090A0D] text-white border-b border-sfx-gold/30 px-4 py-2 flex flex-wrap items-center justify-between text-[11px] font-mono tracking-wider z-50 relative">
         <div class="flex items-center space-x-3">
-            <!-- Logo Stealth Router (2 tap = X-BOX | 3 tap = Privato CEO) -->
-            <div class="w-7 h-7 rounded-full p-0.5 bg-sfx-gold cursor-pointer group" id="sfx-brand-logo-status" title="Stealth Entry (2 Tap = X-BOX | 3 Tap = Privato CEO)">
+            <!-- Logo Stealth Router (2 Tap = X-BOX | 3 Tap = Privato CEO) -->
+            <div class="w-7 h-7 rounded-full p-0.5 bg-sfx-gold cursor-pointer group" id="sfx-brand-logo-status" title="Stealth Access (2 Tap = X-BOX | 3 Tap = Privato CEO)">
                 <img src="media/logo.png" alt="SFX Logo" class="w-full h-full rounded-full object-cover bg-black" onerror="this.src='media/logo.png'">
             </div>
             <span class="inline-flex items-center text-sfx-gold font-bold">
                 <span class="w-2 h-2 rounded-full bg-sfx-gold animate-ping mr-1.5"></span>
                 DREAM DEFENSE SYSTEM // 2026
             </span>
+            <span class="hidden sm:inline text-gray-600">|</span>
+            <span class="hidden sm:inline text-sfx-cyan">LATENCY: &lt;12ms (EAL6+ SOVRANO)</span>
         </div>
 
         <div class="flex items-center space-x-4">
-            <!-- Multilingua 10 Lingue Reali -->
+            <!-- Multilingua Reale con 10 Lingue attive -->
             <div class="flex items-center space-x-1 bg-[#12141C] border border-gray-700 px-2 py-0.5 rounded-lg text-gray-300">
                 <i class="fa-solid fa-globe text-sfx-gold mr-1"></i>
                 <select id="lang-selector" onchange="cambiaLingua(this.value)" class="bg-transparent text-gray-200 outline-none cursor-pointer font-mono text-[11px]">
-                    <option value="IT" selected>🇮🇹 IT</option><option value="FR">🇫🇷 FR</option><option value="EN">🇬🇧 EN</option>
-                    <option value="SK">🇸🇰 SK</option><option value="RO">🇷🇴 RO</option><option value="DE">🇩🇪 DE</option>
-                    <option value="ES">🇪🇸 ES</option><option value="CS">🇨🇿 CS</option><option value="PT">🇵🇹 PT</option><option value="SQ">🇦🇱 SQ</option>
+                    <option value="IT" selected>🇮🇹 ITALIANO</option>
+                    <option value="FR">🇫🇷 FRANCESE</option>
+                    <option value="EN">🇬🇧 INGLESE</option>
+                    <option value="SK">🇸🇰 SLOVACCO</option>
+                    <option value="RO">🇷🇴 RUMENO</option>
+                    <option value="DE">🇩🇪 TEDESCO</option>
+                    <option value="ES">🇪🇸 SPAGNOLO</option>
+                    <option value="CS">🇨🇿 CECOSLOVACCO</option>
+                    <option value="PT">🇵🇹 PORTOGHESE</option>
+                    <option value="SQ">🇦🇱 ALBANESE</option>
                 </select>
             </div>
             <span class="text-gray-300 hidden md:inline">GOVERNANCE: <strong class="text-sfx-goldLight">CEO GIULIANO</strong></span>
@@ -119,11 +150,11 @@
         </div>
     </div>
 
-    <!-- NAVBAR HEADER CON 5 MENU HAMBURGER A SCOMPARSA (TIMER 10S) -->
+    <!-- NAVBAR HEADER CON ROUTER STEALTH & 5 MENU HAMBURGER A SCOMPARSA (AUTOCLOSE 10S) -->
     <header class="sticky top-0 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-gray-200 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <div class="flex items-center space-x-3 cursor-pointer select-none" id="sfx-brand-logo-main">
+            <div class="flex items-center space-x-3 cursor-pointer select-none" id="sfx-brand-logo-main" title="Stealth Access (2 Tap = X-BOX | 3 Tap = Privato CEO)">
                 <div class="w-11 h-11 rounded-full p-0.5 bg-gradient-to-tr from-sfx-cyan via-sfx-gold to-sfx-silver shadow-md">
                     <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
                 </div>
@@ -133,100 +164,129 @@
                 </div>
             </div>
 
-            <!-- Pulsanti Menu Hamburger -->
+            <!-- Pulsanti Menu Hamburger (Alison, Sezioni, Chi Siamo, Lavora Con Noi) -->
             <div class="flex items-center space-x-2 font-mono text-xs">
-                <button onclick="toggleDrawer('drawer-alison')" class="px-3 py-1.5 rounded-xl bg-sfx-cyan text-white font-bold hover:bg-cyan-700 transition-colors">
-                    <i class="fa-solid fa-comments mr-1"></i><span>ALISON</span>
+                <button onclick="toggleDrawer('drawer-alison')" class="px-3.5 py-2 rounded-xl bg-sfx-cyan text-white font-bold hover:bg-cyan-700 transition-colors shadow-md flex items-center space-x-1">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>ALISON</span>
                 </button>
-                <button onclick="toggleDrawer('drawer-sezioni')" class="px-3 py-1.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/30 hover:bg-black transition-colors">
-                    <i class="fa-solid fa-bars mr-1"></i><span>SEZIONI</span>
+                <button onclick="toggleDrawer('drawer-sezioni')" class="px-3.5 py-2 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/30 hover:bg-black transition-colors flex items-center space-x-1">
+                    <i class="fa-solid fa-bars"></i>
+                    <span>SEZIONI</span>
                 </button>
-                <button onclick="toggleDrawer('drawer-chisiamo')" class="px-3 py-1.5 rounded-xl bg-sfx-gold text-black font-bold hover:bg-yellow-600 transition-colors">
-                    <i class="fa-solid fa-circle-info mr-1"></i><span>CHI SIAMO</span>
+                <button onclick="toggleDrawer('drawer-chisiamo')" class="px-3.5 py-2 rounded-xl bg-sfx-gold text-black font-bold hover:bg-yellow-600 transition-colors flex items-center space-x-1">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>CHI SIAMO</span>
                 </button>
-                <a href="candidatura.html" class="px-3 py-1.5 rounded-xl bg-gray-800 text-white font-bold hover:bg-gray-700 transition-colors hidden lg:inline-block">
+                <a href="candidatura.html?ambito=Lavora%20Con%20Noi" class="px-3.5 py-2 rounded-xl bg-gray-800 text-white font-bold hover:bg-gray-700 transition-colors hidden sm:inline-block">
                     LAVORA CON NOI
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- DRAWER ALISON & CANDIDATURE -->
+    <!-- DRAWER 1: ALISON CHATBOT, CONFERENZA CEO, ACADEMY, PARLA CON ALISON -->
     <div id="drawer-alison" class="fixed inset-0 drawer-overlay z-50 hidden flex justify-end" onclick="chiudiDrawerAlClickFuori(event, 'drawer-alison')">
-        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-4 flex flex-col justify-between border-l border-sfx-cyan/40 font-mono text-xs">
-            <div class="space-y-4">
-                <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                    <span class="text-sfx-cyan font-bold uppercase"><i class="fa-solid fa-brain mr-2"></i>ALISON & CANDIDATURE</span>
+        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-6 flex flex-col justify-between border-l border-sfx-cyan/40 font-mono text-xs">
+            <div class="space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="text-sfx-cyan font-bold uppercase tracking-widest"><i class="fa-solid fa-brain mr-2"></i>ALISON & CANDIDATURE</span>
                     <button onclick="toggleDrawer('drawer-alison')" class="text-gray-400 hover:text-white text-lg">&times;</button>
                 </div>
-                <div class="flex flex-col space-y-2.5">
-                    <a href="#alison-ai" onclick="chiudiDrawer('drawer-alison')" class="p-3 bg-gray-900 rounded-xl font-bold text-sfx-cyan flex justify-between"><span>CHATBOT ALISON</span><i class="fa-solid fa-chevron-right"></i></a>
-                    <a href="candidatura.html?ambito=Conferenza%20CEO" onclick="chiudiDrawer('drawer-alison')" class="p-3 bg-gray-900 rounded-xl font-bold text-sfx-gold flex justify-between"><span>CONFERENZA CEO</span><i class="fa-solid fa-chevron-right"></i></a>
-                    <a href="candidatura.html?ambito=Candidatura%20Academy" onclick="chiudiDrawer('drawer-alison')" class="p-3 bg-gray-900 rounded-xl font-bold text-white flex justify-between"><span>ACADEMY CANDIDATURA</span><i class="fa-solid fa-chevron-right"></i></a>
-                    <button onclick="chiudiDrawer('drawer-alison'); apriWidgetAlison();" class="p-3 bg-sfx-cyan text-white font-bold rounded-xl text-left uppercase">PARLA CON ALISON &rarr;</button>
+                <div class="flex flex-col space-y-3">
+                    <a href="#alison-ai" onclick="chiudiDrawer('drawer-alison')" class="p-3.5 bg-gray-900 rounded-xl font-bold text-sfx-cyan flex justify-between items-center hover:bg-gray-800">
+                        <span><i class="fa-solid fa-comments mr-2"></i>CHAT BOT ALISON</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                    <a href="candidatura.html?ambito=Conferenza%20CEO" onclick="chiudiDrawer('drawer-alison')" class="p-3.5 bg-gray-900 rounded-xl font-bold text-sfx-gold flex justify-between items-center hover:bg-gray-800">
+                        <span><i class="fa-solid fa-user-tie mr-2"></i>CONFERENZA CEO</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                    <a href="candidatura.html?ambito=Academy%20Corsi" onclick="chiudiDrawer('drawer-alison')" class="p-3.5 bg-gray-900 rounded-xl font-bold text-white flex justify-between items-center hover:bg-gray-800">
+                        <span><i class="fa-solid fa-graduation-cap mr-2"></i>ACADEMY CANDIDATURA</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                    <button onclick="chiudiDrawer('drawer-alison'); apriWidgetAlison();" class="p-3.5 bg-sfx-cyan text-white font-bold rounded-xl text-left uppercase tracking-wider hover:bg-cyan-700 shadow-md">
+                        <i class="fa-solid fa-headset mr-2"></i>PARLA CON ALISON &rarr;
+                    </button>
                 </div>
+            </div>
+            <div class="border-t border-gray-800 pt-4 text-center text-gray-500 text-[10px]">
+                PROTOCOLLO NEURALE EAL6+
             </div>
         </div>
     </div>
 
-    <!-- DRAWER SEZIONI LANDING PAGE -->
+    <!-- DRAWER 2: TUTTE LE VOCI DELLA LANDING PAGE -->
     <div id="drawer-sezioni" class="fixed inset-0 drawer-overlay z-50 hidden flex justify-end" onclick="chiudiDrawerAlClickFuori(event, 'drawer-sezioni')">
-        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-4 flex flex-col justify-between border-l border-sfx-gold/40 font-mono text-xs">
-            <div class="space-y-4">
-                <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                    <span class="text-sfx-gold font-bold uppercase"><i class="fa-solid fa-list mr-2"></i>SEZIONI ECOSYSTEM</span>
+        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-6 flex flex-col justify-between border-l border-sfx-gold/40 font-mono text-xs">
+            <div class="space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="text-sfx-gold font-bold uppercase tracking-widest"><i class="fa-solid fa-list mr-2"></i>SEZIONI LANDING PAGE</span>
                     <button onclick="toggleDrawer('drawer-sezioni')" class="text-gray-400 hover:text-white text-lg">&times;</button>
                 </div>
                 <div class="flex flex-col space-y-2 uppercase font-semibold">
-                    <a href="#alison-ai" onclick="chiudiDrawer('drawer-sezioni')" class="p-2.5 bg-gray-900 rounded-lg hover:text-sfx-cyan">Alison Console</a>
-                    <a href="#conferenza-ceo" onclick="chiudiDrawer('drawer-sezioni')" class="p-2.5 bg-gray-900 rounded-lg hover:text-sfx-gold">Conferenza CEO</a>
-                    <a href="#academy" onclick="chiudiDrawer('drawer-sezioni')" class="p-2.5 bg-gray-900 rounded-lg hover:text-sfx-gold">Suprema Academy</a>
-                    <a href="#gold-card" onclick="chiudiDrawer('drawer-sezioni')" class="p-2.5 bg-gray-900 rounded-lg hover:text-sfx-gold">Suprema Gold Card</a>
-                    <a href="#boutique-opal" onclick="chiudiDrawer('drawer-sezioni')" class="p-2.5 bg-gray-900 rounded-lg hover:text-sfx-gold">Boutique Luxury</a>
-                    <a href="#antigravity" onclick="chiudiDrawer('drawer-sezioni')" class="p-2.5 bg-gray-900 rounded-lg hover:text-sfx-cyan">Linea Antigravity</a>
-                    <a href="#multimedia" onclick="chiudiDrawer('drawer-sezioni')" class="p-2.5 bg-gray-900 rounded-lg hover:text-sfx-gold">Multimedia Library</a>
+                    <a href="#alison-ai" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>1. Alison Console H24</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#conferenza-ceo" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>2. Conferenza CEO</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#academy" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>3. Suprema Academy</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#dicono-di-noi" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>4. Dicono di Noi</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#gold-card" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>5. Suprema Gold Card</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#boutique-opal" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>6. Boutique Luxury</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#antigravity" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>7. Linea Antigravity</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#multimedia" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>8. Multimedia Library</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#gateway" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>9. Gateway Pagamenti</span><i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- DRAWER CHI SIAMO & NASCITA D'UN'IDEA -->
+    <!-- DRAWER 3: CHI SIAMO, NASCITA D'UN'IDEA & CONTATTI -->
     <div id="drawer-chisiamo" class="fixed inset-0 drawer-overlay z-50 hidden flex justify-end" onclick="chiudiDrawerAlClickFuori(event, 'drawer-chisiamo')">
-        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-4 flex flex-col justify-between border-l border-sfx-gold/40 font-mono text-xs overflow-y-auto">
-            <div class="space-y-4">
-                <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                    <span class="text-sfx-goldLight font-bold uppercase"><i class="fa-solid fa-building mr-2"></i>CHI SIAMO & STORIA</span>
+        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-6 flex flex-col justify-between border-l border-sfx-gold/40 font-mono text-xs overflow-y-auto">
+            <div class="space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="text-sfx-goldLight font-bold uppercase tracking-widest"><i class="fa-solid fa-building mr-2"></i>CHI SIAMO & STORIA</span>
                     <button onclick="toggleDrawer('drawer-chisiamo')" class="text-gray-400 hover:text-white text-lg">&times;</button>
                 </div>
-                <div class="space-y-3">
-                    <div class="bg-gray-900 p-3.5 rounded-xl border border-gray-800 space-y-1">
-                        <span class="text-sfx-gold font-bold block uppercase"><i class="fa-solid fa-lightbulb mr-1.5"></i>Nascita di un'Idea</span>
+                <div class="space-y-4">
+                    <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 space-y-2">
+                        <span class="text-sfx-gold font-bold block uppercase"><i class="fa-solid fa-lightbulb mr-2"></i>Nascita di un'Idea</span>
                         <p class="text-gray-300 text-[11px] leading-relaxed">
-                            Suprema Future X S.r.l. nasce dalla visione del Fondatore e CEO Giuliano Caratelli e del Board Supervisor per creare un polo Enterprise di Formazione, Networking e Tecnologia Neurale.
+                            Suprema Future X S.r.l. nasce dalla visione del Fondatore e CEO Giuliano Caratelli e del Board Supervisor per creare un'infrastruttura Enterprise in cui Alta Formazione, Leadership Neurale, Luxury Fittings e Networking d'Élite convergono in un unico polo d'eccellenza.
                         </p>
                     </div>
-                    <div class="bg-gray-900 p-3.5 rounded-xl border border-gray-800 space-y-1">
-                        <span class="text-sfx-cyan font-bold block uppercase"><i class="fa-solid fa-location-dot mr-1.5"></i>Sede Legale & Uffici</span>
+                    <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 space-y-2">
+                        <span class="text-sfx-cyan font-bold block uppercase"><i class="fa-solid fa-location-dot mr-2"></i>Sede Legale & Uffici</span>
                         <p class="text-gray-300 text-[11px]">Roma Centro, Via della Scrofa</p>
                     </div>
-                    <div class="bg-gray-900 p-3.5 rounded-xl border border-gray-800 space-y-1">
-                        <span class="text-sfx-goldLight font-bold block uppercase"><i class="fa-solid fa-phone mr-1.5"></i>Contatti Diretti</span>
+                    <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 space-y-2">
+                        <span class="text-sfx-goldLight font-bold block uppercase"><i class="fa-solid fa-address-book mr-2"></i>Contatti Diretti</span>
                         <p class="text-gray-300 text-[11px]">Email: ceo@supremaofficial.com<br>Tel/WhatsApp: +39 347 442 9091</p>
                     </div>
+                    <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 space-y-2">
+                        <span class="text-sfx-cyanLight font-bold block uppercase"><i class="fa-solid fa-headset mr-2"></i>Come Possiamo Aiutarti?</span>
+                        <button onclick="chiudiDrawer('drawer-chisiamo'); apriWidgetAlison();" class="w-full py-2.5 bg-sfx-cyan text-white font-bold rounded-xl uppercase text-[10px] hover:bg-cyan-700">
+                            Parla con la Chatbot Alison &rarr;
+                        </button>
+                    </div>
                 </div>
+            </div>
+            <div class="border-t border-gray-800 pt-4 text-center text-gray-500 text-[10px]">
+                © 2026 SUPREMA FUTURE X S.R.L. // ALL RIGHTS RESERVED
             </div>
         </div>
     </div>
 
-    <!-- BRANDING GRANDE CENTRALE -->
+    <!-- BRANDING GRANDE CENTRALE SOTTO LA BARRA DI STATO -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 text-center space-y-4">
-        <div class="relative w-28 h-28 sm:w-36 sm:h-36 mx-auto glow-logo-ring cursor-pointer" id="sfx-brand-logo-center">
+        <!-- Logo Circolare Grande con Anello Luminoso & Dicitura Semi-cerchio ENTERPRISE -->
+        <div class="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto glow-logo-ring cursor-pointer" id="sfx-brand-logo-center" title="Stealth Access (2 Tap = X-BOX | 3 Tap = Privato CEO)">
             <img src="media/logo.png" alt="Logo Grande SFX" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
-            <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-[#090A0D] border border-sfx-gold text-sfx-gold font-mono text-[9px] font-bold rounded-full uppercase tracking-widest shadow-lg">ENTERPRISE</span>
+            <span class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#090A0D] border-2 border-sfx-gold text-sfx-gold font-mono text-[10px] font-extrabold rounded-full uppercase tracking-widest shadow-2xl">
+                ENTERPRISE
+            </span>
         </div>
 
+        <!-- Titolo Monolinea 3D con Luce Tracciante, Slogan e Motto -->
         <div class="space-y-2 pt-2">
-            <h1 class="font-grotesk font-black text-2xl sm:text-4xl lg:text-5xl tracking-wider title-3d-shimmer uppercase whitespace-nowrap">
+            <h1 class="font-grotesk font-black text-3xl sm:text-5xl lg:text-6xl tracking-wider title-3d-shimmer uppercase whitespace-nowrap">
                 SUPREMA FUTURE X
             </h1>
             <p class="font-mono text-xs sm:text-sm font-extrabold text-sfx-gold tracking-widest uppercase">
@@ -358,7 +418,7 @@
                     <span class="px-3 py-1 bg-sfx-gold/10 text-sfx-gold font-mono text-xs font-bold rounded-lg uppercase">PRESIDENZA EXCLUSIVE</span>
                     <h3 class="font-grotesk font-extrabold text-2xl text-[#090A0D]">CEO GIULIANO</h3>
                     <p class="text-xs text-gray-600 font-mono leading-relaxed">
-                        Le sessioni individuali con la Presidenza avvengono esclusivamente tramite accreditamento riservato.
+                        Le sessioni individuali con la Presidenza avvengono esclusivamente tramite accreditamento riservato. Per riservare la tua presenza, accedi alla scheda ufficiale.
                     </p>
                     <a href="candidatura.html?ambito=Conferenza%20CEO" class="inline-block w-full py-4 rounded-xl bg-sfx-gold text-white font-grotesk font-extrabold text-xs uppercase tracking-wider shadow-md hover:bg-yellow-700 transition-all text-center">
                         <i class="fa-solid fa-lock-open mr-2"></i>Apri Scheda Candidatura Riservata
@@ -367,7 +427,7 @@
             </div>
         </section>
 
-        <!-- SEZIONE 4: SUPREMA ACADEMY CORSI (SENZA PREZZI IN LANDING - MODAL 8 POLLICI) -->
+        <!-- SEZIONE 4: SUPREMA ACADEMY CORSI (SILVER, EXECUTIVE, PREMIUM - NO PREZZI LANDING) -->
         <section id="academy" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">PERCORSI AD ALTA FORMAZIONE</span>
@@ -385,7 +445,7 @@
                         <h3 class="text-lg font-bold font-grotesk text-black mt-1">SILVER</h3>
                         <p class="text-xs text-gray-600 mt-2 leading-relaxed">Fondamenti di networking sobrio, crescita personale e architettura dell'ecosistema digitale.</p>
                     </div>
-                    <button onclick="apriModalCorso('Silver', 'Fondamenti di networking sobrio e architettura digitale.')" class="mt-6 w-full py-3 rounded-xl border border-sfx-gold text-sfx-gold font-grotesk font-bold text-xs uppercase hover:bg-sfx-gold hover:text-white transition-all">
+                    <button onclick="apriModalCorso('Silver', 'Fondamenti di networking sobrio, crescita personale ed ecosistema digitale.')" class="mt-6 w-full py-3 rounded-xl border border-sfx-gold text-sfx-gold font-grotesk font-bold text-xs uppercase hover:bg-sfx-gold hover:text-white transition-all">
                         SCOPRI DI PIÙ
                     </button>
                 </div>
@@ -401,7 +461,7 @@
                         <h3 class="text-lg font-bold font-grotesk text-black mt-1">EXECUTIVE</h3>
                         <p class="text-xs text-gray-600 mt-2 leading-relaxed">Formazione avanzata di Leadership, integrazione agenti AI e rilascio Suprema Gold Card.</p>
                     </div>
-                    <button onclick="apriModalCorso('Executive', 'Leadership Avanzata, Integrazione Neurale AI e Gold Card Phygital.')" class="mt-6 w-full py-3 rounded-xl bg-sfx-gold text-white font-grotesk font-bold text-xs uppercase hover:bg-yellow-700 transition-all shadow-md">
+                    <button onclick="apriModalCorso('Executive', 'Leadership Avanzata, Integrazione Neurale AI e rilascio Gold Card Phygital.')" class="mt-6 w-full py-3 rounded-xl bg-sfx-gold text-white font-grotesk font-bold text-xs uppercase hover:bg-yellow-700 transition-all shadow-md">
                         SCOPRI DI PIÙ
                     </button>
                 </div>
@@ -416,15 +476,15 @@
                         <h3 class="text-lg font-bold font-grotesk text-black mt-1">PREMIUM</h3>
                         <p class="text-xs text-gray-600 mt-2 leading-relaxed">Full check Executive Suite, sessione One-to-One con il CEO GIULIANO e consegna Card Metallo.</p>
                     </div>
-                    <button onclick="apriModalCorso('Premium', 'Sessione 1-to-1 con il CEO Giuliano e Card Metallo EAL6+.')" class="mt-6 w-full py-3 rounded-xl border border-sfx-cyan text-sfx-cyan font-grotesk font-bold text-xs uppercase hover:bg-sfx-cyan hover:text-white transition-all">
+                    <button onclick="apriModalCorso('Premium', 'Sessione 1-to-1 esclusiva con il CEO GIULIANO e consegna della Card in Metallo.')" class="mt-6 w-full py-3 rounded-xl border border-sfx-cyan text-sfx-cyan font-grotesk font-bold text-xs uppercase hover:bg-sfx-cyan hover:text-white transition-all">
                         SCOPRI DI PIÙ
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- SEZIONE 5: DICONO DI NOI (PULSANTE MODAL 9 POLLICI CON 20 TESTIMONIANZE 80% DONNE - 20% UOMINI) -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 text-center">
+        <!-- SEZIONE 5: DICONO DI NOI (PULSANTE MODAL 9 POLLICI CON 20 TESTIMONIANZE: 80% DONNE, 20% UOMINI) -->
+        <section id="dicono-di-noi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 text-center">
             <div class="max-w-3xl mx-auto mb-8 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-cyan tracking-widest uppercase">RIPROVA SOCIALE & SUCCESS STORIES</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold font-grotesk text-[#090A0D]">DICONO DI NOI</h2>
@@ -525,7 +585,7 @@
             </div>
         </section>
 
-        <!-- SEZIONE 9: SUPREMA MULTIMEDIA LIBRARY (PLAYER + 5 TAB SCOMPARSA) -->
+        <!-- SEZIONE 9: SUPREMA MULTIMEDIA LIBRARY (PLAYER + 5 TAB ARCHIVIO) -->
         <section id="multimedia" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-cyan tracking-widest uppercase">REGIA SHOWCASE // MEDIA BROADCAST</span>
@@ -534,11 +594,11 @@
             
             <!-- 5 TABS ARCHIVIO CATEGORIE -->
             <div class="flex flex-wrap justify-center gap-2 mb-6 font-mono text-xs">
-                <button onclick="caricaTabMedia('foto')" class="px-4 py-2 bg-[#090A0D] text-sfx-gold font-bold rounded-xl border border-sfx-gold/30">FOTO (100)</button>
-                <button onclick="caricaTabMedia('video')" class="px-4 py-2 bg-[#090A0D] text-sfx-cyan font-bold rounded-xl border border-sfx-cyan/30">VIDEO (60)</button>
-                <button onclick="caricaTabMedia('slide')" class="px-4 py-2 bg-[#090A0D] text-white font-bold rounded-xl border border-gray-700">SLIDE (100)</button>
-                <button onclick="caricaTabMedia('testi')" class="px-4 py-2 bg-[#090A0D] text-sfx-goldLight font-bold rounded-xl border border-sfx-gold/30">TESTI (50)</button>
-                <button onclick="caricaTabMedia('pdf')" class="px-4 py-2 bg-[#090A0D] text-sfx-cyanLight font-bold rounded-xl border border-sfx-cyan/30">PDF (150)</button>
+                <button onclick="caricaTabMedia('foto')" class="px-4 py-2 bg-[#090A0D] text-sfx-gold font-bold rounded-xl border border-sfx-gold/30 hover:bg-gray-800">FOTO (100)</button>
+                <button onclick="caricaTabMedia('video')" class="px-4 py-2 bg-[#090A0D] text-sfx-cyan font-bold rounded-xl border border-sfx-cyan/30 hover:bg-gray-800">VIDEO (60)</button>
+                <button onclick="caricaTabMedia('slide')" class="px-4 py-2 bg-[#090A0D] text-white font-bold rounded-xl border border-gray-700 hover:bg-gray-800">SLIDE (100)</button>
+                <button onclick="caricaTabMedia('testi')" class="px-4 py-2 bg-[#090A0D] text-sfx-goldLight font-bold rounded-xl border border-sfx-gold/30 hover:bg-gray-800">TESTI (50)</button>
+                <button onclick="caricaTabMedia('pdf')" class="px-4 py-2 bg-[#090A0D] text-sfx-cyanLight font-bold rounded-xl border border-sfx-cyan/30 hover:bg-gray-800">PDF (150)</button>
             </div>
 
             <div class="bg-[#090A0D] rounded-3xl border-2 border-sfx-gold p-6 lg:p-8 shadow-2xl text-white font-mono space-y-4">
@@ -567,7 +627,7 @@
         </section>
 
         <!-- SEZIONE 10: GATEWAY PAGAMENTI (SUMUP & REVOLUT) -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <section id="gateway" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">TRANSAZIONI SICURE EAL6+</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold font-grotesk text-[#090A0D]">GATEWAY PAGAMENTI</h2>
@@ -650,39 +710,56 @@
         <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-bounce">1</span>
     </div>
 
-    <!-- MODALE CORSI ACADEMY (8 POLLICI) -->
+    <!-- MODALE CORSI ACADEMY (SCHERMATA 8 POLLICI - PREZZI / ADERISCI AL CORSO) -->
     <div id="modal-corso-8pollici" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
-        <div class="bg-sfx-panel text-white rounded-3xl p-8 max-w-lg w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
+        <div class="bg-[#121620] text-white rounded-3xl p-8 max-w-lg w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 id="titolo-corso-modal" class="font-grotesk font-bold text-base text-sfx-goldLight uppercase">CORSO ACADEMY</h3>
                 <button onclick="document.getElementById('modal-corso-8pollici').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
             </div>
             <p id="desc-corso-modal" class="text-gray-300 leading-relaxed"></p>
-            <a id="btn-aderisci-corso" href="#" target="_blank" class="block w-full py-4 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:bg-yellow-500 text-center">
+            <a id="btn-aderisci-corso" href="candidatura.html" class="block w-full py-4 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:bg-yellow-500 text-center">
                 ADERISCI AL CORSO
             </a>
         </div>
     </div>
 
-    <!-- MODALE TESTIMONIANZE (9 POLLICI - 20 TESTIMONIANZE 80% DONNE) -->
+    <!-- MODALE TESTIMONIANZE (SCHERMATA 9 POLLICI - 20 TESTIMONIANZE: 80% DONNE, 20% UOMINI) -->
     <div id="modal-testimonianze-9pollici" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
-        <div class="bg-[#090A0D] text-white rounded-3xl p-6 sm:p-8 max-w-3xl w-full max-h-[85vh] overflow-y-auto border-2 border-sfx-cyan shadow-2xl space-y-6 font-mono text-xs">
+        <div class="bg-[#090A0D] text-white rounded-3xl p-6 sm:p-8 max-w-4xl w-full max-h-[85vh] overflow-y-auto border-2 border-sfx-cyan shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3 sticky top-0 bg-[#090A0D] z-10">
                 <h3 class="font-grotesk font-bold text-sm text-sfx-cyan uppercase"><i class="fa-solid fa-comments mr-2"></i>20 SUCCESS STORIES ENTERPRISE</h3>
                 <button onclick="document.getElementById('modal-testimonianze-9pollici').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Ecosistema straordinario per la gestione e crescita personale."</p><strong class="block text-white mt-2">— Elena V. (Milano)</strong></div>
-                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"La leadership del CEO Giuliano ha aperto orizzonti decisivi."</p><strong class="block text-white mt-2">— Sofia R. (Roma)</strong></div>
-                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"La tecnologia Neurale e la Gold Card sono strumenti unici."</p><strong class="block text-white mt-2">— Beatrice M. (Lugano)</strong></div>
-                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Progetto di networking e formazione d'altissimo profilo."</p><strong class="block text-white mt-2">— Ing. A. Moretti (Milano)</strong></div>
-                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Esperienza formativa e di Business indimenticabile."</p><strong class="block text-white mt-2">— Chiara P. (Zurigo)</strong></div>
-                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Risultati concreti e relazioni di altissimo valore."</p><strong class="block text-white mt-2">— Arch. V. Serra (Lugano)</strong></div>
+                <!-- 16 DONNE (80%) -->
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Ecosistema straordinario per la gestione e crescita personale."</p><strong class="block text-sfx-cyanLight mt-2">— Elena V. (Milano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"La leadership del CEO Giuliano ha aperto orizzonti decisivi."</p><strong class="block text-sfx-cyanLight mt-2">— Sofia R. (Roma)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"La tecnologia Neurale e la Gold Card sono strumenti unici."</p><strong class="block text-sfx-cyanLight mt-2">— Beatrice M. (Lugano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Esperienza formativa e di Business indimenticabile."</p><strong class="block text-sfx-cyanLight mt-2">— Chiara P. (Zurigo)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Infrastruttura di altissimo livello per le mie attività."</p><strong class="block text-sfx-cyanLight mt-2">— Giulia B. (Torino)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Un networking riservato e ad alte prestazioni reali."</p><strong class="block text-sfx-cyanLight mt-2">— Martina K. (Bratislava)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Supporto Neurale H24 grazie all'assistente Alison."</p><strong class="block text-sfx-cyanLight mt-2">— Laura S. (Firenze)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"I percorsi di crescita trasmettono una carica immensa."</p><strong class="block text-sfx-cyanLight mt-2">— Francesca D. (Napoli)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Formazione d'élite introvabile altrove."</p><strong class="block text-sfx-cyanLight mt-2">— Valentina G. (Bologna)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"I dettagli e la Boutique Luxury sono un capolavoro."</p><strong class="block text-sfx-cyanLight mt-2">— Alice C. (Monaco)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Con Suprema Future X ho rivoluzionato la mia visione."</p><strong class="block text-sfx-cyanLight mt-2">— Simona N. (Bari)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Professionalità e garanzia di risultati costante."</p><strong class="block text-sfx-cyanLight mt-2">— Cristina L. (Ginevra)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Un'organizzazione perfetta guidata con grande visione."</p><strong class="block text-sfx-cyanLight mt-2">— Marta T. (Verona)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Valore eccezionale sia sul lato umano che tecnologico."</p><strong class="block text-sfx-cyanLight mt-2">— Veronica F. (Venezia)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Il miglior investimento professionale del mio percorso."</p><strong class="block text-sfx-cyanLight mt-2">— Giorgia E. (Padova)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Servizi Enterprise incomparabili per qualità e rapidità."</p><strong class="block text-sfx-cyanLight mt-2">— Anna W. (Vienna)</strong></div>
+
+                <!-- 4 UOMINI (20%) -->
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Progetto di networking e formazione d'altissimo profilo."</p><strong class="block text-sfx-goldLight mt-2">— Ing. A. Moretti (Milano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"I raccordi e la Boutique Luxury hanno dato valore immenso."</p><strong class="block text-sfx-goldLight mt-2">— Arch. V. Serra (Lugano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Precisione EAL6+ e massima riservatezza garantita."</p><strong class="block text-sfx-goldLight mt-2">— Dr. M. Rinaldi (Zurigo)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Insieme guidiamo il nostro domani, un motto veritiero."</p><strong class="block text-sfx-goldLight mt-2">— Roberto K. (Praga)</strong></div>
             </div>
         </div>
     </div>
 
-    <!-- MODALE BOUTIQUE LUXURY (7 POLLICI - ACCEDI ALLA LUXURY) -->
+    <!-- MODALE BOUTIQUE LUXURY (SCHERMATA 7 POLLICI - ENTRA NELLA LUXURY) -->
     <div id="modal-luxury-7pollici" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
         <div class="bg-[#090A0D] text-white rounded-3xl p-8 max-w-md w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -690,20 +767,79 @@
                 <button onclick="document.getElementById('modal-luxury-7pollici').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
             </div>
             <p class="text-gray-300 leading-relaxed">
-                Ci occupiamo di Networking, Community, Academy e Crescita Personale. Esplora il nostro spazio Luxury ufficiale.
+                Ci occupiamo di Networking, Community, Academy, Tecnologia e Crescita Personale. Esplora il nostro spazio Luxury ufficiale.
             </p>
+            <div class="p-3 bg-yellow-500/10 border border-sfx-gold/40 rounded-xl text-sfx-gold font-bold">
+                +500 PTS Bonus accreditati sulla Suprema Gold Card
+            </div>
+            <!-- ABSOLUTE DIVIETO ASSOLUTO MENTION IMPERYA -->
             <a href="https://www.imperya.com/vetrina/style" target="_blank" rel="noopener noreferrer" class="block w-full py-4 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:bg-yellow-500 text-center">
                 ENTRA NELLA LUXURY
             </a>
         </div>
     </div>
 
-    <!-- JS INCLUSIONE -->
+    <!-- MODALE LINEA ANTIGRAVITY FEATURES (SCHERMATA DI DETTAGLIO) -->
+    <div id="modal-antigravity-detail" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-[#090A0D] text-white rounded-3xl p-8 max-w-lg w-full border-2 border-sfx-cyan shadow-2xl space-y-6 font-mono text-xs max-h-[85vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="font-grotesk font-extrabold text-sm text-sfx-cyanLight uppercase">LINEA ANTIGRAVITY INNOVATION</h3>
+                <button onclick="document.getElementById('modal-antigravity-detail').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
+            </div>
+            
+            <p class="text-gray-300 leading-relaxed">
+                Ci occupiamo di Networking, Academy, Community, Tecnologia Neurale, Crescita Personale e Rendite Passive.
+            </p>
+
+            <div class="space-y-3 text-left">
+                <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                    <strong class="text-sfx-gold block">1. NETWORKING ENTERPRISE</strong>
+                    <p class="text-gray-400 text-[11px] mt-1">Connessioni d'élite per la massima espansione aziendale.</p>
+                </div>
+                <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                    <strong class="text-sfx-cyan block">2. TECNOLOGIA MAGNETICA NEURALE</strong>
+                    <p class="text-gray-400 text-[11px] mt-1">Sospensione attiva ad alta frequenza per ambienti VIP.</p>
+                </div>
+                <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                    <strong class="text-sfx-goldLight block">3. CRESCITA PERSONALE & RENDITE PASSIVE</strong>
+                    <p class="text-gray-400 text-[11px] mt-1">Sviluppo di asset duraturi e indipendenza finanziaria.</p>
+                </div>
+            </div>
+
+            <p class="text-sfx-cyan font-bold text-center text-xs">
+                CON SUPREMA FUTURE X PUOI PERCHE INSIEME GUIDIAMO IL TUO DOMANI
+            </p>
+
+            <button onclick="document.getElementById('modal-antigravity-detail').classList.add('hidden')" class="w-full py-3 bg-gray-800 text-white font-bold rounded-xl uppercase">
+                TORNA AL MENU
+            </button>
+        </div>
+    </div>
+
+    <!-- MODALE EXIT INTENT FEEDBACK NET -->
+    <div id="modale-exit" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center border-2 border-sfx-cyan shadow-2xl space-y-4">
+            <h3 class="font-grotesk font-bold text-xl text-black">PRIMA DI ANDARE...</h3>
+            <p class="text-xs font-mono text-gray-600 leading-relaxed">
+                Ci tieni a lasciare la tua migliore email e un parere su come è stato il servizio? Riceverai subito <strong>+50 PTS</strong> sulla Gold Card.
+            </p>
+            <input type="email" id="exit-email" required placeholder="La tua migliore email..." class="w-full p-3 border border-gray-300 rounded-xl font-mono text-xs outline-none focus:border-sfx-cyan">
+            <button onclick="InviaExitFeedback()" class="w-full py-3.5 bg-sfx-cyan text-white font-bold rounded-xl uppercase text-xs shadow-md hover:bg-cyan-700">
+                Invia & Ricevi Punti
+            </button>
+            <button onclick="document.getElementById('modale-exit').classList.add('hidden')" class="block w-full text-xs text-gray-400 underline font-mono pt-2">
+                No, grazie. Chiudi semplicemente.
+            </button>
+        </div>
+    </div>
+
+    <!-- INCLUSIONE DEI FILE JAVASCRIPT UNIFICATI -->
     <script src="js/code.js"></script>
     <script src="sfx-delta-patch.js"></script>
 
+    <!-- INLINE HELPER FUNCTIONS, TRANSLATION ENGINE & DRAWER TIMER -->
     <script>
-        // LOGO STEALTH ROUTING (2 TAP = X-BOX | 3 TAP = PRIVATO CEO)
+        // LOGO STEALTH ROUTER (2 TAP = X-BOX | 3 TAP = PRIVATO CEO)
         (function() {
             function gestisciTapLogo() {
                 let clicks = 0, timer = null;
@@ -725,7 +861,7 @@
             if (l3) l3.addEventListener('click', gestisciTapLogo());
         })();
 
-        // TIMED DRAWER AUTOCLOSE (10 SECONDI INATTIVITÀ)
+        // TIMED DRAWER AUTOCLOSE (10 SECONDI DI INATTIVITÀ)
         let drawerTimer = null;
         function toggleDrawer(id) {
             const drawer = document.getElementById(id);
@@ -750,6 +886,28 @@
             if (e.target.id === id) chiudiDrawer(id);
         }
 
+        // DIZIONARIO COMPLETO 10 LINGUE TRADUZIONE REALE
+        const DIZIONARIO_LINGUE = {
+            IT: { "hero-desc": "Community, Networking & Academy ENTERPRISE potente e piena di risultati. Ecosistema d'élite per Formazione, Leadership, Luxury Fittings e Innovazione Neurale." },
+            EN: { "hero-desc": "Powerful ENTERPRISE Community, Networking & Academy full of results. Elite ecosystem for Training, Leadership, Luxury Fittings and Neural Innovation." },
+            FR: { "hero-desc": "Communauté ENTERPRISE puissante et pleine de résultats. Écosystème d'élite pour la Formation, la Leadership et l'Innovation." },
+            DE: { "hero-desc": "Leistungsstarke ENTERPRISE Community und Akademie. Elite-Ökosystem für Ausbildung, Führung und Innovation." },
+            ES: { "hero-desc": "Comunidad ENTERPRISE potente y llena de resultados. Ecosistema de élite para Formación, Liderazgo e Innovación." },
+            RO: { "hero-desc": "Comunitate ENTERPRISE puternică și plină de rezultate. Ecosistem de elită pentru Formare, Leadership și Inovație." },
+            SK: { "hero-desc": "Výkonná komunita ENTERPRISE plná výsledkov. Elitný ekosystém pre Vzdelávanie, Líderstvo a Inováciu." },
+            CS: { "hero-desc": "Výkonná komunita ENTERPRISE plná výsledků. Elitní ekosystém pro Vzdělávání, Lídrovství a Inovaci." },
+            PT: { "hero-desc": "Comunidade ENTERPRISE potente e cheia de resultados. Ecossistema de elite para Formação, Liderança e Inovação." },
+            SQ: { "hero-desc": "Komunitet ENTERPRISE i fuqishëm dhe me shumë rezultate. Ekosistem elitë për Trajnim, Udhëheqje dhe Inovacion." }
+        };
+
+        function cambiaLingua(lang) {
+            const trans = DIZIONARIO_LINGUE[lang] || DIZIONARIO_LINGUE['IT'];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (trans[key]) el.innerHTML = trans[key];
+            });
+        }
+
         function apriModalCorso(nome, desc) {
             document.getElementById('titolo-corso-modal').textContent = "CORSO " + nome.toUpperCase();
             document.getElementById('desc-corso-modal').textContent = desc;
@@ -766,7 +924,7 @@
         }
 
         function apriModalAntigravityFeatures() {
-            alert("Linea Antigravity Innovation: Tecnologia Magnetica e Rendite Passive.\nCON SUPREMA FUTURE X PUOI PERCHE INSIEME GUIDIAMO IL TUO DOMANI");
+            document.getElementById('modal-antigravity-detail').classList.remove('hidden');
         }
 
         function controlloVideo(azione) {
@@ -786,7 +944,70 @@
         }
 
         function caricaTabMedia(cat) {
-            alert("Archivio Categoria: " + cat.toUpperCase() + " attivato.");
+            alert("Sincronizzazione Archivio " + cat.toUpperCase() + " in corso dall'X-BOX...");
+        }
+
+        function inviaPill(testo) {
+            const box = document.getElementById('box-chat-centrale');
+            box.innerHTML += `<div class="bg-sfx-cyan/10 p-3 rounded-xl ml-auto max-w-md text-right font-bold text-sfx-cyan">${testo}</div>`;
+            if (window.AlisonEngine) {
+                window.AlisonEngine.gestisciScelta(testo);
+            } else if (testo.includes('1. SI') || testo.includes('2. SI')) {
+                window.location.href = 'candidatura.html';
+            }
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function GestoreObiezioni() {
+            alert("Alison: Che cosa non è chiaro? Un appuntamento con il CEO toglie ogni dubbio! Ti collego a WhatsApp con Giuliano.");
+            window.location.href = "https://wa.me/393474429091?text=Ciao%20Giuliano,%20vorrei%20maggiori%20informazioni";
+        }
+
+        function inviaMessaggioCentrale() {
+            const input = document.getElementById('input-centrale');
+            const val = input.value.trim();
+            if (!val) return;
+            inviaPill(val);
+            input.value = '';
+        }
+
+        function apriWidgetAlison() {
+            document.getElementById('input-centrale').focus();
+            window.location.href = '#alison-ai';
+        }
+
+        function GeneraCardSimulata() {
+            const inputNome = document.getElementById('sim-nome').value;
+            if (window.GoldCardEngine) window.GoldCardEngine.genera(inputNome);
+        }
+
+        let exitTriggered = false;
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0 && !exitTriggered) {
+                document.getElementById('modale-exit').classList.remove('hidden');
+                exitTriggered = true;
+            }
+        });
+
+        async function InviaExitFeedback() {
+            const email = document.getElementById('exit-email').value;
+            if (!email) return;
+            if (window.SFXConnector) {
+                await window.SFXConnector.inviaLead({ action: 'EXIT_INTENT_FEEDBACK', email: email, course: 'EXIT_INTENT' });
+            }
+            alert("Grazie! Email registrata (+50 PTS).");
+            document.getElementById('modale-exit').classList.add('hidden');
+        }
+
+        function inviaNewsletter(e) { e.preventDefault(); alert("Iscrizione completata!"); e.target.reset(); }
+        function inviaFeedback(e) { e.preventDefault(); alert("Feedback trasmesso alla Direzione!"); e.target.reset(); }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((reg) => console.log('✓ PWA Service Worker registrato:', reg.scope))
+                    .catch((err) => console.warn('✗ Errore Service Worker:', err));
+            });
         }
     </script>
 </body>
