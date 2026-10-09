@@ -1,169 +1,127 @@
-/**
- * ====================================================================
- * SUPREMA FUTURE X S.R.L. // STILE GLOBALE CYBER-LUXURY (v31 EAL6+)
- * GOVERNANCE: GIULIANO CARATELLI CEO
- * ====================================================================
- */
+/* ====================================================================
+   SUPREMA FUTURE X S.R.L. // STILE GLOBALE CIBERNETICO V35 (INTEGRALE)
+   GOVERNANCE: CEO GIULIANO CARATELLI
+   ==================================================================== */
 
-/* 1. VARIABILI CROMATICHE UFFICIALI SFX */
-:root {
-  --sfx-gold: #B8860B;
-  --sfx-gold-light: #D4AF37;
-  --sfx-cyan: #008B99;
-  --sfx-cyan-light: #00F0FF;
-  --sfx-silver: #C0C0C0;
-  --sfx-pearl: #FDFBF7;
-  --sfx-dark: #090A0D;
-  --sfx-panel: #121620;
-  --sfx-card: #1A202C;
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap');
+
+/* --- GRIGLIE DI SFONDO E UTILITY CLASSES --- */
+@layer utilities {
+    /* Griglia Chiara Pearl per Landing Page */
+    .cyber-pearl-grid {
+        background-color: #FDFBF7;
+        background-image: 
+            linear-gradient(to right, rgba(0, 139, 153, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(184, 134, 11, 0.05) 1px, transparent 1px);
+        background-size: 36px 36px;
+    }
+
+    /* Griglia Scura per Terminali Admin, Login, CRM e Vault */
+    .cyber-grid-dark {
+        background-color: #090A0D;
+        background-image: 
+            linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(184, 134, 11, 0.06) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    /* Bagliore Neurale per Avatar Alison */
+    .alison-avatar-glow {
+        box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), 0 0 12px rgba(184, 134, 11, 0.5);
+    }
+
+    /* Bordo con Traccia Cromatico */
+    .glow-trace-card {
+        border-radius: 1.8rem;
+        padding: 2px;
+        background: linear-gradient(135deg, rgba(0, 139, 153, 0.6), rgba(184, 134, 11, 0.6), rgba(192, 192, 192, 0.6));
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Bordo Tracciante per Terminale Login */
+    .glow-trace-login {
+        border-radius: 2.2rem;
+        padding: 3px;
+        background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
+        background-size: 300% 300%;
+        animation: gradientTrace 6s ease infinite;
+    }
 }
 
-/* 2. RESET E FONT BASE */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+/* --- ANIMAZIONI --- */
 
-html {
-  scroll-behavior: smooth;
-  font-family: 'Montserrat', sans-serif;
-  background-color: var(--sfx-pearl);
-  color: #12141C;
-}
-
-/* Classi Font Tematiche */
-.font-cyber { font-family: 'Orbitron', sans-serif; }
-.font-grotesk { font-family: 'Syncopate', sans-serif; }
-.font-mono { font-family: 'JetBrains Mono', monospace; }
-
-/* 3. SFONDI CYBER GRID */
-/* Bianco Perlato per Landing Page */
-.cyber-pearl-grid {
-  background-color: var(--sfx-pearl);
-  background-size: 36px 36px;
-  background-image: 
-    linear-gradient(to right, rgba(184, 134, 11, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 139, 153, 0.04) 1px, transparent 1px);
-}
-
-/* Nero Antracite per Admin, CRM, Vault e Login */
-.cyber-grid-dark {
-  background-color: var(--sfx-dark);
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(184, 134, 11, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 139, 153, 0.06) 1px, transparent 1px);
-}
-
-/* 4. ANIMAZIONI BORDI TRACCIANTI (NEON TRACE) */
-/* Bordo Tracciante per Cards Light */
-.glow-trace-card {
-  position: relative;
-  border-radius: 1.75rem;
-  background: #FFFFFF;
-  padding: 2px;
-  z-index: 1;
-}
-
-.glow-trace-card::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 1.85rem;
-  background: linear-gradient(135deg, var(--sfx-cyan), var(--sfx-gold), var(--sfx-silver), var(--sfx-cyan-light), var(--sfx-gold-light));
-  background-size: 300% 300%;
-  animation: gradientTrace 7s ease infinite;
-  z-index: -1;
-  opacity: 0.85;
-  filter: blur(4px);
-}
-
-/* Bordo Tracciante per Card Login Dark */
-.glow-trace-login {
-  position: relative;
-  border-radius: 2rem;
-  background: var(--sfx-panel);
-  padding: 2px;
-  z-index: 1;
-}
-
-.glow-trace-login::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 2.1rem;
-  background: linear-gradient(135deg, var(--sfx-cyan), var(--sfx-gold), var(--sfx-cyan-light), var(--sfx-gold-light));
-  background-size: 300% 300%;
-  animation: gradientTrace 6s ease infinite;
-  z-index: -1;
-  opacity: 0.85;
-  filter: blur(6px);
-}
-
+/* Animazione Scorrimento Gradiente */
 @keyframes gradientTrace {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* 5. EFFETTI LUMINOSI ED OMBRE BORDI */
-.border-glow-gold {
-  box-shadow: 0 0 18px rgba(184, 134, 11, 0.3);
-  border: 1px solid var(--sfx-gold);
+/* Animazione Luce Tracciante 3D per Titolo Monolinea */
+@keyframes shineText3D {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
 }
 
-.border-glow-cyan {
-  box-shadow: 0 0 18px rgba(0, 240, 255, 0.3);
-  border: 1px solid var(--sfx-cyan-light);
+.title-3d-shimmer {
+    background: linear-gradient(90deg, #008B99 0%, #D4AF37 25%, #FFFFFF 50%, #B8860B 75%, #00F0FF 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shineText3D 4s linear infinite;
+    text-shadow: 0px 4px 12px rgba(0, 139, 153, 0.4);
+    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
 }
 
-.text-gradient-tri {
-  background: linear-gradient(135deg, var(--sfx-cyan) 0%, var(--sfx-gold) 50%, #718096 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Anello Tracciante Rotante attorno al Logo Grande */
+@keyframes ringRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-/* 6. WIDGET FLOTTANTE ALISON ALWAYS-ON */
-#widget-alison {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 100;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.glow-logo-ring {
+    position: relative;
+    border-radius: 9999px;
+    padding: 5px;
+    background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
+    background-size: 300% 300%;
+    animation: gradientTrace 5s ease infinite;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), 0 0 15px rgba(184, 134, 11, 0.5);
 }
 
-#widget-alison:hover {
-  transform: scale(1.08);
+/* Animazione Bordi Lampeggianti Ciano/Oro/Argento Terminale Login */
+@keyframes flashingBorder {
+    0% { border-color: #008B99; box-shadow: 0 0 25px rgba(0, 139, 153, 0.6); }
+    33% { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.7); }
+    66% { border-color: #C0C0C0; box-shadow: 0 0 25px rgba(192, 192, 192, 0.6); }
+    100% { border-color: #008B99; box-shadow: 0 0 25px rgba(0, 139, 153, 0.6); }
 }
 
-.alison-avatar-glow {
-  box-shadow: 0 0 25px rgba(0, 139, 153, 0.7);
-  border: 2px solid var(--sfx-cyan-light);
+.flashing-terminal-box {
+    animation: flashingBorder 3s infinite alternate ease-in-out;
 }
 
-/* Scanner Biometrico (Login & Auth) */
-.biometric-scanner {
-  background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, rgba(9,10,13,0.8) 70%);
+/* Overlay Sfondo Drawer */
+.drawer-overlay {
+    background-color: rgba(9, 10, 13, 0.85);
+    backdrop-filter: blur(10px);
 }
 
-/* 7. PERSONALIZZAZIONE SCROLLBAR */
+/* --- CUSTOM SCROLLBAR --- */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--sfx-pearl);
-}
-
-body.cyber-grid-dark ::-webkit-scrollbar-track {
-  background: var(--sfx-dark);
+    background: #090A0D;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--sfx-gold);
-  border-radius: 3px;
+    background: #B8860B;
+    border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--sfx-gold-light);
+    background: #008B99;
 }
