@@ -267,7 +267,9 @@
     <script src="sfx-delta-patch.js"></script>
     <script>
         let leadsGlobali = [];
-        const APPS_SCRIPT_URL = typeof APPS_SCRIPT_URL !== 'undefined' ? APPS_SCRIPT_URL : '';
+
+        // ENDPOINT GOOGLE APPS SCRIPT COLLEGATO
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyM5TMDVK3MjpOroOucdjN3RiT-h89wcq4mMtaOXSc6pHwKUZ9hx2JeElBeB9V7TLAQ/exec";
 
         // === 1. LOGOUT CRM NEXUS ===
         function eseguiLogoutCRM() {
@@ -292,7 +294,6 @@
             document.getElementById('sezione-assedio-container').classList.remove('hidden');
             document.getElementById('assedio-nome').value = nome || '';
             
-            // Suggerisci formato email SFX pulito se non già presente
             if (email && email.includes('sfx.')) {
                 document.getElementById('assedio-email').value = email;
             } else {
@@ -311,7 +312,7 @@
             document.getElementById('sezione-assedio-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // === 4. INVIO PROVISIONING (COMPATIBILE APPS SCRIPT & FETCH) ===
+        // === 4. INVIO PROVISIONING (COMPATIBILE APPS SCRIPT FETCH) ===
         function inviaProvisioningAssedio() {
             const btn = document.getElementById('btn-lancia-assedio');
             const feedback = document.getElementById('feedback-assedio');
@@ -326,36 +327,14 @@
             feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-cyan-950/40 border-sfx-cyan text-sfx-cyanLight block";
             feedback.innerHTML = `🚀 Iniezione Sandbox Google per <strong>${dati.nome}</strong> in corso: creazione cartella, duplicazione Master e assegnazione permessi...`;
 
-            // Ramo 1: Esecuzione dentro Apps Script nativo
-            if (typeof google !== 'undefined' && google.script && google.script.run) {
-                google.script.run
-                    .withSuccessHandler(function(risposta) {
-                        gestisciSuccessoAssedio(risposta, btn, feedback);
-                    })
-                    .withFailureHandler(function(errore) {
-                        gestisciErroreAssedio(errore.message, btn, feedback);
-                    })
-                    .motoreAssedio(dati);
-                return;
-            }
-
-            // Ramo 2: Esecuzione Web App tramite POST HTTP
-            if (APPS_SCRIPT_URL) {
-                fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'PROVISIONING_ASSEDIO', payload: dati })
-                })
-                .then(res => res.json())
-                .then(res => gestisciSuccessoAssedio(res.message || "Ambiente generato con successo.", btn, feedback))
-                .catch(err => gestisciErroreAssedio(err.message, btn, feedback));
-                return;
-            }
-
-            // Ramo Fallback Demo
-            setTimeout(() => {
-                gestisciSuccessoAssedio(`✅ Assedio Completato per ${dati.nome} (${dati.email}). Cartelle collegate e permessi registrati nel File Madre.`, btn, feedback);
-            }, 1200);
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify({ action: 'PROVISIONING_ASSEDIO', payload: dati })
+            })
+            .then(res => res.json())
+            .then(res => gestisciSuccessoAssedio(res.message || "Ambiente generato con successo.", btn, feedback))
+            .catch(err => gestisciErroreAssedio(err.message, btn, feedback));
         }
 
         function gestisciSuccessoAssedio(msg, btn, feedback) {
@@ -364,6 +343,7 @@
             feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
             feedback.innerHTML = msg;
             document.getElementById('form-assedio').reset();
+            caricaLeadsCRM();
         }
 
         function gestisciErroreAssedio(err, btn, feedback) {
@@ -387,18 +367,10 @@
                 </tr>`;
 
             try {
-                if (APPS_SCRIPT_URL) {
-                    const res = await fetch(APPS_SCRIPT_URL + '?action=GET_LEADS');
-                    const data = await res.json();
-                    if (data && data.leads) {
-                        leadsGlobali = data.leads;
-                    }
-                } else {
-                    // Dati mock dimostrativi di sicurezza EAL6+
-                    leadsGlobali = [
-                        { timestamp: new Date().toISOString(), nexusCode: "SFX-001", nome: "Mario Rossi", azienda: "Digital Agency", email: "mario@rossi.it", telefono: "+393401234567", ambito: "Executive", dataPrenotazione: "14/10/2026", oraPrenotazione: "11:00", punti: "2,000 PTS" },
-                        { timestamp: new Date().toISOString(), nexusCode: "SFX-002", nome: "Laura Bianchi", azienda: "Privato", email: "laura@bianchi.it", telefono: "+393478901234", ambito: "Conferenza CEO", dataPrenotazione: "15/10/2026", oraPrenotazione: "16:30", punti: "1,500 PTS" }
-                    ];
+                const res = await fetch(APPS_SCRIPT_URL + '?action=GET_LEADS');
+                const data = await res.json();
+                if (data && data.leads) {
+                    leadsGlobali = data.leads;
                 }
 
                 renderizzaTabellaCRM(leadsGlobali);
@@ -443,9 +415,20 @@
             lista.forEach(item => {
                 const telPulito = (item.telefono || '').replace(/[^0-9]/g, '');
                 const dataFormattata = item.timestamp ? new Date(item.timestamp).toLocaleString('it-IT') : 'N/D';
+                const nomeSicuro = item.nome || 'Candidato';
+                const idSicuro = item.nexusCode || '';
 
                 const row = document.createElement('tr');
                 row.className = "hover:bg-gray-900/50 transition-colors border-b border-gray-800/40";
+
+                const waBtn = telPulito ? `
+                    <a href="https://wa.me/${telPulito}?text=Gentile%20${encodeURIComponent(nomeSicuro)},%20la%20Presidenza%20del%20CEO%20Giuliano%20Caratelli%20ha%20esaminato%20la%20sua%20richiesta%20${encodeURIComponent(idSicuro)}.%20Desideriamo%20confermare%20lo%20slot%20prenotato." 
+                       target="_blank" 
+                       class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-green-600 hover:bg-green-500 text-white text-[10px] font-extrabold rounded-xl transition-all shadow-md">
+                        <i class="fa-brands fa-whatsapp text-xs"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                ` : '<span class="text-gray-600 italic text-[10px]">No Tel</span>';
 
                 row.innerHTML = `
                     <td class="p-3 text-gray-400 whitespace-nowrap">${dataFormattata}</td>
@@ -472,14 +455,7 @@
                     </td>
                     <td class="p-3 text-center">
                         <div class="inline-flex items-center space-x-1.5">
-                            ${telPulito ? `
-                                <a href="https://wa.me/\${telPulito}?text=Gentile%20${encodeURIComponent(item.nome \vert{}\vert{} 'Candidato')},\%20la\%20Presidenza\%20del\%20CEO\%20Giuliano\%20Caratelli\%20ha\%20esaminato\%20la\%20sua\%20richiesta\%20${encodeURIComponent(item.nexusCode || '')}.%20Desideriamo%20confermare%20lo%20slot%20prenotato." 
-                                   target="_blank" 
-                                   class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-green-600 hover:bg-green-500 text-white text-[10px] font-extrabold rounded-xl transition-all shadow-md">
-                                    <i class="fa-brands fa-whatsapp text-xs"></i>
-                                    <span>WhatsApp</span>
-                                </a>
-                            ` : '<span class="text-gray-600 italic text-[10px]">No Tel</span>'}
+                            ${waBtn}
                             <button onclick="preparaAssedioDaLead('${item.nome || ''}', '${item.email || ''}', '${item.ambito || ''}')" 
                                     class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-sfx-cyan/20 hover:bg-sfx-cyan hover:text-black border border-sfx-cyan text-sfx-cyanLight text-[10px] font-extrabold rounded-xl transition-all shadow-md">
                                 <i class="fa-solid fa-bolt text-xs"></i>
@@ -571,7 +547,7 @@
             document.body.removeChild(link);
         }
 
-        // Inizializzazione al caricamento
+        // Inizializzazione automatica al caricamento
         document.addEventListener('DOMContentLoaded', () => {
             caricaLeadsCRM();
         });
