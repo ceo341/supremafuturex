@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-BOX CONTROL ROOM ERP // SUPREMA FUTURE X</title>
+    <title>X-BOX AZIENDALE // SUPREMA FUTURE X</title>
     <meta name="description" content="X-BOX Control Room ERP - Pannello Amministrativo, Mastro Finanziario Ledger e Gestione Agenti AI.">
     <meta name="theme-color" content="#090A0D">
 
@@ -20,39 +20,49 @@
     <link rel="stylesheet" href="stile-globale.css">
 
     <script>
-        // CONTROLLO DI SICUREZZA EAL6+ X-BOX ADMIN
-        (function checkEAL6Auth() {
-            const isAuth = sessionStorage.getItem('sfx_authenticated');
-            const role = sessionStorage.getItem('sfx_role');
-            if (isAuth !== 'true' || (role !== 'XBOX_ADMIN' && role !== 'CEO_CLEARANCE')) {
-                console.warn("Accesso X-BOX in modalità verifica clearance.");
-            }
-        })();
-
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        sfx: {
-                            gold: '#B8860B',
-                            goldLight: '#D4AF37',
-                            cyan: '#008B99',
-                            cyanLight: '#00F0FF',
-                            silver: '#C0C0C0',
-                            dark: '#090A0D',
-                            panel: '#121620'
-                        }
+                        sfx: { gold: '#B8860B', goldLight: '#D4AF37', cyan: '#008B99', cyanLight: '#00F0FF', silver: '#C0C0C0', dark: '#090A0D', panel: '#121620', plum: '#581845' }
                     },
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        cyber: ['Orbitron', 'sans-serif'],
-                        grotesk: ['Syncopate', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], cyber: ['Orbitron', 'sans-serif'], grotesk: ['Syncopate', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
                 }
             }
         }
     </script>
+    
+    <style>
+        /* Grafica Direzionale Argento/Oro/Ciano */
+        .neon-frame-aziendale {
+            position: relative; background: #0D111A; border-radius: 1rem; overflow: hidden; z-index: 1;
+            border: 1px solid var(--sfx-silver);
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.1);
+        }
+        
+        .laser-beam {
+            height: 2px; width: 100%; background: linear-gradient(90deg, transparent, var(--sfx-cyanLight), transparent);
+            background-size: 200% 100%; animation: laserSlide 3s ease-in-out infinite;
+        }
+        @keyframes laserSlide { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        /* Tastierino Segreto */
+        .keypad-btn {
+            background: #12141C; border: 1px solid var(--sfx-gold); color: var(--sfx-goldLight);
+            font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: bold;
+            border-radius: 0.5rem; padding: 1rem; transition: all 0.2s;
+        }
+        .keypad-btn:hover, .keypad-btn:active { background: var(--sfx-gold); color: #000; box-shadow: 0 0 15px var(--sfx-gold); }
+        .pin-dot { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--sfx-goldLight); display: inline-block; margin: 0 5px; }
+        .pin-dot.filled { background: var(--sfx-cyanLight); border-color: var(--sfx-cyanLight); box-shadow: 0 0 10px var(--sfx-cyanLight); }
+
+        /* Shimmer Title */
+        .text-shimmer {
+            background: linear-gradient(90deg, #C0C0C0, #D4AF37, #00F0FF, #B8860B, #C0C0C0);
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+    </style>
 </head>
 <body class="bg-[#090A0D] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-cyan selection:text-white">
 
@@ -63,23 +73,23 @@
                 <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
             </div>
             <div>
-                <span class="font-grotesk font-black text-sfx-cyanLight block leading-none">X-BOX CONTROL ROOM</span>
+                <span class="font-grotesk font-black text-sfx-cyanLight block leading-none">X-BOX AZIENDALE</span>
                 <span class="text-[9px] text-sfx-gold block">ERP SYSTEM // GOVERNANCE</span>
             </div>
         </div>
 
         <div class="flex items-center space-x-4">
+            <div class="text-right border-r border-gray-700 pr-4 hidden md:block">
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest">Utente Attivo</p>
+                <p class="text-[10px] text-sfx-goldLight font-bold">CEO Giuliano Caratelli</p>
+            </div>
             <a href="crm.html" class="px-4 py-1.5 bg-sfx-gold/20 border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-2">
                 <i class="fa-solid fa-users"></i>
-                <span>CRM NEXUS</span>
+                <span>X-BOX SUPREMA</span>
             </a>
-            <a href="index.html" class="px-3.5 py-1.5 bg-gray-800 border border-gray-700 hover:bg-gray-700 text-gray-300 rounded-xl font-bold transition-all flex items-center space-x-1.5">
-                <i class="fa-solid fa-globe"></i>
-                <span class="hidden sm:inline">SITO</span>
-            </a>
-            <button onclick="eseguiLogoutXBOX()" class="px-3.5 py-1.5 bg-red-950/80 hover:bg-red-900 border border-red-700 text-red-300 rounded-xl font-bold transition-all flex items-center space-x-1">
+            <button onclick="window.location.href='login.html'" class="px-3.5 py-1.5 bg-red-950/80 hover:bg-red-900 border border-red-700 text-red-300 rounded-xl font-bold transition-all flex items-center space-x-1">
                 <i class="fa-solid fa-power-off"></i>
-                <span class="hidden sm:inline">LOGOUT</span>
+                <span class="hidden sm:inline">EXIT</span>
             </button>
         </div>
     </div>
@@ -94,7 +104,7 @@
                     <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-full uppercase border border-sfx-cyan/40">
                         <i class="fa-solid fa-server mr-1.5"></i>NODO CENTRALE ERP
                     </span>
-                    <h1 class="font-grotesk font-black text-2xl sm:text-4xl text-white uppercase tracking-wider mt-3">
+                    <h1 class="font-grotesk font-black text-2xl sm:text-4xl text-shimmer uppercase tracking-wider mt-3">
                         X-BOX ANALYTICS & LEDGER
                     </h1>
                     <p class="text-[11px] text-gray-400 mt-1 max-w-2xl">
@@ -124,12 +134,148 @@
                 </div>
                 <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 flex flex-col justify-between">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-microchip mr-1"></i>Agenti Neurali H24</span>
-                    <div class="text-2xl font-black text-green-400 font-grotesk mt-2">9 / 9</div>
+                    <div class="text-2xl font-black text-green-400 font-grotesk mt-2">15 / 15</div>
                 </div>
             </div>
         </div>
 
-        <!-- SEZIONE 1: REGISTRAZIONE TRANSAZIONE MASTRO (SPLIT STATUTARIO 54/30/16) -->
+        <!-- GRIGLIA MODULI DIRETTIVI: IBAN, FLOTTA, DIVIDENDI -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- COLONNA SINISTRA -->
+            <div class="space-y-8">
+                <!-- MODULO FLOTTA AGENTI AI -->
+                <section class="neon-frame-aziendale p-6">
+                    <div class="laser-beam mb-4"></div>
+                    <h2 class="font-cyber text-sfx-cyanLight text-lg mb-4 flex items-center"><i class="fa-solid fa-microchip mr-3"></i> CONTROLLO FLOTTA AGENTI AI (15/15)</h2>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                        <div class="bg-black border border-gray-800 p-3 rounded text-center hover:border-sfx-cyan transition-colors">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mx-auto mb-2 animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+                            <p class="text-[10px] text-gray-400">Executive Concierge</p>
+                            <p class="font-cyber text-xs text-white mt-1">ALISON</p>
+                        </div>
+                        <div class="bg-black border border-gray-800 p-3 rounded text-center hover:border-sfx-cyan transition-colors">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mx-auto mb-2 animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+                            <p class="text-[10px] text-gray-400">Area Immobiliare</p>
+                            <p class="font-cyber text-xs text-white mt-1">GINEVRA</p>
+                        </div>
+                        <div class="bg-black border border-gray-800 p-3 rounded text-center hover:border-sfx-cyan transition-colors">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mx-auto mb-2 animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+                            <p class="text-[10px] text-gray-400">Supporto Tecnico</p>
+                            <p class="font-cyber text-xs text-white mt-1">NICOLE</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <button class="bg-sfx-cyan/20 text-sfx-cyan border border-sfx-cyan hover:bg-sfx-cyan hover:text-black px-4 py-2 rounded text-xs tracking-wider transition-all">
+                            <i class="fa-solid fa-moon mr-1"></i> MODALITÀ NOTTURNA
+                        </button>
+                        <button class="bg-sfx-gold/20 text-sfx-gold border border-sfx-gold hover:bg-sfx-gold hover:text-black px-4 py-2 rounded text-xs tracking-wider transition-all">
+                            <i class="fa-solid fa-code-merge mr-1"></i> OVERRIDE PROMPT
+                        </button>
+                        <button class="bg-red-900/30 text-red-500 border border-red-500 hover:bg-red-600 hover:text-white px-4 py-2 rounded text-xs tracking-wider transition-all ml-auto">
+                            <i class="fa-solid fa-skull mr-1"></i> KILL-SWITCH FLOTTA
+                        </button>
+                    </div>
+                </section>
+
+                <!-- MODULO DRIVE & DOCUMENTI -->
+                <section class="neon-frame-aziendale p-6">
+                    <h2 class="font-cyber text-sfx-silver text-lg mb-4 flex items-center"><i class="fa-brands fa-google-drive mr-3"></i> PROVISIONING DRIVE & DOCS</h2>
+                    <p class="text-xs text-gray-400 mb-4">Gestione archivi cloud a costo zero per l'operatività aziendale.</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="bg-black border border-gray-700 hover:border-sfx-silver py-3 rounded text-xs text-gray-300 transition-colors">
+                            <i class="fa-solid fa-folder-tree block text-xl mb-1 text-sfx-silver"></i> Cartelle Studenti
+                        </button>
+                        <button class="bg-black border border-gray-700 hover:border-sfx-silver py-3 rounded text-xs text-gray-300 transition-colors">
+                            <i class="fa-solid fa-file-contract block text-xl mb-1 text-sfx-silver"></i> Contratti & Verbali
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- COLONNA DESTRA -->
+            <div class="space-y-8">
+                <!-- MODULO IBAN DINAMICO -->
+                <section class="neon-frame-aziendale p-6">
+                    <div class="laser-beam mb-4"></div>
+                    <h2 class="font-cyber text-sfx-goldLight text-lg mb-4 flex items-center"><i class="fa-solid fa-money-check-dollar mr-3"></i> GATEWAY IBAN DINAMICO</h2>
+                    
+                    <div class="bg-black p-4 rounded border border-gray-800 mb-4">
+                        <p class="text-[10px] text-gray-500 tracking-widest mb-1">IBAN ATTUALMENTE IN USO GLOBALE</p>
+                        <p id="current-iban-display" class="font-cyber text-lg text-sfx-goldLight">IT00 A000 0000 0000 0000 0000 000</p>
+                        <p id="current-owner-display" class="text-xs text-gray-400 mt-1">Intestatario: Suprema Future X S.r.l.</p>
+                    </div>
+
+                    <form onsubmit="aggiornaIban(event)" class="space-y-3">
+                        <div>
+                            <label class="text-[10px] text-gray-400">NUOVO IBAN:</label>
+                            <input type="text" id="new-iban" placeholder="Es. IT99 Z999..." required class="w-full p-2 bg-black border border-gray-700 rounded text-sfx-cyanLight outline-none focus:border-sfx-cyan">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-gray-400">NUOVO INTESTATARIO (Opzionale):</label>
+                            <input type="text" id="new-owner" placeholder="Suprema Future X S.r.l." class="w-full p-2 bg-black border border-gray-700 rounded text-white outline-none focus:border-sfx-cyan">
+                        </div>
+                        <button type="submit" class="w-full bg-sfx-gold hover:bg-yellow-500 text-black py-3 rounded font-bold tracking-wider transition-colors text-xs mt-2">
+                            <i class="fa-solid fa-rotate mr-2"></i> AGGIORNA SU TUTTA LA RETE
+                        </button>
+                    </form>
+                </section>
+
+                <!-- MODULO CASSA DIVIDENDI & BUSTA PAGA CEO -->
+                <section class="neon-frame-aziendale p-6 border-sfx-plum relative">
+                    <h2 class="font-cyber text-sfx-gold text-lg flex items-center mb-2"><i class="fa-solid fa-vault mr-3"></i> CASSA DIVIDENDI & SEGRETO BANCARIO</h2>
+                    <p class="text-[10px] text-gray-500 mb-6 tracking-widest">Protocollo 54/30/16 - Accesso Riservato</p>
+
+                    <!-- TASTIERINO DI SBLOCCO (PIN 10 CIFRE: 3474429091) -->
+                    <div id="vault-lock" class="text-center">
+                        <div id="pin-dots" class="mb-6 flex justify-center gap-2"></div>
+                        <div class="grid grid-cols-3 gap-3 max-w-[250px] mx-auto">
+                            <button onclick="addPin('1')" class="keypad-btn">1</button>
+                            <button onclick="addPin('2')" class="keypad-btn">2</button>
+                            <button onclick="addPin('3')" class="keypad-btn">3</button>
+                            <button onclick="addPin('4')" class="keypad-btn">4</button>
+                            <button onclick="addPin('5')" class="keypad-btn">5</button>
+                            <button onclick="addPin('6')" class="keypad-btn">6</button>
+                            <button onclick="addPin('7')" class="keypad-btn">7</button>
+                            <button onclick="addPin('8')" class="keypad-btn">8</button>
+                            <button onclick="addPin('9')" class="keypad-btn">9</button>
+                            <button onclick="clearPin()" class="keypad-btn text-red-500 text-sm"><i class="fa-solid fa-xmark"></i></button>
+                            <button onclick="addPin('0')" class="keypad-btn">0</button>
+                            <button onclick="checkPin()" class="keypad-btn text-sfx-cyan text-sm"><i class="fa-solid fa-check"></i></button>
+                        </div>
+                        <p id="pin-error" class="text-xs text-red-500 mt-4 hidden">PIN NON AUTORIZZATO.</p>
+                    </div>
+
+                    <!-- DATI FINANZIARI SBLOCCATI -->
+                    <div id="vault-content" class="hidden">
+                        <div class="bg-black/80 border border-sfx-goldLight p-5 rounded-lg mb-4">
+                            <h3 class="font-cyber text-xs text-sfx-goldLight mb-3 border-b border-gray-700 pb-2">RIPARTIZIONE ATTUALE</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-300">54% - Operatività Aziendale:</span>
+                                    <span class="text-sm font-bold text-sfx-cyanLight" id="vault-ops">€ 0,00</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-300">30% - Busta Paga CEO / Dividendi:</span>
+                                    <span class="text-sm font-bold text-sfx-gold" id="vault-div">€ 0,00</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-300">16% - Fiscale / Tasse:</span>
+                                    <span class="text-sm font-bold text-[#FF5722]" id="vault-tax">€ 0,00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="lockVault()" class="w-full bg-gray-800 hover:bg-gray-700 text-white py-3 rounded text-xs transition-colors font-bold tracking-wider">
+                            <i class="fa-solid fa-lock mr-2"></i> SIGILLA CASSA E NASCONDI DATI
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- SEZIONE 1: REGISTRAZIONE TRANSAZIONE MASTRO -->
         <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-sfx-cyan shadow-xl space-y-6">
             <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                 <div>
@@ -143,19 +289,16 @@
                 </span>
             </div>
 
-            <!-- FORM INSERIMENTO TRANSAZIONE -->
             <form id="form-ledger" onsubmit="inviaTransazioneLedger(event)" class="space-y-6 text-xs">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="space-y-2">
                         <label class="block text-gray-300 font-bold uppercase">DESCRIZIONE TRANSAZIONE *</label>
                         <input type="text" id="ledger-desc" required placeholder="Es. Incasso Corso Executive Mario Rossi" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-cyan font-bold transition-colors">
                     </div>
-
                     <div class="space-y-2">
                         <label class="block text-gray-300 font-bold uppercase">IMPORTO TOTALE (€) *</label>
                         <input type="number" step="0.01" id="ledger-amount" required placeholder="Es. 1500.00" oninput="calcolaPreviewSplit(this.value)" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-gold font-bold text-base outline-none focus:border-sfx-gold">
                     </div>
-
                     <div class="space-y-2">
                         <label class="block text-gray-300 font-bold uppercase">TIPO MOVIMENTO *</label>
                         <select id="ledger-type" onchange="calcolaPreviewSplit(document.getElementById('ledger-amount').value)" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-cyanLight font-bold outline-none focus:border-sfx-cyan">
@@ -167,9 +310,7 @@
 
                 <!-- PREVIEW RIPARTIZIONE STATUTARIA -->
                 <div class="bg-black/80 p-6 rounded-2xl border border-gray-800 space-y-3">
-                    <span class="text-gray-400 font-bold uppercase text-[10px] block border-b border-gray-800 pb-2">
-                        ANTEPRIMA RIPARTIZIONE STATUTARIA AUTOMATICA:
-                    </span>
+                    <span class="text-gray-400 font-bold uppercase text-[10px] block border-b border-gray-800 pb-2">ANTEPRIMA RIPARTIZIONE STATUTARIA AUTOMATICA:</span>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center font-mono">
                         <div class="p-3 bg-gray-900/60 rounded-xl border border-sfx-cyan/30">
                             <span class="text-sfx-cyan text-[10px] font-bold block">OPERATIVITÀ (54%)</span>
@@ -194,7 +335,7 @@
             <div id="ledger-status" class="text-center font-bold text-xs min-h-[20px]"></div>
         </div>
 
-        <!-- SEZIONE 2: ARCHIVIO TABELLARE MASTRO LEDGER CON PROOF HASH -->
+        <!-- SEZIONE 2: ARCHIVIO TABELLARE MASTRO LEDGER -->
         <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-gray-800 shadow-xl space-y-4">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <h3 class="font-grotesk font-bold text-sm text-white uppercase">
@@ -205,7 +346,6 @@
                     <span>Aggiorna Tabella</span>
                 </button>
             </div>
-
             <div class="overflow-x-auto">
                 <table class="w-full text-left font-mono text-[11px]">
                     <thead>
@@ -221,25 +361,18 @@
                         </tr>
                     </thead>
                     <tbody id="tbody-ledger" class="divide-y divide-gray-800/60 text-gray-300">
-                        <tr>
-                            <td colspan="8" class="p-4 text-center text-gray-500 italic">
-                                <i class="fa-solid fa-spinner fa-spin text-sfx-cyan mr-2"></i>Caricamento transazioni...
-                            </td>
-                        </tr>
+                        <tr><td colspan="8" class="p-4 text-center text-gray-500 italic"><i class="fa-solid fa-spinner fa-spin text-sfx-cyan mr-2"></i>Caricamento transazioni...</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- SEZIONE 3: CONSOLE AGENTI AI SYSTEM PROMPT ROUTER (ALL 9 AGENTS) -->
+        <!-- SEZIONE 3: CONSOLE AGENTI AI SYSTEM PROMPT ROUTER -->
         <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-sfx-gold/40 shadow-xl space-y-6">
             <div class="border-b border-gray-800 pb-4">
                 <span class="text-sfx-gold font-bold text-xs uppercase"><i class="fa-solid fa-brain mr-2"></i>AGENTI AI GOVERNANCE</span>
-                <h3 class="font-grotesk font-extrabold text-lg text-sfx-goldLight uppercase mt-1">
-                    ROUTER SYSTEM PROMPT AGENTI NEURALI (ALL 9 AGENTS)
-                </h3>
+                <h3 class="font-grotesk font-extrabold text-lg text-sfx-goldLight uppercase mt-1">ROUTER SYSTEM PROMPT AGENTI NEURALI</h3>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
                 <div class="space-y-2">
                     <label class="block text-gray-300 font-bold uppercase">SELEZIONA AGENTE *</label>
@@ -247,88 +380,68 @@
                         <option value="AG-01 (Alison - Executive Concierge)">AG-01: Alison (Executive Concierge)</option>
                         <option value="AG-02 (Nicole - Luxury Specialist)">AG-02: Nicole (Luxury Specialist)</option>
                         <option value="AG-03 (Ginevra - Academy VIP Manager)">AG-03: Ginevra (Academy VIP Manager)</option>
-                        <option value="AG-04 (Nexus Scout - Social Hunter)">AG-04: Nexus Scout (Social Hunter)</option>
-                        <option value="AG-05 (Ledger Guardian - Split 54/30/16)">AG-05: Ledger Guardian (Finance)</option>
-                        <option value="AG-06 (Gatekeeper - EAL6+ Security)">AG-06: Gatekeeper (Security Auth)</option>
-                        <option value="AG-07 (Delta Queue - Offline Sync)">AG-07: Delta Queue Worker (Offline PWA)</option>
-                        <option value="AG-08 (Media Broadcast - Showcase)">AG-08: Media Broadcast Player</option>
-                        <option value="AG-09 (Exit-Intent Agent - Lead Recovery)">AG-09: Exit-Intent Agent</option>
                     </select>
                 </div>
-
                 <div class="md:col-span-2 space-y-2">
                     <label class="block text-gray-300 font-bold uppercase">DIRETTIVA SYSTEM PROMPT *</label>
                     <textarea id="agent-prompt" rows="3" placeholder="Inserisci il nuovo System Prompt o le istruzioni operative per l'Agente..." class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-cyan font-mono leading-relaxed"></textarea>
                 </div>
             </div>
-
             <button onclick="aggiornaPromptAgente()" id="btn-prompt-submit" class="w-full py-3.5 bg-sfx-gold text-black font-grotesk font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-md hover:bg-yellow-500 transition-all flex items-center justify-center space-x-2">
                 <i class="fa-solid fa-microchip"></i>
                 <span>Salva & Distribuisci Prompt alla Rete Neurale</span>
             </button>
             <div id="prompt-status" class="text-center font-bold text-xs min-h-[20px]"></div>
         </div>
-
     </main>
 
     <!-- FOOTER DIREZIONALE UFFICIALE -->
     <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <span>SUPREMA FUTURE X S.R.L. // X-BOX CONTROL ROOM ERP</span>
+            <span>SUPREMA FUTURE X S.R.L. // X-BOX AZIENDALE</span>
             <span class="text-sfx-cyan font-bold">PROTOCOLLO SICUREZZA: EAL6+ SOVRANO</span>
             <span>© 2026 TUTTI I DIRITTI RISERVATI</span>
         </div>
     </footer>
 
-    <!-- INCLUSIONE SCRIPT SISTEMA -->
-    <script src="js/code.js"></script>
-    <script src="sfx-delta-patch.js"></script>
     <script>
-        // CONFIGURAZIONE ENDPOINT GOOGLE APPS SCRIPT MASTER
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyM5TMDVK3MjpOroOucdjN3RiT-h89wcq4mMtaOXSc6pHwKUZ9hx2JeElBeB9V7TLAQ/exec";
+        // L'URL DEL TUO NUOVO APPS SCRIPT MASTER EAL6+
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-3DMHUeKhturF_ybnYspKPQqtObLfuJJPyIC8fwTGz-Ik7sVDrDtk1wfzIQvGrS3a/exec";
+        
+        let globalFatturato = 0;
 
-        // === 1. LOGOUT AMMINISTRATIVO X-BOX ===
-        function eseguiLogoutXBOX() {
-            sessionStorage.removeItem('sfx_authenticated');
-            sessionStorage.removeItem('sfx_auth_time');
-            sessionStorage.removeItem('sfx_role');
-            alert("🔒 SESSIONE X-BOX ERP CHIUSA IN SICUREZZA.");
-            window.location.href = 'login.html';
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            caricaMastroFinanziario();
+            fetchDatiDinamici();
+            initPinDots();
+        });
 
-        // === 2. CALCOLO PREVIEW SPLIT STATUTARIO 54/30/16 ===
+        // 1. CALCOLO PREVIEW SPLIT STATUTARIO 54/30/16
         function calcolaPreviewSplit(valore) {
             const amount = parseFloat(valore) || 0;
             const tipo = document.getElementById('ledger-type').value;
-
             let ops = 0, div = 0, tax = 0;
 
             if (tipo === 'ENTRATA') {
-                ops = amount * 0.54;
-                div = amount * 0.30;
-                tax = amount * 0.16;
+                ops = amount * 0.54; div = amount * 0.30; tax = amount * 0.16;
             } else {
-                ops = amount;
-                div = 0;
-                tax = 0;
+                ops = amount; div = 0; tax = 0;
             }
 
             const f = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
-
             document.getElementById('split-ops').textContent = f.format(ops);
             document.getElementById('split-div').textContent = f.format(div);
             document.getElementById('split-tax').textContent = f.format(tax);
         }
 
-        // === 3. INVIA TRANSAZIONE AL MASTRO FINANZIARIO ===
+        // 2. INVIA TRANSAZIONE AL MASTRO
         async function inviaTransazioneLedger(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-ledger-submit');
             const status = document.getElementById('ledger-status');
-
             btn.disabled = true;
             status.className = "text-sfx-cyanLight animate-pulse font-bold";
-            status.textContent = "Registrazione transazione in corso nel Mastro Finanziario EAL6+...";
+            status.textContent = "Registrazione transazione in corso...";
 
             const payload = {
                 action: 'LEDGER_ENTRY',
@@ -338,13 +451,8 @@
             };
 
             try {
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify(payload)
-                });
+                const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const res = await response.json();
-
                 if (res && res.status === 'success') {
                     status.className = "text-green-400 font-bold";
                     status.textContent = "✓ Transazione registrata! Proof Hash: " + (res.hashProof || 'SHA256-OK');
@@ -353,126 +461,161 @@
                     caricaMastroFinanziario();
                 } else {
                     status.className = "text-yellow-400 font-bold";
-                    status.textContent = "⚠️ " + (res.message || "Errore durante la registrazione.");
+                    status.textContent = "⚠️ " + (res.message || "Errore.");
                 }
             } catch (err) {
-                console.error("[LEDGER ERROR]", err);
                 status.className = "text-red-400 font-bold";
-                status.textContent = "✗ Errore di connessione con il Server Master.";
-            } finally {
-                btn.disabled = false;
-            }
+                status.textContent = "✗ Errore di connessione.";
+            } finally { btn.disabled = false; }
         }
 
-        // === 4. CARICAMENTO DATI TABELLARI MASTRO FINANZIARIO E METRICHE ===
+        // 3. CARICAMENTO DATI MASTRO E METRICHE
         async function caricaMastroFinanziario() {
             const tbody = document.getElementById('tbody-ledger');
-            const syncTime = document.getElementById('xbox-sync-time');
-            if (!tbody) return;
-
             try {
-                // Sincronizzazione simultanea Mastro e Leads per le metriche in tempo reale
                 const [resLedger, resLeads] = await Promise.all([
                     fetch(APPS_SCRIPT_URL + '?action=GET_LEDGER').then(r => r.json()),
                     fetch(APPS_SCRIPT_URL + '?action=GET_LEADS').then(r => r.json()).catch(() => ({ leads: [] }))
                 ]);
 
-                if (resLeads && resLeads.leads) {
-                    document.getElementById('xbox-metric-leads').textContent = resLeads.leads.length;
-                }
+                if (resLeads && resLeads.leads) document.getElementById('xbox-metric-leads').textContent = resLeads.leads.length;
 
                 if (resLedger && resLedger.ledger) {
                     const data = resLedger.ledger;
                     tbody.innerHTML = '';
-                    let fatturatoTotale = 0;
+                    globalFatturato = 0;
 
                     if (data.length === 0) {
-                        tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-gray-500 italic">Nessuna transazione ancora registrata nel Mastro (Mastro Inizializzato a Zero).</td></tr>`;
+                        tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-gray-500 italic">Mastro Inizializzato a Zero.</td></tr>`;
                     } else {
                         data.forEach(item => {
                             const imp = parseFloat(item.importo) || 0;
-                            if (item.tipo === 'ENTRATA') fatturatoTotale += imp;
-
+                            if (item.tipo === 'ENTRATA') globalFatturato += imp;
                             const row = document.createElement('tr');
                             row.className = "hover:bg-gray-900/40 transition-colors";
                             row.innerHTML = `
                                 <td class="p-3 text-gray-400">${item.timestamp ? new Date(item.timestamp).toLocaleString('it-IT') : 'N/D'}</td>
-                                <td class="p-3 font-bold text-white">${item.descrizione || 'Transazione'}</td>
-                                <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.tipo === 'ENTRATA' ? 'bg-green-950 text-green-400 border border-green-800' : 'bg-red-950 text-red-400 border border-red-800'}">${item.tipo || 'ENTRATA'}</span></td>
+                                <td class="p-3 font-bold text-white">${item.descrizione}</td>
+                                <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.tipo === 'ENTRATA' ? 'bg-green-950 text-green-400' : 'bg-red-950 text-red-400'}">${item.tipo}</span></td>
                                 <td class="p-3 font-bold ${item.tipo === 'ENTRATA' ? 'text-sfx-gold' : 'text-red-400'}">€ ${imp.toFixed(2)}</td>
                                 <td class="p-3 text-sfx-cyan font-bold">€ ${parseFloat(item.operativita || 0).toFixed(2)}</td>
                                 <td class="p-3 text-sfx-goldLight font-bold">€ ${parseFloat(item.dividendi || 0).toFixed(2)}</td>
                                 <td class="p-3 text-yellow-300 font-bold">€ ${parseFloat(item.tasse || 0).toFixed(2)}</td>
-                                <td class="p-3 font-mono text-[10px] text-sfx-cyanLight">${item.proofHash || '0xSHA256'}</td>
+                                <td class="p-3 font-mono text-[10px] text-sfx-cyanLight">${item.proofHash}</td>
                             `;
                             tbody.appendChild(row);
                         });
                     }
-
                     const f = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
-                    document.getElementById('xbox-metric-revenue').textContent = f.format(fatturatoTotale);
+                    document.getElementById('xbox-metric-revenue').textContent = f.format(globalFatturato);
                     document.getElementById('xbox-metric-ledger').textContent = data.length;
+                    
+                    // Aggiorna anche la Cassa Segreta
+                    document.getElementById('vault-ops').textContent = f.format(globalFatturato * 0.54);
+                    document.getElementById('vault-div').textContent = f.format(globalFatturato * 0.30);
+                    document.getElementById('vault-tax').textContent = f.format(globalFatturato * 0.16);
                 }
-
-                if (syncTime) {
-                    syncTime.textContent = "SYNC: " + new Date().toLocaleTimeString('it-IT');
-                }
+                document.getElementById('xbox-sync-time').textContent = "SYNC: " + new Date().toLocaleTimeString('it-IT');
             } catch (err) {
-                console.warn("[CARICA MASTRO]", err);
-                tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-yellow-400 font-bold">⚠️ Connessione Server Master non attiva.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-red-400">Errore connessione.</td></tr>`;
             }
         }
 
-        // === 5. AGGIORNAMENTO SYSTEM PROMPT AGENTI AI ===
+        // 4. AGGIORNAMENTO PROMPT AGENTI
         async function aggiornaPromptAgente() {
             const btn = document.getElementById('btn-prompt-submit');
             const status = document.getElementById('prompt-status');
             const agente = document.getElementById('agent-select').value;
             const prompt = document.getElementById('agent-prompt').value.trim();
 
-            if (!prompt) {
-                alert("Inserisci un testo di prompt valido.");
-                return;
-            }
-
+            if (!prompt) { alert("Inserisci un prompt valido."); return; }
             btn.disabled = true;
             status.className = "text-sfx-goldLight animate-pulse font-bold";
-            status.textContent = "Distribuzione prompt alla rete neurale...";
+            status.textContent = "Distribuzione prompt in corso...";
 
             try {
                 const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify({
-                        action: 'AGGIORNA_PROMPT_NEURALE',
-                        agente: agente,
-                        prompt: prompt,
-                        operatore: 'CEO GIULIANO CARATELLI (X-BOX ADMIN)'
-                    })
+                    method: 'POST', body: JSON.stringify({ action: 'AGGIORNA_PROMPT_NEURALE', agente: agente, prompt: prompt, operatore: 'CEO GIULIANO CARATELLI' })
                 });
                 const res = await response.json();
-
                 if (res && res.status === 'success') {
                     status.className = "text-green-400 font-bold";
-                    status.textContent = `✓ System Prompt distribuito con successo a ${agente}!`;
+                    status.textContent = `✓ Prompt distribuito a ${agente}!`;
                     document.getElementById('agent-prompt').value = '';
                 } else {
                     status.className = "text-yellow-400 font-bold";
-                    status.textContent = "⚠️ " + (res.message || "Errore salvataggio prompt.");
+                    status.textContent = "⚠️ Errore salvataggio.";
                 }
             } catch (err) {
-                console.error("[PROMPT ERROR]", err);
                 status.className = "text-red-400 font-bold";
                 status.textContent = "✗ Errore di connessione.";
-            } finally {
-                btn.disabled = false;
-            }
+            } finally { btn.disabled = false; }
         }
 
-        // Inizializzazione automatica al caricamento
-        document.addEventListener('DOMContentLoaded', () => {
-            caricaMastroFinanziario();
-        });
+        // 5. IBAN DINAMICO
+        async function fetchDatiDinamici() {
+            try {
+                const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_DYNAMIC_DATA`);
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    document.getElementById('current-iban-display').innerText = data.iban;
+                    document.getElementById('current-owner-display').innerText = "Intestatario: " + data.intestatario;
+                }
+            } catch (err) {}
+        }
+
+        async function aggiornaIban(e) {
+            e.preventDefault();
+            const nIban = document.getElementById('new-iban').value.trim();
+            const nOwner = document.getElementById('new-owner').value.trim() || 'Suprema Future X S.r.l.';
+            try {
+                const res = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST', body: JSON.stringify({ action: 'UPDATE_IBAN', nuovoIban: nIban, nuovoIntestatario: nOwner })
+                });
+                const data = await res.json();
+                if(data.status === 'success') {
+                    alert("IBAN Aggiornato con successo.");
+                    document.getElementById('new-iban').value = '';
+                    document.getElementById('new-owner').value = '';
+                    fetchDatiDinamici();
+                }
+            } catch (err) { alert("Errore aggiornamento IBAN."); }
+        }
+
+        // 6. LOGICA TASTIERINO SEGRETO DIVIDENDI (PIN: 3474429091)
+        let currentPin = "";
+        function initPinDots() {
+            const container = document.getElementById('pin-dots');
+            container.innerHTML = '';
+            for(let i=0; i<10; i++) container.innerHTML += `<div class="pin-dot" id="dot-${i}"></div>`;
+        }
+        function addPin(num) {
+            if (currentPin.length < 10) { currentPin += num; updateDots(); }
+        }
+        function clearPin() {
+            currentPin = ""; updateDots(); document.getElementById('pin-error').classList.add('hidden');
+        }
+        function updateDots() {
+            for(let i=0; i<10; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i < currentPin.length) dot.classList.add('filled'); else dot.classList.remove('filled');
+            }
+        }
+        function checkPin() {
+            if (currentPin === "3474429091") {
+                document.getElementById('vault-lock').style.display = 'none';
+                document.getElementById('vault-content').classList.remove('hidden');
+                currentPin = ""; updateDots();
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+                setTimeout(clearPin, 1500);
+            }
+        }
+        function lockVault() {
+            document.getElementById('vault-content').classList.add('hidden');
+            document.getElementById('vault-lock').style.display = 'block';
+            clearPin();
+        }
     </script>
 </body>
 </html>
