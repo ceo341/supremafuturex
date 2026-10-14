@@ -71,7 +71,7 @@
     <!-- MAIN CONTAINER FORM CANDIDATURA -->
     <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 space-y-8">
         <div class="bg-sfx-panel p-6 sm:p-10 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-8 relative overflow-hidden">
-            
+
             <!-- TESTATA DIREZIONALE -->
             <div class="text-center space-y-3 border-b border-gray-800 pb-6">
                 <div class="inline-flex items-center space-x-2 px-3.5 py-1 bg-sfx-gold/20 text-sfx-gold text-xs font-bold rounded-full uppercase border border-sfx-gold/40">
@@ -88,13 +88,13 @@
 
             <!-- FORM INTEGRALE CON TELEGRAM / EMAIL / WHATSAPP HOOKS -->
             <form id="form-candidatura" onsubmit="inviaCandidaturaForm(event)" class="space-y-6 text-xs">
-                
+
                 <!-- SEZIONE 1: ANAGRAFICA COMPLETA -->
                 <div class="space-y-4">
                     <h3 class="font-grotesk font-bold text-sfx-gold text-xs uppercase tracking-wider border-b border-gray-800 pb-2">
                         <i class="fa-solid fa-user-gear mr-2 text-sfx-cyan"></i>1. DATI ANAGRAFICI & IDENTIFICATIVI
                     </h3>
-                    
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="block text-gray-300 font-bold uppercase">NOME E COGNOME COMPLETO *</label>
@@ -202,7 +202,7 @@
                         <i class="fa-solid fa-paper-plane"></i>
                         <span>Trasmetti Candidatura & Riserva Slot</span>
                     </button>
-                    
+
                     <p class="text-[10px] text-gray-500 text-center font-mono">
                         <i class="fa-solid fa-lock text-sfx-gold mr-1"></i>I dati trasmessi sono protetti da crittografia EAL6+ e gestiti dalla Presidenza del CEO GIULIANO CARATELLI.
                     </p>
@@ -224,14 +224,14 @@
     <script src="js/code.js"></script>
     <script src="sfx-delta-patch.js"></script>
     <script>
-        // ENDPOINT GOOGLE APPS SCRIPT COLLEGATO
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyM5TMDVK3MjpOroOucdjN3RiT-h89wcq4mMtaOXSc6pHwKUZ9hx2JeElBeB9V7TLAQ/exec";
+        // ENDPOINT GOOGLE APPS SCRIPT MASTER AGGIORNATO EAL6+
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-3DMHUeKhturF_ybnYspKPQqtObLfuJJPyIC8fwTGz-Ik7sVDrDtk1wfzIQvGrS3a/exec";
 
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const corso = params.get('corso');
             const ambito = params.get('ambito');
-            
+
             const selectAmbito = document.getElementById('cand-ambito');
             if (selectAmbito) {
                 if (corso) {
@@ -269,7 +269,7 @@
             const btn = document.getElementById('btn-submit-cand');
             const status = document.getElementById('cand-status');
             btn.disabled = true;
-            
+
             status.className = "text-sfx-cyanLight animate-pulse font-bold";
             status.textContent = "Trasmissione candidatura EAL6+ in corso verso il Server Master...";
 
@@ -301,7 +301,7 @@
                     const codiceAssegnato = res.nexusCode || 'CEOSFX0002';
                     status.className = "text-green-400 font-bold";
                     status.innerHTML = `✓ Candidatura registrata con successo! Codice Nexus: <strong>${codiceAssegnato}</strong>`;
-                    
+
                     alert("✓ Candidatura trasmessa con successo alla Direzione del CEO GIULIANO!\n\nCodice ID Assegnato: " + codiceAssegnato + "\nRiceverai conferma via Email e Telegram con il pass Suprema Gold Card.");
                     document.getElementById('form-candidatura').reset();
                 } else {
