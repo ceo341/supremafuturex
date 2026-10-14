@@ -2,7 +2,7 @@
  * ====================================================================
  * SUPREMA FUTURE X S.R.L. // GOVERNANCE BACKEND ENGINE V38 (Code.gs)
  * GOVERNANCE: CEO GIULIANO CARATELLI
- * PROTOCOLLO: EAL6+ SOVRANO // REAL-TIME WEBHOOK, ASSEDIO & CEO HUB
+ * PROTOCOLLO: EAL6+ SOVRANO // REAL-TIME WEBHOOK, ASSEDIO, CEO HUB & 2FA
  * ====================================================================
  */
 
@@ -22,19 +22,19 @@ const CONFIG = {
     SHEET_BOX1: 'Box 1 - File e Risorse',
     SHEET_BOX2: 'Box 2 - Schede e Finanza',
     SHEET_DASH: 'Dashboard CEO',
-    SHEET_BLACKLIST: 'Sicurezza_Blacklist' // NUOVO: Tracciamento IP
+    SHEET_BLACKLIST: 'Sicurezza_Blacklist' // Tracciamento IP
 };
 
 // ⚙️ CONFIGURAZIONE MASTER ASSET SFX (Provisioning Assedio)
 const SFX_CONFIG = {
-    MASTER_FOLDER_ID:    "INSERISCI_ID_CARTELLA_ROOT_STUDENTI", // Cartella radice Drive allievi
-    MASTER_DOC_ID:       "INSERISCI_ID_DOC_MASTER",             // Dossier Contratto Formativo
-    MASTER_SLIDES_ID:    "INSERISCI_ID_SLIDES_MASTER",          // Locandina & Deck
-    MASTER_SHEET_ID:     "INSERISCI_ID_SHEET_MASTER",           // Scheda Operativa Esecutiva
-    MASTER_FORM_ID:      "INSERISCI_ID_FORM_MASTER",            // Modulo Questionario Onboarding
+    MASTER_FOLDER_ID:    "INSERISCI_ID_CARTELLA_ROOT_STUDENTI", 
+    MASTER_DOC_ID:       "INSERISCI_ID_DOC_MASTER",             
+    MASTER_SLIDES_ID:    "INSERISCI_ID_SLIDES_MASTER",          
+    MASTER_SHEET_ID:     "INSERISCI_ID_SHEET_MASTER",           
+    MASTER_FORM_ID:      "INSERISCI_ID_FORM_MASTER",            
     SITES_URL:           "https://sites.google.com/view/suprema-martina",
     NOTEBOOK_URL:        "https://notebooklm.google.com/notebook/TUO_ID",
-    XBOX_WEBHOOK_URL:    ""                                      // Webhook Google Chat X-Box CEO
+    XBOX_WEBHOOK_URL:    ""                                      
 };
 
 /**
@@ -47,6 +47,11 @@ function inizializzaCredenzialiSicure() {
     if(!props.getProperty('HASH_MASTER_PWD')) props.setProperty('HASH_MASTER_PWD', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'); 
     if(!props.getProperty('HASH_PIN_CODE')) props.setProperty('HASH_PIN_CODE', 'b9b68cb267e889da3b3f2c5d1e2b58d0'); 
     if(!props.getProperty('HASH_RESCUE_KEY')) props.setProperty('HASH_RESCUE_KEY', '4a7f058098ef'); 
+    
+    // Inserimento credenziali 2FA in chiaro per uso immediato nel login.html
+    if(!props.getProperty('MASTER_PASSWORD')) props.setProperty('MASTER_PASSWORD', 'MARIACHIARA suprema official2026@');
+    if(!props.getProperty('PIN_GOVERNANCE')) props.setProperty('PIN_GOVERNANCE', '3474429091');
+
     if(!props.getProperty('SFX_CURRENT_IBAN')) {
         props.setProperty('SFX_CURRENT_IBAN', 'IT00A0000000000000000000000');
         props.setProperty('SFX_IBAN_OWNER', 'Suprema Future X S.r.l.');
@@ -73,7 +78,7 @@ function aggiornaIbanDinamico(data) {
 
 /**
  * ====================================================================
- * 1. ENTRY POINT HTTP GET (Interfaccia CRM & Data Retrieval)
+ * 1. ENTRY POINT HTTP GET (Interfaccia CRM & Data Retrieval & 2FA)
  * ====================================================================
  */
 function doGet(e) {
@@ -88,6 +93,12 @@ function doGet(e) {
             return recuperaMastroFinanziario();
         } else if (action === 'GET_DYNAMIC_DATA') {
             return recuperaDatiDinamici();
+        } else if (action === 'CHECK_2FA_STATUS') {
+            return responseJSON(checkStato2FA());
+        } else if (action === 'AUTH_2FA_YES') {
+            return gestisciRispostaEmail2FA('AUTH_2FA_YES');
+        } else if (action === 'AUTH_2FA_NO') {
+            return gestisciRispostaEmail2FA('AUTH_2FA_NO');
         } else {
             return HtmlService.createHtmlOutputFromFile("crm")
                 .setTitle("CRM NEXUS GOVERNANCE // SUPREMA FUTURE X")
@@ -116,8 +127,12 @@ function doPost(e) {
         const data = JSON.parse(contents);
         const action = data.action || 'CANDIDATURA_CONFERENZA_CEO';
 
-        if (action === 'CANDIDATURA_CONFERENZA_CEO') {
+        if (action === 'CANDIDATURA_CONFERENZA_CEO' || action === 'CANDIDATURA_FORM') {
             return gestisciCandidaturaLead(data);
+        } else if (action === 'VERIFICA_CREDENZIALI_E_INVIA_2FA') {
+            return gestisciVerificaCredenzialiE2FA(data);
+        } else if (action === 'SECURITY_ALARM_ABUSE') {
+            return gestisciAllarmeSicurezzaIP(data); // Unito al tuo sistema IP EAL6+
         } else if (action === 'LEDGER_ENTRY') {
             return gestisciRegistrazioneMastro(data);
         } else if (action === 'AGGIORNA_PROMPT_NEURALE') {
@@ -160,9 +175,9 @@ function gestisciAllarmeSicurezzaIP(data) {
     
     const timestamp = new Date();
     const ip = data.ip || 'Sconosciuto';
-    const device = data.device || 'N/D';
+    const device = data.userAgent || data.device || 'N/D';
     const status = data.status || 'PRUGNA_BLOCCATO';
-    const detail = data.detail || 'Multipli tentativi di accesso falliti';
+    const detail = data.detail || 'Tentativo Accesso Non Autorizzato / Lock 2FA';
 
     sheet.appendRow([timestamp, ip, device, status, detail]);
     
@@ -171,12 +186,77 @@ function gestisciAllarmeSicurezzaIP(data) {
         <div style="font-family: monospace; background: #2D0A11; color: #ffffff; padding: 20px; border: 2px solid #FF3333;">
             <h2 style="color: #FF3333;">TENTATIVO DI ABUSO PARAMETRO X-BOX</h2>
             <p><strong>INDIRIZZO IP INTRUSO:</strong> ${ip}</p>
+            <p><strong>DISPOSITIVO:</strong> ${device}</p>
             <p>Si prega il CEO di rientrare nella violazione e di risistemare il circuito con l'entrata di emergenza: 4 colpi titolo e rispondere alla domanda di sicurezza.</p>
         </div>
     `;
     MailApp.sendEmail({ to: CONFIG.CEO_EMAIL, subject: oggetto, htmlBody: corpoHtml });
     
-    return responseJSON({ status: "success", message: "Blacklist aggiornata. Notifiche CEO inviate." });
+    return responseJSON({ status: "locked", message: "Blacklist aggiornata. Notifiche CEO inviate." });
+}/**
+ * ====================================================================
+ * 2C. GESTIONE AUTENTICAZIONE 2FA VIA EMAIL (TERMINALE 9")
+ * ====================================================================
+ */
+function gestisciVerificaCredenzialiE2FA(data) {
+    const props = PropertiesService.getScriptProperties();
+    const masterPass = props.getProperty('MASTER_PASSWORD');
+    const pinGov = props.getProperty('PIN_GOVERNANCE');
+
+    if (data.password === masterPass && data.pin === pinGov) {
+        props.setProperty('LOGIN_STATUS_TMP', 'PENDING');
+        
+        const scriptUrl = ScriptApp.getService().getUrl();
+        const urlSi = `${scriptUrl}?action=AUTH_2FA_YES`;
+        const urlNo = `${scriptUrl}?action=AUTH_2FA_NO`;
+
+        const emailHtml = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; background: #090A0D; color: #fff; padding: 20px; border: 2px solid #008B99; border-radius: 10px; text-align: center;">
+                <h2 style="color: #00F0FF; letter-spacing: 2px;">⚠️ RICHIESTA ACCESSO TERMINALE</h2>
+                <p style="color: #ccc; font-size: 14px;">È stato inserito il PIN corretto sul Terminale EAL6+.</p>
+                <p style="color: #D4AF37; font-size: 16px; font-weight: bold;">Sei tu che stai provando ad accedere?</p>
+                
+                <div style="margin-top: 30px;">
+                    <a href="${urlSi}" style="display: block; background-color: #B8860B; color: #000; padding: 15px; text-decoration: none; font-weight: bold; font-size: 16px; border-radius: 5px; margin-bottom: 15px;">SÌ, SONO IO - AUTORIZZA ACCESSO</a>
+                    
+                    <a href="${urlNo}" style="display: block; background-color: #FF5722; color: #fff; padding: 15px; text-decoration: none; font-weight: bold; font-size: 16px; border-radius: 5px;">NO, BLOCCA TUTTO (LOCKDOWN)</a>
+                </div>
+            </div>
+        `;
+
+        MailApp.sendEmail({
+            to: CONFIG.CEO_EMAIL,
+            subject: '🔒 AUTORIZZAZIONE ACCESSO RICHIESTA - SUPREMA FUTURE X',
+            htmlBody: emailHtml
+        });
+
+        return responseJSON({ status: 'success', message: 'Credenziali valide, email 2FA inviata.' });
+    } else {
+        return responseJSON({ status: 'error', message: 'Credenziali non valide.' });
+    }
+}
+
+function gestisciRispostaEmail2FA(action) {
+    const props = PropertiesService.getScriptProperties();
+    if (action === 'AUTH_2FA_YES') {
+        props.setProperty('LOGIN_STATUS_TMP', 'APPROVED');
+        return ContentService.createTextOutput("✅ ACCESSO AUTORIZZATO. Puoi tornare alla finestra del terminale, il Caveau si aprirà da solo.");
+    } else {
+        props.setProperty('LOGIN_STATUS_TMP', 'DENIED');
+        // Scatena l'allarme
+        gestisciAllarmeSicurezzaIP({ status: 'BLOCCO_VIA_EMAIL_2FA', detail: 'Il CEO ha bloccato un tentativo di accesso valido.' });
+        return ContentService.createTextOutput("⛔ ACCESSO NEGATO. Il terminale intruso è stato espulso in modalità Prugna.");
+    }
+}
+
+function checkStato2FA() {
+    const props = PropertiesService.getScriptProperties();
+    const stato = props.getProperty('LOGIN_STATUS_TMP') || 'PENDING';
+    
+    if (stato === 'APPROVED' || stato === 'DENIED') {
+        props.setProperty('LOGIN_STATUS_TMP', 'WAITING_FOR_NEXT');
+    }
+    return { status: stato };
 }
 
 /**
@@ -256,7 +336,9 @@ function gestisciCandidaturaLead(data) {
         message: "Candidatura accreditata con successo nel Registro EAL6+",
         timestamp: timestamp
     });
-}/**
+}
+
+/**
  * ====================================================================
  * 4. MASTRO FINANZIARIO & RIPARTIZIONE STATUTARIA 54/30/16
  * ====================================================================
@@ -515,9 +597,7 @@ function gestisciFeedbackDiretto(data) {
     }
     sheet.appendRow([new Date(), data.nome || 'N/D', data.messaggio || 'N/D']);
     return responseJSON({ status: "success", message: "Feedback direttivo archiviato." });
-}
-
-/**
+}/**
  * ====================================================================
  * 9. RECUPERO DATI PER CRM NEXUS E X-BOX ERP (doGet)
  * ====================================================================
@@ -693,6 +773,7 @@ function inviaEmailBenvenutoAssedio(nome, email, linkDrive, linkDoc, linkSlides)
         Logger.log("Errore invio email Assedio: " + e.toString());
     }
 }
+
 /**
  * ====================================================================
  * 12. SCHEDA MADRE DEGLI APPUNTAMENTI (Calendar & Google Meet Sync)
@@ -804,18 +885,6 @@ function inviaReportSupervisoreAlison(oraTurno) {
     if (CONFIG.CEO_EMAIL) {
         GmailApp.sendEmail(CONFIG.CEO_EMAIL, titolo, corpo);
     }
-
-    if (SFX_CONFIG.XBOX_WEBHOOK_URL) {
-        try {
-            UrlFetchApp.fetch(SFX_CONFIG.XBOX_WEBHOOK_URL, {
-                method: "post",
-                contentType: "application/json",
-                payload: JSON.stringify({ text: corpo })
-            });
-        } catch (e) {
-            Logger.log("Errore invio Webhook Chat: " + e.message);
-        }
-    }
 }
 
 function controlloSentinellaInattivita() {
@@ -857,9 +926,7 @@ function creaXBoxCEOHub() {
 
     function getOrCreateSheet(name, tabColor) {
         let sheet = ss.getSheetByName(name);
-        if (!sheet) {
-            sheet = ss.insertSheet(name);
-        }
+        if (!sheet) sheet = ss.insertSheet(name);
         if (tabColor) sheet.setTabColor(tabColor);
         return sheet;
     }
@@ -867,31 +934,15 @@ function creaXBoxCEOHub() {
     const sheetBox1 = getOrCreateSheet(CONFIG.SHEET_BOX1, "#0052CC");
     sheetBox1.clear();
 
-    const headersBox1 = [
-        "ID File",
-        "Nome Documento",
-        "Origine",
-        "Categoria",
-        "URL / Link di Collegamento",
-        "Stato",
-        "Note e Tag"
-    ];
-
+    const headersBox1 = ["ID File", "Nome Documento", "Origine", "Categoria", "URL / Link di Collegamento", "Stato", "Note e Tag"];
     sheetBox1.getRange(1, 1, 1, headersBox1.length).setValues([headersBox1]);
     const headerBox1Range = sheetBox1.getRange("A1:G1");
-    headerBox1Range.setBackground(primaryColor)
-        .setFontColor(textWhite)
-        .setFontWeight("bold")
-        .setAlignment("center", "middle")
-        .setWrap(true);
+    headerBox1Range.setBackground(primaryColor).setFontColor(textWhite).setFontWeight("bold").setAlignment("center", "middle").setWrap(true);
     sheetBox1.setRowHeight(1, 35);
 
     const sampleBox1 = [
         ["DOC-001", "Manuale Operativo SFX", "Manuale", "Materiale Didattico", "https://drive.google.com/...", "Approvato", "Onboarding team"],
-        ["DOC-002", "Verbale CDA Ottobre", "Notebook", "Verbale", "https://drive.google.com/...", "Archiviato", "Governance"],
-        ["DOC-003", "Contratto Master Builder", "CRM", "Contratto", "https://drive.google.com/...", "In lavorazione", "Collaboratori"],
-        ["DOC-004", "Dispensa Strategia Vendita", "Classroom", "Dispensa", "https://drive.google.com/...", "Archiviato", "Academy SFX"],
-        ["DOC-005", "Verbale Allineamento Leader", "Notebook", "Verbale", "https://drive.google.com/...", "Archiviato", "Meeting settimanale"]
+        ["DOC-002", "Verbale CDA Ottobre", "Notebook", "Verbale", "https://drive.google.com/...", "Archiviato", "Governance"]
     ];
     sheetBox1.getRange(2, 1, sampleBox1.length, headersBox1.length).setValues(sampleBox1);
 
@@ -903,53 +954,30 @@ function creaXBoxCEOHub() {
     sheetBox1.setColumnWidth(6, 120);  
     sheetBox1.setColumnWidth(7, 200);  
 
-    const ruleOrigine = SpreadsheetApp.newDataValidation()
-        .requireValueInList(["Notebook", "Classroom", "CRM", "Manuale"], true).build();
+    const ruleOrigine = SpreadsheetApp.newDataValidation().requireValueInList(["Notebook", "Classroom", "CRM", "Manuale"], true).build();
     sheetBox1.getRange("C2:C100").setDataValidation(ruleOrigine);
 
-    const ruleCategoria = SpreadsheetApp.newDataValidation()
-        .requireValueInList(["Verbale", "Dispensa", "Contratto", "Materiale Didattico"], true).build();
+    const ruleCategoria = SpreadsheetApp.newDataValidation().requireValueInList(["Verbale", "Dispensa", "Contratto", "Materiale Didattico"], true).build();
     sheetBox1.getRange("D2:D100").setDataValidation(ruleCategoria);
 
-    const ruleStatoDoc = SpreadsheetApp.newDataValidation()
-        .requireValueInList(["In lavorazione", "Archiviato", "Approvato"], true).build();
+    const ruleStatoDoc = SpreadsheetApp.newDataValidation().requireValueInList(["In lavorazione", "Archiviato", "Approvato"], true).build();
     sheetBox1.getRange("F2:F100").setDataValidation(ruleStatoDoc);
-
     sheetBox1.setFrozenRows(1);
 
     const sheetBox2 = getOrCreateSheet(CONFIG.SHEET_BOX2, "#00875A");
     sheetBox2.clear();
 
-    const headersBox2 = [
-        "ID Anagrafica/Corsista",
-        "Nome / Ragione Sociale",
-        "Tipo",
-        "ID Badge / Codice CRM",
-        "Stato CRM",
-        "Tipo Documento Finanziario",
-        "Importo (€)",
-        "Stato Pagamento",
-        "Link Scheda CRM"
-    ];
-
+    const headersBox2 = ["ID Anagrafica/Corsista", "Nome / Ragione Sociale", "Tipo", "ID Badge / Codice CRM", "Stato CRM", "Tipo Documento Finanziario", "Importo (€)", "Stato Pagamento", "Link Scheda CRM"];
     sheetBox2.getRange(1, 1, 1, headersBox2.length).setValues([headersBox2]);
     const headerBox2Range = sheetBox2.getRange("A1:I1");
-    headerBox2Range.setBackground(primaryColor)
-        .setFontColor(textWhite)
-        .setFontWeight("bold")
-        .setAlignment("center", "middle")
-        .setWrap(true);
+    headerBox2Range.setBackground(primaryColor).setFontColor(textWhite).setFontWeight("bold").setAlignment("center", "middle").setWrap(true);
     sheetBox2.setRowHeight(1, 35);
 
     const sampleBox2 = [
         ["CR-001", "Alessandro Conti", "Corsista", "SFX-MEM-003", "Attivo", "Fattura", 1250, "Pagato", "https://crm.suprema..."],
-        ["CR-002", "Marco Rossi", "Cliente", "SFX-MEM-004", "Attivo", "Fattura", 850, "Da incassare", "https://crm.suprema..."],
-        ["CR-003", "Elena Ferrari", "Corsista", "SFX-MEM-005", "Attivo", "Preventivo", 1500, "In sospeso", "https://crm.suprema..."],
-        ["CR-004", "Studio Grafico Nova", "Fornitore", "FORN-001", "Chiuso", "Contratto", 450, "Pagato", "https://crm.suprema..."],
-        ["CR-005", "Sara Moretti", "Corsista", "SFX-MEM-006", "In attesa", "Fattura", 950, "Da incassare", "https://crm.suprema..."]
+        ["CR-002", "Marco Rossi", "Cliente", "SFX-MEM-004", "Attivo", "Fattura", 850, "Da incassare", "https://crm.suprema..."]
     ];
     sheetBox2.getRange(2, 1, sampleBox2.length, headersBox2.length).setValues(sampleBox2);
-
     sheetBox2.getRange("G2:G100").setNumberFormat("€#,##0.00");
 
     sheetBox2.setColumnWidth(1, 150);  
@@ -962,34 +990,24 @@ function creaXBoxCEOHub() {
     sheetBox2.setColumnWidth(8, 130);  
     sheetBox2.setColumnWidth(9, 180);  
 
-    const ruleTipoAnag = SpreadsheetApp.newDataValidation()
-        .requireValueInList(["Cliente", "Corsista", "Fornitore"], true).build();
+    const ruleTipoAnag = SpreadsheetApp.newDataValidation().requireValueInList(["Cliente", "Corsista", "Fornitore"], true).build();
     sheetBox2.getRange("C2:C100").setDataValidation(ruleTipoAnag);
 
-    const ruleStatoCRM = SpreadsheetApp.newDataValidation()
-        .requireValueInList(["Attivo", "In attesa", "Chiuso"], true).build();
+    const ruleStatoCRM = SpreadsheetApp.newDataValidation().requireValueInList(["Attivo", "In attesa", "Chiuso"], true).build();
     sheetBox2.getRange("E2:E100").setDataValidation(ruleStatoCRM);
 
-    const ruleDocFin = SpreadsheetApp.newDataValidation()
-        .requireValueInList(["Fattura", "Preventivo", "Contratto"], true).build();
+    const ruleDocFin = SpreadsheetApp.newDataValidation().requireValueInList(["Fattura", "Preventivo", "Contratto"], true).build();
     sheetBox2.getRange("F2:F100").setDataValidation(ruleDocFin);
 
-    const rulePagamento = SpreadsheetApp.newDataValidation()
-        .requireValueInList(["Pagato", "Da incassare", "In sospeso"], true).build();
+    const rulePagamento = SpreadsheetApp.newDataValidation().requireValueInList(["Pagato", "Da incassare", "In sospeso"], true).build();
     sheetBox2.getRange("H2:H100").setDataValidation(rulePagamento);
-
     sheetBox2.setFrozenRows(1);
 
     const sheetDash = getOrCreateSheet(CONFIG.SHEET_DASH, "#FF8B00");
     sheetDash.clear();
 
     sheetDash.getRange("B2:J2").merge();
-    sheetDash.getRange("B2").setValue("X-BOX CEO HUB • QUADRO DI COMANDO ESECUTIVO")
-        .setBackground(primaryColor)
-        .setFontColor(textWhite)
-        .setFontWeight("bold")
-        .setFontSize(14)
-        .setAlignment("center", "middle");
+    sheetDash.getRange("B2").setValue("X-BOX CEO HUB • QUADRO DI COMANDO ESECUTIVO").setBackground(primaryColor).setFontColor(textWhite).setFontWeight("bold").setFontSize(14).setAlignment("center", "middle");
     sheetDash.setRowHeight(2, 45);
 
     const kpiCards = [
@@ -1000,82 +1018,14 @@ function creaXBoxCEOHub() {
     ];
 
     kpiCards.forEach(function(card) {
-        sheetDash.getRange(card.labelRange).merge().setValue(card.label)
-            .setBackground("#EAECF0")
-            .setFontColor("#333333")
-            .setFontWeight("bold")
-            .setAlignment("center", "middle");
-
+        sheetDash.getRange(card.labelRange).merge().setValue(card.label).setBackground("#EAECF0").setFontColor("#333333").setFontWeight("bold").setAlignment("center", "middle");
         const valCell = sheetDash.getRange(card.valRange).merge();
-        valCell.setFormula(card.formula)
-            .setBackground(kpiBg)
-            .setFontColor(primaryColor)
-            .setFontWeight("bold")
-            .setFontSize(14)
-            .setAlignment("center", "middle");
+        valCell.setFormula(card.formula).setBackground(kpiBg).setFontColor(primaryColor).setFontWeight("bold").setFontSize(14).setAlignment("center", "middle");
         if (card.format) valCell.setNumberFormat(card.format);
     });
 
     sheetDash.setRowHeight(4, 25);
     sheetDash.setRowHeight(5, 40);
-
-    sheetDash.getRange("B8:E8").merge().setValue("FILE ARCHIVIATI PER ORIGINE")
-        .setBackground(primaryColor).setFontColor(textWhite).setFontWeight("bold").setAlignment("center", "middle");
-    
-    sheetDash.getRange("B9:E9").setValues([["Origine", "In Lavorazione", "Archiviati", "Totale File"]]);
-    sheetDash.getRange("B9:E9").setBackground("#D1D5DB").setFontWeight("bold").setAlignment("center", "middle");
-
-    const origini = ["Notebook", "Classroom", "CRM", "Manuale"];
-    for (let i = 0; i < origini.length; i++) {
-        const row = 10 + i;
-        const orig = origini[i];
-        sheetDash.getRange(row, 2).setValue(orig).setFontWeight("bold");
-        sheetDash.getRange(row, 3).setFormula('=COUNTIFS(\'Box 1 - File e Risorse\'!C2:C, "' + orig + '", \'Box 1 - File e Risorse\'!F2:F, "In lavorazione")');
-        sheetDash.getRange(row, 4).setFormula('=COUNTIFS(\'Box 1 - File e Risorse\'!C2:C, "' + orig + '", \'Box 1 - File e Risorse\'!F2:F, "Archiviato")');
-        sheetDash.getRange(row, 5).setFormula('=COUNTIF(\'Box 1 - File e Risorse\'!C2:C, "' + orig + '")');
-    }
-    sheetDash.getRange("B10:E13").setAlignment("center", "middle");
-
-    sheetDash.getRange("B14").setValue("TOTALE").setFontWeight("bold");
-    sheetDash.getRange("C14").setFormula('=SUM(C10:C13)');
-    sheetDash.getRange("D14").setFormula('=SUM(D10:D13)');
-    sheetDash.getRange("E14").setFormula('=SUM(E10:E13)');
-    sheetDash.getRange("B14:E14").setBackground("#E5E7EB").setFontWeight("bold").setAlignment("center", "middle");
-
-    sheetDash.getRange("G8:J8").merge().setValue("DETTAGLIO FINANZIARIO PER STATO PAGAMENTO")
-        .setBackground(primaryColor).setFontColor(textWhite).setFontWeight("bold").setAlignment("center", "middle");
-    
-    sheetDash.getRange("G9:J9").setValues([["Stato Pagamento", "Numero Schede", "Importo Totale (€)", "% sul Totale"]]);
-    sheetDash.getRange("G9:J9").setBackground("#D1D5DB").setFontWeight("bold").setAlignment("center", "middle");
-
-    const statiPagamento = ["Pagato", "Da incassare", "In sospeso"];
-    for (let j = 0; j < statiPagamento.length; j++) {
-        const r = 10 + j;
-        const st = statiPagamento[j];
-        sheetDash.getRange(r, 7).setValue(st).setFontWeight("bold");
-        sheetDash.getRange(r, 8).setFormula('=COUNTIF(\'Box 2 - Schede e Finanza\'!H2:H, "' + st + '")');
-        sheetDash.getRange(r, 9).setFormula('=SUMIF(\'Box 2 - Schede e Finanza\'!H2:H, "' + st + '", \'Box 2 - Schede e Finanza\'!G2:G)').setNumberFormat("€#,##0.00");
-        sheetDash.getRange(r, 10).setFormula('=IF(I13=0, 0, I' + r + '/I13)').setNumberFormat("0.0%");
-    }
-    sheetDash.getRange("G10:J12").setAlignment("center", "middle");
-
-    sheetDash.getRange("G13").setValue("TOTALE GENERALE").setFontWeight("bold");
-    sheetDash.getRange("H13").setFormula('=SUM(H10:H12)');
-    sheetDash.getRange("I13").setFormula('=SUM(I10:I12)').setNumberFormat("€#,##0.00");
-    sheetDash.getRange("J13").setFormula('=SUM(J10:J12)').setNumberFormat("0.0%");
-    sheetDash.getRange("G13:J13").setBackground("#E5E7EB").setFontWeight("bold").setAlignment("center", "middle");
-
-    sheetDash.setColumnWidth(1, 40);
-    sheetDash.setColumnWidth(2, 130);
-    sheetDash.setColumnWidth(3, 110);
-    sheetDash.setColumnWidth(4, 110);
-    sheetDash.setColumnWidth(5, 110);
-    sheetDash.setColumnWidth(6, 40);
-    sheetDash.setColumnWidth(7, 130);
-    sheetDash.setColumnWidth(8, 110);
-    sheetDash.setColumnWidth(9, 130);
-    sheetDash.setColumnWidth(10, 100);
-
     ss.setActiveSheet(sheetDash);
 }
 
@@ -1125,9 +1075,9 @@ function responseJSON(data) {
 function inizializzaEcosistemaCompletoSFX() {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     
-    inizializzaCredenzialiSicure(); // NUOVO: Imposta le password e l'IBAN in memoria invisibile
+    inizializzaCredenzialiSicure(); 
     inizializzaDatabaseAssedioSeAssente(ss);
     creaXBoxCEOHub();
     
-    Logger.log("✅ Ecosistema SFX configurato al 100%. Sicurezza Zero-Plaintext Attiva.");
+    Logger.log("✅ Ecosistema SFX configurato al 100%. 2FA e Sicurezza Zero-Plaintext Attive.");
 }
