@@ -820,5 +820,128 @@
             });
         }
     </script>
-</body>
+</body><!-- ========================================================= -->
+    <!-- TERMINALE DI ACCESSO SEGRETO (9 POLLICI) -->
+    <!-- ========================================================= -->
+    <div id="modal-terminale-9" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4">
+        <!-- Canvas Sfondo Matrix/Stellare -->
+        <canvas id="canvas-terminal-bg" class="absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
+        
+        <div class="relative bg-[#090A0D]/80 text-white rounded-[2rem] p-8 sm:p-12 w-[45rem] max-w-full border border-sfx-gold/30 shadow-[0_0_50px_rgba(0,240,255,0.1)] overflow-hidden">
+            <!-- Pulsazione e X Rossa (Invisibile di default) -->
+            <div id="terminal-alarm" class="absolute inset-0 bg-sfx-prugna/80 flex items-center justify-center hidden z-50 text-white font-mono text-center font-bold text-lg"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <!-- Sezione Sinistra: Orologio -->
+                <div class="flex flex-col items-center justify-center border-r border-sfx-gold/20 pr-6">
+                    <canvas id="canvas-clock" width="200" height="200" class="shadow-2xl rounded-full mb-6"></canvas>
+                    <span class="text-sfx-cyan font-mono text-xs font-bold tracking-widest"><span class="animate-pulse">●</span> TEMPO REALE ROMA</span>
+                </div>
+                
+                <!-- Sezione Destra: Form di Accesso -->
+                <div id="terminal-form-box" class="space-y-6">
+                    <div>
+                        <h3 class="font-grotesk font-black text-2xl text-sfx-goldLight uppercase tracking-wider">SUPREMA FUTURE X</h3>
+                        <p class="font-mono text-[10px] text-gray-500 uppercase tracking-widest mt-1">X-BOX ENTERPRISE // EAL6+ SOVRANO</p>
+                    </div>
+                    
+                    <form onsubmit="verificaAccessoTerminale(event)" class="space-y-5 font-mono text-xs">
+                        <div>
+                            <label class="block text-gray-400 mb-1">Benvenuto CEO. Immettere la dicitura di verifica:</label>
+                            <input type="password" id="terminal-pwd" required class="w-full p-3.5 bg-black border border-gray-800 rounded-xl text-white outline-none focus:border-sfx-gold transition-colors" placeholder="Master Password...">
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 mb-1">PIN di Verifica Sicura:</label>
+                            <input type="password" id="terminal-pin" required pattern="[0-9]{10}" class="w-full p-3.5 bg-black border border-gray-800 rounded-xl text-sfx-cyanLight outline-none focus:border-sfx-cyan tracking-[0.5em] text-center transition-colors" placeholder="••••••••••" maxlength="10">
+                        </div>
+                        
+                        <button type="submit" id="btn-terminal-unlock" class="w-full py-4 bg-sfx-gold text-black font-extrabold uppercase rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:brightness-110 transition-all">
+                            VERIFICA E SBLOCCA <i class="fa-solid fa-unlock-keyhole ml-2"></i>
+                        </button>
+
+                        <button type="button" id="btn-biometria-quick" onclick="verificaAccessoBiometrico()" class="w-full py-3 bg-[#12141C] text-sfx-cyan font-bold border border-sfx-cyan/30 rounded-xl hidden transition-all hover:bg-sfx-cyan/10">
+                            <i class="fa-solid fa-fingerprint mr-2"></i> ACCESSO RAPIDO
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Sezione Destra: Successo (Mostrata dopo l'accesso) -->
+                <div id="terminal-success-box" class="space-y-6 hidden flex-col items-center justify-center text-center">
+                    <div class="w-20 h-20 bg-green-500/20 border border-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-check text-4xl text-green-500"></i>
+                    </div>
+                    <h2 id="terminal-greeting" class="font-grotesk font-black text-3xl text-white uppercase">...</h2>
+                    <p class="font-mono text-xs text-sfx-cyan animate-pulse">Trasferimento al Caveau in corso...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- CAVEAU CENTRALE DOPPIO BIVIO (8 POLLICI) -->
+    <!-- ========================================================= -->
+    <div id="modal-caveau-8" class="fixed inset-0 bg-[#090A0D]/95 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl space-y-8">
+            <div class="text-center space-y-2">
+                <h2 class="font-grotesk font-black text-2xl md:text-3xl text-white tracking-widest uppercase">Benvenuto CEO nel Caveau</h2>
+                <p class="font-mono text-sfx-cyan text-xs">Seleziona la X-BOX per la tua protezione e operatività.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- X-BOX SUPREMA -->
+                <div class="bg-[#090A0D] border border-sfx-gold rounded-3xl p-8 shadow-[0_0_30px_rgba(212,175,55,0.15)] relative overflow-hidden group">
+                    <div class="absolute inset-0 opacity-20 border-[3px] border-sfx-goldLight animate-[pulse_3s_ease-in-out_infinite]"></div>
+                    <div class="relative z-10 text-center space-y-6">
+                        <i class="fa-solid fa-crown text-5xl text-sfx-goldLight"></i>
+                        <div>
+                            <h3 class="font-grotesk font-black text-2xl text-white">X-BOX SUPREMA</h3>
+                            <p class="font-mono text-[10px] text-gray-400 mt-2">AGENTI AI | CRM | CORSI | GOLD CARD</p>
+                        </div>
+                        <input type="password" id="pin-suprema" placeholder="PIN Accesso..." class="w-full p-3 bg-black border border-gray-800 rounded-xl text-center font-mono text-sfx-gold tracking-[0.3em] outline-none focus:border-sfx-gold">
+                        <button onclick="validaPinCaveau('suprema', 'crm.html')" class="w-full py-3 bg-sfx-gold text-black font-bold uppercase rounded-xl hover:brightness-110">Accedi Suprema</button>
+                    </div>
+                </div>
+
+                <!-- X-BOX AZIENDALE -->
+                <div class="bg-[#12141C] border border-sfx-cyan rounded-3xl p-8 shadow-[0_0_30px_rgba(0,240,255,0.1)] relative overflow-hidden group">
+                    <div class="absolute inset-0 opacity-20 border-[3px] border-sfx-cyanLight animate-[pulse_4s_ease-in-out_infinite]"></div>
+                    <div class="relative z-10 text-center space-y-6">
+                        <i class="fa-solid fa-building-columns text-5xl text-sfx-silver"></i>
+                        <div>
+                            <h3 class="font-grotesk font-black text-2xl text-white">X-BOX AZIENDALE</h3>
+                            <p class="font-mono text-[10px] text-gray-400 mt-2">MASTRO | DIVIDENDI | FISCO | IBAN</p>
+                        </div>
+                        <input type="password" id="pin-aziendale" placeholder="PIN Accesso..." class="w-full p-3 bg-black border border-gray-800 rounded-xl text-center font-mono text-sfx-cyan tracking-[0.3em] outline-none focus:border-sfx-cyan">
+                        <button onclick="validaPinCaveau('aziendale', 'admin.html')" class="w-full py-3 bg-gray-200 text-black font-bold uppercase rounded-xl hover:brightness-110">Accedi Aziendale</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="caveau-feedback" class="text-center font-mono text-xs font-bold text-sfx-cyan hidden animate-pulse"></div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- TERMINALE DI EMERGENZA SOVRANA (7 POLLICI) -->
+    <!-- ========================================================= -->
+    <div id="modal-emergenza-7" class="fixed inset-0 bg-sfx-prugna/90 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4">
+        <div class="bg-black border-2 border-red-600 rounded-3xl p-8 max-w-md w-full shadow-[0_0_50px_rgba(255,0,0,0.3)] space-y-6 font-mono text-xs">
+            <div class="text-center border-b border-gray-800 pb-4">
+                <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-3 animate-pulse"></i>
+                <h3 class="font-grotesk font-black text-red-500 text-xl tracking-wider">RIPRISTINO SOVRANO EAL6+</h3>
+                <p class="text-gray-400 mt-1">Intervento di sblocco d'emergenza richiesto dal CEO.</p>
+            </div>
+            <form onsubmit="verificaEmergenza(event)" class="space-y-5">
+                <div class="p-4 bg-gray-900 border border-gray-700 rounded-xl text-center">
+                    <span class="block text-gray-500 mb-2">Challenge di Sicurezza:</span>
+                    <strong class="text-white text-sm">"Codice primario di Mariachiara in Imperya"</strong>
+                </div>
+                <div>
+                    <input type="password" id="rescue-answer" required class="w-full p-4 bg-black border border-red-600 rounded-xl text-center text-white outline-none focus:border-red-400" placeholder="Risposta di sicurezza...">
+                </div>
+                <button type="submit" id="btn-rescue" class="w-full py-4 bg-red-600 text-white font-extrabold uppercase rounded-xl hover:bg-red-500 transition-colors">Esegui Sblocco Circuito</button>
+            </form>
+            <button onclick="document.getElementById('modal-emergenza-7').classList.add('hidden')" class="w-full text-center text-gray-500 underline pt-2">Annulla e Torna al Sito</button>
+        </div>
+    </div>
 </html>
