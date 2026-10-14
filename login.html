@@ -144,7 +144,8 @@
 
     <script>
         const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzWBzJIGix89spOCn4khKN4RZ8oGsH9-I4Ii2OsBI9LdLt4g5En7BqkMtBHu_u56joG/exec';
-        let tentativi = parseInt(localStorage.getItem('sfx_login_attempts')) || 3;
+        let tentativi = parseInt(localStorage.getItem('sfx_login_attempts'));
+        if (isNaN(tentativi)) tentativi = 3;
         let pollInterval;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -168,7 +169,7 @@
             btn.disabled = true;
 
             try {
-                // Step 1: Invia credenziali al server
+                // Invia credenziali al server
                 const res = await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'VERIFICA_CREDENZIALI_E_INVIA_2FA', password: pass, pin: pin })
@@ -182,7 +183,7 @@
                     document.getElementById('view-2fa').classList.remove('hidden');
                     document.getElementById('view-2fa').classList.add('flex');
                     
-                    // Inizia a interrogare il server ogni 3 secondi per vedere se hai cliccato l'email
+                    // Inizia a interrogare il server ogni 3 secondi
                     pollInterval = setInterval(checkStato2FA, 3000);
                 } else {
                     // Password Errata
@@ -214,18 +215,16 @@
 
                 if (data.status === 'APPROVED') {
                     clearInterval(pollInterval);
-                    // Apri il Caveau
                     document.getElementById('view-2fa').classList.add('hidden');
                     document.getElementById('view-2fa').classList.remove('flex');
                     document.getElementById('view-caveau').style.display = 'block';
                 } else if (data.status === 'DENIED') {
                     clearInterval(pollInterval);
-                    // Hai cliccato "NO, NON SONO IO" nell'email
                     tentativi = 0;
                     localStorage.setItem('sfx_login_attempts', 0);
                     triggerLockdown('BLOCCATO_VIA_EMAIL', 'BLOCCATO_VIA_EMAIL');
                 }
-            } catch (e) { console.warn("Polling 2FA error", e); }
+            } catch (e) { console.warn("Polling error", e); }
         }
 
         function triggerLockdown(passAttempt = 'N/D', pinAttempt = 'N/D') {
@@ -237,7 +236,6 @@
             lockdown.classList.remove('hidden');
             lockdown.classList.add('flex');
 
-            // Invia notifica reale di allarme
             fetch(WEBHOOK_URL, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -251,19 +249,100 @@
     </script>
 </body>
 </html>/**
- * =======================================================
- * MODULO AGGIUNTIVO: AUTENTICAZIONE 2FA VIA EMAIL
- * =======================================================
+ * ====================================================================
+ * SUPREMA FUTURE X S.R.L. // ENTERPRISE BACKEND ENGINE V38 (CON 2FA)
+ * GOVERNANCE: CEO GIULIANO CARATELLI
+ * PROTOCOLLO: EAL6+ SOVRANO // ZERO-PLAINTEXT PROPERTIES SERVICE
+ * ====================================================================
  */
 
+const CONSTANTS = {
+    CEO_EMAIL: 'ceo@supremaofficial.com',
+    CEO_WHATSAPP: '+393474429091',
+    COMPANY_NAME: 'Suprema Future X S.r.l.',
+    COLOR_PRUGNA: '#581845',
+    SHEET_LEADS: 'Leads_Candidature',
+    SHEET_BLACKLIST: 'Blacklist_Sicurezza'
+};
+
+function initSecureProperties() {
+    const props = PropertiesService.getScriptProperties();
+    if (!props.getProperty('MASTER_PASSWORD')) {
+        props.setProperty('MASTER_PASSWORD', 'MARIACHIARA suprema official2026@');
+        props.setProperty('PIN_GOVERNANCE', '3474429091');
+    }
+}
+
+/**
+ * 1. DISPATCHER POST INTERCETTAZIONE RICHIESTE ENTRANTI
+ */
+function doPost(e) {
+    try {
+        let payload = {};
+        if (e && e.postData && e.postData.contents) {
+            payload = JSON.parse(e.postData.contents);
+        }
+
+        const action = payload.action || 'HEALTH_CHECK';
+        let result = {};
+
+        switch (action) {
+            case 'VERIFICA_CREDENZIALI_E_INVIA_2FA':
+                result = gestisciVerificaCredenzialiE2FA(payload);
+                break;
+            case 'SECURITY_ALARM_ABUSE':
+                result = gestisciAllarmeAbuso(payload);
+                break;
+            case 'CANDIDATURA_FORM':
+            case 'CANDIDATURA_CONFERENZA_CEO':
+                result = gestisciCandidaturaLead(payload);
+                break;
+            default:
+                result = { status: 'error', message: 'Azione non riconosciuta.' };
+        }
+
+        return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+    } catch (err) {
+        return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() })).setMimeType(ContentService.MimeType.JSON);
+    }
+}
+
+/**
+ * 2. DISPATCHER GET PER RECUPERO DATI E AZIONI 2FA
+ */
+function doGet(e) {
+    try {
+        const action = (e && e.parameter && e.parameter.action) ? e.parameter.action : 'GET_SYSTEM_STATUS';
+        
+        // Intercetta i click diretti dall'email (rispondono con testo HTML, non JSON)
+        if (action === 'AUTH_2FA_YES') return gestisciRispostaEmail2FA('AUTH_2FA_YES');
+        if (action === 'AUTH_2FA_NO') return gestisciRispostaEmail2FA('AUTH_2FA_NO');
+
+        let data = {};
+        switch (action) {
+            case 'CHECK_2FA_STATUS':
+                data = checkStato2FA();
+                break;
+            default:
+                data = { status: 'online', node: 'SUPREMA FUTURE X SOVRANO EAL6+' };
+                break;
+        }
+
+        return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+    } catch (err) {
+        return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() })).setMimeType(ContentService.MimeType.JSON);
+    }
+}
+
+/**
+ * 3. LOGICA DI AUTENTICAZIONE 2FA VIA EMAIL
+ */
 function gestisciVerificaCredenzialiE2FA(payload) {
     const props = PropertiesService.getScriptProperties();
     const masterPass = props.getProperty('MASTER_PASSWORD');
     const pinGov = props.getProperty('PIN_GOVERNANCE');
 
-    // Verifica la password
     if (payload.password === masterPass && payload.pin === pinGov) {
-        // Credenziali corrette: imposta lo stato su PENDING e manda l'email
         props.setProperty('LOGIN_STATUS_TMP', 'PENDING');
         
         const scriptUrl = ScriptApp.getService().getUrl();
@@ -296,28 +375,58 @@ function gestisciVerificaCredenzialiE2FA(payload) {
     }
 }
 
-// Intercetta i click sui bottoni dell'email
 function gestisciRispostaEmail2FA(action) {
     const props = PropertiesService.getScriptProperties();
-    
     if (action === 'AUTH_2FA_YES') {
         props.setProperty('LOGIN_STATUS_TMP', 'APPROVED');
         return ContentService.createTextOutput("✅ ACCESSO AUTORIZZATO. Puoi tornare alla finestra del terminale, il Caveau si aprirà da solo.");
-    } else if (action === 'AUTH_2FA_NO') {
+    } else {
         props.setProperty('LOGIN_STATUS_TMP', 'DENIED');
-        return ContentService.createTextOutput("⛔ ACCESSO NEGATO. Il terminale intruso è stato bloccato in modalità Prugna.");
+        return ContentService.createTextOutput("⛔ ACCESSO NEGATO. Il terminale intruso è stato bloccato.");
     }
 }
 
-// Serve per rispondere al frontend che interroga il server ogni 3 secondi
 function checkStato2FA() {
     const props = PropertiesService.getScriptProperties();
     const stato = props.getProperty('LOGIN_STATUS_TMP') || 'PENDING';
     
     if (stato === 'APPROVED' || stato === 'DENIED') {
-        // Pulisce lo stato per sicurezza dopo averlo letto
         props.setProperty('LOGIN_STATUS_TMP', 'WAITING_FOR_NEXT');
     }
-    
     return { status: stato };
+}
+
+/**
+ * 4. CIRCUITO ANTI-ABUSO
+ */
+function gestisciAllarmeAbuso(payload) {
+    const sheet = ottieniOInizializzaFoglio(CONSTANTS.SHEET_BLACKLIST, [
+        'Timestamp', 'User Agent', 'Password Usata', 'PIN Usato', 'Stato'
+    ]);
+
+    const timestamp = new Date().toISOString();
+    sheet.appendRow([
+        timestamp,
+        payload.userAgent || 'N/D',
+        payload.passAttempt || '[NASCOSTO]',
+        payload.pinAttempt || '[NASCOSTO]',
+        'BLOCCO PURPLE ACTIVE'
+    ]);
+
+    const emailCorpo = `🚨 ALLARME BLOCCO SOVRANO EAL6+\n\nRilevato tentativo di accesso fallito/negato.\nData e Ora: ${timestamp}\nUser Agent: ${payload.userAgent}`;
+    MailApp.sendEmail(CONSTANTS.CEO_EMAIL, '🚨 ALLARME BLOCCO SOVRANO EAL6+', emailCorpo);
+    return { status: 'locked', message: 'Blacklist Prugna Attivata.' };
+}
+
+/**
+ * UTILITIES
+ */
+function ottieniOInizializzaFoglio(nomeFoglio, headers) {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(nomeFoglio);
+    if (!sheet) {
+        sheet = ss.insertSheet(nomeFoglio);
+        if (headers) sheet.appendRow(headers);
+    }
+    return sheet;
 }
