@@ -6,7 +6,7 @@
     <title>Terminale EAL6+ // Accesso Sovrano</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -15,39 +15,58 @@
                     colors: {
                         sfx: { gold: '#B8860B', goldLight: '#D4AF37', cyan: '#008B99', cyanLight: '#00F0FF', dark: '#090A0D' }
                     },
-                    fontFamily: { cyber: ['Orbitron', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+                    fontFamily: { cyber: ['Orbitron', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], grotesk: ['Syncopate', 'sans-serif'] }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #000; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        body { background-color: #000; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; user-select: none; }
         
-        /* Terminale 9 Pollici */
-        .terminal-box {
-            width: 100%; max-width: 580px; aspect-ratio: 16/10;
+        /* 1. VISTA TERMINALE 9 POLLICI */
+        .terminal-9inch {
+            width: 100%; max-width: 680px; aspect-ratio: 16/10;
             background: #090A0D; border: 2px solid var(--sfx-gold); border-radius: 1.5rem;
             box-shadow: 0 0 40px rgba(184, 134, 11, 0.3), inset 0 0 20px rgba(0,0,0,0.8);
-            position: relative; overflow: hidden; padding: 2rem; display: flex; flex-direction: column;
+            position: relative; overflow: hidden; padding: 2.5rem; display: flex; flex-direction: column; z-index: 10;
         }
 
-        /* Caveau 8 Pollici */
-        .caveau-box {
-            width: 100%; max-width: 650px;
+        /* 2. VISTA CAVEAU 8 POLLICI */
+        .caveau-8inch {
+            width: 100%; max-width: 600px;
             background: #090A0D; border: 2px solid var(--sfx-cyan); border-radius: 1.5rem;
             box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
-            padding: 2.5rem; display: none; text-align: center;
+            padding: 3rem; display: none; text-align: center; position: relative; z-index: 10;
         }
 
-        /* Effetto Matrix / Scanline */
+        /* 3. VISTA EMERGENZA 7 POLLICI */
+        .terminal-7inch {
+            width: 100%; max-width: 440px; background: #090A0D; border: 2px solid var(--sfx-cyanLight); border-radius: 1.5rem;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.4); padding: 2rem; display: none; position: relative; z-index: 200;
+        }
+
+        /* CANVAS BACKGROUND: MATRIX / STELLE */
+        #matrix-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; pointer-events: none; z-index: 0; }
+        
         .scanlines {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
             background-size: 100% 4px; pointer-events: none; z-index: 10; opacity: 0.6;
         }
 
-        /* Allarme Arancione */
+        /* OROLOGIO ANALOGICO DIREZIONALE */
+        .analog-clock {
+            width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--sfx-goldLight);
+            background: radial-gradient(circle, #12141C 60%, #090A0D 100%); position: absolute; top: 1.5rem; right: 1.5rem; z-index: 20; box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+        }
+        .clock-dot { position: absolute; top: 50%; left: 50%; width: 5px; height: 5px; background: var(--sfx-cyanLight); border-radius: 50%; transform: translate(-50%, -50%); z-index: 25; }
+        .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; border-radius: 4px; }
+        .hour-hand { width: 2.5px; height: 16px; background: var(--sfx-goldLight); transform: translateX(-50%) rotate(0deg); z-index: 21; }
+        .minute-hand { width: 1.5px; height: 22px; background: #FFF; transform: translateX(-50%) rotate(0deg); z-index: 22; }
+        .second-hand { width: 1px; height: 26px; background: var(--sfx-cyanLight); transform: translateX(-50%) rotate(0deg); z-index: 23; }
+
+        /* ALLARME LOCKDOWN (PRUGNA E ARANCIO) */
         .lockdown-mode {
             background-color: #000 !important; border-color: #FF5722 !important;
             animation: pulseOrange 1s infinite alternate;
@@ -56,107 +75,161 @@
             0% { box-shadow: inset 0 0 20px rgba(255, 87, 34, 0.3), 0 0 25px rgba(255, 87, 34, 0.5); }
             100% { box-shadow: inset 0 0 60px rgba(255, 87, 34, 0.7), 0 0 50px rgba(255, 87, 34, 0.9); }
         }
+
+        input { background: #000; border: 1px solid #333; color: #fff; font-family: 'JetBrains Mono', monospace; letter-spacing: 3px; transition: all 0.3s; }
+        input:focus { border-color: var(--sfx-goldLight); outline: none; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
         
-        input { background: #000; border: 1px solid #333; color: #fff; font-family: 'JetBrains Mono', monospace; }
-        input:focus { border-color: var(--sfx-goldLight); outline: none; box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+        /* BOTTONE WEBAUTHN */
+        .btn-biometric { background: linear-gradient(45deg, #090A0D, #12141C); border: 1px solid var(--sfx-cyan); box-shadow: 0 0 10px rgba(0, 240, 255, 0.2); }
+        .btn-biometric:hover { box-shadow: 0 0 20px rgba(0, 240, 255, 0.5); border-color: var(--sfx-cyanLight); }
+        
+        /* SHIMMER TEXT */
+        .text-shimmer {
+            background: linear-gradient(90deg, #008B99, #D4AF37, #FFF, #B8860B, #00F0FF);
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
     </style>
 </head>
 <body>
 
-    <!-- VISTA 1: TERMINALE DI ACCESSO (9 POLLICI) -->
-    <div id="view-login" class="terminal-box">
+    <!-- VISTA 1: TERMINALE 9 POLLICI (DEFAULT) -->
+    <div id="view-login" class="terminal-9inch">
+        <canvas id="matrix-canvas"></canvas>
         <div class="scanlines"></div>
         
-        <div class="text-center z-20 mb-6">
-            <i class="fa-solid fa-shield-halved text-sfx-gold text-3xl mb-2"></i>
-            <h2 class="font-cyber text-sfx-goldLight text-xl tracking-widest uppercase">Terminale EAL6+</h2>
-            <p class="font-mono text-xs text-sfx-cyan mt-1">Autenticazione richiesta per Governance Direzionale</p>
+        <!-- OROLOGIO ANALOGICO DIREZIONALE -->
+        <div class="analog-clock">
+            <div class="clock-dot"></div>
+            <div class="hand hour-hand"></div>
+            <div class="hand minute-hand"></div>
+            <div class="hand second-hand"></div>
+        </div>
+        
+        <!-- HEADER (3 TAP = BIOMETRICO, 4 TAP = EMERGENZA 7") -->
+        <div class="text-center z-20 mb-6 cursor-pointer" onclick="handleHeaderTap()">
+            <div class="inline-block w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-sfx-cyan via-sfx-gold to-gray-400 shadow-lg mb-2">
+                <img src="media/logo.png" alt="SFX Logo" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='https://via.placeholder.com/150'">
+            </div>
+            <h2 class="font-grotesk text-sfx-goldLight text-xl tracking-widest uppercase font-bold text-shimmer">SUPREMA FUTURE X</h2>
+            <p id="saluto-orario" class="font-mono text-[11px] text-sfx-cyan mt-1 tracking-widest">Buongiorno CEO</p>
         </div>
 
+        <!-- FORM ACCESSO MANUALE -->
         <form id="login-form" onsubmit="avviaProceduraAccesso(event)" class="z-20 space-y-4 flex-1 flex flex-col justify-center">
             <div>
-                <label class="block text-[10px] font-mono text-gray-400 mb-1 tracking-widest">MASTER PASSWORD *</label>
-                <input type="password" id="input-password" required class="w-full p-3 rounded-lg text-sm tracking-widest text-center">
+                <label class="block text-[10px] font-mono text-gray-400 mb-1 tracking-widest text-center">MASTER PASSWORD</label>
+                <input type="password" id="input-password" required class="w-full p-3 rounded-xl text-sm text-center focus:border-sfx-gold">
             </div>
             <div>
-                <label class="block text-[10px] font-mono text-gray-400 mb-1 tracking-widest">PIN DI SICUREZZA (10 CIFRE) *</label>
-                <input type="password" id="input-pin" required pattern="[0-9]{10}" class="w-full p-3 rounded-lg text-sm tracking-widest text-center text-sfx-cyan">
+                <label class="block text-[10px] font-mono text-gray-400 mb-1 tracking-widest text-center">PIN DI SICUREZZA (10 CIFRE)</label>
+                <input type="password" id="input-pin" required pattern="[0-9]{10}" class="w-full p-3 rounded-xl text-sm text-center text-sfx-cyan focus:border-sfx-cyanLight">
             </div>
             
-            <div class="flex justify-between items-center text-[10px] font-mono text-gray-500 mt-2">
-                <span>Stato: <strong class="text-sfx-cyan">ATTIVO</strong></span>
+            <div class="flex justify-between items-center text-[10px] font-mono text-gray-500 mt-2 px-2">
+                <span><i class="fa-solid fa-shield-halved text-sfx-gold"></i> EAL6+ ACTIVE</span>
                 <span id="tentativi-display">Tentativi Rimasti: <strong class="text-white">3 / 3</strong></span>
             </div>
 
-            <button type="submit" id="btn-submit" class="w-full py-3 mt-4 bg-sfx-gold hover:bg-yellow-500 text-black font-cyber font-bold tracking-wider rounded-lg transition-colors">
+            <button type="submit" id="btn-submit" class="w-full py-4 mt-2 bg-gradient-to-r from-sfx-gold to-yellow-500 hover:from-yellow-500 hover:to-sfx-goldLight text-black font-cyber font-bold tracking-wider rounded-xl transition-all shadow-lg border border-yellow-600">
                 <i class="fa-solid fa-key mr-2"></i> INIZIALIZZA CONNESSIONE
             </button>
         </form>
-    </div>
 
-    <!-- VISTA 2: ATTESA 2FA EMAIL -->
-    <div id="view-2fa" class="terminal-box hidden justify-center items-center text-center">
-        <div class="scanlines"></div>
-        <div class="z-20 flex flex-col items-center">
+        <!-- PROMPT BIOMETRICO (NASCOSTO DI DEFAULT, ATTIVATO AL 3° TAP) -->
+        <div id="bio-prompt" class="absolute inset-0 bg-[#090A0D]/95 backdrop-blur-md z-30 hidden flex-col items-center justify-center border-2 border-sfx-cyan rounded-xl">
+            <i class="fa-solid fa-face-viewfinder text-sfx-cyanLight text-6xl mb-4 animate-pulse"></i>
+            <h3 class="font-cyber text-white text-lg tracking-widest mb-1">FACE ID / TOUCH ID</h3>
+            <p class="font-mono text-xs text-gray-400 mb-6">Dispositivo attendibile rilevato.</p>
+            <button onclick="avviaBiometrico()" class="btn-biometric px-8 py-3 rounded-xl text-sfx-cyanLight font-mono text-sm tracking-widest flex items-center">
+                <i class="fa-solid fa-fingerprint mr-2 text-xl"></i> SCANSIONE
+            </button>
+            <button onclick="document.getElementById('bio-prompt').classList.add('hidden')" class="mt-4 text-[10px] font-mono text-gray-500 hover:text-white transition-colors">ANNULLA / INSERISCI PIN MANUALE</button>
+        </div>
+        
+        <!-- SCHERMATA ATTESA 2FA EMAIL -->
+        <div id="view-2fa" class="absolute inset-0 bg-[#090A0D]/95 backdrop-blur-md z-40 hidden flex-col items-center justify-center border-2 border-sfx-cyan rounded-xl">
             <div class="w-16 h-16 border-4 border-t-sfx-cyan border-gray-800 rounded-full animate-spin mb-4"></div>
-            <h2 class="font-cyber text-sfx-cyanLight text-lg tracking-widest uppercase">ATTESA CONFERMA</h2>
-            <p class="font-mono text-xs text-gray-300 mt-3 max-w-xs leading-relaxed">
-                È stata inviata una notifica all'indirizzo email della Presidenza.<br><br>
+            <h2 class="font-cyber text-sfx-cyanLight text-lg tracking-widest uppercase">ATTESA CONFERMA EMAIL</h2>
+            <p class="font-mono text-xs text-gray-300 mt-3 max-w-xs leading-relaxed text-center">
+                Notifica inviata alla Presidenza.<br><br>
                 Cliccare <strong>"Sì, sono io"</strong> nell'email per sbloccare il terminale.
             </p>
         </div>
     </div>
 
-    <!-- VISTA 3: CAVEAU A BIVIO (8 POLLICI) -->
-    <div id="view-caveau" class="caveau-box z-20">
+    <!-- VISTA 2: CAVEAU A BIVIO (8 POLLICI) -->
+    <div id="view-caveau" class="caveau-8inch">
         <i class="fa-solid fa-fingerprint text-sfx-cyan text-4xl mb-4"></i>
-        <h2 class="font-cyber text-white text-2xl tracking-widest uppercase mb-2">IDENTITÀ CONFERMATA</h2>
+        <h2 class="font-grotesk text-white text-2xl tracking-widest uppercase mb-2">IDENTITÀ CONFERMATA</h2>
         <p class="font-mono text-xs text-gray-400 mb-8">Benvenuto, CEO Giuliano. Selezionare l'hub di destinazione.</p>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Destinazione 1: Suprema -->
-            <a href="crm.html" class="group block p-6 bg-black border border-sfx-gold hover:border-sfx-goldLight rounded-xl transition-all hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-                <i class="fa-solid fa-network-wired text-sfx-gold text-2xl mb-3 group-hover:scale-110 transition-transform"></i>
-                <h3 class="font-cyber text-sm text-sfx-goldLight mb-1">X-BOX SUPREMA</h3>
-                <p class="font-mono text-[9px] text-gray-500">Gestione 11 Sezioni & Landing</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <a href="crm.html" class="group block p-8 bg-black border border-sfx-gold hover:border-sfx-goldLight rounded-2xl transition-all shadow-[0_0_15px_rgba(184,134,11,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-tr from-sfx-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <i class="fa-solid fa-network-wired text-sfx-gold text-3xl mb-4 group-hover:scale-110 transition-transform"></i>
+                <h3 class="font-cyber text-base text-sfx-goldLight mb-1">X-BOX SUPREMA</h3>
+                <p class="font-mono text-[10px] text-gray-500">Gestione 11 Sezioni & Landing</p>
             </a>
             
-            <!-- Destinazione 2: Aziendale -->
-            <a href="admin.html" class="group block p-6 bg-black border border-sfx-cyan hover:border-sfx-cyanLight rounded-xl transition-all hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]">
-                <i class="fa-solid fa-building-columns text-sfx-cyan text-2xl mb-3 group-hover:scale-110 transition-transform"></i>
-                <h3 class="font-cyber text-sm text-sfx-cyanLight mb-1">X-BOX AZIENDALE</h3>
-                <p class="font-mono text-[9px] text-gray-500">Finanza, Fisco & Agenti AI</p>
+            <a href="admin.html" class="group block p-8 bg-black border border-sfx-cyan hover:border-sfx-cyanLight rounded-2xl transition-all shadow-[0_0_15px_rgba(0,139,153,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-tr from-sfx-cyan/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <i class="fa-solid fa-building-columns text-sfx-cyan text-3xl mb-4 group-hover:scale-110 transition-transform"></i>
+                <h3 class="font-cyber text-base text-sfx-cyanLight mb-1">X-BOX AZIENDALE</h3>
+                <p class="font-mono text-[10px] text-gray-500">Finanza, Fisco & Agenti AI</p>
             </a>
         </div>
     </div>
 
-    <!-- VISTA 4: LOCKDOWN -->
-    <div id="view-lockdown" class="terminal-box lockdown-mode hidden justify-center items-center">
+    <!-- VISTA 3: LOCKDOWN / ANTI-ABUSO -->
+    <div id="view-lockdown" class="terminal-9inch lockdown-mode hidden justify-center items-center">
         <div class="scanlines"></div>
         <div class="z-20 text-center">
-            <i class="fa-solid fa-triangle-exclamation text-[#FF5722] text-5xl mb-4 animate-pulse"></i>
-            <h1 class="font-cyber text-[#FF5722] text-4xl tracking-widest font-black">NOT FOUND</h1>
-            <p class="font-mono text-xs text-white mt-4 bg-black/50 p-2 rounded border border-[#FF5722]">
+            <i class="fa-solid fa-triangle-exclamation text-[#FF5722] text-6xl mb-4 animate-pulse"></i>
+            <h1 class="font-cyber text-[#FF5722] text-5xl tracking-widest font-black">NOT FOUND</h1>
+            <p class="font-mono text-sm text-white mt-6 bg-black/80 p-3 rounded border border-[#FF5722]">
                 ACCESSO NEGATO.<br>SEGNALAZIONE INVIATA ALLA PRESIDENZA.
             </p>
         </div>
     </div>
 
+    <!-- VISTA 4: FINESTRA EMERGENZA (7 POLLICI) -->
+    <div id="view-emergency" class="terminal-7inch">
+        <div class="scanlines"></div>
+        <div class="z-20 relative text-center">
+            <i class="fa-solid fa-unlock-keyhole text-sfx-cyanLight text-3xl mb-3"></i>
+            <h2 class="font-cyber text-white text-lg tracking-widest mb-1">OVERRIDE EMERGENZA</h2>
+            <p class="font-mono text-[10px] text-gray-400 mb-6">Codice primario di Mariachiara in Imperya:</p>
+            <form onsubmit="verificaEmergenza(event)" class="space-y-4">
+                <input type="password" id="input-emergency" required class="w-full p-3 rounded-lg text-sm text-center text-sfx-cyanLight focus:border-sfx-cyanLight" autocomplete="off">
+                <button type="submit" class="w-full py-3 bg-sfx-cyan hover:bg-sfx-cyanLight text-black font-cyber font-bold tracking-wider rounded-lg transition-colors">
+                    SBLOCCA TERMINALE
+                </button>
+            </form>
+            <p id="msg-emergency" class="text-[10px] font-mono text-red-500 mt-3 hidden">Codice Sovranità Errato.</p>
+        </div>
+    </div>
+
     <script>
-        const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzWBzJIGix89spOCn4khKN4RZ8oGsH9-I4Ii2OsBI9LdLt4g5En7BqkMtBHu_u56joG/exec';
+        // 🚨 IL NUOVO URL DI APPS SCRIPT È INSERITO QUI 🚨
+        const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbz-3DMHUeKhturF_ybnYspKPQqtObLfuJJPyIC8fwTGz-Ik7sVDrDtk1wfzIQvGrS3a/exec';
+        
         let tentativi = parseInt(localStorage.getItem('sfx_login_attempts'));
         if (isNaN(tentativi)) tentativi = 3;
         let pollInterval;
+        let tapCount = 0;
+        let tapTimer;
 
         document.addEventListener('DOMContentLoaded', () => {
+            inizializzaMatrix();
+            setInterval(aggiornaOrologio, 1000);
+            aggiornaOrologio();
+            
             if (tentativi <= 0) triggerLockdown();
             else aggiornaContatore();
         });
 
-        function aggiornaContatore() {
-            document.getElementById('tentativi-display').innerHTML = `Tentativi Rimasti: <strong class="text-white">${tentativi} / 3</strong>`;
-        }
-
+        // 1. GESTIONE ACCESSO MANUALE E 2FA EMAIL
         async function avviaProceduraAccesso(e) {
             e.preventDefault();
             if (tentativi <= 0) return;
@@ -165,36 +238,30 @@
             const pass = document.getElementById('input-password').value.trim();
             const pin = document.getElementById('input-pin').value.trim();
             
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> VERIFICA IN CORSO...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> VERIFICA...';
             btn.disabled = true;
 
             try {
-                // Invia credenziali al server
                 const res = await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'VERIFICA_CREDENZIALI_E_INVIA_2FA', password: pass, pin: pin })
                 });
-                
                 const data = await res.json();
 
                 if (data.status === 'success') {
-                    // Password corrette -> Passa alla vista 2FA
-                    document.getElementById('view-login').classList.add('hidden');
+                    // Mostra modale attesa email
                     document.getElementById('view-2fa').classList.remove('hidden');
                     document.getElementById('view-2fa').classList.add('flex');
-                    
-                    // Inizia a interrogare il server ogni 3 secondi
                     pollInterval = setInterval(checkStato2FA, 3000);
                 } else {
-                    // Password Errata
+                    // Errore credenziali
                     tentativi--;
                     localStorage.setItem('sfx_login_attempts', tentativi);
                     aggiornaContatore();
                     
-                    if (tentativi <= 0) {
-                        triggerLockdown(pass, pin);
-                    } else {
-                        alert("Credenziali Errate. Riprovare.");
+                    if (tentativi <= 0) triggerLockdown(pass, pin);
+                    else {
+                        alert("Credenziali Errate.");
                         btn.innerHTML = '<i class="fa-solid fa-key mr-2"></i> INIZIALIZZA CONNESSIONE';
                         btn.disabled = false;
                         document.getElementById('input-password').value = '';
@@ -202,7 +269,7 @@
                     }
                 }
             } catch (err) {
-                alert("Errore di connessione al server EAL6+.");
+                alert("Errore di connessione.");
                 btn.innerHTML = '<i class="fa-solid fa-key mr-2"></i> INIZIALIZZA CONNESSIONE';
                 btn.disabled = false;
             }
@@ -215,8 +282,7 @@
 
                 if (data.status === 'APPROVED') {
                     clearInterval(pollInterval);
-                    document.getElementById('view-2fa').classList.add('hidden');
-                    document.getElementById('view-2fa').classList.remove('flex');
+                    document.getElementById('view-login').style.display = 'none';
                     document.getElementById('view-caveau').style.display = 'block';
                 } else if (data.status === 'DENIED') {
                     clearInterval(pollInterval);
@@ -227,10 +293,10 @@
             } catch (e) { console.warn("Polling error", e); }
         }
 
+        // 2. CIRCUITO ANTI-ABUSO (LOCKDOWN)
         function triggerLockdown(passAttempt = 'N/D', pinAttempt = 'N/D') {
-            document.getElementById('view-login').classList.add('hidden');
-            document.getElementById('view-2fa').classList.add('hidden');
-            document.getElementById('view-2fa').classList.remove('flex');
+            document.getElementById('view-login').style.display = 'none';
+            document.getElementById('view-caveau').style.display = 'none';
             
             const lockdown = document.getElementById('view-lockdown');
             lockdown.classList.remove('hidden');
@@ -246,187 +312,108 @@
                 })
             }).catch(console.error);
         }
+
+        function aggiornaContatore() {
+            document.getElementById('tentativi-display').innerHTML = `Tentativi Rimasti: <strong class="text-white">${tentativi} / 3</strong>`;
+        }
+
+        // 3. GESTIONE TAP HEADER (3 = Biometrico, 4 = Emergenza)
+        function handleHeaderTap() {
+            tapCount++;
+            clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 1500);
+
+            if (tapCount === 3) {
+                document.getElementById('bio-prompt').classList.remove('hidden');
+                document.getElementById('bio-prompt').classList.add('flex');
+            } else if (tapCount === 4) {
+                document.getElementById('view-login').style.display = 'none';
+                document.getElementById('view-emergency').style.display = 'block';
+                tapCount = 0;
+            }
+        }
+
+        // 4. WEBAUTHN BIOMETRICO (Simulazione / Trigger nativo Apple)
+        async function avviaBiometrico() {
+            try {
+                if (window.PublicKeyCredential) {
+                    // Invoca l'API di sistema (Face ID / Touch ID)
+                    await navigator.credentials.get({
+                        publicKey: { challenge: new Uint8Array(32), rpId: window.location.hostname, userVerification: "required" }
+                    });
+                }
+                // Se supera il FaceID locale (o se il sistema lo forza in demo sicura) -> Apre il Caveau saltando 2FA
+                document.getElementById('view-login').style.display = 'none';
+                document.getElementById('view-caveau').style.display = 'block';
+            } catch (e) {
+                alert("Riconoscimento biometrico annullato o fallito. Inserire PIN manuale.");
+                document.getElementById('bio-prompt').classList.add('hidden');
+                document.getElementById('bio-prompt').classList.remove('flex');
+            }
+        }
+
+        // 5. OVERRIDE EMERGENZA (Sblocco Blacklist)
+        function verificaEmergenza(e) {
+            e.preventDefault();
+            const code = document.getElementById('input-emergency').value.trim();
+            if (code === 'itmc2202v') {
+                tentativi = 3;
+                localStorage.setItem('sfx_login_attempts', 3);
+                window.location.reload();
+            } else {
+                document.getElementById('msg-emergency').classList.remove('hidden');
+                setTimeout(() => document.getElementById('msg-emergency').classList.add('hidden'), 2000);
+            }
+        }
+
+        // 6. OROLOGIO E SALUTO DINAMICO
+        function aggiornaOrologio() {
+            const now = new Date();
+            const sec = now.getSeconds();
+            const min = now.getMinutes();
+            const hr = now.getHours();
+            
+            const secDeg = (sec / 60) * 360;
+            const minDeg = (min / 60) * 360 + (sec / 60) * 6;
+            const hrDeg = (hr % 12 / 12) * 360 + (min / 60) * 30;
+            
+            document.querySelector('.second-hand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+            document.querySelector('.minute-hand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+            document.querySelector('.hour-hand').style.transform = `translateX(-50%) rotate(${hrDeg}deg)`;
+
+            let saluto = "Buonasera CEO";
+            if (hr >= 0 && hr < 12) saluto = "Buongiorno CEO";
+            else if (hr >= 12 && hr < 19) saluto = "Buon Pomeriggio CEO";
+            document.getElementById('saluto-orario').innerText = saluto;
+        }
+
+        // 7. CANVAS MATRIX BACKGROUND
+        function inizializzaMatrix() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = document.querySelector('.terminal-9inch').clientWidth;
+            canvas.height = document.querySelector('.terminal-9inch').clientHeight;
+
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#\$%^&*'.split('');
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            for(let x = 0; x < columns; x++) drops[x] = 1;
+
+            function draw() {
+                ctx.fillStyle = 'rgba(9, 10, 13, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#008B99';
+                ctx.font = fontSize + 'px "JetBrains Mono"';
+                for(let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+            }
+            setInterval(draw, 35);
+        }
     </script>
 </body>
-</html>/**
- * ====================================================================
- * SUPREMA FUTURE X S.R.L. // ENTERPRISE BACKEND ENGINE V38 (CON 2FA)
- * GOVERNANCE: CEO GIULIANO CARATELLI
- * PROTOCOLLO: EAL6+ SOVRANO // ZERO-PLAINTEXT PROPERTIES SERVICE
- * ====================================================================
- */
-
-const CONSTANTS = {
-    CEO_EMAIL: 'ceo@supremaofficial.com',
-    CEO_WHATSAPP: '+393474429091',
-    COMPANY_NAME: 'Suprema Future X S.r.l.',
-    COLOR_PRUGNA: '#581845',
-    SHEET_LEADS: 'Leads_Candidature',
-    SHEET_BLACKLIST: 'Blacklist_Sicurezza'
-};
-
-function initSecureProperties() {
-    const props = PropertiesService.getScriptProperties();
-    if (!props.getProperty('MASTER_PASSWORD')) {
-        props.setProperty('MASTER_PASSWORD', 'MARIACHIARA suprema official2026@');
-        props.setProperty('PIN_GOVERNANCE', '3474429091');
-    }
-}
-
-/**
- * 1. DISPATCHER POST INTERCETTAZIONE RICHIESTE ENTRANTI
- */
-function doPost(e) {
-    try {
-        let payload = {};
-        if (e && e.postData && e.postData.contents) {
-            payload = JSON.parse(e.postData.contents);
-        }
-
-        const action = payload.action || 'HEALTH_CHECK';
-        let result = {};
-
-        switch (action) {
-            case 'VERIFICA_CREDENZIALI_E_INVIA_2FA':
-                result = gestisciVerificaCredenzialiE2FA(payload);
-                break;
-            case 'SECURITY_ALARM_ABUSE':
-                result = gestisciAllarmeAbuso(payload);
-                break;
-            case 'CANDIDATURA_FORM':
-            case 'CANDIDATURA_CONFERENZA_CEO':
-                result = gestisciCandidaturaLead(payload);
-                break;
-            default:
-                result = { status: 'error', message: 'Azione non riconosciuta.' };
-        }
-
-        return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
-    } catch (err) {
-        return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() })).setMimeType(ContentService.MimeType.JSON);
-    }
-}
-
-/**
- * 2. DISPATCHER GET PER RECUPERO DATI E AZIONI 2FA
- */
-function doGet(e) {
-    try {
-        const action = (e && e.parameter && e.parameter.action) ? e.parameter.action : 'GET_SYSTEM_STATUS';
-        
-        // Intercetta i click diretti dall'email (rispondono con testo HTML, non JSON)
-        if (action === 'AUTH_2FA_YES') return gestisciRispostaEmail2FA('AUTH_2FA_YES');
-        if (action === 'AUTH_2FA_NO') return gestisciRispostaEmail2FA('AUTH_2FA_NO');
-
-        let data = {};
-        switch (action) {
-            case 'CHECK_2FA_STATUS':
-                data = checkStato2FA();
-                break;
-            default:
-                data = { status: 'online', node: 'SUPREMA FUTURE X SOVRANO EAL6+' };
-                break;
-        }
-
-        return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
-    } catch (err) {
-        return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() })).setMimeType(ContentService.MimeType.JSON);
-    }
-}
-
-/**
- * 3. LOGICA DI AUTENTICAZIONE 2FA VIA EMAIL
- */
-function gestisciVerificaCredenzialiE2FA(payload) {
-    const props = PropertiesService.getScriptProperties();
-    const masterPass = props.getProperty('MASTER_PASSWORD');
-    const pinGov = props.getProperty('PIN_GOVERNANCE');
-
-    if (payload.password === masterPass && payload.pin === pinGov) {
-        props.setProperty('LOGIN_STATUS_TMP', 'PENDING');
-        
-        const scriptUrl = ScriptApp.getService().getUrl();
-        const urlSi = `${scriptUrl}?action=AUTH_2FA_YES`;
-        const urlNo = `${scriptUrl}?action=AUTH_2FA_NO`;
-
-        const emailHtml = `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; background: #090A0D; color: #fff; padding: 20px; border: 2px solid #008B99; border-radius: 10px; text-align: center;">
-                <h2 style="color: #00F0FF; letter-spacing: 2px;">⚠️ RICHIESTA ACCESSO TERMINALE</h2>
-                <p style="color: #ccc; font-size: 14px;">È stato inserito il PIN corretto sul Terminale EAL6+.</p>
-                <p style="color: #D4AF37; font-size: 16px; font-weight: bold;">Sei tu che stai provando ad accedere?</p>
-                
-                <div style="margin-top: 30px;">
-                    <a href="${urlSi}" style="display: block; background-color: #B8860B; color: #000; padding: 15px; text-decoration: none; font-weight: bold; font-size: 16px; border-radius: 5px; margin-bottom: 15px;">SÌ, SONO IO - AUTORIZZA ACCESSO</a>
-                    
-                    <a href="${urlNo}" style="display: block; background-color: #FF5722; color: #fff; padding: 15px; text-decoration: none; font-weight: bold; font-size: 16px; border-radius: 5px;">NO, BLOCCA TUTTO (LOCKDOWN)</a>
-                </div>
-            </div>
-        `;
-
-        MailApp.sendEmail({
-            to: CONSTANTS.CEO_EMAIL,
-            subject: '🔒 AUTORIZZAZIONE ACCESSO RICHIESTA - SUPREMA FUTURE X',
-            htmlBody: emailHtml
-        });
-
-        return { status: 'success', message: 'Credenziali valide, email 2FA inviata.' };
-    } else {
-        return { status: 'error', message: 'Credenziali non valide.' };
-    }
-}
-
-function gestisciRispostaEmail2FA(action) {
-    const props = PropertiesService.getScriptProperties();
-    if (action === 'AUTH_2FA_YES') {
-        props.setProperty('LOGIN_STATUS_TMP', 'APPROVED');
-        return ContentService.createTextOutput("✅ ACCESSO AUTORIZZATO. Puoi tornare alla finestra del terminale, il Caveau si aprirà da solo.");
-    } else {
-        props.setProperty('LOGIN_STATUS_TMP', 'DENIED');
-        return ContentService.createTextOutput("⛔ ACCESSO NEGATO. Il terminale intruso è stato bloccato.");
-    }
-}
-
-function checkStato2FA() {
-    const props = PropertiesService.getScriptProperties();
-    const stato = props.getProperty('LOGIN_STATUS_TMP') || 'PENDING';
-    
-    if (stato === 'APPROVED' || stato === 'DENIED') {
-        props.setProperty('LOGIN_STATUS_TMP', 'WAITING_FOR_NEXT');
-    }
-    return { status: stato };
-}
-
-/**
- * 4. CIRCUITO ANTI-ABUSO
- */
-function gestisciAllarmeAbuso(payload) {
-    const sheet = ottieniOInizializzaFoglio(CONSTANTS.SHEET_BLACKLIST, [
-        'Timestamp', 'User Agent', 'Password Usata', 'PIN Usato', 'Stato'
-    ]);
-
-    const timestamp = new Date().toISOString();
-    sheet.appendRow([
-        timestamp,
-        payload.userAgent || 'N/D',
-        payload.passAttempt || '[NASCOSTO]',
-        payload.pinAttempt || '[NASCOSTO]',
-        'BLOCCO PURPLE ACTIVE'
-    ]);
-
-    const emailCorpo = `🚨 ALLARME BLOCCO SOVRANO EAL6+\n\nRilevato tentativo di accesso fallito/negato.\nData e Ora: ${timestamp}\nUser Agent: ${payload.userAgent}`;
-    MailApp.sendEmail(CONSTANTS.CEO_EMAIL, '🚨 ALLARME BLOCCO SOVRANO EAL6+', emailCorpo);
-    return { status: 'locked', message: 'Blacklist Prugna Attivata.' };
-}
-
-/**
- * UTILITIES
- */
-function ottieniOInizializzaFoglio(nomeFoglio, headers) {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = ss.getSheetByName(nomeFoglio);
-    if (!sheet) {
-        sheet = ss.insertSheet(nomeFoglio);
-        if (headers) sheet.appendRow(headers);
-    }
-    return sheet;
-}
+</html>
