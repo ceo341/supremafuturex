@@ -1,13 +1,13 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // CORE ENGINE JS V35 (INTEGRALE)
+ * SUPREMA FUTURE X S.R.L. // CORE ENGINE JS V38 (BLOCCO 1 DI 2)
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // INTEGRATED CONNECTOR & AI ALISON
  * ====================================================================
  */
 
-// URL WEB APP GOOGLE APPS SCRIPT UFFICIALE E CONFIGURATO
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxnaL-1tkUz5DtwvBjDHN77TABy-WDCEdAY1ijTJHJXiackawN55ryX2kNc8So8t3MvSw/exec';
+// WEBHOOK UFFICIALE V38 GOOGLE APPS SCRIPT
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWBzJIGix89spOCn4khKN4RZ8oGsH9-I4Ii2OsBI9LdLt4g5En7BqkMtBHu_u56joG/exec';
 
 /**
  * 1. SFX CONNECTOR API DISPATCHER
@@ -75,7 +75,7 @@ class AlisonConcierge {
     }
 
     init() {
-        console.log("[ALISON AI] Inizializzazione Executive Concierge Alison V35...");
+        console.log("[ALISON AI] Inizializzazione Executive Concierge Alison V38...");
         this.bindEvents();
     }
 
@@ -90,7 +90,7 @@ class AlisonConcierge {
             this.recognition.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
                 console.log("[ALISON VOICE] Trascrizione vocale:", transcript);
-                const inputElem = document.getElementById('alison-chat-input');
+                const inputElem = document.getElementById('alison-chat-input') || document.getElementById('alison-user-input');
                 if (inputElem) inputElem.value = transcript;
                 this.inviaMessaggio(transcript);
             };
@@ -108,24 +108,20 @@ class AlisonConcierge {
 
     bindEvents() {
         const btnToggle = document.getElementById('btn-alison-toggle');
-        if (btnToggle) {
-            btnToggle.addEventListener('click', () => this.toggleChat());
-        }
+        if (btnToggle) btnToggle.addEventListener('click', () => this.toggleChat());
 
         const btnClose = document.getElementById('btn-alison-close');
-        if (btnClose) {
-            btnClose.addEventListener('click', () => this.chiudiChat());
-        }
+        if (btnClose) btnClose.addEventListener('click', () => this.chiudiChat());
 
         const btnSend = document.getElementById('btn-alison-send');
         if (btnSend) {
             btnSend.addEventListener('click', () => {
-                const inputElem = document.getElementById('alison-chat-input');
+                const inputElem = document.getElementById('alison-chat-input') || document.getElementById('alison-user-input');
                 if (inputElem) this.inviaMessaggio(inputElem.value);
             });
         }
 
-        const inputElem = document.getElementById('alison-chat-input');
+        const inputElem = document.getElementById('alison-chat-input') || document.getElementById('alison-user-input');
         if (inputElem) {
             inputElem.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -136,9 +132,7 @@ class AlisonConcierge {
         }
 
         const btnVoice = document.getElementById('btn-alison-voice');
-        if (btnVoice) {
-            btnVoice.addEventListener('click', () => this.toggleRiconoscimentoVocale());
-        }
+        if (btnVoice) btnVoice.addEventListener('click', () => this.toggleRiconoscimentoVocale());
     }
 
     toggleChat() {
@@ -216,7 +210,7 @@ class AlisonConcierge {
 
     async inviaMessaggio(testo) {
         if (!testo || !testo.trim()) return;
-        const inputElem = document.getElementById('alison-chat-input');
+        const inputElem = document.getElementById('alison-chat-input') || document.getElementById('alison-user-input');
         if (inputElem) inputElem.value = '';
 
         this.appendMessage('user', testo);
@@ -241,15 +235,20 @@ class AlisonConcierge {
         }
     }
 
+    inviaMessaggioManuale() {
+        const inputElem = document.getElementById('alison-user-input');
+        if (inputElem) this.inviaMessaggio(inputElem.value);
+    }
+
     appendMessage(sender, text) {
-        const body = document.getElementById('alison-chat-body');
+        const body = document.getElementById('alison-chat-body') || document.getElementById('alison-chat-log');
         if (!body) return;
 
         const ora = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
         const div = document.createElement('div');
         
         if (sender === 'user') {
-            div.className = 'self-end bg-sfx-gold text-black p-3.5 rounded-2xl max-w-[85%] text-xs font-bold shadow-lg space-y-1';
+            div.className = 'self-end bg-sfx-gold text-black p-3.5 rounded-2xl max-w-[85%] text-xs font-bold shadow-lg space-y-1 ml-auto';
             div.innerHTML = `<div>${text}</div><div class="text-[9px] text-black/60 text-right font-mono">${ora}</div>`;
         } else {
             div.className = 'self-start bg-black/90 text-sfx-goldLight p-3.5 rounded-2xl max-w-[85%] text-xs border border-sfx-gold/40 shadow-lg space-y-1 alison-msg-node';
@@ -262,7 +261,7 @@ class AlisonConcierge {
     }
 
     removeLastAgentMessage() {
-        const body = document.getElementById('alison-chat-body');
+        const body = document.getElementById('alison-chat-body') || document.getElementById('alison-chat-log');
         if (!body) return;
         const nodes = body.querySelectorAll('.alison-msg-node');
         if (nodes.length > 0) {
@@ -272,53 +271,17 @@ class AlisonConcierge {
 }
 
 window.Alison = new AlisonConcierge();
-
-/**
- * 3. MOTORE MULTILINGUA EAL6+ (IT, EN, FR, DE, ES, ZH, AR)
+window.AlisonEngine = window.Alison;/**
+ * 3. MOTORE MULTILINGUA EAL6+
  */
 const TRADUZIONI = {
-    IT: {
-        heroTitle: "DREAM DEFENSE SYSTEM",
-        heroSub: "SISTEMA SOVRANO DI ACCELERAZIONE FINANZIARIA & ARREDO LUXURY",
-        btnCandidati: "PRESENTA CANDIDATURA NEXUS",
-        btnScopri: "ESPLORA ECOSISTEMA"
-    },
-    EN: {
-        heroTitle: "DREAM DEFENSE SYSTEM",
-        heroSub: "SOVEREIGN SYSTEM OF FINANCIAL ACCELERATION & LUXURY FURNISHING",
-        btnCandidati: "SUBMIT NEXUS APPLICATION",
-        btnScopri: "EXPLORE ECOSYSTEM"
-    },
-    FR: {
-        heroTitle: "DREAM DEFENSE SYSTEM",
-        heroSub: "SYSTÈME SOUVERAIN D'ACCÉLÉRATION FINANCIÈRE ET AMEUBLEMENT DE LUXE",
-        btnCandidati: "SOUMETTRE CANDIDATURE NEXUS",
-        btnScopri: "EXPLORER L'ÉCOSYSTÈME"
-    },
-    DE: {
-        heroTitle: "DREAM DEFENSE SYSTEM",
-        heroSub: "SOUVERÄNES SYSTEM FÜR FINANZBESCHLEUNIGUNG UND LUXUSINNEINRICHTUNG",
-        btnCandidati: "NEXUS-BEWERBUNG EINREICHEN",
-        btnScopri: "ÖKOSYSTEM ERKUNDEN"
-    },
-    ES: {
-        heroTitle: "DREAM DEFENSE SYSTEM",
-        heroSub: "SISTEMA SOBERANO DE ACELERACIÓN FINANCIERA Y MOBILIARIO DE LUJO",
-        btnCandidati: "PRESENTAR CANDIDATURA NEXUS",
-        btnScopri: "EXPLORAR ECOSISTEMA"
-    },
-    ZH: {
-        heroTitle: "梦想防御系统",
-        heroSub: "主权金融加速与奢华家居系统",
-        btnCandidati: "提交 NEXUS 申请",
-        btnScopri: "探索生态系统"
-    },
-    AR: {
-        heroTitle: "نظام الدفاع عن الأحلام",
-        heroSub: "النظام السيادي للتسريع المالي والأثاث الفاخر",
-        btnCandidati: "تقديم طلب NEXUS",
-        btnScopri: "استكشاف النظام البيئي"
-    }
+    IT: { heroTitle: "DREAM DEFENSE SYSTEM", heroSub: "SISTEMA SOVRANO DI ACCELERAZIONE FINANZIARIA & ARREDO LUXURY", btnCandidati: "PRESENTA CANDIDATURA NEXUS", btnScopri: "ESPLORA ECOSISTEMA" },
+    EN: { heroTitle: "DREAM DEFENSE SYSTEM", heroSub: "SOVEREIGN SYSTEM OF FINANCIAL ACCELERATION & LUXURY FURNISHING", btnCandidati: "SUBMIT NEXUS APPLICATION", btnScopri: "EXPLORE ECOSYSTEM" },
+    FR: { heroTitle: "DREAM DEFENSE SYSTEM", heroSub: "SYSTÈME SOUVERAIN D'ACCÉLÉRATION FINANCIÈRE ET AMEUBLEMENT DE LUXE", btnCandidati: "SOUMETTRE CANDIDATURE NEXUS", btnScopri: "EXPLORER L'ÉCOSYSTÈME" },
+    DE: { heroTitle: "DREAM DEFENSE SYSTEM", heroSub: "SOUVERÄNES SYSTEM FÜR FINANZBESCHLEUNIGUNG UND LUXUSINNEINRICHTUNG", btnCandidati: "NEXUS-BEWERBUNG EINREICHEN", btnScopri: "ÖKOSYSTEM ERKUNDEN" },
+    ES: { heroTitle: "DREAM DEFENSE SYSTEM", heroSub: "SISTEMA SOBERANO DE ACELERACIÓN FINANCIERA Y MOBILIARIO DE LUJO", btnCandidati: "PRESENTAR CANDIDATURA NEXUS", btnScopri: "EXPLORAR ECOSISTEMA" },
+    ZH: { heroTitle: "梦想防御系统", heroSub: "主权金融加速与奢华家居系统", btnCandidati: "提交 NEXUS 申请", btnScopri: "探索生态系统" },
+    AR: { heroTitle: "نظام الدفاع عن الأحلام", heroSub: "النظام السيادي للتسريع المالي والأثاث الفاخر", btnCandidati: "تقديم طلب NEXUS", btnScopri: "استكشاف النظام البيئي" }
 };
 
 function cambiaLingua(lang) {
@@ -344,13 +307,11 @@ function cambiaLingua(lang) {
  */
 function calcolaPuntiGoldCard(datiForm) {
     let punti = 1000;
-
     if (datiForm.ambito === 'Conferenza CEO') punti += 500;
     if (datiForm.corso === 'Executive') punti += 300;
     if (datiForm.corso === 'Premium') punti += 500;
     if (datiForm.azienda && datiForm.azienda.trim().length > 2) punti += 200;
     if (datiForm.telefono && datiForm.telefono.startsWith('+39')) punti += 100;
-
     return punti;
 }
 
@@ -366,19 +327,19 @@ function generaCodiceNexus() {
 async function inviaCandidaturaForm(e) {
     e.preventDefault();
 
-    const btnSubmit = document.getElementById('btn-submit-candidatura');
-    const statusBox = document.getElementById('candidatura-status');
+    const btnSubmit = document.getElementById('btn-submit-candidatura') || document.getElementById('btn-invia-lead');
+    const statusBox = document.getElementById('candidatura-status') || document.getElementById('feedback-lead');
 
     const dati = {
         action: 'CANDIDATURA_FORM',
-        nome: document.getElementById('cand-nome').value.trim(),
-        azienda: document.getElementById('cand-azienda').value.trim(),
-        email: document.getElementById('cand-email').value.trim(),
-        telefono: document.getElementById('cand-telefono').value.trim(),
-        ambito: document.getElementById('cand-ambito').value,
-        dataPrenotazione: document.getElementById('cand-data').value,
-        oraPrenotazione: document.getElementById('cand-ora').value,
-        note: document.getElementById('cand-note').value.trim(),
+        nome: (document.getElementById('cand-nome') || document.getElementById('lead-nome')).value.trim(),
+        azienda: (document.getElementById('cand-azienda') || document.getElementById('lead-azienda')).value.trim(),
+        email: (document.getElementById('cand-email') || document.getElementById('lead-email')).value.trim(),
+        telefono: (document.getElementById('cand-telefono') || document.getElementById('lead-telefono')).value.trim(),
+        ambito: (document.getElementById('cand-ambito') || document.getElementById('lead-canale')).value,
+        dataPrenotazione: document.getElementById('cand-data') ? document.getElementById('cand-data').value : 'In attesa',
+        oraPrenotazione: document.getElementById('cand-ora') ? document.getElementById('cand-ora').value : 'In attesa',
+        note: (document.getElementById('cand-note') || document.getElementById('lead-note')).value.trim(),
         nexusCode: generaCodiceNexus()
     };
 
@@ -386,7 +347,8 @@ async function inviaCandidaturaForm(e) {
 
     if (btnSubmit) btnSubmit.disabled = true;
     if (statusBox) {
-        statusBox.className = "text-sfx-cyanLight font-bold text-center animate-pulse";
+        statusBox.classList.remove('hidden');
+        statusBox.className = "p-4 mt-4 rounded-xl text-xs font-mono border bg-cyan-950/40 border-sfx-cyan text-sfx-cyanLight block animate-pulse";
         statusBox.textContent = "Elaborazione candidatura e generazione Codice Nexus EAL6+ in corso...";
     }
 
@@ -394,11 +356,10 @@ async function inviaCandidaturaForm(e) {
         const risposta = await window.SFXConnector.inviaLead(dati);
 
         if (statusBox) {
-            statusBox.className = "text-green-400 font-bold text-center";
+            statusBox.className = "p-4 mt-4 rounded-xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
             statusBox.innerHTML = `✓ CANDIDATURA ACCETTATA!<br>Codice Nexus: <strong class="text-sfx-gold">${dati.nexusCode}</strong><br>Punti Accredito: <strong>${dati.punti} PTS</strong>`;
         }
 
-        // Mostra la Gold Card generata
         const elemCardNexus = document.getElementById('card-nexus-code');
         const elemCardNome = document.getElementById('card-candidato-nome');
         const elemCardPunti = document.getElementById('card-punti-valore');
@@ -411,7 +372,7 @@ async function inviaCandidaturaForm(e) {
 
     } catch (err) {
         if (statusBox) {
-            statusBox.className = "text-yellow-400 font-bold text-center";
+            statusBox.className = "p-4 mt-4 rounded-xl text-xs font-mono border bg-yellow-950/50 border-yellow-500 text-yellow-300 block";
             statusBox.textContent = "✓ Candidatura salvata in locale (Coda Delta Offline). Sincronizzazione automatica al ripristino rete.";
         }
     } finally {
@@ -437,364 +398,143 @@ window.addEventListener('keydown', (e) => {
 });
 
 /**
- * 7. INIZIALIZZAZIONE EVENTI E CARICAMENTO DOM
+ * ====================================================================
+ * 7. NUOVE FUNZIONI AGGIUNTE: TELEMETRIA, SMART MENU E TRIPLO TAP
+ * ====================================================================
+ */
+
+// A) TELEMETRIA LIVE (Simulatore Visitatori X-BOX)
+function avviaTelemetria() {
+    const visitorElement = document.getElementById("live-visitors");
+    if (visitorElement) {
+        setInterval(() => {
+            const baseVisitors = 18;
+            const randomFluctuation = Math.floor(Math.random() * 20);
+            visitorElement.innerText = baseVisitors + randomFluctuation;
+        }, 4500);
+    }
+}
+
+// B) MENU SMART (Auto-chiusura dopo 20 secondi)
+let menuTimer = null;
+
+function toggleSmartMenu() {
+    const menu = document.getElementById('smart-dropdown-menu');
+    if (!menu) return;
+
+    if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        
+        menuTimer = setTimeout(() => {
+            chiudiSmartMenu();
+        }, 20000);
+    } else {
+        chiudiSmartMenu();
+    }
+}
+
+function chiudiSmartMenu() {
+    const menu = document.getElementById('smart-dropdown-menu');
+    if (menu) {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+    }
+    if (menuTimer) {
+        clearTimeout(menuTimer);
+        menuTimer = null;
+    }
+}
+
+// C) TRIPLO TAP SEGRETO SUL LOGO
+let tapCount = 0;
+let tapTimeout = null;
+
+function setupTriploTap() {
+    const logoTrigger1 = document.getElementById('sfx-brand-logo-main');
+    const logoTrigger2 = document.getElementById('sfx-brand-logo-status');
+    const logoTrigger3 = document.getElementById('sfx-brand-logo-center');
+    
+    const riggers = [logoTrigger1, logoTrigger2, logoTrigger3];
+    
+    riggers.forEach(trigger => {
+        if (trigger) {
+            trigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                tapCount++;
+
+                if (tapCount === 1) {
+                    tapTimeout = setTimeout(() => {
+                        tapCount = 0;
+                    }, 1500);
+                }
+
+                if (tapCount === 3) {
+                    clearTimeout(tapTimeout);
+                    tapCount = 0;
+                    
+                    const password = prompt("⚠️ [DREAM DEFENSE SYSTEM] ⚠️\n\nAccesso Sovrano Rilevato.\nInserire PIN o confermare riconoscimento facciale (Face ID):");
+                    
+                    if (password !== null) {
+                        alert("Identità Confermata: CEO GIULIANO.\nTrasferimento al Terminale di Sicurezza in corso...");
+                        window.location.href = "login.html"; 
+                    } else {
+                        alert("Accesso Annullato.");
+                    }
+                }
+            });
+        }
+    });
+}
+
+/**
+ * 8. UTILITIES DRAWERS
+ */
+function toggleDrawer(id) {
+    const drawer = document.getElementById(id);
+    if (drawer) {
+        if (drawer.classList.contains('hidden')) {
+            drawer.classList.remove('hidden');
+        } else {
+            drawer.classList.add('hidden');
+        }
+    }
+}
+
+function chiudiDrawer(id) {
+    const drawer = document.getElementById(id);
+    if (drawer) drawer.classList.add('hidden');
+}
+
+function chiudiDrawerAlClickFuori(event, id) {
+    if (event.target.id === id) chiudiDrawer(id);
+}
+
+function apriWidgetAlison() {
+    toggleDrawer('drawer-alison');
+}
+
+/**
+ * 9. INIZIALIZZAZIONE EVENTI E CARICAMENTO DOM
  */
 document.addEventListener('DOMContentLoaded', () => {
     window.Alison.init();
+    avviaTelemetria();
+    setupTriploTap();
 
-    const formCandidatura = document.getElementById('form-candidatura');
+    const formCandidatura = document.getElementById('form-candidatura-lead') || document.getElementById('form-candidatura');
     if (formCandidatura) {
         formCandidatura.addEventListener('submit', inviaCandidaturaForm);
     }
 
-    const selectLang = document.getElementById('select-lingua');
+    const selectLang = document.getElementById('lang-selector') || document.getElementById('select-lingua');
     if (selectLang) {
         selectLang.addEventListener('change', (e) => cambiaLingua(e.target.value));
     }
 
-    // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
             .then(reg => console.log('[PWA] Service Worker attivo con scope:', reg.scope))
             .catch(err => console.warn('[PWA] Registrazione Service Worker non riuscita:', err));
     }
-});/**
- * ====================================================================
- * SUPREMA FUTURE X S.R.L. // GOOGLE APPS SCRIPT MASTER ENGINE V35
- * GOVERNANCE: CEO GIULIANO CARATELLI
- * PROTOCOLLO: EAL6+ SOVRANO // INTEGRATED BACKEND ENGINE
- * ====================================================================
- */
-
-const CONFIG = {
-    CEO_EMAIL: 'ceo@supremaofficial.com',
-    COMPANY_NAME: 'Suprema Future X S.r.l.',
-    TELEGRAM_BOT_TOKEN: '', // Opzionale: inserire token BotFather se attivo
-    TELEGRAM_CHAT_ID: '',   // Opzionale: inserire chat ID personale se attivo
-    WHATSAPP_CEO_NUMBER: '+393474429091',
-    SHEET_LEADS: 'Leads_Candidature',
-    SHEET_LEDGER: 'Mastro_Finanziario',
-    SHEET_PROMPTS: 'Prompt_Neurali'
-};
-
-/**
- * 1. DISPATCHER POST INTERCETTAZIONE RICHIESTE ENTRANTI
- */
-function doPost(e) {
-    try {
-        let payload = {};
-        if (e && e.postData && e.postData.contents) {
-            payload = JSON.parse(e.postData.contents);
-        }
-
-        const action = payload.action || 'CANDIDATURA_FORM';
-        let result = {};
-
-        switch (action) {
-            case 'CANDIDATURA_FORM':
-                result = gestisciCandidaturaForm(payload);
-                break;
-            case 'ALISON_CHAT_QUERY':
-                result = gestisciAlisonQuery(payload);
-                break;
-            case 'LEDGER_ENTRY':
-                result = gestisciLedgerEntry(payload);
-                break;
-            case 'AGGIORNA_PROMPT_NEURALE':
-                result = gestisciPromptNeurale(payload);
-                break;
-            case 'SECURITY_ALARM_ABUSE':
-                result = gestisciSecurityAlarm(payload);
-                break;
-            default:
-                result = { status: 'error', message: 'Azione non riconosciuta dal Server EAL6+.' };
-        }
-
-        return ContentService
-            .createTextOutput(JSON.stringify(result))
-            .setMimeType(ContentService.MimeType.JSON);
-
-    } catch (err) {
-        return ContentService
-            .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
-            .setMimeType(ContentService.MimeType.JSON);
-    }
-}
-
-/**
- * 2. DISPATCHER GET PER RECUPERO DATI TABELLARI (CRM & MASTRO)
- */
-function doGet(e) {
-    try {
-        const action = e.parameter.action || 'GET_LEADS';
-        let data = {};
-
-        if (action === 'GET_LEADS') {
-            data = { status: 'success', leads: getLeadsData() };
-        } else if (action === 'GET_LEDGER') {
-            data = { status: 'success', ledger: getLedgerData() };
-        } else {
-            data = { status: 'error', message: 'Azione GET non valida.' };
-        }
-
-        return ContentService
-            .createTextOutput(JSON.stringify(data))
-            .setMimeType(ContentService.MimeType.JSON);
-
-    } catch (err) {
-        return ContentService
-            .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
-            .setMimeType(ContentService.MimeType.JSON);
-    }
-}
-
-/**
- * 3. GESTIONE CANDIDATURA FORM & GOLD CARD
- */
-function gestisciCandidaturaForm(dati) {
-    const sheet = ottieniOInizializzaFoglio(CONFIG.SHEET_LEADS, [
-        'Timestamp', 'Codice Nexus', 'Nome', 'Azienda', 'Email', 'Telefono', 'Ambito', 'Data Prenotazione', 'Ora Prenotazione', 'Note', 'Punti Gold Card'
-    ]);
-
-    const timestamp = new Date().toISOString();
-    const nexusCode = dati.nexusCode || ('CEOSFX' + Date.now().toString().slice(-6));
-    const punti = dati.punti || 1500;
-
-    sheet.appendRow([
-        timestamp,
-        nexusCode,
-        dati.nome || '',
-        dati.azienda || '',
-        dati.email || '',
-        dati.telefono || '',
-        dati.ambito || '',
-        dati.dataPrenotazione || '',
-        dati.oraPrenotazione || '',
-        dati.note || '',
-        punti
-    ]);
-
-    // Invio Notifiche
-    inviaEmailConferma(dati, nexusCode);
-    inviaNotificaTelegram(`🚨 *NUOVA CANDIDATURA LEADS*\nCodice: \`${nexusCode}\`\nNome: ${dati.nome}\nAzienda:${dati.azienda || 'N/D'}\nTelefono: ${dati.telefono}\nAmbito:${dati.ambito}\nSlot: ${dati.dataPrenotazione} ore${dati.oraPrenotazione}`);
-
-    return {
-        status: 'success',
-        nexusCode: nexusCode,
-        punti: punti,
-        message: 'Candidatura registrata con successo nel Registro Sovrano.'
-    };
-}
-
-/**
- * 4. GESTIONE QUERY AGENTE AI ALISON
- */
-function gestisciAlisonQuery(dati) {
-    const msg = (dati.message || '').toLowerCase();
-    let reply = "Gentile ospite, la Presidenza del CEO Giuliano Caratelli è stata notificata della sua richiesta. Un nostro Executive provvederà al riscontro.";
-
-    if (msg.includes('ceo') || msg.includes('appuntamento') || msg.includes('conferenza')) {
-        reply = "Può accreditarsi direttamente per un incontro riservato con il CEO Giuliano Caratelli tramite la sezione Candidatura Nexus. Le verrà assegnato un Codice Identificativo e lo slot da lei selezionato.";
-    } else if (msg.includes('corso') || msg.includes('academy') || msg.includes('prezzo') || msg.includes('costo')) {
-        reply = "La Suprema Academy offre tre percorsi d'élite: Silver (Base), Executive (Avanzato) e Premium VIP. Può candidarsi per accedere alle quote riservate e agli accrediti Gold Card.";
-    } else if (msg.includes('opal') || msg.includes('brevetto') || msg.includes('antigravity')) {
-        reply = "I brevetti WIPO/PCT relativi alla linea Boutique Luxury Opal e Levitazione Antigravity sono custoditi nella Cassaforte Privata Vault (accesso riservato EAL6+).";
-    }
-
-    inviaNotificaTelegram(`💬 *INTERAZIONE ALISON AI*\nMessaggio: "${dati.message}"\nRisposta inviata: "${reply}"`);
-
-    return {
-        status: 'success',
-        reply: reply
-    };
-}
-
-/**
- * 5. GESTIONE MASTRO FINANZIARIO LEDGER (SPLIT 54 / 30 / 16)
- */
-function gestisciLedgerEntry(dati) {
-    const sheet = ottieniOInizializzaFoglio(CONFIG.SHEET_LEDGER, [
-        'Timestamp', 'Descrizione', 'Importo Totale', 'Tipo', 'Operatività (54%)', 'Dividendi (30%)', 'Tasse (16%)', 'Proof Hash SHA-256'
-    ]);
-
-    const timestamp = new Date().toISOString();
-    const amount = parseFloat(dati.amount) || 0;
-    const tipo = dati.type || 'ENTRATA';
-
-    let ops = 0, div = 0, tax = 0;
-    if (tipo === 'ENTRATA') {
-        ops = amount * 0.54;
-        div = amount * 0.30;
-        tax = amount * 0.16;
-    } else {
-        ops = amount;
-    }
-
-    const proofHash = calcolaHashSHA256(timestamp + dati.description + amount);
-
-    sheet.appendRow([
-        timestamp,
-        dati.description || '',
-        amount,
-        tipo,
-        ops,
-        div,
-        tax,
-        proofHash
-    ]);
-
-    inviaNotificaTelegram(`📊 *REGISTRAZIONE MASTRO FINANZIARIO*\nDescrizione: ${dati.description}\nImporto: €${amount.toFixed(2)} (${tipo})\nOps (54\%): €${ops.toFixed(2)} | Div (30%): € ${div.toFixed(2)} \vert{} Tax (16\%): €${tax.toFixed(2)}\nProof Hash: \`${proofHash.substring(0, 16)}...\``);
-
-    return {
-        status: 'success',
-        hashProof: proofHash,
-        message: 'Voce registrata nel Mastro Contabile Sovrano.'
-    };
-}
-
-/**
- * 6. GESTIONE AGGIORNAMENTO PROMPT NEURALI AGENTI AI
- */
-function gestisciPromptNeurale(dati) {
-    const sheet = ottieniOInizializzaFoglio(CONFIG.SHEET_PROMPTS, [
-        'Timestamp', 'Agente', 'System Prompt', 'Operatore'
-    ]);
-
-    sheet.appendRow([
-        new Date().toISOString(),
-        dati.agente || '',
-        dati.prompt || '',
-        dati.operatore || 'X-BOX ADMIN'
-    ]);
-
-    return {
-        status: 'success',
-        message: 'Prompt distribuito alla Rete Neurale.'
-    };
-}
-
-/**
- * 7. SEGNALAZIONE ALLARME SICUREZZA EAL6+
- */
-function gestisciSecurityAlarm(dati) {
-    inviaNotificaTelegram(`🚨🚨 *ALLARME TENTATIVI FALLITI EAL6+*\nTarget: ${dati.target}\nTentativo Password: ${dati.passAttempt}\nTentativo PIN: ${dati.pinAttempt}\nUser Agent: ${dati.userAgent}`);
-    return { status: 'logged', message: 'Segnalazione registrata.' };
-}
-
-/**
- * 8. FUNZIONI DI LETTURA DATI FOGLI FONDAMENTALI
- */
-function getLeadsData() {
-    const sheet = ottieniOInizializzaFoglio(CONFIG.SHEET_LEADS, []);
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return [];
-
-    const headers = data[0];
-    const rows = data.slice(1);
-
-    return rows.map(row => ({
-        timestamp: row[0],
-        nexusCode: row[1],
-        nome: row[2],
-        azienda: row[3],
-        email: row[4],
-        telefono: row[5],
-        ambito: row[6],
-        dataPrenotazione: row[7],
-        oraPrenotazione: row[8],
-        note: row[9],
-        punti: row[10]
-    })).reverse();
-}
-
-function getLedgerData() {
-    const sheet = ottieniOInizializzaFoglio(CONFIG.SHEET_LEDGER, []);
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return [];
-
-    const rows = data.slice(1);
-
-    return rows.map(row => ({
-        timestamp: row[0],
-        descrizione: row[1],
-        importo: row[2],
-        tipo: row[3],
-        operativita: row[4],
-        dividendi: row[5],
-        tasse: row[6],
-        proofHash: row[7]
-    })).reverse();
-}
-
-/**
- * 9. UTILITIES ACCESSORIE: FOGLI, EMAIL, TELEGRAM & HASH SHA-256
- */
-function ottieniOInizializzaFoglio(nomeFoglio, intestazioni) {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = ss.getSheetByName(nomeFoglio);
-
-    if (!sheet) {
-        sheet = ss.insertSheet(nomeFoglio);
-        if (intestazioni && intestazioni.length > 0) {
-            sheet.appendRow(intestazioni);
-            sheet.getRange(1, 1, 1, intestazioni.length).setFontWeight('bold').setBackground('#121620').setFontColor('#D4AF37');
-        }
-    }
-
-    return sheet;
-}
-
-function inviaEmailConferma(dati, nexusCode) {
-    if (!dati.email) return;
-
-    try {
-        const oggetto = `Conferma Ricezione Candidatura Nexus // Codice: ${nexusCode}`;
-        const corpo = `Gentile ${dati.nome},\n\n` +
-            `La Presidenza del CEO Giuliano Caratelli conferma la ricezione della sua candidatura per l'ambito: ${dati.ambito}.\n\n` +
-            `Dettagli Accredito:\n` +
-            `- Codice Nexus: ${nexusCode}\n` +
-            `- Slot Prenotato: ${dati.dataPrenotazione} ore ${dati.oraPrenotazione}\n` +
-            `- Punti Gold Card Accreditate: ${dati.punti || 1500} PTS\n\n` +
-            `Cordiali Saluti,\n` +
-            `Suprema Future X S.r.l. // Governance EAL6+`;
-
-        MailApp.sendEmail(dati.email, oggetto, corpo);
-    } catch (err) {
-        Logger.log("Errore invio mail: " + err.toString());
-    }
-}
-
-function inviaNotificaTelegram(messaggio) {
-    if (!CONFIG.TELEGRAM_BOT_TOKEN || !CONFIG.TELEGRAM_CHAT_ID) return;
-
-    try {
-        const url = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
-        const payload = {
-            chat_id: CONFIG.TELEGRAM_CHAT_ID,
-            text: messaggio,
-            parse_mode: 'Markdown'
-        };
-
-        UrlFetchApp.fetch(url, {
-            method: 'post',
-            contentType: 'application/json',
-            payload: JSON.stringify(payload),
-            muteHttpExceptions: true
-        });
-    } catch (err) {
-        Logger.log("Errore Telegram: " + err.toString());
-    }
-}
-
-function calcolaHashSHA256(stringa) {
-    const rawHash = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, stringa, Utilities.Charset.UTF_8);
-    let hash = '';
-    for (let i = 0; i < rawHash.length; i++) {
-        let byte = rawHash[i];
-        if (byte < 0) byte += 256;
-        let byteStr = byte.toString(16);
-        if (byteStr.length === 1) byteStr = '0' + byteStr;
-        hash += byteStr;
-    }
-    return '0x' + hash.toUpperCase();
-}
+});
