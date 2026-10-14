@@ -126,7 +126,7 @@
 
         <div class="flex items-center space-x-4">
             <!-- Widget Telemetria Live -->
-            <div class="live-counter hidden md:flex items-center gap-1.5" title="Telemetria X-BOX" style="color: #00F0FF;">
+            <div class="live-counter" title="Telemetria X-BOX" style="color: #00F0FF; display: flex; align-items: center; gap: 5px;">
                 <span class="pulsing-dot" style="width: 6px; height: 6px; background-color: #00F0FF; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite;"></span>
                 <span id="live-visitors">24</span> ATTIVI
             </div>
@@ -135,10 +135,15 @@
                 <i class="fa-solid fa-globe text-sfx-gold mr-1"></i>
                 <select id="lang-selector" onchange="cambiaLingua(this.value)" class="bg-transparent text-gray-200 outline-none cursor-pointer font-mono text-[11px]">
                     <option value="IT" selected>🇮🇹 ITALIANO</option>
-                    <option value="EN">🇬🇧 INGLESE</option>
                     <option value="FR">🇫🇷 FRANCESE</option>
-                    <option value="ES">🇪🇸 SPAGNOLO</option>
+                    <option value="EN">🇬🇧 INGLESE</option>
+                    <option value="SK">🇸🇰 SLOVACCO</option>
+                    <option value="RO">🇷🇴 RUMENO</option>
                     <option value="DE">🇩🇪 TEDESCO</option>
+                    <option value="ES">🇪🇸 SPAGNOLO</option>
+                    <option value="CS">🇨🇿 CECOSLOVACCO</option>
+                    <option value="PT">🇵🇹 PORTOGHESE</option>
+                    <option value="SQ">🇦🇱 ALBANESE</option>
                 </select>
             </div>
             <span class="text-gray-300 hidden md:inline">GOVERNANCE: <strong class="text-sfx-goldLight">CEO GIULIANO</strong></span>
@@ -160,12 +165,13 @@
             </div>
 
             <div class="flex items-center space-x-3 font-mono text-xs relative">
-                <!-- Dropdown Intelligente -->
+                <!-- Dropdown Intelligente (Sezioni) -->
                 <div class="relative dropdown-container" id="menu-sezioni-container">
                     <button onclick="toggleSmartMenu()" class="px-4 py-2.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/30 hover:bg-black transition-colors flex items-center space-x-2" id="btn-menu-sezioni">
                         <i class="fa-solid fa-bars"></i>
                         <span class="hidden sm:inline">MENU SEZIONI ▼</span>
                     </button>
+                    <!-- Il contenuto del menu è nascosto di default -->
                     <div id="smart-dropdown-menu" class="absolute top-14 left-0 w-64 bg-[#090A0D] border border-sfx-gold/30 rounded-xl shadow-2xl z-50 hidden flex-col font-mono text-xs overflow-hidden">
                         <a href="#alison-ai" onclick="toggleSmartMenu()" class="p-3 text-white hover:bg-sfx-gold/20 hover:text-sfx-gold border-b border-gray-800 transition-colors">1. Console Alison</a>
                         <a href="#candidatura" onclick="toggleSmartMenu()" class="p-3 text-white hover:bg-sfx-gold/20 hover:text-sfx-gold border-b border-gray-800 transition-colors">2. Conferenza CEO</a>
@@ -191,7 +197,58 @@
     </header>
     <!-- END: BARRA SUPERIORE E MENU EAL6+ -->
 
-    <!-- DRAWER: CHI SIAMO & STORIA -->
+    <!-- DRAWER 1: ALISON CHATBOT, CONFERENZA CEO, ACADEMY -->
+    <div id="drawer-alison" class="fixed inset-0 drawer-overlay z-50 hidden flex justify-end" onclick="chiudiDrawerAlClickFuori(event, 'drawer-alison')">
+        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-6 flex flex-col justify-between border-l border-sfx-cyan/40 font-mono text-xs">
+            <div class="space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="text-sfx-cyan font-bold uppercase tracking-widest"><i class="fa-solid fa-brain mr-2"></i>ALISON & CANDIDATURE</span>
+                    <button onclick="toggleDrawer('drawer-alison')" class="text-gray-400 hover:text-white text-lg">&times;</button>
+                </div>
+                <div class="flex flex-col space-y-3">
+                    <a href="#alison-ai" onclick="chiudiDrawer('drawer-alison')" class="p-3.5 bg-gray-900 rounded-xl font-bold text-sfx-cyan flex justify-between items-center hover:bg-gray-800">
+                        <span><i class="fa-solid fa-comments mr-2"></i>CHAT BOT ALISON</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                    <a href="#candidatura" onclick="chiudiDrawer('drawer-alison')" class="p-3.5 bg-gray-900 rounded-xl font-bold text-sfx-gold flex justify-between items-center hover:bg-gray-800">
+                        <span><i class="fa-solid fa-user-tie mr-2"></i>CONFERENZA CEO</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                    <a href="#candidatura" onclick="chiudiDrawer('drawer-alison')" class="p-3.5 bg-gray-900 rounded-xl font-bold text-white flex justify-between items-center hover:bg-gray-800">
+                        <span><i class="fa-solid fa-graduation-cap mr-2"></i>ACADEMY CANDIDATURA</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                    <button onclick="chiudiDrawer('drawer-alison'); apriWidgetAlison();" class="p-3.5 bg-sfx-cyan text-white font-bold rounded-xl text-left uppercase tracking-wider hover:bg-cyan-700 shadow-md">
+                        <i class="fa-solid fa-headset mr-2"></i>PARLA CON ALISON &rarr;
+                    </button>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-4 text-center text-gray-500 text-[10px]">PROTOCOLLO NEURALE EAL6+</div>
+        </div>
+    </div>
+
+    <!-- DRAWER 2: TUTTE LE SEZIONI -->
+    <div id="drawer-sezioni" class="fixed inset-0 drawer-overlay z-50 hidden flex justify-end" onclick="chiudiDrawerAlClickFuori(event, 'drawer-sezioni')">
+        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-6 flex flex-col justify-between border-l border-sfx-gold/40 font-mono text-xs overflow-y-auto">
+            <div class="space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="text-sfx-gold font-bold uppercase tracking-widest"><i class="fa-solid fa-list mr-2"></i>SEZIONI LANDING PAGE</span>
+                    <button onclick="toggleDrawer('drawer-sezioni')" class="text-gray-400 hover:text-white text-lg">&times;</button>
+                </div>
+                <div class="flex flex-col space-y-2 uppercase font-semibold">
+                    <a href="#alison-ai" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>1. Alison Console H24</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#candidatura" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>2. Conferenza CEO</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#academy" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>3. Suprema Academy</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#dicono-di-noi" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>4. Dicono di Noi</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#gold-card" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>5. Suprema Gold Card</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#boutique-opal" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>6. Boutique Luxury</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#antigravity" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>7. Linea Antigravity</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#multimedia" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-gold flex justify-between"><span>8. Multimedia Library</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#candidatura" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-sfx-gold/20 border border-sfx-gold text-sfx-gold rounded-xl flex justify-between"><span>9. Accredito Candidatura</span><i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#gateway" onclick="chiudiDrawer('drawer-sezioni')" class="p-3 bg-gray-900 rounded-xl hover:text-sfx-cyan flex justify-between"><span>10. Gateway Pagamenti</span><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DRAWER 3: CHI SIAMO & STORIA -->
     <div id="drawer-chisiamo" class="fixed inset-0 drawer-overlay z-50 hidden flex justify-end" onclick="chiudiDrawerAlClickFuori(event, 'drawer-chisiamo')">
         <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-6 flex flex-col justify-between border-l border-sfx-gold/40 font-mono text-xs overflow-y-auto">
             <div class="space-y-6">
@@ -221,6 +278,52 @@
             </div>
             <div class="border-t border-gray-800 pt-4 text-center text-gray-500 text-[10px]">© 2026 SUPREMA FUTURE X S.R.L.</div>
         </div>
+    </div>
+
+    <!-- DRAWER 4: SELEZIONE MULTILINGUA -->
+    <div id="drawer-lingue" class="fixed inset-0 drawer-overlay z-50 hidden flex justify-end" onclick="chiudiDrawerAlClickFuori(event, 'drawer-lingue')">
+        <div class="w-full max-w-sm bg-[#090A0D] text-white h-full p-6 space-y-6 flex flex-col justify-between border-l border-sfx-gold/40 font-mono text-xs overflow-y-auto">
+            <div class="space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <span class="text-sfx-gold font-bold uppercase tracking-widest"><i class="fa-solid fa-globe mr-2"></i>SELEZIONA LINGUA</span>
+                    <button onclick="toggleDrawer('drawer-lingue')" class="text-gray-400 hover:text-white text-lg">&times;</button>
+                </div>
+                <p class="text-gray-400 text-[11px]">Seleziona la lingua per tradurre i contenuti della piattaforma:</p>
+                <div class="grid grid-cols-1 gap-2 font-bold uppercase">
+                    <button onclick="cambiaLingua('IT'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇮🇹 ITALIANO</span><i class="fa-solid fa-check text-sfx-gold"></i>
+                    </button>
+                    <button onclick="cambiaLingua('FR'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇫🇷 FRANCESE</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('EN'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇬🇧 INGLESE</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('SK'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇸🇰 SLOVACCO</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('RO'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇷🇴 RUMENO</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('DE'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇩🇪 TEDESCO</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('ES'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇪🇸 SPAGNOLO</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('CS'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇨🇿 CECOSLOVACCO</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('PT'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇵🇹 PORTOGHESE</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onclick="cambiaLingua('SQ'); chiudiDrawer('drawer-lingue');" class="p-3 bg-gray-900 rounded-xl hover:bg-sfx-gold hover:text-black transition-colors flex items-center justify-between border border-gray-800">
+                        <span>🇦🇱 ALBANESE</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-4 text-center text-gray-500 text-[10px]">EAL6+ MULTILINGUAL TRANSLATION ENGINE</div>
+        </div>
     </div><!-- EMBLEMA GRANDE CENTRALE -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 text-center space-y-4">
         <div class="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto glow-logo-ring cursor-pointer" id="sfx-brand-logo-center" title="Stealth Access (2 Tap = X-BOX | 3 Tap = Privato CEO)">
@@ -244,7 +347,7 @@
     </section>
 
     <main class="space-y-16 py-6">
-        
+
         <!-- HERO DISPLAY -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -300,7 +403,6 @@
                         <i class="fa-solid fa-volume-high text-sfx-cyan mr-2"></i>Ascolta Messaggio Vocale
                     </button>
                 </div>
-                
                 <div class="lg:col-span-8 bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden flex flex-col h-[520px]">
                     <div class="bg-gray-50 px-6 py-3.5 border-b border-gray-200 flex justify-between items-center text-xs font-mono">
                         <span class="text-gray-500 font-bold"><i class="fa-solid fa-microchip mr-2 text-sfx-gold"></i>ALISON NEURAL ENGINE</span>
@@ -321,7 +423,7 @@
             </div>
         </section>
 
-        <!-- AREA CANDIDATURA / MODULO EAL6+ -->
+        <!-- ACCREDITO UFFICIALE -->
         <section id="candidatura" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">MODULO EAL6+ CRITTOGRAFATO</span>
@@ -346,7 +448,6 @@
                         <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Telefono / WhatsApp *</label>
                         <input type="tel" id="lead-telefono" required class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
                     </div>
-                    
                     <div class="md:col-span-2">
                         <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Ambito di Interesse Primario *</label>
                         <select id="lead-canale" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
@@ -357,12 +458,10 @@
                             <option value="Academy SFX">Corsi Academy SFX</option>
                         </select>
                     </div>
-
                     <div class="md:col-span-2">
                         <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Note o Richieste Particolari</label>
                         <textarea id="lead-note" rows="2" placeholder="Descrivi brevemente i tuoi obiettivi o richieste..." class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold"></textarea>
                     </div>
-
                     <div class="md:col-span-2 pt-2">
                         <button type="submit" id="btn-invia-lead" class="w-full p-4 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold uppercase rounded-xl transition-all shadow-lg flex items-center justify-center space-x-2 text-sm">
                             <i class="fa-solid fa-paper-plane"></i>
@@ -370,10 +469,11 @@
                         </button>
                     </div>
                 </form>
-
                 <div id="feedback-lead" class="hidden p-4 mt-4 rounded-xl text-xs font-mono border text-center"></div>
             </div>
-        </section><!-- GATEWAY PAGAMENTI -->
+        </section>
+
+        <!-- GATEWAY PAGAMENTI -->
         <section id="gateway" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">TRANSAZIONI SICURE EAL6+</span>
@@ -391,10 +491,108 @@
                     <p class="text-gray-500">Bonifici istantanei aziendali e regolamenti contrattuali S.r.l.</p>
                 </div>
             </div>
+        </section><!-- SUPREMA ACADEMY -->
+        <section id="academy" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">ALTA FORMAZIONE EAL6+</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-grotesk text-[#090A0D]">SUPREMA ACADEMY</h2>
+                <p class="text-gray-500 font-mono text-xs">I percorsi di punta per l'eccellenza aziendale e personale.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden group hover:border-sfx-gold transition-colors">
+                    <div class="h-48 bg-[#090A0D] relative flex items-center justify-center">
+                        <h3 class="text-white font-grotesk font-black text-xl tracking-widest">SILVER</h3>
+                    </div>
+                    <div class="p-6 space-y-4 font-mono text-xs">
+                        <ul class="space-y-2 text-gray-600">
+                            <li><i class="fa-solid fa-check text-sfx-cyan mr-2"></i>Accesso Piattaforma Base</li>
+                            <li><i class="fa-solid fa-check text-sfx-cyan mr-2"></i>Webinar Mensili</li>
+                            <li><i class="fa-solid fa-check text-sfx-cyan mr-2"></i>Supporto Neurale Base</li>
+                        </ul>
+                        <button onclick="document.getElementById('modal-corso-8pollici').classList.remove('hidden')" class="w-full py-3 bg-gray-100 hover:bg-sfx-gold hover:text-white text-black font-bold rounded-xl transition-colors">SCOPRI DI PIÙ</button>
+                    </div>
+                </div>
+                <div class="bg-[#090A0D] rounded-3xl border border-sfx-gold shadow-2xl overflow-hidden group transform md:-translate-y-4">
+                    <div class="h-48 relative border-b border-sfx-gold/30 flex items-center justify-center">
+                        <h3 class="text-sfx-gold font-grotesk font-black text-2xl tracking-widest title-3d-shimmer">EXECUTIVE</h3>
+                        <div class="absolute top-4 right-4 bg-sfx-gold text-black px-3 py-1 rounded-full text-[10px] font-bold">BEST SELLER</div>
+                    </div>
+                    <div class="p-6 space-y-4 font-mono text-xs text-gray-300">
+                        <ul class="space-y-2">
+                            <li><i class="fa-solid fa-star text-sfx-gold mr-2"></i>Master Avanzato 8 Settimane</li>
+                            <li><i class="fa-solid fa-star text-sfx-gold mr-2"></i>Coaching 1-to-1 con CEO</li>
+                            <li><i class="fa-solid fa-star text-sfx-gold mr-2"></i>Workspace Assedio Completo</li>
+                            <li><i class="fa-solid fa-star text-sfx-gold mr-2"></i>Accesso X-BOX Riservato</li>
+                        </ul>
+                        <button onclick="document.getElementById('modal-corso-8pollici').classList.remove('hidden')" class="w-full py-3 bg-sfx-gold text-black hover:bg-yellow-500 font-bold rounded-xl transition-colors shadow-[0_0_15px_rgba(184,134,11,0.4)]">CANDIDATI ORA</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden group hover:border-sfx-cyan transition-colors">
+                    <div class="h-48 bg-[#12141C] relative flex items-center justify-center">
+                        <h3 class="text-sfx-cyan font-grotesk font-black text-xl tracking-widest">PREMIUM VIP</h3>
+                    </div>
+                    <div class="p-6 space-y-4 font-mono text-xs">
+                        <ul class="space-y-2 text-gray-600">
+                            <li><i class="fa-solid fa-gem text-sfx-cyan mr-2"></i>Accesso Illimitato a Vita</li>
+                            <li><i class="fa-solid fa-gem text-sfx-cyan mr-2"></i>Consulenza Fiscale S.r.l.</li>
+                            <li><i class="fa-solid fa-gem text-sfx-cyan mr-2"></i>Incontri in Presenza (Roma)</li>
+                        </ul>
+                        <button onclick="document.getElementById('modal-corso-8pollici').classList.remove('hidden')" class="w-full py-3 bg-gray-100 hover:bg-sfx-cyan hover:text-white text-black font-bold rounded-xl transition-colors">SCOPRI DI PIÙ</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DICONO DI NOI -->
+        <section id="dicono-di-noi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            <div class="bg-[#090A0D] rounded-3xl p-8 sm:p-12 border border-sfx-gold/30 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-10">
+                    <i class="fa-solid fa-quote-right text-9xl text-sfx-gold"></i>
+                </div>
+                <div class="relative z-10 space-y-6 max-w-3xl">
+                    <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">SUCCESS STORIES</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-grotesk text-white">DICONO DI NOI</h2>
+                    <p class="text-gray-400 font-mono text-sm leading-relaxed">
+                        Centinaia di imprenditori e professionisti hanno trasformato la loro realtà grazie al protocollo Suprema Future X e alla guida del CEO Giuliano.
+                    </p>
+                    <button onclick="document.getElementById('modal-testimonianze-9pollici').classList.remove('hidden')" class="px-8 py-3 bg-sfx-cyan hover:bg-cyan-700 text-white font-bold font-mono text-xs rounded-xl transition-colors">
+                        <i class="fa-solid fa-folder-open mr-2"></i>LEGGI LE 20 TESTIMONIANZE EAL6+
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GOLD CARD, BOUTIQUE OPAL & ANTIGRAVITY -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div id="gold-card" class="bg-gradient-to-br from-yellow-900 via-yellow-600 to-yellow-900 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden group cursor-pointer">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all"></div>
+                    <div class="relative z-10 space-y-4">
+                        <i class="fa-solid fa-id-card text-4xl text-yellow-300"></i>
+                        <h3 class="font-grotesk font-black text-xl">GOLD CARD</h3>
+                        <p class="font-mono text-xs text-gray-200">La carta fedeltà fisica e digitale che ti apre le porte del network d'élite. Accumula PTS e sblocca privilegi.</p>
+                    </div>
+                </div>
+                <div id="boutique-opal" onclick="document.getElementById('modal-luxury-7pollici').classList.remove('hidden')" class="bg-[#12141C] rounded-3xl p-8 text-white border border-gray-800 shadow-xl relative overflow-hidden group cursor-pointer hover:border-sfx-gold transition-colors">
+                    <div class="relative z-10 space-y-4">
+                        <i class="fa-solid fa-gem text-4xl text-sfx-gold"></i>
+                        <h3 class="font-grotesk font-black text-xl text-sfx-goldLight">BOUTIQUE LUXURY</h3>
+                        <p class="font-mono text-xs text-gray-400">Esplora il nostro spazio Luxury ufficiale. Abbigliamento, profumeria d'autore e dettagli di altissimo pregio.</p>
+                        <span class="inline-block mt-2 px-3 py-1 bg-sfx-gold/20 text-sfx-gold rounded-full font-mono text-[10px] font-bold">+500 PTS Bonus</span>
+                    </div>
+                </div>
+                <div id="antigravity" onclick="document.getElementById('modal-antigravity-detail').classList.remove('hidden')" class="bg-[#090A0D] rounded-3xl p-8 text-white border border-sfx-cyan/50 shadow-[0_0_20px_rgba(0,240,255,0.1)] relative overflow-hidden group cursor-pointer hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] transition-all">
+                    <div class="relative z-10 space-y-4">
+                        <i class="fa-brands fa-space-awesome text-4xl text-sfx-cyanLight animate-pulse"></i>
+                        <h3 class="font-grotesk font-black text-xl text-sfx-cyan">LINEA ANTIGRAVITY</h3>
+                        <p class="font-mono text-xs text-gray-400">Tecnologia magnetica neurale. Sospensione attiva ad alta frequenza per uffici ed ambienti VIP.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- FEEDBACK & NEWSLETTER -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-xs">
                 <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-md space-y-4">
                     <h3 class="font-grotesk font-bold text-base text-black">NOTIZIARIO RISERVATO</h3>
@@ -413,7 +611,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- FOOTER DIREZIONALE -->
@@ -432,7 +629,7 @@
             <div class="space-y-2">
                 <h5 class="text-white font-bold">OPPORTUNITÀ & LEGAL</h5>
                 <a href="#academy" class="block text-gray-400 hover:text-sfx-gold transition-colors">Academy Courses</a>
-                <a href="login.html" class="block text-sfx-cyanLight hover:underline font-bold transition-colors">Piattaforma CRM Nexus</a>
+                <a href="login.html" class="block text-sfx-cyanLight hover:underline font-bold transition-colors">Piattaforma X-BOX CEO</a>
                 <a href="#" class="block text-gray-400 hover:text-sfx-gold transition-colors">Informativa Privacy & GDPR</a>
             </div>
             <div class="space-y-2">
@@ -458,19 +655,106 @@
         <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-bounce">1</span>
     </div>
 
-    <!-- SCRIPT DEL SISTEMA E CONTATORE -->
+    <!-- MODALI A SCOMPARSA (Corsi, Testimonianze, Boutique, Antigravity, Exit) -->
+    <div id="modal-corso-8pollici" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-[#121620] text-white rounded-3xl p-8 max-w-lg w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 id="titolo-corso-modal" class="font-grotesk font-bold text-base text-sfx-goldLight uppercase">CORSO ACADEMY</h3>
+                <button onclick="document.getElementById('modal-corso-8pollici').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
+            </div>
+            <p id="desc-corso-modal" class="text-gray-300 leading-relaxed">Dettagli del percorso d'eccellenza Suprema Future X. Assicurati il tuo posto e sblocca l'accesso alle risorse riservate.</p>
+            <a id="btn-aderisci-corso" href="#candidatura" onclick="document.getElementById('modal-corso-8pollici').classList.add('hidden')" class="block w-full py-4 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:bg-yellow-500 text-center">
+                ADERISCI AL CORSO
+            </a>
+        </div>
+    </div>
+
+    <div id="modal-testimonianze-9pollici" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-[#090A0D] text-white rounded-3xl p-6 sm:p-8 max-w-4xl w-full max-h-[85vh] overflow-y-auto border-2 border-sfx-cyan shadow-2xl space-y-6 font-mono text-xs">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3 sticky top-0 bg-[#090A0D] z-10">
+                <h3 class="font-grotesk font-bold text-sm text-sfx-cyan uppercase"><i class="fa-solid fa-comments mr-2"></i>20 SUCCESS STORIES ENTERPRISE</h3>
+                <button onclick="document.getElementById('modal-testimonianze-9pollici').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Ecosistema straordinario per la gestione e crescita personale."</p><strong class="block text-sfx-cyanLight mt-2">— Elena V. (Milano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"La leadership del CEO Giuliano ha aperto orizzonti decisivi."</p><strong class="block text-sfx-cyanLight mt-2">— Sofia R. (Roma)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"La tecnologia Neurale e la Gold Card sono strumenti unici."</p><strong class="block text-sfx-cyanLight mt-2">— Beatrice M. (Lugano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Esperienza formativa e di Business indimenticabile."</p><strong class="block text-sfx-cyanLight mt-2">— Chiara P. (Zurigo)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Infrastruttura di altissimo livello per le mie attività."</p><strong class="block text-sfx-cyanLight mt-2">— Giulia B. (Torino)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Un networking riservato e ad alte prestazioni reali."</p><strong class="block text-sfx-cyanLight mt-2">— Martina K. (Bratislava)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Supporto Neurale H24 grazie all'assistente Alison."</p><strong class="block text-sfx-cyanLight mt-2">— Laura S. (Firenze)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"I percorsi di crescita trasmettono una carica immensa."</p><strong class="block text-sfx-cyanLight mt-2">— Francesca D. (Napoli)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Formazione d'élite introvabile altrove."</p><strong class="block text-sfx-cyanLight mt-2">— Valentina G. (Bologna)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"I dettagli e la Boutique Luxury sono un capolavoro."</p><strong class="block text-sfx-cyanLight mt-2">— Alice C. (Monaco)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Con Suprema Future X ho rivoluzionato la mia visione."</p><strong class="block text-sfx-cyanLight mt-2">— Simona N. (Bari)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Professionalità e garanzia di risultati costante."</p><strong class="block text-sfx-cyanLight mt-2">— Cristina L. (Ginevra)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Un'organizzazione perfetta guidata con grande visione."</p><strong class="block text-sfx-cyanLight mt-2">— Marta T. (Verona)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Valore eccezionale sia sul lato umano che tecnologico."</p><strong class="block text-sfx-cyanLight mt-2">— Veronica F. (Venezia)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Il miglior investimento professionale del mio percorso."</p><strong class="block text-sfx-cyanLight mt-2">— Giorgia E. (Padova)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Servizi Enterprise incomparabili per qualità e rapidità."</p><strong class="block text-sfx-cyanLight mt-2">— Anna W. (Vienna)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Progetto di networking e formazione d'altissimo profilo."</p><strong class="block text-sfx-goldLight mt-2">— Ing. A. Moretti (Milano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"I raccordi e la Boutique Luxury hanno dato valore immenso."</p><strong class="block text-sfx-goldLight mt-2">— Arch. V. Serra (Lugano)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Precisione EAL6+ e massima riservatezza garantita."</p><strong class="block text-sfx-goldLight mt-2">— Dr. M. Rinaldi (Zurigo)</strong></div>
+                <div class="p-4 bg-gray-900 rounded-xl border border-gray-800"><span class="text-sfx-gold block">★★★★★</span><p class="italic text-gray-300 mt-1">"Insieme guidiamo il nostro domani, un motto veritiero."</p><strong class="block text-sfx-goldLight mt-2">— Roberto K. (Praga)</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-luxury-7pollici" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-[#090A0D] text-white rounded-3xl p-8 max-w-md w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="font-grotesk font-extrabold text-sm text-sfx-goldLight uppercase">BOUTIQUE LUXURY</h3>
+                <button onclick="document.getElementById('modal-luxury-7pollici').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
+            </div>
+            <p class="text-gray-300 leading-relaxed">Esplora il nostro spazio Luxury ufficiale. Abbigliamento d'alta classe e profumeria d'autore.</p>
+            <div class="p-3 bg-yellow-500/10 border border-sfx-gold/40 rounded-xl text-sfx-gold font-bold">+500 PTS Bonus accreditati sulla Suprema Gold Card</div>
+            <a href="https://www.imperya.com/vetrina/style" target="_blank" rel="noopener noreferrer" class="block w-full py-4 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:bg-yellow-500 text-center">ENTRA NELLA LUXURY</a>
+        </div>
+    </div>
+
+    <div id="modal-antigravity-detail" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-[#090A0D] text-white rounded-3xl p-8 max-w-lg w-full border-2 border-sfx-cyan shadow-2xl space-y-6 font-mono text-xs max-h-[85vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="font-grotesk font-extrabold text-sm text-sfx-cyanLight uppercase">LINEA ANTIGRAVITY INNOVATION</h3>
+                <button onclick="document.getElementById('modal-antigravity-detail').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl">&times;</button>
+            </div>
+            <p class="text-gray-300 leading-relaxed">Tecnologia magnetica neurale. Sospensione attiva ad alta frequenza per uffici ed ambienti VIP.</p>
+            <div class="space-y-3 text-left">
+                <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                    <strong class="text-sfx-gold block">1. NETWORKING ENTERPRISE</strong><p class="text-gray-400 text-[11px] mt-1">Connessioni d'élite per la massima espansione aziendale.</p>
+                </div>
+                <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                    <strong class="text-sfx-cyan block">2. TECNOLOGIA MAGNETICA NEURALE</strong><p class="text-gray-400 text-[11px] mt-1">Sospensione attiva ad alta frequenza per ambienti VIP.</p>
+                </div>
+                <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                    <strong class="text-sfx-goldLight block">3. CRESCITA PERSONALE & RENDITE PASSIVE</strong><p class="text-gray-400 text-[11px] mt-1">Sviluppo di asset duraturi e indipendenza finanziaria.</p>
+                </div>
+            </div>
+            <p class="text-sfx-cyan font-bold text-center text-xs">CON SUPREMA FUTURE X PUOI PERCHE INSIEME GUIDIAMO IL TUO DOMANI</p>
+            <button onclick="document.getElementById('modal-antigravity-detail').classList.add('hidden')" class="w-full py-3 bg-gray-800 text-white font-bold rounded-xl uppercase">TORNA AL MENU</button>
+        </div>
+    </div>
+
+    <div id="modale-exit" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center border-2 border-sfx-cyan shadow-2xl space-y-4">
+            <h3 class="font-grotesk font-bold text-xl text-black">PRIMA DI ANDARE...</h3>
+            <p class="text-xs font-mono text-gray-600 leading-relaxed">Ci tieni a lasciare la tua migliore email e un parere? Riceverai subito <strong>+50 PTS</strong> sulla Gold Card.</p>
+            <input type="email" id="exit-email" required placeholder="La tua migliore email..." class="w-full p-3 border border-gray-300 rounded-xl font-mono text-xs outline-none focus:border-sfx-cyan">
+            <button onclick="InviaExitFeedback()" class="w-full py-3.5 bg-sfx-cyan text-white font-bold rounded-xl uppercase text-xs shadow-md hover:bg-cyan-700">Invia & Ricevi Punti</button>
+            <button onclick="document.getElementById('modale-exit').classList.add('hidden')" class="block w-full text-xs text-gray-400 underline font-mono pt-2">No, grazie. Chiudi semplicemente.</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT SISTEMA & API -->
     <script src="js/code.js"></script>
     <script src="sfx-delta-patch.js"></script>
     <script>
-        // ENDPOINT GOOGLE APPS SCRIPT COLLEGATO ALLA WEB APP (IL TUO WEBHOOK V38)
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWBzJIGix89spOCn4khKN4RZ8oGsH9-I4Ii2OsBI9LdLt4g5En7BqkMtBHu_u56joG/exec";
 
-        // GESTIONE INVIO CANDIDATURA IN TEMPO REALE VERSO CODE.GS
         function inviaCandidaturaLead(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-invia-lead');
             const feedback = document.getElementById('feedback-lead');
-
             const payload = {
                 action: 'CANDIDATURA_CONFERENZA_CEO',
                 nome: document.getElementById('lead-nome').value.trim(),
@@ -497,7 +781,6 @@
             .then(data => {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>Invia Candidatura e Richiedi Accredito';
-
                 if (data.status === 'success') {
                     feedback.className = "p-4 mt-4 rounded-xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
                     feedback.innerHTML = `✅ Accredito approvato! Codice Nexus: <strong>${data.nexusCode}</strong>. Controlla la tua email per i dettagli.`;
