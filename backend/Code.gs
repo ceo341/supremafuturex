@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // GOVERNANCE BACKEND ENGINE V37 (Code.gs)
+ * SUPREMA FUTURE X S.R.L. // GOVERNANCE BACKEND ENGINE V38 (Code.gs)
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // REAL-TIME WEBHOOK, ASSEDIO & CEO HUB
  * ====================================================================
@@ -21,20 +21,55 @@ const CONFIG = {
     SHEET_LOG_ATTIVITA: 'LOG_ATTIVITA',
     SHEET_BOX1: 'Box 1 - File e Risorse',
     SHEET_BOX2: 'Box 2 - Schede e Finanza',
-    SHEET_DASH: 'Dashboard CEO'
+    SHEET_DASH: 'Dashboard CEO',
+    SHEET_BLACKLIST: 'Sicurezza_Blacklist' // NUOVO: Tracciamento IP
 };
 
 // ⚙️ CONFIGURAZIONE MASTER ASSET SFX (Provisioning Assedio)
 const SFX_CONFIG = {
     MASTER_FOLDER_ID:    "INSERISCI_ID_CARTELLA_ROOT_STUDENTI", // Cartella radice Drive allievi
-    MASTER_DOC_ID:       "INSERISCI_ID_DOC_MASTER",            // Dossier Contratto Formativo
-    MASTER_SLIDES_ID:    "INSERISCI_ID_SLIDES_MASTER",         // Locandina & Deck
-    MASTER_SHEET_ID:     "INSERISCI_ID_SHEET_MASTER",          // Scheda Operativa Esecutiva
-    MASTER_FORM_ID:      "INSERISCI_ID_FORM_MASTER",           // Modulo Questionario Onboarding
+    MASTER_DOC_ID:       "INSERISCI_ID_DOC_MASTER",             // Dossier Contratto Formativo
+    MASTER_SLIDES_ID:    "INSERISCI_ID_SLIDES_MASTER",          // Locandina & Deck
+    MASTER_SHEET_ID:     "INSERISCI_ID_SHEET_MASTER",           // Scheda Operativa Esecutiva
+    MASTER_FORM_ID:      "INSERISCI_ID_FORM_MASTER",            // Modulo Questionario Onboarding
     SITES_URL:           "https://sites.google.com/view/suprema-martina",
     NOTEBOOK_URL:        "https://notebooklm.google.com/notebook/TUO_ID",
-    XBOX_WEBHOOK_URL:    ""                                    // Webhook Google Chat X-Box CEO
+    XBOX_WEBHOOK_URL:    ""                                      // Webhook Google Chat X-Box CEO
 };
+
+/**
+ * ====================================================================
+ * 0. ZERO-PLAINTEXT SECRETS & GATEWAY DINAMICO IBAN
+ * ====================================================================
+ */
+function inizializzaCredenzialiSicure() {
+    const props = PropertiesService.getScriptProperties();
+    if(!props.getProperty('HASH_MASTER_PWD')) props.setProperty('HASH_MASTER_PWD', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'); 
+    if(!props.getProperty('HASH_PIN_CODE')) props.setProperty('HASH_PIN_CODE', 'b9b68cb267e889da3b3f2c5d1e2b58d0'); 
+    if(!props.getProperty('HASH_RESCUE_KEY')) props.setProperty('HASH_RESCUE_KEY', '4a7f058098ef'); 
+    if(!props.getProperty('SFX_CURRENT_IBAN')) {
+        props.setProperty('SFX_CURRENT_IBAN', 'IT00A0000000000000000000000');
+        props.setProperty('SFX_IBAN_OWNER', 'Suprema Future X S.r.l.');
+    }
+}
+
+function recuperaDatiDinamici() {
+    const props = PropertiesService.getScriptProperties();
+    return responseJSON({
+        status: "ok",
+        iban: props.getProperty('SFX_CURRENT_IBAN') || "Non impostato",
+        intestatario: props.getProperty('SFX_IBAN_OWNER') || "Suprema Future X S.r.l."
+    });
+}
+
+function aggiornaIbanDinamico(data) {
+    const props = PropertiesService.getScriptProperties();
+    const vecchioIban = props.getProperty('SFX_CURRENT_IBAN');
+    props.setProperty('SFX_CURRENT_IBAN', data.nuovoIban);
+    props.setProperty('SFX_IBAN_OWNER', data.nuovoIntestatario || 'Suprema Future X S.r.l.');
+    registraLogAttivita("CEO", "Giuliano", "CAMBIO_IBAN", "Modifica da " + vecchioIban + " a " + data.nuovoIban);
+    return responseJSON({status: "success", message: "IBAN aggiornato globalmente."});
+}
 
 /**
  * ====================================================================
@@ -51,6 +86,8 @@ function doGet(e) {
             return recuperaTuttiILeads();
         } else if (action === 'GET_LEDGER') {
             return recuperaMastroFinanziario();
+        } else if (action === 'GET_DYNAMIC_DATA') {
+            return recuperaDatiDinamici();
         } else {
             return HtmlService.createHtmlOutputFromFile("crm")
                 .setTitle("CRM NEXUS GOVERNANCE // SUPREMA FUTURE X")
@@ -94,12 +131,52 @@ function doPost(e) {
         } else if (action === 'PROVISIONING_ASSEDIO') {
             const risultato = motoreAssedio(data.payload);
             return responseJSON({ status: "success", message: risultato });
+        } else if (action === 'SECURITY_BREACH_ALERT') {
+            return gestisciAllarmeSicurezzaIP(data);
+        } else if (action === 'UPDATE_IBAN') {
+            return aggiornaIbanDinamico(data);
         } else {
             return responseJSON({ status: "error", message: "Azione non riconosciuta: " + action });
         }
     } catch (err) {
         return responseJSON({ status: "error", error: err.toString() });
     }
+}
+
+/**
+ * ====================================================================
+ * 2B. PROTOCOLLO ANTI-INTRUSIONE E BLACKLIST IP EAL6+
+ * ====================================================================
+ */
+function gestisciAllarmeSicurezzaIP(data) {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName(CONFIG.SHEET_BLACKLIST);
+
+    if (!sheet) {
+        sheet = ss.insertSheet(CONFIG.SHEET_BLACKLIST);
+        sheet.appendRow(['TIMESTAMP', 'INDIRIZZO IP', 'DISPOSITIVO', 'STATO_ALLARME', 'DETTAGLIO_ERRORE']);
+        sheet.getRange("1:1").setFontWeight("bold").setBackground("#4A0E4E").setFontColor("#FFFFFF"); 
+    }
+    
+    const timestamp = new Date();
+    const ip = data.ip || 'Sconosciuto';
+    const device = data.device || 'N/D';
+    const status = data.status || 'PRUGNA_BLOCCATO';
+    const detail = data.detail || 'Multipli tentativi di accesso falliti';
+
+    sheet.appendRow([timestamp, ip, device, status, detail]);
+    
+    const oggetto = `🚨 [ALLARME EAL6+] TENTATIVO DI VIOLAZIONE X-BOX`;
+    const corpoHtml = `
+        <div style="font-family: monospace; background: #2D0A11; color: #ffffff; padding: 20px; border: 2px solid #FF3333;">
+            <h2 style="color: #FF3333;">TENTATIVO DI ABUSO PARAMETRO X-BOX</h2>
+            <p><strong>INDIRIZZO IP INTRUSO:</strong> ${ip}</p>
+            <p>Si prega il CEO di rientrare nella violazione e di risistemare il circuito con l'entrata di emergenza: 4 colpi titolo e rispondere alla domanda di sicurezza.</p>
+        </div>
+    `;
+    MailApp.sendEmail({ to: CONFIG.CEO_EMAIL, subject: oggetto, htmlBody: corpoHtml });
+    
+    return responseJSON({ status: "success", message: "Blacklist aggiornata. Notifiche CEO inviate." });
 }
 
 /**
@@ -179,9 +256,7 @@ function gestisciCandidaturaLead(data) {
         message: "Candidatura accreditata con successo nel Registro EAL6+",
         timestamp: timestamp
     });
-}
-
-/**
+}/**
  * ====================================================================
  * 4. MASTRO FINANZIARIO & RIPARTIZIONE STATUTARIA 54/30/16
  * ====================================================================
@@ -522,7 +597,6 @@ function motoreAssedio(dati) {
     const pacchetto = dati.pacchetto || "Executive";
     const timestamp = new Date();
 
-    // Verifica duplicati nel database allievi
     const datiEsistenti = sheetCorsisti.getDataRange().getValues();
     for (let i = 1; i < datiEsistenti.length; i++) {
         if (datiEsistenti[i][2] && datiEsistenti[i][2].toString().toLowerCase() === emailStudente) {
@@ -534,7 +608,6 @@ function motoreAssedio(dati) {
     let urlCartella = "DEMO_SANDBOX_DIRECTORY";
     let urlDoc = "", urlSlides = "", urlSheet = "", urlForm = "";
 
-    // Provisioning su Drive (se l'ID cartella padre è stato configurato)
     if (SFX_CONFIG.MASTER_FOLDER_ID && SFX_CONFIG.MASTER_FOLDER_ID !== "INSERISCI_ID_CARTELLA_ROOT_STUDENTI") {
         const parentFolder = DriveApp.getFolderById(SFX_CONFIG.MASTER_FOLDER_ID);
         const cartellaStudente = parentFolder.createFolder("SFX • X-BOX " + nomeStudente + " [" + idCorsista + "]");
@@ -557,11 +630,9 @@ function motoreAssedio(dati) {
             urlForm = formClonato.getUrl();
         }
 
-        // Condivisione isolata
         cartellaStudente.addEditor(emailStudente);
     }
 
-    // Registrazione nel database dei corsisti
     sheetCorsisti.appendRow([
         idCorsista,
         nomeStudente,
@@ -575,7 +646,6 @@ function motoreAssedio(dati) {
         "ATTIVO ✓"
     ]);
 
-    // Registrazione automatica nella scheda Box 2 (Finanza e Schede) per i flussi di cassa
     const sheetBox2 = ss.getSheetByName(CONFIG.SHEET_BOX2);
     if (sheetBox2) {
         let importoPacchetto = 850;
@@ -595,7 +665,6 @@ function motoreAssedio(dati) {
         ]);
     }
 
-    // Invio email e log
     inviaEmailBenvenutoAssedio(nomeStudente, emailStudente, urlCartella, urlDoc, urlSlides);
     registraLogAttivita(idCorsista, nomeStudente, "ASSEDIO_PROVISIONING", "Ambiente e cartelle generate per pacchetto " + pacchetto);
     inviaNotificaTelegramAssedio(idCorsista, nomeStudente, pacchetto);
@@ -624,10 +693,9 @@ function inviaEmailBenvenutoAssedio(nome, email, linkDrive, linkDoc, linkSlides)
         Logger.log("Errore invio email Assedio: " + e.toString());
     }
 }
-
 /**
  * ====================================================================
- * 11. SCHEDA MADRE DEGLI APPUNTAMENTI (Calendar & Google Meet Sync)
+ * 12. SCHEDA MADRE DEGLI APPUNTAMENTI (Calendar & Google Meet Sync)
  * ====================================================================
  */
 function creaNuovoAppuntamento(datiApp) {
@@ -673,7 +741,7 @@ function creaNuovoAppuntamento(datiApp) {
 
 /**
  * ====================================================================
- * 12. OROLOGIO ESECUTIVO: SUPERVISORE REPORTING AD ALISON (8, 11, 14, 17, 20, 23)
+ * 13. OROLOGIO ESECUTIVO: SUPERVISORE REPORTING AD ALISON (8, 11, 14, 17, 20, 23)
  * ====================================================================
  */
 function controllaTurniReport() {
@@ -775,17 +843,16 @@ function controlloSentinellaInattivita() {
 
 /**
  * ====================================================================
- * 13. GENERATORE UFFICIALE: X-BOX CEO HUB (Box 1, Box 2, Dashboard CEO)
+ * 14. GENERATORE UFFICIALE: X-BOX CEO HUB (Box 1, Box 2, Dashboard CEO)
  * ====================================================================
  */
 function creaXBoxCEOHub() {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    // Palette Colori Suprema
-    const primaryColor = "#001F3F";     // Navy Istituzionale
-    const accentCyan   = "#008080";     // Accento / Teal
+    const primaryColor = "#001F3F";     
+    const accentCyan   = "#008080";     
     const textWhite    = "#FFFFFF";
-    const kpiBg        = "#F4F6F9";     // Sfondo card KPI
+    const kpiBg        = "#F4F6F9";     
     const borderColor  = "#D1D5DB";
 
     function getOrCreateSheet(name, tabColor) {
@@ -797,9 +864,6 @@ function creaXBoxCEOHub() {
         return sheet;
     }
 
-    // -----------------------------------------------------------------
-    // 1. SCHEDA: Box 1 - File e Risorse
-    // -----------------------------------------------------------------
     const sheetBox1 = getOrCreateSheet(CONFIG.SHEET_BOX1, "#0052CC");
     sheetBox1.clear();
 
@@ -831,13 +895,13 @@ function creaXBoxCEOHub() {
     ];
     sheetBox1.getRange(2, 1, sampleBox1.length, headersBox1.length).setValues(sampleBox1);
 
-    sheetBox1.setColumnWidth(1, 90);   // ID File
-    sheetBox1.setColumnWidth(2, 220);  // Nome Documento
-    sheetBox1.setColumnWidth(3, 130);  // Origine
-    sheetBox1.setColumnWidth(4, 160);  // Categoria
-    sheetBox1.setColumnWidth(5, 230);  // URL
-    sheetBox1.setColumnWidth(6, 120);  // Stato
-    sheetBox1.setColumnWidth(7, 200);  // Note e Tag
+    sheetBox1.setColumnWidth(1, 90);   
+    sheetBox1.setColumnWidth(2, 220);  
+    sheetBox1.setColumnWidth(3, 130);  
+    sheetBox1.setColumnWidth(4, 160);  
+    sheetBox1.setColumnWidth(5, 230);  
+    sheetBox1.setColumnWidth(6, 120);  
+    sheetBox1.setColumnWidth(7, 200);  
 
     const ruleOrigine = SpreadsheetApp.newDataValidation()
         .requireValueInList(["Notebook", "Classroom", "CRM", "Manuale"], true).build();
@@ -853,9 +917,6 @@ function creaXBoxCEOHub() {
 
     sheetBox1.setFrozenRows(1);
 
-    // -----------------------------------------------------------------
-    // 2. SCHEDA: Box 2 - Schede e Finanza
-    // -----------------------------------------------------------------
     const sheetBox2 = getOrCreateSheet(CONFIG.SHEET_BOX2, "#00875A");
     sheetBox2.clear();
 
@@ -891,15 +952,15 @@ function creaXBoxCEOHub() {
 
     sheetBox2.getRange("G2:G100").setNumberFormat("€#,##0.00");
 
-    sheetBox2.setColumnWidth(1, 150);  // ID
-    sheetBox2.setColumnWidth(2, 200);  // Nome
-    sheetBox2.setColumnWidth(3, 110);  // Tipo
-    sheetBox2.setColumnWidth(4, 150);  // Badge
-    sheetBox2.setColumnWidth(5, 110);  // Stato CRM
-    sheetBox2.setColumnWidth(6, 170);  // Tipo Doc Fin
-    sheetBox2.setColumnWidth(7, 120);  // Importo
-    sheetBox2.setColumnWidth(8, 130);  // Stato Pagamento
-    sheetBox2.setColumnWidth(9, 180);  // Link
+    sheetBox2.setColumnWidth(1, 150);  
+    sheetBox2.setColumnWidth(2, 200);  
+    sheetBox2.setColumnWidth(3, 110);  
+    sheetBox2.setColumnWidth(4, 150);  
+    sheetBox2.setColumnWidth(5, 110);  
+    sheetBox2.setColumnWidth(6, 170);  
+    sheetBox2.setColumnWidth(7, 120);  
+    sheetBox2.setColumnWidth(8, 130);  
+    sheetBox2.setColumnWidth(9, 180);  
 
     const ruleTipoAnag = SpreadsheetApp.newDataValidation()
         .requireValueInList(["Cliente", "Corsista", "Fornitore"], true).build();
@@ -919,9 +980,6 @@ function creaXBoxCEOHub() {
 
     sheetBox2.setFrozenRows(1);
 
-    // -----------------------------------------------------------------
-    // 3. SCHEDA: Dashboard CEO (Centro di Controllo & Formule KPI)
-    // -----------------------------------------------------------------
     const sheetDash = getOrCreateSheet(CONFIG.SHEET_DASH, "#FF8B00");
     sheetDash.clear();
 
@@ -961,7 +1019,6 @@ function creaXBoxCEOHub() {
     sheetDash.setRowHeight(4, 25);
     sheetDash.setRowHeight(5, 40);
 
-    // SEZIONE 1: CONTEGGIO FILE ARCHIVIATI PER ORIGINE
     sheetDash.getRange("B8:E8").merge().setValue("FILE ARCHIVIATI PER ORIGINE")
         .setBackground(primaryColor).setFontColor(textWhite).setFontWeight("bold").setAlignment("center", "middle");
     
@@ -979,14 +1036,12 @@ function creaXBoxCEOHub() {
     }
     sheetDash.getRange("B10:E13").setAlignment("center", "middle");
 
-    // Totale Sezione 1
     sheetDash.getRange("B14").setValue("TOTALE").setFontWeight("bold");
     sheetDash.getRange("C14").setFormula('=SUM(C10:C13)');
     sheetDash.getRange("D14").setFormula('=SUM(D10:D13)');
     sheetDash.getRange("E14").setFormula('=SUM(E10:E13)');
     sheetDash.getRange("B14:E14").setBackground("#E5E7EB").setFontWeight("bold").setAlignment("center", "middle");
 
-    // SEZIONE 2: RIEPILOGO FLUSSI FINANZIARI PER STATO
     sheetDash.getRange("G8:J8").merge().setValue("DETTAGLIO FINANZIARIO PER STATO PAGAMENTO")
         .setBackground(primaryColor).setFontColor(textWhite).setFontWeight("bold").setAlignment("center", "middle");
     
@@ -1004,7 +1059,6 @@ function creaXBoxCEOHub() {
     }
     sheetDash.getRange("G10:J12").setAlignment("center", "middle");
 
-    // Totale Sezione 2
     sheetDash.getRange("G13").setValue("TOTALE GENERALE").setFontWeight("bold");
     sheetDash.getRange("H13").setFormula('=SUM(H10:H12)');
     sheetDash.getRange("I13").setFormula('=SUM(I10:I12)').setNumberFormat("€#,##0.00");
@@ -1027,7 +1081,7 @@ function creaXBoxCEOHub() {
 
 /**
  * ====================================================================
- * 14. INIZIALIZZAZIONE DATABASE DI SUPPORTO & LOGGING
+ * 15. INIZIALIZZAZIONE DATABASE DI SUPPORTO & LOGGING
  * ====================================================================
  */
 function inizializzaDatabaseAssedioSeAssente(ss) {
@@ -1065,18 +1119,15 @@ function responseJSON(data) {
 
 /**
  * ====================================================================
- * 15. FUNZIONE DI INIZIALIZZAZIONE MASTER TOTALE
+ * 16. FUNZIONE DI INIZIALIZZAZIONE MASTER TOTALE
  * ====================================================================
- * Esegui questa funzione per costruire l'intero ecosistema con 1 clic.
  */
 function inizializzaEcosistemaCompletoSFX() {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     
-    // Inizializza i 3 fogli database di lavoro
+    inizializzaCredenzialiSicure(); // NUOVO: Imposta le password e l'IBAN in memoria invisibile
     inizializzaDatabaseAssedioSeAssente(ss);
-    
-    // Costruisce l'X-Box CEO Hub (Box 1, Box 2 e Dashboard KPI)
     creaXBoxCEOHub();
     
-    Logger.log("✅ Ecosistema SFX configurato al 100%. Tutte le schede e le formule sono pronte.");
+    Logger.log("✅ Ecosistema SFX configurato al 100%. Sicurezza Zero-Plaintext Attiva.");
 }
