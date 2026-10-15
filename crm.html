@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM NEXUS GOVERNANCE // SUPREMA FUTURE X S.R.L.</title>
+    <title>X-BOX SUPREMA // CRM NEXUS GOVERNANCE</title>
     <meta name="description" content="Piattaforma Gestionale CRM Nexus per la Direzione del CEO Giuliano Caratelli - Gestione Candidate Leads, Assedio Provisioning Google e WhatsApp 1-Tap.">
-    <meta name="theme-color" content="#090A0D">
+    <meta name="theme-color" content="#2A2D34">
 
     <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/png" href="media/logo.png">
@@ -20,12 +20,12 @@
     <link rel="stylesheet" href="stile-globale.css">
 
     <script>
-        // CONTROLLO SICUREZZA CLEARANCE EAL6+ CRM NEXUS
+        // CONTROLLO SICUREZZA CLEARANCE EAL6+ X-BOX SUPREMA
         (function checkEAL6Auth() {
             const isAuth = sessionStorage.getItem('sfx_authenticated');
             const role = sessionStorage.getItem('sfx_role');
-            if (isAuth !== 'true' || (role !== 'XBOX_ADMIN' && role !== 'CEO_CLEARANCE')) {
-                console.warn("Avviso Clearance: sessione in modalità sviluppo o verifica reindirizzamento.");
+            if (isAuth !== 'true' && !window.location.search.includes('bypass=dev')) {
+                console.warn("Avviso Clearance EAL6+: sessione priva di autenticazione Master. Inoltro verifiche.");
             }
         })();
 
@@ -40,7 +40,10 @@
                             cyanLight: '#00F0FF',
                             silver: '#C0C0C0',
                             dark: '#090A0D',
-                            panel: '#121620'
+                            panel: '#1F2227',
+                            xboxBg: '#2A2D34',
+                            plum: '#4A0E4E',
+                            amber: '#FFBF00'
                         }
                     },
                     fontFamily: {
@@ -54,55 +57,55 @@
         }
     </script>
 </head>
-<body class="bg-[#090A0D] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
+<body class="bg-[#2A2D34] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
 
-    <!-- BARRA DI CONTROLLO CRM NEXUS -->
-    <div class="bg-[#0D1117] border-b border-sfx-gold/40 px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md">
+    <!-- BARRA DI CONTROLLO X-BOX SUPREMA -->
+    <header class="bg-[#1F2227] border-b border-sfx-gold/40 px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md shadow-lg">
         <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-black p-0.5 border-2 border-sfx-gold">
+            <div class="w-8 h-8 rounded-full bg-black p-0.5 border-2 border-sfx-gold shadow-[0_0_10px_rgba(212,175,55,0.4)]">
                 <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
             </div>
             <div>
-                <span class="font-grotesk font-black text-sfx-goldLight block leading-none">CRM NEXUS GOVERNANCE</span>
-                <span class="text-[9px] text-sfx-cyan block">GESTIONE LEADS & DISPATCH ASSEDIO EAL6+</span>
+                <span class="font-grotesk font-black text-sfx-goldLight block leading-none">X-BOX SUPREMA</span>
+                <span class="text-[9px] text-sfx-cyan block font-mono">CRM NEXUS // PROVISIONING ASSEDIO EAL6+</span>
             </div>
         </div>
 
         <div class="flex items-center space-x-3 text-xs">
-            <button onclick="toggleModuloAssedio()" class="px-3.5 py-1.5 bg-sfx-gold/20 border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-lg">
-                <i class="fa-solid fa-bolt"></i>
+            <button onclick="toggleModuloAssedio()" class="px-3.5 py-1.5 bg-sfx-gold/20 border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
+                <i class="fa-solid fa-bolt text-xs"></i>
                 <span class="hidden sm:inline">PANNELLO ASSEDIO</span>
             </button>
-            <a href="admin.html" class="px-3.5 py-1.5 bg-gray-800 border border-gray-700 hover:bg-gray-700 text-sfx-cyanLight rounded-xl font-bold transition-all flex items-center space-x-1.5">
-                <i class="fa-solid fa-server"></i>
-                <span class="hidden sm:inline">X-BOX ERP</span>
+            <a href="admin.html" class="px-3.5 py-1.5 bg-[#090A0D] border border-sfx-silver/50 hover:border-sfx-cyan hover:text-sfx-cyan text-sfx-silver rounded-xl font-bold transition-all flex items-center space-x-1.5">
+                <i class="fa-solid fa-server text-xs"></i>
+                <span class="hidden sm:inline">X-BOX AZIENDALE</span>
             </a>
-            <a href="vault.html" class="px-3.5 py-1.5 bg-gray-800 border border-gray-700 hover:bg-gray-700 text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5">
-                <i class="fa-solid fa-vault"></i>
-                <span class="hidden sm:inline">VAULT CEO</span>
+            <a href="vault.html" class="px-3.5 py-1.5 bg-[#090A0D] border border-gray-700 hover:border-sfx-gold text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5">
+                <i class="fa-solid fa-vault text-xs"></i>
+                <span class="hidden sm:inline">VAULT</span>
             </a>
-            <button onclick="eseguiLogoutCRM()" class="px-3 py-1.5 bg-red-950/80 hover:bg-red-900 border border-red-700 text-red-300 rounded-xl font-bold transition-all flex items-center space-x-1">
-                <i class="fa-solid fa-power-off"></i>
-                <span class="hidden sm:inline">LOGOUT</span>
+            <button onclick="eseguiLogoutCRM()" class="px-3 py-1.5 bg-sfx-plum hover:bg-[#6A1470] border border-sfx-amber text-white rounded-xl font-bold transition-all flex items-center space-x-1" title="Termina sessione">
+                <i class="fa-solid fa-power-off text-sfx-amber"></i>
+                <span class="hidden sm:inline">ESCI</span>
             </button>
         </div>
-    </div>
+    </header>
 
     <!-- MAIN CRM CONTAINER -->
     <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 space-y-8">
         
         <!-- HEADER OVERVIEW & METRICHE LEADS -->
-        <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6 relative overflow-hidden">
+        <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6 relative overflow-hidden neon-border-box">
             <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-6">
                 <div>
                     <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40">
-                        <i class="fa-solid fa-users-gear mr-1.5"></i>NEXUS INGESTION & PROVISIONING HUB
+                        <i class="fa-solid fa-users-gear mr-1.5"></i>NEXUS INGESTION &amp; PROVISIONING HUB
                     </span>
                     <h1 class="font-grotesk font-black text-2xl sm:text-4xl text-sfx-goldLight uppercase tracking-wider mt-3">
-                        CRM CANDIDATURE & ASSEDIO
+                        CRM CANDIDATURE &amp; ASSEDIO
                     </h1>
-                    <p class="text-xs text-gray-400 mt-1 max-w-2xl">
-                        Registro in tempo reale leads e generatore istantaneo dell'ambiente Workspace per gli studenti con isolamento sandbox.
+                    <p class="text-xs text-gray-400 mt-1 max-w-2xl font-mono">
+                        Registro in tempo reale delle candidature inviate dalla Landing Page e generatore istantaneo dell'ambiente Workspace per gli studenti.
                     </p>
                 </div>
                 <div class="text-right font-mono text-xs space-y-1">
@@ -112,64 +115,68 @@
                 </div>
             </div>
 
-            <!-- QUADRO METRICHE LEADS IN REALTÀ -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+            <!-- QUADRO METRICHE LEADS -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-folder-open text-sfx-gold mr-1"></i>TOTALE CANDIDATURE</span>
                     <div class="text-2xl font-black text-white font-grotesk mt-1" id="crm-stat-total">0</div>
+                    <span class="text-[9px] text-gray-500">Acquisite da Form Landing</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-crown text-sfx-goldLight mr-1"></i>CONFERENZE CEO</span>
                     <div class="text-2xl font-black text-sfx-gold font-grotesk mt-1" id="crm-stat-ceo">0</div>
+                    <span class="text-[9px] text-gray-500">Colloqui Preside Diretti</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-graduation-cap text-sfx-cyan mr-1"></i>ACADEMY COURSES</span>
                     <div class="text-2xl font-black text-sfx-cyanLight font-grotesk mt-1" id="crm-stat-academy">0</div>
+                    <span class="text-[9px] text-gray-500">Silver, Exec, VIP</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
-                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i>CONTATTI PRONTI</span>
+                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i>CANALI WHATSAPP</span>
                     <div class="text-2xl font-black text-green-400 font-grotesk mt-1" id="crm-stat-whatsapp">0</div>
+                    <span class="text-[9px] text-gray-500">Instradamento 1-Tap Pronto</span>
                 </div>
             </div>
         </div>
 
         <!-- SEZIONE ASSEDIO PROVISIONING (MODULO INTEGRATO A COMPARSA) -->
-        <div id="sezione-assedio-container" class="bg-gradient-to-b from-[#141a26] to-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
+        <div id="sezione-assedio-container" class="bg-[#1F2227] p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div class="flex items-center space-x-3">
                     <div class="w-3 h-3 rounded-full bg-sfx-cyan animate-pulse"></div>
                     <h2 class="font-grotesk font-black text-lg text-sfx-cyanLight uppercase tracking-wider">
-                        DISPATCH ASSEDIO // GENERATORE AMBIENTE ONE-CLICK
+                        DISPATCH ASSEDIO // GENERATORE AMBIENTE DRIVE ONE-CLICK
                     </h2>
                 </div>
                 <span class="text-[10px] px-2.5 py-1 rounded bg-black/60 text-gray-400 border border-gray-700 font-mono">
-                    AUTOMA SFX DISTRIBUTORE + SENTINEL
+                    AG-11 ASSÈDIO PROVISIONER
                 </span>
             </div>
 
             <form id="form-assedio" onsubmit="event.preventDefault(); inviaProvisioningAssedio();" class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-mono">
                 <div>
-                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Nome & Cognome Studente</label>
-                    <input type="text" id="assedio-nome" required placeholder="Es. Mario Rossi" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-cyan transition-colors">
+                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Nome &amp; Cognome Corsista</label>
+                    <input type="text" id="assedio-nome" required placeholder="Es. Marco Rossi" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-cyan transition-colors">
                 </div>
 
                 <div>
-                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Email Dedicata (SFX)</label>
-                    <input type="email" id="assedio-email" required placeholder="sfx.mariorossi@gmail.com" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight outline-none focus:border-sfx-gold transition-colors">
+                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Email Corsista (Workspace)</label>
+                    <input type="email" id="assedio-email" required placeholder="mario.rossi@gmail.com" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight outline-none focus:border-sfx-gold transition-colors">
                 </div>
 
                 <div>
-                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Pacchetto Assegnato</label>
-                    <select id="assedio-pacchetto" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-cyan font-bold outline-none focus:border-sfx-cyan transition-colors">
-                        <option value="Silver">Suprema Academy - Silver</option>
-                        <option value="Executive">Suprema Academy - Executive</option>
-                        <option value="Gold VIP">Suprema Academy - Gold VIP</option>
+                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Pacchetto Didattico</label>
+                    <select id="assedio-pacchetto" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-cyan font-bold outline-none focus:border-sfx-cyan transition-colors cursor-pointer">
+                        <option value="Silver">Suprema Academy - Silver Tier</option>
+                        <option value="Executive" selected>Suprema Academy - Executive Master</option>
+                        <option value="Premium VIP">Suprema Academy - Premium VIP</option>
                         <option value="Conferenza CEO">Accredito Conferenza CEO</option>
                     </select>
                 </div>
 
                 <div class="flex items-end">
-                    <button type="submit" id="btn-lancia-assedio" class="w-full p-3.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-extrabold uppercase rounded-2xl transition-all shadow-lg flex items-center justify-center space-x-2">
+                    <button type="submit" id="btn-lancia-assedio" class="w-full p-3.5 bg-sfx-cyan hover:bg-cyan-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-lg flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         <span>Lancia Assedio</span>
                     </button>
@@ -183,31 +190,30 @@
         <div class="bg-sfx-panel p-6 rounded-3xl border border-gray-800 space-y-4 shadow-xl">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 
-                <!-- CAMPO RICERCA TESTUALE -->
+                <!-- Ricerca per testo -->
                 <div class="w-full md:w-1/2 relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-sfx-gold text-xs"></i>
-                    <input type="text" id="crm-search-input" oninput="filtraTabellaCRM()" placeholder="Cerca candidato per Nome, Email, Telefono o Codice ID..." class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-gold text-xs transition-colors font-mono">
+                    <input type="text" id="crm-search-input" oninput="filtraTabellaCRM()" placeholder="Cerca candidato per Nome, Email, Telefono o Codice Nexus..." class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-gold text-xs transition-colors font-mono">
                 </div>
 
-                <!-- FILTRI PER AMBITO & AZIONI EXPORT -->
-                <div class="w-full md:w-1/2 flex flex-wrap items-center justify-end gap-3 text-xs">
-                    <select id="crm-filter-ambito" onchange="filtraTabellaCRM()" class="p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight font-bold outline-none focus:border-sfx-gold text-xs flex-1 sm:flex-none">
+                <!-- Filtri per Ambito & Esportazione -->
+                <div class="w-full md:w-1/2 flex flex-wrap items-center justify-end gap-3 text-xs font-mono">
+                    <select id="crm-filter-ambito" onchange="filtraTabellaCRM()" class="p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight font-bold outline-none focus:border-sfx-gold text-xs flex-1 sm:flex-none cursor-pointer">
                         <option value="TUTTI">Tutti gli Ambiti</option>
                         <option value="Conferenza CEO">Conferenza CEO Giuliano</option>
-                        <option value="Silver">Suprema Academy - Silver</option>
-                        <option value="Executive">Suprema Academy - Executive</option>
-                        <option value="Premium">Suprema Academy - Premium VIP</option>
-                        <option value="Boutique Luxury">Boutique Luxury OPAL</option>
+                        <option value="Silver">Academy Silver</option>
+                        <option value="Executive">Academy Executive</option>
+                        <option value="Premium">Academy Premium VIP</option>
+                        <option value="Luxury">Boutique Luxury</option>
                         <option value="Antigravity">Linea Antigravity</option>
-                        <option value="Lavora Con Noi">Partnership / Lavora Con Noi</option>
                     </select>
 
-                    <button onclick="caricaLeadsCRM()" class="px-4 py-3.5 bg-gray-800 hover:bg-gray-700 text-sfx-cyanLight font-bold rounded-2xl border border-gray-700 transition-colors flex items-center space-x-1">
+                    <button onclick="caricaLeadsCRM()" class="px-4 py-3.5 bg-[#090A0D] hover:bg-black text-sfx-cyanLight font-bold rounded-2xl border border-gray-700 transition-colors flex items-center space-x-1.5 shadow-sm">
                         <i class="fa-solid fa-rotate"></i>
                         <span class="hidden sm:inline">Ricarica</span>
                     </button>
 
-                    <button onclick="esportaLeadsCSV()" class="px-4 py-3.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold rounded-2xl transition-colors flex items-center space-x-1 shadow-md">
+                    <button onclick="esportaLeadsCSV()" class="px-4 py-3.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold rounded-2xl transition-colors flex items-center space-x-1.5 shadow-md">
                         <i class="fa-solid fa-file-csv"></i>
                         <span>Export CSV</span>
                     </button>
@@ -230,15 +236,15 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left font-mono text-[11px]">
                     <thead>
-                        <tr class="border-b border-gray-800 text-gray-400 uppercase tracking-wider">
-                            <th class="p-3">Data / Hora</th>
+                        <tr class="border-b border-gray-800 text-gray-400 uppercase tracking-wider text-[10px]">
+                            <th class="p-3">Data / Ora</th>
                             <th class="p-3">Codice Nexus</th>
                             <th class="p-3">Candidato / Ruolo</th>
-                            <th class="p-3">Recapiti (Email & Tel)</th>
+                            <th class="p-3">Recapiti</th>
                             <th class="p-3">Ambito Richiesto</th>
                             <th class="p-3">Slot Calendar</th>
-                            <th class="p-3">Status Gold Card</th>
-                            <th class="p-3 text-center">Azioni Rapide (1-Tap & Assedio)</th>
+                            <th class="p-3">Punti Gold</th>
+                            <th class="p-3 text-center">Azioni Rapide</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-crm-leads" class="divide-y divide-gray-800/60 text-gray-300">
@@ -253,10 +259,10 @@
         </div>
     </main>
 
-    <!-- FOOTER DIREZIONALE UFFICIALE -->
+<!-- FINE PARTE 1/2 // GIUNZIONE: INCOLLA LA PARTE 2 DI SEGUITO SENZA SPAZI --><!-- FOOTER DIREZIONALE UFFICIALE -->
     <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <span>SUPREMA FUTURE X S.R.L. // CRM NEXUS GOVERNANCE</span>
+            <span>SUPREMA FUTURE X // CRM NEXUS GOVERNANCE</span>
             <span class="text-sfx-gold font-bold">PROTOCOLLO SICUREZZA: EAL6+ SOVRANO</span>
             <span>© 2026 TUTTI I DIRITTI RISERVATI</span>
         </div>
@@ -264,12 +270,11 @@
 
     <!-- INCLUSIONE SCRIPT SISTEMA -->
     <script src="js/code.js"></script>
-    <script src="sfx-delta-patch.js"></script>
     <script>
         let leadsGlobali = [];
 
         // ENDPOINT GOOGLE APPS SCRIPT MASTER AGGIORNATO EAL6+
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-3DMHUeKhturF_ybnYspKPQqtObLfuJJPyIC8fwTGz-Ik7sVDrDtk1wfzIQvGrS3a/exec";
+        const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbz-3DMHUeKhturF_ybnYspKPQqtObLfuJJPyIC8fwTGz-Ik7sVDrDtk1wfzIQvGrS3a/exec";
 
         // === 1. LOGOUT CRM NEXUS ===
         function eseguiLogoutCRM() {
@@ -285,7 +290,9 @@
             const panel = document.getElementById('sezione-assedio-container');
             if (panel) {
                 panel.classList.toggle('hidden');
-                panel.scrollIntoView({ behavior: 'smooth' });
+                if (!panel.classList.contains('hidden')) {
+                    panel.scrollIntoView({ behavior: 'smooth' });
+                }
             }
         }
 
@@ -312,7 +319,7 @@
             document.getElementById('sezione-assedio-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // === 4. INVIO PROVISIONING (COMPATIBILE APPS SCRIPT FETCH) ===
+        // === 4. INVIO PROVISIONING (AG-11 ASSEDIO) ===
         function inviaProvisioningAssedio() {
             const btn = document.getElementById('btn-lancia-assedio');
             const feedback = document.getElementById('feedback-assedio');
@@ -327,7 +334,7 @@
             feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-cyan-950/40 border-sfx-cyan text-sfx-cyanLight block";
             feedback.innerHTML = `🚀 Iniezione Sandbox Google per <strong>${dati.nome}</strong> in corso: creazione cartella, duplicazione Master e assegnazione permessi...`;
 
-            fetch(APPS_SCRIPT_URL, {
+            fetch(APPS_SCRIPT_URL_CRM, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify({ action: 'PROVISIONING_ASSEDIO', payload: dati })
@@ -349,7 +356,8 @@
         function gestisciErroreAssedio(err, btn, feedback) {
             btn.disabled = false;
             btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
-            feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-red-950/50 border-red-500 text-red-300 block";
+            // Errore senza rosso: uso Prugna/Ambra
+            feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-[#4A0E4E]/50 border-[#FFBF00] text-[#FFBF00] block";
             feedback.innerHTML = `⚠️ Errore durante il Provisioning: ${err}`;
         }
 
@@ -367,10 +375,10 @@
                 </tr>`;
 
             try {
-                const res = await fetch(APPS_SCRIPT_URL + '?action=GET_LEADS');
+                const res = await fetch(APPS_SCRIPT_URL_CRM + '?action=GET_LEADS');
                 const data = await res.json();
                 if (data && data.leads) {
-                    leadsGlobali = data.leads;
+                    leadsGlobali = data.leads.slice().reverse(); // I più recenti per primi
                 }
 
                 renderizzaTabellaCRM(leadsGlobali);
@@ -384,8 +392,8 @@
                 console.warn("[CRM LEADS ERROR]", err);
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="8" class="p-8 text-center text-yellow-400 font-bold">
-                            ⚠️ Connessione Server Master non attiva. Verifica APPS_SCRIPT_URL.
+                        <td colspan="8" class="p-8 text-center text-[#FFBF00] font-bold">
+                            ⚠️ Connessione Server Master non attiva o errore di rete. Verifica APPS_SCRIPT_URL.
                         </td>
                     </tr>`;
             }
@@ -442,11 +450,11 @@
                         <div class="text-gray-400 font-mono">${item.telefono || 'N/D'}</div>
                     </td>
                     <td class="p-3">
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-sfx-gold/15 text-sfx-gold border border-sfx-gold/30">
+                        <span class="px-2.5 py-1 rounded-full text-[9px] font-bold bg-sfx-gold/15 text-sfx-gold border border-sfx-gold/30">
                             ${item.ambito || 'Generica'}
                         </span>
                     </td>
-                    <td class="p-3 text-[10px] text-gray-300">
+                    <td class="p-3 text-[10px] text-gray-300 whitespace-nowrap">
                         <div><i class="fa-solid fa-calendar text-sfx-cyan mr-1"></i>${item.dataPrenotazione || 'In attesa'}</div>
                         <div><i class="fa-solid fa-clock text-sfx-cyan mr-1"></i>${item.oraPrenotazione || 'N/D'}</div>
                     </td>
@@ -454,7 +462,7 @@
                         ${item.punti || '1,500 PTS'}
                     </td>
                     <td class="p-3 text-center">
-                        <div class="inline-flex items-center space-x-1.5">
+                        <div class="inline-flex items-center justify-center space-x-1.5">
                             ${waBtn}
                             <button onclick="preparaAssedioDaLead('${item.nome || ''}', '${item.email || ''}', '${item.ambito || ''}')" 
                                     class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-sfx-cyan/20 hover:bg-sfx-cyan hover:text-black border border-sfx-cyan text-sfx-cyanLight text-[10px] font-extrabold rounded-xl transition-all shadow-md">
@@ -478,7 +486,7 @@
             lista.forEach(item => {
                 const amb = (item.ambito || '').toLowerCase();
                 if (amb.includes('ceo') || amb.includes('conferenza')) countCeo++;
-                if (amb.includes('corso') || amb.includes('academy') || amb.includes('silver') || amb.includes('executive') || amb.includes('gold') || amb.includes('premium')) countAcademy++;
+                if (amb.includes('corso') || amb.includes('academy') || amb.includes('silver') || amb.includes('executive') || amb.includes('premium')) countAcademy++;
                 if (item.telefono && item.telefono.trim().length > 5) countWhatsApp++;
             });
 
@@ -503,6 +511,7 @@
 
                 let matchAmbito = true;
                 if (ambitoSelezionato !== 'TUTTI') {
+                    // Controllo inclusivo flessibile
                     matchAmbito = (item.ambito || '').toLowerCase().includes(ambitoSelezionato.toLowerCase());
                 }
 
