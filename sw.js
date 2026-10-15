@@ -1,16 +1,15 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // SERVICE WORKER PWA ENGINE V35
+ * SUPREMA FUTURE X // SERVICE WORKER PWA ENGINE V36
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // CACHE STRATEGY & OFFLINE RESILIENCE
  * ====================================================================
  */
 
-const CACHE_NAME = 'sfx-pwa-v35-eal6';
+const CACHE_NAME = 'sfx-pwa-v36-eal6';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
-    './candidatura.html',
     './login.html',
     './vault.html',
     './admin.html',
@@ -29,7 +28,7 @@ const ASSETS_TO_CACHE = [
  * 1. FASE DI INSTALLAZIONE SERVICE WORKER (PRE-CACHING CRITICO)
  */
 self.addEventListener('install', (event) => {
-    console.log('[SW EAL6+] Inizializzazione installazione Service Worker V35...');
+    console.log('[SW EAL6+] Inizializzazione installazione Service Worker V36...');
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             console.log('[SW EAL6+] Pre-caching asset della piattaforma in corso...');
@@ -37,7 +36,7 @@ self.addEventListener('install', (event) => {
         }).then(() => {
             return self.skipWaiting();
         }).catch((err) => {
-            console.warn('[SW EAL6+] Attenzione: alcuni asset non sono stati pre-caricati:', err);
+            console.warn('[SW EAL6+] Attenzione: pre-caching parziale o asset mancante:', err);
         })
     );
 });
@@ -46,13 +45,13 @@ self.addEventListener('install', (event) => {
  * 2. FASE DI ATTIVAZIONE (PULIZIA VECCHIE CACHE)
  */
 self.addEventListener('activate', (event) => {
-    console.log('[SW EAL6+] Attivazione Service Worker EAL6+...');
+    console.log('[SW EAL6+] Attivazione Service Worker EAL6+ V36...');
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map((cache) => {
                     if (cache !== CACHE_NAME) {
-                        console.log('[SW EAL6+] Rimozione vecchia cache:', cache);
+                        console.log('[SW EAL6+] Rimozione cache obsoleta:', cache);
                         return caches.delete(cache);
                     }
                 })
@@ -92,7 +91,7 @@ self.addEventListener('fetch', (event) => {
                         return cachedResponse;
                     }
                     // Fallback se la risorsa non è in cache ed è una pagina HTML
-                    if (event.request.headers.get('accept').includes('text/html')) {
+                    if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
                         return caches.match('./index.html');
                     }
                 });
