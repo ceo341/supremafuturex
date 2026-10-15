@@ -17,15 +17,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css">
+    <link rel="stylesheet" href="stile-globale.css?v=37">
 
     <script>
         // CONTROLLO SICUREZZA CLEARANCE EAL6+ X-BOX SUPREMA
         (function checkEAL6Auth() {
             const isAuth = sessionStorage.getItem('sfx_authenticated');
-            const role = sessionStorage.getItem('sfx_role');
             if (isAuth !== 'true' && !window.location.search.includes('bypass=dev')) {
-                console.warn("Avviso Clearance EAL6+: sessione priva di autenticazione Master. Inoltro verifiche.");
+                console.warn("Avviso Clearance EAL6+: sessione priva di autenticazione Master.");
             }
         })();
 
@@ -57,7 +56,7 @@
         }
     </script>
 </head>
-<body class="bg-[#2A2D34] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
+<body class="text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black" style="background-color: #2A2D34 !important;">
 
     <!-- BARRA DI CONTROLLO X-BOX SUPREMA -->
     <header class="bg-[#1F2227] border-b border-sfx-gold/40 px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md shadow-lg">
@@ -84,8 +83,8 @@
                 <i class="fa-solid fa-vault text-xs"></i>
                 <span class="hidden sm:inline">VAULT</span>
             </a>
-            <button onclick="eseguiLogoutCRM()" class="px-3 py-1.5 bg-sfx-plum hover:bg-[#6A1470] border border-sfx-amber text-white rounded-xl font-bold transition-all flex items-center space-x-1" title="Termina sessione">
-                <i class="fa-solid fa-power-off text-sfx-amber"></i>
+            <button onclick="eseguiLogoutCRM()" class="px-3 py-1.5 bg-[#4A0E4E] hover:bg-[#6A1470] border border-[#FFBF00]/40 text-white rounded-xl font-bold transition-all flex items-center space-x-1 shadow-md">
+                <i class="fa-solid fa-power-off text-[#FFBF00]"></i>
                 <span class="hidden sm:inline">ESCI</span>
             </button>
         </div>
@@ -95,7 +94,7 @@
     <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 space-y-8">
         
         <!-- HEADER OVERVIEW & METRICHE LEADS -->
-        <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6 relative overflow-hidden neon-border-box">
+        <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6 relative overflow-hidden">
             <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-6">
                 <div>
                     <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40">
@@ -105,7 +104,7 @@
                         CRM CANDIDATURE &amp; ASSEDIO
                     </h1>
                     <p class="text-xs text-gray-400 mt-1 max-w-2xl font-mono">
-                        Registro in tempo reale delle candidature inviate dalla Landing Page e generatore istantaneo dell'ambiente Workspace per gli studenti.
+                        Registro in tempo reale delle candidature acquisite dal nodo EAL6+ e generatore istantaneo dell'ambiente Workspace per gli studenti.
                     </p>
                 </div>
                 <div class="text-right font-mono text-xs space-y-1">
@@ -190,13 +189,11 @@
         <div class="bg-sfx-panel p-6 rounded-3xl border border-gray-800 space-y-4 shadow-xl">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 
-                <!-- Ricerca per testo -->
                 <div class="w-full md:w-1/2 relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-sfx-gold text-xs"></i>
                     <input type="text" id="crm-search-input" oninput="filtraTabellaCRM()" placeholder="Cerca candidato per Nome, Email, Telefono o Codice Nexus..." class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-gold text-xs transition-colors font-mono">
                 </div>
 
-                <!-- Filtri per Ambito & Esportazione -->
                 <div class="w-full md:w-1/2 flex flex-wrap items-center justify-end gap-3 text-xs font-mono">
                     <select id="crm-filter-ambito" onchange="filtraTabellaCRM()" class="p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight font-bold outline-none focus:border-sfx-gold text-xs flex-1 sm:flex-none cursor-pointer">
                         <option value="TUTTI">Tutti gli Ambiti</option>
@@ -259,7 +256,7 @@
         </div>
     </main>
 
-<!-- FINE PARTE 1/2 // GIUNZIONE: INCOLLA LA PARTE 2 DI SEGUITO SENZA SPAZI --><!-- FOOTER DIREZIONALE UFFICIALE -->
+    <!-- FOOTER DIREZIONALE UFFICIALE -->
     <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <span>SUPREMA FUTURE X // CRM NEXUS GOVERNANCE</span>
@@ -273,19 +270,16 @@
     <script>
         let leadsGlobali = [];
 
-        // ENDPOINT GOOGLE APPS SCRIPT MASTER AGGIORNATO EAL6+
-        const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbz-3DMHUeKhturF_ybnYspKPQqtObLfuJJPyIC8fwTGz-Ik7sVDrDtk1wfzIQvGrS3a/exec";
+        // ENDPOINT GOOGLE APPS SCRIPT MASTER V7 EAL6+
+        const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbwkwuABaCQZq0McIpGBnUXgivM-4xQGo3HKI_Tloza-1jYnwdQRcW1kreRpwF8KIfdw/exec";
 
-        // === 1. LOGOUT CRM NEXUS ===
         function eseguiLogoutCRM() {
             sessionStorage.removeItem('sfx_authenticated');
             sessionStorage.removeItem('sfx_auth_time');
             sessionStorage.removeItem('sfx_role');
-            alert("🔒 SESSIONE CRM NEXUS CHIUSA IN SICUREZZA.");
             window.location.href = 'login.html';
         }
 
-        // === 2. TOGGLE PANNELLO ASSEDIO ===
         function toggleModuloAssedio() {
             const panel = document.getElementById('sezione-assedio-container');
             if (panel) {
@@ -296,7 +290,6 @@
             }
         }
 
-        // === 3. PRECOMPILA ED ESEGUI ASSEDIO DA RIGA TABELLA ===
         function preparaAssedioDaLead(nome, email, ambito) {
             document.getElementById('sezione-assedio-container').classList.remove('hidden');
             document.getElementById('assedio-nome').value = nome || '';
@@ -319,7 +312,6 @@
             document.getElementById('sezione-assedio-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // === 4. INVIO PROVISIONING (AG-11 ASSEDIO) ===
         function inviaProvisioningAssedio() {
             const btn = document.getElementById('btn-lancia-assedio');
             const feedback = document.getElementById('feedback-assedio');
@@ -332,7 +324,7 @@
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>PROVISIONING IN CORSO...`;
             feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-cyan-950/40 border-sfx-cyan text-sfx-cyanLight block";
-            feedback.innerHTML = `🚀 Iniezione Sandbox Google per <strong>${dati.nome}</strong> in corso: creazione cartella, duplicazione Master e assegnazione permessi...`;
+            feedback.innerHTML = `🚀 Iniezione Sandbox Google per <strong>${dati.nome}</strong> in corso: creazione cartella e assegnazione permessi...`;
 
             fetch(APPS_SCRIPT_URL_CRM, {
                 method: 'POST',
@@ -340,28 +332,22 @@
                 body: JSON.stringify({ action: 'PROVISIONING_ASSEDIO', payload: dati })
             })
             .then(res => res.json())
-            .then(res => gestisciSuccessoAssedio(res.message || "Ambiente generato con successo.", btn, feedback))
-            .catch(err => gestisciErroreAssedio(err.message, btn, feedback));
+            .then(res => {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
+                feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
+                feedback.innerHTML = res.message || "Ambiente generato con successo.";
+                document.getElementById('form-assedio').reset();
+                caricaLeadsCRM();
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
+                feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-[#4A0E4E]/50 border-[#FFBF00] text-[#FFBF00] block";
+                feedback.innerHTML = `⚠️ Errore durante il Provisioning: ${err.message}`;
+            });
         }
 
-        function gestisciSuccessoAssedio(msg, btn, feedback) {
-            btn.disabled = false;
-            btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
-            feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
-            feedback.innerHTML = msg;
-            document.getElementById('form-assedio').reset();
-            caricaLeadsCRM();
-        }
-
-        function gestisciErroreAssedio(err, btn, feedback) {
-            btn.disabled = false;
-            btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
-            // Errore senza rosso: uso Prugna/Ambra
-            feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-[#4A0E4E]/50 border-[#FFBF00] text-[#FFBF00] block";
-            feedback.innerHTML = `⚠️ Errore durante il Provisioning: ${err}`;
-        }
-
-        // === 5. CARICAMENTO DATI CANDIDATI ===
         async function caricaLeadsCRM() {
             const tbody = document.getElementById('tbody-crm-leads');
             const syncTime = document.getElementById('crm-sync-time');
@@ -370,7 +356,7 @@
             tbody.innerHTML = `
                 <tr>
                     <td colspan="8" class="p-8 text-center text-gray-400 font-bold">
-                        <i class="fa-solid fa-arrows-rotate fa-spin text-sfx-cyan mr-2"></i>Sincronizzazione archivio candidati in corso...
+                        <i class="fa-solid fa-arrows-rotate fa-spin text-sfx-cyan mr-2"></i>Sincronizzazione registro leads con il Server EAL6+ V7...
                     </td>
                 </tr>`;
 
@@ -378,28 +364,26 @@
                 const res = await fetch(APPS_SCRIPT_URL_CRM + '?action=GET_LEADS');
                 const data = await res.json();
                 if (data && data.leads) {
-                    leadsGlobali = data.leads.slice().reverse(); // I più recenti per primi
+                    leadsGlobali = data.leads.slice().reverse();
                 }
 
                 renderizzaTabellaCRM(leadsGlobali);
                 aggiornaStatisticheCRM(leadsGlobali);
 
                 if (syncTime) {
-                    const ora = new Date().toLocaleTimeString('it-IT');
-                    syncTime.textContent = `SYNC: ${ora}`;
+                    syncTime.textContent = `SYNC: ${new Date().toLocaleTimeString('it-IT')}`;
                 }
             } catch (err) {
                 console.warn("[CRM LEADS ERROR]", err);
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="8" class="p-8 text-center text-[#FFBF00] font-bold">
-                            ⚠️ Connessione Server Master non attiva o errore di rete. Verifica APPS_SCRIPT_URL.
+                            ⚠️ Connessione Server Master non attiva o endpoint non raggiungibile.
                         </td>
                     </tr>`;
             }
         }
 
-        // === 6. RENDERIZZA TABELLA LEADS & AZIONI INTEGRATE ===
         function renderizzaTabellaCRM(lista) {
             const tbody = document.getElementById('tbody-crm-leads');
             const showingCount = document.getElementById('crm-showing-count');
@@ -413,7 +397,7 @@
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="8" class="p-8 text-center text-gray-500 italic">
-                            Nessun candidato trovato con i filtri selezionati.
+                            Nessun candidato presente nel registro.
                         </td>
                     </tr>`;
                 return;
@@ -430,7 +414,7 @@
                 row.className = "hover:bg-gray-900/50 transition-colors border-b border-gray-800/40";
 
                 const waBtn = telPulito ? `
-                    <a href="https://wa.me/${telPulito}?text=Gentile%20${encodeURIComponent(nomeSicuro)},%20la%20Presidenza%20del%20CEO%20Giuliano%20Caratelli%20ha%20esaminato%20la%20sua%20richiesta%20${encodeURIComponent(idSicuro)}.%20Desideriamo%20confermare%20lo%20slot%20prenotato." 
+                    <a href="https://wa.me/${telPulito}?text=Gentile%20${encodeURIComponent(nomeSicuro)},%20la%20Presidenza%20del%20CEO%20Giuliano%20Caratelli%20ha%20esaminato%20la%20sua%20richiesta%20${encodeURIComponent(idSicuro)}." 
                        target="_blank" 
                        class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-green-600 hover:bg-green-500 text-white text-[10px] font-extrabold rounded-xl transition-all shadow-md">
                         <i class="fa-brands fa-whatsapp text-xs"></i>
@@ -440,10 +424,10 @@
 
                 row.innerHTML = `
                     <td class="p-3 text-gray-400 whitespace-nowrap">${dataFormattata}</td>
-                    <td class="p-3 font-bold text-sfx-cyanLight whitespace-nowrap font-mono">${item.nexusCode || 'CEOSFX0002'}</td>
+                    <td class="p-3 font-bold text-sfx-cyanLight whitespace-nowrap font-mono">${item.nexusCode || 'CEOSFX0001'}</td>
                     <td class="p-3">
                         <strong class="text-white block text-xs font-bold">${item.nome || 'N/D'}</strong>
-                        <span class="text-[10px] text-gray-400">${item.azienda || 'Privato / N/D'}</span>
+                        <span class="text-[10px] text-gray-400">${item.azienda || 'Privato'}</span>
                     </td>
                     <td class="p-3 text-[10px]">
                         <div class="text-sfx-goldLight">${item.email || 'N/D'}</div>
@@ -476,7 +460,6 @@
             });
         }
 
-        // === 7. AGGIORNA STATISTICHE METRICHE ===
         function aggiornaStatisticheCRM(lista) {
             let countTotal = lista.length;
             let countCeo = 0;
@@ -496,7 +479,6 @@
             document.getElementById('crm-stat-whatsapp').textContent = countWhatsApp;
         }
 
-        // === 8. FILTRO IN TEMPO REALE TABELLA CRM ===
         function filtraTabellaCRM() {
             const ricerca = (document.getElementById('crm-search-input').value || '').toLowerCase().trim();
             const ambitoSelezionato = document.getElementById('crm-filter-ambito').value;
@@ -511,7 +493,6 @@
 
                 let matchAmbito = true;
                 if (ambitoSelezionato !== 'TUTTI') {
-                    // Controllo inclusivo flessibile
                     matchAmbito = (item.ambito || '').toLowerCase().includes(ambitoSelezionato.toLowerCase());
                 }
 
@@ -521,7 +502,6 @@
             renderizzaTabellaCRM(filtrati);
         }
 
-        // === 9. ESPORTAZIONE DATI CSV ===
         function esportaLeadsCSV() {
             if (!leadsGlobali || leadsGlobali.length === 0) {
                 alert("Nessun dato disponibile da esportare.");
@@ -529,7 +509,6 @@
             }
 
             let csv = "TIMESTAMP,CODICE_NEXUS,NOME,AZIENDA,EMAIL,TELEFONO,AMBITO,DATA_PRENOTAZIONE,ORA_PRENOTAZIONE,PUNTI\n";
-
             leadsGlobali.forEach(item => {
                 const row = [
                     `"${item.timestamp || ''}"`,
@@ -556,7 +535,6 @@
             document.body.removeChild(link);
         }
 
-        // Inizializzazione automatica al caricamento
         document.addEventListener('DOMContentLoaded', () => {
             caricaLeadsCRM();
         });
