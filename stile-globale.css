@@ -1,15 +1,63 @@
-/* ====================================================================
-   SUPREMA FUTURE X S.R.L. // STILE GLOBALE CIBERNETICO V35 (INTEGRALE)
-   GOVERNANCE: CEO GIULIANO CARATELLI
-   ==================================================================== */
+/**
+ * ====================================================================
+ * SUPREMA FUTURE X S.R.L. // STILE GLOBALE CIBERNETICO V36 (FUSIONE)
+ * GOVERNANCE: CEO GIULIANO CARATELLI
+ * PROTOCOLLO: EAL6+ SOVRANO // ZERO BIANCO PURO / LUXURY PHYGITAL
+ * ====================================================================
+ */
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap');
 
-/* --- GRIGLIE DI SFONDO E UTILITY CLASSES --- */
+/* --- 1. VARIABILI DI SISTEMA (COLORI E DESIGN TOKENS) --- */
+:root {
+  /* Landing Page (Pubblica) - ZERO BIANCO PURO */
+  --pearl-bg: #FDFBF7;          /* Crema perlato di base */
+  --pearl-card: #F4EFEA;        /* Sfondo card chiare per stacco visivo */
+  
+  /* X-BOX Aziendale e Suprema */
+  --xbox-bg: #2A2D34;           /* Grigio Scuro Opaco Brillante */
+  --xbox-card: #1F2227;         /* Sfondo card interne X-BOX */
+  
+  /* Sicurezza & Allarmi (NESSUN ROSSO) */
+  --alert-plum: #4A0E4E;        /* Prugna: Blocco, Kill-Switch */
+  --alert-amber: #FFBF00;       /* Ambra: Attenzione, Drift Alert */
+  --alert-green: #2ECC71;       /* Verde: Verificato CEO */
+  
+  /* Colori Identificativi 15 Agenti AI */
+  --ag-01-alison: #00F0FF;      
+  --ag-02-nicole: #B76E79;      
+  --ag-03-ginevra: #C0C0C0;     
+  --ag-04-scout: #50C878;       
+  --ag-05-ledger: #CD7F32;      
+  --ag-06-gatekeeper: #4A0E4E;  
+  --ag-07-delta: #E2DFD2;       
+  --ag-08-media: #0047AB;       
+  --ag-09-exit: #FFBF00;        
+  --ag-10-ingestion: #4B0082;   
+  --ag-11-assedio: #878681;     
+  --ag-12-sentinel: #008080;    
+  --ag-13-whatsapp: #0BDA51;    
+  --ag-14-governor: #E5E4E2;    
+  --ag-15-joker: #7DF9FF;       
+}
+
+body {
+  background-color: var(--pearl-bg);
+  color: #12141C;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.xbox-mode {
+  background-color: var(--xbox-bg);
+  color: var(--pearl-card);
+}
+
+/* --- 2. GRIGLIE DI SFONDO E UTILITY CLASSES (Originali Preservate) --- */
 @layer utilities {
     /* Griglia Chiara Pearl per Landing Page */
     .cyber-pearl-grid {
-        background-color: #FDFBF7;
+        background-color: var(--pearl-bg);
         background-image: 
             linear-gradient(to right, rgba(0, 139, 153, 0.05) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(184, 134, 11, 0.05) 1px, transparent 1px);
@@ -48,23 +96,20 @@
     }
 }
 
-/* --- ANIMAZIONI --- */
-
-/* Animazione Scorrimento Gradiente */
+/* --- 3. ANIMAZIONI (Originali Preservate) --- */
 @keyframes gradientTrace {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* Animazione Luce Tracciante 3D per Titolo Monolinea */
 @keyframes shineText3D {
     0% { background-position: 0% center; }
     100% { background-position: 200% center; }
 }
 
 .title-3d-shimmer {
-    background: linear-gradient(90deg, #008B99 0%, #D4AF37 25%, #FFFFFF 50%, #B8860B 75%, #00F0FF 100%);
+    background: linear-gradient(90deg, #008B99 0%, #D4AF37 25%, #B8860B 50%, #D4AF37 75%, #00F0FF 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -73,7 +118,6 @@
     filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
 }
 
-/* Anello Tracciante Rotante attorno al Logo Grande */
 @keyframes ringRotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -89,7 +133,6 @@
     box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), 0 0 15px rgba(184, 134, 11, 0.5);
 }
 
-/* Animazione Bordi Lampeggianti Ciano/Oro/Argento Terminale Login */
 @keyframes flashingBorder {
     0% { border-color: #008B99; box-shadow: 0 0 25px rgba(0, 139, 153, 0.6); }
     33% { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.7); }
@@ -101,27 +144,95 @@
     animation: flashingBorder 3s infinite alternate ease-in-out;
 }
 
-/* Overlay Sfondo Drawer */
 .drawer-overlay {
     background-color: rgba(9, 10, 13, 0.85);
     backdrop-filter: blur(10px);
 }
 
-/* --- CUSTOM SCROLLBAR --- */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+/* --- 4. CUSTOM SCROLLBAR (Aggiornata) --- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #090A0D; }
+::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #008B99; }
+body.xbox-mode ::-webkit-scrollbar-thumb { background: #00F0FF; }
+
+/* --- 5. NUOVI COMPONENTI EAL6+ (Menu a 20s e Neon X-BOX) --- */
+.nav-dropdown-container { position: relative; display: inline-block; }
+.nav-dropdown-menu {
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
+  opacity: 0; visibility: hidden; background-color: var(--xbox-bg); 
+  border: 1px solid #B8860B; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  border-radius: 12px; padding: 0.5rem; min-width: 220px; z-index: 100;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-dropdown-container:hover .nav-dropdown-menu {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu.force-open {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-item {
+  display: block; padding: 10px 16px; color: #D4AF37; font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 8px;
+  transition: all 0.2s; cursor: pointer; text-decoration: none;
+}
+.nav-dropdown-item:hover { background-color: #B8860B; color: #F4EFEA; }
+
+.neon-border-box {
+  position: relative; background: var(--xbox-bg); border-radius: 16px; z-index: 1; overflow: hidden;
+}
+.neon-border-box::before {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: conic-gradient(transparent, transparent, transparent, #D4AF37, #00F0FF);
+  animation: rotateNeon 4s linear infinite; z-index: -2;
+}
+.neon-border-box::after {
+  content: ''; position: absolute; inset: 2px; background: var(--xbox-card); border-radius: 14px; z-index: -1;
+}
+@keyframes rotateNeon { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- 6. ANIMAZIONI DI EMERGENZA (ALLARME PRUGNA E SCREEN NOT FOUND) --- */
+.alert-plum-pulse { animation: plumPulse 0.8s infinite alternate; }
+@keyframes plumPulse {
+  0% { box-shadow: 0 0 10px var(--alert-plum); border-color: var(--alert-plum); }
+  100% { box-shadow: 0 0 40px var(--alert-plum), 0 0 20px var(--alert-plum); border-color: #D4AF37; }
+}
+.screen-not-found {
+  position: fixed; inset: 0; background-color: var(--alert-plum); z-index: 9999;
+  display: flex; align-items: center; justify-content: center; color: #F4EFEA;
+  font-family: 'Orbitron', sans-serif; font-size: 15vw; font-weight: 900;
+  text-shadow: 0 0 20px black; animation: glitch 0.2s infinite;
+}
+@keyframes glitch {
+  0%, 100% { transform: translate(0) }
+  20% { transform: translate(-5px, 5px) }
+  40% { transform: translate(-5px, -5px) }
+  60% { transform: translate(5px, 5px) }
+  80% { transform: translate(5px, -5px) }
 }
 
-::-webkit-scrollbar-track {
-    background: #090A0D;
-}
+/* --- 7. CLASSI COLORI 15 AGENTI AI --- */
+.ag-01 { color: var(--ag-01-alison); border-color: var(--ag-01-alison); }
+.ag-02 { color: var(--ag-02-nicole); border-color: var(--ag-02-nicole); }
+.ag-03 { color: var(--ag-03-ginevra); border-color: var(--ag-03-ginevra); }
+.ag-04 { color: var(--ag-04-scout); border-color: var(--ag-04-scout); }
+.ag-05 { color: var(--ag-05-ledger); border-color: var(--ag-05-ledger); }
+.ag-06 { color: var(--ag-06-gatekeeper); border-color: var(--ag-06-gatekeeper); }
+.ag-07 { color: var(--ag-07-delta); border-color: var(--ag-07-delta); }
+.ag-08 { color: var(--ag-08-media); border-color: var(--ag-08-media); }
+.ag-09 { color: var(--ag-09-exit); border-color: var(--ag-09-exit); }
+.ag-10 { color: var(--ag-10-ingestion); border-color: var(--ag-10-ingestion); }
+.ag-11 { color: var(--ag-11-assedio); border-color: var(--ag-11-assedio); }
+.ag-12 { color: var(--ag-12-sentinel); border-color: var(--ag-12-sentinel); }
+.ag-13 { color: var(--ag-13-whatsapp); border-color: var(--ag-13-whatsapp); }
+.ag-14 { color: var(--ag-14-governor); border-color: var(--ag-14-governor); }
+.ag-15 { color: var(--ag-15-joker); border-color: var(--ag-15-joker); text-shadow: 0 0 8px var(--ag-15-joker); }
 
-::-webkit-scrollbar-thumb {
-    background: #B8860B;
-    border-radius: 4px;
-}
+/* Spie di Stato Agenti */
+.led-off { background-color: #333; box-shadow: none; }
+.led-active { background-color: var(--alert-green); box-shadow: 0 0 10px var(--alert-green); animation: pulseLed 1.5s infinite; }
+.led-warning { background-color: var(--alert-amber); box-shadow: 0 0 10px var(--alert-amber); }
+.led-drift { background-color: var(--alert-plum); box-shadow: 0 0 15px var(--alert-plum); animation: strobeLed 0.2s infinite; }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #008B99;
-}
+@keyframes pulseLed { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+@keyframes strobeLed { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
