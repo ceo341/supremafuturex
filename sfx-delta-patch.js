@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X // DELTA QUEUE OFFLINE ENGINE V36 (INTEGRALE)
+ * SUPREMA FUTURE X // DELTA QUEUE OFFLINE ENGINE V36
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // OFFLINE STORAGE & AUTO-SYNC
  * ====================================================================
@@ -10,7 +10,7 @@
     'use strict';
 
     const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v36';
-    // ENDPOINT REALE GOOGLE APPS SCRIPT V6:
+    // ENDPOINT REALE GOOGLE APPS SCRIPT V6 EAL6+:
     const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxlektYvRWsGboHU7Vzu_PvnFauT7TTmK-mFlVBD3QMgiM3S5TcpEeZsPqA7Cq4lIbQ/exec';
 
     const SFXDeltaQueue = {
