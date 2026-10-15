@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-BOX SUPREMA // CRM NEXUS GOVERNANCE</title>
-    <meta name="description" content="Piattaforma Gestionale CRM Nexus per la Direzione del CEO Giuliano Caratelli - Gestione Candidate Leads, Assedio Provisioning Google e WhatsApp 1-Tap.">
+    <title>X-BOX SUPREMA // CRM NEXUS & CENTRALE PROMEMORIA</title>
+    <meta name="description" content="Piattaforma Gestionale CRM Nexus e Centrale Promemoria per la Presidenza del CEO Giuliano Caratelli.">
     <meta name="theme-color" content="#2A2D34">
 
     <!-- Favicon & PWA Manifest -->
@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css?v=37">
+    <link rel="stylesheet" href="stile-globale.css?v=39">
 
     <script>
         tailwind.config = {
@@ -58,22 +58,22 @@
             </div>
             <div>
                 <span class="font-grotesk font-black text-sfx-goldLight block leading-none">X-BOX SUPREMA</span>
-                <span class="text-[9px] text-sfx-cyan block font-mono">CRM NEXUS // PROVISIONING ASSEDIO EAL6+</span>
+                <span class="text-[9px] text-sfx-cyan block font-mono">CRM NEXUS // CENTRALE PROMEMORIA</span>
             </div>
         </div>
 
-        <div class="flex items-center space-x-3 text-xs">
-            <button onclick="toggleModuloAssedio()" class="px-3.5 py-1.5 bg-sfx-gold/20 border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
-                <i class="fa-solid fa-bolt text-xs"></i>
-                <span class="hidden sm:inline">PANNELLO ASSEDIO</span>
+        <div class="flex items-center space-x-2 sm:space-x-3 text-xs">
+            <button onclick="togglePannello('sezione-promemoria-container')" class="px-3.5 py-1.5 bg-sfx-cyan/20 border border-sfx-cyan hover:bg-sfx-cyan hover:text-black text-sfx-cyanLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
+                <i class="fa-solid fa-clock-rotate-left text-xs"></i>
+                <span class="hidden sm:inline">CENTRALE PROMEMORIA</span>
             </button>
-            <a href="admin.html" class="px-3.5 py-1.5 bg-[#090A0D] border border-sfx-silver/50 hover:border-sfx-cyan hover:text-sfx-cyan text-sfx-silver rounded-xl font-bold transition-all flex items-center space-x-1.5">
+            <button onclick="togglePannello('sezione-attivazione-container')" class="px-3.5 py-1.5 bg-sfx-gold/20 border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
+                <i class="fa-solid fa-bolt text-xs"></i>
+                <span class="hidden sm:inline">ATTIVAZIONE CORSISTA</span>
+            </button>
+            <a href="admin.html" class="px-3 py-1.5 bg-[#090A0D] border border-sfx-silver/50 hover:border-sfx-cyan hover:text-sfx-cyan text-sfx-silver rounded-xl font-bold transition-all flex items-center space-x-1.5">
                 <i class="fa-solid fa-server text-xs"></i>
-                <span class="hidden sm:inline">X-BOX AZIENDALE</span>
-            </a>
-            <a href="vault.html" class="px-3.5 py-1.5 bg-[#090A0D] border border-gray-700 hover:border-sfx-gold text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5">
-                <i class="fa-solid fa-vault text-xs"></i>
-                <span class="hidden sm:inline">VAULT</span>
+                <span class="hidden sm:inline">X-BOX</span>
             </a>
             <button onclick="eseguiLogoutCRM()" class="px-3 py-1.5 bg-[#4A0E4E] hover:bg-[#6A1470] border border-[#FFBF00]/40 text-white rounded-xl font-bold transition-all flex items-center space-x-1 shadow-md">
                 <i class="fa-solid fa-power-off text-[#FFBF00]"></i>
@@ -82,83 +82,231 @@
         </div>
     </header>
 
-    <!-- MAIN CRM CONTAINER -->
+    <!-- AREA PRINCIPALE CRM -->
     <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 space-y-8">
         
-        <!-- HEADER OVERVIEW & METRICHE LEADS -->
+        <!-- PANNELLO INTRODUTTIVO & METRICHE -->
         <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6 relative overflow-hidden">
             <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-6">
                 <div>
                     <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40">
-                        <i class="fa-solid fa-users-gear mr-1.5"></i>NEXUS INGESTION &amp; PROVISIONING HUB
+                        <i class="fa-solid fa-network-wired mr-1.5"></i>PRESIDENZA ESECUTIVA // GIULIANO CARATELLI
                     </span>
                     <h1 class="font-grotesk font-black text-2xl sm:text-4xl text-sfx-goldLight uppercase tracking-wider mt-3">
-                        CRM CANDIDATURE &amp; ASSEDIO
+                        GESTIONE CANDIDATURE &amp; CALENDARIO
                     </h1>
                     <p class="text-xs text-gray-400 mt-1 max-w-2xl font-mono">
-                        Registro operativo collegato al Foglio Master per l'acquisizione dei lead e delle sessioni riservate.
+                        Pannello operativo per il monitoraggio degli appuntamenti, sincronizzazione con Google Calendar e gestione promemoria.
                     </p>
                 </div>
                 <div class="text-right font-mono text-xs space-y-1">
-                    <div class="text-sfx-cyan font-bold"><i class="fa-solid fa-shield-halved mr-1"></i>SECURITY: EAL6+ SOVRANO</div>
-                    <div class="text-gray-400 text-[10px]">PRESIDENZA: CEO GIULIANO</div>
-                    <div class="text-sfx-goldLight text-[10px]" id="crm-sync-time">SYNC: --:--:--</div>
+                    <div class="text-sfx-cyan font-bold"><i class="fa-solid fa-shield-halved mr-1"></i>SICUREZZA: EAL6+ ATTIVA</div>
+                    <div class="text-gray-400 text-[10px]">MITTENTE: segreteria@supremaofficial.com [NO-REPLY]</div>
+                    <div class="text-sfx-goldLight text-[10px]" id="crm-sync-time">AGGIORNAMENTO: --:--:--</div>
                 </div>
             </div>
 
-            <!-- QUADRO METRICHE LEADS -->
+            <!-- BLOCCHI METRICHE -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-folder-open text-sfx-gold mr-1"></i>TOTALE CANDIDATURE</span>
                     <div class="text-2xl font-black text-white font-grotesk mt-1" id="crm-stat-total">0</div>
-                    <span class="text-[9px] text-gray-500">Acquisite da Form Landing</span>
+                    <span class="text-[9px] text-gray-500">Iscrizioni Registrate</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-crown text-sfx-goldLight mr-1"></i>CONFERENZE CEO</span>
                     <div class="text-2xl font-black text-sfx-gold font-grotesk mt-1" id="crm-stat-ceo">0</div>
-                    <span class="text-[9px] text-gray-500">Colloqui Preside Diretti</span>
+                    <span class="text-[9px] text-gray-500">Sessioni Dirette Presidenza</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
-                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-graduation-cap text-sfx-cyan mr-1"></i>ACADEMY COURSES</span>
+                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-graduation-cap text-sfx-cyan mr-1"></i>CORSI ACADEMY</span>
                     <div class="text-2xl font-black text-sfx-cyanLight font-grotesk mt-1" id="crm-stat-academy">0</div>
-                    <span class="text-[9px] text-gray-500">Silver, Exec, VIP</span>
+                    <span class="text-[9px] text-gray-500">Percorsi Formativi</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
-                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i>CANALI WHATSAPP</span>
+                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i>RECAPITI WHATSAPP</span>
                     <div class="text-2xl font-black text-green-400 font-grotesk mt-1" id="crm-stat-whatsapp">0</div>
-                    <span class="text-[9px] text-gray-500">Instradamento 1-Tap Pronto</span>
+                    <span class="text-[9px] text-gray-500">Contatti Pronti</span>
                 </div>
             </div>
         </div>
 
-        <!-- SEZIONE ASSEDIO PROVISIONING -->
-        <div id="sezione-assedio-container" class="bg-[#1F2227] p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
+        <!-- ===================================================================== -->
+        <!-- CENTRALE PROMEMORIA // MODIFICA TESTI E INTERRUTTORI -->
+        <!-- ===================================================================== -->
+        <div id="sezione-promemoria-container" class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
+            <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-2">
+                <div class="flex items-center space-x-3">
+                    <div class="w-3.5 h-3.5 rounded-full bg-sfx-cyan animate-pulse"></div>
+                    <div>
+                        <h2 class="font-grotesk font-black text-base sm:text-lg text-sfx-cyanLight uppercase tracking-wider">
+                            CENTRALE PROMEMORIA // CONTROLLO MESSAGGI &amp; CADENZA
+                        </h2>
+                        <span class="text-[10px] text-gray-400 font-mono">Configura i testi e seleziona la modalità di invio per ciascuna fase</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="salvaTuttiITemplate()" class="px-4 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs rounded-xl shadow transition-all">
+                        <i class="fa-solid fa-floppy-disk mr-1"></i>SALVA TESTI
+                    </button>
+                </div>
+            </div>
+
+            <!-- GRIGLIA FASI TEMPORALI -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs font-mono">
+                
+                <!-- FASE 1: SUBITO (ACCREDITO ISTANTANEO) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-3">
+                    <div class="flex items-center justify-between border-b border-gray-800/80 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-sfx-gold text-black font-extrabold flex items-center justify-center text-[10px]">1</span>
+                            <span class="font-bold text-white uppercase text-[11px]">Accredito Istantaneo [Subito]</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[9px] font-bold text-green-400" id="label-switch-t0">AUTOMATICO</span>
+                            <button onclick="toggleSwitchCadenza('t0')" id="btn-switch-t0" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                                <div id="dot-switch-t0" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Email Candidato (con avviso cartella Spam)</label>
+                        <textarea id="tpl-email-t0" rows="4" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-gold text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Messaggio WhatsApp Rapido</label>
+                        <textarea id="tpl-wa-t0" rows="2" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-green-300 outline-none focus:border-green-500 text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- FASE 2: 7 GIORNI PRIMA (MATERIALE PREPARATORIO) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-sfx-gold/40 space-y-3 shadow-inner">
+                    <div class="flex items-center justify-between border-b border-gray-800/80 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-sfx-cyan text-black font-extrabold flex items-center justify-center text-[10px]">2</span>
+                            <span class="font-bold text-sfx-goldLight uppercase text-[11px]">Materiale Preparatorio [7 Giorni Prima]</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[9px] font-bold text-green-400" id="label-switch-t7">AUTOMATICO</span>
+                            <button onclick="toggleSwitchCadenza('t7')" id="btn-switch-t7" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                                <div id="dot-switch-t7" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Email con Video Riservato e Presentazione</label>
+                        <textarea id="tpl-email-t7" rows="4" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-cyan text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">WhatsApp Countdown 7 Giorni</label>
+                        <textarea id="tpl-wa-t7" rows="2" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-green-300 outline-none focus:border-green-500 text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- FASE 3: 2 GIORNI PRIMA (SONDAGGIO DI CONFERMA O RINVIO) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-yellow-500/40 space-y-3">
+                    <div class="flex items-center justify-between border-b border-gray-800/80 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-yellow-500 text-black font-extrabold flex items-center justify-center text-[10px]">3</span>
+                            <span class="font-bold text-yellow-300 uppercase text-[11px]">Sondaggio di Conferma [2 Giorni Prima]</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[9px] font-bold text-green-400" id="label-switch-t48">AUTOMATICO</span>
+                            <button onclick="toggleSwitchCadenza('t48')" id="btn-switch-t48" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                                <div id="dot-switch-t48" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Email Sondaggio (Opzione Conferma o Spostamento Data)</label>
+                        <textarea id="tpl-email-t48" rows="4" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-yellow-400 text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">WhatsApp Risposta Rapida (CONFERMO / RINVIA)</label>
+                        <textarea id="tpl-wa-t48" rows="2" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-green-300 outline-none focus:border-green-500 text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- FASE 4: 5 MINUTI PRIMA (STANZA GOOGLE MEET) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-red-500/40 space-y-3">
+                    <div class="flex items-center justify-between border-b border-gray-800/80 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-red-500 text-black font-extrabold flex items-center justify-center text-[10px]">4</span>
+                            <span class="font-bold text-red-300 uppercase text-[11px]">Accesso Stanza Meet [5 Minuti Prima]</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[9px] font-bold text-green-400" id="label-switch-t5">AUTOMATICO</span>
+                            <button onclick="toggleSwitchCadenza('t5')" id="btn-switch-t5" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                                <div id="dot-switch-t5" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Email Invio Stanza Google Meet</label>
+                        <textarea id="tpl-email-t5" rows="4" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-red-400 text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">WhatsApp con Link Diretto alla Sala</label>
+                        <textarea id="tpl-wa-t5" rows="2" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-green-300 outline-none focus:border-green-500 text-[11px] font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MODULI RISERVATI IN STAND-BY (ACCORDO DI RISERVATEZZA E BRIEFING) -->
+            <div class="p-5 bg-[#4A0E4E]/30 rounded-2xl border border-[#FFBF00]/40 space-y-3">
+                <div class="flex items-center justify-between border-b border-[#FFBF00]/30 pb-2">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-lock text-[#FFBF00]"></i>
+                        <span class="font-bold text-white uppercase text-[11px]">Moduli Riservati [In Stand-By / Non Attivi]</span>
+                    </div>
+                    <span class="px-2.5 py-0.5 rounded-full bg-red-950 text-red-300 text-[9px] font-bold border border-red-700">
+                        DISATTIVATI
+                    </span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Punto 22: Accordo di Riservatezza NDA (Bozza)</label>
+                        <textarea id="tpl-nda-standby" rows="2" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-gray-300 text-[11px] font-mono resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Punto 23: Briefing &amp; Obiettivo Aziendale (Bozza)</label>
+                        <textarea id="tpl-briefing-standby" rows="2" class="w-full p-2.5 bg-black/80 border border-gray-700 rounded-xl text-gray-300 text-[11px] font-mono resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="feedback-matrix" class="hidden p-3 rounded-xl text-xs font-mono border"></div>
+        </div>
+
+        <!-- MODULO ATTIVAZIONE CORSISTA -->
+        <div id="sezione-attivazione-container" class="hidden bg-[#1F2227] p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-3 h-3 rounded-full bg-sfx-cyan animate-pulse"></div>
-                    <h2 class="font-grotesk font-black text-lg text-sfx-cyanLight uppercase tracking-wider">
-                        DISPATCH ASSEDIO // GENERATORE AMBIENTE DRIVE ONE-CLICK
+                    <div class="w-3 h-3 rounded-full bg-sfx-gold animate-pulse"></div>
+                    <h2 class="font-grotesk font-black text-lg text-sfx-goldLight uppercase tracking-wider">
+                        ATTIVAZIONE CORSISTA // ACCREDITO DIRETTO
                     </h2>
                 </div>
                 <span class="text-[10px] px-2.5 py-1 rounded bg-black/60 text-gray-400 border border-gray-700 font-mono">
-                    AG-11 ASSÈDIO PROVISIONER
+                    MODULO ACADEMY
                 </span>
             </div>
 
-            <form id="form-assedio" onsubmit="event.preventDefault(); inviaProvisioningAssedio();" class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-mono">
+            <form id="form-attivazione" onsubmit="event.preventDefault(); inviaAttivazioneCorsista();" class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-mono">
                 <div>
-                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Nome &amp; Cognome Corsista</label>
-                    <input type="text" id="assedio-nome" required placeholder="Es. Marco Rossi" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-cyan transition-colors">
+                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Nome &amp; Cognome</label>
+                    <input type="text" id="att-nome" required placeholder="Es. Marco Rossi" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-cyan transition-colors">
                 </div>
 
                 <div>
-                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Email Corsista (Workspace)</label>
-                    <input type="email" id="assedio-email" required placeholder="mario.rossi@gmail.com" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight outline-none focus:border-sfx-gold transition-colors">
+                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Email Corsista</label>
+                    <input type="email" id="att-email" required placeholder="mario.rossi@gmail.com" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight outline-none focus:border-sfx-gold transition-colors">
                 </div>
 
                 <div>
                     <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Pacchetto Didattico</label>
-                    <select id="assedio-pacchetto" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-cyan font-bold outline-none focus:border-sfx-cyan transition-colors cursor-pointer">
+                    <select id="att-pacchetto" class="w-full p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-cyan font-bold outline-none focus:border-sfx-cyan transition-colors cursor-pointer">
                         <option value="Silver">Suprema Academy - Silver Tier</option>
                         <option value="Executive" selected>Suprema Academy - Executive Master</option>
                         <option value="Premium VIP">Suprema Academy - Premium VIP</option>
@@ -167,22 +315,22 @@
                 </div>
 
                 <div class="flex items-end">
-                    <button type="submit" id="btn-lancia-assedio" class="w-full p-3.5 bg-sfx-cyan hover:bg-cyan-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-lg flex items-center justify-center space-x-2">
+                    <button type="submit" id="btn-conferma-attivazione" class="w-full p-3.5 bg-sfx-cyan hover:bg-cyan-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-lg flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Lancia Assedio</span>
+                        <span>Abilita Accesso</span>
                     </button>
                 </div>
             </form>
 
-            <div id="feedback-assedio" class="hidden p-4 rounded-2xl text-xs font-mono border"></div>
+            <div id="feedback-attivazione" class="hidden p-4 rounded-2xl text-xs font-mono border"></div>
         </div>
 
-        <!-- BARRA STRUMENTI & RICERCA -->
+        <!-- BARRA STRUMENTI & RICERCA CANDIDATI -->
         <div class="bg-sfx-panel p-6 rounded-3xl border border-gray-800 space-y-4 shadow-xl">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="w-full md:w-1/2 relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-sfx-gold text-xs"></i>
-                    <input type="text" id="crm-search-input" oninput="filtraTabellaCRM()" placeholder="Cerca candidato per Nome, Email, Telefono o Codice Nexus..." class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-gold text-xs transition-colors font-mono">
+                    <input type="text" id="crm-search-input" oninput="filtraTabellaCRM()" placeholder="Cerca per Nome, Email, Telefono o Codice..." class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-gold text-xs transition-colors font-mono">
                 </div>
 
                 <div class="w-full md:w-1/2 flex flex-wrap items-center justify-end gap-3 text-xs font-mono">
@@ -201,18 +349,18 @@
 
                     <button onclick="esportaLeadsCSV()" class="px-4 py-3.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold rounded-2xl transition-colors flex items-center space-x-1.5 shadow-md">
                         <i class="fa-solid fa-file-csv"></i>
-                        <span>Export CSV</span>
+                        <span>Esporta File</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- SEZIONE TABELLARE LEADS -->
+        <!-- TABELLA REGISTRO CANDIDATI -->
         <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-sfx-gold/30 shadow-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <h3 class="font-grotesk font-bold text-sm text-sfx-goldLight uppercase flex items-center space-x-2">
                     <i class="fa-solid fa-address-book text-sfx-cyan"></i>
-                    <span>REGISTRO CANDIDATI ACCREDITATI</span>
+                    <span>REGISTRO CANDIDATI ACCREDITATI [NEXUS_LEADS]</span>
                 </h3>
                 <span class="text-[11px] text-gray-400 font-mono" id="crm-showing-count">Visualizzati: 0 / 0</span>
             </div>
@@ -223,18 +371,18 @@
                         <tr class="border-b border-gray-800 text-gray-400 uppercase tracking-wider text-[10px]">
                             <th class="p-3">Data / Ora</th>
                             <th class="p-3">Codice Nexus</th>
-                            <th class="p-3">Candidato / Ruolo</th>
+                            <th class="p-3">Candidato</th>
                             <th class="p-3">Recapiti</th>
-                            <th class="p-3">Ambito Richiesto</th>
-                            <th class="p-3">Slot Calendar</th>
-                            <th class="p-3">Punti Gold</th>
+                            <th class="p-3">Ambito</th>
+                            <th class="p-3">Slot Calendario</th>
+                            <th class="p-3">Punti</th>
                             <th class="p-3 text-center">Azioni Rapide</th>
                         </tr>
                     </thead>
                     <tbody id="tbody-crm-leads" class="divide-y divide-gray-800/60 text-gray-300">
                         <tr>
                             <td colspan="8" class="p-8 text-center text-gray-500 italic">
-                                <i class="fa-solid fa-spinner fa-spin text-sfx-gold text-lg mr-2"></i>Connessione al Server Master in corso...
+                                <i class="fa-solid fa-spinner fa-spin text-sfx-gold text-lg mr-2"></i>Connessione al database in corso...
                             </td>
                         </tr>
                     </tbody>
@@ -246,16 +394,36 @@
     <!-- FOOTER -->
     <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <span>SUPREMA FUTURE X // CRM NEXUS GOVERNANCE</span>
-            <span class="text-sfx-gold font-bold">PROTOCOLLO SICUREZZA: EAL6+ SOVRANO</span>
+            <span>SUPREMA FUTURE X // CONTROLLO CENTRALE</span>
+            <span class="text-sfx-gold font-bold">PROTOCOLLO SICUREZZA: EAL6+ ATTIVO</span>
             <span>© 2026 TUTTI I DIRITTI RISERVATI</span>
         </div>
     </footer>
 
-    <!-- LOGICA DI SINCRONIZZAZIONE CRM -->
+    <!-- SCRIPT GESTIONE FRONTEND -->
     <script>
         let leadsGlobali = [];
         const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbzWdc42zmKTZ7JTxARuiGOgEi6yBiFnoSITfv0vsiy07J-LeSpLLvvj_tRinRQZB7GX/exec";
+
+        const CONFIG_DEFAULT_MATRIX = {
+            switches: { t0: true, t7: true, t48: true, t5: true },
+            templates: {
+                email_t0: "Gentile {{NOME}}, la tua candidatura per {{AMBITO}} è acquisita.\n\n⚠️ NOTA IMPORTANTE: Sposta questa email in Posta in Arrivo e seleziona 'Sembra sicuro' per non perdere il link della stanza Meet.\n\nCODICE IDENTIFICATIVO: {{CODICE}}\nAPPUNTAMENTO: {{DATA}} alle {{ORA}}\nSTATO: Accreditato.\n\nIl link per l'accesso ti verrà inviato 5 minuti prima della trasmissione.",
+                wa_t0: "👑 SUPREMA FUTURE X // Gentile {{NOME}}, richiesta per {{AMBITO}} registrata.\n▫️ Codice: {{CODICE}}\n▫️ Data: {{DATA}} ore {{ORA}}\nControlli l'email (anche cartella Spam). Riceverà il link Meet poco prima dell'incontro.",
+                
+                email_t7: "Gentile {{NOME}}, ti ricordiamo che la tua sessione con il CEO Giuliano Caratelli è fissata tra una settimana: {{DATA}} alle {{ORA}}.\n\nMATERIALE PREPARATORIO D'INGRESSO:\nVisiona la panoramica del modello operativo: https://supremaofficial.com\n\nTi invitiamo a preparare un quesito strategico prioritario per la chiamata.",
+                wa_t7: "⏳ SFX // -7 GIORNI alla sessione con il CEO Giuliano Caratelli ({{DATA}} ore {{ORA}}).\nAbbiamo predisposto per lei il materiale informativo da consultare prima della chiamata.",
+                
+                email_t48: "Gentile {{NOME}}, mancano 48 ore al tuo appuntamento per {{AMBITO}} ({{DATA}} alle {{ORA}}).\n\nCONFERMA PRESENZA:\n🟢 Rispondi 'CONFERMO' per bloccare la stanza riservata.\n🟡 Rispondi 'RINVIA' per cedere lo slot e scegliere un'altra data.\n\nIn assenza di risposta entro 12 ore, lo slot verrà riassegnato.",
+                wa_t48: "🚨 SFX PRESIDENZA // CONFERMA RICHIESTA (-48 ORE)\nGentile {{NOME}}, per confermare il suo slot di dopodomani ({{DATA}} ore {{ORA}}):\n1️⃣ Risponda CONFERMO per bloccare la stanza.\n2️⃣ Risponda RINVIA per richiedere altra data.",
+                
+                email_t5: "Gentile {{NOME}}, la stanza virtuale della Presidenza è aperta:\n\n🔗 STANZA GOOGLE MEET: {{LINK_MEET}}\nCODICE ACCREDITO: {{CODICE}}\n\nIl CEO Giuliano Caratelli è in attesa del suo ingresso. Si raccomanda puntualità.",
+                wa_t5: "🔴 STANZA MEET APERTA // Gentile {{NOME}}, la Presidenza è pronta per la sua sessione.\nAcceda qui: {{LINK_MEET}}\nCodice: {{CODICE}}",
+                
+                nda_standby: "Accordo di Riservatezza NDA: Il candidato si impegna alla riservatezza su tutte le metodologie condivise durante il colloquio.",
+                briefing_standby: "Invia prima della sessione l'indirizzo web della tua attività per consentire al CEO di analizzare preventivamente il tuo settore."
+            }
+        };
 
         function eseguiLogoutCRM() {
             sessionStorage.removeItem('sfx_authenticated');
@@ -264,8 +432,8 @@
             window.location.href = 'login.html';
         }
 
-        function toggleModuloAssedio() {
-            const panel = document.getElementById('sezione-assedio-container');
+        function togglePannello(id) {
+            const panel = document.getElementById(id);
             if (panel) {
                 panel.classList.toggle('hidden');
                 if (!panel.classList.contains('hidden')) {
@@ -274,24 +442,97 @@
             }
         }
 
-        function preparaAssedioDaLead(nome, email, ambito) {
-            document.getElementById('sezione-assedio-container').classList.remove('hidden');
-            document.getElementById('assedio-nome').value = nome || '';
-            document.getElementById('assedio-email').value = email || '';
-            document.getElementById('sezione-assedio-container').scrollIntoView({ behavior: 'smooth' });
+        function caricaStatoMatrix() {
+            let salvato = localStorage.getItem('sfx_matrix_config');
+            let config = salvato ? JSON.parse(salvato) : CONFIG_DEFAULT_MATRIX;
+
+            ['t0', 't7', 't48', 't5'].forEach(fase => {
+                const attivo = config.switches[fase];
+                aggiornaGraficaSwitch(fase, attivo);
+            });
+
+            document.getElementById('tpl-email-t0').value = config.templates.email_t0 || '';
+            document.getElementById('tpl-wa-t0').value = config.templates.wa_t0 || '';
+            document.getElementById('tpl-email-t7').value = config.templates.email_t7 || '';
+            document.getElementById('tpl-wa-t7').value = config.templates.wa_t7 || '';
+            document.getElementById('tpl-email-t48').value = config.templates.email_t48 || '';
+            document.getElementById('tpl-wa-t48').value = config.templates.wa_t48 || '';
+            document.getElementById('tpl-email-t5').value = config.templates.email_t5 || '';
+            document.getElementById('tpl-wa-t5').value = config.templates.wa_t5 || '';
+            document.getElementById('tpl-nda-standby').value = config.templates.nda_standby || '';
+            document.getElementById('tpl-briefing-standby').value = config.templates.briefing_standby || '';
         }
 
-        function inviaProvisioningAssedio() {
-            const btn = document.getElementById('btn-lancia-assedio');
-            const feedback = document.getElementById('feedback-assedio');
+        function toggleSwitchCadenza(fase) {
+            let salvato = localStorage.getItem('sfx_matrix_config');
+            let config = salvato ? JSON.parse(salvato) : CONFIG_DEFAULT_MATRIX;
+
+            config.switches[fase] = !config.switches[fase];
+            aggiornaGraficaSwitch(fase, config.switches[fase]);
+            localStorage.setItem('sfx_matrix_config', JSON.stringify(config));
+        }
+
+        function aggiornaGraficaSwitch(fase, attivo) {
+            const btn = document.getElementById(`btn-switch-${fase}`);
+            const dot = document.getElementById(`dot-switch-${fase}`);
+            const label = document.getElementById(`label-switch-${fase}`);
+
+            if (attivo) {
+                btn.className = "w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative";
+                dot.className = "w-4 h-4 bg-white rounded-full transition-transform translate-x-6";
+                label.textContent = "AUTOMATICO";
+                label.className = "text-[9px] font-bold text-green-400";
+            } else {
+                btn.className = "w-12 h-6 bg-red-600 rounded-full p-1 transition-colors relative";
+                dot.className = "w-4 h-4 bg-white rounded-full transition-transform translate-x-0";
+                label.textContent = "MANUALE";
+                label.className = "text-[9px] font-bold text-red-400";
+            }
+        }
+
+        function salvaTuttiITemplate() {
+            let salvato = localStorage.getItem('sfx_matrix_config');
+            let config = salvato ? JSON.parse(salvato) : CONFIG_DEFAULT_MATRIX;
+
+            config.templates = {
+                email_t0: document.getElementById('tpl-email-t0').value,
+                wa_t0: document.getElementById('tpl-wa-t0').value,
+                email_t7: document.getElementById('tpl-email-t7').value,
+                wa_t7: document.getElementById('tpl-wa-t7').value,
+                email_t48: document.getElementById('tpl-email-t48').value,
+                wa_t48: document.getElementById('tpl-wa-t48').value,
+                email_t5: document.getElementById('tpl-email-t5').value,
+                wa_t5: document.getElementById('tpl-wa-t5').value,
+                nda_standby: document.getElementById('tpl-nda-standby').value,
+                briefing_standby: document.getElementById('tpl-briefing-standby').value
+            };
+
+            localStorage.setItem('sfx_matrix_config', JSON.stringify(config));
+
+            const fb = document.getElementById('feedback-matrix');
+            fb.className = "p-3 rounded-xl text-xs font-mono border bg-green-950/60 border-green-500 text-green-300 block";
+            fb.innerHTML = "✓ Testi e impostazioni salvati con successo.";
+            setTimeout(() => { fb.className = "hidden"; }, 3500);
+        }
+
+        function preparaAttivazioneDaLead(nome, email, ambito) {
+            document.getElementById('sezione-attivazione-container').classList.remove('hidden');
+            document.getElementById('att-nome').value = nome || '';
+            document.getElementById('att-email').value = email || '';
+            document.getElementById('sezione-attivazione-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function inviaAttivazioneCorsista() {
+            const btn = document.getElementById('btn-conferma-attivazione');
+            const feedback = document.getElementById('feedback-attivazione');
             const dati = {
-                nome: document.getElementById('assedio-nome').value.trim(),
-                email: document.getElementById('assedio-email').value.trim(),
-                pacchetto: document.getElementById('assedio-pacchetto').value
+                nome: document.getElementById('att-nome').value.trim(),
+                email: document.getElementById('att-email').value.trim(),
+                pacchetto: document.getElementById('att-pacchetto').value
             };
 
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>PROVISIONING...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>ATTIVAZIONE...`;
 
             fetch(APPS_SCRIPT_URL_CRM, {
                 method: 'POST',
@@ -301,17 +542,17 @@
             .then(res => res.json())
             .then(res => {
                 btn.disabled = false;
-                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
+                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Abilita Accesso`;
                 feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
-                feedback.innerHTML = res.message || "Assedio configurato con successo.";
-                document.getElementById('form-assedio').reset();
+                feedback.innerHTML = res.message || "Corsista abilitato con successo.";
+                document.getElementById('form-attivazione').reset();
                 caricaLeadsCRM();
             })
             .catch(err => {
                 btn.disabled = false;
-                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
+                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Abilita Accesso`;
                 feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-[#4A0E4E]/50 border-[#FFBF00] text-[#FFBF00] block";
-                feedback.innerHTML = `⚠️ Errore durante l'invio: ${err.message}`;
+                feedback.innerHTML = `⚠️ Errore di connessione: ${err.message}`;
             });
         }
 
@@ -323,7 +564,7 @@
             tbody.innerHTML = `
                 <tr>
                     <td colspan="8" class="p-8 text-center text-gray-400 font-bold">
-                        <i class="fa-solid fa-arrows-rotate fa-spin text-sfx-cyan mr-2"></i>Sincronizzazione in corso...
+                        <i class="fa-solid fa-arrows-rotate fa-spin text-sfx-cyan mr-2"></i>Aggiornamento elenco...
                     </td>
                 </tr>`;
 
@@ -335,12 +576,12 @@
                 renderizzaTabellaCRM(leadsGlobali);
                 aggiornaStatisticheCRM(leadsGlobali);
 
-                if (syncTime) syncTime.textContent = `SYNC: ${new Date().toLocaleTimeString('it-IT')}`;
+                if (syncTime) syncTime.textContent = `AGGIORNAMENTO: ${new Date().toLocaleTimeString('it-IT')}`;
             } catch (err) {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="8" class="p-8 text-center text-[#FFBF00] font-bold">
-                            ⚠️ Connessione al Server Master non riuscita.
+                            ⚠️ Impossibile comunicare con il server.
                         </td>
                     </tr>`;
             }
@@ -392,7 +633,7 @@
                     </td>
                     <td class="p-3">
                         <span class="px-2.5 py-1 rounded-full text-[9px] font-bold bg-sfx-gold/15 text-sfx-gold border border-sfx-gold/30">
-                            ${item.ambito || 'Generica'}
+                            ${item.ambito || 'Generico'}
                         </span>
                     </td>
                     <td class="p-3 text-[10px] text-gray-300 whitespace-nowrap">
@@ -405,10 +646,10 @@
                     <td class="p-3 text-center">
                         <div class="inline-flex items-center justify-center space-x-1.5">
                             ${waBtn}
-                            <button onclick="preparaAssedioDaLead('${item.nome || ''}', '${item.email || ''}', '${item.ambito || ''}')" 
+                            <button onclick="preparaAttivazioneDaLead('${item.nome || ''}', '${item.email || ''}', '${item.ambito || ''}')" 
                                     class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-sfx-cyan/20 hover:bg-sfx-cyan hover:text-black border border-sfx-cyan text-sfx-cyanLight text-[10px] font-extrabold rounded-xl transition-all shadow-md">
                                 <i class="fa-solid fa-bolt text-xs"></i>
-                                <span>Assedio</span>
+                                <span>Abilita</span>
                             </button>
                         </div>
                     </td>
@@ -461,7 +702,7 @@
 
         function esportaLeadsCSV() {
             if (!leadsGlobali || leadsGlobali.length === 0) {
-                alert("Nessun dato disponibile da esportare.");
+                alert("Nessun dato da esportare.");
                 return;
             }
 
@@ -486,13 +727,14 @@
             const link = document.createElement("a");
             const url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
-            link.setAttribute("download", `Leads_Nexus_SFX_${new Date().toISOString().split('T')[0]}.csv`);
+            link.setAttribute("download", `Candidati_SFX_${new Date().toISOString().split('T')[0]}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            caricaStatoMatrix();
             caricaLeadsCRM();
         });
     </script>
