@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // DELTA QUEUE OFFLINE ENGINE V35 (INTEGRALE)
+ * SUPREMA FUTURE X // DELTA QUEUE OFFLINE ENGINE V36 (INTEGRALE)
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // OFFLINE STORAGE & AUTO-SYNC
  * ====================================================================
@@ -9,9 +9,9 @@
 (function (window) {
     'use strict';
 
-    const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v35';
-    // ENDPOINT REALE GOOGLE APPS SCRIPT CONFIGURATO:
-    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxnaL-1tkUz5DtwvBjDHN77TABy-WDCEdAY1ijTJHJXiackawN55ryX2kNc8So8t3MvSw/exec';
+    const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v36';
+    // ENDPOINT REALE GOOGLE APPS SCRIPT V6:
+    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxlektYvRWsGboHU7Vzu_PvnFauT7TTmK-mFlVBD3QMgiM3S5TcpEeZsPqA7Cq4lIbQ/exec';
 
     const SFXDeltaQueue = {
         /**
@@ -117,7 +117,7 @@
             if (!badge) return;
 
             if (!navigator.onLine) {
-                badge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-950 text-yellow-400 border border-yellow-700 animate-pulse";
+                badge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#FFBF00]/20 text-[#FFBF00] border border-[#FFBF00]/40 animate-pulse";
                 badge.innerHTML = `<i class="fa-solid fa-wifi-slash mr-1"></i>OFFLINE (${coda.length} in coda)`;
             } else if (coda.length > 0) {
                 badge.className = "px-2.5 py-1 rounded-full text-[10px] font-bold bg-sfx-cyan/20 text-sfx-cyanLight border border-sfx-cyan/40 animate-pulse";
