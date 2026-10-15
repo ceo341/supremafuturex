@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X // DELTA QUEUE OFFLINE ENGINE V36
+ * SUPREMA FUTURE X // DELTA QUEUE OFFLINE ENGINE V37
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // OFFLINE STORAGE & AUTO-SYNC
  * ====================================================================
@@ -9,14 +9,11 @@
 (function (window) {
     'use strict';
 
-    const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v36';
-    // ENDPOINT REALE GOOGLE APPS SCRIPT V6 EAL6+:
-    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxlektYvRWsGboHU7Vzu_PvnFauT7TTmK-mFlVBD3QMgiM3S5TcpEeZsPqA7Cq4lIbQ/exec';
+    const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v37';
+    // ENDPOINT REALE GOOGLE APPS SCRIPT V7 EAL6+:
+    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwkwuABaCQZq0McIpGBnUXgivM-4xQGo3HKI_Tloza-1jYnwdQRcW1kreRpwF8KIfdw/exec';
 
     const SFXDeltaQueue = {
-        /**
-         * Recupera la coda dei messaggi memorizzata in locale
-         */
         getCoda() {
             try {
                 const data = localStorage.getItem(QUEUE_STORAGE_KEY);
@@ -27,9 +24,6 @@
             }
         },
 
-        /**
-         * Salva la coda aggiornata nel localStorage
-         */
         salvaCoda(coda) {
             try {
                 localStorage.setItem(QUEUE_STORAGE_KEY, JSON.stringify(coda));
@@ -38,9 +32,6 @@
             }
         },
 
-        /**
-         * Accoda un elemento per la trasmissione differita
-         */
         accoda(payload) {
             const coda = this.getCoda();
             const elemento = {
@@ -52,8 +43,6 @@
 
             coda.push(elemento);
             this.salvaCoda(coda);
-            console.log(`[DELTA QUEUE] Elemento accodato [${elemento.id}]. Totale in coda: ${coda.length}`);
-            
             this.aggiornaBadgeStato();
             
             if (navigator.onLine) {
@@ -61,19 +50,12 @@
             }
         },
 
-        /**
-         * Esegue la sincronizzazione differita degli elementi accodati
-         */
         async sincronizza() {
-            if (!navigator.onLine) {
-                console.warn("[DELTA QUEUE] Impossibile sincronizzare: dispositivo Offline.");
-                return;
-            }
+            if (!navigator.onLine) return;
 
             const coda = this.getCoda();
             if (coda.length === 0) return;
 
-            console.log(`[DELTA QUEUE] Avvio sincronizzazione di ${coda.length} elementi...`);
             const codaRimanente = [];
 
             for (const item of coda) {
@@ -88,17 +70,13 @@
                     const resData = await response.json();
 
                     if (resData && (resData.status === 'success' || resData.status === 'ok')) {
-                        console.log(`[DELTA QUEUE] Elemento [${item.id}] trasmesso con successo!`);
+                        console.log(`[DELTA QUEUE] Elemento [${item.id}] trasmesso.`);
                     } else {
-                        console.warn(`[DELTA QUEUE] Risposta non conforme per [${item.id}], riaccodamento.`);
                         codaRimanente.push(item);
                     }
                 } catch (err) {
-                    console.warn(`[DELTA QUEUE] Errore trasmissione [${item.id}]:`, err);
                     if (item.tentativi < 10) {
                         codaRimanente.push(item);
-                    } else {
-                        console.error(`[DELTA QUEUE] Elemento [${item.id}] scartato dopo 10 tentativi falliti.`);
                     }
                 }
             }
@@ -107,9 +85,6 @@
             this.aggiornaBadgeStato();
         },
 
-        /**
-         * Aggiorna l'indicatore di stato della rete e della coda nell'interfaccia UI
-         */
         aggiornaBadgeStato() {
             const badge = document.getElementById('delta-queue-status-badge');
             const coda = this.getCoda();
@@ -129,29 +104,23 @@
         }
     };
 
-    // Esportazione oggetto globale
     window.SFXDeltaQueue = SFXDeltaQueue;
 
-    // Event Listener Connettività Rete
     window.addEventListener('online', () => {
-        console.log("[DELTA QUEUE] Connessione ripristinata. Avvio auto-sync...");
         SFXDeltaQueue.aggiornaBadgeStato();
         SFXDeltaQueue.sincronizza();
     });
 
     window.addEventListener('offline', () => {
-        console.warn("[DELTA QUEUE] Connessione interrotta. Modalità Coda Offline attiva.");
         SFXDeltaQueue.aggiornaBadgeStato();
     });
 
-    // Inizializzazione al caricamento del DOM
     document.addEventListener('DOMContentLoaded', () => {
         SFXDeltaQueue.aggiornaBadgeStato();
         if (navigator.onLine) {
             SFXDeltaQueue.sincronizza();
         }
 
-        // Controllo periodico coda ogni 20 secondi
         setInterval(() => {
             if (navigator.onLine && SFXDeltaQueue.getCoda().length > 0) {
                 SFXDeltaQueue.sincronizza();
