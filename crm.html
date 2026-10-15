@@ -20,14 +20,6 @@
     <link rel="stylesheet" href="stile-globale.css?v=37">
 
     <script>
-        // CONTROLLO SICUREZZA CLEARANCE EAL6+ X-BOX SUPREMA
-        (function checkEAL6Auth() {
-            const isAuth = sessionStorage.getItem('sfx_authenticated');
-            if (isAuth !== 'true' && !window.location.search.includes('bypass=dev')) {
-                console.warn("Avviso Clearance EAL6+: sessione priva di autenticazione Master.");
-            }
-        })();
-
         tailwind.config = {
             theme: {
                 extend: {
@@ -104,7 +96,7 @@
                         CRM CANDIDATURE &amp; ASSEDIO
                     </h1>
                     <p class="text-xs text-gray-400 mt-1 max-w-2xl font-mono">
-                        Registro in tempo reale delle candidature acquisite dal nodo EAL6+ e generatore istantaneo dell'ambiente Workspace per gli studenti.
+                        Registro operativo collegato al Foglio Master per l'acquisizione dei lead e delle sessioni riservate.
                     </p>
                 </div>
                 <div class="text-right font-mono text-xs space-y-1">
@@ -139,7 +131,7 @@
             </div>
         </div>
 
-        <!-- SEZIONE ASSEDIO PROVISIONING (MODULO INTEGRATO A COMPARSA) -->
+        <!-- SEZIONE ASSEDIO PROVISIONING -->
         <div id="sezione-assedio-container" class="bg-[#1F2227] p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div class="flex items-center space-x-3">
@@ -185,10 +177,9 @@
             <div id="feedback-assedio" class="hidden p-4 rounded-2xl text-xs font-mono border"></div>
         </div>
 
-        <!-- BARRA STRUMENTI, RICERCA & FILTRI IN TEMPO REALE -->
+        <!-- BARRA STRUMENTI & RICERCA -->
         <div class="bg-sfx-panel p-6 rounded-3xl border border-gray-800 space-y-4 shadow-xl">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                
                 <div class="w-full md:w-1/2 relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-sfx-gold text-xs"></i>
                     <input type="text" id="crm-search-input" oninput="filtraTabellaCRM()" placeholder="Cerca candidato per Nome, Email, Telefono o Codice Nexus..." class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-gold text-xs transition-colors font-mono">
@@ -197,12 +188,10 @@
                 <div class="w-full md:w-1/2 flex flex-wrap items-center justify-end gap-3 text-xs font-mono">
                     <select id="crm-filter-ambito" onchange="filtraTabellaCRM()" class="p-3.5 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight font-bold outline-none focus:border-sfx-gold text-xs flex-1 sm:flex-none cursor-pointer">
                         <option value="TUTTI">Tutti gli Ambiti</option>
-                        <option value="Conferenza CEO">Conferenza CEO Giuliano</option>
+                        <option value="Conferenza CEO">Conferenza CEO</option>
                         <option value="Silver">Academy Silver</option>
                         <option value="Executive">Academy Executive</option>
                         <option value="Premium">Academy Premium VIP</option>
-                        <option value="Luxury">Boutique Luxury</option>
-                        <option value="Antigravity">Linea Antigravity</option>
                     </select>
 
                     <button onclick="caricaLeadsCRM()" class="px-4 py-3.5 bg-[#090A0D] hover:bg-black text-sfx-cyanLight font-bold rounded-2xl border border-gray-700 transition-colors flex items-center space-x-1.5 shadow-sm">
@@ -215,21 +204,19 @@
                         <span>Export CSV</span>
                     </button>
                 </div>
-
             </div>
         </div>
 
-        <!-- SEZIONE TABELLARE LEADS & ACCREDITI NEXUS -->
+        <!-- SEZIONE TABELLARE LEADS -->
         <div class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border border-sfx-gold/30 shadow-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <h3 class="font-grotesk font-bold text-sm text-sfx-goldLight uppercase flex items-center space-x-2">
                     <i class="fa-solid fa-address-book text-sfx-cyan"></i>
-                    <span>REGISTRO CANDIDATI ACCREDITATI (EAL6+)</span>
+                    <span>REGISTRO CANDIDATI ACCREDITATI</span>
                 </h3>
                 <span class="text-[11px] text-gray-400 font-mono" id="crm-showing-count">Visualizzati: 0 / 0</span>
             </div>
 
-            <!-- CONTENITORE TABELLA RESPONSIVE -->
             <div class="overflow-x-auto">
                 <table class="w-full text-left font-mono text-[11px]">
                     <thead>
@@ -247,7 +234,7 @@
                     <tbody id="tbody-crm-leads" class="divide-y divide-gray-800/60 text-gray-300">
                         <tr>
                             <td colspan="8" class="p-8 text-center text-gray-500 italic">
-                                <i class="fa-solid fa-spinner fa-spin text-sfx-gold text-lg mr-2"></i>Sincronizzazione registro leads con il Server EAL6+ in corso...
+                                <i class="fa-solid fa-spinner fa-spin text-sfx-gold text-lg mr-2"></i>Connessione al Server Master in corso...
                             </td>
                         </tr>
                     </tbody>
@@ -256,7 +243,7 @@
         </div>
     </main>
 
-    <!-- FOOTER DIREZIONALE UFFICIALE -->
+    <!-- FOOTER -->
     <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <span>SUPREMA FUTURE X // CRM NEXUS GOVERNANCE</span>
@@ -265,13 +252,11 @@
         </div>
     </footer>
 
-    <!-- INCLUSIONE SCRIPT SISTEMA -->
-    <script src="js/code.js"></script>
+    <!-- LOGICA DI SINCRONIZZAZIONE CRM -->
     <script>
         let leadsGlobali = [];
-
-        // ENDPOINT GOOGLE APPS SCRIPT MASTER V7 EAL6+
-        const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbwkwuABaCQZq0McIpGBnUXgivM-4xQGo3HKI_Tloza-1jYnwdQRcW1kreRpwF8KIfdw/exec";
+        // Endpoint Web App Apps Script collegato al Master
+        const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbzWdc42zmKTZ7JTxARuiGOgEi6yBiFnoSITfv0vsiy07J-LeSpLLvvj_tRinRQZB7GX/exec";
 
         function eseguiLogoutCRM() {
             sessionStorage.removeItem('sfx_authenticated');
@@ -293,22 +278,7 @@
         function preparaAssedioDaLead(nome, email, ambito) {
             document.getElementById('sezione-assedio-container').classList.remove('hidden');
             document.getElementById('assedio-nome').value = nome || '';
-            
-            if (email && email.includes('sfx.')) {
-                document.getElementById('assedio-email').value = email;
-            } else {
-                const cleanName = (nome || 'utente').toLowerCase().replace(/[^a-z0-9]/g, '');
-                document.getElementById('assedio-email').value = `sfx.${cleanName}@gmail.com`;
-            }
-            
-            const select = document.getElementById('assedio-pacchetto');
-            for (let i = 0; i < select.options.length; i++) {
-                if (select.options[i].value.toLowerCase().includes((ambito || '').toLowerCase())) {
-                    select.selectedIndex = i;
-                    break;
-                }
-            }
-            
+            document.getElementById('assedio-email').value = email || '';
             document.getElementById('sezione-assedio-container').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -322,9 +292,7 @@
             };
 
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>PROVISIONING IN CORSO...`;
-            feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-cyan-950/40 border-sfx-cyan text-sfx-cyanLight block";
-            feedback.innerHTML = `🚀 Iniezione Sandbox Google per <strong>${dati.nome}</strong> in corso: creazione cartella e assegnazione permessi...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>PROVISIONING...`;
 
             fetch(APPS_SCRIPT_URL_CRM, {
                 method: 'POST',
@@ -336,7 +304,7 @@
                 btn.disabled = false;
                 btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
                 feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
-                feedback.innerHTML = res.message || "Ambiente generato con successo.";
+                feedback.innerHTML = res.message || "Assedio configurato con successo.";
                 document.getElementById('form-assedio').reset();
                 caricaLeadsCRM();
             })
@@ -344,7 +312,7 @@
                 btn.disabled = false;
                 btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Lancia Assedio`;
                 feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-[#4A0E4E]/50 border-[#FFBF00] text-[#FFBF00] block";
-                feedback.innerHTML = `⚠️ Errore durante il Provisioning: ${err.message}`;
+                feedback.innerHTML = `⚠️ Errore durante l'invio: ${err.message}`;
             });
         }
 
@@ -356,29 +324,24 @@
             tbody.innerHTML = `
                 <tr>
                     <td colspan="8" class="p-8 text-center text-gray-400 font-bold">
-                        <i class="fa-solid fa-arrows-rotate fa-spin text-sfx-cyan mr-2"></i>Sincronizzazione registro leads con il Server EAL6+ V7...
+                        <i class="fa-solid fa-arrows-rotate fa-spin text-sfx-cyan mr-2"></i>Sincronizzazione in corso...
                     </td>
                 </tr>`;
 
             try {
                 const res = await fetch(APPS_SCRIPT_URL_CRM + '?action=GET_LEADS');
                 const data = await res.json();
-                if (data && data.leads) {
-                    leadsGlobali = data.leads.slice().reverse();
-                }
+                leadsGlobali = (data && data.leads) ? data.leads.slice().reverse() : [];
 
                 renderizzaTabellaCRM(leadsGlobali);
                 aggiornaStatisticheCRM(leadsGlobali);
 
-                if (syncTime) {
-                    syncTime.textContent = `SYNC: ${new Date().toLocaleTimeString('it-IT')}`;
-                }
+                if (syncTime) syncTime.textContent = `SYNC: ${new Date().toLocaleTimeString('it-IT')}`;
             } catch (err) {
-                console.warn("[CRM LEADS ERROR]", err);
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="8" class="p-8 text-center text-[#FFBF00] font-bold">
-                            ⚠️ Connessione Server Master non attiva o endpoint non raggiungibile.
+                            ⚠️ Connessione al Server Master non riuscita.
                         </td>
                     </tr>`;
             }
@@ -389,9 +352,7 @@
             const showingCount = document.getElementById('crm-showing-count');
             if (!tbody) return;
 
-            if (showingCount) {
-                showingCount.textContent = `Visualizzati: ${lista.length} / ${leadsGlobali.length}`;
-            }
+            if (showingCount) showingCount.textContent = `Visualizzati: ${lista.length} / ${leadsGlobali.length}`;
 
             if (lista.length === 0) {
                 tbody.innerHTML = `
@@ -407,14 +368,11 @@
             lista.forEach(item => {
                 const telPulito = (item.telefono || '').replace(/[^0-9]/g, '');
                 const dataFormattata = item.timestamp ? new Date(item.timestamp).toLocaleString('it-IT') : 'N/D';
-                const nomeSicuro = item.nome || 'Candidato';
-                const idSicuro = item.nexusCode || '';
-
                 const row = document.createElement('tr');
                 row.className = "hover:bg-gray-900/50 transition-colors border-b border-gray-800/40";
 
                 const waBtn = telPulito ? `
-                    <a href="https://wa.me/${telPulito}?text=Gentile%20${encodeURIComponent(nomeSicuro)},%20la%20Presidenza%20del%20CEO%20Giuliano%20Caratelli%20ha%20esaminato%20la%20sua%20richiesta%20${encodeURIComponent(idSicuro)}." 
+                    <a href="https://wa.me/${telPulito}?text=Gentile%20${encodeURIComponent(item.nome || '')},%20la%20Presidenza%20del%20CEO%20Giuliano%20Caratelli%20ha%20esaminato%20la%20sua%20richiesta." 
                        target="_blank" 
                        class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-green-600 hover:bg-green-500 text-white text-[10px] font-extrabold rounded-xl transition-all shadow-md">
                         <i class="fa-brands fa-whatsapp text-xs"></i>
@@ -424,7 +382,7 @@
 
                 row.innerHTML = `
                     <td class="p-3 text-gray-400 whitespace-nowrap">${dataFormattata}</td>
-                    <td class="p-3 font-bold text-sfx-cyanLight whitespace-nowrap font-mono">${item.nexusCode || 'CEOSFX0001'}</td>
+                    <td class="p-3 font-bold text-sfx-cyanLight whitespace-nowrap font-mono">${item.nexusCode || 'NX-N/D'}</td>
                     <td class="p-3">
                         <strong class="text-white block text-xs font-bold">${item.nome || 'N/D'}</strong>
                         <span class="text-[10px] text-gray-400">${item.azienda || 'Privato'}</span>
