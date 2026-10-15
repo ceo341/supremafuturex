@@ -1,15 +1,16 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X // FRONTEND ENGINE EAL6+ V36
+ * SUPREMA FUTURE X // FRONTEND ENGINE EAL6+ V37
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * FUNZIONI: Triplo Click, Biometria, Orologio Canvas, SHA-256, Timer 20s
+ * ENDPOINT: V7 ENGINE CONSOLIDATO
  * ====================================================================
  */
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlektYvRWsGboHU7Vzu_PvnFauT7TTmK-mFlVBD3QMgiM3S5TcpEeZsPqA7Cq4lIbQ/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkwuABaCQZq0McIpGBnUXgivM-4xQGo3HKI_Tloza-1jYnwdQRcW1kreRpwF8KIfdw/exec";
 
 // ============================================================================
-// 1. VARIABILI DI STATO E AUDIO NEURALE
+// 1. VARIABILI DI STATO E AUDIO NEURALE (WEB AUDIO API)
 // ============================================================================
 let menuTimer;
 let clickCount = 0;
@@ -239,21 +240,21 @@ function initAnalogClock() {
 // ============================================================================
 // 6. LOGICA DI SBLOCCO SOVRANO (LOCAL-FIRST & ANTI-LOCKOUT)
 // ============================================================================
-function verificaAccessoTerminale(event) {
+function validaAccessoTerminale(event) {
     if(event) event.preventDefault();
     const pwdInput = document.getElementById('terminal-pwd');
     const pinInput = document.getElementById('terminal-pin');
     const btn = document.getElementById('btn-terminal-unlock');
     const boxAllarme = document.getElementById('terminal-alarm') || document.getElementById('terminal-alarm-box');
+    const errText = document.getElementById('terminal-error-text');
 
     const rawPwd = pwdInput ? pwdInput.value : '';
     const rawPin = pinInput ? pinInput.value : '';
 
-    // Normalizzazione elastica per eliminare incongruenze da tastiera smartphone/iPhone
+    // Normalizzazione preventiva contro autocorrezioni mobili
     const cleanPwd = rawPwd.trim().replace(/\s+/g, '');
     const cleanPin = rawPin.trim();
 
-    // Password valide ammesse (con spazi, senza spazi, con o senza @ finale)
     const isPwdValid = (
         cleanPwd === "MARIACHIARAsupremaofficial2026@" ||
         cleanPwd === "MARIACHIARAsupremaofficial2026" ||
@@ -264,16 +265,20 @@ function verificaAccessoTerminale(event) {
     const isPinValid = (cleanPin === "3474429091");
 
     if (isPwdValid && isPinValid) {
-        // ACCESSO RICONOSCIUTO AL 100%
         tentativiFalliti = 0;
         if (boxAllarme) boxAllarme.classList.add('hidden');
+        if (errText) errText.classList.add('hidden');
         sessionStorage.setItem('sfx_authenticated', 'true');
         sessionStorage.setItem('sfx_role', 'CEO_CLEARANCE');
         eseguiAccessoConsentito(false);
     } else {
-        // Credenziali non conformi
-        gestisciErroreAccesso(boxAllarme);
+        gestisciErroreAccesso(boxAllarme, errText);
     }
+}
+
+// Alias per compatibilità con i vari template HTML
+function verificaAccessoTerminale(event) {
+    return validaAccessoTerminale(event);
 }
 
 function eseguiAccessoConsentito(isBiometric) {
@@ -281,9 +286,9 @@ function eseguiAccessoConsentito(isBiometric) {
     if(!isBiometric && !localStorage.getItem('SFX_BIOMETRIC_AUTH')) richiediSalvataggioBiometrico();
 
     const ora = new Date().getHours();
-    let saluto = "Buonasera CEO";
-    if (ora < 12) saluto = "Buongiorno CEO";
-    else if (ora < 19) saluto = "Buon Pomeriggio CEO";
+    let saluto = "BUONASERA CEO";
+    if (ora < 12) saluto = "BUONGIORNO CEO";
+    else if (ora < 19) saluto = "BUON POMERIGGIO CEO";
 
     const formBox = document.getElementById('terminal-form-box');
     const successBox = document.getElementById('terminal-success-box') || document.getElementById('terminal-greeting-box');
@@ -306,35 +311,47 @@ function eseguiAccessoConsentito(isBiometric) {
     }, 1800);
 }
 
-function gestisciErroreAccesso(boxAllarme) {
+function gestisciErroreAccesso(boxAllarme, errText) {
     tentativiFalliti++;
     playAudioFeedback('error-beep');
     const btn = document.getElementById('btn-terminal-unlock');
     
-    if(boxAllarme) {
-        boxAllarme.classList.remove('hidden');
-        boxAllarme.innerHTML = `
-            <div class="text-center p-6">
-                <i class="fa-solid fa-triangle-exclamation text-4xl text-[#FFBF00] mb-3 animate-pulse"></i>
-                <div class="font-grotesk font-black text-xl text-white">ACCESSO NEGATO</div>
-                <div class="font-mono text-sm text-[#FFBF00] mt-1">Tentativo ${tentativiFalliti}/3</div>
-                <p class="text-[11px] text-gray-300 mt-2">Verifica Master Password e PIN</p>
-            </div>
-        `;
+    if (errText) {
+        errText.innerText = `Credenziali errate. Tentativo fallito: ${tentativiFalliti}/3`;
+        errText.classList.remove('hidden');
+    }
+
+    if (tentativiFalliti >= 3) {
+        if (boxAllarme) {
+            boxAllarme.classList.remove('hidden');
+            boxAllarme.innerHTML = `
+                <div class="text-center p-6">
+                    <i class="fa-solid fa-triangle-exclamation text-4xl text-[#FFBF00] mb-3 animate-pulse"></i>
+                    <div class="font-grotesk font-black text-xl text-white">ACCESSO NEGATO</div>
+                    <div class="font-mono text-sm text-[#FFBF00] mt-1">Dispositivo bloccato. Notifica inviata.</div>
+                </div>
+            `;
+        }
+        eseguiLockdown("Superamento limite tentativi terminale");
+    } else {
+        if (boxAllarme) {
+            boxAllarme.classList.remove('hidden');
+            boxAllarme.innerHTML = `
+                <div class="text-center p-6">
+                    <i class="fa-solid fa-triangle-exclamation text-4xl text-[#FFBF00] mb-3 animate-pulse"></i>
+                    <div class="font-grotesk font-black text-xl text-white">ACCESSO NEGATO</div>
+                    <div class="font-mono text-sm text-[#FFBF00] mt-1">Tentativo ${tentativiFalliti}/3</div>
+                </div>
+            `;
+            setTimeout(() => {
+                boxAllarme.classList.add('hidden');
+            }, 2000);
+        }
     }
     
     if (btn) {
         btn.disabled = false;
-        btn.innerHTML = 'VERIFICA E SBLOCCA <i class="fa-solid fa-unlock-keyhole ml-2"></i>';
-    }
-
-    if (tentativiFalliti >= 3) {
-        eseguiLockdown("Superamento limite tentativi terminale");
-    } else {
-        // Auto-ripristino visivo dopo 2 secondi per permettere la correzione immediata senza refresh
-        setTimeout(() => {
-            if(boxAllarme) boxAllarme.classList.add('hidden');
-        }, 2000);
+        btn.innerHTML = 'VERIFICA E SBLOCCA <i class="fa-solid fa-unlock-keyhole ml-1"></i>';
     }
 }
 
@@ -350,16 +367,20 @@ function eseguiLockdown(motivo) {
     document.body.insertAdjacentHTML('beforeend', lockdownHtml);
 
     fetch(APPS_SCRIPT_URL, {
-        method: 'POST', headers: { 'Content-Type': 'text/plain' },
+        method: 'POST', 
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'REPORT_ABUSE', ip: 'Rilevamento in corso', device: navigator.userAgent, detail: motivo })
     }).catch(() => {});
 
     setTimeout(() => { window.location.reload(); }, 3000);
 }
 
-async function verificaEmergenza(event) {
+// ============================================================================
+// 7. SBLOCCO EMERGENZA SOVRANA (7 POLLICI)
+// ============================================================================
+async function eseguiSbloccoEmergenzaSovrana(event) {
     if(event) event.preventDefault();
-    const inputResp = document.getElementById('rescue-answer') || document.getElementById('emergenza-risposta');
+    const inputResp = document.getElementById('emergenza-risposta') || document.getElementById('rescue-answer');
     const risposta = inputResp ? inputResp.value.trim().toLowerCase() : '';
 
     if (risposta === "itmc2202v") {
@@ -368,6 +389,12 @@ async function verificaEmergenza(event) {
         sessionStorage.setItem('sfx_authenticated', 'true');
         sessionStorage.setItem('sfx_role', 'CEO_CLEARANCE');
         
+        fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({ action: 'EMERGENCY_RECOVERY', answerHash: risposta, ip: 'Terminale Locale' })
+        }).catch(() => {});
+
         const m7 = document.getElementById('modal-emergenza-7');
         const m8 = document.getElementById('modal-caveau-8');
         if (m7) m7.classList.add('hidden');
@@ -375,8 +402,12 @@ async function verificaEmergenza(event) {
         else window.location.href = "login.html";
     } else {
         playAudioFeedback('error-beep');
-        alert("⛔ Risposta segreta non conforme.");
+        alert("⛔ Risposta segreta errata.");
     }
+}
+
+function verificaEmergenza(event) {
+    return eseguiSbloccoEmergenzaSovrana(event);
 }
 
 function controllaBiometriaSalvata() {
@@ -385,14 +416,14 @@ function controllaBiometriaSalvata() {
 }
 
 function richiediSalvataggioBiometrico() {
-    const conferma = confirm("Vuoi memorizzare l'autorizzazione di sicurezza su questo dispositivo per ingressi istantanei futuri?");
+    const conferma = confirm("Memorizzare l'autorizzazione di sicurezza su questo dispositivo per accessi istantanei futuri?");
     if(conferma) {
         localStorage.setItem('SFX_BIOMETRIC_AUTH', 'CEO_VERIFIED');
     }
 }
 
 // ============================================================================
-// 7. ALISON CHATBOT (Regola dei 5 Messaggi)
+// 8. ALISON CHATBOT (Regola dei 5 Messaggi)
 // ============================================================================
 function inviaMessaggioCentrale(testoPredefinito) {
     const input = document.getElementById('input-centrale') || document.getElementById('alison-user-input');
@@ -427,7 +458,7 @@ function inviaMessaggioCentrale(testoPredefinito) {
 }
 
 // ============================================================================
-// 8. TELEMETRIA LIVE (Top Bar Counter)
+// 9. TELEMETRIA LIVE (Top Bar Counter)
 // ============================================================================
 function initLiveCounter() {
     const counterDisplay = document.getElementById('live-visitors') || document.getElementById('live-visitors-counter');
@@ -448,7 +479,7 @@ function initLiveCounter() {
 }
 
 // ============================================================================
-// 9. TIMER INATTIVITÀ (Auto-Lock Caveau 180s)
+// 10. TIMER INATTIVITÀ (Auto-Lock Caveau 180s)
 // ============================================================================
 function setupCaveauAutoLock() {
     const isPrivato = window.location.pathname.includes('crm.html') || window.location.pathname.includes('admin.html') || window.location.pathname.includes('vault.html');
@@ -469,7 +500,7 @@ function setupCaveauAutoLock() {
 }
 
 // ============================================================================
-// 10. INIZIALIZZAZIONE AL CARICAMENTO DOM
+// 11. INIZIALIZZAZIONE AL CARICAMENTO DOM
 // ============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     setupSmartMenu();
