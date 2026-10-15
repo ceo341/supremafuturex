@@ -1,12 +1,12 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // FRONTEND ENGINE EAL6+ V36
+ * SUPREMA FUTURE X // FRONTEND ENGINE EAL6+ V36
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * FUNZIONI: Triplo Click, Biometria, Orologio Canvas, SHA-256, Timer 20s
  * ====================================================================
  */
 
-const APPS_SCRIPT_URL = "INSERISCI_QUI_IL_NUOVO_LINK_DEL_DEPLOYMENT/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlektYvRWsGboHU7Vzu_PvnFauT7TTmK-mFlVBD3QMgiM3S5TcpEeZsPqA7Cq4lIbQ/exec";
 
 // ============================================================================
 // 1. VARIABILI DI STATO E AUDIO NEURALE
@@ -21,7 +21,6 @@ let caveauTimeout;
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
 
-// Inizializza audio al primo click utente (Policy Browser)
 document.addEventListener('click', () => {
     if (!audioCtx) audioCtx = new AudioContext();
     if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -29,15 +28,38 @@ document.addEventListener('click', () => {
 
 function playAudioFeedback(type) {
     if (!audioCtx) return;
-    const osc = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-    osc.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
+    try {
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
 
-    if (type === 'auth-start') { osc.type = 'sine'; osc.frequency.setValueAtTime(880, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); osc.start(); osc.stop(audioCtx.currentTime + 0.1); }
-    else if (type === 'success-beep') { osc.type = 'square'; osc.frequency.setValueAtTime(1200, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime); osc.start(); osc.stop(audioCtx.currentTime + 0.15); }
-    else if (type === 'error-beep') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); osc.start(); osc.stop(audioCtx.currentTime + 0.3); }
-    else if (type === 'lockdown-alarm') { osc.type = 'square'; osc.frequency.setValueAtTime(100, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime); osc.start(); osc.stop(audioCtx.currentTime + 1.5); }
+        if (type === 'auth-start') { 
+            osc.type = 'sine'; 
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime); 
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); 
+            osc.start(); 
+            osc.stop(audioCtx.currentTime + 0.1); 
+        } else if (type === 'success-beep') { 
+            osc.type = 'square'; 
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime); 
+            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime); 
+            osc.start(); 
+            osc.stop(audioCtx.currentTime + 0.15); 
+        } else if (type === 'error-beep') { 
+            osc.type = 'sawtooth'; 
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime); 
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); 
+            osc.start(); 
+            osc.stop(audioCtx.currentTime + 0.3); 
+        } else if (type === 'lockdown-alarm') { 
+            osc.type = 'square'; 
+            osc.frequency.setValueAtTime(100, audioCtx.currentTime); 
+            gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime); 
+            osc.start(); 
+            osc.stop(audioCtx.currentTime + 1.5); 
+        }
+    } catch(e) {}
 }
 
 // ============================================================================
@@ -98,7 +120,7 @@ function initStealthTriggers() {
         document.getElementById('sfx-brand-logo-center')
     ];
     
-    const emergenzaTrigger = document.getElementById('sfx-main-title'); // Da aggiungere in HTML
+    const emergenzaTrigger = document.getElementById('sfx-main-title') || document.getElementById('trigger-titolo-emergenza');
 
     triggers.forEach(trigger => {
         if(trigger) {
@@ -134,9 +156,8 @@ function checkBiometricsOrOpenTerminal() {
     playAudioFeedback('auth-start');
     const isBioVerified = localStorage.getItem('SFX_BIOMETRIC_AUTH') === 'CEO_VERIFIED';
     
-    if (isBioVerified && window.PublicKeyCredential) {
-        console.log("EAL6+: Dispositivo Attendibile. Bypass password in corso...");
-        setTimeout(() => { eseguiAccessoConsentito(true); }, 800);
+    if (isBioVerified) {
+        setTimeout(() => { eseguiAccessoConsentito(true); }, 500);
     } else {
         apriTerminale9Pollici();
     }
@@ -152,8 +173,6 @@ function apriTerminale9Pollici() {
         initCanvasBackground();
         initAnalogClock();
         controllaBiometriaSalvata();
-    } else {
-        console.warn("Manca modal-terminale-9 in HTML. Attendere index.html.");
     }
 }
 
@@ -173,7 +192,7 @@ function initCanvasBackground() {
     for(let i=0; i<60; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vy: Math.random() * 2 + 0.5, size: Math.random() * 1.5 });
     
     function draw() {
-        ctx.fillStyle = 'rgba(42, 45, 52, 0.25)'; // Grigio X-BOX Matrix
+        ctx.fillStyle = 'rgba(42, 45, 52, 0.25)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#00F0FF';
         particles.forEach(p => {
@@ -218,27 +237,43 @@ function initAnalogClock() {
 }
 
 // ============================================================================
-// 6. LOGICA DI SBLOCCO, ERRORE E LOCKDOWN PRUGNA
+// 6. LOGICA DI SBLOCCO SOVRANO (LOCAL-FIRST & ANTI-LOCKOUT)
 // ============================================================================
-async function verificaAccessoTerminale(event) {
+function verificaAccessoTerminale(event) {
     if(event) event.preventDefault();
-    const passwordInput = document.getElementById('terminal-pwd').value;
-    const pinInput = document.getElementById('terminal-pin').value;
+    const pwdInput = document.getElementById('terminal-pwd');
+    const pinInput = document.getElementById('terminal-pin');
     const btn = document.getElementById('btn-terminal-unlock');
-    const boxAllarme = document.getElementById('terminal-alarm');
+    const boxAllarme = document.getElementById('terminal-alarm') || document.getElementById('terminal-alarm-box');
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> VERIFICA IN CORSO...';
+    const rawPwd = pwdInput ? pwdInput.value : '';
+    const rawPin = pinInput ? pinInput.value : '';
 
-    const payload = { action: 'VERIFICA_CREDENZIALI_E_INVIA_2FA', password: passwordInput, pin: pinInput };
+    // Normalizzazione elastica per eliminare incongruenze da tastiera smartphone/iPhone
+    const cleanPwd = rawPwd.trim().replace(/\s+/g, '');
+    const cleanPin = rawPin.trim();
 
-    fetch(APPS_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === 'success') eseguiAccessoConsentito(false);
-        else gestisciErroreAccesso(boxAllarme);
-    })
-    .catch(err => gestisciErroreAccesso(boxAllarme));
+    // Password valide ammesse (con spazi, senza spazi, con o senza @ finale)
+    const isPwdValid = (
+        cleanPwd === "MARIACHIARAsupremaofficial2026@" ||
+        cleanPwd === "MARIACHIARAsupremaofficial2026" ||
+        rawPwd.trim() === "MARIACHIARA suprema official2026@" ||
+        rawPwd.trim() === "MARIACHIARA suprema official2026"
+    );
+
+    const isPinValid = (cleanPin === "3474429091");
+
+    if (isPwdValid && isPinValid) {
+        // ACCESSO RICONOSCIUTO AL 100%
+        tentativiFalliti = 0;
+        if (boxAllarme) boxAllarme.classList.add('hidden');
+        sessionStorage.setItem('sfx_authenticated', 'true');
+        sessionStorage.setItem('sfx_role', 'CEO_CLEARANCE');
+        eseguiAccessoConsentito(false);
+    } else {
+        // Credenziali non conformi
+        gestisciErroreAccesso(boxAllarme);
+    }
 }
 
 function eseguiAccessoConsentito(isBiometric) {
@@ -251,16 +286,24 @@ function eseguiAccessoConsentito(isBiometric) {
     else if (ora < 19) saluto = "Buon Pomeriggio CEO";
 
     const formBox = document.getElementById('terminal-form-box');
-    const successBox = document.getElementById('terminal-success-box');
-    const greetingEl = document.getElementById('terminal-greeting');
+    const successBox = document.getElementById('terminal-success-box') || document.getElementById('terminal-greeting-box');
+    const greetingEl = document.getElementById('terminal-greeting') || document.getElementById('terminal-greeting-text');
 
     if(formBox) formBox.classList.add('hidden');
     if(successBox) successBox.classList.remove('hidden');
     if(greetingEl) greetingEl.innerText = saluto;
 
     setTimeout(() => {
-        window.location.href = "login.html"; // Rotta verso Bivio 8"
-    }, 2500);
+        const modal9 = document.getElementById('modal-terminale-9');
+        const modalCaveau8 = document.getElementById('modal-caveau-8');
+        
+        if (modal9) modal9.classList.add('hidden');
+        if (modalCaveau8) {
+            modalCaveau8.classList.remove('hidden');
+        } else {
+            window.location.href = "login.html";
+        }
+    }, 1800);
 }
 
 function gestisciErroreAccesso(boxAllarme) {
@@ -270,13 +313,29 @@ function gestisciErroreAccesso(boxAllarme) {
     
     if(boxAllarme) {
         boxAllarme.classList.remove('hidden');
-        boxAllarme.innerText = `Accesso negato. Tentativo ${tentativiFalliti}/3.`;
+        boxAllarme.innerHTML = `
+            <div class="text-center p-6">
+                <i class="fa-solid fa-triangle-exclamation text-4xl text-[#FFBF00] mb-3 animate-pulse"></i>
+                <div class="font-grotesk font-black text-xl text-white">ACCESSO NEGATO</div>
+                <div class="font-mono text-sm text-[#FFBF00] mt-1">Tentativo ${tentativiFalliti}/3</div>
+                <p class="text-[11px] text-gray-300 mt-2">Verifica Master Password e PIN</p>
+            </div>
+        `;
     }
     
-    btn.disabled = false;
-    btn.innerHTML = 'VERIFICA E SBLOCCA <i class="fa-solid fa-unlock-keyhole"></i>';
+    if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = 'VERIFICA E SBLOCCA <i class="fa-solid fa-unlock-keyhole ml-2"></i>';
+    }
 
-    if (tentativiFalliti >= 3) eseguiLockdown("Violazione Password/PIN 9 Pollici");
+    if (tentativiFalliti >= 3) {
+        eseguiLockdown("Superamento limite tentativi terminale");
+    } else {
+        // Auto-ripristino visivo dopo 2 secondi per permettere la correzione immediata senza refresh
+        setTimeout(() => {
+            if(boxAllarme) boxAllarme.classList.add('hidden');
+        }, 2000);
+    }
 }
 
 function eseguiLockdown(motivo) {
@@ -284,34 +343,40 @@ function eseguiLockdown(motivo) {
     const lockdownHtml = `
         <div class="screen-not-found">
             <div class="text-center">
-                <i class="fa-solid fa-triangle-exclamation text-9xl mb-4 text-[#D4AF37]"></i>
-                <div style="font-family: Orbitron;">NOT FOUND</div>
+                <i class="fa-solid fa-triangle-exclamation text-8xl mb-4 text-[#D4AF37]"></i>
+                <div style="font-family: Orbitron; font-size: 8vw;">NOT FOUND</div>
             </div>
         </div>`;
     document.body.insertAdjacentHTML('beforeend', lockdownHtml);
 
     fetch(APPS_SCRIPT_URL, {
         method: 'POST', headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ action: 'SECURITY_BREACH_ALERT', ip: 'Rilevamento in corso', device: navigator.userAgent, status: 'PRUGNA_BLOCCATO', detail: motivo })
-    });
+        body: JSON.stringify({ action: 'REPORT_ABUSE', ip: 'Rilevamento in corso', device: navigator.userAgent, detail: motivo })
+    }).catch(() => {});
 
-    setTimeout(() => { window.location.href = "index.html"; }, 3000);
+    setTimeout(() => { window.location.reload(); }, 3000);
 }
 
 async function verificaEmergenza(event) {
-    event.preventDefault();
-    const risposta = document.getElementById('rescue-answer').value.trim();
-    const hashRiposta = await hashSHA256(risposta);
+    if(event) event.preventDefault();
+    const inputResp = document.getElementById('rescue-answer') || document.getElementById('emergenza-risposta');
+    const risposta = inputResp ? inputResp.value.trim().toLowerCase() : '';
 
-    fetch(APPS_SCRIPT_URL, {
-        method: 'POST', headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ action: 'SBLOCCO_EMERGENZA_SOVRANO', chiave: hashRiposta, ip: 'IP_Locale' })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.status === 'success') { alert("✓ " + data.message); window.location.reload(); } 
-        else { alert("⛔ Errore Sovrano. Blocco persistente."); window.location.reload(); }
-    });
+    if (risposta === "itmc2202v") {
+        playAudioFeedback('success-beep');
+        alert("✓ ENTERPRISE È TORNATA IN STATO DI ALLERTA COMPLETATO.");
+        sessionStorage.setItem('sfx_authenticated', 'true');
+        sessionStorage.setItem('sfx_role', 'CEO_CLEARANCE');
+        
+        const m7 = document.getElementById('modal-emergenza-7');
+        const m8 = document.getElementById('modal-caveau-8');
+        if (m7) m7.classList.add('hidden');
+        if (m8) m8.classList.remove('hidden');
+        else window.location.href = "login.html";
+    } else {
+        playAudioFeedback('error-beep');
+        alert("⛔ Risposta segreta non conforme.");
+    }
 }
 
 function controllaBiometriaSalvata() {
@@ -320,23 +385,25 @@ function controllaBiometriaSalvata() {
 }
 
 function richiediSalvataggioBiometrico() {
-    const conferma = confirm("Vuoi memorizzare l'impronta biometrica (FaceID/TouchID) su questo dispositivo per ingressi istantanei futuri?");
+    const conferma = confirm("Vuoi memorizzare l'autorizzazione di sicurezza su questo dispositivo per ingressi istantanei futuri?");
     if(conferma) {
         localStorage.setItem('SFX_BIOMETRIC_AUTH', 'CEO_VERIFIED');
-        alert("✓ Dispositivo autorizzato EAL6+. Accesso rapido attivo.");
     }
 }
 
 // ============================================================================
 // 7. ALISON CHATBOT (Regola dei 5 Messaggi)
 // ============================================================================
-function inviaMessaggioCentrale() {
-    const input = document.getElementById('input-centrale');
-    const chatBox = document.getElementById('box-chat-centrale');
-    if(!input || !chatBox || input.value.trim() === "") return;
+function inviaMessaggioCentrale(testoPredefinito) {
+    const input = document.getElementById('input-centrale') || document.getElementById('alison-user-input');
+    const chatBox = document.getElementById('box-chat-centrale') || document.getElementById('alison-chat-log');
+    if(!chatBox) return;
 
-    chatBox.innerHTML += `<div class="text-right text-gray-800 mb-2 font-mono text-xs">${input.value}</div>`;
-    input.value = "";
+    const messaggio = testoPredefinito || (input ? input.value.trim() : '');
+    if(!messaggio) return;
+
+    chatBox.innerHTML += `<div class="text-right text-gray-800 mb-2 font-mono text-xs"><span class="bg-stone-200 px-3 py-1.5 rounded-xl inline-block">${messaggio}</span></div>`;
+    if(input) input.value = "";
     alisonChatCount++;
     chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -345,52 +412,54 @@ function inviaMessaggioCentrale() {
         if(alisonChatCount >= 5) {
             alisonResponse = `
             <div class="bg-[var(--pearl-card)] p-3 rounded-xl border border-sfx-cyan shadow-sm text-gray-800 space-y-2 mt-2">
-                <p class="font-mono text-xs"><strong>Alison (AG-01):</strong> Ok, tutto bene ciò che dici, ma suggerisco un contatto diretto di una conferenza con il CEO e tutto sarà chiaro.</p>
-                <p class="text-sfx-cyan-dark font-bold font-mono text-xs">Va bene, vuoi che ti reindirizzo ad un appuntamento con il CEO?</p>
+                <p class="font-mono text-xs"><strong>Alison (AG-01):</strong> Ho registrato le tue richieste. Per una profilazione di livello superiore è richiesta una conferenza diretta con la Presidenza del CEO Giuliano Caratelli.</p>
                 <div class="flex space-x-2 mt-2">
-                    <a href="#conferenza-ceo" class="px-3 py-2 bg-sfx-cyan text-white text-[10px] font-bold rounded hover:bg-cyan-700">SÌ, PREDISPONI CONFERENZA</a>
-                    <button onclick="alisonChatCount=0;" class="px-3 py-2 bg-gray-200 text-black text-[10px] font-bold rounded hover:bg-gray-300">NO, HO ALTRE DOMANDE</button>
+                    <a href="#candidatura" class="px-3 py-2 bg-sfx-cyan text-white text-[10px] font-bold rounded hover:bg-cyan-700">PRENOTA CONFERENZA CEO</a>
                 </div>
             </div>`;
         } else {
-            alisonResponse = `<div class="bg-[var(--pearl-card)] p-3 rounded-xl border border-gray-200 text-gray-800 font-mono text-xs mb-2 mt-2"><strong>Alison:</strong> Informazione registrata. Consulto i protocolli...</div>`;
+            alisonResponse = `<div class="bg-white p-3 rounded-xl border border-stone-200 text-gray-800 font-mono text-xs mb-2 mt-2"><strong>Alison:</strong> Informazione recepita ed archiviata nel registro neurale.</div>`;
         }
         
         chatBox.innerHTML += alisonResponse;
         chatBox.scrollTop = chatBox.scrollHeight;
-        playAudioFeedback('message-receive');
-    }, 1000);
+    }, 800);
 }
 
 // ============================================================================
 // 8. TELEMETRIA LIVE (Top Bar Counter)
 // ============================================================================
 function initLiveCounter() {
-    const counterDisplay = document.getElementById('live-visitors-counter');
+    const counterDisplay = document.getElementById('live-visitors') || document.getElementById('live-visitors-counter');
     if(!counterDisplay) return;
 
     setInterval(() => {
         const hour = new Date().getHours();
-        let base = (hour > 8 && hour < 23) ? 45 : 12;
-        let variance = Math.floor(Math.random() * 15) - 5;
+        let base = (hour > 8 && hour < 23) ? 38 : 14;
+        let variance = Math.floor(Math.random() * 9) - 4;
         let currentVisits = Math.max(1, base + variance);
         
-        counterDisplay.innerHTML = `<i class="fa-solid fa-satellite-dish text-sfx-cyan animate-pulse mr-1"></i> ONLINE: <strong class="text-sfx-gold">${currentVisits}</strong>`;
-    }, 30000);
+        if (counterDisplay.tagName === 'SPAN') {
+            counterDisplay.innerText = currentVisits;
+        } else {
+            counterDisplay.innerHTML = `<span class="w-1.5 h-1.5 bg-sfx-cyan rounded-full animate-pulse mr-1"></span> ONLINE: <strong class="text-sfx-gold ml-1">${currentVisits}</strong>`;
+        }
+    }, 25000);
 }
 
 // ============================================================================
 // 9. TIMER INATTIVITÀ (Auto-Lock Caveau 180s)
 // ============================================================================
 function setupCaveauAutoLock() {
-    if(!window.location.pathname.includes('crm.html') && !window.location.pathname.includes('admin.html') && !window.location.pathname.includes('vault.html')) return;
+    const isPrivato = window.location.pathname.includes('crm.html') || window.location.pathname.includes('admin.html') || window.location.pathname.includes('vault.html');
+    if(!isPrivato) return;
     
     function resetCaveauTimer() {
         clearTimeout(caveauTimeout);
         caveauTimeout = setTimeout(() => {
             alert("⚠️ SESSIONE EAL6+ SCADUTA PER INATTIVITÀ.");
             window.location.href = "index.html";
-        }, 180000); // 3 Minuti
+        }, 180000);
     }
     
     window.addEventListener('mousemove', resetCaveauTimer);
