@@ -1,13 +1,12 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X // FRONTEND ENGINE EAL6+ V37
+ * SUPREMA FUTURE X // FRONTEND ENGINE EAL6+ V42
  * GOVERNANCE: CEO GIULIANO CARATELLI
- * FUNZIONI: Triplo Click, Biometria, Orologio Canvas, SHA-256, Timer 20s
- * ENDPOINT: V7 ENGINE CONSOLIDATO
+ * PROTOCOLLO: EAL6+ SOVRANO // ANTI-LOCKOUT & RESILIENT CORE
  * ====================================================================
  */
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkwuABaCQZq0McIpGBnUXgivM-4xQGo3HKI_Tloza-1jYnwdQRcW1kreRpwF8KIfdw/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
 
 // ============================================================================
 // 1. VARIABILI DI STATO E AUDIO NEURALE (WEB AUDIO API)
@@ -112,42 +111,46 @@ function setupSmartMenu() {
 }
 
 // ============================================================================
-// 4. STEALTH TRIGGER & ACCESSO BIOMETRICO (3 TAP / 4 TAP)
+// 4. STEALTH TRIGGER (TRIPLO TAP ESCLUSIVO SU LOGO CENTRALE - 500MS)
 // ============================================================================
 function initStealthTriggers() {
-    const triggers = [
-        document.getElementById('sfx-brand-logo-status'), 
-        document.getElementById('sfx-brand-logo-main'), 
-        document.getElementById('sfx-brand-logo-center')
-    ];
-    
+    const centralLogo = document.getElementById('sfx-brand-logo-center');
     const emergenzaTrigger = document.getElementById('sfx-main-title') || document.getElementById('trigger-titolo-emergenza');
 
-    triggers.forEach(trigger => {
-        if(trigger) {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                clickCount++;
-                clearTimeout(clickTimer);
-
-                clickTimer = setTimeout(() => {
-                    if (clickCount === 3) checkBiometricsOrOpenTerminal();
-                    clickCount = 0;
-                }, 650);
-            });
-            trigger.style.touchAction = 'manipulation';
-        }
-    });
-
-    if(emergenzaTrigger) {
-        emergenzaTrigger.addEventListener('click', (e) => {
+    if (centralLogo) {
+        centralLogo.addEventListener('click', (e) => {
             e.preventDefault();
             clickCount++;
             clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => {
-                if (clickCount === 4) apriEmergenzaSovrana7Pollici();
+
+            if (clickCount >= 3) {
                 clickCount = 0;
-            }, 800);
+                checkBiometricsOrOpenTerminal();
+            } else {
+                clickTimer = setTimeout(() => {
+                    clickCount = 0;
+                }, 500); // Reset a 500ms
+            }
+        });
+        centralLogo.style.touchAction = 'manipulation';
+    }
+
+    if (emergenzaTrigger) {
+        let emergClickCount = 0;
+        let emergTimer;
+        emergenzaTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            emergClickCount++;
+            clearTimeout(emergTimer);
+
+            if (emergClickCount >= 4) {
+                emergClickCount = 0;
+                apriEmergenzaSovrana7Pollici();
+            } else {
+                emergTimer = setTimeout(() => {
+                    emergClickCount = 0;
+                }, 600);
+            }
         });
         emergenzaTrigger.style.touchAction = 'manipulation';
     }
@@ -158,7 +161,7 @@ function checkBiometricsOrOpenTerminal() {
     const isBioVerified = localStorage.getItem('SFX_BIOMETRIC_AUTH') === 'CEO_VERIFIED';
     
     if (isBioVerified) {
-        setTimeout(() => { eseguiAccessoConsentito(true); }, 500);
+        setTimeout(() => { eseguiAccessoConsentito(true); }, 300);
     } else {
         apriTerminale9Pollici();
     }
@@ -171,6 +174,8 @@ function apriTerminale9Pollici() {
     const modal = document.getElementById('modal-terminale-9');
     if(modal) {
         modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         initCanvasBackground();
         initAnalogClock();
         controllaBiometriaSalvata();
@@ -179,7 +184,11 @@ function apriTerminale9Pollici() {
 
 function apriEmergenzaSovrana7Pollici() {
     const modal = document.getElementById('modal-emergenza-7');
-    if(modal) modal.classList.remove('hidden');
+    if(modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+    }
 }
 
 function initCanvasBackground() {
@@ -251,7 +260,6 @@ function validaAccessoTerminale(event) {
     const rawPwd = pwdInput ? pwdInput.value : '';
     const rawPin = pinInput ? pinInput.value : '';
 
-    // Normalizzazione preventiva contro autocorrezioni mobili
     const cleanPwd = rawPwd.trim().replace(/\s+/g, '');
     const cleanPin = rawPin.trim();
 
@@ -276,7 +284,6 @@ function validaAccessoTerminale(event) {
     }
 }
 
-// Alias per compatibilità con i vari template HTML
 function verificaAccessoTerminale(event) {
     return validaAccessoTerminale(event);
 }
@@ -306,9 +313,9 @@ function eseguiAccessoConsentito(isBiometric) {
         if (modalCaveau8) {
             modalCaveau8.classList.remove('hidden');
         } else {
-            window.location.href = "login.html";
+            window.location.href = "crm.html";
         }
-    }, 1800);
+    }, 1200);
 }
 
 function gestisciErroreAccesso(boxAllarme, errText) {
@@ -317,7 +324,7 @@ function gestisciErroreAccesso(boxAllarme, errText) {
     const btn = document.getElementById('btn-terminal-unlock');
     
     if (errText) {
-        errText.innerText = `Credenziali errate. Tentativo fallito: ${tentativiFalliti}/3`;
+        errText.innerText = `Credenziali errate. Tentativo: ${tentativiFalliti}/3`;
         errText.classList.remove('hidden');
     }
 
@@ -329,8 +336,7 @@ function gestisciErroreAccesso(boxAllarme, errText) {
                     <i class="fa-solid fa-triangle-exclamation text-4xl text-[#FFBF00] mb-3 animate-pulse"></i>
                     <div class="font-grotesk font-black text-xl text-white">ACCESSO NEGATO</div>
                     <div class="font-mono text-sm text-[#FFBF00] mt-1">Dispositivo bloccato. Notifica inviata.</div>
-                </div>
-            `;
+                </div>`;
         }
         eseguiLockdown("Superamento limite tentativi terminale");
     } else {
@@ -341,8 +347,7 @@ function gestisciErroreAccesso(boxAllarme, errText) {
                     <i class="fa-solid fa-triangle-exclamation text-4xl text-[#FFBF00] mb-3 animate-pulse"></i>
                     <div class="font-grotesk font-black text-xl text-white">ACCESSO NEGATO</div>
                     <div class="font-mono text-sm text-[#FFBF00] mt-1">Tentativo ${tentativiFalliti}/3</div>
-                </div>
-            `;
+                </div>`;
             setTimeout(() => {
                 boxAllarme.classList.add('hidden');
             }, 2000);
@@ -358,10 +363,10 @@ function gestisciErroreAccesso(boxAllarme, errText) {
 function eseguiLockdown(motivo) {
     playAudioFeedback('lockdown-alarm');
     const lockdownHtml = `
-        <div class="screen-not-found">
+        <div class="screen-not-found" style="position:fixed;inset:0;background:#090A0D;z-index:99999;display:flex;align-items:center;justify-content:center;">
             <div class="text-center">
                 <i class="fa-solid fa-triangle-exclamation text-8xl mb-4 text-[#D4AF37]"></i>
-                <div style="font-family: Orbitron; font-size: 8vw;">NOT FOUND</div>
+                <div style="font-family: Orbitron; font-size: 8vw; color:#fff;">LOCKDOWN</div>
             </div>
         </div>`;
     document.body.insertAdjacentHTML('beforeend', lockdownHtml);
@@ -385,7 +390,7 @@ async function eseguiSbloccoEmergenzaSovrana(event) {
 
     if (risposta === "itmc2202v") {
         playAudioFeedback('success-beep');
-        alert("✓ ENTERPRISE È TORNATA IN STATO DI ALLERTA COMPLETATO.");
+        alert("✓ ENTERPRISE È TORNATA IN STATO NOMINALE.");
         sessionStorage.setItem('sfx_authenticated', 'true');
         sessionStorage.setItem('sfx_role', 'CEO_CLEARANCE');
         
@@ -399,7 +404,7 @@ async function eseguiSbloccoEmergenzaSovrana(event) {
         const m8 = document.getElementById('modal-caveau-8');
         if (m7) m7.classList.add('hidden');
         if (m8) m8.classList.remove('hidden');
-        else window.location.href = "login.html";
+        else window.location.href = "crm.html";
     } else {
         playAudioFeedback('error-beep');
         alert("⛔ Risposta segreta errata.");
@@ -423,38 +428,40 @@ function richiediSalvataggioBiometrico() {
 }
 
 // ============================================================================
-// 8. ALISON CHATBOT (Regola dei 5 Messaggi)
+// 8. ALISON CHATBOT (Compatibilità con Fallback Safe)
 // ============================================================================
-function inviaMessaggioCentrale(testoPredefinito) {
-    const input = document.getElementById('input-centrale') || document.getElementById('alison-user-input');
-    const chatBox = document.getElementById('box-chat-centrale') || document.getElementById('alison-chat-log');
-    if(!chatBox) return;
+if (typeof window.inviaMessaggioCentrale !== 'function') {
+    window.inviaMessaggioCentrale = function(testoPredefinito) {
+        const input = document.getElementById('input-centrale') || document.getElementById('alison-user-input');
+        const chatBox = document.getElementById('box-chat-centrale') || document.getElementById('alison-chat-log');
+        if(!chatBox) return;
 
-    const messaggio = testoPredefinito || (input ? input.value.trim() : '');
-    if(!messaggio) return;
+        const messaggio = testoPredefinito || (input ? input.value.trim() : '');
+        if(!messaggio) return;
 
-    chatBox.innerHTML += `<div class="text-right text-gray-800 mb-2 font-mono text-xs"><span class="bg-stone-200 px-3 py-1.5 rounded-xl inline-block">${messaggio}</span></div>`;
-    if(input) input.value = "";
-    alisonChatCount++;
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    setTimeout(() => {
-        let alisonResponse = "";
-        if(alisonChatCount >= 5) {
-            alisonResponse = `
-            <div class="bg-[var(--pearl-card)] p-3 rounded-xl border border-sfx-cyan shadow-sm text-gray-800 space-y-2 mt-2">
-                <p class="font-mono text-xs"><strong>Alison (AG-01):</strong> Ho registrato le tue richieste. Per una profilazione di livello superiore è richiesta una conferenza diretta con la Presidenza del CEO Giuliano Caratelli.</p>
-                <div class="flex space-x-2 mt-2">
-                    <a href="#candidatura" class="px-3 py-2 bg-sfx-cyan text-white text-[10px] font-bold rounded hover:bg-cyan-700">PRENOTA CONFERENZA CEO</a>
-                </div>
-            </div>`;
-        } else {
-            alisonResponse = `<div class="bg-white p-3 rounded-xl border border-stone-200 text-gray-800 font-mono text-xs mb-2 mt-2"><strong>Alison:</strong> Informazione recepita ed archiviata nel registro neurale.</div>`;
-        }
-        
-        chatBox.innerHTML += alisonResponse;
+        chatBox.innerHTML += `<div class="text-right text-gray-800 mb-2 font-mono text-xs"><span class="bg-stone-200 px-3 py-1.5 rounded-xl inline-block">${messaggio}</span></div>`;
+        if(input) input.value = "";
+        alisonChatCount++;
         chatBox.scrollTop = chatBox.scrollHeight;
-    }, 800);
+
+        setTimeout(() => {
+            let alisonResponse = "";
+            if(alisonChatCount >= 5) {
+                alisonResponse = `
+                <div class="bg-[var(--pearl-card)] p-3 rounded-xl border border-sfx-cyan shadow-sm text-gray-800 space-y-2 mt-2">
+                    <p class="font-mono text-xs"><strong>Alison (AG-01):</strong> Ho registrato le tue richieste. Per una profilazione di livello superiore è richiesta una conferenza diretta con la Presidenza del CEO Giuliano Caratelli.</p>
+                    <div class="flex space-x-2 mt-2">
+                        <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="px-3 py-2 bg-sfx-cyan text-white text-[10px] font-bold rounded hover:bg-cyan-700 cursor-pointer">PRENOTA CONFERENZA CEO</button>
+                    </div>
+                </div>`;
+            } else {
+                alisonResponse = `<div class="bg-white p-3 rounded-xl border border-stone-200 text-gray-800 font-mono text-xs mb-2 mt-2"><strong>Alison:</strong> Informazione recepita ed archiviata nel registro neurale.</div>`;
+            }
+            
+            chatBox.innerHTML += alisonResponse;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 500);
+    };
 }
 
 // ============================================================================
@@ -479,7 +486,7 @@ function initLiveCounter() {
 }
 
 // ============================================================================
-// 10. TIMER INATTIVITÀ (Auto-Lock Caveau 180s)
+// 10. TIMER INATTIVITÀ (Auto-Lock Caveau 180s con Sblocco Scroll)
 // ============================================================================
 function setupCaveauAutoLock() {
     const isPrivato = window.location.pathname.includes('crm.html') || window.location.pathname.includes('admin.html') || window.location.pathname.includes('vault.html');
@@ -489,6 +496,8 @@ function setupCaveauAutoLock() {
         clearTimeout(caveauTimeout);
         caveauTimeout = setTimeout(() => {
             alert("⚠️ SESSIONE EAL6+ SCADUTA PER INATTIVITÀ.");
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
             window.location.href = "index.html";
         }, 180000);
     }
