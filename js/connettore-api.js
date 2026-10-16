@@ -10,8 +10,8 @@ const ConnettoreApi = (function () {
     'use strict';
 
     const CONFIGURAZIONE = {
-        // Endpoint Google Apps Script consolidato dell'ecosistema Suprema Future X
-        ENDPOINT: 'https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec',
+        // Endpoint Google Apps Script consolidato (Versione 14 EAL6+ Sovrano)
+        ENDPOINT: 'https://script.google.com/macros/s/AKfycby_dpc6wjO656tvN025x5XSCHR45UQoOf6X3U3B8sWcuijzoOoHdi3d3NK_b22hbjR6/exec',
         TEMPO_LIMITE_MS: 12000,
         CANALE_SINCRONIZZAZIONE: 'sfx_canale_sincronizzazione_ecosistema',
         CHIAVE_CODA_OFFLINE: 'SFX_CODA_OFFLINE_REQUESTS'
