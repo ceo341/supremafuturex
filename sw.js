@@ -1,12 +1,12 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X // SERVICE WORKER PWA ENGINE V36
+ * SUPREMA FUTURE X // SERVICE WORKER PWA ENGINE V42
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // CACHE STRATEGY & OFFLINE RESILIENCE
  * ====================================================================
  */
 
-const CACHE_NAME = 'sfx-pwa-v36-eal6';
+const CACHE_NAME = 'sfx-pwa-v42-eal6';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -14,9 +14,8 @@ const ASSETS_TO_CACHE = [
     './vault.html',
     './admin.html',
     './crm.html',
+    './stile-globale.css?v=42',
     './stile-globale.css',
-    './js/code.js',
-    './sfx-delta-patch.js',
     './manifest.json',
     './media/logo.png',
     'https://cdn.tailwindcss.com',
@@ -28,7 +27,7 @@ const ASSETS_TO_CACHE = [
  * 1. FASE DI INSTALLAZIONE SERVICE WORKER (PRE-CACHING CRITICO)
  */
 self.addEventListener('install', (event) => {
-    console.log('[SW EAL6+] Inizializzazione installazione Service Worker V36...');
+    console.log('[SW EAL6+] Inizializzazione installazione Service Worker V42...');
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             console.log('[SW EAL6+] Pre-caching asset della piattaforma in corso...');
@@ -42,10 +41,10 @@ self.addEventListener('install', (event) => {
 });
 
 /**
- * 2. FASE DI ATTIVAZIONE (PULIZIA VECCHIE CACHE)
+ * 2. FASE DI ATTIVAZIONE (PULIZIA TOTALE VECCHIE CACHE V36/V41)
  */
 self.addEventListener('activate', (event) => {
-    console.log('[SW EAL6+] Attivazione Service Worker EAL6+ V36...');
+    console.log('[SW EAL6+] Attivazione Service Worker EAL6+ V42...');
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
@@ -63,10 +62,10 @@ self.addEventListener('activate', (event) => {
 });
 
 /**
- * 3. STRATEGIA FETCH INTERCETTAZIONE (NETWORK FIRST CON FALLBACK CACHE)
+ * 3. STRATEGIA FETCH (NETWORK FIRST CON FALLBACK CACHE)
  */
 self.addEventListener('fetch', (event) => {
-    // Escludi chiamate Webhook Google Apps Script e metodi non-GET dal Service Worker
+    // Escludi chiamate API a Google Apps Script e metodi diversi da GET
     if (event.request.method !== 'GET' || event.request.url.includes('script.google.com')) {
         return;
     }
@@ -74,7 +73,6 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         fetch(event.request)
             .then((networkResponse) => {
-                // Se la risposta dalla rete è valida, la aggiorniamo in cache
                 if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                     const responseToCache = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => {
@@ -84,13 +82,11 @@ self.addEventListener('fetch', (event) => {
                 return networkResponse;
             })
             .catch(() => {
-                // In caso di assenza di rete, restituisci la risorsa dalla cache
-                console.log('[SW EAL6+] Connessione assente. Recupero risorsa dalla Cache:', event.request.url);
+                console.log('[SW EAL6+] Rete non disponibile. Recupero risorsa da Cache:', event.request.url);
                 return caches.match(event.request).then((cachedResponse) => {
                     if (cachedResponse) {
                         return cachedResponse;
                     }
-                    // Fallback se la risorsa non è in cache ed è una pagina HTML
                     if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
                         return caches.match('./index.html');
                     }
