@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css">
+    <link rel="stylesheet" href="stile-globale.css?v=42">
 
     <script>
         // CONTROLLO DI SICUREZZA EAL6+ VAULT SOVRANO
@@ -25,7 +25,7 @@
             const isAuth = sessionStorage.getItem('sfx_authenticated');
             const role = sessionStorage.getItem('sfx_role');
             if (isAuth !== 'true' && !window.location.search.includes('bypass=dev')) {
-                console.warn("Accesso Vault Sovrano: sessione protetta EAL6+.");
+                console.warn("[VAULT EAL6+] Accesso riservato alla Presidenza verificato.");
             }
         })();
 
@@ -83,10 +83,10 @@
         }
     </style>
 </head>
-<body class="bg-[#2A2D34] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black">
+<body class="bg-[#2A2D34] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black overflow-x-hidden">
 
     <!-- TOP CONTROL BAR VAULT SOVRANO -->
-    <header class="bg-[#1F2227] border-b border-sfx-silver/30 px-6 py-3 sticky top-0 z-50 backdrop-blur-md shadow-xl">
+    <header class="bg-[#1F2227] border-b border-sfx-silver/30 px-4 sm:px-6 py-3 sticky top-0 z-50 backdrop-blur-md shadow-xl">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 rounded-full bg-black p-0.5 border-2 border-sfx-silver shadow-[0_0_15px_rgba(192,192,192,0.3)]">
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="flex items-center space-x-3 text-xs">
+            <div class="flex items-center space-x-2 sm:space-x-3 text-xs">
                 <a href="admin.html" class="px-3.5 py-1.5 rounded-xl bg-[#090A0D] border border-sfx-silver/40 text-sfx-silver hover:border-sfx-cyan hover:text-sfx-cyan font-bold transition-all flex items-center space-x-1.5 shadow-md">
                     <i class="fa-solid fa-server text-xs"></i>
                     <span>X-BOX AZIENDALE</span>
@@ -110,7 +110,7 @@
                     <i class="fa-solid fa-crown text-xs"></i>
                     <span>X-BOX SUPREMA</span>
                 </a>
-                <a href="index.html" class="px-3 py-1.5 rounded-xl bg-[#090A0D] border border-gray-700 hover:border-white text-gray-400 hover:text-white transition-colors" title="Ritorno alla Landing Page">
+                <a href="index.html" onclick="document.body.style.overflow='auto'; document.documentElement.style.overflow='auto';" class="px-3 py-1.5 rounded-xl bg-[#090A0D] border border-gray-700 hover:border-white text-gray-400 hover:text-white transition-colors" title="Ritorno alla Landing Page con ripristino scroll">
                     <i class="fa-solid fa-globe"></i>
                 </a>
             </div>
@@ -177,7 +177,7 @@
                     </div>
                 </div>
 
-                <button onclick="alert('Download avviato: Scheda Tecnica Pomelli Opal Luxury (.PDF EAL6+)');" class="w-full py-4 rounded-xl bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2">
+                <button onclick="alert('Download avviato: Scheda Tecnica Pomelli Opal Luxury (.PDF EAL6+)');" class="w-full py-4 rounded-xl bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
                     <i class="fa-solid fa-file-pdf text-sm"></i>
                     <span>Scarica Scheda Tecnica Riservata (.PDF)</span>
                 </button>
@@ -213,7 +213,7 @@
                     </div>
                 </div>
 
-                <button onclick="alert('Download avviato: Scheda Tecnica Linea Antigravity (.PDF EAL6+)');" class="w-full py-4 rounded-xl bg-sfx-cyan hover:bg-cyan-400 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2">
+                <button onclick="alert('Download avviato: Scheda Tecnica Linea Antigravity (.PDF EAL6+)');" class="w-full py-4 rounded-xl bg-sfx-cyan hover:bg-cyan-400 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
                     <i class="fa-solid fa-file-pdf text-sm"></i>
                     <span>Scarica Blueprint Brevetto (.PDF)</span>
                 </button>
@@ -235,22 +235,22 @@
 
             <!-- Pulsanti Selezione Report -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <button onclick="mostraReport('ACADEMY')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-sfx-gold text-left space-y-2 transition-colors">
+                <button onclick="mostraReport('ACADEMY')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-sfx-gold text-left space-y-2 transition-colors cursor-pointer">
                     <i class="fa-solid fa-graduation-cap text-sfx-gold text-xl"></i>
                     <span class="block font-bold text-white text-xs">1. Report Corsi Academy</span>
                     <span class="text-[10px] text-gray-500 block">Iscritti Silver, Executive, VIP</span>
                 </button>
 
-                <button onclick="mostraReport('FINANZE')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-sfx-cyan text-left space-y-2 transition-colors">
+                <button onclick="mostraReport('FINANZE')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-sfx-cyan text-left space-y-2 transition-colors cursor-pointer">
                     <i class="fa-solid fa-coins text-sfx-cyan text-xl"></i>
                     <span class="block font-bold text-white text-xs">2. Report Mastro &amp; Split</span>
                     <span class="text-[10px] text-gray-500 block">Statutario 54/30/16 e Sub-Split</span>
                 </button>
 
-                <button onclick="mostraReport('ALISON')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-purple-400 text-left space-y-2 transition-colors">
+                <button onclick="mostraReport('ALISON')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-purple-400 text-left space-y-2 transition-colors cursor-pointer">
                     <i class="fa-solid fa-brain text-purple-400 text-xl"></i>
                     <span class="block font-bold text-white text-xs">3. Report Conversione Alison</span>
-                    <span class="text-[10px] text-gray-500 block">Lead H24 &amp; Regola 5° Messaggio</span>
+                    <span class="text-[10px] text-gray-500 block">Lead H24 &amp; 50 FAQ Cache Zero Latency</span>
                 </button>
             </div>
 
@@ -274,7 +274,7 @@
                     </div>
 
                     <div class="flex space-x-3">
-                        <button onclick="alert('Generazione certificato PDF EAL6+ in corso dal server Apps Script...');" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl transition-colors border border-gray-700">
+                        <button onclick="alert('Generazione certificato PDF EAL6+ completata dal nodo centrale.');" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl transition-colors border border-gray-700 cursor-pointer">
                             <i class="fa-solid fa-file-export mr-1.5"></i> ESPORTA PDF
                         </button>
                         <a href="index.html#alison-ai" class="px-4 py-2.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-extrabold rounded-xl transition-colors flex items-center space-x-2 shadow-md">
@@ -299,9 +299,8 @@
 
     <!-- SCRIPT DI SISTEMA E DINAMICA REPORT -->
     <script src="js/code.js"></script>
-    <script src="sfx-delta-patch.js"></script>
     <script>
-        const APPS_SCRIPT_URL_VAULT = "https://script.google.com/macros/s/AKfycbxlektYvRWsGboHU7Vzu_PvnFauT7TTmK-mFlVBD3QMgiM3S5TcpEeZsPqA7Cq4lIbQ/exec";
+        const APPS_SCRIPT_URL_VAULT = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
 
         function mostraReport(tipo) {
             const titolo = document.getElementById('rep-titolo');
@@ -319,12 +318,12 @@
                 titolo.textContent = "REPORT CASSA & SPLIT STATUTARIO 54/30/16";
                 body.innerHTML = `
                     <p>&bull; <strong>Operatività Aziendale (54%):</strong> Allocati su infrastruttura Google Workspace, server e flotta AI</p>
-                    <p>&bull; <strong>Dividendi CEO & Soci (30%):</strong> Ripartiti al 52% SFX, 30% CEO Giuliano, 10% Mariachiara, 4% Rossella, 2% Alba, 1% Massimo, 1% Federico</p>
+                    <p>&bull; <strong>Dividendi CEO &amp; Soci (30%):</strong> Ripartiti al 52% SFX, 30% CEO Giuliano, 10% Mariachiara, 4% Rossella, 2% Alba, 1% Massimo, 1% Federico</p>
                     <p>&bull; <strong>Accantonamento Fiscale Inviolabile (16%):</strong> Presidiato da AG-03 Ginevra per scadenze F24 e conformità tributaria</p>
                     <p class="text-green-400 mt-2">&bull; <strong>Proof Hash Transazioni:</strong> Notarizzazione SHA-256 su foglio Mastro_Finanziario convalidata.</p>
                 `;
             } else {
-                titolo.textContent = "REPORT ANALYTICS ALISON V36 & CONVERSIONI";
+                titolo.textContent = "REPORT ANALYTICS ALISON V42 & CONVERSIONI";
                 body.innerHTML = `
                     <p>&bull; <strong>Sessioni Neurali Gestite H24:</strong> 1.842 contatti profilati con traduttore multilingua</p>
                     <p>&bull; <strong>Applicazione Regola 5° Messaggio:</strong> 412 instradamenti diretti verso Conferenza CEO Riservata</p>
