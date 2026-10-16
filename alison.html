@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ALISON // DESK NEURALE | Suprema Future X</title>
+    
+    <link rel="icon" type="image/png" href="media/logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#030712">
+
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stile-globale.css?v=42">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sfx: {
+                            dark: '#030712',
+                            darker: '#000000',
+                            card: '#0b0f19',
+                            cyan: '#00d2ff',
+                            cyanDark: '#007b99',
+                            cyanLight: '#e0faff',
+                            border: '#1f2937'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        body, html { height: 100%; margin: 0; background-color: #030712; color: #d1d5db; overflow: hidden; }
+        
+        .chat-container {
+            height: calc(100vh - 145px);
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .chat-container::-webkit-scrollbar { width: 5px; }
+        .chat-container::-webkit-scrollbar-track { background: #0b0f19; }
+        .chat-container::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+        .chat-container::-webkit-scrollbar-thumb:hover { background: #00d2ff; }
+
+        .msg-alison {
+            background: linear-gradient(135deg, rgba(11, 15, 25, 0.95), rgba(3, 7, 18, 0.95));
+            border-left: 2px solid #00d2ff;
+            border-top: 1px solid rgba(31, 41, 55, 0.6);
+            border-bottom: 1px solid rgba(31, 41, 55, 0.6);
+            border-right: 1px solid rgba(31, 41, 55, 0.6);
+        }
+
+        .msg-user {
+            background: rgba(0, 210, 255, 0.06);
+            border-right: 2px solid #00d2ff;
+            border-top: 1px solid rgba(0, 210, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.15);
+            border-left: 1px solid rgba(0, 210, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen bg-[url('media/noise.png')] bg-repeat">
+
+    <!-- HEADER: IDENTITÀ ALISON -->
+    <header class="bg-sfx-card border-b border-sfx-border py-3.5 px-6 flex items-center justify-between shrink-0 z-10 shadow-lg shadow-cyan-900/10">
+        <div class="flex items-center gap-3.5">
+            <div class="relative w-11 h-11 rounded-full bg-sfx-darker border border-sfx-cyan flex items-center justify-center shadow-[0_0_15px_rgba(0,210,255,0.3)]">
+                <i class="fa-solid fa-brain text-sfx-cyan text-lg animate-pulse"></i>
+                <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-sfx-card rounded-full"></div>
+            </div>
+            
+            <div>
+                <h1 class="text-white font-bold tracking-wider text-base">ALISON <span class="text-sfx-cyan font-mono text-[10px] ml-1.5">[DESK DIRECTOR]</span></h1>
+                <p class="text-[10px] text-gray-400 font-mono tracking-widest uppercase">EAL6+ Interfaccia Neurale // Suprema Future X</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+            <a href="nexus-control.html" class="px-3 py-1.5 bg-sfx-cyan/10 border border-sfx-cyan/40 text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded-lg transition-all font-mono text-xs font-bold flex items-center gap-1.5" title="Apri Control Room">
+                <i class="fa-solid fa-network-wired"></i> <span class="hidden sm:inline">CONTROL ROOM</span>
+            </a>
+            <a href="admin.html" class="w-9 h-9 rounded-lg bg-sfx-darker border border-sfx-border flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors" title="Torna alla X-BOX">
+                <i class="fa-solid fa-xmark"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- AREA CHAT INTERATTIVA -->
+    <main id="chat-wrapper" class="flex-1 relative chat-container p-4 sm:p-6 lg:px-24 xl:px-48 flex flex-col gap-5">
+        
+        <div class="text-center my-2">
+            <div class="inline-block bg-sfx-darker/90 border border-sfx-border px-4 py-1.5 rounded-full text-[9px] text-gray-400 font-mono tracking-widest uppercase">
+                CANALE CRITTOGRAFATO EAL6+ • AUDIT ATTIVO
+            </div>
+        </div>
+
+        <!-- Primo messaggio di accoglienza di Alison -->
+        <div class="flex gap-3.5 w-full sm:w-[85%] lg:w-[70%]">
+            <div class="w-8 h-8 rounded-full bg-sfx-cyan/10 border border-sfx-cyan/50 flex-shrink-0 flex items-center justify-center mt-1">
+                <i class="fa-solid fa-brain text-sfx-cyan text-xs"></i>
+            </div>
+            <div class="msg-alison p-4 rounded-xl rounded-tl-none shadow-md">
+                <p class="text-xs font-bold text-white mb-1.5">Desk Direzionale Suprema Future X</p>
+                <p class="text-xs text-gray-300 leading-relaxed font-sans">
+                    Sono <b>Alison</b>, Desk Director dell'ecosistema.<br>
+                    Eseguo lo screening preliminare per l'accesso all'Executive Academy e alle collezioni riservate Opal. Come posso indirizzare la sua richiesta oggi?
+                </p>
+                <div class="mt-2.5 text-[9px] text-gray-500 font-mono flex items-center gap-1.5">
+                    <i class="fa-solid fa-check-double text-sfx-cyan/60"></i> Standby Operativo
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- INPUT DI COMUNICAZIONE -->
+    <footer class="bg-sfx-card border-t border-sfx-border p-3.5 shrink-0 z-10">
+        <div class="max-w-4xl mx-auto flex gap-2.5">
+            <div class="flex-1 relative">
+                <input type="text" id="chat-input" placeholder="Formula una richiesta o specifica il tuo settore..." 
+                       class="w-full h-11 bg-sfx-darker border border-sfx-border rounded-lg pl-4 pr-10 text-xs text-white focus:outline-none focus:border-sfx-cyan transition-all font-mono" autocomplete="off">
+            </div>
+            
+            <button id="chat-send" class="w-11 h-11 bg-sfx-cyan hover:bg-white text-sfx-darker font-bold rounded-lg flex items-center justify-center text-sm transition-transform hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(0,210,255,0.3)]">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- MOTORE NEURALE & CONNETTORE -->
+    <script src="js/connettore-api.js"></script>
+    <script src="js/chat-alison.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputField = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('chat-send');
+            const chatWrapper = document.getElementById('chat-wrapper');
+
+            const scrollToBottom = () => { chatWrapper.scrollTop = chatWrapper.scrollHeight; };
+
+            const renderMessage = (testo, type) => {
+                const wrapper = document.createElement('div');
+                const now = new Date();
+                const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+
+                if (type === 'user') {
+                    wrapper.className = "flex gap-3.5 w-full sm:w-[85%] lg:w-[70%] self-end flex-row-reverse";
+                    wrapper.innerHTML = `
+                        <div class="w-8 h-8 rounded-full bg-gray-800 border border-gray-600 flex-shrink-0 flex items-center justify-center mt-1">
+                            <i class="fa-solid fa-user text-gray-400 text-xs"></i>
+                        </div>
+                        <div class="msg-user p-3.5 rounded-xl rounded-tr-none shadow-md text-right">
+                            <p class="text-xs text-cyan-100 leading-relaxed font-mono">${testo}</p>
+                            <div class="mt-1.5 text-[9px] text-gray-500 font-mono">${timeStr}</div>
+                        </div>
+                    `;
+                } else {
+                    wrapper.className = "flex gap-3.5 w-full sm:w-[85%] lg:w-[70%]";
+                    wrapper.innerHTML = `
+                        <div class="w-8 h-8 rounded-full bg-sfx-cyan/10 border border-sfx-cyan/50 flex-shrink-0 flex items-center justify-center mt-1">
+                            <i class="fa-solid fa-brain text-sfx-cyan text-xs"></i>
+                        </div>
+                        <div class="msg-alison p-3.5 rounded-xl rounded-tl-none shadow-md">
+                            <p class="text-xs text-gray-200 leading-relaxed font-sans">${testo}</p>
+                            <div class="mt-2 text-[9px] text-gray-500 font-mono flex items-center gap-1.5">
+                                <i class="fa-solid fa-check-double text-sfx-cyan/60"></i> Elaborato ${timeStr}
+                            </div>
+                        </div>
+                    `;
+                }
+                chatWrapper.appendChild(wrapper);
+                scrollToBottom();
+            };
+
+            const handleSend = () => {
+                const query = inputField.value.trim();
+                if (!query) return;
+
+                renderMessage(query, 'user');
+                inputField.value = '';
+
+                // Log asincrono al backend
+                if (typeof ConnettoreApi !== 'undefined' && ConnettoreApi.invia) {
+                    ConnettoreApi.invia('MESSAGGIO_ALISON_CHAT', { messaggio: query }).catch(() => {});
+                }
+
+                // Generazione risposta tramite il core di Alison o le direttive salvate
+                setTimeout(() => {
+                    let risposta = "La sua richiesta è stata acquisita dal Desk. Per procedere all'accreditamento, compili il modulo nella sezione Candidatura.";
+                    
+                    const customOverride = localStorage.getItem('ALISON_OVERRIDE_RULES');
+                    if (customOverride && customOverride.length > 5) {
+                        risposta = customOverride;
+                    } else if (window.AlisonAgent && typeof window.AlisonAgent.elaboraRisposta === 'function') {
+                        risposta = window.AlisonAgent.elaboraRisposta(query);
+                    }
+                    
+                    renderMessage(risposta, 'alison');
+                }, 700);
+            };
+
+            sendBtn.addEventListener('click', handleSend);
+            inputField.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') handleSend();
+            });
+        });
+    </script>
+</body>
+</html>
