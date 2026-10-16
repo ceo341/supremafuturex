@@ -10,8 +10,8 @@
     'use strict';
 
     const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v42';
-    // ENDPOINT MASTER GOOGLE APPS SCRIPT EAL6+:
-    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec';
+    // ENDPOINT MASTER GOOGLE APPS SCRIPT V14 EAL6+:
+    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycby_dpc6wjO656tvN025x5XSCHR45UQoOf6X3U3B8sWcuijzoOoHdi3d3NK_b22hbjR6/exec';
 
     const SFXDeltaQueue = {
         getCoda() {
