@@ -1,5 +1,5 @@
 /**
- * SUPREMA FUTURE X - CONNETTORE API UNIVERSALE (V3.8 ENHANCED)
+ * SUPREMA FUTURE X - CONNETTORE API UNIVERSALE (V42 EAL6+ SOVRANO)
  * File: /js/connettore-api.js
  * Descrizione: Gestore unico delle chiamate asincrone verso Google Apps Script (Code.gs),
  *              gestione fallback offline, sincronizzazione multi-scheda via BroadcastChannel
@@ -10,8 +10,8 @@ const ConnettoreApi = (function () {
     'use strict';
 
     const CONFIGURAZIONE = {
-        // Endpoint Google Apps Script predefinito dell'ecosistema Suprema Future X
-        ENDPOINT: 'https://script.google.com/macros/s/AKfycbzAiwpjrU33wRkogEvuQr9YduJpssGHs9ewFHlpke2Ar9NgG2YbNoZ5ZfyRGr9IVAZkew/exec',
+        // Endpoint Google Apps Script consolidato dell'ecosistema Suprema Future X
+        ENDPOINT: 'https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec',
         TEMPO_LIMITE_MS: 12000,
         CANALE_SINCRONIZZAZIONE: 'sfx_canale_sincronizzazione_ecosistema',
         CHIAVE_CODA_OFFLINE: 'SFX_CODA_OFFLINE_REQUESTS'
@@ -58,6 +58,7 @@ const ConnettoreApi = (function () {
         const tokenAuth = sessionStorage.getItem('SFX_TOKEN_AUTENTICAZIONE') || localStorage.getItem('SFX_CEO_PIN') || '3474429091';
         
         return Object.assign({
+            action: azione,
             azione: azione,
             timestamp: new Date().toISOString(),
             tokenAutenticazione: tokenAuth,
@@ -67,7 +68,7 @@ const ConnettoreApi = (function () {
 
     /**
      * Invia un payload JSON al backend Google Apps Script.
-     * @param {string} azione - L'azione richiesta dal sistema (es. 'REGISTRAZIONE_LEAD', 'AGGIORNA_PROMPT')
+     * @param {string} azione - L'azione richiesta dal sistema (es. 'nuovaCandidatura', 'AGGIORNA_PROMPT')
      * @param {Object} datiPayload - I dati associati all'operazione
      * @returns {Promise<Object>} Risposta del server
      */
@@ -147,18 +148,20 @@ const ConnettoreApi = (function () {
     }
 
     /**
-     * Esegue una richiesta GET per scaricare la lista dei lead dal database Apps Script
+     * Esegue una richiesta GET per scaricare dati dal backend Google Apps Script
+     * @param {string} azioneRichiesta - Azione specifica (default: 'getCandidati')
      * @returns {Promise<Object>}
      */
-    async function richiediDati() {
+    async function richiediDati(azioneRichiesta = 'getCandidati') {
         const urlEndpoint = getEndpoint();
         try {
-            const risposta = await fetch(`${urlEndpoint}?timestamp=${Date.now()}`);
+            const queryUrl = `${urlEndpoint}?action=${encodeURIComponent(azioneRichiesta)}&timestamp=${Date.now()}`;
+            const risposta = await fetch(queryUrl);
             if (!risposta.ok) throw new Error(`Stato HTTP: ${risposta.status}`);
             return await risposta.json();
         } catch (err) {
             console.error('[ConnettoreApi Errore GET]: Impossibile scaricare dati.', err);
-            return { status: 'ERROR', message: err.message, data: [] };
+            return { status: 'ERROR', message: err.message, data: [], leads: [] };
         }
     }
 
@@ -188,7 +191,7 @@ const ConnettoreApi = (function () {
 
         for (const elemento of coda) {
             try {
-                await inviaRichiesta(elemento.azione, elemento.payload || elemento);
+                await inviaRichiesta(elemento.action || elemento.azione, elemento.payload || elemento);
             } catch (e) {
                 codaRimanente.push(elemento);
             }
@@ -252,21 +255,24 @@ const ConnettoreApi = (function () {
         getEndpoint: getEndpoint,
         sincronizzaOffline: sincronizzaCodaOffline,
 
-        // Wrapper applicativi diretti
+        // Wrapper applicativi diretti compatibili con Code.gs Master
         salvaLead: function (datiLead) {
-            return inviaRichiesta('REGISTRAZIONE_LEAD', datiLead);
+            return inviaRichiesta('nuovaCandidatura', datiLead);
         },
         candidaturaConferenza: function (datiConferenza) {
-            return inviaRichiesta('CANDIDATURA_CONFERENZA', datiConferenza);
+            return inviaRichiesta('CANDIDATURA_CONFERENZA_CEO', datiConferenza);
         },
-        aggiornaPrompt: function (testoPrompt, operatore = 'GEK CAREL') {
-            return inviaRichiesta('AGGIORNA_PROMPT', { prompt: testoPrompt, operatore: operatore });
+        aggiornaPrompt: function (testoPrompt, operatore = 'CEO GIULIANO') {
+            return inviaRichiesta('AGGIORNA_PROMPT_NEURALE', { prompt: testoPrompt, operatore: operatore });
         },
         aggiornaPuntiCard: function (token, punti, causale) {
             return inviaRichiesta('AGGIORNA_PUNTI', { token: token, punti: punti, causale: causale });
         },
-        creaWorkspaceClassroom: function (token, nome, email) {
-            return inviaRichiesta('CREA_WORKSPACE_CLASSROOM', { token: token, nome: nome, email: email });
+        creaWorkspaceClassroom: function (token, nome, email, pacchetto = 'Executive Master') {
+            return inviaRichiesta('avvallaCorsista', { token: token, nome: nome, email: email, pacchetto: pacchetto });
+        },
+        registraIncasso: function (datiIncasso) {
+            return inviaRichiesta('registraIncasso', datiIncasso);
         }
     };
 })();
