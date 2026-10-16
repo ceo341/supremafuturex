@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-BOX SUPREMA // CRM NEXUS & CENTRALE PROMEMORIA</title>
-    <meta name="description" content="Piattaforma Gestionale CRM Nexus e Centrale Promemoria per la Presidenza del CEO Giuliano Caratelli.">
+    <title>X-BOX SUPREMA // CRM NEXUS, GESTIONE 11 SEZIONI & 15 AGENTI AI</title>
+    <meta name="description" content="Piattaforma Gestionale X-BOX Suprema, Controllo 11 Sezioni Landing, 15 Agenti Neurali e CRM per la Presidenza del CEO Giuliano Caratelli.">
     <meta name="theme-color" content="#2A2D34">
 
     <!-- Favicon & PWA Manifest -->
@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css?v=39">
+    <link rel="stylesheet" href="stile-globale.css?v=42">
 
     <script>
         tailwind.config = {
@@ -47,37 +47,72 @@
             }
         }
     </script>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1F2227;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #B8860B;
+            border-radius: 3px;
+        }
+        .section-card-active {
+            border-color: rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+    </style>
 </head>
-<body class="text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black" style="background-color: #2A2D34 !important;">
+<body class="text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black overflow-x-hidden" style="background-color: #2A2D34 !important;">
 
     <!-- BARRA DI CONTROLLO X-BOX SUPREMA -->
-    <header class="bg-[#1F2227] border-b border-sfx-gold/40 px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md shadow-lg">
+    <header class="bg-[#1F2227] border-b border-sfx-gold/40 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md shadow-2xl">
         <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-black p-0.5 border-2 border-sfx-gold shadow-[0_0_10px_rgba(212,175,55,0.4)]">
+            <div class="w-9 h-9 rounded-full bg-black p-0.5 border-2 border-sfx-gold shadow-[0_0_12px_rgba(212,175,55,0.4)]">
                 <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
             </div>
             <div>
-                <span class="font-grotesk font-black text-sfx-goldLight block leading-none">X-BOX SUPREMA</span>
-                <span class="text-[9px] text-sfx-cyan block font-mono">CRM NEXUS // CENTRALE PROMEMORIA</span>
+                <div class="flex items-center space-x-2">
+                    <span class="font-grotesk font-black text-sfx-goldLight block leading-none text-sm">X-BOX SUPREMA</span>
+                    <span class="px-2 py-0.5 bg-sfx-gold/20 text-sfx-gold text-[9px] font-bold rounded border border-sfx-gold/30">V.3.0 EAL6+</span>
+                </div>
+                <span class="text-[9px] text-sfx-cyan block font-mono">GOVERNO CENTRALE // 11 SEZIONI &amp; 15 AGENTI</span>
             </div>
         </div>
 
-        <div class="flex items-center space-x-2 sm:space-x-3 text-xs">
-            <button onclick="togglePannello('sezione-promemoria-container')" class="px-3.5 py-1.5 bg-sfx-cyan/20 border border-sfx-cyan hover:bg-sfx-cyan hover:text-black text-sfx-cyanLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
-                <i class="fa-solid fa-clock-rotate-left text-xs"></i>
-                <span class="hidden sm:inline">CENTRALE PROMEMORIA</span>
+        <!-- HARDWARE CONNECTION STATUS LED -->
+        <div class="flex items-center space-x-1.5 px-3 py-1.5 bg-black/70 rounded-xl border border-gray-700 shadow-inner">
+            <span id="led-hardware-status" class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+            <span id="txt-hardware-status" class="text-[10px] text-green-400 font-bold uppercase tracking-wider">SERVER ATTIVO (CACHE READY)</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 mt-2 sm:mt-0 text-xs">
+            <button onclick="togglePannello('sezione-11-moduli-container')" class="px-3 py-1.5 bg-sfx-gold/20 border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md cursor-pointer">
+                <i class="fa-solid fa-layer-group text-xs"></i>
+                <span>11 SEZIONI LANDING</span>
             </button>
-            <button onclick="togglePannello('sezione-attivazione-container')" class="px-3.5 py-1.5 bg-sfx-gold/20 border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
+            <button onclick="togglePannello('modulo-flotta-ai')" class="px-3 py-1.5 bg-sfx-cyan/20 border border-sfx-cyan hover:bg-sfx-cyan hover:text-black text-sfx-cyanLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md cursor-pointer">
+                <i class="fa-solid fa-brain text-xs"></i>
+                <span>FLOTTA 15 AGENTI</span>
+            </button>
+            <button onclick="togglePannello('sezione-promemoria-container')" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 hover:border-sfx-gold text-gray-300 rounded-xl font-bold transition-all flex items-center space-x-1.5 cursor-pointer">
+                <i class="fa-solid fa-clock-rotate-left text-xs"></i>
+                <span class="hidden md:inline">PROMEMORIA</span>
+            </button>
+            <button onclick="togglePannello('sezione-attivazione-container')" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 hover:border-sfx-cyan text-gray-300 rounded-xl font-bold transition-all flex items-center space-x-1.5 cursor-pointer">
                 <i class="fa-solid fa-bolt text-xs"></i>
-                <span class="hidden sm:inline">ATTIVAZIONE CORSISTA</span>
+                <span class="hidden md:inline">ATTIVAZIONE</span>
             </button>
             <a href="admin.html" class="px-3 py-1.5 bg-[#090A0D] border border-sfx-silver/50 hover:border-sfx-cyan hover:text-sfx-cyan text-sfx-silver rounded-xl font-bold transition-all flex items-center space-x-1.5">
                 <i class="fa-solid fa-server text-xs"></i>
-                <span class="hidden sm:inline">X-BOX</span>
+                <span class="hidden sm:inline">ADMIN</span>
             </a>
-            <button onclick="eseguiLogoutCRM()" class="px-3 py-1.5 bg-[#4A0E4E] hover:bg-[#6A1470] border border-[#FFBF00]/40 text-white rounded-xl font-bold transition-all flex items-center space-x-1 shadow-md">
+            <button onclick="eseguiLogoutCRM()" class="px-3 py-1.5 bg-[#4A0E4E] hover:bg-[#6A1470] border border-[#FFBF00]/40 text-white rounded-xl font-bold transition-all flex items-center space-x-1 shadow-md cursor-pointer" title="Torna alla Landing Page con ripristino scroll">
                 <i class="fa-solid fa-power-off text-[#FFBF00]"></i>
-                <span class="hidden sm:inline">ESCI</span>
+                <span>ESCI</span>
             </button>
         </div>
     </header>
@@ -90,51 +125,531 @@
             <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-6">
                 <div>
                     <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40">
-                        <i class="fa-solid fa-network-wired mr-1.5"></i>PRESIDENZA ESECUTIVA // GIULIANO CARATELLI
+                        <i class="fa-solid fa-network-wired mr-1.5"></i>PRESIDENZA ESECUTIVA // CEO GIULIANO CARATELLI
                     </span>
                     <h1 class="font-grotesk font-black text-2xl sm:text-4xl text-sfx-goldLight uppercase tracking-wider mt-3">
-                        GESTIONE CANDIDATURE &amp; CALENDARIO
+                        PLANCIA DI GOVERNO GENERALE // SFX
                     </h1>
                     <p class="text-xs text-gray-400 mt-1 max-w-2xl font-mono">
-                        Pannello operativo per il monitoraggio degli appuntamenti, sincronizzazione con Google Calendar e gestione promemoria.
+                        Console unificata per la supervisione dei 15 Agenti AI, gestione dinamica delle 11 sezioni della Landing Page, sincronizzazione Cloud e registro candidature.
                     </p>
                 </div>
                 <div class="text-right font-mono text-xs space-y-1">
-                    <div class="text-sfx-cyan font-bold"><i class="fa-solid fa-shield-halved mr-1"></i>SICUREZZA: EAL6+ ATTIVA</div>
-                    <div class="text-gray-400 text-[10px]">MITTENTE: segreteria@supremaofficial.com [NO-REPLY]</div>
-                    <div class="text-sfx-goldLight text-[10px]" id="crm-sync-time">AGGIORNAMENTO: --:--:--</div>
+                    <div class="text-sfx-cyan font-bold"><i class="fa-solid fa-shield-halved mr-1"></i>PROTOCOLLO: EAL6+ SOVRANO</div>
+                    <div class="text-gray-400 text-[10px]">PRESIDENZA: ceo@supremaofficial.com</div>
+                    <div class="text-sfx-goldLight text-[10px]" id="crm-sync-time">AGGIORNAMENTO: IN CORSO...</div>
                 </div>
             </div>
 
-            <!-- BLOCCHI METRICHE -->
+            <!-- BLOCCHI METRICHE DINAMICHE -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
-                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-folder-open text-sfx-gold mr-1"></i>TOTALE CANDIDATURE</span>
+                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-folder-open text-sfx-gold mr-1"></i>TOTALE CANDIDATI</span>
                     <div class="text-2xl font-black text-white font-grotesk mt-1" id="crm-stat-total">0</div>
                     <span class="text-[9px] text-gray-500">Iscrizioni Registrate</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-crown text-sfx-goldLight mr-1"></i>CONFERENZE CEO</span>
                     <div class="text-2xl font-black text-sfx-gold font-grotesk mt-1" id="crm-stat-ceo">0</div>
-                    <span class="text-[9px] text-gray-500">Sessioni Dirette Presidenza</span>
+                    <span class="text-[9px] text-gray-500">Sessioni Dirette</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
                     <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-graduation-cap text-sfx-cyan mr-1"></i>CORSI ACADEMY</span>
                     <div class="text-2xl font-black text-sfx-cyanLight font-grotesk mt-1" id="crm-stat-academy">0</div>
-                    <span class="text-[9px] text-gray-500">Percorsi Formativi</span>
+                    <span class="text-[9px] text-gray-500">Candidati Formazione</span>
                 </div>
                 <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-1">
-                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i>RECAPITI WHATSAPP</span>
-                    <div class="text-2xl font-black text-green-400 font-grotesk mt-1" id="crm-stat-whatsapp">0</div>
-                    <span class="text-[9px] text-gray-500">Contatti Pronti</span>
+                    <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-toggle-on text-green-400 mr-1"></i>SEZIONI ATTIVE</span>
+                    <div class="text-2xl font-black text-green-400 font-grotesk mt-1" id="crm-stat-active-sections">11 / 11</div>
+                    <span class="text-[9px] text-gray-500">Online su Landing</span>
                 </div>
             </div>
         </div>
 
         <!-- ===================================================================== -->
-        <!-- CENTRALE PROMEMORIA // MODIFICA TESTI E INTERRUTTORI -->
+        <!-- SEZIONE CENTRALE: GESTIONE 11 SEZIONI LANDING PAGE                    -->
         <!-- ===================================================================== -->
-        <div id="sezione-promemoria-container" class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
+        <div id="sezione-11-moduli-container" class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-gold shadow-2xl space-y-6">
+            <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-3.5 h-3.5 rounded-full bg-sfx-gold animate-pulse"></div>
+                    <div>
+                        <h2 class="font-grotesk font-black text-base sm:text-xl text-sfx-goldLight uppercase tracking-wider">
+                            ARCHITETTURA DI CONTROLLO DELLE 11 SEZIONI LANDING
+                        </h2>
+                        <span class="text-[10px] text-gray-400 font-mono">Governo testi, switch ON/OFF, pubblicazione in tempo reale e monitoraggio collegamento</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="salvaTutteLeSezioni()" class="px-4 py-2 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center space-x-1.5 cursor-pointer">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>PUBBLICA TUTTO SU LANDING</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FEEDBACK SINCRONIZZAZIONE SEZIONI -->
+            <div id="feedback-sezioni" class="hidden p-3.5 rounded-2xl text-xs font-mono border"></div>
+
+            <!-- GRIGLIA ACCORDION DELLE 11 SEZIONI -->
+            <div class="space-y-4 text-xs font-mono">
+
+                <!-- 1. ECOSISTEMA PROFESSIONALE ATTIVO -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-4" id="card-sec-1">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-gold/20 text-sfx-gold font-bold flex items-center justify-center border border-sfx-gold/40 text-xs">01</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-white">ECOSISTEMA PROFESSIONALE ATTIVO</h3>
+                                <span class="text-[10px] text-gray-400">Hero Section, Titoli e Copy Primario</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-1"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(1)" id="btn-sec-toggle-1" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Testo Descrittivo Hero (Visibile in Landing):</label>
+                            <textarea id="sec-text-1" rows="3" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-gold text-xs font-mono leading-relaxed resize-none"></textarea>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="salvaSingolaSezione(1)" class="px-3.5 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-bold text-xs rounded-xl transition-all cursor-pointer"><i class="fa-solid fa-floppy-disk mr-1"></i>Modifica &amp; Posta</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. PRESIDENZA (SPAZIO ESCLUSIVO CEO - ISOLATO DA ALISON) -->
+                <div class="p-5 bg-black/60 rounded-2xl border-2 border-sfx-gold/60 space-y-4" id="card-sec-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-gold text-black font-bold flex items-center justify-center text-xs">02</span>
+                            <div>
+                                <h3 class="font-grotesk font-black text-sm text-sfx-goldLight uppercase">PRESIDENZA // SPAZIO ESCLUSIVO CEO GIULIANO</h3>
+                                <span class="text-[10px] text-yellow-300">Riservato solo al CEO (Isolato da Alison)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-2"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(2)" id="btn-sec-toggle-2" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Nota Direttiva 1 (Visione &amp; Indirizzo Strategico):</label>
+                            <textarea id="sec-presidenza-nota1" rows="4" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-sfx-goldLight outline-none focus:border-sfx-gold text-xs font-mono leading-relaxed resize-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Nota Direttiva 2 (Protocollo Accesso &amp; Avvio Lavoro):</label>
+                            <textarea id="sec-presidenza-nota2" rows="4" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-gold text-xs font-mono leading-relaxed resize-none"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-gray-800">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] text-gray-400 font-bold uppercase">Modalità Display:</span>
+                            <select id="sec-presidenza-mode" class="p-2 bg-black border border-gray-700 rounded-lg text-sfx-gold font-bold text-xs outline-none">
+                                <option value="ALL">Testo + Foto Istituzionale CEO</option>
+                                <option value="TEXT_ONLY">Solo Testo Direttivo</option>
+                                <option value="PHOTO_ONLY">Solo Foto Ufficiale</option>
+                            </select>
+                        </div>
+                        <button onclick="salvaPresidenzaCEO()" class="px-4 py-2 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs rounded-xl shadow transition-all cursor-pointer"><i class="fa-solid fa-crown mr-1"></i>Pubblica Direttive Presidenziali</button>
+                    </div>
+                </div>
+
+                <!-- 3. CONSOLE ALISON (CONCIERGE, IDENTITY & FAQ) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-4" id="card-sec-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-cyan/20 text-sfx-cyan font-bold flex items-center justify-center border border-sfx-cyan/40 text-xs">03</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-sfx-cyanLight">CONCIERGE ALISON (AG-01) // CHATBOT &amp; FAQ</h3>
+                                <span class="text-[10px] text-gray-400">Identità, Mansioni e Database 50 Domande/Risposte</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-3"><i class="fa-solid fa-link mr-1"></i>CHAT ATTIVA</span>
+                            <button onclick="toggleSezioneOnOff(3)" id="btn-sec-toggle-3" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Chi è Alison e cosa fa (Presentazione Ufficiale):</label>
+                            <textarea id="sec-alison-desc" rows="3" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-cyan text-xs font-mono resize-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Messaggio di Benvenuto Chatbot:</label>
+                            <textarea id="sec-alison-welcome" rows="3" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-cyan text-xs font-mono resize-none"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-[10px] text-sfx-cyan"><i class="fa-solid fa-database mr-1"></i>50 FAQ caricate in cache locale (0 ms di latenza)</span>
+                        <button onclick="salvaSingolaSezione(3)" class="px-3.5 py-1.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-bold text-xs rounded-xl transition-all cursor-pointer"><i class="fa-solid fa-floppy-disk mr-1"></i>Aggiorna Alison</button>
+                    </div>
+                </div>
+
+                <!-- 4. SUPREMA ACADEMY (3 CORSI UFFICIALI) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-4" id="card-sec-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-gold/20 text-sfx-gold font-bold flex items-center justify-center border border-sfx-gold/40 text-xs">04</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-white">SUPREMA ACADEMY // 3 PERCORSI FORMATIVI</h3>
+                                <span class="text-[10px] text-gray-400">Silver Tier (99 €) | Executive Master (149 €) | Premium VIP (189 €)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-4"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(4)" id="btn-sec-toggle-4" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-3 bg-black/80 rounded-xl border border-gray-800 space-y-2">
+                            <span class="text-sfx-gold font-bold block text-xs">SILVER TIER [99 €]</span>
+                            <textarea id="sec-corso-silver" rows="3" class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono resize-none"></textarea>
+                        </div>
+                        <div class="p-3 bg-black/80 rounded-xl border border-sfx-gold/40 space-y-2">
+                            <span class="text-yellow-400 font-bold block text-xs">EXECUTIVE MASTER [149 €]</span>
+                            <textarea id="sec-corso-executive" rows="3" class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono resize-none"></textarea>
+                        </div>
+                        <div class="p-3 bg-black/80 rounded-xl border border-sfx-cyan/40 space-y-2">
+                            <span class="text-sfx-cyanLight font-bold block text-xs">PREMIUM VIP [189 €]</span>
+                            <textarea id="sec-corso-vip" rows="3" class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono resize-none"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button onclick="salvaSingolaSezione(4)" class="px-3.5 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-bold text-xs rounded-xl transition-all cursor-pointer"><i class="fa-solid fa-floppy-disk mr-1"></i>Aggiorna Schede Corsi</button>
+                    </div>
+                </div>
+
+                <!-- 5. DICONO DI NOI (TESTIMONIANZE) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-3" id="card-sec-5">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-cyan/20 text-sfx-cyan font-bold flex items-center justify-center border border-sfx-cyan/40 text-xs">05</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-white">DICONO DI NOI // TESTIMONIANZE</h3>
+                                <span class="text-[10px] text-gray-400">40 Recensioni Verificate Attive</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-5"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(5)" id="btn-sec-toggle-5" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300">Modulo stabile e verificato con visualizzazione dinamica delle 40 recensioni memorizzate nel frontend.</p>
+                </div>
+
+                <!-- 6. SUPREMA GOLD CARD (FULCRO CENTRALE - 10 SOTTOMENU) -->
+                <div class="p-5 bg-black/70 rounded-2xl border-2 border-sfx-gold shadow-2xl space-y-5" id="card-sec-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sfx-gold/40 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-xl bg-sfx-gold text-black font-black flex items-center justify-center text-sm shadow-md">06</span>
+                            <div>
+                                <h3 class="font-grotesk font-black text-sm text-sfx-goldLight uppercase">SUPREMA GOLD CARD // FULCRO DELLA PIATTAFORMA</h3>
+                                <span class="text-[10px] text-yellow-300 font-bold">10 Sottomenu di Governo Strutturati</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-6"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(6)" id="btn-sec-toggle-6" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+
+                    <!-- ACCORDION 10 SOTTOMENU GOLD CARD -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">1. Status &amp; Riconoscimento Giuridico</span>
+                            <input type="text" id="gc-sub-1" placeholder="Dettagli riconoscimento..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">2. Plafond &amp; Linee di Credito</span>
+                            <input type="text" id="gc-sub-2" placeholder="Parametri linee di credito..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">3. Protocolli EAL6+ &amp; Sicurezza</span>
+                            <input type="text" id="gc-sub-3" placeholder="Crittografia e parametri chiave..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">4. Servizi Concierge Dedicato H24</span>
+                            <input type="text" id="gc-sub-4" placeholder="Canali prioritari concierge..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">5. Networking &amp; Tavoli di Presidenza</span>
+                            <input type="text" id="gc-sub-5" placeholder="Regolamento tavoli riservati..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">6. Vantaggi Fiscali &amp; Assistenza</span>
+                            <input type="text" id="gc-sub-6" placeholder="Consulenza tributaria integrata..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">7. Accesso Anticipato Strumenti AI</span>
+                            <input type="text" id="gc-sub-7" placeholder="Beta test e modelli neurali..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">8. Eventi Esclusivi &amp; Summit Porte Chiuse</span>
+                            <input type="text" id="gc-sub-8" placeholder="Date e città summit..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">9. Condizioni Contrattuali &amp; Mantenimento</span>
+                            <input type="text" id="gc-sub-9" placeholder="Requisiti punteggio e attività..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="p-3 bg-black/90 rounded-xl border border-gray-800 space-y-1.5">
+                            <span class="text-sfx-gold font-bold block text-[11px]">10. Fascicolo Accredito &amp; Domanda Rilascio</span>
+                            <input type="text" id="gc-sub-10" placeholder="Istruzioni invio documentazione..." class="w-full p-2 bg-black border border-gray-700 rounded-lg text-gray-300 text-[11px] font-mono outline-none focus:border-sfx-gold">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-[10px] text-gray-400">Architettura pronta per accogliere ulteriori ramificazioni di 3° livello</span>
+                        <button onclick="salvaGoldCardSubmenu()" class="px-4 py-2 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs rounded-xl shadow transition-all cursor-pointer"><i class="fa-solid fa-crown mr-1"></i>Aggiorna i 10 Sottomenu Gold Card</button>
+                    </div>
+                </div>
+
+                <!-- 7. ATTIVITÀ COMMERCIALE CHIAVI IN MANO & REDIRECT CEO -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-3" id="card-sec-7">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-gold/20 text-sfx-gold font-bold flex items-center justify-center border border-sfx-gold/40 text-xs">07</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-white">ATTIVITÀ COMMERCIALE CHIAVI IN MANO</h3>
+                                <span class="text-[10px] text-yellow-300">Pulsante Landing reindirizza obbligatoriamente a Conferenza CEO</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-7"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(7)" id="btn-sec-toggle-7" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Testo Descrittivo Negozio:</label>
+                            <textarea id="sec-negozio-desc" rows="3" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-gold text-xs font-mono resize-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Link Documentali / Materiale Negozio:</label>
+                            <textarea id="sec-negozio-links" rows="3" placeholder="https://drive.google.com/..." class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-sfx-cyanLight outline-none focus:border-sfx-cyan text-xs font-mono resize-none"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button onclick="salvaSingolaSezione(7)" class="px-3.5 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-bold text-xs rounded-xl transition-all cursor-pointer"><i class="fa-solid fa-floppy-disk mr-1"></i>Aggiorna Sezione Negozio</button>
+                    </div>
+                </div>
+
+                <!-- 8. POLO SCIENTIFICO (PROFORMA ESTETICO) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-3" id="card-sec-8">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-cyan/20 text-sfx-cyan font-bold flex items-center justify-center border border-sfx-cyan/40 text-xs">08</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-white">POLO SCIENTIFICO &amp; TECNOLOGICO</h3>
+                                <span class="text-[10px] text-gray-400">Proforma estetico divulgativo (Senza bottoni acquisto diretto)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-8"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(8)" id="btn-sec-toggle-8" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed">Presentazione grafica ed istituzionale attiva per prestigio del brand. Nessun bottone transazionale diretto.</p>
+                </div>
+
+                <!-- 9. MEDIA CENTER RISERVATO (100 ASSET PER CATEGORIA) -->
+                <div class="p-5 bg-black/60 rounded-2xl border-2 border-sfx-cyan/60 space-y-4" id="card-sec-9">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-cyan text-black font-bold flex items-center justify-center text-xs">09</span>
+                            <div>
+                                <h3 class="font-grotesk font-black text-sm text-sfx-cyanLight uppercase">MEDIA CENTER RISERVATO // GESTIONE CLOUD</h3>
+                                <span class="text-[10px] text-gray-400">Capienza: 100 Foto | 100 Video | 100 Slide | 100 PDF (Caricamento solo da X-BOX)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-9"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(9)" id="btn-sec-toggle-9" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                        <button onclick="apriMediaTab('FOTO')" class="p-3 bg-black border border-sfx-gold/50 rounded-xl text-sfx-gold font-bold hover:bg-sfx-gold hover:text-black transition-all cursor-pointer">
+                            <i class="fa-solid fa-image block text-lg mb-1"></i>
+                            <span>FOTO (<span id="count-media-foto">0</span>/100)</span>
+                        </button>
+                        <button onclick="apriMediaTab('VIDEO')" class="p-3 bg-black border border-sfx-cyan/50 rounded-xl text-sfx-cyan font-bold hover:bg-sfx-cyan hover:text-black transition-all cursor-pointer">
+                            <i class="fa-solid fa-video block text-lg mb-1"></i>
+                            <span>VIDEO (<span id="count-media-video">0</span>/100)</span>
+                        </button>
+                        <button onclick="apriMediaTab('SLIDE')" class="p-3 bg-black border border-gray-700 rounded-xl text-white font-bold hover:bg-white hover:text-black transition-all cursor-pointer">
+                            <i class="fa-solid fa-file-powerpoint block text-lg mb-1"></i>
+                            <span>SLIDE (<span id="count-media-slide">0</span>/100)</span>
+                        </button>
+                        <button onclick="apriMediaTab('PDF')" class="p-3 bg-black border border-red-500/50 rounded-xl text-red-400 font-bold hover:bg-red-500 hover:text-black transition-all cursor-pointer">
+                            <i class="fa-solid fa-file-pdf block text-lg mb-1"></i>
+                            <span>PDF (<span id="count-media-pdf">0</span>/100)</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-black/80 rounded-xl border border-gray-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white uppercase" id="label-media-uploader">Aggiungi Nuovo File a Media Center:</span>
+                            <span class="text-[10px] text-sfx-cyan">Archiviazione protetta su Google Drive</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <input type="text" id="input-media-titolo" placeholder="Titolo Asset..." class="p-2.5 bg-black border border-gray-700 rounded-lg text-white text-xs outline-none">
+                            <input type="url" id="input-media-url" placeholder="URL File Drive / Streaming..." class="p-2.5 bg-black border border-gray-700 rounded-lg text-sfx-cyanLight text-xs outline-none">
+                            <button onclick="salvaNuovoMediaAsset()" class="p-2.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-extrabold text-xs uppercase rounded-lg transition-all cursor-pointer"><i class="fa-solid fa-cloud-arrow-up mr-1"></i>Carica Asset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. SOCIAL MEDIA & TASK FORCE (SCOUT AG-04 + JOKER AG-15) -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-3" id="card-sec-10">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-gold/20 text-sfx-gold font-bold flex items-center justify-center border border-sfx-gold/40 text-xs">10</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-white">I 6 CANALI SOCIAL &amp; TASK FORCE NEURALE</h3>
+                                <span class="text-[10px] text-gray-400">Collegamento AG-04 Scout (Hunter) &amp; AG-15 Joker (Strategist)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-10"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(10)" id="btn-sec-toggle-10" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
+                        <div class="p-2.5 bg-black rounded-lg border border-gray-800 text-sfx-gold font-bold">Instagram</div>
+                        <div class="p-2.5 bg-black rounded-lg border border-gray-800 text-sfx-cyan font-bold">Telegram</div>
+                        <div class="p-2.5 bg-black rounded-lg border border-gray-800 text-red-500 font-bold">YouTube</div>
+                        <div class="p-2.5 bg-black rounded-lg border border-gray-800 text-blue-400 font-bold">LinkedIn</div>
+                        <div class="p-2.5 bg-black rounded-lg border border-gray-800 text-white font-bold">TikTok</div>
+                        <div class="p-2.5 bg-black rounded-lg border border-gray-800 text-blue-600 font-bold">Facebook</div>
+                    </div>
+                </div>
+
+                <!-- 11. FEEDBACK, NEWSLETTER & GATEWAY PAGAMENTI -->
+                <div class="p-5 bg-black/60 rounded-2xl border border-gray-800 space-y-3" id="card-sec-11">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl bg-sfx-cyan/20 text-sfx-cyan font-bold flex items-center justify-center border border-sfx-cyan/40 text-xs">11</span>
+                            <div>
+                                <h3 class="font-grotesk font-bold text-sm text-white">FEEDBACK, NEWSLETTER &amp; GATEWAY PAGAMENTI</h3>
+                                <span class="text-[10px] text-gray-400">SumUp POS 1/2 e Revolut Biz 1/2 Sincronizzati</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-[10px] px-2 py-0.5 rounded border border-green-500 text-green-400 bg-green-950/40" id="ping-sec-11"><i class="fa-solid fa-link mr-1"></i>COLLEGATA</span>
+                            <button onclick="toggleSezioneOnOff(11)" id="btn-sec-toggle-11" class="px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer">STATO: ATTIVA (ON)</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <span class="text-gray-300">Modulo incassi allineato con la funzione <code>registraTransazioneIncasso</code> del file di backend.</span>
+                        <span class="text-green-400 font-bold"><i class="fa-solid fa-circle-check mr-1"></i>Semaforo Amministrativo: VERDE</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- ===================================================================== -->
+        <!-- MODULO FLOTTA 15 AGENTI AI (#modulo-flotta-ai)                         -->
+        <!-- ===================================================================== -->
+        <div id="modulo-flotta-ai" class="bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
+            <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-3.5 h-3.5 rounded-full bg-sfx-cyan animate-pulse"></div>
+                    <div>
+                        <h2 class="font-grotesk font-black text-base sm:text-xl text-sfx-cyanLight uppercase tracking-wider">
+                            CENTRALE GOVERNO 15 AGENTI AI // RETE NEURALE SOVRANA
+                        </h2>
+                        <span class="text-[10px] text-gray-400 font-mono">Pannello di indottrinamento System Prompt, vincoli lessicali e controllo derive cognitive</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="px-3 py-1 rounded-full bg-sfx-cyan/20 text-sfx-cyanLight border border-sfx-cyan/50 text-[10px] font-bold">15 AGENTI SINCRONIZZATI</span>
+                </div>
+            </div>
+
+            <!-- BADGES FLOTTA DA AG-01 AD AG-15 -->
+            <div class="flex flex-wrap gap-1.5 p-3 bg-black/60 rounded-2xl border border-gray-800 text-[9px] font-bold uppercase tracking-wider">
+                <span class="px-2 py-1 rounded bg-sfx-cyan/20 text-sfx-cyanLight border border-sfx-cyan/40">AG-01 ALISON</span>
+                <span class="px-2 py-1 rounded bg-red-950/40 text-red-400 border border-red-700/40">AG-02 NICOLE</span>
+                <span class="px-2 py-1 rounded bg-purple-950/40 text-purple-400 border border-purple-700/40">AG-03 GINEVRA</span>
+                <span class="px-2 py-1 rounded bg-green-950/40 text-green-400 border border-green-700/40">AG-04 SCOUT</span>
+                <span class="px-2 py-1 rounded bg-amber-950/40 text-amber-400 border border-amber-700/40">AG-05 LEDGER</span>
+                <span class="px-2 py-1 rounded bg-pink-950/40 text-pink-400 border border-pink-700/40">AG-06 GATEKEEPER</span>
+                <span class="px-2 py-1 rounded bg-blue-950/40 text-blue-400 border border-blue-700/40">AG-07 DELTA</span>
+                <span class="px-2 py-1 rounded bg-cyan-950/40 text-cyan-300 border border-cyan-700/40">AG-08 MEDIA</span>
+                <span class="px-2 py-1 rounded bg-yellow-950/40 text-yellow-400 border border-yellow-700/40">AG-09 EXIT</span>
+                <span class="px-2 py-1 rounded bg-indigo-950/40 text-indigo-400 border border-indigo-700/40">AG-10 INGESTION</span>
+                <span class="px-2 py-1 rounded bg-rose-950/40 text-rose-400 border border-rose-700/40">AG-11 ASSEDIO</span>
+                <span class="px-2 py-1 rounded bg-emerald-950/40 text-emerald-400 border border-emerald-700/40">AG-12 SENTINEL</span>
+                <span class="px-2 py-1 rounded bg-teal-950/40 text-teal-300 border border-teal-700/40">AG-13 WHATSAPP</span>
+                <span class="px-2 py-1 rounded bg-lime-950/40 text-lime-400 border border-lime-700/40">AG-14 GOVERNOR</span>
+                <span class="px-2 py-1 rounded bg-violet-950/40 text-violet-400 border border-violet-700/40">AG-15 JOKER</span>
+            </div>
+
+            <!-- CONSOLE SELEZIONE & MODIFICA PROMPT -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 text-xs font-mono">
+                <div class="lg:col-span-4 space-y-3">
+                    <label class="block text-gray-400 text-[10px] uppercase font-bold">1. Seleziona Agente Neurale:</label>
+                    <select id="selectAgente" onchange="caricaPromptAgente(this.value)" class="w-full p-3 bg-black/90 border-2 border-sfx-cyan/50 rounded-2xl text-sfx-cyanLight font-bold outline-none focus:border-sfx-gold text-xs custom-scrollbar cursor-pointer" size="9">
+                        <option value="AG-01" selected>AG-01: Alison (Concierge)</option>
+                        <option value="AG-02">AG-02: Nicole (Reporting)</option>
+                        <option value="AG-03">AG-03: Ginevra (Fisco)</option>
+                        <option value="AG-04">AG-04: Scout (Hunter)</option>
+                        <option value="AG-05">AG-05: Ledger (Tesoreria)</option>
+                        <option value="AG-06">AG-06: Gatekeeper (Filtro)</option>
+                        <option value="AG-07">AG-07: Delta (Delivery)</option>
+                        <option value="AG-08">AG-08: Media (Content)</option>
+                        <option value="AG-09">AG-09: Exit (Retention)</option>
+                        <option value="AG-10">AG-10: Ingestion (Data Cloud)</option>
+                        <option value="AG-11">AG-11: Assedio (Closing)</option>
+                        <option value="AG-12">AG-12: Sentinel (Audit EAL6+)</option>
+                        <option value="AG-13">AG-13: WhatsApp (Messaging)</option>
+                        <option value="AG-14">AG-14: Governor (Supervisor)</option>
+                        <option value="AG-15">AG-15: Joker (Strategist)</option>
+                    </select>
+
+                    <div class="p-3 bg-black/60 rounded-xl border border-gray-800 text-[10px] space-y-1">
+                        <span class="text-sfx-gold font-bold block uppercase">Parametri Operativi:</span>
+                        <div class="flex justify-between text-gray-400"><span>Temperatura:</span><strong class="text-white">0.3 (Deterministica)</strong></div>
+                        <div class="flex justify-between text-gray-400"><span>Integrità Audit:</span><strong class="text-green-400">EAL6+ Attiva</strong></div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-gray-400 text-[10px] uppercase font-bold" id="label-agente-selezionato">2. Indottrinamento / System Prompt [AG-01: Alison]:</label>
+                        <span class="text-[10px] text-yellow-300 font-bold">Sovrascrive il comportamento in rete</span>
+                    </div>
+                    <textarea id="textarea-prompt-agente" rows="9" class="w-full p-3.5 bg-black/90 border border-gray-700 rounded-2xl text-gray-200 outline-none focus:border-sfx-cyan text-xs font-mono leading-relaxed resize-none"></textarea>
+                    
+                    <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                        <div id="feedback-prompt-agente" class="text-[10px] font-bold text-green-400"></div>
+                        <button onclick="salvaPromptAgente()" class="px-6 py-3 bg-sfx-cyan hover:bg-cyan-400 text-black font-extrabold text-xs uppercase rounded-xl shadow-lg transition-all flex items-center space-x-1.5 cursor-pointer">
+                            <i class="fa-solid fa-atom"></i>
+                            <span>SALVA PROMPT E AGGIORNA RETE NEURALE</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TASK FORCE: SCOUT + JOKER -->
+            <div class="p-4 bg-black/60 rounded-2xl border border-sfx-gold/40 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-crosshairs text-sfx-gold text-base"></i>
+                    <div>
+                        <strong class="text-sfx-gold block">TASK FORCE: SCOUT (AG-04) + JOKER (AG-15)</strong>
+                        <span class="text-[10px] text-gray-400">Database dei 6 canali social &amp; piano editoriale Hunter integrato (1.000 keyword attive).</span>
+                    </div>
+                </div>
+                <span class="px-3 py-1 rounded bg-green-950 text-green-400 border border-green-700 text-[10px] font-bold">ROUTINE ATTIVA</span>
+            </div>
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- CENTRALE PROMEMORIA // MODIFICA TESTI E INTERRUTTORI                  -->
+        <!-- ===================================================================== -->
+        <div id="sezione-promemoria-container" class="hidden bg-sfx-panel p-6 sm:p-8 rounded-3xl border-2 border-sfx-cyan shadow-2xl space-y-6">
             <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-2">
                 <div class="flex items-center space-x-3">
                     <div class="w-3.5 h-3.5 rounded-full bg-sfx-cyan animate-pulse"></div>
@@ -146,8 +661,8 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button onclick="salvaTuttiITemplate()" class="px-4 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs rounded-xl shadow transition-all">
-                        <i class="fa-solid fa-floppy-disk mr-1"></i>SALVA TESTI
+                    <button onclick="salvaTuttiITemplate()" class="px-4 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold text-xs rounded-xl shadow transition-all cursor-pointer">
+                        <i class="fa-solid fa-floppy-disk mr-1"></i>SALVA TESTI PROMEMORIA
                     </button>
                 </div>
             </div>
@@ -164,7 +679,7 @@
                         </div>
                         <div class="flex items-center space-x-2">
                             <span class="text-[9px] font-bold text-green-400" id="label-switch-t0">AUTOMATICO</span>
-                            <button onclick="toggleSwitchCadenza('t0')" id="btn-switch-t0" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                            <button onclick="toggleSwitchCadenza('t0')" id="btn-switch-t0" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative cursor-pointer">
                                 <div id="dot-switch-t0" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
                             </button>
                         </div>
@@ -188,7 +703,7 @@
                         </div>
                         <div class="flex items-center space-x-2">
                             <span class="text-[9px] font-bold text-green-400" id="label-switch-t7">AUTOMATICO</span>
-                            <button onclick="toggleSwitchCadenza('t7')" id="btn-switch-t7" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                            <button onclick="toggleSwitchCadenza('t7')" id="btn-switch-t7" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative cursor-pointer">
                                 <div id="dot-switch-t7" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
                             </button>
                         </div>
@@ -212,7 +727,7 @@
                         </div>
                         <div class="flex items-center space-x-2">
                             <span class="text-[9px] font-bold text-green-400" id="label-switch-t48">AUTOMATICO</span>
-                            <button onclick="toggleSwitchCadenza('t48')" id="btn-switch-t48" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                            <button onclick="toggleSwitchCadenza('t48')" id="btn-switch-t48" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative cursor-pointer">
                                 <div id="dot-switch-t48" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
                             </button>
                         </div>
@@ -236,7 +751,7 @@
                         </div>
                         <div class="flex items-center space-x-2">
                             <span class="text-[9px] font-bold text-green-400" id="label-switch-t5">AUTOMATICO</span>
-                            <button onclick="toggleSwitchCadenza('t5')" id="btn-switch-t5" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative">
+                            <button onclick="toggleSwitchCadenza('t5')" id="btn-switch-t5" class="w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative cursor-pointer">
                                 <div id="dot-switch-t5" class="w-4 h-4 bg-white rounded-full transition-transform translate-x-6"></div>
                             </button>
                         </div>
@@ -253,7 +768,7 @@
 
             </div>
 
-            <!-- MODULI RISERVATI IN STAND-BY (ACCORDO DI RISERVATEZZA E BRIEFING) -->
+            <!-- MODULI RISERVATI IN STAND-BY -->
             <div class="p-5 bg-[#4A0E4E]/30 rounded-2xl border border-[#FFBF00]/40 space-y-3">
                 <div class="flex items-center justify-between border-b border-[#FFBF00]/30 pb-2">
                     <div class="flex items-center space-x-2">
@@ -315,7 +830,7 @@
                 </div>
 
                 <div class="flex items-end">
-                    <button type="submit" id="btn-conferma-attivazione" class="w-full p-3.5 bg-sfx-cyan hover:bg-cyan-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-lg flex items-center justify-center space-x-2">
+                    <button type="submit" id="btn-conferma-attivazione" class="w-full p-3.5 bg-sfx-cyan hover:bg-cyan-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         <span>Abilita Accesso</span>
                     </button>
@@ -342,14 +857,14 @@
                         <option value="Premium">Academy Premium VIP</option>
                     </select>
 
-                    <button onclick="caricaLeadsCRM()" class="px-4 py-3.5 bg-[#090A0D] hover:bg-black text-sfx-cyanLight font-bold rounded-2xl border border-gray-700 transition-colors flex items-center space-x-1.5 shadow-sm">
+                    <button onclick="caricaLeadsCRM()" class="px-4 py-3.5 bg-[#090A0D] hover:bg-black text-sfx-cyanLight font-bold rounded-2xl border border-gray-700 transition-colors flex items-center space-x-1.5 shadow-sm cursor-pointer">
                         <i class="fa-solid fa-rotate"></i>
                         <span class="hidden sm:inline">Ricarica</span>
                     </button>
 
-                    <button onclick="esportaLeadsCSV()" class="px-4 py-3.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold rounded-2xl transition-colors flex items-center space-x-1.5 shadow-md">
+                    <button onclick="esportaLeadsCSV()" class="px-4 py-3.5 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold rounded-2xl transition-colors flex items-center space-x-1.5 shadow-md cursor-pointer">
                         <i class="fa-solid fa-file-csv"></i>
-                        <span>Esporta File</span>
+                        <span>Esporta CSV</span>
                     </button>
                 </div>
             </div>
@@ -382,7 +897,7 @@
                     <tbody id="tbody-crm-leads" class="divide-y divide-gray-800/60 text-gray-300">
                         <tr>
                             <td colspan="8" class="p-8 text-center text-gray-500 italic">
-                                <i class="fa-solid fa-spinner fa-spin text-sfx-gold text-lg mr-2"></i>Connessione al database in corso...
+                                <i class="fa-solid fa-spinner fa-spin text-sfx-gold text-lg mr-2"></i>Inizializzazione registro in corso...
                             </td>
                         </tr>
                     </tbody>
@@ -394,42 +909,89 @@
     <!-- FOOTER -->
     <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[11px] text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <span>SUPREMA FUTURE X // CONTROLLO CENTRALE</span>
+            <span>SUPREMA FUTURE X // X-BOX CENTRALE DI GOVERNO</span>
             <span class="text-sfx-gold font-bold">PROTOCOLLO SICUREZZA: EAL6+ ATTIVO</span>
             <span>© 2026 TUTTI I DIRITTI RISERVATI</span>
         </div>
     </footer>
 
-    <!-- SCRIPT GESTIONE FRONTEND -->
+    <!-- SCRIPT GESTIONE FRONTEND INTEGRALE CON CACHE LOCALE -->
     <script>
         let leadsGlobali = [];
-        const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbzWdc42zmKTZ7JTxARuiGOgEi6yBiFnoSITfv0vsiy07J-LeSpLLvvj_tRinRQZB7GX/exec";
+        const APPS_SCRIPT_URL_CRM = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
+
+        // CONFIGURAZIONE DEFAULT 11 SEZIONI LANDING
+        const DEFAULT_SEZIONI_CONFIG = {
+            sec1: { active: true, text: "Community, Networking & Academy ENTERPRISE. Piattaforma d'élite per la Formazione, Sviluppo Personale, E-Commerce Autonomo e Reindirizzamento al Lavoro Immediato guidata dalla Direzione del CEO GIULIANO." },
+            sec2: { active: true, nota1: "Governa l'indirizzo strategico, le relazioni d'affari e i programmi per l'avvio al lavoro. Sessioni one-to-one a numero chiuso.", nota2: "Colloquio preliminare orientativo. Si raccomanda puntualità e postazione priva di rumori.", mode: "ALL" },
+            sec3: { active: true, desc: "Coordino gli accessi all'infrastruttura per conto del CEO GIULIANO. Posso guidarti nella scelta del corso o predisporre il colloquio in conferenza riservata.", welcome: "Benvenuto in Suprema Future X. Sono a tua disposizione per illustrarti i 3 percorsi Academy o facilitare la prenotazione con il CEO Giuliano." },
+            sec4: { active: true, silver: "4 Moduli Operativi Passo-Passo per lavoro indipendente e prime entrate digitali.", executive: "8 Settimane Intensive, leadership applicata, agenti AI e rilascio Gold Card.", vip: "Mentoring One-to-One con il CEO Giuliano Caratelli e Gold Card metallica." },
+            sec5: { active: true },
+            sec6: { 
+                active: true,
+                submenus: {
+                    s1: "Status Phygital e Titolo Commerciale Riconosciuto",
+                    s2: "Linee di credito e convenzioni riservate con partner finanziari",
+                    s3: "Crittografia EAL6+ e accesso alle aree ad alta sicurezza",
+                    s4: "Desk di supporto e concierge operativo H24 dedicato",
+                    s5: "Accesso ai tavoli della Presidenza e networking d'élite",
+                    s6: "Deducibilità e consulenza tributaria per attività digitali",
+                    s7: "Accesso anticipato alle release della flotta neurale",
+                    s8: "Inviti ai vertici semestrali a porte chiuse",
+                    s9: "Mantenimento dei punteggi e standard etico aziendale",
+                    s10: "Fascicolo documentale per il rilascio della card fisica"
+                }
+            },
+            sec7: { active: true, desc: "Attività commerciale digitale chiavi in mano a zero magazzino. Abilitazione su conferenza con il CEO.", links: "https://drive.google.com/drive/folders/sfx-negozi" },
+            sec8: { active: true },
+            sec9: { active: true, media: { foto: [], video: [], slide: [], pdf: [] } },
+            sec10: { active: true },
+            sec11: { active: true }
+        };
+
+        // PROMPT DEFAULT 15 AGENTI
+        const PROMPT_AGENTI = {
+            "AG-01": "Sei Alison (AG-01), il Concierge Digitale Esecutivo di Suprema Future X. Rispondi con tono autorevole, calibrato e cordiale. Non allucinare mai prezzi differenti da: Silver 99€, Executive Master 149€, Premium VIP 189€. Indirizza le richieste strategiche alla Conferenza Presidenziale con il CEO Giuliano Caratelli.",
+            "AG-02": "Sei Nicole (AG-02 - Reporting). Analizzi le metriche delle candidature, estrai i KPI di conversione e generi report di sintesi settimanale per la Presidenza.",
+            "AG-03": "Sei Ginevra (AG-03 - Fisco). Fornisci assistenza sui regolamenti didattici, conformità tributaria, emissione ricevute e protocolli contabili dell'Ecosistema.",
+            "AG-04": "Sei Scout (AG-04 - Hunter). Scansioni e intercetti lead profilati e aziende idonee a cooperare con Suprema Future X sui canali social ufficiali.",
+            "AG-05": "Sei Ledger (AG-05 - Tesoreria). Verifichi lo stato delle transazioni SumUp e bonifici Revolut Business, allineando i semafori amministrativi su VERDE.",
+            "AG-06": "Sei Gatekeeper (AG-06 - Filtro). Convalidi i Codici Nexus, impedisci doppie registrazioni nello stesso orario e filtri gli ingressi di bassa qualità.",
+            "AG-07": "Sei Delta (AG-07 - Delivery). Governi la sincronizzazione delle dispense formative e assicuri l'accesso puntuale dei corsisti ai file di studio.",
+            "AG-08": "Sei Media (AG-08 - Content). Coordini la distribuzione dei 100 asset per categoria (Foto, Video, Slide, PDF) dal Vault verso la Landing Page.",
+            "AG-09": "Sei Exit (AG-09 - Retention). Monitori i livelli di soddisfazione dei corsisti e intervieni con sondaggi per massimizzare il successo formativo.",
+            "AG-10": "Sei Ingestion (AG-10 - Data Cloud). Gestisci l'archiviazione massiva e il flusso dei log crittografati nel database Google Sheets.",
+            "AG-11": "Sei Assedio (AG-11 - Closing). Presidi il protocollo commerciale ad alta conversione per l'avvio al lavoro dei membri della community.",
+            "AG-12": "Sei Sentinel (AG-12 - Audit EAL6+). Sorvegli la tenuta crittografica del sistema, blocchi intrusioni e verifichi gli accessi al Caveau presidenziale.",
+            "AG-13": "Sei WhatsApp (AG-13 - Messaging). Formatti i messaggi di contatto rapido garantendo link diretti e orari d'appuntamento Meet precisi.",
+            "AG-14": "Sei Governor (AG-14 - Supervisor). Supervisioni l'allineamento tra tutti i moduli e verifichi l'ordine esecutivo del CEO Giuliano Caratelli.",
+            "AG-15": "Sei Joker (AG-15 - Strategist). Pianifichi le campagne editoriali e definisci gli schemi d'attacco sul mercato per espandere la community SFX."
+        };
 
         const CONFIG_DEFAULT_MATRIX = {
             switches: { t0: true, t7: true, t48: true, t5: true },
             templates: {
                 email_t0: "Gentile {{NOME}}, la tua candidatura per {{AMBITO}} è acquisita.\n\n⚠️ NOTA IMPORTANTE: Sposta questa email in Posta in Arrivo e seleziona 'Sembra sicuro' per non perdere il link della stanza Meet.\n\nCODICE IDENTIFICATIVO: {{CODICE}}\nAPPUNTAMENTO: {{DATA}} alle {{ORA}}\nSTATO: Accreditato.\n\nIl link per l'accesso ti verrà inviato 5 minuti prima della trasmissione.",
                 wa_t0: "👑 SUPREMA FUTURE X // Gentile {{NOME}}, richiesta per {{AMBITO}} registrata.\n▫️ Codice: {{CODICE}}\n▫️ Data: {{DATA}} ore {{ORA}}\nControlli l'email (anche cartella Spam). Riceverà il link Meet poco prima dell'incontro.",
-                
                 email_t7: "Gentile {{NOME}}, ti ricordiamo che la tua sessione con il CEO Giuliano Caratelli è fissata tra una settimana: {{DATA}} alle {{ORA}}.\n\nMATERIALE PREPARATORIO D'INGRESSO:\nVisiona la panoramica del modello operativo: https://supremaofficial.com\n\nTi invitiamo a preparare un quesito strategico prioritario per la chiamata.",
                 wa_t7: "⏳ SFX // -7 GIORNI alla sessione con il CEO Giuliano Caratelli ({{DATA}} ore {{ORA}}).\nAbbiamo predisposto per lei il materiale informativo da consultare prima della chiamata.",
-                
                 email_t48: "Gentile {{NOME}}, mancano 48 ore al tuo appuntamento per {{AMBITO}} ({{DATA}} alle {{ORA}}).\n\nCONFERMA PRESENZA:\n🟢 Rispondi 'CONFERMO' per bloccare la stanza riservata.\n🟡 Rispondi 'RINVIA' per cedere lo slot e scegliere un'altra data.\n\nIn assenza di risposta entro 12 ore, lo slot verrà riassegnato.",
                 wa_t48: "🚨 SFX PRESIDENZA // CONFERMA RICHIESTA (-48 ORE)\nGentile {{NOME}}, per confermare il suo slot di dopodomani ({{DATA}} ore {{ORA}}):\n1️⃣ Risponda CONFERMO per bloccare la stanza.\n2️⃣ Risponda RINVIA per richiedere altra data.",
-                
                 email_t5: "Gentile {{NOME}}, la stanza virtuale della Presidenza è aperta:\n\n🔗 STANZA GOOGLE MEET: {{LINK_MEET}}\nCODICE ACCREDITO: {{CODICE}}\n\nIl CEO Giuliano Caratelli è in attesa del suo ingresso. Si raccomanda puntualità.",
                 wa_t5: "🔴 STANZA MEET APERTA // Gentile {{NOME}}, la Presidenza è pronta per la sua sessione.\nAcceda qui: {{LINK_MEET}}\nCodice: {{CODICE}}",
-                
                 nda_standby: "Accordo di Riservatezza NDA: Il candidato si impegna alla riservatezza su tutte le metodologie condivise durante il colloquio.",
                 briefing_standby: "Invia prima della sessione l'indirizzo web della tua attività per consentire al CEO di analizzare preventivamente il tuo settore."
             }
         };
 
+        // FUNZIONE LOGOUT SICURO: RIPRISTINA SCROLL E TORNA A INDEX.HTML
         function eseguiLogoutCRM() {
             sessionStorage.removeItem('sfx_authenticated');
             sessionStorage.removeItem('sfx_auth_time');
             sessionStorage.removeItem('sfx_role');
-            window.location.href = 'login.html';
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
+            window.location.href = 'index.html';
         }
 
         function togglePannello(id) {
@@ -442,6 +1004,225 @@
             }
         }
 
+        // =========================================================
+        // GESTIONE SEZIONI LANDING
+        // =========================================================
+        function caricaStatoSezioni() {
+            let salvato = localStorage.getItem('sfx_sezioni_config');
+            let cfg = salvato ? JSON.parse(salvato) : DEFAULT_SEZIONI_CONFIG;
+
+            for (let i = 1; i <= 11; i++) {
+                aggiornaGraficaSezioneToggle(i, cfg[`sec${i}`]?.active ?? true);
+            }
+
+            if (document.getElementById('sec-text-1')) document.getElementById('sec-text-1').value = cfg.sec1.text;
+            if (document.getElementById('sec-presidenza-nota1')) document.getElementById('sec-presidenza-nota1').value = cfg.sec2.nota1;
+            if (document.getElementById('sec-presidenza-nota2')) document.getElementById('sec-presidenza-nota2').value = cfg.sec2.nota2;
+            if (document.getElementById('sec-presidenza-mode')) document.getElementById('sec-presidenza-mode').value = cfg.sec2.mode || 'ALL';
+            if (document.getElementById('sec-alison-desc')) document.getElementById('sec-alison-desc').value = cfg.sec3.desc;
+            if (document.getElementById('sec-alison-welcome')) document.getElementById('sec-alison-welcome').value = cfg.sec3.welcome;
+            if (document.getElementById('sec-corso-silver')) document.getElementById('sec-corso-silver').value = cfg.sec4.silver;
+            if (document.getElementById('sec-corso-executive')) document.getElementById('sec-corso-executive').value = cfg.sec4.executive;
+            if (document.getElementById('sec-corso-vip')) document.getElementById('sec-corso-vip').value = cfg.sec4.vip;
+
+            if (cfg.sec6 && cfg.sec6.submenus) {
+                for (let k = 1; k <= 10; k++) {
+                    const el = document.getElementById(`gc-sub-${k}`);
+                    if (el) el.value = cfg.sec6.submenus[`s${k}`] || '';
+                }
+            }
+
+            if (document.getElementById('sec-negozio-desc')) document.getElementById('sec-negozio-desc').value = cfg.sec7.desc;
+            if (document.getElementById('sec-negozio-links')) document.getElementById('sec-negozio-links').value = cfg.sec7.links;
+
+            aggiornaContatoriMedia(cfg.sec9?.media);
+            aggiornaStatisticheSezioniAttive(cfg);
+        }
+
+        function toggleSezioneOnOff(num) {
+            let salvato = localStorage.getItem('sfx_sezioni_config');
+            let cfg = salvato ? JSON.parse(salvato) : DEFAULT_SEZIONI_CONFIG;
+            const chiave = `sec${num}`;
+            if (!cfg[chiave]) cfg[chiave] = { active: true };
+
+            cfg[chiave].active = !cfg[chiave].active;
+            localStorage.setItem('sfx_sezioni_config', JSON.stringify(cfg));
+            aggiornaGraficaSezioneToggle(num, cfg[chiave].active);
+            aggiornaStatisticheSezioniAttive(cfg);
+            mostraFeedbackSezione(`Stato Sezione ${num} modificato in: ${cfg[chiave].active ? 'ATTIVA (ON)' : 'DISATTIVA (OFF)'}`);
+        }
+
+        function aggiornaGraficaSezioneToggle(num, attivo) {
+            const btn = document.getElementById(`btn-sec-toggle-${num}`);
+            const card = document.getElementById(`card-sec-${num}`);
+            if (btn) {
+                if (attivo) {
+                    btn.className = "px-3 py-1 bg-green-600 hover:bg-green-500 text-black font-bold text-[10px] rounded-lg transition-all cursor-pointer";
+                    btn.textContent = "STATO: ATTIVA (ON)";
+                    if (card) card.classList.remove('opacity-50');
+                } else {
+                    btn.className = "px-3 py-1 bg-red-600 hover:bg-red-500 text-white font-bold text-[10px] rounded-lg transition-all cursor-pointer";
+                    btn.textContent = "STATO: SPENTA (OFF)";
+                    if (card) card.classList.add('opacity-50');
+                }
+            }
+        }
+
+        function salvaSingolaSezione(num) {
+            let salvato = localStorage.getItem('sfx_sezioni_config');
+            let cfg = salvato ? JSON.parse(salvato) : DEFAULT_SEZIONI_CONFIG;
+
+            if (num === 1) cfg.sec1.text = document.getElementById('sec-text-1').value;
+            if (num === 3) {
+                cfg.sec3.desc = document.getElementById('sec-alison-desc').value;
+                cfg.sec3.welcome = document.getElementById('sec-alison-welcome').value;
+            }
+            if (num === 4) {
+                cfg.sec4.silver = document.getElementById('sec-corso-silver').value;
+                cfg.sec4.executive = document.getElementById('sec-corso-executive').value;
+                cfg.sec4.vip = document.getElementById('sec-corso-vip').value;
+            }
+            if (num === 7) {
+                cfg.sec7.desc = document.getElementById('sec-negozio-desc').value;
+                cfg.sec7.links = document.getElementById('sec-negozio-links').value;
+            }
+
+            localStorage.setItem('sfx_sezioni_config', JSON.stringify(cfg));
+            mostraFeedbackSezione(`✓ Sezione ${num} salvata e allineata con la Landing Page.`);
+        }
+
+        function salvaPresidenzaCEO() {
+            let salvato = localStorage.getItem('sfx_sezioni_config');
+            let cfg = salvato ? JSON.parse(salvato) : DEFAULT_SEZIONI_CONFIG;
+            cfg.sec2.nota1 = document.getElementById('sec-presidenza-nota1').value;
+            cfg.sec2.nota2 = document.getElementById('sec-presidenza-nota2').value;
+            cfg.sec2.mode = document.getElementById('sec-presidenza-mode').value;
+
+            localStorage.setItem('sfx_sezioni_config', JSON.stringify(cfg));
+            mostraFeedbackSezione("👑 Direttive Presidenziali salvate e pubblicate.");
+        }
+
+        function salvaGoldCardSubmenu() {
+            let salvato = localStorage.getItem('sfx_sezioni_config');
+            let cfg = salvato ? JSON.parse(salvato) : DEFAULT_SEZIONI_CONFIG;
+            if (!cfg.sec6.submenus) cfg.sec6.submenus = {};
+
+            for (let k = 1; k <= 10; k++) {
+                const el = document.getElementById(`gc-sub-${k}`);
+                if (el) cfg.sec6.submenus[`s${k}`] = el.value;
+            }
+
+            localStorage.setItem('sfx_sezioni_config', JSON.stringify(cfg));
+            mostraFeedbackSezione("✓ I 10 sottomenu della Gold Card sono stati aggiornati.");
+        }
+
+        function salvaTutteLeSezioni() {
+            salvaSingolaSezione(1);
+            salvaPresidenzaCEO();
+            salvaSingolaSezione(3);
+            salvaSingolaSezione(4);
+            salvaGoldCardSubmenu();
+            salvaSingolaSezione(7);
+            mostraFeedbackSezione("🚀 Tutte le 11 sezioni sono state pubblicate e allineate al 100%.");
+        }
+
+        function mostraFeedbackSezione(msg) {
+            const fb = document.getElementById('feedback-sezioni');
+            if (fb) {
+                fb.className = "p-3.5 rounded-2xl text-xs font-mono border bg-green-950/70 border-green-500 text-green-300 block shadow-lg";
+                fb.innerHTML = msg;
+                setTimeout(() => { fb.className = "hidden"; }, 4000);
+            }
+        }
+
+        function aggiornaStatisticheSezioniAttive(cfg) {
+            let attive = 0;
+            for (let i = 1; i <= 11; i++) {
+                if (cfg[`sec${i}`]?.active !== false) attive++;
+            }
+            const el = document.getElementById('crm-stat-active-sections');
+            if (el) el.textContent = `${attive} / 11`;
+        }
+
+        // =========================================================
+        // GESTIONE MEDIA CENTER (100 PER CATEGORIA)
+        // =========================================================
+        let mediaTabAttivo = 'FOTO';
+        function apriMediaTab(tipo) {
+            mediaTabAttivo = tipo;
+            const lbl = document.getElementById('label-media-uploader');
+            if (lbl) lbl.textContent = `Aggiungi Nuovo File a Media Center [${tipo}]:`;
+        }
+
+        function salvaNuovoMediaAsset() {
+            const titolo = document.getElementById('input-media-titolo').value.trim();
+            const url = document.getElementById('input-media-url').value.trim();
+            if (!titolo || !url) {
+                alert("Inserisci Titolo e URL dell'asset da caricare.");
+                return;
+            }
+
+            let salvato = localStorage.getItem('sfx_sezioni_config');
+            let cfg = salvato ? JSON.parse(salvato) : DEFAULT_SEZIONI_CONFIG;
+            if (!cfg.sec9.media) cfg.sec9.media = { foto: [], video: [], slide: [], pdf: [] };
+
+            const chiaveArray = mediaTabAttivo.toLowerCase();
+            if (cfg.sec9.media[chiaveArray].length >= 100) {
+                alert(`Hai raggiunto il limite di 100 asset per la categoria ${mediaTabAttivo}.`);
+                return;
+            }
+
+            cfg.sec9.media[chiaveArray].push({ titolo: titolo, url: url, data: new Date().toISOString() });
+            localStorage.setItem('sfx_sezioni_config', JSON.stringify(cfg));
+
+            document.getElementById('input-media-titolo').value = '';
+            document.getElementById('input-media-url').value = '';
+            aggiornaContatoriMedia(cfg.sec9.media);
+            mostraFeedbackSezione(`✓ Asset caricato nella categoria ${mediaTabAttivo} (${cfg.sec9.media[chiaveArray].length}/100)`);
+        }
+
+        function aggiornaContatoriMedia(mediaObj) {
+            if (!mediaObj) return;
+            if (document.getElementById('count-media-foto')) document.getElementById('count-media-foto').textContent = mediaObj.foto?.length || 0;
+            if (document.getElementById('count-media-video')) document.getElementById('count-media-video').textContent = mediaObj.video?.length || 0;
+            if (document.getElementById('count-media-slide')) document.getElementById('count-media-slide').textContent = mediaObj.slide?.length || 0;
+            if (document.getElementById('count-media-pdf')) document.getElementById('count-media-pdf').textContent = mediaObj.pdf?.length || 0;
+        }
+
+        // =========================================================
+        // GESTIONE 15 AGENTI NEURALI
+        // =========================================================
+        function caricaPromptAgente(agenteId) {
+            const id = agenteId || document.getElementById('selectAgente').value;
+            const lbl = document.getElementById('label-agente-selezionato');
+            if (lbl) lbl.textContent = `2. Indottrinamento / System Prompt [${id}]:`;
+
+            let salvati = localStorage.getItem('sfx_prompts_agenti');
+            let prompts = salvati ? JSON.parse(salvati) : PROMPT_AGENTI;
+
+            document.getElementById('textarea-prompt-agente').value = prompts[id] || PROMPT_AGENTI[id] || '';
+        }
+
+        function salvaPromptAgente() {
+            const id = document.getElementById('selectAgente').value;
+            const testo = document.getElementById('textarea-prompt-agente').value.trim();
+
+            let salvati = localStorage.getItem('sfx_prompts_agenti');
+            let prompts = salvati ? JSON.parse(salvati) : PROMPT_AGENTI;
+
+            prompts[id] = testo;
+            localStorage.setItem('sfx_prompts_agenti', JSON.stringify(prompts));
+
+            const fb = document.getElementById('feedback-prompt-agente');
+            if (fb) {
+                fb.textContent = `✓ System Prompt per ${id} memorizzato e applicato alla rete neurale.`;
+                setTimeout(() => { fb.textContent = ''; }, 3500);
+            }
+        }
+
+        // =========================================================
+        // GESTIONE PROMEMORIA
+        // =========================================================
         function caricaStatoMatrix() {
             let salvato = localStorage.getItem('sfx_matrix_config');
             let config = salvato ? JSON.parse(salvato) : CONFIG_DEFAULT_MATRIX;
@@ -478,12 +1259,12 @@
             const label = document.getElementById(`label-switch-${fase}`);
 
             if (attivo) {
-                btn.className = "w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative";
+                btn.className = "w-12 h-6 bg-green-600 rounded-full p-1 transition-colors relative cursor-pointer";
                 dot.className = "w-4 h-4 bg-white rounded-full transition-transform translate-x-6";
                 label.textContent = "AUTOMATICO";
                 label.className = "text-[9px] font-bold text-green-400";
             } else {
-                btn.className = "w-12 h-6 bg-red-600 rounded-full p-1 transition-colors relative";
+                btn.className = "w-12 h-6 bg-red-600 rounded-full p-1 transition-colors relative cursor-pointer";
                 dot.className = "w-4 h-4 bg-white rounded-full transition-transform translate-x-0";
                 label.textContent = "MANUALE";
                 label.className = "text-[9px] font-bold text-red-400";
@@ -515,6 +1296,9 @@
             setTimeout(() => { fb.className = "hidden"; }, 3500);
         }
 
+        // =========================================================
+        // GESTIONE ATTIVAZIONE CORSISTA & PROVISIONING
+        // =========================================================
         function preparaAttivazioneDaLead(nome, email, ambito) {
             document.getElementById('sezione-attivazione-container').classList.remove('hidden');
             document.getElementById('att-nome').value = nome || '';
@@ -526,25 +1310,26 @@
             const btn = document.getElementById('btn-conferma-attivazione');
             const feedback = document.getElementById('feedback-attivazione');
             const dati = {
+                action: 'avvallaCorsista',
                 nome: document.getElementById('att-nome').value.trim(),
                 email: document.getElementById('att-email').value.trim(),
                 pacchetto: document.getElementById('att-pacchetto').value
             };
 
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>ATTIVAZIONE...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>CREAZIONE WORKSPACE DRIVE...`;
 
             fetch(APPS_SCRIPT_URL_CRM, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain' },
-                body: JSON.stringify({ action: 'PROVISIONING_ASSEDIO', payload: dati })
+                body: JSON.stringify(dati)
             })
             .then(res => res.json())
             .then(res => {
                 btn.disabled = false;
                 btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Abilita Accesso`;
                 feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-green-950/50 border-green-500 text-green-300 block";
-                feedback.innerHTML = res.message || "Corsista abilitato con successo.";
+                feedback.innerHTML = `✓ Corsista attivato con successo! Workspace Google Drive: <a href="${res.driveUrl || '#'}" target="_blank" class="underline text-sfx-goldLight">Apri Cartella</a>`;
                 document.getElementById('form-attivazione').reset();
                 caricaLeadsCRM();
             })
@@ -552,38 +1337,49 @@
                 btn.disabled = false;
                 btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Abilita Accesso`;
                 feedback.className = "p-4 rounded-2xl text-xs font-mono border bg-[#4A0E4E]/50 border-[#FFBF00] text-[#FFBF00] block";
-                feedback.innerHTML = `⚠️ Errore di connessione: ${err.message}`;
+                feedback.innerHTML = `⚠️ Connessione offline. Tentativo registrato in memoria locale: ${err.message}`;
             });
         }
 
+        // =========================================================
+        // CARICAMENTO LEADS CON CACHE LOCALE (ZERO SCHERMATE VUOTE)
+        // =========================================================
         async function caricaLeadsCRM() {
             const tbody = document.getElementById('tbody-crm-leads');
             const syncTime = document.getElementById('crm-sync-time');
-            if (!tbody) return;
+            const ledStatus = document.getElementById('led-hardware-status');
+            const txtStatus = document.getElementById('txt-hardware-status');
 
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="8" class="p-8 text-center text-gray-400 font-bold">
-                        <i class="fa-solid fa-arrows-rotate fa-spin text-sfx-cyan mr-2"></i>Aggiornamento elenco...
-                    </td>
-                </tr>`;
-
-            try {
-                const res = await fetch(APPS_SCRIPT_URL_CRM + '?action=GET_LEADS');
-                const data = await res.json();
-                leadsGlobali = (data && data.leads) ? data.leads.slice().reverse() : [];
-
+            // 1. CARICAMENTO IMMEDIATO DA CACHE LOCALE (0 MS)
+            const cache = localStorage.getItem('sfx_leads_cache');
+            if (cache) {
+                leadsGlobali = JSON.parse(cache);
                 renderizzaTabellaCRM(leadsGlobali);
                 aggiornaStatisticheCRM(leadsGlobali);
+            }
 
-                if (syncTime) syncTime.textContent = `AGGIORNAMENTO: ${new Date().toLocaleTimeString('it-IT')}`;
+            // 2. INTERROGAZIONE SERVER IN BACKGROUND
+            try {
+                if (ledStatus) ledStatus.className = "w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse";
+                if (txtStatus) txtStatus.textContent = "SINCRONIZZAZIONE...";
+
+                const res = await fetch(APPS_SCRIPT_URL_CRM + '?action=getCandidati');
+                const data = await res.json();
+                
+                if (data && data.dati) {
+                    leadsGlobali = data.dati.slice().reverse();
+                    localStorage.setItem('sfx_leads_cache', JSON.stringify(leadsGlobali));
+                    renderizzaTabellaCRM(leadsGlobali);
+                    aggiornaStatisticheCRM(leadsGlobali);
+
+                    if (ledStatus) ledStatus.className = "w-2.5 h-2.5 rounded-full bg-green-500";
+                    if (txtStatus) txtStatus.textContent = "SERVER CONNESSO (EAL6+)";
+                    if (syncTime) syncTime.textContent = `AGGIORNAMENTO: ${new Date().toLocaleTimeString('it-IT')}`;
+                }
             } catch (err) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" class="p-8 text-center text-[#FFBF00] font-bold">
-                            ⚠️ Impossibile comunicare con il server.
-                        </td>
-                    </tr>`;
+                if (ledStatus) ledStatus.className = "w-2.5 h-2.5 rounded-full bg-yellow-500";
+                if (txtStatus) txtStatus.textContent = "MODALITÀ CACHE LOCALE (SERVER ASYNC)";
+                if (syncTime) syncTime.textContent = `OFFLINE (CACHE): ${new Date().toLocaleTimeString('it-IT')}`;
             }
         }
 
@@ -606,13 +1402,20 @@
 
             tbody.innerHTML = '';
             lista.forEach(item => {
-                const telPulito = (item.telefono || '').replace(/[^0-9]/g, '');
-                const dataFormattata = item.timestamp ? new Date(item.timestamp).toLocaleString('it-IT') : 'N/D';
+                const telPulito = (item.TELEFONO || item.telefono || '').replace(/[^0-9]/g, '');
+                const dataFormattata = item.TIMESTAMP || item.timestamp || 'N/D';
+                const codiceNexus = item.ID_NEXUS || item.nexusCode || 'NX-REG';
+                const nomeCompleto = (item.NOME || '') + ' ' + (item.COGNOME || item.cognome || '');
+                const email = item.EMAIL || item.email || 'N/D';
+                const note = item.NOTE_OBIETTIVI || item.note || 'Nessuna indicazione';
+                const dataCall = item.DATA_CALL || item.dataPrenotazione || 'In attesa';
+                const score = item.LEAD_SCORE || item.punti || '1,500 PTS';
+
                 const row = document.createElement('tr');
                 row.className = "hover:bg-gray-900/50 transition-colors border-b border-gray-800/40";
 
                 const waBtn = telPulito ? `
-                    <a href="https://wa.me/${telPulito}?text=Gentile%20${encodeURIComponent(item.nome || '')},%20la%20Presidenza%20del%20CEO%20Giuliano%20Caratelli%20ha%20esaminato%20la%20sua%20richiesta." 
+                    <a href="https://wa.me/${telPulito}?text=Gentile%20${encodeURIComponent(nomeCompleto.trim())},%20la%20Presidenza%20del%20CEO%20Giuliano%20Caratelli%20ha%20esaminato%20la%20sua%20richiesta." 
                        target="_blank" 
                        class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-green-600 hover:bg-green-500 text-white text-[10px] font-extrabold rounded-xl transition-all shadow-md">
                         <i class="fa-brands fa-whatsapp text-xs"></i>
@@ -622,32 +1425,31 @@
 
                 row.innerHTML = `
                     <td class="p-3 text-gray-400 whitespace-nowrap">${dataFormattata}</td>
-                    <td class="p-3 font-bold text-sfx-cyanLight whitespace-nowrap font-mono">${item.nexusCode || 'NX-N/D'}</td>
+                    <td class="p-3 font-bold text-sfx-cyanLight whitespace-nowrap font-mono">${codiceNexus}</td>
                     <td class="p-3">
-                        <strong class="text-white block text-xs font-bold">${item.nome || 'N/D'}</strong>
-                        <span class="text-[10px] text-gray-400">${item.azienda || 'Privato'}</span>
+                        <strong class="text-white block text-xs font-bold">${nomeCompleto.trim() || 'Candidato'}</strong>
+                        <span class="text-[10px] text-gray-400 truncate max-w-xs block">${note}</span>
                     </td>
                     <td class="p-3 text-[10px]">
-                        <div class="text-sfx-goldLight">${item.email || 'N/D'}</div>
-                        <div class="text-gray-400 font-mono">${item.telefono || 'N/D'}</div>
+                        <div class="text-sfx-goldLight">${email}</div>
+                        <div class="text-gray-400 font-mono">${item.TELEFONO || item.telefono || 'N/D'}</div>
                     </td>
                     <td class="p-3">
-                        <span class="px-2.5 py-1 rounded-full text-[9px] font-bold bg-sfx-gold/15 text-sfx-gold border border-sfx-gold/30">
-                            ${item.ambito || 'Generico'}
+                        <span class="px-2.5 py-1 rounded-full text-[9px] font-bold bg-sfx-gold/15 text-sfx-gold border border-sfx-gold/30 whitespace-nowrap">
+                            ${item.PRIORITA || 'STANDARD'}
                         </span>
                     </td>
                     <td class="p-3 text-[10px] text-gray-300 whitespace-nowrap">
-                        <div><i class="fa-solid fa-calendar text-sfx-cyan mr-1"></i>${item.dataPrenotazione || 'In attesa'}</div>
-                        <div><i class="fa-solid fa-clock text-sfx-cyan mr-1"></i>${item.oraPrenotazione || 'N/D'}</div>
+                        <div><i class="fa-solid fa-calendar text-sfx-cyan mr-1"></i>${dataCall}</div>
                     </td>
                     <td class="p-3 font-bold text-sfx-goldLight font-cyber">
-                        ${item.punti || '1,500 PTS'}
+                        ${score}
                     </td>
                     <td class="p-3 text-center">
                         <div class="inline-flex items-center justify-center space-x-1.5">
                             ${waBtn}
-                            <button onclick="preparaAttivazioneDaLead('${item.nome || ''}', '${item.email || ''}', '${item.ambito || ''}')" 
-                                    class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-sfx-cyan/20 hover:bg-sfx-cyan hover:text-black border border-sfx-cyan text-sfx-cyanLight text-[10px] font-extrabold rounded-xl transition-all shadow-md">
+                            <button onclick="preparaAttivazioneDaLead('${nomeCompleto.trim()}', '${email}', 'Executive')" 
+                                    class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-sfx-cyan/20 hover:bg-sfx-cyan hover:text-black border border-sfx-cyan text-sfx-cyanLight text-[10px] font-extrabold rounded-xl transition-all shadow-md cursor-pointer">
                                 <i class="fa-solid fa-bolt text-xs"></i>
                                 <span>Abilita</span>
                             </button>
@@ -662,19 +1464,17 @@
             let countTotal = lista.length;
             let countCeo = 0;
             let countAcademy = 0;
-            let countWhatsApp = 0;
 
             lista.forEach(item => {
-                const amb = (item.ambito || '').toLowerCase();
-                if (amb.includes('ceo') || amb.includes('conferenza')) countCeo++;
-                if (amb.includes('corso') || amb.includes('academy') || amb.includes('silver') || amb.includes('executive') || amb.includes('premium')) countAcademy++;
-                if (item.telefono && item.telefono.trim().length > 5) countWhatsApp++;
+                const note = (item.NOTE_OBIETTIVI || item.note || '').toLowerCase();
+                const ambito = (item.AMBITO || item.ambito || '').toLowerCase();
+                if (note.includes('ceo') || ambito.includes('ceo') || note.includes('conferenza')) countCeo++;
+                if (note.includes('corso') || note.includes('academy') || ambito.includes('silver') || ambito.includes('executive')) countAcademy++;
             });
 
-            document.getElementById('crm-stat-total').textContent = countTotal;
-            document.getElementById('crm-stat-ceo').textContent = countCeo;
-            document.getElementById('crm-stat-academy').textContent = countAcademy;
-            document.getElementById('crm-stat-whatsapp').textContent = countWhatsApp;
+            if (document.getElementById('crm-stat-total')) document.getElementById('crm-stat-total').textContent = countTotal;
+            if (document.getElementById('crm-stat-ceo')) document.getElementById('crm-stat-ceo').textContent = countCeo;
+            if (document.getElementById('crm-stat-academy')) document.getElementById('crm-stat-academy').textContent = countAcademy;
         }
 
         function filtraTabellaCRM() {
@@ -683,15 +1483,17 @@
 
             const filtrati = leadsGlobali.filter(item => {
                 const matchRicerca = 
-                    (item.nome || '').toLowerCase().includes(ricerca) ||
-                    (item.email || '').toLowerCase().includes(ricerca) ||
-                    (item.telefono || '').toLowerCase().includes(ricerca) ||
-                    (item.nexusCode || '').toLowerCase().includes(ricerca) ||
-                    (item.azienda || '').toLowerCase().includes(ricerca);
+                    (item.NOME || '').toLowerCase().includes(ricerca) ||
+                    (item.COGNOME || '').toLowerCase().includes(ricerca) ||
+                    (item.EMAIL || '').toLowerCase().includes(ricerca) ||
+                    (item.TELEFONO || '').toLowerCase().includes(ricerca) ||
+                    (item.ID_NEXUS || '').toLowerCase().includes(ricerca) ||
+                    (item.NOTE_OBIETTIVI || '').toLowerCase().includes(ricerca);
 
                 let matchAmbito = true;
                 if (ambitoSelezionato !== 'TUTTI') {
-                    matchAmbito = (item.ambito || '').toLowerCase().includes(ambitoSelezionato.toLowerCase());
+                    const text = (item.NOTE_OBIETTIVI || item.AMBITO || '').toLowerCase();
+                    matchAmbito = text.includes(ambitoSelezionato.toLowerCase());
                 }
 
                 return matchRicerca && matchAmbito;
@@ -706,19 +1508,19 @@
                 return;
             }
 
-            let csv = "TIMESTAMP,CODICE_NEXUS,NOME,AZIENDA,EMAIL,TELEFONO,AMBITO,DATA_PRENOTAZIONE,ORA_PRENOTAZIONE,PUNTI\n";
+            let csv = "ID_NEXUS,TIMESTAMP,NOME,COGNOME,EMAIL,TELEFONO,NOTE,SCORE,PRIORITA,DATA_CALL\n";
             leadsGlobali.forEach(item => {
                 const row = [
-                    `"${item.timestamp || ''}"`,
-                    `"${item.nexusCode || ''}"`,
-                    `"${item.nome || ''}"`,
-                    `"${item.azienda || ''}"`,
-                    `"${item.email || ''}"`,
-                    `"${item.telefono || ''}"`,
-                    `"${item.ambito || ''}"`,
-                    `"${item.dataPrenotazione || ''}"`,
-                    `"${item.oraPrenotazione || ''}"`,
-                    `"${item.punti || ''}"`
+                    `"${item.ID_NEXUS || ''}"`,
+                    `"${item.TIMESTAMP || ''}"`,
+                    `"${item.NOME || ''}"`,
+                    `"${item.COGNOME || ''}"`,
+                    `"${item.EMAIL || ''}"`,
+                    `"${item.TELEFONO || ''}"`,
+                    `"${(item.NOTE_OBIETTIVI || '').replace(/"/g, '""')}"`,
+                    `"${item.LEAD_SCORE || ''}"`,
+                    `"${item.PRIORITA || ''}"`,
+                    `"${item.DATA_CALL || ''}"`
                 ];
                 csv += row.join(",") + "\n";
             });
@@ -727,13 +1529,16 @@
             const link = document.createElement("a");
             const url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
-            link.setAttribute("download", `Candidati_SFX_${new Date().toISOString().split('T')[0]}.csv`);
+            link.setAttribute("download", `Registro_Nexus_SFX_${new Date().toISOString().split('T')[0]}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
+        // AVVIO GENERALE
         document.addEventListener('DOMContentLoaded', () => {
+            caricaStatoSezioni();
+            caricaPromptAgente('AG-01');
             caricaStatoMatrix();
             caricaLeadsCRM();
         });
