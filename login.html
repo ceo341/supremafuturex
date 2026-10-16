@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stile-globale.css?v=42">
 
     <script>
         tailwind.config = {
@@ -102,13 +103,12 @@
         }
     </style>
 </head>
-<body class="text-gray-900 font-sans antialiased selection:bg-sfx-gold selection:text-black">
+<body class="text-gray-900 font-sans antialiased selection:bg-sfx-gold selection:text-black overflow-x-hidden">
 
     <!-- BARRA DI STATO SUPERIORE EAL6+ -->
     <div class="bg-[#090A0D] text-white border-b border-sfx-gold/30 px-3 py-1.5 flex items-center justify-between text-[10px] sm:text-[11px] font-mono tracking-wider z-50 sticky top-0 shadow-lg">
         <div class="flex items-center space-x-2">
-            <!-- Triplo Click Trigger 1: Mini Logo -->
-            <div onclick="gestisciTriploClickLogo()" class="w-6 h-6 rounded-full p-0.5 bg-gradient-to-r from-sfx-gold to-sfx-cyan cursor-pointer transition-transform active:scale-95" title="Sovereign Ghost Gateway">
+            <div class="w-6 h-6 rounded-full p-0.5 bg-gradient-to-r from-sfx-gold to-sfx-cyan cursor-pointer transition-transform active:scale-95" title="SFX Status">
                 <img src="media/logo.png" alt="SFX" class="w-full h-full rounded-full object-cover bg-black" onerror="this.src='media/logo.png'">
             </div>
             <span class="inline-flex items-center text-sfx-gold font-bold">
@@ -126,7 +126,7 @@
 
             <!-- Selettore 11 Lingue Dinamico con Menu a Scomparsa -->
             <div class="relative" id="dropdown-lingue-container" onmouseenter="apriDropdown('dropdown-lingue')" onmouseleave="chiudiDropdownConRitardo('dropdown-lingue')">
-                <button onclick="toggleDropdownPermanente('dropdown-lingue')" class="flex items-center space-x-1.5 bg-[#12141C] border border-gray-700 px-2 py-0.5 rounded-md text-gray-200 hover:border-sfx-gold transition-colors">
+                <button onclick="toggleDropdownPermanente('dropdown-lingue')" class="flex items-center space-x-1.5 bg-[#12141C] border border-gray-700 px-2 py-0.5 rounded-md text-gray-200 hover:border-sfx-gold transition-colors cursor-pointer">
                     <i class="fa-solid fa-globe text-sfx-gold text-[10px]"></i>
                     <span id="label-lingua" class="font-bold">ITALIANO</span>
                     <i class="fa-solid fa-chevron-down text-[8px] text-gray-400"></i>
@@ -147,7 +147,7 @@
             </div>
 
             <!-- Stealth Button Emergenza Sovrana -->
-            <button onclick="gestisciTriploClickLogo()" class="text-sfx-gold hover:text-white transition-colors" title="Terminale Protetto">
+            <button onclick="apriTerminale9()" class="text-sfx-gold hover:text-white transition-colors cursor-pointer" title="Terminale Protetto">
                 <i class="fa-solid fa-lock text-xs"></i>
             </button>
         </div>
@@ -157,8 +157,8 @@
     <header class="bg-[#F5EFEB]/90 backdrop-blur-md border-b border-stone-300/80 sticky top-[33px] z-40 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
             
-            <!-- Logo & Brand (Triplo Click Trigger 2) -->
-            <div onclick="gestisciTriploClickLogo()" class="flex items-center space-x-3 cursor-pointer group select-none">
+            <!-- Logo & Brand -->
+            <a href="index.html" class="flex items-center space-x-3 group select-none">
                 <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full p-0.5 bg-gradient-to-tr from-sfx-gold via-sfx-cyan to-sfx-silver shadow-md group-hover:scale-105 transition-transform">
                     <img src="media/logo.png" alt="SFX Master Logo" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
                 </div>
@@ -166,19 +166,19 @@
                     <span class="font-grotesk font-black text-base sm:text-lg tracking-wider text-[#090A0D] block leading-none">SUPREMA</span>
                     <span class="font-mono font-extrabold text-[10px] sm:text-xs tracking-[0.25em] text-sfx-goldDark block">FUTURE X</span>
                 </div>
-            </div>
+            </a>
 
             <!-- Pulsanti Barra: Menu Sezioni, Chi Siamo, Conferenza CEO -->
             <div class="flex items-center space-x-2 sm:space-x-4 font-mono text-xs">
                 
-                <!-- MENU SEZIONI (Tendina e Drawer con Auto-Lock 20s) -->
-                <button onclick="apriDrawer('drawer-sezioni')" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/30 hover:bg-black transition-all flex items-center space-x-2 shadow-sm">
+                <!-- MENU SEZIONI (Drawer con Auto-Lock 20s) -->
+                <button onclick="apriDrawer('drawer-sezioni')" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/30 hover:bg-black transition-all flex items-center space-x-2 shadow-sm cursor-pointer">
                     <i class="fa-solid fa-bars-staggered"></i>
                     <span class="hidden sm:inline">MENU SEZIONI</span>
                 </button>
 
                 <!-- CHI SIAMO (Manifesto del CEO) -->
-                <button onclick="apriDrawer('drawer-chisiamo')" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-[#FAF7F2] text-gray-900 font-extrabold border border-stone-300 hover:border-sfx-gold transition-all flex items-center space-x-2 shadow-sm">
+                <button onclick="apriDrawer('drawer-chisiamo')" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-[#FAF7F2] text-gray-900 font-extrabold border border-stone-300 hover:border-sfx-gold transition-all flex items-center space-x-2 shadow-sm cursor-pointer">
                     <i class="fa-solid fa-shield-halved text-sfx-gold"></i>
                     <span class="hidden sm:inline">CHI SIAMO</span>
                 </button>
@@ -198,20 +198,20 @@
             <div>
                 <div class="flex items-center justify-between pb-4 border-b border-stone-300 mb-6">
                     <span class="font-grotesk font-black text-sm text-[#090A0D] uppercase tracking-wider">NAVIGAZIONE // 11 AREE</span>
-                    <button onclick="chiudiDrawer('drawer-sezioni')" class="text-2xl text-gray-400 hover:text-black">&times;</button>
+                    <button onclick="chiudiDrawer('drawer-sezioni')" class="text-2xl text-gray-400 hover:text-black cursor-pointer">&times;</button>
                 </div>
                 <div class="space-y-2">
-                    <a href="index.html#hero" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">01. ARCHITETTURA EAL6+</a>
-                    <a href="index.html#governance-presidenza" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">02. VISIONE PRESIDENZA</a>
-                    <a href="index.html#academy" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">03. ACADEMY D'ÉLITE</a>
-                    <a href="index.html#academy" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">04. CORSI &amp; MASTER CLASS</a>
-                    <a href="index.html#gold-card" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">05. GOLD CARD PHYGITAL</a>
-                    <a href="index.html#boutique-opal" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">06. LUXURY FITTINGS</a>
-                    <a href="index.html#alison-ai" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">07. CONSOLE ALISON (AG-01)</a>
-                    <a href="index.html#antigravity" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">08. POLO ANTIGRAVITY</a>
-                    <a href="index.html#multimedia" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">09. MULTIMEDIA SHOWCASE</a>
+                    <a href="index.html#hero" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">01. ARCHITETTURA EAL6+</a>
+                    <a href="index.html#governance-presidenza" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">02. VISIONE PRESIDENZA</a>
+                    <a href="index.html#academy" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">03. ACADEMY D'ÉLITE</a>
+                    <a href="index.html#academy" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">04. CORSI &amp; MASTER CLASS</a>
+                    <a href="index.html#gold-card" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">05. GOLD CARD PHYGITAL</a>
+                    <a href="index.html#negozi-online" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">06. NEGOZI DIGITALI CHIAVI IN MANO</a>
+                    <a href="index.html#alison-ai" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">07. CONSOLE ALISON (AG-01)</a>
+                    <a href="index.html#antigravity" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">08. POLO SCIENTIFICO</a>
+                    <a href="index.html#multimedia" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">09. MULTIMEDIA SHOWCASE</a>
                     <a href="#candidatura" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">10. CONFERENZA RISERVATA</a>
-                    <a href="index.html#gateway" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">11. GATEWAY PAGAMENTI</a>
+                    <a href="index.html#gateway" onclick="chiudiDrawer('drawer-sezioni')" class="block p-2.5 rounded-lg hover:bg-stone-200 font-bold text-gray-900">11. GATEWAY PAGAMENTI</a>
                 </div>
             </div>
             <div class="pt-6 border-t border-stone-300 text-[10px] text-gray-500 text-center">
@@ -228,7 +228,7 @@
                     <span class="font-grotesk font-black text-sm text-[#090A0D] uppercase tracking-wider flex items-center">
                         <i class="fa-solid fa-crown text-sfx-gold mr-2"></i> SUPREMA FUTURE X // IDENTITÀ
                     </span>
-                    <button onclick="chiudiDrawer('drawer-chisiamo')" class="text-2xl text-gray-400 hover:text-black">&times;</button>
+                    <button onclick="chiudiDrawer('drawer-chisiamo')" class="text-2xl text-gray-400 hover:text-black cursor-pointer">&times;</button>
                 </div>
 
                 <div class="space-y-6 text-gray-800 font-sans leading-relaxed text-sm">
@@ -264,8 +264,8 @@
 
         <section id="hero" class="text-center space-y-8 relative">
             <div class="inline-block relative">
-                <!-- Trigger Click Titolo Sovrano (3 Tap = Terminale 9" | 4 Tap = Emergenza 7") -->
-                <div id="trigger-titolo-emergenza" onclick="gestisciClickTitoloSovrano()" class="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full p-1 bg-gradient-to-tr from-sfx-gold via-sfx-cyan to-sfx-silver shadow-[0_10px_35px_rgba(212,175,55,0.25)] cursor-pointer select-none relative group">
+                <!-- Trigger Click Logo Centrale (Triplo Tap = Terminale 9" | 4 Tap = Emergenza 7") -->
+                <div id="trigger-titolo-emergenza" onclick="gestisciClickLogoCentrale()" class="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full p-1 bg-gradient-to-tr from-sfx-gold via-sfx-cyan to-sfx-silver shadow-[0_10px_35px_rgba(212,175,55,0.25)] cursor-pointer select-none relative group" title="Terminale Presidenziale SFX (3 Tap: PIN | 4 Tap: Rescue)">
                     <img src="media/logo.png" alt="Suprema Logo" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
                     <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-black text-sfx-gold border border-sfx-gold/50 rounded-full font-mono text-[9px] font-black tracking-widest uppercase">
                         ENTERPRISE
@@ -371,17 +371,15 @@
                     <textarea id="cand-note" rows="3" required class="w-full p-3.5 bg-white border border-stone-300 rounded-xl outline-none focus:border-sfx-gold font-sans" placeholder="Sintetizza gli obiettivi strategici o il percorso formativo prescelto..."></textarea>
                 </div>
                 
-                <button type="submit" id="btn-invia-candidatura" class="w-full py-4 bg-[#090A0D] text-sfx-gold font-grotesk font-black text-sm tracking-wider uppercase rounded-xl hover:bg-black transition-all shadow-md">
+                <button type="submit" id="btn-invia-candidatura" class="w-full py-4 bg-[#090A0D] text-sfx-gold font-grotesk font-black text-sm tracking-wider uppercase rounded-xl hover:bg-black transition-all shadow-md cursor-pointer">
                     INVIA RICHIESTA ACCREDITO ALLA PRESIDENZA <i class="fa-solid fa-arrow-right ml-2"></i>
                 </button>
             </form>
             <div id="candidatura-feedback" class="text-center font-mono text-xs font-bold text-green-700 hidden"></div>
         </section>
-
     </main>
-
     <!-- TERMINALE DI SICUREZZA MATRIX / STELLARE (9 POLLICI) -->
-    <div id="modal-terminale-9" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4">
+    <div id="modal-terminale-9" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-terminale-9') chiudiModaleTerminale()">
         <canvas id="canvas-terminal-bg" class="absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
         
         <div class="relative bg-[#090A0D]/90 text-white rounded-3xl p-6 sm:p-10 w-[46rem] max-w-full border-2 border-sfx-gold/40 shadow-[0_0_50px_rgba(212,175,55,0.2)] overflow-hidden">
@@ -405,9 +403,12 @@
                 
                 <!-- Form Master Password + PIN 10 Cifre -->
                 <div id="terminal-form-box" class="space-y-5">
-                    <div>
-                        <h3 class="font-grotesk font-black text-xl text-sfx-goldLight uppercase tracking-wider">SUPREMA FUTURE X</h3>
-                        <p class="font-mono text-[10px] text-gray-400 tracking-widest">X-BOX ENTERPRISE // EAL6+ SOVRANO</p>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-grotesk font-black text-xl text-sfx-goldLight uppercase tracking-wider">SUPREMA FUTURE X</h3>
+                            <p class="font-mono text-[10px] text-gray-400 tracking-widest">X-BOX ENTERPRISE // EAL6+ SOVRANO</p>
+                        </div>
+                        <button onclick="chiudiModaleTerminale()" class="text-gray-400 hover:text-white text-2xl leading-none cursor-pointer">&times;</button>
                     </div>
                     
                     <form onsubmit="validaAccessoTerminale(event)" class="space-y-4 font-mono text-xs">
@@ -420,7 +421,7 @@
                             <input type="password" id="terminal-pin" required pattern="[0-9]{10}" class="w-full p-3 bg-black border border-stone-700 rounded-xl text-sfx-cyan text-center font-bold tracking-[0.4em] outline-none focus:border-sfx-cyan text-sm" placeholder="••••••••••" maxlength="10">
                         </div>
                         
-                        <button type="submit" id="btn-terminal-unlock" class="w-full py-3.5 bg-gradient-to-r from-sfx-goldDark to-sfx-gold text-black font-extrabold uppercase rounded-xl hover:brightness-110 transition-all shadow-md">
+                        <button type="submit" id="btn-terminal-unlock" class="w-full py-3.5 bg-gradient-to-r from-sfx-goldDark to-sfx-gold text-black font-extrabold uppercase rounded-xl hover:brightness-110 transition-all shadow-md cursor-pointer">
                             VERIFICA E SBLOCCA <i class="fa-solid fa-unlock-keyhole ml-1"></i>
                         </button>
                     </form>
@@ -440,8 +441,9 @@
     </div>
 
     <!-- CAVEAU CENTRALE A DOPPIO VARCO (8 POLLICI) -->
-    <div id="modal-caveau-8" class="fixed inset-0 bg-[#090A0D]/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4">
-        <div class="w-full max-w-4xl space-y-6">
+    <div id="modal-caveau-8" class="fixed inset-0 bg-[#090A0D]/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-caveau-8') chiudiModaleCaveau()">
+        <div class="w-full max-w-4xl space-y-6 relative">
+            <button onclick="chiudiModaleCaveau()" class="absolute top-0 right-0 text-gray-400 hover:text-white text-3xl leading-none cursor-pointer">&times;</button>
             <div class="text-center space-y-1">
                 <span class="font-mono text-[10px] text-sfx-gold tracking-[0.3em] uppercase block">Security Clearance Sovereign Level</span>
                 <h2 class="font-grotesk font-black text-2xl sm:text-3xl text-white tracking-wider uppercase">
@@ -462,7 +464,7 @@
                             <p class="font-mono text-[10px] text-gray-400 mt-1 uppercase">Flotta AI (14+1) | CRM Corsi | Gold Card</p>
                         </div>
                         <input type="password" id="pin-sub-suprema" placeholder="Riconferma PIN 10 Cifre..." class="w-full p-3 bg-black border border-stone-800 rounded-xl text-center font-mono text-sfx-gold text-xs tracking-[0.3em] outline-none focus:border-sfx-gold" maxlength="10">
-                        <button onclick="validaIngressoXbox('crm.html', 'pin-sub-suprema')" class="w-full py-3.5 bg-sfx-gold text-black font-mono font-bold text-xs uppercase rounded-xl hover:brightness-110 shadow-lg">
+                        <button onclick="validaIngressoXbox('crm.html', 'pin-sub-suprema')" class="w-full py-3.5 bg-sfx-gold text-black font-mono font-bold text-xs uppercase rounded-xl hover:brightness-110 shadow-lg cursor-pointer">
                             Accedi a X-BOX Suprema <i class="fa-solid fa-arrow-right ml-1"></i>
                         </button>
                     </div>
@@ -479,7 +481,7 @@
                             <p class="font-mono text-[10px] text-gray-400 mt-1 uppercase">Mastro 54/30/16 | Dividendi | Fisco | IBAN</p>
                         </div>
                         <input type="password" id="pin-sub-aziendale" placeholder="Riconferma PIN 10 Cifre..." class="w-full p-3 bg-black border border-stone-800 rounded-xl text-center font-mono text-sfx-cyan text-xs tracking-[0.3em] outline-none focus:border-sfx-cyan" maxlength="10">
-                        <button onclick="validaIngressoXbox('admin.html', 'pin-sub-aziendale')" class="w-full py-3.5 bg-white text-black font-mono font-bold text-xs uppercase rounded-xl hover:bg-stone-200 shadow-lg">
+                        <button onclick="validaIngressoXbox('admin.html', 'pin-sub-aziendale')" class="w-full py-3.5 bg-white text-black font-mono font-bold text-xs uppercase rounded-xl hover:bg-stone-200 shadow-lg cursor-pointer">
                             Accedi a X-BOX Aziendale <i class="fa-solid fa-arrow-right ml-1"></i>
                         </button>
                     </div>
@@ -491,7 +493,7 @@
     </div>
 
     <!-- TERMINALE DI EMERGENZA SOVRANA (7 POLLICI - 4 TAP TITOLO) -->
-    <div id="modal-emergenza-7" class="fixed inset-0 bg-sfx-prugna/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4">
+    <div id="modal-emergenza-7" class="fixed inset-0 bg-sfx-prugna/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-emergenza-7') chiudiModaleEmergenza()">
         <div class="bg-black border-2 border-sfx-amber rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-[0_0_50px_rgba(255,191,0,0.3)] space-y-6 font-mono text-xs text-white">
             <div class="text-center border-b border-stone-800 pb-4">
                 <i class="fa-solid fa-shield-halved text-4xl text-sfx-amber mb-2 animate-pulse"></i>
@@ -507,11 +509,11 @@
                 <div>
                     <input type="password" id="emergenza-risposta" required class="w-full p-3.5 bg-black border border-sfx-amber rounded-xl text-center text-white outline-none focus:border-sfx-gold text-xs" placeholder="Immetti la risposta segreta...">
                 </div>
-                <button type="submit" class="w-full py-4 bg-gradient-to-r from-sfx-goldDark to-sfx-gold text-black font-extrabold uppercase rounded-xl hover:brightness-110 transition-all shadow-lg">
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-sfx-goldDark to-sfx-gold text-black font-extrabold uppercase rounded-xl hover:brightness-110 transition-all shadow-lg cursor-pointer">
                     SBLOCCA CIRCUITO ED AZZERA ALLERTA
                 </button>
             </form>
-            <button onclick="document.getElementById('modal-emergenza-7').classList.add('hidden')" class="w-full text-center text-gray-500 underline text-[10px] hover:text-white">
+            <button onclick="chiudiModaleEmergenza()" class="w-full text-center text-gray-500 underline text-[10px] hover:text-white cursor-pointer">
                 Chiudi e ritorna alla navigazione
             </button>
         </div>
@@ -519,50 +521,83 @@
 
     <!-- MOTORE JAVASCRIPT FRONTEND INTEGRATO -->
     <script>
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlektYvRWsGboHU7Vzu_PvnFauT7TTmK-mFlVBD3QMgiM3S5TcpEeZsPqA7Cq4lIbQ/exec";
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
 
         let clickCountLogo = 0, timerClickLogo = null;
-        let clickCountTitolo = 0, timerClickTitolo = null;
         let tentativiFalliti = 0;
         let timerDrawer20s = null;
 
-        function gestisciTriploClickLogo() {
+        function sbloccaScroll() {
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
+        }
+
+        function bloccaScroll() {
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+        }
+
+        function chiudiModaleTerminale() {
+            document.getElementById('modal-terminale-9').classList.add('hidden');
+            sbloccaScroll();
+        }
+
+        function chiudiModaleCaveau() {
+            document.getElementById('modal-caveau-8').classList.add('hidden');
+            sbloccaScroll();
+        }
+
+        function chiudiModaleEmergenza() {
+            document.getElementById('modal-emergenza-7').classList.add('hidden');
+            sbloccaScroll();
+        }
+
+        // TRIGGER TRIPLO TAP ESCLUSIVO SU LOGO CENTRALE (500MS)
+        function gestisciClickLogoCentrale() {
             clickCountLogo++;
             clearTimeout(timerClickLogo);
             timerClickLogo = setTimeout(() => {
-                if (clickCountLogo === 3) {
+                if (clickCountLogo === 4) {
+                    apriEmergenza7();
+                } else if (clickCountLogo >= 3) {
                     apriTerminale9();
                 }
                 clickCountLogo = 0;
-            }, 650);
-        }
-
-        function gestisciClickTitoloSovrano() {
-            clickCountTitolo++;
-            clearTimeout(timerClickTitolo);
-            timerClickTitolo = setTimeout(() => {
-                if (clickCountTitolo === 4) {
-                    document.getElementById('modal-emergenza-7').classList.remove('hidden');
-                } else if (clickCountTitolo === 3) {
-                    apriTerminale9();
-                }
-                clickCountTitolo = 0;
-            }, 650);
+            }, 500);
         }
 
         function apriTerminale9() {
+            bloccaScroll();
             document.getElementById('modal-terminale-9').classList.remove('hidden');
             avviaCanvasMatrix();
             avviaOrologioRoma();
+            setTimeout(() => {
+                const pwd = document.getElementById('terminal-pwd');
+                if (pwd) pwd.focus();
+            }, 300);
+        }
+
+        function apriEmergenza7() {
+            bloccaScroll();
+            document.getElementById('modal-emergenza-7').classList.remove('hidden');
         }
 
         function validaAccessoTerminale(e) {
             e.preventDefault();
-            const pwd = document.getElementById('terminal-pwd').value.trim();
-            const pin = document.getElementById('terminal-pin').value.trim();
+            const rawPwd = document.getElementById('terminal-pwd').value;
+            const rawPin = document.getElementById('terminal-pin').value;
             const errBox = document.getElementById('terminal-error-text');
 
-            if (pwd === "MARIACHIARAsupremaofficial2026@" && pin === "3474429091") {
+            const cleanPwd = rawPwd.trim().replace(/\s+/g, '');
+            const cleanPin = rawPin.trim();
+
+            const isPwdValid = (
+                cleanPwd === "MARIACHIARAsupremaofficial2026@" ||
+                cleanPwd === "MARIACHIARAsupremaofficial2026"
+            );
+            const isPinValid = (cleanPin === "3474429091");
+
+            if (isPwdValid && isPinValid) {
                 tentativiFalliti = 0;
                 errBox.classList.add('hidden');
                 document.getElementById('terminal-form-box').classList.add('hidden');
@@ -578,7 +613,7 @@
                 setTimeout(() => {
                     document.getElementById('modal-terminale-9').classList.add('hidden');
                     document.getElementById('modal-caveau-8').classList.remove('hidden');
-                }, 2500);
+                }, 1200);
             } else {
                 tentativiFalliti++;
                 errBox.innerText = `Credenziali non valide. Tentativo: ${tentativiFalliti}/3`;
@@ -612,6 +647,7 @@
                 msgBox.classList.add('hidden');
                 sessionStorage.setItem('sfx_authenticated', 'true');
                 sessionStorage.setItem('sfx_role', paginaDestinazione.includes('admin') ? 'CEO_CLEARANCE' : 'XBOX_ADMIN');
+                sbloccaScroll();
                 window.location.href = paginaDestinazione;
             } else {
                 msgBox.innerText = "PIN di sicurezza non valido.";
@@ -621,7 +657,7 @@
 
         function eseguiSbloccoEmergenzaSovrana(e) {
             e.preventDefault();
-            const resp = document.getElementById('emergenza-risposta').value.trim();
+            const resp = document.getElementById('emergenza-risposta').value.trim().toLowerCase();
             if (resp === "itmc2202v") {
                 fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
@@ -649,12 +685,12 @@
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> TRASMISSIONE REGISTRO EAL6+...';
 
             const payload = {
-                action: 'CANDIDATURA_CONFERENZA_CEO',
+                action: 'nuovaCandidatura',
                 nome: document.getElementById('cand-nome').value.trim(),
                 azienda: document.getElementById('cand-azienda').value.trim(),
                 email: document.getElementById('cand-email').value.trim(),
                 telefono: document.getElementById('cand-telefono').value.trim(),
-                canale: 'Conferenza CEO Riservata',
+                ambito: 'Conferenza CEO Riservata',
                 note: document.getElementById('cand-note').value.trim()
             };
 
@@ -668,7 +704,7 @@
                 btn.disabled = false;
                 btn.innerHTML = 'RICHIESTA ACCREDITATA ✓';
                 feed.className = "text-center font-mono text-xs font-bold text-green-700 block mt-2";
-                feed.innerText = `✓ Candidatura acquisita. ID Nexus: ${data.nexusCode || 'SFX-NEXUS-OK'}.`;
+                feed.innerText = `✓ Candidatura acquisita. ID Nexus: ${data.nexusId || data.nexusCode || 'SFX-NEXUS-OK'}.`;
             })
             .catch(() => {
                 btn.disabled = false;
@@ -679,6 +715,7 @@
         }
 
         function apriDrawer(id) {
+            bloccaScroll();
             document.getElementById(id).classList.remove('hidden');
             clearTimeout(timerDrawer20s);
             timerDrawer20s = setTimeout(() => {
@@ -689,6 +726,7 @@
         function chiudiDrawer(id) {
             document.getElementById(id).classList.add('hidden');
             clearTimeout(timerDrawer20s);
+            sbloccaScroll();
         }
 
         function chiudiDrawerAlClickEsterno(e, id) {
@@ -787,6 +825,10 @@
             }
             tic();
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            sbloccaScroll();
+        });
     </script>
 </body>
 </html>
