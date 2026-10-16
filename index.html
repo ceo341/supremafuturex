@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css?v=41">
+    <link rel="stylesheet" href="stile-globale.css?v=42">
 
     <script>
         tailwind.config = {
@@ -64,6 +64,16 @@
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(0, 240, 255, 0.1));
             border: 1px solid rgba(212, 175, 55, 0.5);
         }
+        #box-chat-centrale::-webkit-scrollbar {
+            width: 6px;
+        }
+        #box-chat-centrale::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        #box-chat-centrale::-webkit-scrollbar-thumb {
+            background: #B8860B;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body class="cyber-pearl-grid text-[#12141C] font-sans overflow-x-hidden selection:bg-sfx-gold selection:text-white">
@@ -80,7 +90,19 @@
             </span>
         </div>
 
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-3 sm:space-x-4">
+            <!-- SELETTORE MULTILINGUA INTEGRATO (IT | EN | ES | FR | DE) -->
+            <div class="flex items-center space-x-1 border border-sfx-gold/40 rounded-lg px-2 py-0.5 bg-black/60 shadow-sm">
+                <i class="fa-solid fa-globe text-sfx-gold text-[10px] mr-1"></i>
+                <select id="sfx-lang-select" onchange="cambiaLingua(this.value)" class="bg-transparent text-sfx-gold text-[10px] font-mono outline-none cursor-pointer">
+                    <option value="it" selected class="bg-[#090A0D] text-white">IT</option>
+                    <option value="en" class="bg-[#090A0D] text-white">EN</option>
+                    <option value="es" class="bg-[#090A0D] text-white">ES</option>
+                    <option value="fr" class="bg-[#090A0D] text-white">FR</option>
+                    <option value="de" class="bg-[#090A0D] text-white">DE</option>
+                </select>
+            </div>
+
             <div class="text-sfx-cyan flex items-center font-bold">
                 <span class="w-2 h-2 rounded-full bg-sfx-cyan animate-pulse mr-1.5"></span>
                 ONLINE: <strong class="text-sfx-gold ml-1">24</strong>
@@ -105,32 +127,32 @@
 
             <div class="flex items-center space-x-3 font-mono text-xs">
                 <!-- Dropdown Menu Sezioni -->
-                <div class="nav-dropdown-container">
+                <div class="nav-dropdown-container relative group">
                     <button class="px-4 py-2.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/40 hover:bg-black transition-colors flex items-center space-x-2">
                         <i class="fa-solid fa-bars"></i>
                         <span class="hidden sm:inline">MENU SEZIONI ▼</span>
                     </button>
-                    <div class="nav-dropdown-menu">
-                        <a href="#governance-presidenza" class="nav-dropdown-item"><i class="fa-solid fa-user-tie mr-2 text-sfx-gold"></i>1. Visione Presidenza</a>
-                        <a href="#alison-ai" class="nav-dropdown-item"><i class="fa-solid fa-brain mr-2 text-sfx-cyan"></i>2. Console Alison</a>
-                        <a href="#academy" class="nav-dropdown-item"><i class="fa-solid fa-graduation-cap mr-2 text-sfx-gold"></i>3. Corsi Academy</a>
-                        <a href="#dicono-di-noi" class="nav-dropdown-item"><i class="fa-solid fa-comments mr-2 text-sfx-cyan"></i>4. Dicono di Noi</a>
-                        <a href="#gold-card" class="nav-dropdown-item"><i class="fa-solid fa-crown mr-2 text-sfx-gold"></i>5. Gold Card</a>
-                        <a href="#negozi-online" class="nav-dropdown-item"><i class="fa-solid fa-store mr-2 text-sfx-goldLight"></i>6. Negozi Online</a>
-                        <a href="#antigravity" class="nav-dropdown-item"><i class="fa-solid fa-atom mr-2 text-sfx-cyan"></i>7. Polo Tecnologico</a>
-                        <a href="#multimedia" class="nav-dropdown-item"><i class="fa-solid fa-photo-film mr-2 text-sfx-silver"></i>8. Media Showcase</a>
-                        <a href="#feedback-sezione" class="nav-dropdown-item"><i class="fa-solid fa-envelope-open mr-2 text-sfx-gold"></i>9. Notiziario &amp; Feedback</a>
-                        <a href="#gateway" class="nav-dropdown-item"><i class="fa-solid fa-credit-card mr-2 text-sfx-cyan"></i>10. Gateway Pagamenti</a>
+                    <div class="nav-dropdown-menu absolute hidden group-hover:block top-full right-0 mt-1 w-64 bg-[#090A0D] border border-sfx-gold/50 rounded-2xl p-2 shadow-2xl z-50 space-y-1">
+                        <a href="#governance-presidenza" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-user-tie mr-2 text-sfx-gold"></i><span id="txt-nav-vision">1. Visione Presidenza</span></a>
+                        <a href="#alison-ai" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-brain mr-2 text-sfx-cyan"></i><span id="txt-nav-alison">2. Console Alison</span></a>
+                        <a href="#academy" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-graduation-cap mr-2 text-sfx-gold"></i><span id="txt-nav-academy">3. Corsi Academy</span></a>
+                        <a href="#dicono-di-noi" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-comments mr-2 text-sfx-cyan"></i><span id="txt-nav-reviews">4. Dicono di Noi</span></a>
+                        <a href="#gold-card" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-crown mr-2 text-sfx-gold"></i><span id="txt-nav-gold">5. Gold Card</span></a>
+                        <a href="#negozi-online" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-store mr-2 text-sfx-goldLight"></i><span id="txt-nav-shops">6. Negozi Online</span></a>
+                        <a href="#antigravity" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-atom mr-2 text-sfx-cyan"></i><span id="txt-nav-science">7. Polo Tecnologico</span></a>
+                        <a href="#multimedia" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-photo-film mr-2 text-sfx-silver"></i><span id="txt-nav-media">8. Media Showcase</span></a>
+                        <a href="#feedback-sezione" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-envelope-open mr-2 text-sfx-gold"></i><span id="txt-nav-news">9. Notiziario &amp; Feedback</span></a>
+                        <a href="#gateway" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-credit-card mr-2 text-sfx-cyan"></i><span id="txt-nav-gateway">10. Gateway Pagamenti</span></a>
                     </div>
                 </div>
 
-                <button onclick="toggleDrawer('drawer-chisiamo')" class="px-4 py-2.5 rounded-xl bg-sfx-gold text-black font-bold hover:bg-yellow-600 transition-colors flex items-center space-x-2">
+                <button onclick="toggleDrawer('drawer-chisiamo')" class="px-4 py-2.5 rounded-xl bg-sfx-gold text-black font-bold hover:bg-yellow-600 transition-colors flex items-center space-x-2 cursor-pointer">
                     <i class="fa-solid fa-circle-info"></i>
-                    <span class="hidden sm:inline">CHI SIAMO</span>
+                    <span class="hidden sm:inline" id="txt-btn-chisiamo-header">CHI SIAMO</span>
                 </button>
                 
-                <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="px-5 py-2.5 rounded-xl bg-gray-900 text-white font-bold border border-sfx-gold/50 hover:bg-black transition-colors hidden md:inline-block shadow-[0_0_12px_rgba(212,175,55,0.25)]">
-                    <i class="fa-solid fa-crown mr-1.5 text-sfx-gold"></i> CONFERENZA CEO
+                <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="px-5 py-2.5 rounded-xl bg-gray-900 text-white font-bold border border-sfx-gold/50 hover:bg-black transition-colors hidden md:inline-block shadow-[0_0_12px_rgba(212,175,55,0.25)] cursor-pointer">
+                    <i class="fa-solid fa-crown mr-1.5 text-sfx-gold"></i> <span id="txt-btn-ceo-header">CONFERENZA CEO</span>
                 </button>
             </div>
         </div>
@@ -142,7 +164,7 @@
             <div class="space-y-6">
                 <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                     <span class="text-sfx-goldLight font-bold uppercase tracking-widest"><i class="fa-solid fa-building mr-2"></i>CHI SIAMO &amp; MANIFESTO</span>
-                    <button onclick="toggleDrawer('drawer-chisiamo')" class="text-gray-400 hover:text-white text-lg">&times;</button>
+                    <button onclick="toggleDrawer('drawer-chisiamo')" class="text-gray-400 hover:text-white text-lg cursor-pointer">&times;</button>
                 </div>
                 <div class="space-y-4">
                     <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 space-y-2">
@@ -165,9 +187,9 @@
         </div>
     </div>
 
-    <!-- EMBLEMA CENTRALE CON TRIGGER -->
+    <!-- EMBLEMA CENTRALE CON TRIGGER RISERVATO CEO (3 TAP - 500MS) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 text-center space-y-4">
-        <div class="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto glow-logo-ring cursor-pointer select-none" id="sfx-brand-logo-center">
+        <div class="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto glow-logo-ring cursor-pointer select-none" id="sfx-brand-logo-center" title="Terminale Presidenziale SFX">
             <img src="media/logo.png" alt="Logo Grande SFX" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
             <span class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#090A0D] border-2 border-sfx-gold text-sfx-gold font-mono text-[10px] font-extrabold rounded-full uppercase tracking-widest shadow-2xl">
                 ENTERPRISE
@@ -194,17 +216,17 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 space-y-6">
                     <div class="inline-flex items-center px-3.5 py-1.5 rounded-full border border-sfx-gold/40 bg-[var(--pearl-card)] text-xs font-mono text-sfx-gold tracking-widest shadow-sm">
-                        <i class="fa-solid fa-shield-halved mr-2 text-sfx-cyan"></i>ECOSISTEMA PROFESSIONALE ATTIVO
+                        <i class="fa-solid fa-shield-halved mr-2 text-sfx-cyan"></i><span id="txt-hero-tag">ECOSISTEMA PROFESSIONALE ATTIVO</span>
                     </div>
-                    <p class="text-base sm:text-lg text-gray-800 font-light leading-relaxed max-w-xl">
+                    <p id="txt-hero-desc" class="text-base sm:text-lg text-gray-800 font-light leading-relaxed max-w-xl">
                         Community, Networking &amp; Academy <strong>ENTERPRISE</strong>. Piattaforma d'élite per la Formazione, Sviluppo Personale, E-Commerce Autonomo e Reindirizzamento al Lavoro Immediato guidata dalla Direzione del CEO GIULIANO.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-2">
-                        <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="px-8 py-4 rounded-2xl bg-sfx-gold text-white font-grotesk font-extrabold text-xs uppercase tracking-wider shadow-lg hover:bg-yellow-700 transition-all">
-                            <i class="fa-solid fa-crown mr-2"></i>Conferenza CEO Riservata
+                        <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="px-8 py-4 rounded-2xl bg-sfx-gold text-white font-grotesk font-extrabold text-xs uppercase tracking-wider shadow-lg hover:bg-yellow-700 transition-all cursor-pointer">
+                            <i class="fa-solid fa-crown mr-2"></i><span id="txt-btn-hero-ceo">Conferenza CEO Riservata</span>
                         </button>
-                        <button onclick="apriWidgetAlison()" class="px-8 py-4 rounded-2xl bg-[var(--pearl-card)] border-2 border-sfx-cyan text-sfx-cyan font-grotesk font-bold text-xs uppercase tracking-wider hover:bg-cyan-50 transition-all shadow-md">
-                            <i class="fa-solid fa-comments mr-2"></i>Parla con Alison
+                        <button onclick="apriWidgetAlison()" class="px-8 py-4 rounded-2xl bg-[var(--pearl-card)] border-2 border-sfx-cyan text-sfx-cyan font-grotesk font-bold text-xs uppercase tracking-wider hover:bg-cyan-50 transition-all shadow-md cursor-pointer">
+                            <i class="fa-solid fa-comments mr-2"></i><span id="txt-btn-hero-alison">Parla con Alison</span>
                         </button>
                     </div>
                 </div>
@@ -298,7 +320,7 @@
                         <div class="bg-[var(--pearl-card)] p-4 rounded-2xl border border-gray-300 max-w-xl shadow-sm text-gray-800 space-y-3">
                             <p><strong>Alison:</strong> Benvenuto in Suprema Future X. Sono a tua disposizione per illustrarti i 3 percorsi Academy o facilitare la prenotazione del colloquio con il CEO Giuliano.</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
-                                <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="p-2.5 rounded-xl bg-sfx-gold text-white font-bold text-left hover:bg-yellow-700 transition-colors block">
+                                <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="p-2.5 rounded-xl bg-sfx-gold text-white font-bold text-left hover:bg-yellow-700 transition-colors block cursor-pointer">
                                     1. 👑 Conferenza con il CEO
                                 </button>
                                 <a href="#academy" class="p-2.5 rounded-xl bg-[#090A0D] text-sfx-cyan font-bold text-left hover:bg-black transition-colors block">
@@ -309,7 +331,7 @@
                     </div>
                     <div class="p-4 bg-[var(--pearl-card)] border-t border-gray-300 flex space-x-2">
                         <input type="text" id="input-centrale" placeholder="Scrivi un messaggio per Alison..." onkeypress="if(event.key==='Enter') inviaMessaggioCentrale()" class="flex-1 p-3 rounded-xl border border-gray-300 focus:border-sfx-cyan outline-none text-xs font-mono bg-[#FAF8F5]">
-                        <button onclick="inviaMessaggioCentrale()" class="px-6 py-3 rounded-xl bg-sfx-cyan text-white text-xs font-grotesk font-bold uppercase hover:bg-cyan-700 transition-colors">Invia</button>
+                        <button onclick="inviaMessaggioCentrale()" class="px-6 py-3 rounded-xl bg-sfx-cyan text-white text-xs font-grotesk font-bold uppercase hover:bg-cyan-700 transition-colors cursor-pointer">Invia</button>
                     </div>
                 </div>
             </div>
@@ -353,7 +375,7 @@
                         </div>
                     </div>
 
-                    <button onclick="apriModalSchedaCorso('SILVER TIER', '99 €', 'Strutturazione completa del metodo di lavoro indipendente, introduzione al digital networking e gestione autonoma delle attività operative.', 'Academy Silver')" class="mt-6 w-full py-3.5 rounded-xl border-2 border-sfx-gold text-sfx-goldLight font-grotesk font-bold text-xs uppercase hover:bg-sfx-gold hover:text-black transition-all shadow-md">
+                    <button onclick="apriModalSchedaCorso('SILVER TIER', '99 €', 'Strutturazione completa del metodo di lavoro indipendente, introduzione al digital networking e gestione autonoma delle attività operative.', 'Academy Silver')" class="mt-6 w-full py-3.5 rounded-xl border-2 border-sfx-gold text-sfx-goldLight font-grotesk font-bold text-xs uppercase hover:bg-sfx-gold hover:text-black transition-all shadow-md cursor-pointer">
                         SCHEDA DIDATTICA &amp; DETTAGLI
                     </button>
                 </div>
@@ -390,7 +412,7 @@
                         </div>
                     </div>
 
-                    <button onclick="apriModalSchedaCorso('EXECUTIVE MASTER', '149 €', 'Il percorso completo per chi vuole avviare la propria attività: leadership, integrazione di agenti automatici nel proprio lavoro e rilascio della Suprema Gold Card.', 'Academy Executive')" class="mt-6 w-full py-3.5 rounded-xl bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-extrabold text-xs uppercase transition-all shadow-xl">
+                    <button onclick="apriModalSchedaCorso('EXECUTIVE MASTER', '149 €', 'Il percorso completo per chi vuole avviare la propria attività: leadership, integrazione di agenti automatici nel proprio lavoro e rilascio della Suprema Gold Card.', 'Academy Executive')" class="mt-6 w-full py-3.5 rounded-xl bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-extrabold text-xs uppercase transition-all shadow-xl cursor-pointer">
                         SCHEDA DIDATTICA &amp; DETTAGLI
                     </button>
                 </div>
@@ -423,7 +445,7 @@
                         </div>
                     </div>
 
-                    <button onclick="apriModalSchedaCorso('PREMIUM VIP', '189 €', 'Accesso privilegiato con mentoring personale del CEO Giuliano Caratelli, rilascio della Gold Card metallica e instradamento prioritario nei progetti d\'ecosistema.', 'Academy Premium')" class="mt-6 w-full py-3.5 rounded-xl border-2 border-sfx-cyan text-sfx-cyanLight font-grotesk font-bold text-xs uppercase hover:bg-sfx-cyan hover:text-black transition-all shadow-md">
+                    <button onclick="apriModalSchedaCorso('PREMIUM VIP', '189 €', 'Accesso privilegiato con mentoring personale del CEO Giuliano Caratelli, rilascio della Gold Card metallica e instradamento prioritario nei progetti d\'ecosistema.', 'Academy Premium')" class="mt-6 w-full py-3.5 rounded-xl border-2 border-sfx-cyan text-sfx-cyanLight font-grotesk font-bold text-xs uppercase hover:bg-sfx-cyan hover:text-black transition-all shadow-md cursor-pointer">
                         SCHEDA DIDATTICA &amp; DETTAGLI
                     </button>
                 </div>
@@ -438,7 +460,7 @@
                 <h2 class="text-3xl sm:text-4xl font-extrabold font-grotesk text-[#090A0D]">DICONO DI NOI</h2>
                 <p class="text-xs font-mono text-gray-600">Oltre 40 testimonianze dirette di professionisti, corsisti e partner dell'Ecosistema.</p>
             </div>
-            <button onclick="document.getElementById('modal-testimonianze-40').classList.remove('hidden')" class="px-8 py-5 rounded-2xl bg-gradient-to-r from-sfx-gold via-sfx-goldLight to-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider shadow-xl hover:brightness-110 transition-all">
+            <button onclick="apriModale('modal-testimonianze-40')" class="px-8 py-5 rounded-2xl bg-gradient-to-r from-sfx-gold via-sfx-goldLight to-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider shadow-xl hover:brightness-110 transition-all cursor-pointer">
                 <i class="fa-solid fa-comments mr-2"></i>CONSULTA LE 40 TESTIMONIANZE VERIFICATE
             </button>
         </section>
@@ -457,7 +479,7 @@
                     <div class="card-pearl p-6 rounded-2xl shadow-md space-y-4">
                         <h4 class="font-bold text-xs font-mono text-black uppercase">Simulatore Accredito Nominativo:</h4>
                         <input type="text" id="sim-nome" placeholder="Inserisci Nome e Cognome..." oninput="document.getElementById('render-nome').innerText = this.value.toUpperCase() || 'GIORGIO MOSSI';" class="w-full p-3 rounded-xl border border-gray-300 font-mono text-xs outline-none focus:border-sfx-gold bg-[#FAF8F5]">
-                        <button onclick="document.getElementById('card-render-box').classList.add('animate-pulse'); setTimeout(() => document.getElementById('card-render-box').classList.remove('animate-pulse'), 1000);" class="w-full py-3.5 rounded-xl bg-sfx-gold text-white font-grotesk font-extrabold text-xs uppercase tracking-wider shadow-md hover:bg-yellow-700 transition-all">
+                        <button onclick="document.getElementById('card-render-box').classList.add('animate-pulse'); setTimeout(() => document.getElementById('card-render-box').classList.remove('animate-pulse'), 1000);" class="w-full py-3.5 rounded-xl bg-sfx-gold text-white font-grotesk font-extrabold text-xs uppercase tracking-wider shadow-md hover:bg-yellow-700 transition-all cursor-pointer">
                             Genera Anteprima Personale
                         </button>
                     </div>
@@ -473,7 +495,7 @@
             </div>
         </section>
 
-        <!-- 7. DIVISIONE E-COMMERCE & NEGOZI DIGITALI -->
+        <!-- 7. DIVISIONE E-COMMERCE & NEGOZI DIGITALI (CON REDIRECT A CONFERENZA CEO) -->
         <section id="negozi-online" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">OPPORTUNITÀ &amp; ATTIVITÀ AUTONOMA</span>
@@ -504,20 +526,20 @@
                         </div>
                         
                         <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                            <button onclick="document.getElementById('modal-negozio-online-info').classList.remove('hidden')" class="flex-1 py-3.5 px-4 rounded-xl border border-sfx-gold text-sfx-goldLight font-grotesk font-bold text-xs uppercase hover:bg-sfx-gold hover:text-black transition-all text-center">
+                            <button onclick="apriModale('modal-negozio-online-info')" class="flex-1 py-3.5 px-4 rounded-xl border border-sfx-gold text-sfx-goldLight font-grotesk font-bold text-xs uppercase hover:bg-sfx-gold hover:text-black transition-all text-center cursor-pointer">
                                 SCOPRI DI PIÙ
                             </button>
                             
-                            <a href="https://www.imperya.com/vetrina/style" target="_blank" rel="noopener noreferrer" class="flex-1 py-3.5 px-4 rounded-xl bg-sfx-gold text-black font-grotesk font-black text-xs uppercase hover:bg-yellow-500 transition-all text-center shadow-lg flex items-center justify-center space-x-1.5">
+                            <!-- PULSANTE ATTIVA NEGOZIO: REDIRECT DIRETTO A CONFERENZA CEO PER ABILITAZIONE -->
+                            <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="flex-1 py-3.5 px-4 rounded-xl bg-sfx-gold text-black font-grotesk font-black text-xs uppercase hover:bg-yellow-500 transition-all text-center shadow-lg flex items-center justify-center space-x-1.5 cursor-pointer">
                                 <span>ATTIVA NEGOZIO</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
+                                <i class="fa-solid fa-crown text-[10px] ml-1"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
         <!-- 8. POLO TECNOLOGICO LINEA ANTIGRAVITY -->
         <section id="antigravity" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
@@ -540,7 +562,9 @@
                     </div>
                 </div>
             </div>
-        </section><!-- 9. MULTIMEDIA LIBRARY SHOWCASE (RIPRISTINATA) -->
+        </section>
+
+        <!-- 9. MULTIMEDIA LIBRARY SHOWCASE (RIPRISTINATA) -->
         <section id="multimedia" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">SHOWCASE MULTIMEDIALE</span>
@@ -576,7 +600,7 @@
                     <p class="text-gray-600">Ricevi gli aggiornamenti settimanali direttamente dalla Direzione.</p>
                     <form onsubmit="inviaNewsletter(event)" class="flex space-x-2">
                         <input type="email" id="newsletter-email" required placeholder="La tua migliore email..." class="flex-1 p-3.5 rounded-xl border border-gray-300 outline-none focus:border-sfx-cyan bg-white">
-                        <button type="submit" class="px-6 py-3.5 bg-[#090A0D] text-sfx-cyan font-bold rounded-xl uppercase hover:bg-black transition-colors">ISCRIVITI</button>
+                        <button type="submit" class="px-6 py-3.5 bg-[#090A0D] text-sfx-cyan font-bold rounded-xl uppercase hover:bg-black transition-colors cursor-pointer">ISCRIVITI</button>
                     </form>
                 </div>
                 <!-- Feedback Diretto -->
@@ -585,7 +609,7 @@
                     <form onsubmit="inviaFeedback(event)" class="space-y-3">
                         <input type="text" id="feedback-nome" required placeholder="Tuo Nome e Cognome" class="w-full p-3.5 rounded-xl border border-gray-300 outline-none focus:border-sfx-gold bg-white">
                         <textarea id="feedback-messaggio" rows="2" required placeholder="Messaggio per la Direzione del CEO Giuliano..." class="w-full p-3.5 rounded-xl border border-gray-300 outline-none focus:border-sfx-gold bg-white resize-none"></textarea>
-                        <button type="submit" class="w-full py-3.5 bg-sfx-gold hover:bg-yellow-600 text-[#090A0D] font-bold rounded-xl uppercase transition-colors shadow-md">INVIA MESSAGGIO</button>
+                        <button type="submit" class="w-full py-3.5 bg-sfx-gold hover:bg-yellow-600 text-[#090A0D] font-bold rounded-xl uppercase transition-colors shadow-md cursor-pointer">INVIA MESSAGGIO</button>
                     </form>
                 </div>
             </div>
@@ -663,9 +687,9 @@
     </footer>
 
     <!-- ========================================================= -->
-    <!-- LA SCHEDA DI REGISTRAZIONE DENTRO LA MODALE (NON PIÙ IN BASSO LIBERA) -->
+    <!-- SCHEDA DI REGISTRAZIONE NELLA MODALE (GESTIONE LEAD ROBUSTA) -->
     <!-- ========================================================= -->
-    <div id="modal-scheda-registrazione" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div id="modal-scheda-registrazione" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4 overflow-y-auto" onclick="if(event.target.id==='modal-scheda-registrazione') chiudiSchedaRegistrazione()">
         <div class="matrix-dark-card text-white rounded-3xl p-6 sm:p-10 max-w-2xl w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs my-auto relative">
             
             <div class="flex justify-between items-center border-b border-gray-800 pb-4">
@@ -673,7 +697,7 @@
                     <h3 id="modal-reg-titolo" class="font-grotesk font-black text-lg text-sfx-goldLight uppercase">SCHEDA DI ACCREDITO &amp; REGISTRAZIONE</h3>
                     <p class="text-[10px] text-gray-400">Inserimento diretto in Google Calendar e Registro CRM</p>
                 </div>
-                <button onclick="chiudiSchedaRegistrazione()" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+                <button onclick="chiudiSchedaRegistrazione()" class="text-gray-400 hover:text-white text-3xl leading-none cursor-pointer">&times;</button>
             </div>
 
             <form id="form-candidatura-lead" onsubmit="inviaCandidaturaLead(event)" class="space-y-4">
@@ -770,34 +794,33 @@
                 </div>
 
                 <!-- Pulsante Invio -->
-                <button type="submit" id="btn-invia-lead" class="w-full py-4 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center space-x-2 text-xs tracking-wider">
+                <button type="submit" id="btn-invia-lead" class="w-full py-4 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center space-x-2 text-xs tracking-wider cursor-pointer">
                     <i class="fa-solid fa-paper-plane"></i>
                     <span id="testo-btn-registrazione">CONFERMA ACCREDITO &amp; INVIA SCHEDA</span>
                 </button>
             </form>
 
-            <!-- Box Risposta Nero Oro (Niente Cyan) -->
             <div id="feedback-lead" class="hidden mt-4 p-5 rounded-2xl text-xs font-mono border-2 transition-all"></div>
         </div>
     </div>
 
     <!-- MODALE 40 TESTIMONIANZE -->
-    <div id="modal-testimonianze-40" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+    <div id="modal-testimonianze-40" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-testimonianze-40') chiudiModale('modal-testimonianze-40')">
         <div class="bg-[#12141C] text-white rounded-3xl p-6 sm:p-8 max-w-5xl w-full max-h-[85vh] overflow-y-auto border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-700 pb-3 sticky top-0 bg-[#12141C] z-10">
                 <h3 class="font-grotesk font-bold text-sm text-sfx-goldLight uppercase"><i class="fa-solid fa-comments mr-2"></i>40 TESTIMONIANZE VERIFICATE DELL'ECOSISTEMA</h3>
-                <button onclick="document.getElementById('modal-testimonianze-40').classList.add('hidden')" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                <button onclick="chiudiModale('modal-testimonianze-40')" class="text-gray-400 hover:text-white text-2xl cursor-pointer">&times;</button>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="container-40-recensioni"></div>
         </div>
     </div>
 
     <!-- MODALE INFO NEGOZI -->
-    <div id="modal-negozio-online-info" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+    <div id="modal-negozio-online-info" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-negozio-online-info') chiudiModale('modal-negozio-online-info')">
         <div class="matrix-dark-card text-white rounded-3xl p-8 max-w-xl w-full border-2 border-sfx-gold shadow-2xl space-y-5 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 class="font-grotesk font-bold text-base text-sfx-goldLight uppercase">MODELLO E-COMMERCE INDIPENDENTE</h3>
-                <button onclick="document.getElementById('modal-negozio-online-info').classList.add('hidden')" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                <button onclick="chiudiModale('modal-negozio-online-info')" class="text-gray-400 hover:text-white text-2xl cursor-pointer">&times;</button>
             </div>
             <p class="text-gray-300 leading-relaxed">
                 Suprema Future X integra un canale operativo chiavi in mano che permette a corsisti e associati di svolgere attività di vendita online senza sostenere i costi fissi di un'impresa tradizionale.
@@ -807,68 +830,232 @@
                 <p>✓ <strong>Vetrina Personale:</strong> Negozio digitale attivo dal primo giorno.</p>
                 <p>✓ <strong>Formazione Pratica:</strong> I corsi Academy ti insegnano a generare clienti reali.</p>
             </div>
-            <a href="https://www.imperya.com/vetrina/style" target="_blank" rel="noopener noreferrer" class="block w-full py-4 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:bg-yellow-500 text-center transition-all">
-                VAI ALLA VETRINA DEL CEO &rarr;
-            </a>
+            <button onclick="chiudiModale('modal-negozio-online-info'); apriSchedaRegistrazione('Conferenza CEO');" class="block w-full py-4 bg-sfx-gold text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl hover:bg-yellow-500 text-center transition-all cursor-pointer">
+                RICHIEDI ABILITAZIONE NEGOZIO AL CEO GIULIANO &rarr;
+            </button>
         </div>
     </div>
 
     <!-- MODALE SCHEDA CORSO ACADEMY -->
-    <div id="modal-dettaglio-corso" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4">
+    <div id="modal-dettaglio-corso" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-dettaglio-corso') chiudiModale('modal-dettaglio-corso')">
         <div class="matrix-dark-card text-white rounded-3xl p-8 max-w-lg w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <h3 id="modal-corso-titolo" class="font-grotesk font-bold text-lg text-sfx-goldLight uppercase">CORSO ACADEMY</h3>
-                <button onclick="document.getElementById('modal-dettaglio-corso').classList.add('hidden')" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                <button onclick="chiudiModale('modal-dettaglio-corso')" class="text-gray-400 hover:text-white text-2xl cursor-pointer">&times;</button>
             </div>
             <div class="flex justify-between items-center bg-black/70 p-4 rounded-xl border border-gray-800">
                 <span class="text-gray-400">QUOTA DI ISCRIZIONE:</span>
                 <span id="modal-corso-prezzo" class="font-cyber font-black text-2xl text-sfx-goldLight">-- €</span>
             </div>
             <p id="modal-corso-descrizione" class="text-gray-300 leading-relaxed text-xs">Dettagli del corso.</p>
-            <button id="modal-btn-avvia-corso" onclick="procediIscrizioneCorso()" class="w-full py-4 bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl transition-all">
+            <button id="modal-btn-avvia-corso" onclick="procediIscrizioneCorso()" class="w-full py-4 bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl shadow-xl transition-all cursor-pointer">
                 AVVIA IL CORSO ORA &rarr;
             </button>
         </div>
     </div>
 
-    <!-- TERMINALE SEGRETO, CAVEAU ED EMERGENZA (INVARIATI PER IL CEO) -->
-    <div id="modal-terminale-9" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4">
+    <!-- TERMINALE SEGRETO, CAVEAU ED EMERGENZA (ACCESSO RISERVATO CEO) -->
+    <div id="modal-terminale-9" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-terminale-9') chiudiModale('modal-terminale-9')">
         <div class="relative bg-[#2A2D34] text-white rounded-[2rem] p-8 sm:p-12 w-[45rem] max-w-full border-2 border-sfx-gold shadow-2xl">
             <div class="space-y-6 font-mono text-xs">
-                <h3 class="font-grotesk font-black text-2xl text-sfx-goldLight uppercase">ACCESSO RISERVATO CEO</h3>
+                <div class="flex justify-between items-center border-b border-gray-700 pb-4">
+                    <h3 class="font-grotesk font-black text-2xl text-sfx-goldLight uppercase">ACCESSO RISERVATO CEO</h3>
+                    <button onclick="chiudiModale('modal-terminale-9')" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                </div>
                 <form onsubmit="verificaAccessoTerminale(event)" class="space-y-4">
-                    <input type="password" id="terminal-pwd" required class="w-full p-3.5 bg-black border border-gray-600 rounded-xl text-white outline-none" placeholder="Master Password...">
-                    <input type="password" id="terminal-pin" required pattern="[0-9]{10}" class="w-full p-3.5 bg-black border border-gray-600 rounded-xl text-sfx-cyanLight outline-none text-center tracking-widest" placeholder="PIN 10 Cifre" maxlength="10">
-                    <button type="submit" class="w-full py-4 bg-sfx-gold text-black font-extrabold uppercase rounded-xl">SBLOCCA TERMINALE</button>
+                    <div>
+                        <label class="block text-gray-400 mb-1 text-[10px] uppercase">Master Authorization Password</label>
+                        <input type="password" id="terminal-pwd" required class="w-full p-3.5 bg-black border border-gray-600 rounded-xl text-white outline-none focus:border-sfx-gold" placeholder="Master Password...">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1 text-[10px] uppercase">Codice PIN Sicurezza (10 Cifre)</label>
+                        <input type="password" id="terminal-pin" required pattern="[0-9]{10}" class="w-full p-3.5 bg-black border border-gray-600 rounded-xl text-sfx-cyanLight outline-none text-center tracking-widest text-base font-bold focus:border-sfx-cyan" placeholder="PIN 10 Cifre" maxlength="10">
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-sfx-gold text-black font-extrabold uppercase rounded-xl hover:bg-yellow-500 transition-colors shadow-lg cursor-pointer">SBLOCCA TERMINALE</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div id="modal-caveau-8" class="fixed inset-0 bg-[#090A0D]/95 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <!-- CAVEAU X-BOX SELETTIVA -->
+    <div id="modal-caveau-8" class="fixed inset-0 bg-[#090A0D]/95 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-caveau-8') chiudiModale('modal-caveau-8')">
         <div class="w-full max-w-4xl space-y-8 text-center font-mono">
-            <h2 class="font-grotesk font-black text-2xl md:text-3xl text-white uppercase">Benvenuto CEO nel Caveau</h2>
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <h2 class="font-grotesk font-black text-2xl md:text-3xl text-white uppercase">Benvenuto CEO nel Caveau</h2>
+                <button onclick="chiudiModale('modal-caveau-8')" class="text-gray-400 hover:text-white text-3xl cursor-pointer">&times;</button>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs">
                 <div class="bg-[#1F2227] border border-sfx-gold rounded-3xl p-8 space-y-4">
                     <h3 class="font-grotesk font-black text-xl text-white">X-BOX SUPREMA</h3>
-                    <input type="password" id="pin-suprema" placeholder="PIN 10 Cifre..." class="w-full p-3 bg-black border border-gray-700 rounded-xl text-center text-sfx-gold">
-                    <button onclick="if(document.getElementById('pin-suprema').value==='3474429091') window.location.href='crm.html'; else alert('PIN Errato');" class="w-full py-3 bg-sfx-gold text-black font-bold uppercase rounded-xl">Accedi X-BOX CRM</button>
+                    <input type="password" id="pin-suprema" placeholder="PIN 10 Cifre..." class="w-full p-3 bg-black border border-gray-700 rounded-xl text-center text-sfx-gold text-base font-bold outline-none">
+                    <button onclick="if(document.getElementById('pin-suprema').value==='3474429091') window.location.href='crm.html'; else alert('PIN Errato');" class="w-full py-3 bg-sfx-gold text-black font-bold uppercase rounded-xl hover:bg-yellow-500 transition-colors cursor-pointer">Accedi X-BOX CRM</button>
                 </div>
                 <div class="bg-[#1F2227] border border-sfx-cyan rounded-3xl p-8 space-y-4">
                     <h3 class="font-grotesk font-black text-xl text-white">X-BOX AZIENDALE</h3>
-                    <input type="password" id="pin-aziendale" placeholder="PIN 10 Cifre..." class="w-full p-3 bg-black border border-gray-700 rounded-xl text-center text-sfx-cyan">
-                    <button onclick="if(document.getElementById('pin-aziendale').value==='3474429091') window.location.href='admin.html'; else alert('PIN Errato');" class="w-full py-3 bg-gray-200 text-black font-bold uppercase rounded-xl">Accedi X-BOX Admin</button>
+                    <input type="password" id="pin-aziendale" placeholder="PIN 10 Cifre..." class="w-full p-3 bg-black border border-gray-700 rounded-xl text-center text-sfx-cyan text-base font-bold outline-none">
+                    <button onclick="if(document.getElementById('pin-aziendale').value==='3474429091') window.location.href='admin.html'; else alert('PIN Errato');" class="w-full py-3 bg-gray-200 text-black font-bold uppercase rounded-xl hover:bg-white transition-colors cursor-pointer">Accedi X-BOX Admin</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT PULITO SENZA DIPENDENZE ESTERNE CHE VANNO IN BLOCCO -->
+    <!-- JAVASCRIPT SFX ENGINE (EAL6+ COMPLIANT) -->
     <script>
-        const APPS_SCRIPT_URL_SFX = "https://script.google.com/macros/s/AKfycbzWdc42zmKTZ7JTxARuiGOgEi6yBiFnoSITfv0vsiy07J-LeSpLLvvj_tRinRQZB7GX/exec";
+        const APPS_SCRIPT_URL_SFX = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
         let corsoSelezionatoTemp = 'Academy Executive';
 
+        // 50 FAQ DATABASE IN CACHE LOCALE (ZERO LATENZA)
+        const SFX_FAQ_DATABASE = [
+            {"q": "chi e alison", "keywords": ["chi sei", "alison", "ruolo alison", "chi e alison"], "a": "Sono Alison (AG-01), il Concierge Digitale Esecutivo di Suprema Future X. Gestisco il primo orientamento, la verifica delle candidature e l'instradamento verso la Presidenza del CEO Giuliano Caratelli e l'Academy."},
+            {"q": "chi e il ceo", "keywords": ["ceo", "giuliano", "caratelli", "fondatore", "presidente"], "a": "Il Fondatore e CEO di Suprema Future X è Giuliano Caratelli. Governa l'architettura d'impresa, le relazioni istituzionali, la direzione strategica e le sessioni direzionali riservate one-to-one."},
+            {"q": "cos e suprema future x", "keywords": ["cos e", "suprema future x", "piattaforma", "ecosistema", "progetto"], "a": "Suprema Future X è un ecosistema d'élite per la formazione indipendente, il networking d'impresa, lo sviluppo personale, l'e-commerce autonomo e il reindirizzamento al lavoro tangibile."},
+            {"q": "come prenotare la conferenza ceo", "keywords": ["conferenza ceo", "prenota call", "appuntamento", "colloquio", "parlare col ceo"], "a": "Puoi prenotare la Conferenza Riservata cliccando sul pulsante 'Conferenza CEO' in alto o compilando la Scheda di Accredito. Ti verrà assegnato uno slot su Google Calendar con link protetto Meet."},
+            {"q": "quanto costa la conferenza ceo", "keywords": ["costo conferenza", "prezzo call", "tariffa ceo", "conferenza gratuita"], "a": "La sessione preliminare di valutazione con il CEO è a numero chiuso su candidatura. Non ci sono costi nascosti: la scheda viene esaminata preventivamente dal desk esecutivo."},
+            {"q": "corsi academy disponibili", "keywords": ["corsi", "academy", "quali corsi", "percorsi", "formazione"], "a": "Suprema Academy offre 3 livelli didattici: Silver Tier (99 €), Executive Master (149 €, consigliato) e Premium VIP (189 € con mentoring one-to-one)."},
+            {"q": "corso silver tier 99 euro", "keywords": ["silver", "99", "corso base", "primo livello"], "a": "Il Silver Tier (99 €) comprende 4 moduli operativi intensivi per strutturare il metodo di lavoro indipendente, le basi del digital networking e l'avvio delle prime entrate digitali."},
+            {"q": "corso executive master 149 euro", "keywords": ["executive", "master", "149", "secondo livello"], "a": "L'Executive Master (149 €) dura 8 settimane: include leadership applicata, integrazione degli agenti AI (tra cui Assedio AG-11), setup del workspace e rilascio della Suprema Gold Card."},
+            {"q": "corso premium vip 189 euro", "keywords": ["premium", "vip", "189", "terzo livello"], "a": "Il Premium VIP (189 €) offre una sessione diretta di affiancamento One-to-One con il CEO Giuliano Caratelli, revisione del modello di carriera e consegna della Gold Card metallica ad alta sicurezza."},
+            {"q": "come iscriversi a un corso", "keywords": ["iscrizione", "iscrivermi", "come mi iscrivo", "acquistare corso"], "a": "Clicca su 'Scheda Didattica & Dettagli' nel riquadro del corso desiderato, poi su 'Avvia il Corso Ora'. Compila la Scheda di Accredito con i tuoi dati per ricevere il piano operativo."},
+            {"q": "cos e la suprema gold card", "keywords": ["gold card", "carta oro", "card", "phygital"], "a": "La Suprema Gold Card è il pass Phygital esclusivo dell'Ecosistema. Assegnata a corsisti e partner accreditati, consente l'accumulo di punti operativi e l'accesso ai terminali protetti SFX."},
+            {"q": "come ottenere la gold card", "keywords": ["avere gold card", "ottenere carta", "richiesta gold card"], "a": "La Gold Card viene rilasciata ufficialmente a chi frequenta l'Executive Master o il percorso Premium VIP, oppure ai partner accreditati direttamente dalla Presidenza."},
+            {"q": "attivita commerciale chiavi in mano", "keywords": ["negozi", "e-commerce", "chiavi in mano", "negozio digitale", "vendita online"], "a": "Permette a ciascun membro di avviare un negozio online senza anticipare stock di magazzino né gestire spedizioni o logistica. Per abilitare la vetrina è richiesta la validazione con il CEO."},
+            {"q": "serve anticipare merce per il negozio", "keywords": ["magazzino", "stock", "anticipo merce", "prodotti fisici"], "a": "Assolutamente no. Il modello opera a zero magazzino: logistica, fatturazione, stoccaggio e spedizione sono completamente centralizzati dall'infrastruttura d'impresa."},
+            {"q": "polo scientifico e antigravity", "keywords": ["antigravity", "polo scientifico", "levitazione", "ricerca"], "a": "È l'area divulgativa dedicata all'esplorazione dei campi magnetici attivi, sospensione cinematica e abbattimento delle vibrazioni in ambienti direzionali di alta rappresentanza."},
+            {"q": "metodi di pagamento accettati", "keywords": ["pagamento", "pagare", "sumup", "revolut", "bonifico", "carta"], "a": "Accettiamo pagamenti protetti tramite SumUp POS (carte di debito/credito Visa, Mastercard, Maestro) e bonifici istantanei tramite circuito Revolut Business Corporate."},
+            {"q": "sicurezza e protocollo eal6+", "keywords": ["eal6", "sicurezza", "protocollo", "crittografia", "protezione"], "a": "Tutti i dati e le transazioni sono governati dallo standard di sicurezza EAL6+ Sovrano, con crittografia end-to-end, tracciamento audit e protezione delle informazioni personali."},
+            {"q": "dove si trova la sede centrale", "keywords": ["sede", "dove siete", "indirizzo", "roma", "ufficio"], "a": "La Sede Centrale di Suprema Future X si trova a Roma Centro, in Via della Scrofa."},
+            {"q": "contatti ufficiali presidenza", "keywords": ["contatti", "numero", "whatsapp", "email", "telefono"], "a": "Puoi contattare la Presidenza via WhatsApp al +39 347 442 9091 oppure via email a ceo@supremaofficial.com."},
+            {"q": "come funziona il drive corsista", "keywords": ["drive", "cartella", "workspace", "materiali cloud"], "a": "All'avvallo del corsista, l'Agente 06 genera automaticamente una cartella Google Drive tripartita: 01_Materiali_Operativi, 02_Consegne_Project_Work e 03_Dossier_Amministrativo."},
+            {"q": "cosa sono i 15 agenti ai", "keywords": ["15 agenti", "agenti ai", "flotta neurale", "alison nicole ginevra"], "a": "È la flotta neurale autonoma di SFX: da AG-01 Alison (Concierge) fino ad AG-15 Joker (Strategist), passando per Nicole, Ginevra, Scout, Sentinel e Governor."},
+            {"q": "chi e scout ag 04", "keywords": ["scout", "ag-04", "hunter", "lead generation"], "a": "Scout (AG-04 Hunter) è l'agente incaricato di scansionare i canali digitali e intercettare opportunità e profili qualificati per l'Ecosistema."},
+            {"q": "chi e assedio ag 11", "keywords": ["assedio", "ag-11", "closing", "conversione"], "a": "Assedio (AG-11 Closing) è il protocollo didattico ed esecutivo dedicato alla negoziazione, closing commerciale e massimizzazione del tasso di conversione."},
+            {"q": "chi e sentinel ag 12", "keywords": ["sentinel", "ag-12", "audit", "controllo"], "a": "Sentinel (AG-12) vigila sull'integrità del sistema, controlla i log di audit EAL6+ e impedisce intrusioni o derive sintattiche non autorizzate."},
+            {"q": "requisiti per partecipare", "keywords": ["requisiti", "chi puo partecipare", "esperienza necessaria", "eta"], "a": "Non sono richieste competenze tecniche pregresse. Sono invece indispensabili serietà, puntualità, etica professionale e volontà di seguire il metodo senza scorciatoie."},
+            {"q": "rilascio attestato o certificato", "keywords": ["attestato", "certificato", "certificazione", "diploma"], "a": "Al termine dei percorsi Academy e dopo la verifica del project work, viene rilasciata la Certificazione Ufficiale delle Competenze Suprema Future X."},
+            {"q": "orari delle lezioni", "keywords": ["orari lezioni", "quando si studia", "flessibilita", "registrazioni"], "a": "I materiali sono accessibili h24 nel Workspace Cloud Drive. Le sessioni di revisione e mentoring si concordano in fasce flessibili (mattina, pomeriggio o sera)."},
+            {"q": "dicono di noi recensioni", "keywords": ["testimonianze", "recensioni", "opinioni", "pareri corsisti"], "a": "Nella sezione 'Dicono di Noi' trovi 40 testimonianze verificate di corsisti, professionisti e imprenditori che hanno completato con successo i programmi SFX."},
+            {"q": "garanzia e supporto post corso", "keywords": ["supporto", "assistenza", "dopo il corso", "affiancamento"], "a": "Tutti i percorsi includono l'ingresso nella community permanente, aggiornamenti periodici e canale di assistenza continuo per lo sviluppo del lavoro."},
+            {"q": "cos e il codice nexus", "keywords": ["codice nexus", "nexus", "nx", "id candidato"], "a": "Il Codice Nexus (es. NX-4821) è l'identificativo univoco generato dall'Agente 01 che traccia la tua candidatura, il punteggio lead e il fascicolo nel database centrale."},
+            {"q": "cosa succede dopo l invio della scheda", "keywords": ["dopo l invio", "prossimi passi", "cosa succede", "dopo candidatura"], "a": "Ricevi un'email con il riepilogo e il promemoria dell'appuntamento Meet. Telegram allerta il desk esecutivo e la sessione viene bloccata sul calendario."},
+            {"q": "sessioni one to one", "keywords": ["one to one", "individuale", "privata", "singola sessione"], "a": "Le sessioni One-to-One sono riservate esclusivamente agli iscritti Premium VIP e a chi supera la candidatura per la Conferenza Presidenziale con il CEO Giuliano."},
+            {"q": "posso pagare a rate", "keywords": ["rate", "dilazione", "rateizzazione", "pagamento rateale"], "a": "Le quote dei percorsi sono già parametrizzate al minimo accessibile (99 €, 149 €, 189 €). Per accordi personalizzati è possibile parlarne in conferenza."},
+            {"q": "fatturazione e ricevute", "keywords": ["fattura", "ricevuta", "fiscale", "detraibilita"], "a": "Tutti i pagamenti ricevono regolare attestazione amministrativa emessa dal desk di tesoreria (Agente 08/05) e archiviata nel fascicolo del corsista."},
+            {"q": "community su telegram e social", "keywords": ["canali social", "telegram canale", "instagram", "youtube"], "a": "Suprema Future X è presente su 6 canali ufficiali: Instagram, Telegram, YouTube, LinkedIn, TikTok e Facebook. I link diretti sono nel footer della pagina."},
+            {"q": "chi puo accedere alla x box", "keywords": ["x-box", "accesso x-box", "pannello crm", "login x-box"], "a": "La X-BOX Suprema è il terminale direzionale riservato al CEO e agli amministratori autorizzati. È protetta da master password e PIN di sicurezza EAL6+."},
+            {"q": "come funziona il notiziario", "keywords": ["notiziario", "newsletter", "aggiornamenti", "iscrizione news"], "a": "Inserendo la tua email nella sezione Notiziario Riservato ricevi gli approfondimenti settimanali e i comunicati ufficiali direttamente dalla Direzione."},
+            {"q": "posso inviare un feedback al ceo", "keywords": ["inviare feedback", "messaggio al ceo", "scrivere al presidente"], "a": "Sì, nel modulo 'Feedback Diretto' in fondo alla pagina puoi scrivere un messaggio che viene recapitato direttamente alla Direzione Generale del CEO Giuliano."},
+            {"q": "cosa significa eal6 plus", "keywords": ["significato eal6", "livello di sicurezza", "crittografia sovrana"], "a": "Evaluation Assurance Level 6+ è un grado di certificazione di sicurezza informatica applicato a sistemi ad alta resilienza, che garantisce integrità e controllo rigoroso dei flussi."},
+            {"q": "quanto dura il percorso academy", "keywords": ["durata corso", "quante settimane", "quanto tempo dura"], "a": "Il percorso Silver richiede circa 2-3 settimane; l'Executive Master si articola su 8 settimane intensive; il Premium VIP include affiancamento continuativo."},
+            {"q": "posso cambiare data della conferenza", "keywords": ["cambiare data", "spostare appuntamento", "modificare orario"], "a": "Puoi richiedere la modifica della data rispondendo all'email di conferma ricevuta o inviando un messaggio WhatsApp al desk direttivo al +39 347 442 9091."},
+            {"q": "il corso e online o in presenza", "keywords": ["online", "presenza", "dove si svolgono", "remoto"], "a": "Tutti i percorsi didattici e le conferenze si svolgono interamente online in stanze protette, accessibili da qualsiasi postazione computer o tablet."},
+            {"q": "posso partecipare dall estero", "keywords": ["estero", "da fuori italia", "altri paesi", "lingue"], "a": "Certamente. L'ecosistema è accessibile a livello internazionale; la lingua operativa primaria è l'italiano con supporto multilingua in EN, ES, FR e DE."},
+            {"q": "come funziona il simulatore gold card", "keywords": ["simulatore", "anteprima nome", "render card"], "a": "Nella sezione Gold Card puoi digitare il tuo Nome e Cognome nel simulatore e cliccare su 'Genera Anteprima Personale' per vedere la resa estetica del pass."},
+            {"q": "come collaborare con suprema", "keywords": ["collaborare", "lavorare con voi", "partnership", "diventare partner"], "a": "Le candidature per partnership d'impresa o inserimento nella rete commerciale vengono discusse in Conferenza Presidenziale con il CEO Giuliano Caratelli."},
+            {"q": "cosa differenzia suprema da altri corsi", "keywords": ["differenza", "perche scegliere voi", "vantaggi", "zero fuffa"], "a": "Non vendiamo teoria astratta: forniamo un metodo collaudato, strumenti aziendali già pronti, negozi digitali operativi e affiancamento diretto con la Direzione."},
+            {"q": "posso scaricare i materiali", "keywords": ["scaricare", "dispense pdf", "download slide"], "a": "Sì, tutti i moduli, dispense e template operativi rimangono a tua disposizione all'interno della cartella Google Drive dedicata."},
+            {"q": "cosa succede in caso di problemi tecnici", "keywords": ["problemi tecnici", "assistenza tecnica", "errore"], "a": "Il team di supporto e l'Agente Sentinel AG-12 monitorano costantemente l'infrastruttura. Puoi segnalare qualsiasi anomalia direttamente in chat o via WhatsApp."},
+            {"q": "posso fare sia il corso che il negozio", "keywords": ["corso e negozio", "abbinare", "entrambi"], "a": "Assolutamente sì: la sinergia ideale consiste nel seguire l'Executive Master per apprendere il metodo e attivare contemporaneamente la propria vetrina autonoma."},
+            {"q": "come contattare alison adesso", "keywords": ["parlare con te", "domanda per alison", "aiuto alison"], "a": "Scrivi la tua domanda qui sotto nella console! Se la richiesta è particolare, la trasmetto immediatamente al desk esecutivo per darti risposta tempestiva."}
+        ];
+
+        // DIZIONARIO MULTILINGUA RAPIDO
+        const SFX_TRANSLATIONS = {
+            it: {
+                vision: "1. Visione Presidenza",
+                alison: "2. Console Alison",
+                academy: "3. Corsi Academy",
+                reviews: "4. Dicono di Noi",
+                goldcard: "5. Gold Card",
+                shops: "6. Negozi Online",
+                science: "7. Polo Tecnologico",
+                media: "8. Media Showcase",
+                news: "9. Notiziario & Feedback",
+                gateway: "10. Gateway Pagamenti",
+                ceoConf: "CONFERENZA CEO",
+                whoWeAre: "CHI SIAMO",
+                heroTag: "ECOSISTEMA PROFESSIONALE ATTIVO",
+                heroDesc: "Community, Networking & Academy ENTERPRISE. Piattaforma d'élite per la Formazione, Sviluppo Personale, E-Commerce Autonomo e Reindirizzamento al Lavoro Immediato guidata dalla Direzione del CEO GIULIANO.",
+                btnCeo: "Conferenza CEO Riservata",
+                btnAlison: "Parla con Alison"
+            },
+            en: {
+                vision: "1. Presidency Vision",
+                alison: "2. Alison Console",
+                academy: "3. Academy Courses",
+                reviews: "4. Testimonials",
+                goldcard: "5. Gold Card",
+                shops: "6. Online Stores",
+                science: "7. Technology Hub",
+                media: "8. Media Showcase",
+                news: "9. News & Feedback",
+                gateway: "10. Payment Gateway",
+                ceoConf: "CEO CONFERENCE",
+                whoWeAre: "ABOUT US",
+                heroTag: "ACTIVE PROFESSIONAL ECOSYSTEM",
+                heroDesc: "ENTERPRISE Community, Networking & Academy. Elite platform for Independent Training, Personal Development, Autonomous E-Commerce and Immediate Job Placement led by CEO GIULIANO.",
+                btnCeo: "Reserved CEO Conference",
+                btnAlison: "Talk to Alison"
+            },
+            es: {
+                vision: "1. Visión Presidencia",
+                alison: "2. Consola Alison",
+                academy: "3. Cursos Academy",
+                reviews: "4. Opiniones",
+                goldcard: "5. Gold Card",
+                shops: "6. Tiendas Online",
+                science: "7. Polo Tecnológico",
+                media: "8. Showcase Multimedia",
+                news: "9. Boletín y Feedback",
+                gateway: "10. Pasarela de Pagos",
+                ceoConf: "CONFERENCIA CEO",
+                whoWeAre: "QUIÉNES SOMOS",
+                heroTag: "ECOSISTEMA PROFESIONAL ACTIVO",
+                heroDesc: "Comunidad, Networking y Academia ENTERPRISE. Plataforma de élite para Capacitación Independiente, E-Commerce y Orientación Laboral Inmediata dirigida por el CEO GIULIANO.",
+                btnCeo: "Conferencia CEO Reservada",
+                btnAlison: "Hablar con Alison"
+            },
+            fr: {
+                vision: "1. Vision Présidence",
+                alison: "2. Console Alison",
+                academy: "3. Cours Academy",
+                reviews: "4. Témoignages",
+                goldcard: "5. Gold Card",
+                shops: "6. Boutiques en Ligne",
+                science: "7. Pôle Technologique",
+                media: "8. Showcase Médias",
+                news: "9. Bulletin & Feedback",
+                gateway: "10. Passerelle de Paiement",
+                ceoConf: "CONFÉRENCE PDG",
+                whoWeAre: "QUI SOMMES-NOUS",
+                heroTag: "ÉCOSYSTÈME PROFESSIONNEL ACTIF",
+                heroDesc: "Communauté, Networking & Académie ENTERPRISE. Plateforme d'élite pour la formation indépendante, l'e-commerce et l'accès au travail sous la direction du PDG GIULIANO.",
+                btnCeo: "Conférence PDG Réservée",
+                btnAlison: "Parler avec Alison"
+            },
+            de: {
+                vision: "1. Vision Präsidentschaft",
+                alison: "2. Alison Konsole",
+                academy: "3. Academy Kurse",
+                reviews: "4. Bewertungen",
+                goldcard: "5. Gold Card",
+                shops: "6. Online Shops",
+                science: "7. Technologiezentrum",
+                media: "8. Medien Showcase",
+                news: "9. Nachrichten & Feedback",
+                gateway: "10. Zahlungs Gateway",
+                ceoConf: "CEO KONFERENZ",
+                whoWeAre: "ÜBER UNS",
+                heroTag: "AKTIVES BERUFLICHES ÖKOSYSTEM",
+                heroDesc: "ENTERPRISE Community, Networking & Academy. Elite-Plattform für unabhängige Ausbildung, E-Commerce und Arbeitsvermittlung unter der Leitung von CEO GIULIANO.",
+                btnCeo: "Exklusive CEO Konferenz",
+                btnAlison: "Mit Alison sprechen"
+            }
+        };
+
+        // INIZIALIZZAZIONE & SBLOCCO SCROLL GARANTITO
         document.addEventListener('DOMContentLoaded', () => {
+            sbloccaScrollPagina();
+
             const dateInput = document.getElementById('lead-data');
             if (dateInput) {
                 const domani = new Date();
@@ -877,36 +1064,124 @@
                 dateInput.value = domani.toISOString().split('T')[0];
             }
             carica40Testimonianze();
+
+            const linguaSalvata = localStorage.getItem('sfx_lang') || 'it';
+            const selectLingua = document.getElementById('sfx-lang-select');
+            if (selectLingua) selectLingua.value = linguaSalvata;
+            applicaLingua(linguaSalvata);
         });
 
+        // SBLOCCO SCROLLING DI SICUREZZA
+        function sbloccaScrollPagina() {
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowX = 'hidden';
+            document.documentElement.style.overflow = 'auto';
+            document.documentElement.style.overflowX = 'hidden';
+        }
+
+        function bloccaScrollPagina() {
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+        }
+
+        // GESTIONE MULTILINGUA
+        function cambiaLingua(lang) {
+            localStorage.setItem('sfx_lang', lang);
+            applicaLingua(lang);
+        }
+
+        function applicaLingua(lang) {
+            const t = SFX_TRANSLATIONS[lang] || SFX_TRANSLATIONS.it;
+            const elNavVision = document.getElementById('txt-nav-vision');
+            if (elNavVision) elNavVision.innerText = t.vision;
+            const elNavAlison = document.getElementById('txt-nav-alison');
+            if (elNavAlison) elNavAlison.innerText = t.alison;
+            const elNavAcademy = document.getElementById('txt-nav-academy');
+            if (elNavAcademy) elNavAcademy.innerText = t.academy;
+            const elNavReviews = document.getElementById('txt-nav-reviews');
+            if (elNavReviews) elNavReviews.innerText = t.reviews;
+            const elNavGold = document.getElementById('txt-nav-gold');
+            if (elNavGold) elNavGold.innerText = t.goldcard;
+            const elNavShops = document.getElementById('txt-nav-shops');
+            if (elNavShops) elNavShops.innerText = t.shops;
+            const elNavScience = document.getElementById('txt-nav-science');
+            if (elNavScience) elNavScience.innerText = t.science;
+            const elNavMedia = document.getElementById('txt-nav-media');
+            if (elNavMedia) elNavMedia.innerText = t.media;
+            const elNavNews = document.getElementById('txt-nav-news');
+            if (elNavNews) elNavNews.innerText = t.news;
+            const elNavGateway = document.getElementById('txt-nav-gateway');
+            if (elNavGateway) elNavGateway.innerText = t.gateway;
+            const elBtnCeo = document.getElementById('txt-btn-ceo-header');
+            if (elBtnCeo) elBtnCeo.innerText = t.ceoConf;
+            const elBtnChiSiamo = document.getElementById('txt-btn-chisiamo-header');
+            if (elBtnChiSiamo) elBtnChiSiamo.innerText = t.whoWeAre;
+            const elHeroTag = document.getElementById('txt-hero-tag');
+            if (elHeroTag) elHeroTag.innerText = t.heroTag;
+            const elHeroDesc = document.getElementById('txt-hero-desc');
+            if (elHeroDesc) elHeroDesc.innerText = t.heroDesc;
+            const elBtnHeroCeo = document.getElementById('txt-btn-hero-ceo');
+            if (elBtnHeroCeo) elBtnHeroCeo.innerText = t.btnCeo;
+            const elBtnHeroAlison = document.getElementById('txt-btn-hero-alison');
+            if (elBtnHeroAlison) elBtnHeroAlison.innerText = t.btnAlison;
+        }
+
+        // GESTIONE DRAWER E MODALI CON SCROLL RESTORE
         function toggleDrawer(id) {
             const el = document.getElementById(id);
-            if (el) el.classList.toggle('hidden');
+            if (el) {
+                const isHidden = el.classList.toggle('hidden');
+                if (isHidden) {
+                    sbloccaScrollPagina();
+                } else {
+                    bloccaScrollPagina();
+                }
+            }
         }
 
         function chiudiDrawerAlClickFuori(e, id) {
-            if (e.target.id === id) toggleDrawer(id);
+            if (e.target.id === id) {
+                toggleDrawer(id);
+            }
+        }
+
+        function apriModale(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('hidden');
+                bloccaScrollPagina();
+            }
+        }
+
+        function chiudiModale(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.add('hidden');
+                sbloccaScrollPagina();
+            }
         }
 
         function apriWidgetAlison() {
             const sec = document.getElementById('alison-ai');
             if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const inp = document.getElementById('input-centrale');
+                if (inp) inp.focus();
+            }, 500);
         }
 
-        // APERTURA SCHEDA DI REGISTRAZIONE NELLA MODALE
+        // SCHEDA DI REGISTRAZIONE NELLA MODALE
         function apriSchedaRegistrazione(canaleDefault) {
-            const modale = document.getElementById('modal-scheda-registrazione');
             const selectCanale = document.getElementById('lead-canale');
             if (selectCanale && canaleDefault) {
                 selectCanale.value = canaleDefault;
             }
             aggiornaDicituraModulo();
-            if (modale) modale.classList.remove('hidden');
+            apriModale('modal-scheda-registrazione');
         }
 
         function chiudiSchedaRegistrazione() {
-            const modale = document.getElementById('modal-scheda-registrazione');
-            if (modale) modale.classList.add('hidden');
+            chiudiModale('modal-scheda-registrazione');
         }
 
         function apriModalSchedaCorso(titolo, prezzo, descrizione, valoreSelect) {
@@ -914,11 +1189,11 @@
             document.getElementById('modal-corso-prezzo').textContent = prezzo;
             document.getElementById('modal-corso-descrizione').textContent = descrizione;
             corsoSelezionatoTemp = valoreSelect;
-            document.getElementById('modal-dettaglio-corso').classList.remove('hidden');
+            apriModale('modal-dettaglio-corso');
         }
 
         function procediIscrizioneCorso() {
-            document.getElementById('modal-dettaglio-corso').classList.add('hidden');
+            chiudiModale('modal-dettaglio-corso');
             apriSchedaRegistrazione(corsoSelezionatoTemp);
         }
 
@@ -936,7 +1211,122 @@
             }
         }
 
-        // INVIO SCHEDA LEAD AL BACKEND
+        // MOTORE DIALOGO CHATBOT ALISON (ZERO LATENZA)
+        function inviaMessaggioCentrale() {
+            const input = document.getElementById('input-centrale');
+            const box = document.getElementById('box-chat-centrale');
+            if (!input || !box) return;
+
+            const testoUtente = input.value.trim();
+            if (!testoUtente) return;
+
+            const divUtente = document.createElement('div');
+            divUtente.className = "bg-sfx-gold/20 border border-sfx-gold/40 p-3.5 rounded-2xl max-w-lg ml-auto text-right text-gray-900 shadow-sm";
+            divUtente.innerHTML = `<strong class="text-sfx-gold block text-[10px] uppercase">Tu:</strong><span>${escapeHtmlChat(testoUtente)}</span>`;
+            box.appendChild(divUtente);
+            input.value = '';
+            box.scrollTop = box.scrollHeight;
+
+            setTimeout(() => {
+                const risposta = cercaRispostaFaq(testoUtente);
+                const divAlison = document.createElement('div');
+                divAlison.className = "bg-[var(--pearl-card)] p-4 rounded-2xl border border-gray-300 max-w-xl shadow-sm text-gray-800 space-y-2";
+                divAlison.innerHTML = `
+                    <div class="flex items-center space-x-2 border-b border-gray-200 pb-1.5">
+                        <span class="w-2 h-2 rounded-full bg-sfx-cyan animate-pulse"></span>
+                        <strong class="text-sfx-cyan text-xs">Alison Future X (AG-01):</strong>
+                    </div>
+                    <p class="leading-relaxed">${risposta.testo}</p>
+                    ${risposta.callToAction ? risposta.callToAction : ''}
+                `;
+                box.appendChild(divAlison);
+                box.scrollTop = box.scrollHeight;
+            }, 120);
+        }
+
+        function cercaRispostaFaq(testo) {
+            const query = testo.toLowerCase();
+            let migliorMatch = null;
+            let maxPunteggio = 0;
+
+            for (let i = 0; i < SFX_FAQ_DATABASE.length; i++) {
+                const faq = SFX_FAQ_DATABASE[i];
+                let punteggio = 0;
+
+                for (let k = 0; k < faq.keywords.length; k++) {
+                    const kw = faq.keywords[k].toLowerCase();
+                    if (query.includes(kw)) {
+                        punteggio += kw.length;
+                    }
+                }
+
+                if (punteggio > maxPunteggio) {
+                    maxPunteggio = punteggio;
+                    migliorMatch = faq;
+                }
+            }
+
+            if (migliorMatch && maxPunteggio > 3) {
+                return {
+                    testo: migliorMatch.a,
+                    callToAction: `<div class="pt-2"><button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="px-3.5 py-1.5 rounded-lg bg-sfx-gold text-white font-bold text-[10px] uppercase hover:bg-yellow-700 transition-colors cursor-pointer">Richiedi Approfondimento con il CEO</button></div>`
+                };
+            }
+
+            return {
+                testo: "Ho registrato la tua richiesta per il desk esecutivo di Presidenza. Per valutare il tuo caso specifico, il canale raccomandato è la Conferenza Riservata con il CEO Giuliano Caratelli.",
+                callToAction: `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                        <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="p-2 rounded-xl bg-sfx-gold text-white font-bold text-left hover:bg-yellow-700 transition-colors text-[10px] cursor-pointer">
+                            👑 Prenota Conferenza con il CEO
+                        </button>
+                        <a href="#academy" class="p-2 rounded-xl bg-[#090A0D] text-sfx-cyan font-bold text-left hover:bg-black transition-colors text-[10px] block">
+                            🎓 Esplora i Corsi Academy
+                        </a>
+                    </div>`
+            };
+        }
+
+        function escapeHtmlChat(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // TRIGGER ACCESSO RISERVATO SUL LOGO CENTRALE GRANDE (3 TAP - 500MS)
+        let tapCountLogo = 0;
+        let tapTimerLogo = null;
+        const logoTarget = document.getElementById('sfx-brand-logo-center');
+        if (logoTarget) {
+            logoTarget.addEventListener('click', () => {
+                tapCountLogo++;
+                clearTimeout(tapTimerLogo);
+
+                if (tapCountLogo >= 3) {
+                    tapCountLogo = 0;
+                    apriModale('modal-terminale-9');
+                } else {
+                    tapTimerLogo = setTimeout(() => {
+                        tapCountLogo = 0;
+                    }, 500);
+                }
+            });
+        }
+
+        function verificaAccessoTerminale(e) {
+            e.preventDefault();
+            const pin = document.getElementById('terminal-pin').value;
+            if (pin === '3474429091') {
+                chiudiModale('modal-terminale-9');
+                apriModale('modal-caveau-8');
+            } else {
+                alert('Credenziali Non Autorizzate. Tentativo Tracciato EAL6+');
+            }
+        }
+
+        // INVIO SCHEDA CANDIDATURA LEAD
         function inviaCandidaturaLead(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-invia-lead');
@@ -948,19 +1338,19 @@
             const dataFormattata = `${partiData[2]}/${partiData[1]}/${partiData[0]}`;
 
             const payload = {
-                action: 'CANDIDATURA_CONFERENZA_CEO',
-                nome: `${document.getElementById('lead-nome').value.trim()} ${document.getElementById('lead-cognome').value.trim()}`,
+                action: 'nuovaCandidatura',
+                nome: document.getElementById('lead-nome').value.trim(),
+                cognome: document.getElementById('lead-cognome').value.trim(),
                 azienda: document.getElementById('lead-azienda').value.trim() || 'Privato',
                 email: document.getElementById('lead-email').value.trim(),
                 telefono: document.getElementById('lead-telefono').value.trim(),
                 ambito: ambitoScelto,
-                data_prenotazione: dataFormattata,
-                ora_prenotazione: document.getElementById('lead-ora').value,
+                dataCall: `${dataFormattata} ${document.getElementById('lead-ora').value}`,
                 note: `[Città: ${document.getElementById('lead-citta').value.trim()} (${document.getElementById('lead-provincia').value.trim()})] [Codice SFX: ${document.getElementById('lead-codice-sfx').value.trim() || 'N/A'}] - ${document.getElementById('lead-note').value.trim()}`
             };
 
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>INVIO AL SERVER IN CORSO...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>TRASMISSIONE DATI CRITTOGRAFATA...';
 
             fetch(APPS_SCRIPT_URL_SFX, {
                 method: 'POST',
@@ -974,19 +1364,21 @@
 
                 feedback.className = "mt-4 p-5 rounded-2xl text-xs font-mono border-2 bg-[#090A0D] border-sfx-gold text-white block shadow-2xl";
 
+                const codiceRicevuto = data.nexusId || data.nexusCode || 'NX-REG';
+
                 if (ambitoScelto === 'Conferenza CEO') {
                     feedback.innerHTML = `
                         <div class="space-y-2">
-                            <h4 class="font-grotesk font-bold text-sm text-sfx-gold">✓ CANDIDATURA ACQUISITA [${data.nexusCode || 'NX-OK'}]</h4>
-                            <p class="leading-relaxed">Grazie per la tua candidatura! Ti è arrivata l'email di conferma per la sessione con il CEO Giuliano Caratelli programmata per il <strong>${payload.data_prenotazione} alle ${payload.ora_prenotazione}</strong>.</p>
-                            <p class="text-yellow-300 font-bold">⚠️ Controlla subito la tua casella di posta (anche nella cartella Spam) per verificare la ricevuta e contrassegnare il mittente come sicuro, così da non perdere il link della stanza Meet prima dell'incontro.</p>
+                            <h4 class="font-grotesk font-bold text-sm text-sfx-gold">✓ CANDIDATURA ACQUISITA [${codiceRicevuto}]</h4>
+                            <p class="leading-relaxed">Grazie per la tua candidatura. Ricevuta inviata per la sessione con il CEO Giuliano Caratelli programmata per il <strong>${dataFormattata} alle ${document.getElementById('lead-ora').value}</strong>.</p>
+                            <p class="text-yellow-300 font-bold">⚠️ Controlla subito la tua casella di posta (incluso Spam) per contrassegnare il mittente come sicuro e ricevere il link della stanza Meet prima dell'incontro.</p>
                         </div>`;
                 } else {
                     feedback.innerHTML = `
                         <div class="space-y-2">
-                            <h4 class="font-grotesk font-bold text-sm text-sfx-gold">✓ ISCRIZIONE REGISTRATA [${data.nexusCode || 'NX-OK'}]</h4>
-                            <p class="leading-relaxed">Grazie di esserti aggiunto a noi! Abbiamo preso in carico la tua iscrizione per il <strong>${ambitoScelto}</strong>.</p>
-                            <p class="text-yellow-300 font-bold">⚠️ Guarda la tua email: ti sono arrivate le direttive di registrazione e il materiale propedeutico al corso. (Controlla con attenzione anche la cartella Spam e sposta il messaggio in Posta in Arrivo per ricevere tutti gli accessi).</p>
+                            <h4 class="font-grotesk font-bold text-sm text-sfx-gold">✓ ISCRIZIONE REGISTRATA [${codiceRicevuto}]</h4>
+                            <p class="leading-relaxed">Benvenuto nell'Ecosistema. Abbiamo preso in carico la tua iscrizione per il percorso <strong>${ambitoScelto}</strong>.</p>
+                            <p class="text-yellow-300 font-bold">⚠️ Controlla la tua email: ti sono state trasmesse le credenziali didattiche e il materiale propedeutico.</p>
                         </div>`;
                 }
 
@@ -996,7 +1388,7 @@
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>CONFERMA ACCREDITO &amp; INVIA SCHEDA';
                 feedback.className = "mt-4 p-5 rounded-2xl text-xs font-mono border-2 bg-[#4A0E4E] border-[#FFBF00] text-[#FFBF00] block";
-                feedback.innerHTML = `⚠️ Errore di connessione: ${err.message}. Riprova tra pochi istanti.`;
+                feedback.innerHTML = `⚠️ Connessione non stabilita: ${err.message}. Riprova tra pochi istanti.`;
             });
         }
 
@@ -1070,31 +1462,6 @@
                 `;
                 box.appendChild(card);
             });
-        }
-
-        // Trigger segreto CEO (3 tap)
-        let tapCountLogo = 0;
-        const logoTarget = document.getElementById('sfx-brand-logo-center');
-        if (logoTarget) {
-            logoTarget.addEventListener('click', () => {
-                tapCountLogo++;
-                if (tapCountLogo >= 3) {
-                    tapCountLogo = 0;
-                    document.getElementById('modal-terminale-9').classList.remove('hidden');
-                }
-                setTimeout(() => tapCountLogo = 0, 1500);
-            });
-        }
-
-        function verificaAccessoTerminale(e) {
-            e.preventDefault();
-            const pin = document.getElementById('terminal-pin').value;
-            if (pin === '3474429091') {
-                document.getElementById('modal-terminale-9').classList.add('hidden');
-                document.getElementById('modal-caveau-8').classList.remove('hidden');
-            } else {
-                alert('Credenziali Non Autorizzate');
-            }
         }
     </script>
 </body>
