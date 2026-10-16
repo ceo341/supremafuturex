@@ -1,6 +1,6 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // STILE GLOBALE CIBERNETICO V36 (FUSIONE)
+ * SUPREMA FUTURE X S.R.L. // STILE GLOBALE CIBERNETICO V42 (FUSIONE)
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // ZERO BIANCO PURO / LUXURY PHYGITAL
  * ====================================================================
@@ -28,7 +28,7 @@
   --ag-02-nicole: #B76E79;      
   --ag-03-ginevra: #C0C0C0;     
   --ag-04-scout: #50C878;       
-  --ag-05-ledger: #CD7F32;      
+  --ag-05-ledger: #D4AF37;      
   --ag-06-gatekeeper: #4A0E4E;  
   --ag-07-delta: #E2DFD2;       
   --ag-08-media: #0047AB;       
@@ -39,6 +39,13 @@
   --ag-13-whatsapp: #0BDA51;    
   --ag-14-governor: #E5E4E2;    
   --ag-15-joker: #7DF9FF;       
+}
+
+/* --- RESET & GESTIONE SCROLL FLUIDO ANTI-BLOCCO --- */
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -53,50 +60,60 @@ body.xbox-mode {
   color: var(--pearl-card);
 }
 
-/* --- 2. GRIGLIE DI SFONDO E UTILITY CLASSES (Originali Preservate) --- */
-@layer utilities {
-    /* Griglia Chiara Pearl per Landing Page */
-    .cyber-pearl-grid {
-        background-color: var(--pearl-bg);
-        background-image: 
-            linear-gradient(to right, rgba(0, 139, 153, 0.05) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(184, 134, 11, 0.05) 1px, transparent 1px);
-        background-size: 36px 36px;
-    }
-
-    /* Griglia Scura per Terminali Admin, Login, CRM e Vault */
-    .cyber-grid-dark {
-        background-color: #090A0D;
-        background-image: 
-            linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(184, 134, 11, 0.06) 1px, transparent 1px);
-        background-size: 40px 40px;
-    }
-
-    /* Bagliore Neurale per Avatar Alison */
-    .alison-avatar-glow {
-        box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), 0 0 12px rgba(184, 134, 11, 0.5);
-    }
-
-    /* Bordo con Traccia Cromatico */
-    .glow-trace-card {
-        border-radius: 1.8rem;
-        padding: 2px;
-        background: linear-gradient(135deg, rgba(0, 139, 153, 0.6), rgba(184, 134, 11, 0.6), rgba(192, 192, 192, 0.6));
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Bordo Tracciante per Terminale Login */
-    .glow-trace-login {
-        border-radius: 2.2rem;
-        padding: 3px;
-        background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
-        background-size: 300% 300%;
-        animation: gradientTrace 6s ease infinite;
-    }
+/* Modali aperte: classe di utilità */
+body.modal-open {
+  overflow: hidden !important;
 }
 
-/* --- 3. ANIMAZIONI (Originali Preservate) --- */
+/* --- 2. GRIGLIE DI SFONDO E UTILITY CLASSES --- */
+/* Griglia Chiara Pearl per Landing Page */
+.cyber-pearl-grid {
+    background-color: var(--pearl-bg);
+    background-image: 
+        linear-gradient(to right, rgba(0, 139, 153, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(184, 134, 11, 0.05) 1px, transparent 1px);
+    background-size: 36px 36px;
+}
+
+/* Griglia Scura per Terminali Admin, Login, CRM e Vault */
+.cyber-grid-dark {
+    background-color: #090A0D;
+    background-image: 
+        linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(184, 134, 11, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Bagliore Neurale per Avatar Alison */
+.alison-avatar-glow {
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), 0 0 12px rgba(184, 134, 11, 0.5);
+}
+
+/* Bordo con Traccia Cromatico */
+.glow-trace-card {
+    border-radius: 1.8rem;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(0, 139, 153, 0.6), rgba(184, 134, 11, 0.6), rgba(192, 192, 192, 0.6));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Bordo Tracciante per Terminale Login */
+.glow-trace-login {
+    border-radius: 2.2rem;
+    padding: 3px;
+    background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
+    background-size: 300% 300%;
+    animation: gradientTrace 6s ease infinite;
+}
+
+/* Card Pearl Standard */
+.card-pearl {
+    background-color: var(--pearl-card);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 1.5rem;
+}
+
+/* --- 3. ANIMAZIONI --- */
 @keyframes gradientTrace {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -149,34 +166,37 @@ body.xbox-mode {
     backdrop-filter: blur(10px);
 }
 
-/* --- 4. CUSTOM SCROLLBAR (Aggiornata) --- */
+/* --- 4. CUSTOM SCROLLBAR --- */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #090A0D; }
 ::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #008B99; }
 body.xbox-mode ::-webkit-scrollbar-thumb { background: #00F0FF; }
 
-/* --- 5. NUOVI COMPONENTI EAL6+ (Menu a 20s e Neon X-BOX) --- */
+/* Scrollbar personalizzata box chat */
+#box-chat-centrale::-webkit-scrollbar { width: 6px; }
+#box-chat-centrale::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+#box-chat-centrale::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 3px; }
+
+/* --- 5. COMPONENTI EAL6+ (Menu e Neon X-BOX) --- */
 .nav-dropdown-container { position: relative; display: inline-block; }
 .nav-dropdown-menu {
-  position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
-  opacity: 0; visibility: hidden; background-color: var(--xbox-bg); 
+  position: absolute; top: 100%; right: 0;
+  opacity: 0; visibility: hidden; background-color: var(--xbox-card); 
   border: 1px solid #B8860B; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  border-radius: 12px; padding: 0.5rem; min-width: 220px; z-index: 100;
+  border-radius: 12px; padding: 0.5rem; min-width: 240px; z-index: 100;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.nav-dropdown-container:hover .nav-dropdown-menu {
-  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-}
+.nav-dropdown-container:hover .nav-dropdown-menu,
 .nav-dropdown-menu.force-open {
-  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  opacity: 1; visibility: visible;
 }
 .nav-dropdown-item {
   display: block; padding: 10px 16px; color: #D4AF37; font-family: 'JetBrains Mono', monospace;
   font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 8px;
   transition: all 0.2s; cursor: pointer; text-decoration: none;
 }
-.nav-dropdown-item:hover { background-color: #B8860B; color: #F4EFEA; }
+.nav-dropdown-item:hover { background-color: #B8860B; color: #090A0D; }
 
 .neon-border-box {
   position: relative; background: var(--xbox-bg); border-radius: 16px; z-index: 1; overflow: hidden;
