@@ -14,28 +14,38 @@ const ASSETS_TO_CACHE = [
     './vault.html',
     './admin.html',
     './crm.html',
+    './candidatura.html',
     './stile-globale.css?v=42',
     './stile-globale.css',
     './manifest.json',
+    './js/code.js',
+    './js/connettore-api.js',
+    './js/chat-alison.js',
+    './js/carta-oro.js',
+    './js/gestore-media.js',
+    './js/sfx-catalog-data.js',
+    './sfx-delta-patch.js',
     './media/logo.png',
-    'https://cdn.tailwindcss.com',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
-    'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap'
+    './media/boutique-luxury.png'
 ];
 
 /**
- * 1. FASE DI INSTALLAZIONE SERVICE WORKER (PRE-CACHING CRITICO)
+ * 1. FASE DI INSTALLAZIONE SERVICE WORKER (PRE-CACHING RESILIENTE)
  */
 self.addEventListener('install', (event) => {
     console.log('[SW EAL6+] Inizializzazione installazione Service Worker V42...');
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
+        caches.open(CACHE_NAME).then(async (cache) => {
             console.log('[SW EAL6+] Pre-caching asset della piattaforma in corso...');
-            return cache.addAll(ASSETS_TO_CACHE);
+            for (const asset of ASSETS_TO_CACHE) {
+                try {
+                    await cache.add(asset);
+                } catch (err) {
+                    console.warn(`[SW EAL6+] Pre-cache non bloccante su ${asset}:`, err.message);
+                }
+            }
         }).then(() => {
             return self.skipWaiting();
-        }).catch((err) => {
-            console.warn('[SW EAL6+] Attenzione: pre-caching parziale o asset mancante:', err);
         })
     );
 });
@@ -73,7 +83,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         fetch(event.request)
             .then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                if (networkResponse && networkResponse.status === 200 && (networkResponse.type === 'basic' || networkResponse.type === 'cors')) {
                     const responseToCache = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => {
                         cache.put(event.request, responseToCache);
