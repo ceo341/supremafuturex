@@ -1,5 +1,5 @@
 /**
- * SUPREMA FUTURE X - DYNAMIC MEDIA ENGINE CONTROLLER
+ * SUPREMA FUTURE X - DYNAMIC MEDIA ENGINE CONTROLLER V42
  * File: /js/gestore-media.js
  * Descrizione: Gestore universale per Foto, Video, PDF, Slide e Documenti di Testo.
  *              Sincronizzato con l'intero ecosistema via BroadcastChannel.
@@ -55,7 +55,7 @@ const GestoreMedia = (function () {
         }
 
         // Invio dei dati al backend Google Apps Script tramite ConnettoreApi (se disponibile)
-        if (typeof ConnettoreApi !== 'undefined') {
+        if (typeof ConnettoreApi !== 'undefined' && typeof ConnettoreApi.invia === 'function') {
             try {
                 await ConnettoreApi.invia('AGGIORNA_CONFIGURAZIONE_MEDIA', {
                     sezione: sezione,
@@ -63,7 +63,7 @@ const GestoreMedia = (function () {
                     url: urlRisorsa
                 });
             } catch (e) {
-                console.warn("[GestoreMedia]: Backup backend fallito, ma procedo con aggiornamento DOM.", e);
+                console.warn("[GestoreMedia]: Backup backend differito.", e);
             }
         }
 
@@ -144,7 +144,7 @@ const GestoreMedia = (function () {
                 
                 // Conversione automatica link Google Docs in formato Embed per visualizzazione
                 if (sorgente.includes('docs.google.com') && !sorgente.includes('embed')) {
-                    urlEmbed = sorgente.replace(/\/edit.*$/, '/preview');
+                    urlEmbed = sorgente.replace(/\/edit.*\$/, '/preview');
                 }
                 
                 nuovoElemento.src = urlEmbed;
