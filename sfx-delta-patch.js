@@ -1,22 +1,22 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X // DELTA QUEUE OFFLINE ENGINE V37
+ * SUPREMA FUTURE X // DELTA QUEUE OFFLINE ENGINE V42
  * GOVERNANCE: CEO GIULIANO CARATELLI
- * PROTOCOLLO: EAL6+ SOVRANO // OFFLINE STORAGE & AUTO-SYNC
+ * PROTOCOLLO: EAL6+ SOVRANO // OFFLINE STORAGE & AUTO-SYNC MASTER
  * ====================================================================
  */
 
 (function (window) {
     'use strict';
 
-    const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v37';
-    // ENDPOINT REALE GOOGLE APPS SCRIPT V7 EAL6+:
-    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwkwuABaCQZq0McIpGBnUXgivM-4xQGo3HKI_Tloza-1jYnwdQRcW1kreRpwF8KIfdw/exec';
+    const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v42';
+    // ENDPOINT MASTER GOOGLE APPS SCRIPT EAL6+:
+    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec';
 
     const SFXDeltaQueue = {
         getCoda() {
             try {
-                const data = localStorage.getItem(QUEUE_STORAGE_KEY);
+                const data = localStorage.getItem(QUEUE_STORAGE_KEY) || localStorage.getItem('sfx_delta_queue_v37');
                 return data ? JSON.parse(data) : [];
             } catch (e) {
                 console.error("[DELTA QUEUE] Errore lettura localStorage:", e);
@@ -57,11 +57,14 @@
             if (coda.length === 0) return;
 
             const codaRimanente = [];
+            const endpointAttivo = (typeof ConnettoreApi !== 'undefined' && ConnettoreApi.getEndpoint) 
+                ? ConnettoreApi.getEndpoint() 
+                : APPS_SCRIPT_ENDPOINT;
 
             for (const item of coda) {
                 try {
                     item.tentativi++;
-                    const response = await fetch(APPS_SCRIPT_ENDPOINT, {
+                    const response = await fetch(endpointAttivo, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(item.payload)
@@ -69,8 +72,8 @@
 
                     const resData = await response.json();
 
-                    if (resData && (resData.status === 'success' || resData.status === 'ok')) {
-                        console.log(`[DELTA QUEUE] Elemento [${item.id}] trasmesso.`);
+                    if (resData && (resData.status === 'success' || resData.status === 'ok' || resData.nexusId || resData.nexusCode)) {
+                        console.log(`[DELTA QUEUE V42] Elemento [${item.id}] sincronizzato con successo.`);
                     } else {
                         codaRimanente.push(item);
                     }
