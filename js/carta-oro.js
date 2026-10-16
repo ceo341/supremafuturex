@@ -1,119 +1,145 @@
 /**
- * SUPREMA FUTURE X - CONTROLLER CHATBOT ALISON V42 (EAL6+ SOVRANO)
- * File: /js/chat-alison.js
- * Descrizione: Gestione delle pillole rapide, routing verso il motore 50 FAQ
- *              e fallback conversazionale conforme alla Governance del CEO Giuliano Caratelli.
+ * SUPREMA FUTURE X - MOTORE CARTA ORO (6 GRADI) V42
+ * File: /js/carta-oro.js
+ * Descrizione: Calcolatore di punteggio, avanzamento di grado automatico e persistenza dati della Gold Card.
  */
 
-const ChatAlison = (function () {
+const MotoreCartaOro = (function () {
     'use strict';
 
-    let pillChatCounter = 0;
+    // Struttura rigida dei 6 Gradi stabilita dal CEO
+    const GRADI = [
+        { grado: 1, codice: 'SILVER_MEMBER', nome: 'Silver Member', puntiMinimi: 0, puntiMassimi: 499, colore: '#C0C0C0' },
+        { grado: 2, codice: 'GOLD_AMBASSADOR', nome: 'Gold Ambassador', puntiMinimi: 500, puntiMassimi: 1499, colore: '#D4AF37' },
+        { grado: 3, codice: 'PLATINUM_EXECUTIVE', nome: 'Platinum Executive', puntiMinimi: 1500, puntiMassimi: 3499, colore: '#E5E4E2' },
+        { grado: 4, codice: 'DIAMOND_SOVEREIGN', nome: 'Diamond Sovereign', puntiMinimi: 3500, puntiMassimi: 6999, colore: '#00F0FF' },
+        { grado: 5, codice: 'TITANIUM_ELITE', nome: 'Titanium Elite', puntiMinimi: 7000, puntiMassimi: 11999, colore: '#8A9EA7' },
+        { grado: 6, codice: 'SOVEREIGN_FOUNDER', nome: 'Sovereign Founder Circle', puntiMinimi: 12000, puntiMassimi: Infinity, colore: '#FFD700' }
+    ];
+
+    const CHIAVE_MEMORIA = 'SFX_STATO_CARTA_ORO';
 
     /**
-     * Risolve il contenitore attivo della chat nell'interfaccia
-     * @returns {HTMLElement|null}
+     * Recupera lo stato attuale della carta dal browser o ne crea uno iniziale.
+     * @returns {Object} Stato utente
      */
-    function getBoxChat() {
-        return document.getElementById('box-chat-centrale') ||
-               document.getElementById('box-chat-anteprima') ||
-               document.getElementById('alison-chat-log');
+    function ottieniStatoCarta() {
+        const datiLocali = localStorage.getItem(CHIAVE_MEMORIA);
+        if (datiLocali) {
+            try {
+                return JSON.parse(datiLocali);
+            } catch (e) {
+                console.error('[MotoreCartaOro]: Errore lettura dati locali.', e);
+            }
+        }
+        const nuovoStato = {
+            idCarta: 'SFX-' + Math.floor(100000 + Math.random() * 900000),
+            punti: 1500, // Clearance di benvenuto Ecosistema SFX
+            infoGrado: GRADI[2], // Inizializzato a Platinum Executive
+            ultimoAggiornamento: new Date().toISOString()
+        };
+        salvaStatoCarta(nuovoStato);
+        return nuovoStato;
+    }
+
+    function salvaStatoCarta(stato) {
+        localStorage.setItem(CHIAVE_MEMORIA, JSON.stringify(stato));
     }
 
     /**
-     * Invia un messaggio rapido tramite le Quick Pills della Landing Page.
-     * @param {string} testoPill - Il testo della pillola selezionata dall'utente
+     * Aggiunge punti all'utente, calcola il passaggio di grado e invia i dati al database.
+     * @param {number} puntiDaAggiungere - Punti da accreditare
+     * @param {string} causale - Motivo dell'accredito
      */
-    function inviaPillChat(testoPill) {
-        if (!testoPill) return;
+    async function aggiungiPunti(puntiDaAggiungere, causale = 'AZIONATURA_ECOSISTEMA') {
+        const stato = ottieniStatoCarta();
+        stato.punti += puntiDaAggiungere;
 
-        // Se è presente il motore centrale unificato (index.html / code.js), delega ad esso
-        if (typeof window.inviaMessaggioCentrale === 'function') {
-            window.inviaMessaggioCentrale(testoPill);
-            return;
-        }
+        // Calcolo dinamico del grado
+        const gradoCorrente = GRADI.slice().reverse().find(g => stato.punti >= g.puntiMinimi) || GRADI[0];
+        const ePromosso = gradoCorrente.grado > (stato.infoGrado ? stato.infoGrado.grado : 0);
+        stato.infoGrado = gradoCorrente;
+        stato.ultimoAggiornamento = new Date().toISOString();
 
-        const boxChat = getBoxChat();
-        if (!boxChat) return;
+        salvaStatoCarta(stato);
+        aggiornaInterfaccia(stato);
 
-        pillChatCounter++;
-
-        // Rendering bolla utente (Stile Sovrano EAL6+)
-        const msgUtente = document.createElement('div');
-        msgUtente.className = 'text-right my-2 font-mono text-xs';
-        msgUtente.innerHTML = `
-            <span class="inline-block bg-[#FAF7F2] text-[#090A0D] border border-stone-300 px-3.5 py-2 rounded-2xl shadow-sm font-semibold">
-                &gt; ${testoPill}
-            </span>
-        `;
-        boxChat.appendChild(msgUtente);
-        boxChat.scrollTop = boxChat.scrollHeight;
-
-        // Risposta calibrata di Alison (AG-01) a 300ms
-        setTimeout(() => {
-            generaRispostaAlison(testoPill);
-        }, 300);
-
-        // Notifica asincrona non bloccante al backend
+        // Invia l'aggiornamento al database centrale tramite il connettore API
         if (typeof ConnettoreApi !== 'undefined' && typeof ConnettoreApi.invia === 'function') {
-            ConnettoreApi.invia('MESSAGGIO_ALISON_CHAT', { messaggio: testoPill }).catch(() => {});
+            try {
+                await ConnettoreApi.invia('AGGIORNA_PUNTI', {
+                    idCarta: stato.idCarta,
+                    puntiAggiunti: puntiDaAggiungere,
+                    puntiTotali: stato.punti,
+                    grado: gradoCorrente.nome,
+                    causale: causale
+                });
+            } catch (err) {
+                console.warn('[MotoreCartaOro]: Sincronizzazione remota differita in cache locale.');
+            }
         }
+
+        if (ePromosso) {
+            mostraEventoPromozione(gradoCorrente);
+        }
+
+        return stato;
     }
 
     /**
-     * Genera la risposta automatica di Alison in base alle direttive ufficiali
-     * @param {string} richiesta 
+     * Aggiorna gli elementi della carta visibili sulla pagina (supporto doppio selettore ID).
      */
-    function generaRispostaAlison(richiesta) {
-        const boxChat = getBoxChat();
-        if (!boxChat) return;
+    function aggiornaInterfaccia(stato) {
+        const elPunti = document.getElementById('mostra-punti-carta') || document.getElementById('gold-card-points') || document.getElementById('card-punti-display');
+        const elGrado = document.getElementById('mostra-grado-carta') || document.getElementById('gold-card-tier') || document.getElementById('card-grado-display');
+        const elId = document.getElementById('mostra-id-carta') || document.getElementById('gold-card-id');
+        const elBarra = document.getElementById('gold-card-progress');
 
-        const reqLow = richiesta.toLowerCase();
-        let testoRisposta = "Richiesta acquisita nel registro neurale EAL6+. L'ufficio di Presidenza esaminerà il tuo profilo.";
-
-        if (reqLow.includes('cors') || reqLow.includes('academy') || reqLow.includes('silver') || reqLow.includes('executive') || reqLow.includes('master')) {
-            testoRisposta = "I percorsi formativi ufficiali di Suprema Academy sono 3: Silver Tier (99 €), Executive Master (149 €) con provisioning Drive, e Premium VIP (189 €) con mentoring diretto del CEO Giuliano Caratelli.";
-        } else if (reqLow.includes('gold') || reqLow.includes('card') || reqLow.includes('punti')) {
-            testoRisposta = "La Suprema Gold Card phygital certifica il tuo status con crittografia EAL6+. Include plafond convenzionati, concierge dedicato H24 e accesso ai vertici a porte chiuse.";
-        } else if (reqLow.includes('direzione') || reqLow.includes('ceo') || reqLow.includes('conferenza') || reqLow.includes('giuliano') || pillChatCounter >= 4) {
-            testoRisposta = "Per le decisioni strategiche di vertice o per l'avvio al lavoro immediato, è richiesta la sessione diretta in Conferenza Riservata con il CEO Giuliano Caratelli. Ti invito a compilare la scheda di accredito.";
-        } else if (reqLow.includes('fisco') || reqLow.includes('tasse') || reqLow.includes('16')) {
-            testoRisposta = "La conformità tributaria dell'Ecosistema è presidiata dall'Agente Neurale AG-03 Ginevra, che vincola il fondo fiscale intoccabile del 16% per la serenità contabile societaria.";
-        } else if (reqLow.includes('negozi') || reqLow.includes('commercio') || reqLow.includes('chiavi in mano')) {
-            testoRisposta = "L'attività commerciale digitale chiavi in mano include cataloghi luxury a magazzino zero. L'abilitazione è subordinata al colloquio selettivo con la Presidenza.";
+        if (elPunti) elPunti.textContent = `${stato.punti.toLocaleString('it-IT')} PTS`;
+        if (elGrado) {
+            elGrado.textContent = stato.infoGrado.nome;
+            elGrado.style.color = stato.infoGrado.colore;
         }
+        if (elId) elId.textContent = stato.idCarta;
 
-        const msgAlison = document.createElement('div');
-        msgAlison.className = 'text-left my-2 font-mono text-xs';
-        msgAlison.innerHTML = `
-            <div class="inline-block bg-[#090A0D] text-gray-200 border border-[#D4AF37]/40 p-3.5 rounded-2xl shadow-md max-w-[90%] space-y-2">
-                <div class="flex items-center space-x-1.5 text-[10px] text-[#00F0FF] font-bold uppercase tracking-wider">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-pulse"></span>
-                    <span>ALISON (AG-01) // CONCIERGE</span>
-                </div>
-                <p class="leading-relaxed text-gray-300 font-sans text-xs">${testoRisposta}</p>
-                <div class="pt-1.5 border-t border-gray-800 flex flex-wrap gap-2">
-                    <a href="#candidatura" class="inline-flex items-center space-x-1 px-2.5 py-1 bg-[#D4AF37] hover:bg-yellow-500 text-black font-extrabold text-[10px] rounded-lg transition-all">
-                        <span>Accredito Conferenza CEO</span>
-                        <i class="fa-solid fa-crown text-[9px] ml-1"></i>
-                    </a>
-                    <a href="https://wa.me/393474429091" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 bg-green-600 hover:bg-green-500 text-white font-extrabold text-[10px] rounded-lg transition-all">
-                        <i class="fa-brands fa-whatsapp text-[10px]"></i>
-                        <span>WhatsApp Direzione</span>
-                    </a>
-                </div>
-            </div>
-        `;
-
-        boxChat.appendChild(msgAlison);
-        boxChat.scrollTop = boxChat.scrollHeight;
+        if (elBarra) {
+            const perc = Math.min(100, (stato.punti / 12000) * 100);
+            elBarra.style.width = `${perc}%`;
+        }
     }
+
+    function mostraEventoPromozione(grado) {
+        console.log(`[MotoreCartaOro]: PROMOZIONE! Nuovo Grado: ${grado.nome}`);
+        const modale = document.getElementById('modale-promozione-grado');
+        if (modale) {
+            const elTitolo = modale.querySelector('.titolo-grado');
+            if (elTitolo) elTitolo.textContent = grado.nome;
+            modale.classList.add('visibile');
+        }
+    }
+
+    function ruotaCard3D() {
+        const cardInner = document.getElementById('gold-card-inner') || document.querySelector('.gold-card-3d');
+        if (cardInner) {
+            cardInner.classList.toggle('flipped');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        aggiornaInterfaccia(ottieniStatoCarta());
+    });
 
     return {
-        inviaPill: inviaPillChat,
-        inviaMessaggio: inviaPillChat
+        ottieniStato: ottieniStatoCarta,
+        aggiungiPunti: aggiungiPunti,
+        accredita: aggiungiPunti,
+        ruota: ruotaCard3D,
+        ottieniGradi: function () { return GRADI; }
     };
 })();
 
-// Esportazione per i pulsanti e le Quick Pills HTML
-window.inviaPillChat = ChatAlison.inviaPill;
+// Esportazioni globali per eventi HTML onclick e compatibilità incrociata
+window.MotoreCartaOro = MotoreCartaOro;
+window.CartaOro = MotoreCartaOro;
+window.accreditaPuntiGoldCard = MotoreCartaOro.aggiungiPunti;
+window.ruotaGoldCard = MotoreCartaOro.ruota;
