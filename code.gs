@@ -22,8 +22,8 @@ const CONFIG_SFX = {
   EMAIL_SUPPORT: "support@supremafuturex.com",
 
   // Integrazione Bot Telegram Ufficiale & Chat ID Personale Convalidato
-   TELEGRAM_BOT_TOKEN: "8805632465:AAGHvDq8u2DBqqw76ZGMbnzGqmzym31-g5Q",
-  TELEGRAM_CHAT_ID: "6534406542",
+   TELEGRAM_BOT_TOKEN: "TUO_TOKEN",
+TELEGRAM_CHAT_ID: "TUO_ID",
 
   // Cartelle Cloud Google Drive
   DRIVE_VAULT_FOLDER: "MEDIA_VAULT_SUPREMA",
