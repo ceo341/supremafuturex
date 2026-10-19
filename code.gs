@@ -11,7 +11,7 @@
 // 1. CONFIGURAZIONE CENTRALE, MATRICE PREZZI & TOKEN TELEGRAM
 // ============================================================================
 const CONFIG_SFX = {
-  VERSIONE: "16.3.0 - EAL6+ SOVEREIGN FULL MASTER",
+  VERSIONE: "16.3.1 - EAL6+ SOVEREIGN FULL MASTER",
   DOMINIO: "supremafuturex.com",
   NOME_AZIENDA: "Suprema Future X",
   CEO_NOME: "Giuliano Caratelli",
@@ -22,9 +22,9 @@ const CONFIG_SFX = {
   EMAIL_DESK: "desk@supremafuturex.com",
   EMAIL_SUPPORT: "support@supremafuturex.com",
 
-  // Integrazione Bot Telegram Ufficiale Aggiornato
+  // Integrazione Bot Telegram Ufficiale & Chat ID Personale Convalidato
   TELEGRAM_BOT_TOKEN: "8881640493:AAGPBeTAtU0YyQe36PT0duOZZcPuTbsSZdl",
-  TELEGRAM_CHAT_ID: "INSERISCI_QUI_LA_TUA_CHAT_ID", // Inserisci il tuo ID numerico o chat ID gruppo/canale
+  TELEGRAM_CHAT_ID: "6534406542",
 
   // Cartelle Cloud Google Drive
   DRIVE_VAULT_FOLDER: "MEDIA_VAULT_SUPREMA",
@@ -399,7 +399,7 @@ function doPost(e) {
 
       folderCorsista.addEditor(email);
 
-      // Aggiornamento automatico stato a "Approvato" nel foglio Candidati
+      // Aggiornamento automatico stato nel foglio Candidati
       const sheetCandidati = ss.getSheetByName("Candidati");
       if (sheetCandidati) {
         const dataC = sheetCandidati.getDataRange().getValues();
@@ -942,8 +942,8 @@ function inviaTelegram(testoHTML) {
 }
 
 function inviaTelegramChat(chatId, testoHTML) {
-  if (!CONFIG_SFX.TELEGRAM_BOT_TOKEN || CONFIG_SFX.TELEGRAM_BOT_TOKEN.includes("INSERISCI")) return;
-  if (!chatId || chatId.includes("INSERISCI")) return;
+  if (!CONFIG_SFX.TELEGRAM_BOT_TOKEN) return;
+  if (!chatId) return;
 
   try {
     const url = `https://api.telegram.org/bot${CONFIG_SFX.TELEGRAM_BOT_TOKEN}/sendMessage`;
@@ -982,6 +982,7 @@ function testNotificaTelegram() {
     `👑 <b>SUPREMA FUTURE X // TEST NODO NOC</b>\n\n` +
     `Collegamento Bot Telegram verificato con successo.\n` +
     `<b>Token:</b> <code>8881640493...SZdl</code>\n` +
+    `<b>Chat ID:</b> <code>${CONFIG_SFX.TELEGRAM_CHAT_ID}</code>\n` +
     `<b>Data:</b> ${new Date().toLocaleString("it-IT")}\n` +
     `<b>Sistema:</b> EAL6+ Sovrano Multi-Trigger`
   );
@@ -1013,4 +1014,3 @@ function installaTuttiITriggerAziendali() {
 
   Logger.log("✓ Tutti e 6 i trigger strategici sono stati installati con successo.");
 }
-Come
