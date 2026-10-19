@@ -15,7 +15,6 @@ const CONFIG_SFX = {
   DOMINIO: "supremafuturex.com",
   NOME_AZIENDA: "Suprema Future X",
   CEO_NOME: "Giuliano Caratelli",
-
   // Canali Email Istituzionali Allineati
   EMAIL_CEO: "ceo@supremafuturex.com",
   EMAIL_ACADEMY: "academy@supremafuturex.com",
@@ -23,7 +22,7 @@ const CONFIG_SFX = {
   EMAIL_SUPPORT: "support@supremafuturex.com",
 
   // Integrazione Bot Telegram Ufficiale & Chat ID Personale Convalidato
-  TELEGRAM_BOT_TOKEN: "8881640493:AAGPBeTAtU0YyQe36PT0duOZZcPuTbsSZdl",
+   TELEGRAM_BOT_TOKEN: "8805632465:AAGHvDq8u2DBqqw76ZGMbnzGqmzym31-g5Q",
   TELEGRAM_CHAT_ID: "6534406542",
 
   // Cartelle Cloud Google Drive
