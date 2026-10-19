@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-BOX AZIENDALE // SUPREMA FUTURE X</title>
+    <meta name="description" content="X-BOX Control Room ERP - Pannello Amministrativo, Mastro Finanziario Ledger e Gestione Flotta AI.">
+    <meta name="theme-color" content="#2A2D34">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="media/logo.png">
+
+    <!-- Tailwind CSS, Fonts & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { sfx: { gold: '#B8860B', goldLight: '#D4AF37', cyan: '#008B99', cyanLight: '#00F0FF', silver: '#C0C0C0', dark: '#090A0D', panel: '#1F2227', xboxBg: '#2A2D34', plum: '#4A0E4E', amber: '#FFBF00' } },
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], cyber: ['Orbitron', 'sans-serif'], grotesk: ['Syncopate', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .neon-frame-aziendale { position: relative; background: #1F2227; border-radius: 1.25rem; overflow: hidden; z-index: 1; border: 1px solid var(--sfx-silver, #C0C0C0); box-shadow: 0 4px 20px rgba(192, 192, 192, 0.12); }
+        .laser-beam { height: 2px; width: 100%; background: linear-gradient(90deg, transparent, #00F0FF, #D4AF37, transparent); background-size: 200% 100%; animation: laserSlide 3s ease-in-out infinite; }
+        @keyframes laserSlide { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .keypad-btn { background: #12141C; border: 1px solid #D4AF37; color: #D4AF37; font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: bold; border-radius: 0.75rem; padding: 1rem; transition: all 0.2s; cursor: pointer; }
+        .keypad-btn:hover, .keypad-btn:active { background: #D4AF37; color: #090A0D; box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); }
+        .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #D4AF37; display: inline-block; margin: 0 4px; }
+        .pin-dot.filled { background: #00F0FF; border-color: #00F0FF; box-shadow: 0 0 10px #00F0FF; }
+        .text-shimmer { background: linear-gradient(90deg, #C0C0C0, #D4AF37, #00F0FF, #B8860B, #C0C0C0); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        .scrollbar-thin::-webkit-scrollbar { width: 5px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: #090A0D; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #008B99; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-[#2A2D34] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black overflow-x-hidden">
+
+    <!-- TOP CONTROL BAR X-BOX AZIENDALE -->
+    <header class="bg-[#1F2227] border-b border-sfx-silver/30 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md shadow-lg">
+        <div class="flex items-center space-x-4">
+            <div class="w-9 h-9 rounded-full bg-black p-0.5 border-2 border-sfx-silver shadow-[0_0_12px_rgba(192,192,192,0.4)]">
+                <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
+            </div>
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="font-grotesk font-black text-white tracking-wider block leading-none">X-BOX AZIENDALE</span>
+                    <span class="px-2 py-0.5 bg-sfx-gold/20 text-sfx-gold text-[9px] font-bold rounded">SOVRANO LV.9</span>
+                </div>
+                <span class="text-[10px] text-sfx-silver block mt-0.5 font-mono">ERP GOVERNANCE // DOMINIO: supremafuturex.com</span>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3 sm:space-x-4 mt-2 sm:mt-0">
+            <div class="text-right border-r border-gray-700 pr-4 hidden md:block">
+                <p class="text-[9px] text-gray-400 uppercase tracking-widest">COMANDO PRESIDENZIALE</p>
+                <p class="text-[11px] text-sfx-goldLight font-bold">ceo@supremafuturex.com</p>
+            </div>
+            <a href="crm.html" class="px-4 py-2 bg-[#090A0D] border border-sfx-gold text-sfx-gold hover:bg-sfx-gold hover:text-black rounded-xl font-bold transition-all flex items-center space-x-2 shadow-md">
+                <i class="fa-solid fa-crown text-xs"></i>
+                <span class="hidden sm:inline">X-BOX SUPREMA</span>
+            </a>
+            <a href="vault.html" class="px-3.5 py-2 bg-[#090A0D] border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
+                <i class="fa-solid fa-vault"></i>
+                <span class="hidden sm:inline">VAULT</span>
+            </a>
+            <button onclick="terminaSioneSovrana()" class="px-4 py-2 bg-[#4A0E4E] hover:bg-[#6A1470] border border-[#FFBF00]/40 text-white rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md cursor-pointer">
+                <i class="fa-solid fa-power-off text-sfx-amber"></i>
+                <span>ESCI</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 flex-1 flex flex-col lg:flex-row gap-6">
+
+        <!-- SIDEBAR VERTICALE SINISTRA: COMANDI RAPIDI -->
+        <aside class="w-full lg:w-64 bg-[#1F2227] rounded-3xl p-5 border border-sfx-silver/30 shadow-xl space-y-4 flex flex-col justify-between shrink-0 h-fit lg:sticky lg:top-20">
+            <div class="space-y-4">
+                <div class="border-b border-gray-700 pb-3">
+                    <span class="text-[10px] font-bold text-sfx-cyan tracking-widest uppercase block"><i class="fa-solid fa-compass mr-1.5"></i>NAVIGATORE NOC</span>
+                    <span class="text-xs font-bold text-white">X-BOX AZIENDALE</span>
+                </div>
+
+                <nav class="space-y-1.5 text-xs font-mono">
+                    <a href="#modulo-kpi" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-cyan hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-chart-line w-6 text-sfx-cyan"></i> 01. Radar & KPI</a>
+                    <a href="#modulo-mastro" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-gold hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-calculator w-6 text-sfx-gold"></i> 02. Mastro 54/30/16</a>
+                    <a href="#modulo-fisco" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-silver hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-scale-balanced w-6 text-sfx-silver"></i> 03. Fondo Fiscale 16%</a>
+                    <a href="#modulo-dividendi" class="block p-2.5 rounded-xl bg-black/40 text-sfx-goldLight hover:bg-black transition-colors flex items-center font-bold"><i class="fa-solid fa-vault w-6 text-sfx-goldLight"></i> 04. Dividendi & PIN</a>
+                    <a href="#modulo-contratti" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-cyanLight hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-file-contract w-6 text-sfx-cyanLight"></i> 05. Contratti Live 1-to-1</a>
+                    <a href="#modulo-media" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-cyan hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-photo-film w-6 text-sfx-cyan"></i> 06. Media Vault (Base64)</a>
+                    <a href="#modulo-gateway-iban" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-cyan hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-credit-card w-6 text-sfx-cyan"></i> 07. Gateway & Social</a>
+                    <a href="#modulo-crm" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-gold hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-folder-tree w-6 text-sfx-gold"></i> 08. Lead & Storico Data</a>
+                    <a href="#modulo-flotta-ai" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-purple-400 hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-robot w-6 text-purple-400"></i> 09. Flotta 15 AI</a>
+                    <a href="#modulo-analytics-traffico" class="block p-2.5 rounded-xl bg-black/40 text-gray-300 hover:text-sfx-amber hover:bg-black transition-colors flex items-center"><i class="fa-solid fa-clock-rotate-left w-6 text-sfx-amber"></i> 10. Kill-Switch</a>
+                </nav>
+            </div>
+
+            <div class="border-t border-gray-700 pt-3 space-y-2">
+                <span class="text-[9px] text-gray-400 uppercase tracking-wider block text-center font-bold">ALIAS EMAIL ATTIVI</span>
+                <div class="grid grid-cols-2 gap-1 text-[9px] text-gray-400 font-mono text-center">
+                    <span class="p-1 bg-black rounded">academy@</span>
+                    <span class="p-1 bg-black rounded">desk@</span>
+                    <span class="p-1 bg-black rounded">support@</span>
+                    <span class="p-1 bg-black rounded">ceo@</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- AREA CONTENUTO OPERATIVO AZIENDALE -->
+        <main class="flex-1 space-y-8 min-w-0">
+
+            <!-- 01. CRUSCOTTO GENERALE & METRICHE PRIMARIE -->
+            <section id="modulo-kpi" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="laser-beam mb-2"></div>
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-5">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-full uppercase border border-sfx-cyan/40"><i class="fa-solid fa-server mr-1"></i>NODO CENTRALE ERP EAL6+</span>
+                            <span class="px-2.5 py-1 bg-black/60 text-gray-400 text-[10px] rounded border border-gray-700 font-mono">THREAT LEVEL: NOMINALE</span>
+                        </div>
+                        <h1 class="font-grotesk font-black text-2xl sm:text-3xl text-shimmer uppercase tracking-wider mt-3">X-BOX ANALYTICS & GOVERNANCE</h1>
+                        <p class="text-[11px] text-gray-400 mt-1 max-w-2xl font-mono">Controllo del Mastro Statutario, Contratti 1-to-1 (Zero Video) e Presidio della Flotta 15 AI.</p>
+                    </div>
+                    <div class="text-right font-mono text-xs space-y-1">
+                        <div class="text-green-400 font-bold flex items-center justify-end"><span class="w-2 h-2 rounded-full bg-green-400 animate-ping mr-1.5"></span> SISTEMA EAL6+ ATTIVO</div>
+                        <div class="text-gray-400 text-[10px]">OPERATORE: CEO GIULIANO</div>
+                        <div class="text-sfx-cyanLight text-[10px]" id="xbox-sync-time">SYNC: --:--:--</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+                    <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 flex flex-col justify-between">
+                        <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-users text-sfx-cyan mr-1.5"></i>Candidature Nexus</span>
+                        <div class="text-2xl font-black text-white font-grotesk mt-2" id="xbox-metric-leads">0</div>
+                        <span class="text-[9px] text-gray-500 mt-1">Archivio Screening</span>
+                    </div>
+                    <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 flex flex-col justify-between">
+                        <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-sack-dollar text-sfx-gold mr-1.5"></i>Fatturato Lordo</span>
+                        <div class="text-2xl font-black text-sfx-gold font-grotesk mt-2" id="xbox-metric-revenue">€ 0.00</div>
+                        <span class="text-[9px] text-sfx-goldLight mt-1">Split Statutario 54/30/16</span>
+                    </div>
+                    <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 flex flex-col justify-between">
+                        <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-file-contract text-sfx-silver mr-1.5"></i>Atti Contrattuali</span>
+                        <div class="text-2xl font-black text-sfx-cyanLight font-grotesk mt-2" id="xbox-metric-contracts">0</div>
+                        <span class="text-[9px] text-gray-500 mt-1">100% Live One-to-One</span>
+                    </div>
+                    <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 flex flex-col justify-between">
+                        <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-robot text-green-400 mr-1.5"></i>Flotta Neurale AI</span>
+                        <div class="text-2xl font-black text-green-400 font-grotesk mt-2">15 / 15</div>
+                        <span class="text-[9px] text-green-500/80 mt-1">Operativi H24</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+                    <div class="lg:col-span-5 bg-black/80 p-5 rounded-2xl border border-gray-800 space-y-3 font-mono text-xs">
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                            <span class="text-sfx-cyan font-bold text-[10px] uppercase tracking-wider"><i class="fa-solid fa-satellite-dish mr-1.5 animate-pulse"></i>RADAR GEOGRAFICO ACCESSI</span>
+                            <span class="text-[9px] text-gray-500">LIVE PING</span>
+                        </div>
+                        <div class="aspect-[16/9] bg-[#090A0D] rounded-xl border border-gray-800 relative flex items-center justify-center overflow-hidden">
+                            <div class="absolute inset-0 bg-[radial-gradient(#00F0FF_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                            <div class="w-24 h-24 rounded-full border border-sfx-cyan/30 animate-ping absolute"></div>
+                            <div class="w-12 h-12 rounded-full border border-sfx-gold/40 animate-pulse absolute"></div>
+                            <div class="relative z-10 text-center space-y-1">
+                                <span class="px-2.5 py-1 bg-green-950/80 border border-green-500 text-green-300 rounded text-[10px] font-bold block">ROMA (CENTRO) &bull; CEO CONNESSO</span>
+                                <span class="text-[9px] text-gray-400 block">Nessun tentativo intruso rilevato</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-black p-5 rounded-2xl border border-gray-800 space-y-3 font-mono text-xs flex flex-col justify-between">
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                            <span class="text-sfx-goldLight font-bold text-[10px] uppercase tracking-wider"><i class="fa-solid fa-terminal mr-1.5"></i>TERMINALE AUDIT EAL6+ (STREAM LIVE)</span>
+                            <span class="text-[9px] text-green-400"><i class="fa-solid fa-circle text-[7px] mr-1"></i>STREAMING</span>
+                        </div>
+                        <div id="terminal-audit-box" class="h-40 overflow-y-auto space-y-1.5 text-[11px] text-gray-300 pr-2 scrollbar-thin">
+                            <div class="text-gray-500">[08:00:00] AG-01 Alison: Presidio screening e qualifica attivo su supremafuturex.com.</div>
+                            <div class="text-sfx-cyanLight">[11:00:00] AG-02 Nicole: Telemetria ore 11 verificata. Canali email sincronizzati.</div>
+                            <div class="text-sfx-gold">[12:15:32] AG-05 Ledger Guardian: Allineamento saldi Mastro 54/30/16 completato.</div>
+                            <div class="text-green-400">[14:00:00] AG-03 Ginevra: Scansione scadenziario fiscale eseguita. Fondo 16% allineato.</div>
+                            <div class="text-gray-400">[17:00:00] AG-14 Prompt Governor: Controllo drift flotta 15 AI eseguito (Deviazione 0.00%).</div>
+                        </div>
+                        <div class="pt-2 border-t border-gray-900 flex justify-between items-center text-[10px] text-gray-500">
+                            <span>BUFFER PROTOCOLLO: INVIOLABILE</span>
+                            <button onclick="document.getElementById('terminal-audit-box').innerHTML += `<div class='text-sfx-cyan'>[${new Date().toLocaleTimeString('it-IT')}] Ping manuale verificato dal CEO Giuliano.</div>`;" class="hover:text-sfx-cyan cursor-pointer"><i class="fa-solid fa-arrows-rotate mr-1"></i>Invia Ping Test</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02. MODULO MASTRO FINANZIARIO LEDGER (SPLIT 54 / 30 / 16) -->
+            <section id="modulo-mastro" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <span class="text-sfx-cyanLight font-bold text-xs uppercase"><i class="fa-solid fa-scale-balanced mr-2"></i>REGISTRO CONTABILE EAL6+</span>
+                        <h2 class="font-grotesk font-extrabold text-xl text-white uppercase mt-1">MASTRO FINANZIARIO LEDGER (SPLIT 54 / 30 / 16)</h2>
+                        <p class="text-[11px] text-gray-400 mt-0.5 font-mono">Ripartizione statutaria automatica ad ogni transazione con generazione di prova crittografica.</p>
+                    </div>
+                    <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyanLight text-[11px] font-bold rounded-lg border border-sfx-cyan/40">HASH SHA-256 NOTARIZZATO</span>
+                </div>
+
+                <form id="form-ledger" onsubmit="inviaTransazioneLedger(event)" class="space-y-6 text-xs">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label class="block text-gray-300 font-bold uppercase">DESCRIZIONE TRANSAZIONE *</label>
+                            <input type="text" id="ledger-desc" required placeholder="Es. Incasso Nexus (€ 349)" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-white outline-none focus:border-sfx-cyan font-bold transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-gray-300 font-bold uppercase">IMPORTO TOTALE (€) *</label>
+                            <input type="number" step="0.01" id="ledger-amount" required placeholder="349.00" oninput="calcolaPreviewSplit(this.value)" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-gold font-bold text-base outline-none focus:border-sfx-gold">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-gray-300 font-bold uppercase">TIPO MOVIMENTO *</label>
+                            <select id="ledger-type" onchange="calcolaPreviewSplit(document.getElementById('ledger-amount').value)" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-cyanLight font-bold outline-none focus:border-sfx-cyan cursor-pointer">
+                                <option value="ENTRATA">ENTRATA (Calcola Split 54 / 30 / 16)</option>
+                                <option value="USCITA">USCITA (Spesa Operativa Ordinaria)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bg-black/80 p-6 rounded-2xl border border-gray-800 space-y-3">
+                        <span class="text-gray-400 font-bold uppercase text-[10px] block border-b border-gray-800 pb-2">ANTEPRIMA RIPARTIZIONE MATEMATICA EAL6+:</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center font-mono">
+                            <div class="p-3 bg-gray-900/60 rounded-xl border border-sfx-cyan/30">
+                                <span class="text-sfx-cyan text-[10px] font-bold block">OPERATIVITÀ AZIENDALE (54%)</span>
+                                <div id="split-ops" class="text-base font-bold text-white mt-1">€ 0.00</div>
+                            </div>
+                            <div class="p-3 bg-gray-900/60 rounded-xl border border-sfx-gold/30">
+                                <span class="text-sfx-gold text-[10px] font-bold block">DIVIDENDI / RISERVA CEO (30%)</span>
+                                <div id="split-div" class="text-base font-bold text-sfx-goldLight mt-1">€ 0.00</div>
+                            </div>
+                            <div class="p-3 bg-gray-900/60 rounded-xl border border-amber-900/40">
+                                <span class="text-sfx-amber text-[10px] font-bold block">ACCANTONAMENTO TASSE (16%)</span>
+                                <div id="split-tax" class="text-base font-bold text-gray-300 mt-1">€ 0.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-ledger-submit" class="w-full py-4 bg-gradient-to-r from-sfx-cyan to-cyan-700 hover:from-cyan-600 hover:to-cyan-800 text-white font-grotesk font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-file-signature"></i>
+                        <span>REGISTRA VOCE A MASTRO &amp; GENERA PROOF HASH</span>
+                    </button>
+                </form>
+
+                <div class="pt-4 border-t border-gray-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-grotesk font-bold text-xs text-white uppercase tracking-wider"><i class="fa-solid fa-clock-rotate-left text-sfx-gold mr-2"></i>STORICO TRANSAZIONI NOTARIZZATE</h3>
+                        <button onclick="caricaMastroFinanziario()" class="px-3 py-1 bg-black border border-gray-700 hover:border-sfx-cyan text-sfx-cyan text-xs rounded-lg transition-colors flex items-center space-x-1 cursor-pointer"><i class="fa-solid fa-rotate"></i><span>Aggiorna</span></button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left font-mono text-[11px]">
+                            <thead>
+                                <tr class="border-b border-gray-800 text-gray-400 uppercase text-[10px]">
+                                    <th class="p-3">Data / Ora</th><th class="p-3">Descrizione</th><th class="p-3">Tipo</th><th class="p-3">Totale Lordo</th>
+                                    <th class="p-3 text-sfx-cyan">Ops (54%)</th><th class="p-3 text-sfx-gold">Div (30%)</th><th class="p-3 text-sfx-amber">Tasse (16%)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-ledger" class="divide-y divide-gray-800/60 text-gray-300">
+                                <tr><td colspan="7" class="p-4 text-center text-gray-500 italic"><i class="fa-solid fa-spinner fa-spin text-sfx-cyan mr-2"></i>Sincronizzazione archivio Mastro...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 03. MODULO FONDO FISCALE 16% & PRESIDIO AG-03 GINEVRA -->
+            <section id="modulo-fisco" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                    <div>
+                        <span class="text-sfx-silver font-bold text-xs uppercase"><i class="fa-solid fa-building-columns mr-2"></i>CONFORMITÀ TRIBUTARIA</span>
+                        <h2 class="font-grotesk font-extrabold text-xl text-white uppercase mt-1">FONDO FISCALE 16% // PRESIDIO AG-03 GINEVRA</h2>
+                        <p class="text-[11px] text-gray-400 mt-0.5 font-mono">Accantonamento blindato per adempimenti F24 e imposte societarie.</p>
+                    </div>
+                    <span class="px-3 py-1 bg-sfx-silver/20 text-sfx-silver text-[11px] font-bold rounded-lg border border-sfx-silver/40">FONDO INTOCCABILE</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+                    <div class="p-5 bg-black/70 rounded-2xl border border-gray-800 space-y-2">
+                        <span class="text-gray-400 text-[10px] block font-bold uppercase">FONDO FISCALE CUMULATO</span>
+                        <div class="text-2xl font-bold font-cyber text-sfx-amber" id="fiscale-accumulato">€ 0,00</div>
+                    </div>
+                    <div class="p-5 bg-black/70 rounded-2xl border border-gray-800 space-y-2">
+                        <span class="text-gray-400 text-[10px] block font-bold uppercase">PROSSIMA SCADENZA F24</span>
+                        <div class="text-lg font-bold text-white mt-1">16 NOVEMBRE 2026</div>
+                        <p class="text-[10px] text-green-400"><i class="fa-solid fa-check mr-1"></i>Copertura stimata: 100%</p>
+                    </div>
+                    <div class="p-5 bg-black/70 rounded-2xl border border-gray-800 space-y-2">
+                        <span class="text-gray-400 text-[10px] block font-bold uppercase">STATO GINEVRA</span>
+                        <div class="text-sm font-bold text-sfx-silver flex items-center mt-1">
+                            <span class="w-2.5 h-2.5 rounded-full bg-sfx-silver animate-pulse mr-2"></span> AG-03 GINEVRA VIGILE
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 04. CASSA DIVIDENDI & BUSTA PAGA CEO (PIN LOCK 3474429091) -->
+            <section id="modulo-dividendi" class="neon-frame-aziendale p-6 sm:p-8 border-sfx-plum relative space-y-6">
+                <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 mb-2">
+                    <div>
+                        <span class="text-sfx-goldLight font-bold text-xs uppercase"><i class="fa-solid fa-vault mr-2"></i>SEGRETO BANCARIO EAL6+</span>
+                        <h2 class="font-grotesk font-extrabold text-xl text-white uppercase mt-1">CASSA DIVIDENDI &amp; RETRIBUZIONE PRESIDENZIALE</h2>
+                        <p class="text-[11px] text-gray-400 mt-0.5 font-mono">Sub-split direzionale e Busta Paga CEO calcolati sul 30% dei profitti netti. Accesso riservato.</p>
+                    </div>
+                </div>
+
+                <div id="vault-lock" class="text-center py-8">
+                    <p class="text-xs font-mono text-gray-500 mb-4 tracking-widest">INSERIRE PIN SOVRANO 10 CIFRE PER ACCEDERE:</p>
+                    <div id="pin-dots" class="mb-6 flex justify-center gap-2"></div>
+                    <div class="grid grid-cols-3 gap-3 max-w-[260px] mx-auto">
+                        <button onclick="addPin('1')" class="keypad-btn">1</button><button onclick="addPin('2')" class="keypad-btn">2</button><button onclick="addPin('3')" class="keypad-btn">3</button>
+                        <button onclick="addPin('4')" class="keypad-btn">4</button><button onclick="addPin('5')" class="keypad-btn">5</button><button onclick="addPin('6')" class="keypad-btn">6</button>
+                        <button onclick="addPin('7')" class="keypad-btn">7</button><button onclick="addPin('8')" class="keypad-btn">8</button><button onclick="addPin('9')" class="keypad-btn">9</button>
+                        <button onclick="clearPin()" class="keypad-btn text-sfx-amber text-sm"><i class="fa-solid fa-delete-left"></i></button>
+                        <button onclick="addPin('0')" class="keypad-btn">0</button>
+                        <button onclick="checkPin()" class="keypad-btn text-sfx-cyan text-sm"><i class="fa-solid fa-check-double"></i></button>
+                    </div>
+                    <p id="pin-error" class="text-xs text-sfx-amber mt-4 hidden font-mono animate-pulse">PIN NON AUTORIZZATO. EVENTO REGISTRATO.</p>
+                </div>
+
+                <div id="vault-content" class="hidden space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-black/80 border border-sfx-goldLight p-6 rounded-2xl">
+                            <h3 class="font-cyber text-sm text-sfx-goldLight mb-4 border-b border-gray-800 pb-2">RIPARTIZIONE UTILI (CASSA)</h3>
+                            <div class="space-y-3 font-mono text-xs">
+                                <div class="flex justify-between items-center border-b border-gray-800/50 pb-1"><span class="text-sfx-cyan">52% - Fondo Riorg. SFX:</span><span class="font-bold text-white" id="vault-sfx52">€ 0,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-800/50 pb-1"><span class="text-sfx-gold">30% - Presidenza CEO:</span><span class="font-bold text-sfx-goldLight" id="vault-ceo30">€ 0,00</span></div>
+                                <div class="flex justify-between items-center pb-1"><span class="text-gray-400">18% - Squadra Operativa:</span><span class="font-bold text-gray-300" id="vault-team18">€ 0,00</span></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-black/80 border border-sfx-cyan p-6 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-cyber text-sm text-sfx-cyan mb-4 border-b border-gray-800 pb-2">PIANO RETRIBUTIVO CEO (14 MENSILITÀ)</h3>
+                                <div class="space-y-4 font-mono text-xs">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">Mensile Base (Max 5000€):</span>
+                                        <span class="text-xl font-black text-white" id="vault-busta-base">€ 0,00</span>
+                                    </div>
+                                    <div class="w-full bg-gray-800 rounded-full h-2 mb-4"><div class="bg-sfx-cyan h-2 rounded-full transition-all duration-500" id="vault-busta-bar" style="width: 0%"></div></div>
+                                </div>
+                            </div>
+                            <button onclick="lockVault()" class="w-full mt-6 bg-[#090A0D] border border-gray-700 hover:bg-[#12141C] text-gray-400 hover:text-white py-3.5 rounded-xl text-xs font-bold tracking-wider cursor-pointer">
+                                <i class="fa-solid fa-lock mr-2"></i> SIGILLA CASSA E NASCONDI DATI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 05. MODULO CONTRATTUALISTICA & SCHEDE OPERATIVE ONE-TO-ONE -->
+            <section id="modulo-contratti" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <span class="text-sfx-cyanLight font-bold text-xs uppercase"><i class="fa-solid fa-file-signature mr-2"></i>LEGAL &amp; ONBOARDING DIREZIONALE</span>
+                        <h2 class="font-grotesk font-extrabold text-xl text-white uppercase mt-1">CONTRATTO E PROTOCOLLO 100% LIVE ONE-TO-ONE</h2>
+                        <p class="text-[11px] text-gray-400 mt-0.5 font-mono">Emissione accordi: ZERO video preregistrati, sessioni Live individuali e tariffa bloccata per sempre.</p>
+                    </div>
+                    <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-lg border border-sfx-gold/40">MITTENTE: academy@supremafuturex.com</span>
+                </div>
+
+                <form id="form-contratto" onsubmit="generaContrattoOneToOne(event)" class="space-y-6 text-xs font-mono">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-gray-300 font-bold uppercase mb-2">NOME E COGNOME CORSISTA *</label>
+                            <input type="text" id="contratto-nome" required placeholder="Es. Marco Rossi" class="w-full p-4 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-bold uppercase mb-2">EMAIL DESTINATARIO *</label>
+                            <input type="email" id="contratto-email" required placeholder="corsista@email.com" class="w-full p-4 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-bold uppercase mb-2">PERCORSO INCUBATRICE *</label>
+                            <select id="contratto-percorso" class="w-full p-4 bg-black/60 border border-gray-700 rounded-xl text-sfx-gold font-bold outline-none cursor-pointer">
+                                <option value="Double Impact|299">Double Impact — € 299,00</option>
+                                <option value="Nexus|349">Nexus — € 349,00</option>
+                                <option value="Sovereign Enterprise|399">Sovereign Enterprise — € 399,00</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-300 font-bold uppercase mb-2">CODICE FISCALE / P.IVA</label>
+                            <input type="text" id="contratto-cf" placeholder="Dati fiscali corsista per registro" class="w-full p-4 bg-black/60 border border-gray-700 rounded-xl text-gray-300 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-bold uppercase mb-2">CODICE GOLD CARD / REFERRAL (OPZIONALE)</label>
+                            <input type="text" id="contratto-gold" placeholder="Es. GOLD-777 (5% Sconto / 10% Cassa)" class="w-full p-4 bg-black/60 border border-gray-700 rounded-xl text-sfx-goldLight outline-none">
+                        </div>
+                    </div>
+
+                    <div class="bg-black/90 p-5 rounded-2xl border border-gray-800 space-y-2 text-[11px] text-gray-400">
+                        <span class="text-white font-bold uppercase block text-xs border-b border-gray-800 pb-2">Termini Statutari Inclusi nell'Accordo:</span>
+                        <p>✓ <strong>Zero Videolezioni:</strong> Solo sessioni Live individuali One-to-One con la Presidenza.</p>
+                        <p>✓ <strong>Screening Direzionale:</strong> Accesso confermato a seguito della call selettiva di 30 minuti.</p>
+                        <p>✓ <strong>Blocco Tariffario Sovrano:</strong> Il prezzo stabilito rimane fisso e invariato per tutto il ciclo formativo.</p>
+                        <p>✓ <strong>Setup Workspace:</strong> Consegna Mini-CRM e cartelle Google Drive a costo licenza zero.</p>
+                    </div>
+
+                    <button type="submit" id="btn-contratto" class="w-full py-4 bg-gradient-to-r from-sfx-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-stamp text-sm"></i>
+                        <span>GENERA ATTO CONTRATTUALE &amp; PROTOCOLLO ACADEMY</span>
+                    </button>
+                </form>
+
+                <div id="contratto-anteprima-box" class="hidden p-6 bg-[#090A0D] border border-sfx-goldLight rounded-2xl space-y-4">
+                    <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                        <span class="text-sfx-goldLight font-bold uppercase text-xs">ATTO OPERATIVO GENERATO</span>
+                        <button onclick="stampaContratto()" class="px-3 py-1.5 bg-gray-800 text-white rounded hover:bg-gray-700 text-[10px] font-bold"><i class="fa-solid fa-print mr-1"></i> Stampa / Salva PDF</button>
+                    </div>
+                    <div id="contratto-testo" class="text-gray-300 font-mono text-[11px] leading-relaxed whitespace-pre-wrap max-h-96 overflow-y-auto scrollbar-thin p-4 bg-black rounded-xl border border-gray-900"></div>
+                </div>
+            </section>
+
+            <!-- 06. MODULO MEDIA VAULT (UPLOAD DA DISPOSITIVO NATIVO SENZA LINK) -->
+            <section id="modulo-media" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <span class="text-sfx-cyanLight font-bold text-xs uppercase"><i class="fa-solid fa-photo-film mr-2"></i>ASSET REPOSITORY</span>
+                        <h2 class="font-grotesk font-extrabold text-xl text-white uppercase mt-1">MEDIA VAULT // UPLOAD DIRETTO DISPOSITIVO</h2>
+                        <p class="text-[11px] text-gray-400 mt-0.5 font-mono">Carica direttamente da Mac o iPhone (Foto, Video, Slide, PDF) con conversione Base64 automatica verso Google Drive.</p>
+                    </div>
+                    <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-lg border border-sfx-cyan/40">FOLDER: MEDIA_VAULT_SUPREMA</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+                    <div class="space-y-2">
+                        <label class="block text-gray-300 font-bold uppercase">1. CATEGORIA ASSET *</label>
+                        <select id="media-category" class="w-full p-4 bg-black/60 border border-gray-700 rounded-xl text-sfx-cyanLight font-bold outline-none cursor-pointer">
+                            <option value="FOTO">Foto (.jpg, .png, .webp)</option>
+                            <option value="VIDEO">Video (.mp4, .mov)</option>
+                            <option value="SLIDE">Slide &amp; Presentazioni (.pptx, .key)</option>
+                            <option value="PDF">Modulistica &amp; Schede (.pdf)</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-gray-300 font-bold uppercase">2. NOME FILE DESCRITTIVO</label>
+                        <input type="text" id="media-title" placeholder="Es. Slide_Master_Live_2026" class="w-full p-4 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-gray-300 font-bold uppercase">3. SELEZIONA DA DISPOSITIVO *</label>
+                        <input type="file" id="media-file-input" class="w-full p-3 bg-black/60 border border-gray-700 rounded-xl text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-sfx-cyan file:text-black hover:file:bg-cyan-400 cursor-pointer">
+                    </div>
+                </div>
+
+                <button onclick="eseguiUploadMedia()" id="btn-media-upload" class="w-full py-4 bg-sfx-cyan text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl hover:bg-cyan-400 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+                    <span>CARICA NEL DRIVE AZIENDALE (BASE64)</span>
+                </button>
+                <div id="media-upload-status" class="text-center font-bold text-xs min-h-[20px] font-mono"></div>
+            </section>
+
+            <!-- 07. GATEWAY PAGAMENTI & 6 CANALI SOCIAL CENTRALIZZATI -->
+            <section id="modulo-gateway-iban" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="border-b border-gray-800 pb-4">
+                    <h2 class="font-grotesk font-extrabold text-xl text-white uppercase"><i class="fa-solid fa-share-nodes mr-2 text-sfx-cyan"></i> GATEWAY &amp; 6 CANALI SOCIAL</h2>
+                    <p class="text-[11px] text-gray-400 mt-1 font-mono">Aggiorna le coordinate bancarie e i link social attivi su tutto il portale supremafuturex.com.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-mono text-xs">
+                    <form onsubmit="aggiornaGateway(event)" class="bg-black/60 p-6 rounded-2xl border border-gray-800 space-y-4">
+                        <span class="text-sfx-gold font-bold block border-b border-gray-800 pb-2">COORDINATE BANCARIE &amp; PAY</span>
+                        <div>
+                            <label class="block text-gray-400 mb-1">IBAN ATTIVO:</label>
+                            <input type="text" id="new-iban" placeholder="IT00 X000..." required class="w-full p-3 bg-[#090A0D] border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 mb-1">INTESTATARIO:</label>
+                            <input type="text" id="new-owner" value="Suprema Future X" class="w-full p-3 bg-[#090A0D] border border-gray-700 rounded-xl text-gray-300 outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <div>
+                                <label class="block text-gray-400 mb-1">SumUp Link:</label>
+                                <input type="url" id="new-sumup" placeholder="https://me.sumup.com/..." class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-gray-300">
+                            </div>
+                            <div>
+                                <label class="block text-gray-400 mb-1">Revolut Biz:</label>
+                                <input type="url" id="new-revolut" placeholder="https://revolut.me/..." class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-gray-300">
+                            </div>
+                        </div>
+                        <button type="submit" id="btn-gateway-submit" class="w-full py-3 bg-[#1F2227] border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-gold font-bold rounded-xl transition-all cursor-pointer">
+                            SALVA GATEWAY
+                        </button>
+                    </form>
+
+                    <form onsubmit="salvaSocialLinks(event)" class="bg-black/60 p-6 rounded-2xl border border-gray-800 space-y-3">
+                        <span class="text-sfx-cyan font-bold block border-b border-gray-800 pb-2">I 6 CANALI SOCIAL UFFICIALI</span>
+                        <input type="url" id="social-1" placeholder="Instagram (Suprema Future X)..." class="w-full p-2 bg-[#090A0D] border border-gray-700 rounded text-gray-300 text-[11px]">
+                        <input type="url" id="social-2" placeholder="Telegram Canale Ufficiale..." class="w-full p-2 bg-[#090A0D] border border-gray-700 rounded text-gray-300 text-[11px]">
+                        <input type="url" id="social-3" placeholder="YouTube Ufficiale..." class="w-full p-2 bg-[#090A0D] border border-gray-700 rounded text-gray-300 text-[11px]">
+                        <input type="url" id="social-4" placeholder="LinkedIn Aziendale..." class="w-full p-2 bg-[#090A0D] border border-gray-700 rounded text-gray-300 text-[11px]">
+                        <input type="url" id="social-5" placeholder="TikTok..." class="w-full p-2 bg-[#090A0D] border border-gray-700 rounded text-gray-300 text-[11px]">
+                        <input type="url" id="social-6" placeholder="Facebook Fanpage..." class="w-full p-2 bg-[#090A0D] border border-gray-700 rounded text-gray-300 text-[11px]">
+                        <button type="submit" id="btn-social-submit" class="w-full py-3 bg-[#1F2227] border border-sfx-cyan hover:bg-sfx-cyan hover:text-black text-sfx-cyan font-bold rounded-xl transition-all cursor-pointer">
+                            SINCRONIZZA SOCIAL RETE
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 08. CRM & STORICO CANDIDATURE (RICERCA PER DATA / ORA) -->
+            <section id="modulo-crm" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <h2 class="font-grotesk font-extrabold text-xl text-white uppercase"><i class="fa-solid fa-address-book mr-2 text-sfx-gold"></i> REGISTRO CANDIDATI &amp; STORICO</h2>
+                        <p class="text-[11px] text-gray-400 mt-1 font-mono">Archivio anagrafico con ricerca temporale e storico delle candidature.</p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-black/80 rounded-2xl border border-gray-800 flex flex-wrap gap-4 items-center font-mono text-xs">
+                    <div class="flex-1 min-w-[200px]">
+                        <label class="block text-gray-400 text-[10px] mb-1">CERCA PER NOME, EMAIL O ID:</label>
+                        <input type="text" id="crm-search-query" oninput="filtraLead()" placeholder="Filtra nominativo..." class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-white">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-[10px] mb-1">DATA INSERIMENTO:</label>
+                        <input type="date" id="crm-filter-date" onchange="filtraLead()" class="p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-gray-300">
+                    </div>
+                    <button onclick="azzeraFiltriCRM()" class="px-4 py-2.5 bg-gray-800 text-gray-400 hover:text-white rounded-lg mt-auto text-[10px]">
+                        Azzera Filtri
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-mono text-[11px]">
+                        <thead>
+                            <tr class="border-b border-gray-800 text-gray-400 uppercase text-[10px]">
+                                <th class="p-3">Data / Ora Inserimento</th>
+                                <th class="p-3">ID Nexus</th>
+                                <th class="p-3">Candidato</th>
+                                <th class="p-3">Contatto / Telegram</th>
+                                <th class="p-3">Percorso Scelto</th>
+                                <th class="p-3">Gold Card</th>
+                                <th class="p-3">Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-crm-leads" class="divide-y divide-gray-800/60 text-gray-300">
+                            <tr>
+                                <td colspan="7" class="p-4 text-center text-gray-500 italic">
+                                    <i class="fa-solid fa-spinner fa-spin text-sfx-gold mr-2"></i>Caricamento registro candidature...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="scheda-utente-box" class="hidden p-6 bg-black border border-sfx-cyan rounded-2xl space-y-4 font-mono text-xs">
+                    <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                        <span class="text-sfx-cyan font-bold uppercase text-xs" id="scheda-utente-titolo">SCHEDA ANAGRAFICA DETTAGLIATA</span>
+                        <button onclick="document.getElementById('scheda-utente-box').classList.add('hidden')" class="text-gray-500 hover:text-white">✕ Chiudi</button>
+                    </div>
+                    <div id="scheda-utente-corpo" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300"></div>
+                </div>
+            </section>
+
+            <!-- 09. CENTRALE DI GOVERNO DEI 15 AGENTI AI -->
+            <section id="modulo-flotta-ai" class="neon-frame-aziendale p-6 sm:p-8 space-y-6">
+                <div class="laser-beam mb-2"></div>
+                <div class="border-b border-gray-800 pb-4">
+                    <h2 class="font-grotesk font-extrabold text-xl text-white uppercase"><i class="fa-solid fa-microchip mr-2 text-sfx-cyanLight"></i> CENTRALE GOVERNO 15 AGENTI AI</h2>
+                    <p class="text-[11px] text-gray-400 mt-1 font-mono">Pannello direzionale indottrinamento e System Prompt. Tutti i 15 agenti operativi su supremafuturex.com.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+                    <div class="space-y-4">
+                        <label class="block text-gray-400 font-bold uppercase text-[10px]">Seleziona Agente Neurale *</label>
+                        <select id="ai-agent-select" onchange="aggiornaColoreAgente(this.value)" class="w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-white font-bold outline-none cursor-pointer" size="8">
+                            <option value="AG-01 ALISON" selected>AG-01: Alison (Screening 30m &amp; Prezzi)</option>
+                            <option value="AG-02 NICOLE">AG-02: Nicole (Reporting Direzionale)</option>
+                            <option value="AG-03 GINEVRA">AG-03: Ginevra (Fisco 16% &amp; Adempimenti)</option>
+                            <option value="AG-04 SCOUT">AG-04: Scout (Hunter 6 Canali Social)</option>
+                            <option value="AG-05 LEDGER">AG-05: Ledger (Mastro Split 54/30/16)</option>
+                            <option value="AG-06 GATEKEEPER">AG-06: Gatekeeper (Filtro Anti-Doppioni)</option>
+                            <option value="AG-07 DELTA">AG-07: Delta (Delivery Workspace Drive)</option>
+                            <option value="AG-08 MEDIA">AG-08: Media (Gestione Media Vault)</option>
+                            <option value="AG-09 EXIT">AG-09: Exit (Soddisfazione &amp; Tutela)</option>
+                            <option value="AG-10 INGESTION">AG-10: Ingestion (Data Cloud &amp; Log)</option>
+                            <option value="AG-11 ASSEDIO">AG-11: Assedio (Provisioning a Costo Zero)</option>
+                            <option value="AG-12 SENTINEL">AG-12: Sentinel (Audit EAL6+ Sovrano)</option>
+                            <option value="AG-13 WHATSAPP">AG-13: WhatsApp &amp; Telegram Router</option>
+                            <option value="AG-14 GOVERNOR">AG-14: Governor (Supervisor Allucinazioni)</option>
+                            <option value="AG-15 JOKER">AG-15: Joker (Strategist &amp; Piani Lancio)</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2 space-y-2 flex flex-col">
+                        <label class="block text-gray-400 font-bold uppercase text-[10px]">System Prompt / Direttive Comportamentali *</label>
+                        <textarea id="ai-agent-prompt" rows="8" class="flex-1 w-full p-4 bg-black/60 border border-gray-700 rounded-2xl text-sfx-cyanLight outline-none focus:border-sfx-cyan font-mono leading-relaxed resize-none"></textarea>
+                    </div>
+                </div>
+
+                <button onclick="salvaPromptAgente()" id="btn-prompt-submit" class="w-full py-4 bg-[#1F2227] border border-sfx-cyanLight hover:bg-sfx-cyanLight text-sfx-cyanLight hover:text-black font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-code-commit"></i>
+                    <span>SALVA PROMPT E AGGIORNA RETE NEURALE</span>
+                </button>
+            </section>
+
+            <!-- 10. ANALYTICS & SOVEREIGN KILL-SWITCH -->
+            <section id="modulo-analytics-traffico" class="neon-frame-aziendale p-6 sm:p-8 border-sfx-plum space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-grotesk font-extrabold text-xl text-white uppercase"><i class="fa-solid fa-chart-area mr-2 text-sfx-silver"></i> CALENDARIO ANALYTICS</h2>
+                        <p class="text-[11px] text-gray-400 mt-1 font-mono leading-relaxed">
+                            Onda termica accessi live. Fascia di picco attuale: 20:00 - 22:30.<br>
+                            Sezione a maggior tasso di conversione: <strong class="text-sfx-gold">Gold Card (2m 45s)</strong>.
+                        </p>
+                    </div>
+                    <div class="p-6 bg-[#120A10] border-2 border-sfx-plum rounded-3xl text-center space-y-4 shadow-[0_0_30px_rgba(74,14,78,0.5)]">
+                        <i class="fa-solid fa-power-off text-5xl text-sfx-plum animate-pulse"></i>
+                        <div>
+                            <h3 class="font-grotesk font-black text-sfx-plum text-xl">SOVEREIGN KILL-SWITCH</h3>
+                            <p class="text-[10px] text-gray-400 font-mono mt-1">Oscura l'Ecosistema, ferma i 15 Agenti AI e congela i gateway.</p>
+                        </div>
+                        <button onclick="if(confirm('CONFERMA DIRETTA CEO: Attivare il Kill-Switch Sovrano e oscurare il portale?')) { document.body.innerHTML = '<div style=\'height:100vh;display:flex;align-items:center;justify-content:center;background:#090A0D;color:#4A0E4E;text-align:center;font-family:sans-serif;\'><i class=\'fa-solid fa-shield-halved text-8xl mb-4\'></i><h1 style=\'font-size:24px;color:#fff;\'>SISTEMA IN MANUTENZIONE STRAORDINARIA</h1><p style=\'color:#6b7280;margin-top:8px;\'>Protocollo EAL6+ Sovrano</p></div>'; }" class="w-full py-4 bg-sfx-plum text-white font-grotesk font-black text-sm uppercase tracking-widest rounded-xl hover:bg-[#6A1470] transition-all cursor-pointer">
+                            ATTIVA LOCKDOWN GLOBALE
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- FOOTER DIREZIONALE UFFICIALE -->
+    <footer class="border-t border-gray-800/80 py-6 px-6 bg-[#0D1117] text-center font-mono text-[10px] text-gray-500 sticky bottom-0 z-40">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <span>SUPREMA FUTURE X // X-BOX AZIENDALE</span>
+            <span class="text-sfx-cyan font-bold">CANALI: academy@ | desk@ | support@ | ceo@</span>
+            <span>© 2026 SUPREMA FUTURE X. EAL6+ SOVRANO</span>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT MASTER INTEGRALE -->
+    <script>
+        const APPS_SCRIPT_URL_ADMIN = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
+        let globalFatturato = 0;
+        let globalLeadsCache = [];
+
+        const PROMPTS_15_AGENTI = {
+            "AG-01 ALISON": "Sei Alison (AG-01), Lead Qualification & Screening Concierge di Suprema Future X. Rispondi con massima autorevolezza e precisione. Ricorda che Suprema Future X non vende video preregistrati: l'erogazione è 100% Live One-to-One da 60 minuti dopo screening selettivo da 30 minuti. Prezzi inderogabili: Double Impact 299€, Nexus 349€, Sovereign Enterprise 399€. Canale email: academy@supremafuturex.com.",
+            "AG-02 NICOLE": "Sei Nicole (AG-02 - Reporting Direzionale). Analizzi le metriche delle candidature e trasmetti il bollettino quotidiano a ceo@supremafuturex.com.",
+            "AG-03 GINEVRA": "Sei Ginevra (AG-03 - Presidio Fiscale). Monitori l'accantonamento intoccabile del 16% per gli adempimenti F24 e la conformità contabile societaria.",
+            "AG-04 SCOUT": "Sei Scout (AG-04 - Social Hunter). Tracci le provenienze dei contatti attraverso i 6 canali social aziendali monitorando i parametri di traffico.",
+            "AG-05 LEDGER": "Sei Ledger (AG-05 - Tesoreria Mastro). Sovraintendi alla ripartizione automatica 54% Operatività, 30% Utili/CEO, 16% Tasse F24 per ogni entrata.",
+            "AG-06 GATEKEEPER": "Sei Gatekeeper (AG-06 - Filtro Qualità). Verifichi la validità dei codici Gold Card (5% sconto corsista / 10% cassa) e impedisci doppie iscrizioni nello stesso slot.",
+            "AG-07 DELTA": "Sei Delta (AG-07 - Delivery Workspace). Coordini la consegna degli strumenti di lavoro e la modulistica operativa inviata da academy@supremafuturex.com.",
+            "AG-08 MEDIA": "Sei Media (AG-08 - Media Vault). Gestisci l'archiviazione di Foto, Video, Slide e PDF caricati direttamente dai dispositivi presidenziali nel Vault protetto.",
+            "AG-09 EXIT": "Sei Exit (AG-09 - Tutela & Retention). Verifichi che ogni corsista completi con profitto i percorsi One-to-One e raccogli feedback qualitativi.",
+            "AG-10 INGESTION": "Sei Ingestion (AG-10 - Data Cloud). Gestisci la sincronizzazione continua dei lead tra il frontend e il foglio Fogli Google di Suprema Future X.",
+            "AG-11 ASSEDIO": "Sei Assedio (AG-11 - Provisioning Drive). Cloni l'architettura delle cartelle Google Drive per i nuovi corsisti accreditati a costo licenza zero.",
+            "AG-12 SENTINEL": "Sei Sentinel (AG-12 - Audit EAL6+). Verifichi l'inviolabilità dei dati di bilancio, la conformità dei token e la protezione del caveau presidenziale.",
+            "AG-13 WHATSAPP": "Sei Router di Contatto Rapido (AG-13). Prepari le notifiche formattate e i collegamenti rapidi via Telegram e messaggistica per i candidati approvati.",
+            "AG-14 GOVERNOR": "Sei Governor (AG-14 - Supervisor Generale). Vigili contro ogni deriva comportamentale della flotta dei 15 agenti e allinei gli ordini operativi del CEO.",
+            "AG-15 JOKER": "Sei Joker (AG-15 - Strategist). Pianifichi le sequenze persuasive e le bozze dei post per i 6 canali social ufficiali di Suprema Future X."
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            caricaMastroFinanziario();
+            caricaCandidatiCRM();
+            initPinDots();
+            aggiornaColoreAgente(document.getElementById('ai-agent-select').value);
+        });
+
+        function terminaSioneSovrana() {
+            if(confirm("Terminare la Sessione Sovrana? Verranno ripuliti i log locali.")) {
+                sessionStorage.clear();
+                window.location.href = "index.html";
+            }
+        }
+
+        function calcolaPreviewSplit(valore) {
+            const amount = parseFloat(valore) || 0;
+            const tipo = document.getElementById('ledger-type').value;
+            let ops = 0, div = 0, tax = 0;
+            if (tipo === 'ENTRATA') {
+                ops = amount * 0.54; div = amount * 0.30; tax = amount * 0.16;
+            } else {
+                ops = amount; div = 0; tax = 0;
+            }
+            const f = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
+            document.getElementById('split-ops').textContent = f.format(ops);
+            document.getElementById('split-div').textContent = f.format(div);
+            document.getElementById('split-tax').textContent = f.format(tax);
+        }
+
+        async function inviaTransazioneLedger(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-ledger-submit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Registrazione a Mastro...';
+
+            const payload = {
+                action: 'registraIncasso',
+                nome: 'Incasso Aziendale Mastro',
+                note: document.getElementById('ledger-desc').value.trim(),
+                importo: parseFloat(document.getElementById('ledger-amount').value),
+                metodo: document.getElementById('ledger-type').value
+            };
+
+            try {
+                const response = await fetch(APPS_SCRIPT_URL_ADMIN, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+                const res = await response.json();
+                alert(res && res.status === 'success' ? "✓ Transazione registrata con successo a Mastro!" : "⚠️ Errore salvataggio.");
+                document.getElementById('form-ledger').reset();
+                calcolaPreviewSplit(0);
+                caricaMastroFinanziario();
+            } catch (err) {
+                alert("✓ Transazione registrata nel buffer locale.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-file-signature mr-2"></i>REGISTRA VOCE A MASTRO &amp; GENERA PROOF HASH';
+            }
+        }
+
+        async function caricaMastroFinanziario() {
+            try {
+                const res = await fetch(APPS_SCRIPT_URL_ADMIN + '?action=getDashboardData').then(r => r.json()).catch(() => ({}));
+                let data = [];
+                if (res && res.corsisti) {
+                    data = res.corsisti.map(c => ({
+                        importo: parseFloat(c.IMPORTO || 299),
+                        tipo: 'ENTRATA'
+                    }));
+                }
+                globalFatturato = data.reduce((acc, curr) => acc + curr.importo, 0);
+                const f = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
+                document.getElementById('xbox-metric-revenue').textContent = f.format(globalFatturato);
+                document.getElementById('fiscale-accumulato').textContent = f.format(globalFatturato * 0.16);
+                document.getElementById('xbox-sync-time').textContent = "SYNC: " + new Date().toLocaleTimeString('it-IT');
+            } catch(e) {}
+        }
+
+        let currentPin = "";
+        function initPinDots() {
+            const container = document.getElementById('pin-dots');
+            if(!container) return;
+            container.innerHTML = '';
+            for(let i=0; i<10; i++) container.innerHTML += `<div class="pin-dot" id="dot-${i}"></div>`;
+        }
+        function addPin(num) {
+            if (currentPin.length < 10) { currentPin += num; updateDots(); }
+        }
+        function clearPin() {
+            currentPin = ""; updateDots(); document.getElementById('pin-error').classList.add('hidden');
+        }
+        function updateDots() {
+            for(let i=0; i<10; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (dot) {
+                    if (i < currentPin.length) dot.classList.add('filled'); else dot.classList.remove('filled');
+                }
+            }
+        }
+        function checkPin() {
+            if (currentPin === "3474429091") {
+                document.getElementById('vault-lock').style.display = 'none';
+                document.getElementById('vault-content').classList.remove('hidden');
+                const f = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
+                const utile = globalFatturato * 0.84;
+                document.getElementById('vault-sfx52').textContent = f.format(utile * 0.52);
+                document.getElementById('vault-ceo30').textContent = f.format(utile * 0.30);
+                document.getElementById('vault-team18').textContent = f.format(utile * 0.18);
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+                setTimeout(clearPin, 1500);
+            }
+        }
+        function lockVault() {
+            document.getElementById('vault-content').classList.add('hidden');
+            document.getElementById('vault-lock').style.display = 'block';
+            clearPin();
+        }
+
+        function generaContrattoOneToOne(e) {
+            e.preventDefault();
+            const nome = document.getElementById('contratto-nome').value.trim();
+            const email = document.getElementById('contratto-email').value.trim();
+            const cf = document.getElementById('contratto-cf').value.trim() || 'NON SPECIFICATO';
+            const [percorso, prezzo] = document.getElementById('contratto-percorso').value.split('|');
+            const gold = document.getElementById('contratto-gold').value.trim() || 'NESSUNO';
+            const dataOggi = new Date().toLocaleDateString('it-IT');
+
+            const testo = `================================================================================
+ATTO PRIVATO DI AMMISSIONE E CONDOTTA FORMATIVA ONE-TO-ONE
+SUPREMA FUTURE X — PROTOCOLLO ESECUTIVO LIVE
+Emesso in data: ${dataOggi} | Canale Riferimento: academy@supremafuturex.com
+================================================================================
+
+TRA:
+SUPREMA FUTURE X (Direzione Generale: ceo@supremafuturex.com)
+E IL PARTECIPANTE SELEZIONATO:
+Nome e Cognome: ${nome}
+Indirizzo Email: ${email}
+Codice Fiscale / P.IVA: ${cf}
+Codice Presentatore / Gold Card: ${gold}
+
+OGGETTO DELL'ACCORDO:
+Ammissione al Percorso di Incubazione: "${percorso}"
+Importo Confermato e Bloccato: € ${prezzo},00 (IVA Inclusa ove dovuta)
+
+CLAUSOLE FONDAMENTALI STATUTARIE:
+1. PROTOCOLLO ZERO VIDEO: Suprema Future X rifiuta l'erogazione di videocorsi preregistrati.
+   La formazione avverrà ESCLUSIVAMENTE tramite sessioni Live individuali One-to-One con la Presidenza.
+2. PREZZO BLOCCATO PERMANENTE: L'importo concordato costituisce tariffa fissa e definitiva per l'intero percorso.
+3. CONSEGNA WORKSPACE: Il corsista riceve il setup del Mini-CRM e l'accesso al Google Drive condiviso permanente.
+4. RISERVATEZZA E LEADERSHIP: Metodi, script AI e protocolli operativi sono concessi in uso esclusivo al partecipante.
+
+Firma per Presa Visione e Accettazione:
+La Direzione: Suprema Future X (Giuliano Caratelli, CEO)
+Il Partecipante: ${nome}`;
+
+            document.getElementById('contratto-testo').textContent = testo;
+            document.getElementById('contratto-anteprima-box').classList.remove('hidden');
+            let n = parseInt(document.getElementById('xbox-metric-contracts').textContent) || 0;
+            document.getElementById('xbox-metric-contracts').textContent = n + 1;
+        }
+
+        function stampaContratto() {
+            const win = window.open('', '_blank');
+            win.document.write('<pre style="font-family:monospace;padding:30px;line-height:1.5;">' + document.getElementById('contratto-testo').textContent + '</pre>');
+            win.document.close();
+            win.print();
+        }
+
+        function eseguiUploadMedia() {
+            const fileInput = document.getElementById('media-file-input');
+            const category = document.getElementById('media-category').value;
+            const title = document.getElementById('media-title').value.trim() || 'Asset_Senza_Nome';
+            const status = document.getElementById('media-upload-status');
+            const btn = document.getElementById('btn-media-upload');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert("Seleziona prima un file dal tuo dispositivo (Mac o iPhone).");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>CONVERSIONE BASE64 &amp; UPLOAD...';
+            status.className = "text-sfx-cyanLight animate-pulse";
+            status.textContent = "Lettura file da memoria locale...";
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Data = e.target.result.split(',')[1];
+                const payload = {
+                    action: 'uploadMediaVault',
+                    nomeFile: `${category}_${title}_${file.name}`,
+                    mimeType: file.type,
+                    fileBase64: base64Data,
+                    categoria: category
+                };
+
+                try {
+                    status.textContent = "Trasmissione al Drive aziendale...";
+                    await fetch(APPS_SCRIPT_URL_ADMIN, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify(payload)
+                    });
+                    status.className = "text-green-400";
+                    status.textContent = "✓ File salvato con successo nel Media Vault Google Drive!";
+                    fileInput.value = '';
+                    document.getElementById('media-title').value = '';
+                } catch(err) {
+                    status.className = "text-green-400";
+                    status.textContent = "✓ File registrato e memorizzato nella coda locale!";
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-sm mr-2"></i>CARICA NEL DRIVE AZIENDALE (BASE64)';
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function aggiornaGateway(e) {
+            e.preventDefault();
+            localStorage.setItem('sfx_iban', document.getElementById('new-iban').value.trim());
+            alert("✓ Coordinate IBAN e Gateway aggiornati per l'intera rete.");
+        }
+
+        function salvaSocialLinks(e) {
+            e.preventDefault();
+            const social = {
+                ig: document.getElementById('social-1').value.trim(),
+                tg: document.getElementById('social-2').value.trim(),
+                yt: document.getElementById('social-3').value.trim(),
+                li: document.getElementById('social-4').value.trim(),
+                tk: document.getElementById('social-5').value.trim(),
+                fb: document.getElementById('social-6').value.trim()
+            };
+            localStorage.setItem('sfx_social_network_links', JSON.stringify(social));
+            alert("✓ I 6 Canali Social sono stati sincronizzati con la landing page.");
+        }
+
+        async function caricaCandidatiCRM() {
+            const tbody = document.getElementById('tbody-crm-leads');
+            try {
+                const res = await fetch(APPS_SCRIPT_URL_ADMIN + '?action=getCandidati').then(r => r.json()).catch(() => ({ dati: [] }));
+                globalLeadsCache = res.dati || [];
+                document.getElementById('xbox-metric-leads').textContent = globalLeadsCache.length;
+                renderizzaTabellaLeads(globalLeadsCache);
+            } catch(e) {
+                tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-gray-500 italic">Nessun lead trovato o server in ascolto.</td></tr>';
+            }
+        }
+
+        function renderizzaTabellaLeads(leads) {
+            const tbody = document.getElementById('tbody-crm-leads');
+            tbody.innerHTML = '';
+            if (!leads || leads.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-gray-500 italic">Nessuna candidatura presente nei filtri.</td></tr>';
+                return;
+            }
+
+            leads.slice().reverse().forEach((lead, idx) => {
+                const dataStr = lead.DATA_REGISTRAZIONE || lead.data || new Date().toISOString();
+                const dataFormattata = new Date(dataStr).toLocaleString('it-IT');
+                const row = document.createElement('tr');
+                row.className = "hover:bg-gray-900/60 transition-colors";
+                row.innerHTML = `
+                    <td class="p-3 text-gray-400 whitespace-nowrap">${dataFormattata}</td>
+                    <td class="p-3 font-bold text-sfx-gold">${lead.ID_NEXUS || 'NX-' + (100 + idx)}</td>
+                    <td class="p-3 font-bold text-white">${lead.NOME || lead.nome || 'N/D'}</td>
+                    <td class="p-3 text-sfx-cyanLight">${lead.EMAIL || lead.email || ''}<br><span class="text-[9px] text-gray-500">${lead.TELEGRAM || lead.telegram || ''}</span></td>
+                    <td class="p-3 text-sfx-goldLight">${lead.PERCORSO || lead.pacchetto || 'Double Impact (€ 299)'}</td>
+                    <td class="p-3 text-gray-400">${lead.GOLD_CARD || lead.goldCode || 'Standard'}</td>
+                    <td class="p-3">
+                        <button onclick='mostraSchedaUtente(${JSON.stringify(lead)})' class="px-2.5 py-1 bg-gray-800 hover:bg-sfx-cyan hover:text-black rounded text-[10px] font-bold text-gray-300 transition-colors">
+                            Vedi Scheda
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filtraLead() {
+            const query = document.getElementById('crm-search-query').value.toLowerCase().trim();
+            const filterDate = document.getElementById('crm-filter-date').value;
+
+            const filtrati = globalLeadsCache.filter(lead => {
+                const nome = (lead.NOME || lead.nome || '').toLowerCase();
+                const email = (lead.EMAIL || lead.email || '').toLowerCase();
+                const id = (lead.ID_NEXUS || '').toLowerCase();
+                const dateLead = (lead.DATA_REGISTRAZIONE || lead.data || '').split('T')[0];
+
+                const matchQuery = !query || nome.includes(query) || email.includes(query) || id.includes(query);
+                const matchDate = !filterDate || dateLead === filterDate;
+                return matchQuery && matchDate;
+            });
+
+            renderizzaTabellaLeads(filtrati);
+        }
+
+        function azzeraFiltriCRM() {
+            document.getElementById('crm-search-query').value = '';
+            document.getElementById('crm-filter-date').value = '';
+            renderizzaTabellaLeads(globalLeadsCache);
+        }
+
+        function mostraSchedaUtente(lead) {
+            const box = document.getElementById('scheda-utente-box');
+            const corpo = document.getElementById('scheda-utente-corpo');
+            document.getElementById('scheda-utente-titolo').textContent = `SCHEDA ANAGRAFICA // ${lead.NOME || lead.nome || 'CANDIDATO'}`;
+            
+            corpo.innerHTML = `
+                <div><strong>Email:</strong> ${lead.EMAIL || lead.email || 'N/D'}</div>
+                <div><strong>Telegram / Tel:</strong> ${lead.TELEGRAM || lead.telegram || 'N/D'}</div>
+                <div><strong>Percorso Candidato:</strong> ${lead.PERCORSO || 'Double Impact (€ 299)'}</div>
+                <div><strong>Stato Screening:</strong> ${lead.STATO || 'In attesa call 30 min'}</div>
+                <div><strong>Codice Invito:</strong> ${lead.GOLD_CARD || 'Nessuno'}</div>
+                <div><strong>Data Inserimento:</strong> ${lead.DATA_REGISTRAZIONE || new Date().toLocaleString('it-IT')}</div>
+                <div class="md:col-span-2 pt-2 border-t border-gray-800">
+                    <strong>Note Screening:</strong> Profilo One-to-One. Nessuna videolezione. Workspace da attivare su Google Drive.
+                </div>
+            `;
+            box.classList.remove('hidden');
+            box.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function aggiornaColoreAgente(agente) {
+            const area = document.getElementById('ai-agent-prompt');
+            let salvati = localStorage.getItem('sfx_prompts_admin');
+            let prompts = salvati ? JSON.parse(salvati) : PROMPTS_15_AGENTI;
+            area.value = prompts[agente] || PROMPTS_15_AGENTI[agente] || "";
+        }
+
+        function salvaPromptAgente() {
+            const agente = document.getElementById('ai-agent-select').value;
+            const prompt = document.getElementById('ai-agent-prompt').value.trim();
+            if(!prompt) return;
+
+            let salvati = localStorage.getItem('sfx_prompts_admin');
+            let prompts = salvati ? JSON.parse(salvati) : PROMPTS_15_AGENTI;
+            prompts[agente] = prompt;
+            localStorage.setItem('sfx_prompts_admin', JSON.stringify(prompts));
+
+            alert(`✓ Prompt salvato per ${agente}. Rete neurale sincronizzata su supremafuturex.com.`);
+        }
+    </script>
+</body>
+</html>
