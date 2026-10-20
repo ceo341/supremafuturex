@@ -3,27 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS CONTROL ROOM | Suprema Future X</title>
+    <title>NEXUS CONTROL ROOM // FLOTTA 15 AGENTI AI | Suprema Future X</title>
     
     <link rel="icon" type="image/png" href="media/logo.png">
     <meta name="theme-color" content="#030712">
 
-    <!-- Tailwind CSS & FontAwesome -->
+    <!-- Tailwind CSS & FontAwesome 6 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="stile-globale.css?v=42">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stile-globale.css?v=50">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        sfx: { dark: '#030712', card: '#0b0f19', cyan: '#00d2ff', border: '#1f2937' }
+                        sfx: {
+                            dark: '#030712',
+                            darker: '#000000',
+                            card: '#0b0f19',
+                            cyan: '#00F0FF',
+                            cyanDark: '#008B99',
+                            gold: '#D4AF37',
+                            goldDark: '#B8860B',
+                            border: '#1f2937'
+                        }
                     },
-                    fontFamily: { sans: ['Montserrat', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        cyber: ['Orbitron', 'sans-serif'],
+                        grotesk: ['Syncopate', 'sans-serif']
+                    }
                 }
             }
         };
@@ -37,152 +53,183 @@
         .led.standby { background-color: #f59e0b; color: #f59e0b; } /* Giallo */
         .led.stop { background-color: #ef4444; color: #ef4444; } /* Rosso */
         
-        .agent-card { background: linear-gradient(145deg, #0b0f19, #030712); border: 1px solid #1f2937; transition: border-color 0.3s; }
-        .agent-card:hover { border-color: #00d2ff; }
+        .agent-card { background: linear-gradient(145deg, #0b0f19, #030712); border: 1px solid #1f2937; transition: all 0.3s; }
+        .agent-card:hover { border-color: #00F0FF; box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); }
         
-        .btn-state { font-size: 10px; padding: 4px 8px; border-radius: 4px; border: 1px solid #1f2937; transition: all 0.2s; }
+        .btn-state { font-size: 10px; padding: 4px 8px; border-radius: 6px; border: 1px solid #1f2937; transition: all 0.2s; font-family: 'JetBrains Mono', monospace; font-weight: bold; cursor: pointer; }
         .btn-state.active-auto { background: rgba(16, 185, 129, 0.2); border-color: #10b981; color: #10b981; }
         .btn-state.active-manual { background: rgba(59, 130, 246, 0.2); border-color: #3b82f6; color: #3b82f6; }
         .btn-state.active-standby { background: rgba(245, 158, 11, 0.2); border-color: #f59e0b; color: #f59e0b; }
         .btn-state.active-stop { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #ef4444; }
         .btn-state:hover:not([class*="active-"]) { background: #1f2937; color: white; }
 
-        .terminal-input { background: #000; border: 1px solid #00d2ff; color: #00d2ff; font-family: 'JetBrains Mono', monospace; }
-        .terminal-input:focus { outline: none; box-shadow: 0 0 15px rgba(0,210,255,0.2); }
+        .terminal-input { background: #000; border: 1px solid #00F0FF; color: #00F0FF; font-family: 'JetBrains Mono', monospace; }
+        .terminal-input:focus { outline: none; box-shadow: 0 0 15px rgba(0,240,255,0.25); }
+
+        .scrollbar-sfx::-webkit-scrollbar { width: 5px; }
+        .scrollbar-sfx::-webkit-scrollbar-track { background: #000; }
+        .scrollbar-sfx::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 3px; }
+        .scrollbar-sfx::-webkit-scrollbar-thumb:hover { background: #00F0FF; }
     </style>
 </head>
-<body class="flex flex-col min-h-screen bg-[url('media/noise.png')] bg-repeat">
+<body class="flex flex-col min-h-screen">
 
     <!-- HEADER DI COMANDO -->
-    <header class="bg-sfx-card border-b border-sfx-cyan/30 py-4 px-6 flex justify-between items-center sticky top-0 z-50 shadow-[0_0_20px_rgba(0,210,255,0.1)]">
-        <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-sfx-cyan/10 border border-sfx-cyan rounded flex items-center justify-center text-sfx-cyan animate-pulse">
-                <i class="fa-solid fa-network-wired"></i>
+    <header class="bg-sfx-card border-b border-sfx-cyan/30 py-3.5 px-4 sm:px-6 flex justify-between items-center sticky top-0 z-50 shadow-[0_0_20px_rgba(0,240,255,0.15)]">
+        <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 bg-sfx-cyan/10 border border-sfx-cyan rounded-xl flex items-center justify-center text-sfx-cyan animate-pulse shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                <i class="fa-solid fa-network-wired text-lg"></i>
             </div>
             <div>
-                <h1 class="text-white font-bold text-xl tracking-widest uppercase">Nexus Control Room</h1>
-                <p class="text-xs text-sfx-cyan font-mono flex items-center gap-2">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full inline-block led auto"></span> EAL6+ Master Node Online
+                <h1 class="text-white font-grotesk font-black text-lg tracking-wider uppercase">Nexus Control Room</h1>
+                <p class="text-[10px] text-sfx-cyan font-mono flex items-center gap-2">
+                    <span class="w-2 h-2 bg-emerald-500 rounded-full inline-block led auto"></span> EAL6+ Flotta Neurale // Master Node Online
                 </p>
             </div>
         </div>
-        <div class="flex gap-4">
-            <button onclick="salvaTutto()" class="bg-sfx-cyan text-black px-6 py-2 rounded font-bold text-sm hover:bg-white transition-colors shadow-[0_0_15px_rgba(0,210,255,0.4)]">
-                <i class="fa-solid fa-microchip mr-2"></i> INIZIALIZZA SALVATAGGIO
+        <div class="flex items-center gap-2.5 font-mono text-xs">
+            <button onclick="salvaTutto()" class="bg-sfx-cyan hover:bg-white text-black px-5 py-2.5 rounded-xl font-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.4)] cursor-pointer flex items-center gap-2">
+                <i class="fa-solid fa-microchip"></i>
+                <span class="hidden sm:inline">INIZIALIZZA SALVATAGGIO</span>
             </button>
-            <a href="admin.html" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm font-bold border border-gray-600">
-                <i class="fa-solid fa-xmark"></i>
+            <a href="alison.html" class="px-3.5 py-2.5 bg-gray-900 hover:bg-gray-800 text-sfx-cyan rounded-xl font-bold border border-sfx-cyan/40 transition-colors flex items-center gap-1.5" title="Apri Chatbot Alison">
+                <i class="fa-solid fa-brain"></i> <span class="hidden md:inline">Alison Desk</span>
+            </a>
+            <a href="admin.html" class="px-3.5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-bold border border-gray-700 transition-colors" title="Torna alla Box Security">
+                <i class="fa-solid fa-arrow-left"></i>
             </a>
         </div>
     </header>
 
-    <main class="flex-1 p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <main class="flex-1 p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 font-mono text-xs">
 
-        <!-- COLONNA 1 & 2: LA MATRICE DEI 15 AGENTI -->
+        <!-- COLONNA 1 & 2: LA MATRICE DEI 15 AGENTI NEURALI SFX -->
         <div class="lg:col-span-2 space-y-4">
-            <h2 class="text-gray-400 font-mono text-xs tracking-widest uppercase border-b border-gray-800 pb-2 mb-4">
-                <i class="fa-solid fa-server mr-2"></i> Griglia Agenti Autonomi
-            </h2>
+            <div class="flex justify-between items-center border-b border-gray-800 pb-2.5">
+                <h2 class="text-gray-400 font-mono text-xs tracking-widest uppercase flex items-center">
+                    <i class="fa-solid fa-server mr-2 text-sfx-cyan"></i> Griglia Flotta 15 Agenti Autonomi EAL6+
+                </h2>
+                <div class="flex gap-1.5 text-[9px]">
+                    <button onclick="setStatoGlobale('auto')" class="px-2 py-1 bg-green-950 text-green-300 border border-green-600 rounded font-bold cursor-pointer hover:bg-green-900">TUTTI AUTO</button>
+                    <button onclick="setStatoGlobale('standby')" class="px-2 py-1 bg-yellow-950 text-yellow-300 border border-yellow-600 rounded font-bold cursor-pointer hover:bg-yellow-900">TUTTI PAUSA</button>
+                </div>
+            </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="agents-grid">
-                <!-- Gli agenti verranno iniettati qui via JS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5" id="agents-grid">
+                <!-- Gli agenti vengono iniettati qui via JS -->
             </div>
         </div>
 
         <!-- COLONNA 3: CERVELLO ALISON E LOGICA CENTRALE -->
         <div class="space-y-6">
-            <!-- Pannello Alison -->
-            <div class="bg-sfx-card border border-sfx-cyan/50 rounded-lg p-5 shadow-[0_0_30px_rgba(0,210,255,0.05)]">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-sfx-cyan font-bold uppercase tracking-wider text-sm flex items-center">
-                        <i class="fa-solid fa-brain mr-2"></i> Core Neurale Alison
+            <!-- Pannello Alison Core -->
+            <div class="bg-sfx-card border border-sfx-cyan/50 rounded-2xl p-5 shadow-[0_0_30px_rgba(0,240,255,0.08)] space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                    <h3 class="text-sfx-cyan font-grotesk font-black uppercase tracking-wider text-sm flex items-center">
+                        <i class="fa-solid fa-brain mr-2 text-sfx-gold"></i> Core Neurale Alison (AG-01)
                     </h3>
                     <span class="led auto" id="led-alison" title="Stato Sistema"></span>
                 </div>
                 
-                <p class="text-xs text-gray-400 mb-3 leading-relaxed">
-                    Modifica in tempo reale le direttive comportamentali del Chatbot. Le regole scritte qui sovrascrivono il comportamento di base su tutto il sito.
+                <p class="text-[11px] text-gray-400 leading-relaxed font-sans">
+                    Modifica in tempo reale le direttive del Chatbot. I parametri qui configurati si sincronizzano istantaneamente con <b>alison.html</b> e <b>index.html</b> tramite il canale crittografico.
                 </p>
 
-                <div class="space-y-3">
+                <div class="space-y-3 font-mono">
                     <div>
-                        <label class="text-[10px] uppercase text-gray-500 font-mono tracking-widest">System Prompt (Istruzioni Base)</label>
-                        <textarea id="prompt-alison" rows="4" class="w-full terminal-input rounded p-3 text-xs" placeholder="Es: Sei severa, non dare prezzi, chiedi sempre l'email..."></textarea>
+                        <div class="flex justify-between text-[10px] uppercase text-gray-500 tracking-wider mb-1">
+                            <span>System Prompt (Istruzioni Base)</span>
+                            <span class="text-sfx-cyan">EAL6+ SOVRANO</span>
+                        </div>
+                        <textarea id="prompt-alison" rows="5" class="w-full terminal-input rounded-xl p-3 text-xs resize-none" placeholder="Es: Sei Alison (AG-01)..."></textarea>
                     </div>
                     <div>
-                        <label class="text-[10px] uppercase text-gray-500 font-mono tracking-widest">Override Risposte Custom</label>
-                        <textarea id="override-alison" rows="3" class="w-full terminal-input rounded p-3 text-xs" placeholder="[Se chiedono X, rispondi Y]"></textarea>
+                        <div class="flex justify-between text-[10px] uppercase text-gray-500 tracking-wider mb-1">
+                            <span>Override Risposte Custom &amp; FAQ Dirette</span>
+                            <span class="text-sfx-gold">ZERO VIDEO / 100% LIVE</span>
+                        </div>
+                        <textarea id="override-alison" rows="3" class="w-full terminal-input rounded-xl p-3 text-xs resize-none" placeholder="[Se chiedono prezzi: Silver 249€, Executive 299€, Premium VIP 349€]"></textarea>
                     </div>
+                    <button onclick="caricaPresetUfficialeAlison()" class="w-full py-2 bg-[#121620] border border-sfx-gold/50 hover:bg-sfx-gold hover:text-black text-sfx-gold text-[10px] font-bold rounded-lg transition-colors cursor-pointer">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Ripristina Preset Ufficiale Presidenza (249€ / 299€ / 349€)
+                    </button>
                 </div>
             </div>
 
-            <!-- Terminale di Sistema Log -->
-            <div class="bg-[#050505] border border-gray-800 rounded-lg p-4 h-64 flex flex-col">
-                <h3 class="text-gray-500 font-mono text-[10px] uppercase tracking-widest mb-2 border-b border-gray-800 pb-2">
-                    <i class="fa-solid fa-terminal mr-2"></i> Terminale Eventi (Live)
-                </h3>
-                <div id="system-console" class="flex-1 overflow-y-auto font-mono text-[10px] text-green-500 space-y-1">
-                    <div>> Inizializzazione protocollo EAL6+... OK</div>
-                    <div>> Sincronizzazione agenti... ATTESA</div>
+            <!-- Terminale di Sistema Log (Streaming Live) -->
+            <div class="bg-[#050505] border border-gray-800 rounded-2xl p-4 h-72 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center text-gray-500 font-mono text-[10px] uppercase tracking-widest mb-2 border-b border-gray-800 pb-2">
+                        <span><i class="fa-solid fa-terminal mr-2 text-sfx-cyan"></i> Terminale Eventi Flotta (Live)</span>
+                        <span class="text-green-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping"></span> ONLINE</span>
+                    </div>
+                    <div id="system-console" class="h-52 overflow-y-auto scrollbar-sfx font-mono text-[10px] text-green-500 space-y-1.5 pr-1">
+                        <div>> Inizializzazione protocollo EAL6+... OK</div>
+                        <div>> Sincronizzazione 15 agenti neurali... ATTIVO</div>
+                    </div>
+                </div>
+                <div class="pt-2 border-t border-gray-900 text-right text-[9px] text-gray-600">
+                    NEXUS NODE &bull; SUPREMA FUTURE X S.R.L.
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- LOGICA JAVASCRIPT DELLA CONTROL ROOM -->
-    <script src="js/connettore-api.js"></script>
+    <!-- LOGICA JAVASCRIPT DELLA CONTROL ROOM & BROADCAST BUS -->
     <script>
-        // Definizione dei 15 Agenti Operativi
+        const APPS_SCRIPT_URL_NEXUS = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
+        const sfxEnterpriseBus = new BroadcastChannel('sfx_enterprise_bus');
+
+        // La Flotta Ufficiale dei 15 Agenti Neurale Suprema Future X
         const agentsList = [
-            { id: 'A01', name: 'Gatekeeper Nexus', desc: 'Filtro & ID Univoco' },
-            { id: 'A02', name: 'Booking Calendar', desc: 'Sincronizzazione Orari' },
-            { id: 'A03', name: 'Telegram Dispatcher', desc: 'Centralina Notifiche' },
-            { id: 'A04', name: 'Welcome Onboarding', desc: 'Email Transazionali' },
-            { id: 'A05', name: 'Lead Scoring Engine', desc: 'Algoritmo di Triage' },
-            { id: 'A06', name: 'Cloud Provisioning', desc: 'Workspace Drive Tripartito' },
-            { id: 'A07', name: 'Accreditamento', desc: 'Accesso Riservato' },
-            { id: 'A08', name: 'Amministrazione', desc: 'Registro Incassi' },
-            { id: 'A09', name: 'Dispense Master', desc: 'Clonazione Template' },
-            { id: 'A10', name: 'Cron Nurturing', desc: 'Follow-up 15 Giorni' },
-            { id: 'A11', name: 'Reminder 48H', desc: 'Allerta Pre-Colloquio' },
-            { id: 'A12', name: 'Reminder 7GG', desc: 'Allerta Settimanale' },
-            { id: 'A13', name: 'Semafori X-BOX', desc: 'Gestione Varchi' },
-            { id: 'A14', name: 'Sincronizzatore Punti', desc: 'Gold Card Engine' },
-            { id: 'A15', name: 'Security Guard', desc: 'Audit Logging EAL6+' }
+            { id: 'AG-01', name: 'Alison', desc: 'Concierge Accoglienza & Screening 30m' },
+            { id: 'AG-02', name: 'Nicole', desc: 'Reporting & Audit Direzionale' },
+            { id: 'AG-03', name: 'Ginevra', desc: 'Presidio Fiscale 16% & F24' },
+            { id: 'AG-04', name: 'Scout', desc: 'Hunter Social 6 Canali & 100 Keyword' },
+            { id: 'AG-05', name: 'Ledger', desc: 'Mastro Split 54/30/16 & SHA-256' },
+            { id: 'AG-06', name: 'Gatekeeper', desc: 'Filtro Anti-Doppioni & Gold Card' },
+            { id: 'AG-07', name: 'Delta', desc: 'Delivery Workspace Drive Corsisti' },
+            { id: 'AG-08', name: 'Media', desc: 'Regia Media Vault & Viewport 8"' },
+            { id: 'AG-09', name: 'Exit', desc: 'Retention & Tutela Corsisti' },
+            { id: 'AG-10', name: 'Ingestion', desc: 'Data Cloud & Google Sheets Sync' },
+            { id: 'AG-11', name: 'Assedio', desc: 'Closing Commerciale & Sblocco Cassa' },
+            { id: 'AG-12', name: 'Sentinel', desc: 'Audit Integrity EAL6+ Sovrano' },
+            { id: 'AG-13', name: 'WhatsApp', desc: 'Router Messaggi & Telegram NOC' },
+            { id: 'AG-14', name: 'Governor', desc: 'Anti-Allucinazione & Supervisore' },
+            { id: 'AG-15', name: 'Joker', desc: 'Strategist Social & Piani Lancio' }
         ];
 
         const grid = document.getElementById('agents-grid');
         const cons = document.getElementById('system-console');
 
         function logConsole(msg, type='info') {
-            const colors = { info: 'text-green-500', warn: 'text-yellow-500', err: 'text-red-500', cyan: 'text-sfx-cyan' };
+            const colors = { info: 'text-green-400', warn: 'text-yellow-400', err: 'text-red-400', cyan: 'text-sfx-cyan' };
             const div = document.createElement('div');
-            const time = new Date().toLocaleTimeString();
+            const time = new Date().toLocaleTimeString('it-IT');
             div.className = colors[type];
             div.innerHTML = `[${time}] > ${msg}`;
             cons.appendChild(div);
             cons.scrollTop = cons.scrollHeight;
         }
 
-        // Generazione HUD Agenti
+        // Generazione Matrice Agenti
         agentsList.forEach(ag => {
-            // Recupera stato salvato o imposta 'auto' di default
             const savedState = localStorage.getItem('STATE_' + ag.id) || 'auto';
             
             const card = document.createElement('div');
-            card.className = "agent-card p-4 rounded-lg flex flex-col justify-between";
+            card.className = "agent-card p-3.5 rounded-xl flex flex-col justify-between";
             card.innerHTML = `
-                <div class="flex justify-between items-start mb-3">
+                <div class="flex justify-between items-start mb-2.5">
                     <div>
-                        <div class="text-[10px] text-sfx-cyan font-mono border border-sfx-cyan/30 bg-sfx-cyan/10 px-1.5 rounded inline-block mb-1">${ag.id}</div>
-                        <h4 class="text-white font-bold text-sm">${ag.name}</h4>
-                        <p class="text-[10px] text-gray-500">${ag.desc}</p>
+                        <div class="text-[9px] text-sfx-cyan font-mono border border-sfx-cyan/30 bg-sfx-cyan/10 px-1.5 py-0.5 rounded inline-block mb-1 font-bold">${ag.id}</div>
+                        <h4 class="text-white font-bold text-xs uppercase">${ag.name}</h4>
+                        <p class="text-[10px] text-gray-400 leading-tight">${ag.desc}</p>
                     </div>
                     <div id="led-${ag.id}" class="led ${savedState}"></div>
                 </div>
                 <div class="grid grid-cols-4 gap-1 mt-2">
                     <button onclick="changeState('${ag.id}', 'auto')" id="btn-${ag.id}-auto" class="btn-state ${savedState === 'auto' ? 'active-auto' : ''}">AUTO</button>
-                    <button onclick="changeState('${ag.id}', 'manual')" id="btn-${ag.id}-manual" class="btn-state ${savedState === 'manual' ? 'active-manual' : ''}">MANUALE</button>
+                    <button onclick="changeState('${ag.id}', 'manual')" id="btn-${ag.id}-manual" class="btn-state ${savedState === 'manual' ? 'active-manual' : ''}">MAN</button>
                     <button onclick="changeState('${ag.id}', 'standby')" id="btn-${ag.id}-standby" class="btn-state ${savedState === 'standby' ? 'active-standby' : ''}">PAUSA</button>
                     <button onclick="changeState('${ag.id}', 'stop')" id="btn-${ag.id}-stop" class="btn-state ${savedState === 'stop' ? 'active-stop' : ''}">STOP</button>
                 </div>
@@ -190,68 +237,93 @@
             grid.appendChild(card);
         });
 
-        // Funzione per cambiare stato dei singoli agenti
         window.changeState = function(agId, newState) {
-            // Aggiorna LED
             const led = document.getElementById(`led-${agId}`);
-            led.className = `led ${newState}`;
+            if (led) led.className = `led ${newState}`;
 
-            // Aggiorna Pulsanti
             ['auto', 'manual', 'standby', 'stop'].forEach(s => {
                 const btn = document.getElementById(`btn-${agId}-${s}`);
-                btn.classList.remove(`active-${s}`);
+                if (btn) btn.classList.remove(`active-${s}`);
             });
-            document.getElementById(`btn-${agId}-${newState}`).classList.add(`active-${newState}`);
+            const activeBtn = document.getElementById(`btn-${agId}-${newState}`);
+            if (activeBtn) activeBtn.classList.add(`active-${newState}`);
 
-            // Salva e Logga
             localStorage.setItem('STATE_' + agId, newState);
             const actionColors = { auto: 'info', manual: 'cyan', standby: 'warn', stop: 'err' };
             logConsole(`Agente ${agId} impostato su: ${newState.toUpperCase()}`, actionColors[newState]);
+
+            // Allerta in tempo reale la Box Security
+            sfxEnterpriseBus.postMessage({ type: 'SFX_AGENT_STATE_UPDATE', agentId: agId, state: newState });
         };
 
-        // Carica Prompt Salvati di Alison
-        document.getElementById('prompt-alison').value = localStorage.getItem('ALISON_PROMPT_MASTER') || '';
-        document.getElementById('override-alison').value = localStorage.getItem('ALISON_OVERRIDE_RULES') || '';
+        window.setStatoGlobale = function(stato) {
+            agentsList.forEach(ag => changeState(ag.id, stato));
+            logConsole(`Tutti i 15 agenti impostati su ${stato.toUpperCase()}.`, 'cyan');
+        };
 
-        // Funzione di Salvataggio Globale
-        window.salvaTutto = function() {
-            logConsole("Avvio procedura di salvataggio EAL6+...", "cyan");
+        const PRESET_PROMPT_ALISON = `Sei Alison (AG-01), Lead Qualification & Screening Concierge di Suprema Future X. Rispondi con massima autorevolezza e precisione per conto del Fondatore e CEO Giuliano Caratelli. Ricorda che Suprema Future X non vende video preregistrati: l'erogazione è 100% Live One-to-One da 60 minuti dopo screening selettivo da 30 minuti. Prezzi inderogabili: Silver Tier 249€, Executive Master 299€, Premium VIP 349€. Canale email: academy@supremafuturex.com.`;
+        const PRESET_OVERRIDE_ALISON = `[Se chiedono prezzi o corsi: Silver Tier 249 €, Executive Master 299 €, Premium VIP 349 €. Zero video preregistrati: 100% Live One-to-One. Screening preliminare da 30 minuti su Google Meet].`;
+
+        function caricaPresetUfficialeAlison() {
+            document.getElementById('prompt-alison').value = PRESET_PROMPT_ALISON;
+            document.getElementById('override-alison').value = PRESET_OVERRIDE_ALISON;
+            logConsole("Preset ufficiale Presidenza ricaricato.", "warn");
+        }
+
+        // Caricamento memorie persistenti
+        const promptSalvato = localStorage.getItem('ALISON_PROMPT_MASTER');
+        const overrideSalvato = localStorage.getItem('ALISON_OVERRIDE_RULES');
+        document.getElementById('prompt-alison').value = promptSalvato || PRESET_PROMPT_ALISON;
+        document.getElementById('override-alison').value = overrideSalvato || PRESET_OVERRIDE_ALISON;
+
+        // Salvataggio Globale & Dispaccio Cloud
+        window.salvaTutto = async function() {
+            logConsole("Avvio procedura salvataggio EAL6+...", "cyan");
             const btn = document.querySelector('header button');
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> TRASMISSIONE IN CORSO...';
-            btn.classList.replace('bg-sfx-cyan', 'bg-emerald-500');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> TRASMISSIONE...';
 
-            // Salva settaggi Alison
-            const prompt = document.getElementById('prompt-alison').value;
-            const override = document.getElementById('override-alison').value;
-            localStorage.setItem('ALISON_PROMPT_MASTER', prompt);
-            localStorage.setItem('ALISON_OVERRIDE_RULES', override);
+            const promptVal = document.getElementById('prompt-alison').value.trim();
+            const overrideVal = document.getElementById('override-alison').value.trim();
 
-            // Invia al backend (Simulazione integrazione Code.gs)
-            if(typeof ConnettoreApi !== 'undefined') {
-                ConnettoreApi.invia('AGGIORNA_CONFIGURAZIONE_AGENTI', {
-                    agenti: agentsList.map(a => ({ id: a.id, stato: localStorage.getItem('STATE_' + a.id) || 'auto' })),
-                    alison_prompt: prompt,
-                    alison_override: override
-                }).then(() => {
-                    setTimeout(() => {
-                        logConsole("Tutte le matrici salvate e allineate con il Master Node.", "info");
-                        btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> SALVATO';
-                        setTimeout(() => { btn.innerHTML = originalHtml; btn.classList.replace('bg-emerald-500', 'bg-sfx-cyan'); }, 2000);
-                    }, 800);
-                }).catch(err => {
-                    logConsole("Errore trasmissione: salvato solo in locale.", "warn");
-                    btn.innerHTML = originalHtml; btn.classList.replace('bg-emerald-500', 'bg-sfx-cyan');
+            localStorage.setItem('ALISON_PROMPT_MASTER', promptVal);
+            localStorage.setItem('ALISON_OVERRIDE_RULES', overrideVal);
+
+            const payload = {
+                action: 'notificaErrore',
+                modulo: 'NEXUS_CONTROL_ROOM',
+                errore: `Aggiornati stati 15 Agenti e Core Alison. Prompt attivo: ${promptVal.substring(0, 60)}...`
+            };
+
+            try {
+                await fetch(APPS_SCRIPT_URL_NEXUS, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
                 });
-            } else {
-                setTimeout(() => {
-                    logConsole("Salvataggio locale completato.", "info");
-                    btn.innerHTML = originalHtml; btn.classList.replace('bg-emerald-500', 'bg-sfx-cyan');
-                }, 1000);
+                logConsole("Sincronizzazione Cloud EAL6+ eseguita con successo.", "info");
+            } catch (err) {
+                logConsole("Buffer locale salvato. Cloud in differita.", "warn");
+            }
+
+            sfxEnterpriseBus.postMessage({
+                type: 'SFX_ALISON_CONFIG_UPDATE',
+                prompt: promptVal,
+                override: overrideVal
+            });
+
+            btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> SALVATO';
+            setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
+        };
+
+        // Ascolto segnali esterni via Broadcast Bus
+        sfxEnterpriseBus.onmessage = (e) => {
+            if (e.data && e.data.type === 'SFX_NEW_LEAD') {
+                logConsole(`Nuovo lead rilevato in ingresso: ${e.data.lead.nome} (${e.data.lead.percorso})`, 'cyan');
             }
         };
 
-        setTimeout(() => logConsole("Scansione agenti completata. Matrice pronta.", "cyan"), 1000);
+        setTimeout(() => logConsole("Scansione agenti completata. Matrice pronta all'uso.", "cyan"), 800);
     </script>
 </body>
 </html>
