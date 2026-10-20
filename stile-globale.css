@@ -1,237 +1,621 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X S.R.L. // STILE GLOBALE CIBERNETICO V42 (FUSIONE)
+ * SUPREMA FUTURE X S.R.L. // STILE GLOBALE CIBERNETICO V50 (MASTER)
  * GOVERNANCE: CEO GIULIANO CARATELLI
  * PROTOCOLLO: EAL6+ SOVRANO // ZERO BIANCO PURO / LUXURY PHYGITAL
  * ====================================================================
  */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=JetBrains+Mono:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700;900&family=Syncopate:wght@400;700&display=swap');
 
-/* --- 1. VARIABILI DI SISTEMA (COLORI E DESIGN TOKENS) --- */
+/* ====================================================================
+   1. VARIABILI DI SISTEMA, PALETTE & DESIGN TOKENS
+   ==================================================================== */
 :root {
-  /* Landing Page (Pubblica) - ZERO BIANCO PURO */
-  --pearl-bg: #FDFBF7;          /* Crema perlato di base */
-  --pearl-card: #F4EFEA;        /* Sfondo card chiare per stacco visivo */
-  
-  /* X-BOX Aziendale e Suprema */
-  --xbox-bg: #2A2D34;           /* Grigio Scuro Opaco Brillante */
-  --xbox-card: #1F2227;         /* Sfondo card interne X-BOX */
-  
-  /* Sicurezza & Allarmi (NESSUN ROSSO) */
-  --alert-plum: #4A0E4E;        /* Prugna: Blocco, Kill-Switch */
-  --alert-amber: #FFBF00;       /* Ambra: Attenzione, Drift Alert */
-  --alert-green: #2ECC71;       /* Verde: Verificato CEO */
-  
-  /* Colori Identificativi 15 Agenti AI */
-  --ag-01-alison: #00F0FF;      
-  --ag-02-nicole: #B76E79;      
-  --ag-03-ginevra: #C0C0C0;     
-  --ag-04-scout: #50C878;       
-  --ag-05-ledger: #D4AF37;      
-  --ag-06-gatekeeper: #4A0E4E;  
-  --ag-07-delta: #E2DFD2;       
-  --ag-08-media: #0047AB;       
-  --ag-09-exit: #FFBF00;        
-  --ag-10-ingestion: #4B0082;   
-  --ag-11-assedio: #878681;     
-  --ag-12-sentinel: #008080;    
-  --ag-13-whatsapp: #0BDA51;    
-  --ag-14-governor: #E5E4E2;    
-  --ag-15-joker: #7DF9FF;       
+  /* Palette Pubblica Pearl (Zero Bianco Puro) */
+  --pearl-bg: #F5EFEB;
+  --pearl-card: #FAF7F2;
+  --pearl-border: #D1C7B8;
+  --pearl-dark: #EAE2D8;
+
+  /* Palette Dark & X-BOX Security */
+  --sfx-bg: #050A0F;
+  --sfx-dark: #090A0D;
+  --sfx-card: #12141C;
+  --sfx-panel: #1F2227;
+  --xbox-bg: #2A2D34;
+  --xbox-card: #121620;
+
+  /* Colori Identitari di Brand */
+  --sfx-gold: #B8860B;
+  --sfx-gold-light: #D4AF37;
+  --sfx-gold-bright: #FFE58F;
+  --sfx-cyan: #008B99;
+  --sfx-cyan-light: #00F0FF;
+  --sfx-silver: #C0C0C0;
+  --sfx-silver-light: #E5E7EB;
+
+  /* Sicurezza & Allarmi (Nessun Rosso Standard -> Prugna & Ambra) */
+  --alert-plum: #4A0E4E;
+  --alert-amber: #FFBF00;
+  --alert-green: #00FF66;
+
+  /* Frequenze Spettro 15 Agenti Neurale AI */
+  --ag-01-alison: #00F0FF;
+  --ag-02-nicole: #B76E79;
+  --ag-03-ginevra: #C0C0C0;
+  --ag-04-scout: #50C878;
+  --ag-05-ledger: #D4AF37;
+  --ag-06-gatekeeper: #4A0E4E;
+  --ag-07-delta: #E2DFD2;
+  --ag-08-media: #0047AB;
+  --ag-09-exit: #FFBF00;
+  --ag-10-ingestion: #4B0082;
+  --ag-11-assedio: #878681;
+  --ag-12-sentinel: #008080;
+  --ag-13-whatsapp: #0BDA51;
+  --ag-14-governor: #E5E4E2;
+  --ag-15-joker: #7DF9FF;
 }
 
-/* --- RESET & GESTIONE SCROLL FLUIDO ANTI-BLOCCO --- */
+/* ====================================================================
+   2. RESET GLOBALE, SCROLL & ANTI-LOCKOUT
+   ==================================================================== */
 html, body {
   overflow-x: hidden;
   overflow-y: auto;
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background-color: var(--pearl-bg);
-  color: #12141C;
+  background-color: var(--sfx-bg);
+  color: #E0E0E0;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body.xbox-mode {
-  background-color: var(--xbox-bg);
-  color: var(--pearl-card);
+  background-color: var(--sfx-bg);
+  color: #FFFFFF;
 }
 
-/* Modali aperte: classe di utilità */
 body.modal-open {
   overflow: hidden !important;
 }
 
-/* --- 2. GRIGLIE DI SFONDO E UTILITY CLASSES --- */
-/* Griglia Chiara Pearl per Landing Page */
+/* ====================================================================
+   3. MATRIX BACKGROUND & SFONDI COSMICI ORBITALI
+   ==================================================================== */
+@keyframes matrixScroll {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 1000px, 0 0; }
+}
+
+@keyframes slowMatrixScroll {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 0, 0 1000px, 0 0; }
+}
+
 .cyber-pearl-grid {
-    background-color: var(--pearl-bg);
-    background-image: 
-        linear-gradient(to right, rgba(0, 139, 153, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(184, 134, 11, 0.05) 1px, transparent 1px);
-    background-size: 36px 36px;
+  background-color: var(--pearl-bg);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.06) 0px, transparent 50%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
 }
 
-/* Griglia Scura per Terminali Admin, Login, CRM e Vault */
 .cyber-grid-dark {
-    background-color: #090A0D;
-    background-image: 
-        linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(184, 134, 11, 0.06) 1px, transparent 1px);
-    background-size: 40px 40px;
+  background-color: #090A0D;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(184, 134, 11, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-/* Bagliore Neurale per Avatar Alison */
-.alison-avatar-glow {
-    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), 0 0 12px rgba(184, 134, 11, 0.5);
+/* Pianeti Orbitali & Auree Fluttuanti */
+.planet-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(50px);
+  opacity: 0.45;
+  animation: planetFloat 20s ease-in-out infinite alternate;
 }
 
-/* Bordo con Traccia Cromatico */
-.glow-trace-card {
-    border-radius: 1.8rem;
-    padding: 2px;
-    background: linear-gradient(135deg, rgba(0, 139, 153, 0.6), rgba(184, 134, 11, 0.6), rgba(192, 192, 192, 0.6));
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+.planet-gold {
+  width: 380px;
+  height: 380px;
+  top: -60px;
+  right: -60px;
+  background: radial-gradient(circle, #D4AF37 0%, #B8860B 40%, rgba(184, 134, 11, 0) 70%);
+  box-shadow: 0 0 120px rgba(212, 175, 55, 0.4);
+  animation-duration: 25s;
 }
 
-/* Bordo Tracciante per Terminale Login */
-.glow-trace-login {
-    border-radius: 2.2rem;
-    padding: 3px;
-    background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
-    background-size: 300% 300%;
-    animation: gradientTrace 6s ease infinite;
+.planet-cyan {
+  width: 420px;
+  height: 420px;
+  bottom: 5%;
+  left: -100px;
+  background: radial-gradient(circle, #00F0FF 0%, #008B99 45%, rgba(0, 139, 153, 0) 75%);
+  box-shadow: 0 0 140px rgba(0, 240, 255, 0.35);
+  animation-duration: 30s;
 }
 
-/* Card Pearl Standard */
+.planet-plum {
+  width: 340px;
+  height: 340px;
+  top: 40%;
+  right: 10%;
+  background: radial-gradient(circle, #a855f7 0%, #4A0E4E 50%, rgba(74, 14, 78, 0) 75%);
+  box-shadow: 0 0 100px rgba(168, 85, 247, 0.3);
+  animation-duration: 22s;
+}
+
+.planet-emerald {
+  width: 260px;
+  height: 260px;
+  top: 15%;
+  left: 20%;
+  background: radial-gradient(circle, #00FF66 0%, #065f46 55%, transparent 75%);
+  box-shadow: 0 0 80px rgba(0, 255, 102, 0.25);
+  animation-duration: 28s;
+}
+
+@keyframes planetFloat {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  50% { transform: translateY(-35px) rotate(180deg) scale(1.08); }
+  100% { transform: translateY(20px) rotate(360deg) scale(0.95); }
+}
+
+.orbital-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(212, 175, 55, 0.2);
+  pointer-events: none;
+  animation: ringSpin 60s linear infinite;
+}
+
+@keyframes ringSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ====================================================================
+   4. SCHEDE, PANNELLI NEON & BORDI DINAMICI
+   ==================================================================== */
 .card-pearl {
-    background-color: var(--pearl-card);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 1.5rem;
+  background-color: var(--pearl-card);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-pearl:hover {
+  border-color: var(--sfx-gold-light);
+  box-shadow: 0 10px 30px rgba(184, 134, 11, 0.12);
 }
 
-/* --- 3. ANIMAZIONI --- */
+.matrix-dark-card {
+  background: radial-gradient(circle at top right, rgba(184, 134, 11, 0.12), rgba(9, 10, 13, 0.98));
+  border: 1px solid rgba(184, 134, 11, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+}
+.matrix-dark-card:hover {
+  border-color: rgba(212, 175, 55, 0.85);
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+}
+
+.satellite-badge {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.25), rgba(0, 240, 255, 0.12));
+  border: 1px solid rgba(184, 134, 11, 0.6);
+}
+
+/* Pannelli Neon ad Alto Contrasto X-BOX */
+.neon-panel {
+  background: rgba(14, 16, 23, 0.95);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neon-panel:hover {
+  border-color: rgba(0, 240, 255, 0.65);
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.18);
+}
+
+.neon-panel-security {
+  background: linear-gradient(135deg, rgba(18, 22, 34, 0.94) 0%, rgba(7, 18, 28, 0.96) 100%);
+  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(0, 240, 255, 0.45);
+  box-shadow: 0 10px 35px rgba(0, 240, 255, 0.12), inset 0 0 20px rgba(0, 240, 255, 0.05);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+}
+.neon-panel-security:hover {
+  border-color: #00F0FF;
+  box-shadow: 0 15px 45px rgba(0, 240, 255, 0.25), inset 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+.neon-panel-gold {
+  background: linear-gradient(135deg, rgba(28, 24, 16, 0.94) 0%, rgba(74, 14, 78, 0.22) 50%, rgba(18, 20, 28, 0.96) 100%);
+  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  box-shadow: 0 10px 35px rgba(212, 175, 55, 0.15), inset 0 0 25px rgba(212, 175, 55, 0.06);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+}
+.neon-panel-gold:hover {
+  border-color: #FFE58F;
+  box-shadow: 0 15px 50px rgba(212, 175, 55, 0.3), inset 0 0 35px rgba(212, 175, 55, 0.12);
+}
+
+.neon-panel-fisco {
+  background: linear-gradient(135deg, rgba(18, 24, 28, 0.94) 0%, rgba(30, 41, 59, 0.82) 100%);
+  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(192, 192, 192, 0.45);
+  box-shadow: 0 10px 30px rgba(192, 192, 192, 0.1);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+}
+.neon-panel-fisco:hover {
+  border-color: #FFFFFF;
+  box-shadow: 0 15px 40px rgba(192, 192, 192, 0.22);
+}
+
+/* Bordi Dinamici in Movimento (Light Run Border) */
+@keyframes lightRunBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.border-neon-gold-cyan {
+  position: relative;
+  background: #090A0D;
+  border-radius: 1.5rem;
+}
+.border-neon-gold-cyan::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #D4AF37, #00F0FF, #4A0E4E, #D4AF37);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: lightRunBorder 4s ease infinite;
+  pointer-events: none;
+}
+
+.border-neon-silver-gold {
+  position: relative;
+  background: #090A0D;
+  border-radius: 1.5rem;
+}
+.border-neon-silver-gold::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #E5E7EB, #D4AF37, #00F0FF, #E5E7EB);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: lightRunBorder 3.5s ease infinite;
+  pointer-events: none;
+}
+
+/* Glow Card Traces */
+.glow-trace-card {
+  border-radius: 1.8rem;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(0, 139, 153, 0.6), rgba(184, 134, 11, 0.6), rgba(192, 192, 192, 0.6));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.glow-trace-login {
+  border-radius: 2.2rem;
+  padding: 3px;
+  background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
+  background-size: 300% 300%;
+  animation: gradientTrace 6s ease infinite;
+}
+
 @keyframes gradientTrace {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ====================================================================
+   5. TASTIERINO VIRTUALE, PIN DOTS & LASER BEAM
+   ==================================================================== */
+.keypad-btn {
+  background: linear-gradient(145deg, #12141C, #090A0D);
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  color: #D4AF37;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  border-radius: 1rem;
+  padding: 1.1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  user-select: none;
+}
+.keypad-btn:hover {
+  background: linear-gradient(145deg, #D4AF37, #B8860B);
+  color: #030712;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+  transform: scale(1.05);
+}
+.keypad-btn:active {
+  transform: scale(0.96);
+}
+
+.pin-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+  display: inline-block;
+  margin: 0 5px;
+  transition: all 0.25s ease;
+}
+.pin-dot.filled {
+  background: #00F0FF;
+  border-color: #00F0FF;
+  box-shadow: 0 0 15px #00F0FF, 0 0 30px #00F0FF;
+  transform: scale(1.2);
+}
+
+/* Laser Lines */
+.laser-line {
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #D4AF37, #00F0FF, transparent);
+  background-size: 200% 100%;
+  animation: laserSlide 4s linear infinite;
+}
+
+.laser-beam-header {
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #00F0FF, #D4AF37, #a855f7, transparent);
+  background-size: 200% 100%;
+  animation: laserSlide 4s ease-in-out infinite;
+}
+
+@keyframes laserSlide {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ====================================================================
+   6. TIPOGRAFIA 3D, EFFETTI SHIMMER & ONDE VOCALI
+   ==================================================================== */
+.text-shimmer {
+  background: linear-gradient(90deg, #FFFFFF, #D4AF37, #00F0FF, #FFBF00, #a855f7, #FFFFFF);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowShine 8s linear infinite;
+}
+@keyframes rainbowShine {
+  to { background-position: 300% center; }
 }
 
 @keyframes shineText3D {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 .title-3d-shimmer {
-    background: linear-gradient(90deg, #008B99 0%, #D4AF37 25%, #B8860B 50%, #D4AF37 75%, #00F0FF 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shineText3D 4s linear infinite;
-    text-shadow: 0px 4px 12px rgba(0, 139, 153, 0.4);
-    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
-}
-
-@keyframes ringRotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  background: linear-gradient(90deg, #008B99 0%, #D4AF37 25%, #B8860B 50%, #D4AF37 75%, #00F0FF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText3D 4s linear infinite;
+  text-shadow: 0px 4px 12px rgba(0, 139, 153, 0.4);
+  filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
 }
 
 .glow-logo-ring {
-    position: relative;
-    border-radius: 9999px;
-    padding: 5px;
-    background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
-    background-size: 300% 300%;
-    animation: gradientTrace 5s ease infinite;
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), 0 0 15px rgba(184, 134, 11, 0.5);
+  position: relative;
+  border-radius: 9999px;
+  padding: 5px;
+  background: linear-gradient(135deg, #008B99, #B8860B, #C0C0C0, #00F0FF, #D4AF37);
+  background-size: 300% 300%;
+  animation: gradientTrace 5s ease infinite;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), 0 0 15px rgba(184, 134, 11, 0.5);
 }
 
-@keyframes flashingBorder {
-    0% { border-color: #008B99; box-shadow: 0 0 25px rgba(0, 139, 153, 0.6); }
-    33% { border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.7); }
-    66% { border-color: #C0C0C0; box-shadow: 0 0 25px rgba(192, 192, 192, 0.6); }
-    100% { border-color: #008B99; box-shadow: 0 0 25px rgba(0, 139, 153, 0.6); }
+/* Onde Vocali per Sintesi Alison */
+.voice-wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+.voice-bar {
+  width: 2px;
+  height: 100%;
+  background-color: #00F0FF;
+  border-radius: 2px;
+  animation: wave 1s ease-in-out infinite;
+}
+.voice-bar:nth-child(1) { animation-delay: 0.1s; height: 30%; }
+.voice-bar:nth-child(2) { animation-delay: 0.2s; height: 75%; }
+.voice-bar:nth-child(3) { animation-delay: 0.3s; height: 100%; }
+.voice-bar:nth-child(4) { animation-delay: 0.4s; height: 60%; }
+.voice-bar:nth-child(5) { animation-delay: 0.5s; height: 35%; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
 }
 
-.flashing-terminal-box {
-    animation: flashingBorder 3s infinite alternate ease-in-out;
+/* ====================================================================
+   7. BLINDATURA DOCUMENTI STATUTARI (ANTI-COPY & FILIGRANA)
+   ==================================================================== */
+.protected-doc-container {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  position: relative;
+  background: #090A0D;
+  border: 2px solid var(--sfx-gold);
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.protected-doc-container::after {
+  content: "PROPRIETÀ RISERVATA SUPREMA FUTURE X — COPIA E DIFFUSIONE VIETATA — PROTOCOLLO EAL6+";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 900;
+  color: rgba(212, 175, 55, 0.04);
+  transform: rotate(-25deg);
+  pointer-events: none;
+  z-index: 20;
+  text-align: center;
+  line-height: 2.5;
+  padding: 2rem;
+}
+
+@media print {
+  body {
+    display: none !important;
+  }
+}
+
+/* ====================================================================
+   8. MENU DROPDOWN, DRAWER OVERLAY & SAFE MODE
+   ==================================================================== */
+.nav-dropdown-container { 
+  position: relative; 
+  display: inline-block; 
+}
+
+.nav-dropdown-menu {
+  position: absolute; 
+  top: 100%; 
+  right: 0;
+  opacity: 0; 
+  visibility: hidden; 
+  background-color: var(--sfx-dark); 
+  border: 1px solid rgba(212, 175, 55, 0.5); 
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  border-radius: 16px; 
+  padding: 0.5rem; 
+  min-width: 250px; 
+  z-index: 100;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-dropdown-container:hover .nav-dropdown-menu,
+.nav-dropdown-menu.force-open {
+  opacity: 1; 
+  visibility: visible;
+}
+
+.nav-dropdown-item {
+  display: block; 
+  padding: 10px 14px; 
+  color: #D4AF37; 
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; 
+  font-weight: 700; 
+  text-transform: uppercase; 
+  border-radius: 10px;
+  transition: all 0.2s; 
+  cursor: pointer; 
+  text-decoration: none;
+}
+.nav-dropdown-item:hover { 
+  background-color: var(--sfx-gold); 
+  color: #090A0D; 
 }
 
 .drawer-overlay {
-    background-color: rgba(9, 10, 13, 0.85);
-    backdrop-filter: blur(10px);
+  background-color: rgba(9, 10, 13, 0.88);
+  backdrop-filter: blur(12px);
 }
 
-/* --- 4. CUSTOM SCROLLBAR --- */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #090A0D; }
-::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #008B99; }
-body.xbox-mode ::-webkit-scrollbar-thumb { background: #00F0FF; }
-
-/* Scrollbar personalizzata box chat */
-#box-chat-centrale::-webkit-scrollbar { width: 6px; }
-#box-chat-centrale::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
-#box-chat-centrale::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 3px; }
-
-/* --- 5. COMPONENTI EAL6+ (Menu e Neon X-BOX) --- */
-.nav-dropdown-container { position: relative; display: inline-block; }
-.nav-dropdown-menu {
-  position: absolute; top: 100%; right: 0;
-  opacity: 0; visibility: hidden; background-color: var(--xbox-card); 
-  border: 1px solid #B8860B; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  border-radius: 12px; padding: 0.5rem; min-width: 240px; z-index: 100;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* Safe Mode Toggle & Lock */
+.toggle-checkbox:checked { 
+  right: 0; 
+  border-color: #00F0FF; 
 }
-.nav-dropdown-container:hover .nav-dropdown-menu,
-.nav-dropdown-menu.force-open {
-  opacity: 1; visibility: visible;
-}
-.nav-dropdown-item {
-  display: block; padding: 10px 16px; color: #D4AF37; font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 8px;
-  transition: all 0.2s; cursor: pointer; text-decoration: none;
-}
-.nav-dropdown-item:hover { background-color: #B8860B; color: #090A0D; }
-
-.neon-border-box {
-  position: relative; background: var(--xbox-bg); border-radius: 16px; z-index: 1; overflow: hidden;
-}
-.neon-border-box::before {
-  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: conic-gradient(transparent, transparent, transparent, #D4AF37, #00F0FF);
-  animation: rotateNeon 4s linear infinite; z-index: -2;
-}
-.neon-border-box::after {
-  content: ''; position: absolute; inset: 2px; background: var(--xbox-card); border-radius: 14px; z-index: -1;
-}
-@keyframes rotateNeon { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-/* --- 6. ANIMAZIONI DI EMERGENZA (ALLARME PRUGNA E SCREEN NOT FOUND) --- */
-.alert-plum-pulse { animation: plumPulse 0.8s infinite alternate; }
-@keyframes plumPulse {
-  0% { box-shadow: 0 0 10px var(--alert-plum); border-color: var(--alert-plum); }
-  100% { box-shadow: 0 0 40px var(--alert-plum), 0 0 20px var(--alert-plum); border-color: #D4AF37; }
-}
-.screen-not-found {
-  position: fixed; inset: 0; background-color: var(--alert-plum); z-index: 9999;
-  display: flex; align-items: center; justify-content: center; color: #F4EFEA;
-  font-family: 'Orbitron', sans-serif; font-size: 15vw; font-weight: 900;
-  text-shadow: 0 0 20px black; animation: glitch 0.2s infinite;
-}
-@keyframes glitch {
-  0%, 100% { transform: translate(0) }
-  20% { transform: translate(-5px, 5px) }
-  40% { transform: translate(-5px, -5px) }
-  60% { transform: translate(5px, 5px) }
-  80% { transform: translate(5px, -5px) }
+.toggle-checkbox:checked + .toggle-label { 
+  background-color: #00F0FF; 
 }
 
-/* --- 7. CLASSI COLORI 15 AGENTI AI --- */
+.safe-mode-active input, 
+.safe-mode-active textarea, 
+.safe-mode-active select { 
+  pointer-events: none; 
+  opacity: 0.6; 
+}
+
+/* ====================================================================
+   9. SPIE TELEMETRICHE LED & COLORI CLASSI 15 AGENTI AI
+   ==================================================================== */
+.led-indicator { 
+  width: 11px; 
+  height: 11px; 
+  border-radius: 50%; 
+  display: inline-block; 
+}
+.led-green { 
+  background: #00FF66; 
+  box-shadow: 0 0 12px #00FF66, 0 0 22px #00FF66; 
+}
+.led-amber { 
+  background: #FFBF00; 
+  box-shadow: 0 0 12px #FFBF00, 0 0 22px #FFBF00; 
+}
+.led-red { 
+  background: #FF3344; 
+  box-shadow: 0 0 12px #FF3344, 0 0 22px #FF3344; 
+}
+.led-blue { 
+  background: #00F0FF; 
+  box-shadow: 0 0 12px #00F0FF, 0 0 22px #00F0FF; 
+}
+
+/* Spie HUD Nexus */
+.led { 
+  width: 12px; 
+  height: 12px; 
+  border-radius: 50%; 
+  box-shadow: 0 0 10px currentColor; 
+  transition: all 0.3s ease; 
+}
+.led.auto { background-color: #10b981; color: #10b981; }
+.led.manual { background-color: #3b82f6; color: #3b82f6; }
+.led.standby { background-color: #f59e0b; color: #f59e0b; }
+.led.stop { background-color: #ef4444; color: #ef4444; }
+
+/* Classi Selettori Colore 15 Agenti AI */
 .ag-01 { color: var(--ag-01-alison); border-color: var(--ag-01-alison); }
 .ag-02 { color: var(--ag-02-nicole); border-color: var(--ag-02-nicole); }
 .ag-03 { color: var(--ag-03-ginevra); border-color: var(--ag-03-ginevra); }
@@ -248,11 +632,81 @@ body.xbox-mode ::-webkit-scrollbar-thumb { background: #00F0FF; }
 .ag-14 { color: var(--ag-14-governor); border-color: var(--ag-14-governor); }
 .ag-15 { color: var(--ag-15-joker); border-color: var(--ag-15-joker); text-shadow: 0 0 8px var(--ag-15-joker); }
 
-/* Spie di Stato Agenti */
-.led-off { background-color: #333; box-shadow: none; }
-.led-active { background-color: var(--alert-green); box-shadow: 0 0 10px var(--alert-green); animation: pulseLed 1.5s infinite; }
-.led-warning { background-color: var(--alert-amber); box-shadow: 0 0 10px var(--alert-amber); }
-.led-drift { background-color: var(--alert-plum); box-shadow: 0 0 15px var(--alert-plum); animation: strobeLed 0.2s infinite; }
+/* ====================================================================
+   10. SCROLLBARS PERSONALIZZATE SFX
+   ==================================================================== */
+::-webkit-scrollbar { 
+  width: 7px; 
+  height: 7px; 
+}
+::-webkit-scrollbar-track { 
+  background: #090A0D; 
+}
+::-webkit-scrollbar-thumb { 
+  background: #B8860B; 
+  border-radius: 4px; 
+}
+::-webkit-scrollbar-thumb:hover { 
+  background: #00F0FF; 
+}
 
-@keyframes pulseLed { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
-@keyframes strobeLed { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.scrollbar-sfx::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; 
+  height: 6px; 
+}
+.scrollbar-sfx::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track { 
+  background: rgba(9, 10, 13, 0.8); 
+}
+.scrollbar-sfx::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb { 
+  background: linear-gradient(#00F0FF, #D4AF37); 
+  border-radius: 3px; 
+}
+
+#box-chat-centrale::-webkit-scrollbar { 
+  width: 6px; 
+}
+#box-chat-centrale::-webkit-scrollbar-track { 
+  background: rgba(0, 0, 0, 0.05); 
+}
+#box-chat-centrale::-webkit-scrollbar-thumb { 
+  background: #B8860B; 
+  border-radius: 3px; 
+}
+
+/* ====================================================================
+   11. EMERGENZA, LOCKDOWN & ALLARME PRUGNA (ZERO ROSSO STANDARD)
+   ==================================================================== */
+.alert-plum-pulse { 
+  animation: plumPulse 0.8s infinite alternate; 
+}
+@keyframes plumPulse {
+  0% { box-shadow: 0 0 10px var(--alert-plum); border-color: var(--alert-plum); }
+  100% { box-shadow: 0 0 40px var(--alert-plum), 0 0 20px var(--alert-plum); border-color: #D4AF37; }
+}
+
+.screen-not-found {
+  position: fixed; 
+  inset: 0; 
+  background-color: var(--alert-plum); 
+  z-index: 9999;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  color: #F4EFEA;
+  font-family: 'Orbitron', sans-serif; 
+  font-size: 15vw; 
+  font-weight: 900;
+  text-shadow: 0 0 20px black; 
+  animation: glitch 0.2s infinite;
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-5px, 5px); }
+  40% { transform: translate(-5px, -5px); }
+  60% { transform: translate(5px, 5px); }
+  80% { transform: translate(5px, -5px); }
+}
