@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css?v=42">
+    <link rel="stylesheet" href="stile-globale.css?v=50">
 
     <script>
         // CONTROLLO DI SICUREZZA EAL6+ VAULT SOVRANO
@@ -177,7 +177,7 @@
                     </div>
                 </div>
 
-                <button onclick="alert('Download avviato: Scheda Tecnica Pomelli Opal Luxury (.PDF EAL6+)');" class="w-full py-4 rounded-xl bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
+                <button onclick="scaricaSchedaOpalPDF();" class="w-full py-4 rounded-xl bg-sfx-gold hover:bg-yellow-500 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
                     <i class="fa-solid fa-file-pdf text-sm"></i>
                     <span>Scarica Scheda Tecnica Riservata (.PDF)</span>
                 </button>
@@ -213,7 +213,7 @@
                     </div>
                 </div>
 
-                <button onclick="alert('Download avviato: Scheda Tecnica Linea Antigravity (.PDF EAL6+)');" class="w-full py-4 rounded-xl bg-sfx-cyan hover:bg-cyan-400 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
+                <button onclick="scaricaSchedaAntigravityPDF();" class="w-full py-4 rounded-xl bg-sfx-cyan hover:bg-cyan-400 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
                     <i class="fa-solid fa-file-pdf text-sm"></i>
                     <span>Scarica Blueprint Brevetto (.PDF)</span>
                 </button>
@@ -238,13 +238,13 @@
                 <button onclick="mostraReport('ACADEMY')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-sfx-gold text-left space-y-2 transition-colors cursor-pointer">
                     <i class="fa-solid fa-graduation-cap text-sfx-gold text-xl"></i>
                     <span class="block font-bold text-white text-xs">1. Report Corsi Academy</span>
-                    <span class="text-[10px] text-gray-500 block">Iscritti Silver, Executive, VIP</span>
+                    <span class="text-[10px] text-gray-500 block">Iscritti Silver (249€), Executive (299€), VIP (349€)</span>
                 </button>
 
                 <button onclick="mostraReport('FINANZE')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-sfx-cyan text-left space-y-2 transition-colors cursor-pointer">
                     <i class="fa-solid fa-coins text-sfx-cyan text-xl"></i>
                     <span class="block font-bold text-white text-xs">2. Report Mastro &amp; Split</span>
-                    <span class="text-[10px] text-gray-500 block">Statutario 54/30/16 e Sub-Split</span>
+                    <span class="text-[10px] text-gray-500 block">Statutario 54/30/16 e Riserva Dividendi CEO</span>
                 </button>
 
                 <button onclick="mostraReport('ALISON')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-purple-400 text-left space-y-2 transition-colors cursor-pointer">
@@ -262,9 +262,9 @@
                 </div>
 
                 <div id="rep-body" class="text-gray-300 leading-relaxed space-y-2 text-xs font-mono">
-                    <p>&bull; <strong>Silver Tier (Base):</strong> 142 Iscritti attivi &mdash; Quota saturazione 88%</p>
-                    <p>&bull; <strong>Executive Master (Assedio Drive):</strong> 89 Iscritti accreditati &mdash; Provisioning Viewer attivo</p>
-                    <p>&bull; <strong>Premium VIP (Mentoring CEO):</strong> 24 Iscritti a numero chiuso &mdash; Sessioni One-to-One confermate</p>
+                    <p>&bull; <strong>Silver Tier (249 €):</strong> 142 Iscritti attivi &mdash; Quota saturazione 88%</p>
+                    <p>&bull; <strong>Executive Master (299 €):</strong> 89 Iscritti accreditati &mdash; Provisioning Workspace AG-11 attivo</p>
+                    <p>&bull; <strong>Premium VIP (349 €):</strong> 24 Iscritti a numero chiuso &mdash; Sessioni 1-to-1 CEO Giuliano confermate</p>
                 </div>
 
                 <div class="pt-4 border-t border-gray-800 flex flex-wrap items-center justify-between gap-4">
@@ -274,10 +274,10 @@
                     </div>
 
                     <div class="flex space-x-3">
-                        <button onclick="alert('Generazione certificato PDF EAL6+ completata dal nodo centrale.');" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl transition-colors border border-gray-700 cursor-pointer">
+                        <button onclick="esportaReportPDF();" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl transition-colors border border-gray-700 cursor-pointer">
                             <i class="fa-solid fa-file-export mr-1.5"></i> ESPORTA PDF
                         </button>
-                        <a href="index.html#alison-ai" class="px-4 py-2.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-extrabold rounded-xl transition-colors flex items-center space-x-2 shadow-md">
+                        <a href="alison.html" class="px-4 py-2.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-extrabold rounded-xl transition-colors flex items-center space-x-2 shadow-md">
                             <i class="fa-solid fa-comment-dots"></i>
                             <span>RIAPRI ALISON IN 1-CLICK</span>
                         </a>
@@ -309,28 +309,86 @@
             if (tipo === 'ACADEMY') {
                 titolo.textContent = "REPORT ACADEMY CORSI // Q4-2026";
                 body.innerHTML = `
-                    <p>&bull; <strong>Silver Tier (Base):</strong> 142 Iscritti attivi &mdash; Quota saturazione 88%</p>
-                    <p>&bull; <strong>Executive Master (Assedio Drive):</strong> 89 Iscritti accreditati &mdash; Provisioning Viewer attivo</p>
-                    <p>&bull; <strong>Premium VIP (Mentoring CEO):</strong> 24 Iscritti a numero chiuso &mdash; Sessioni One-to-One confermate</p>
-                    <p class="text-sfx-goldLight mt-2">&bull; <strong>Status Globale:</strong> Tasso di completamento moduli 96.4% con monitoraggio AG-12 Sentinel.</p>
+                    <p>&bull; <strong>Silver Tier (249 €):</strong> 142 Iscritti attivi &mdash; Quota saturazione 88%</p>
+                    <p>&bull; <strong>Executive Master (299 €):</strong> 89 Iscritti accreditati &mdash; Provisioning Workspace AG-11 attivo</p>
+                    <p>&bull; <strong>Premium VIP (349 €):</strong> 24 Iscritti a numero chiuso &mdash; Sessioni One-to-One CEO Giuliano confermate</p>
+                    <p class="text-sfx-goldLight mt-2">&bull; <strong>Status Globale:</strong> Tasso di completamento moduli 96.4% con monitoraggio AG-12 Sentinel e Gold Card Hub.</p>
                 `;
             } else if (tipo === 'FINANZE') {
                 titolo.textContent = "REPORT CASSA & SPLIT STATUTARIO 54/30/16";
                 body.innerHTML = `
                     <p>&bull; <strong>Operatività Aziendale (54%):</strong> Allocati su infrastruttura Google Workspace, server e flotta AI</p>
-                    <p>&bull; <strong>Dividendi CEO &amp; Soci (30%):</strong> Ripartiti al 52% SFX, 30% CEO Giuliano, 10% Mariachiara, 4% Rossella, 2% Alba, 1% Massimo, 1% Federico</p>
+                    <p>&bull; <strong>Dividendi CEO &amp; Soci (30%):</strong> Riserva Utili Presidenziale con tetto salariale CEO (max 5.000€ su 14 mensilità)</p>
                     <p>&bull; <strong>Accantonamento Fiscale Inviolabile (16%):</strong> Presidiato da AG-03 Ginevra per scadenze F24 e conformità tributaria</p>
-                    <p class="text-green-400 mt-2">&bull; <strong>Proof Hash Transazioni:</strong> Notarizzazione SHA-256 su foglio Mastro_Finanziario convalidata.</p>
+                    <p class="text-green-400 mt-2">&bull; <strong>Proof Hash Transazioni:</strong> Notarizzazione SHA-256 su foglio Mastro_Finanziario convalidata al 100%.</p>
                 `;
             } else {
-                titolo.textContent = "REPORT ANALYTICS ALISON V42 & CONVERSIONI";
+                titolo.textContent = "REPORT ANALYTICS ALISON V50 & CONVERSIONI";
                 body.innerHTML = `
-                    <p>&bull; <strong>Sessioni Neurali Gestite H24:</strong> 1.842 contatti profilati con traduttore multilingua</p>
-                    <p>&bull; <strong>Applicazione Regola 5° Messaggio:</strong> 412 instradamenti diretti verso Conferenza CEO Riservata</p>
+                    <p>&bull; <strong>Sessioni Neurali Gestite H24:</strong> 1.842 contatti profilati con voce fluida naturale e 50 FAQ</p>
+                    <p>&bull; <strong>Instradamento Screening 30m:</strong> 412 conversioni dirette verso Call con il CEO Giuliano Caratelli</p>
                     <p>&bull; <strong>Routing Contatti WhatsApp:</strong> 94.2% convertiti con successo verso il canale +39 347 442 9091</p>
-                    <p class="text-sfx-cyanLight mt-2">&bull; <strong>Task Force Scout + Joker:</strong> 1.000 keyword attive sui 6 canali social integrati.</p>
+                    <p class="text-sfx-cyanLight mt-2">&bull; <strong>Task Force Scout + Joker:</strong> 100 keyword strategiche attive sui 6 canali social integrati.</p>
                 `;
             }
+        }
+
+        function scaricaSchedaOpalPDF() {
+            const blob = new Blob([
+                "SUPREMA FUTURE X // FAMILY OFFICE DIREZIONALE\n" +
+                "BLUEPRINT BREVETTO: POMELLI OPAL LUXURY (PATENT: OPAL-SFX-2026-PAT)\n" +
+                "Governance: CEO Giuliano Caratelli\n" +
+                "Specifiche: Microfusione Oro 24K Fairmined (1064°C Vac) con Opale Australiano AAA.\n" +
+                "Margine Industriale Stimato: +68.0%\n" +
+                "Firma EAL6+: 0x8821SFX2026SOVRANO39F9AA82E401B2C7"
+            ], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "SFX_Blueprint_Opal_Luxury_EAL6.txt";
+            link.click();
+        }
+
+        function scaricaSchedaAntigravityPDF() {
+            const blob = new Blob([
+                "SUPREMA FUTURE X // POLO SCIENTIFICO & TECNOLOGICO\n" +
+                "BLUEPRINT BREVETTO: LINEA ANTIGRAVITY INNOVATION (PATENT: ANTIG-SFX-2026-X)\n" +
+                "Governance: CEO Giuliano Caratelli\n" +
+                "Specifiche: Levitazione cinetica magnetica attiva 120 kHz Pulse a zero attrito meccanico.\n" +
+                "Margine Industriale Stimato: +74.0%\n" +
+                "Firma EAL6+: 0x8821SFX2026SOVRANO39F9AA82E401B2C7"
+            ], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "SFX_Blueprint_Antigravity_EAL6.txt";
+            link.click();
+        }
+
+        function esportaReportPDF() {
+            const titolo = document.getElementById('rep-titolo').textContent;
+            const testo = document.getElementById('rep-body').innerText;
+            const win = window.open('', '_blank');
+            win.document.write(`
+                <html>
+                <head>
+                    <title>${titolo}</title>
+                    <style>
+                        body { font-family: monospace; padding: 30px; background: #090A0D; color: #E0E0E0; }
+                        h1 { color: #D4AF37; font-size: 18px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+                        p { font-size: 13px; line-height: 1.8; color: #CCCCCC; }
+                        .footer { margin-top: 40px; border-top: 1px solid #333; padding-top: 10px; font-size: 11px; color: #777; }
+                    </style>
+                </head>
+                <body>
+                    <h1>SUPREMA FUTURE X &bull; ${titolo}</h1>
+                    <p>${testo.replace(/\n/g, '<br>')}</p>
+                    <div class="footer">
+                        Governance: CEO Giuliano Caratelli &bull; Notarizzazione EAL6+ Sovrano &bull; supremafuturex.com
+                    </div>
+                </body>
+                </html>
+            `);
+            win.document.close();
+            win.print();
         }
     </script>
 </body>
