@@ -1,106 +1,121 @@
 /**
  * ====================================================================
- * SUPREMA FUTURE X // SERVICE WORKER PWA ENGINE V42
+ * SUPREMA FUTURE X // SERVICE WORKER PWA ENGINE V50 EAL6+
  * GOVERNANCE: CEO GIULIANO CARATELLI
- * PROTOCOLLO: EAL6+ SOVRANO // CACHE STRATEGY & OFFLINE RESILIENCE
+ * PROTOCOLLO: EAL6+ SOVRANO // AGGRESSIVE CACHE BUSTING & FLUSH
  * ====================================================================
  */
 
-const CACHE_NAME = 'sfx-pwa-v42-eal6';
+const CACHE_VERSION = 'v50-eal6-sovrano';
+const CACHE_NAME = `sfx-cache-${CACHE_VERSION}`;
+
+// Asset critici per funzionamento offline/PWA
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
     './login.html',
-    './vault.html',
     './admin.html',
     './crm.html',
     './candidatura.html',
-    './stile-globale.css?v=42',
     './stile-globale.css',
     './manifest.json',
-    './js/code.js',
-    './js/connettore-api.js',
-    './js/chat-alison.js',
-    './js/carta-oro.js',
-    './js/gestore-media.js',
-    './js/sfx-catalog-data.js',
-    './sfx-delta-patch.js',
-    './media/logo.png',
-    './media/boutique-luxury.png'
+    './media/logo.png'
 ];
 
 /**
- * 1. FASE DI INSTALLAZIONE SERVICE WORKER (PRE-CACHING RESILIENTE)
+ * 1. FASE DI INSTALLAZIONE: FORZATURA IMMEDIATA (SKIP WAITING)
  */
 self.addEventListener('install', (event) => {
-    console.log('[SW EAL6+] Inizializzazione installazione Service Worker V42...');
+    console.log(`[SW EAL6+] Installazione Service Worker ${CACHE_VERSION}...`);
+    self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME).then(async (cache) => {
-            console.log('[SW EAL6+] Pre-caching asset della piattaforma in corso...');
+            console.log('[SW EAL6+] Pre-caching asset primari...');
             for (const asset of ASSETS_TO_CACHE) {
                 try {
-                    await cache.add(asset);
+                    await cache.add(new Request(asset, { cache: 'reload' }));
                 } catch (err) {
                     console.warn(`[SW EAL6+] Pre-cache non bloccante su ${asset}:`, err.message);
                 }
             }
-        }).then(() => {
-            return self.skipWaiting();
         })
     );
 });
 
 /**
- * 2. FASE DI ATTIVAZIONE (PULIZIA TOTALE VECCHIE CACHE V36/V41)
+ * 2. FASE DI ATTIVAZIONE: DISTRUZIONE TOTALE CACHE PRECEDENTI (V42 E VECCHIE)
  */
 self.addEventListener('activate', (event) => {
-    console.log('[SW EAL6+] Attivazione Service Worker EAL6+ V42...');
+    console.log(`[SW EAL6+] Attivazione Service Worker ${CACHE_VERSION} - Flush vecchie cache...`);
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
-                cacheNames.map((cache) => {
-                    if (cache !== CACHE_NAME) {
-                        console.log('[SW EAL6+] Rimozione cache obsoleta:', cache);
-                        return caches.delete(cache);
+                cacheNames.map((existingCache) => {
+                    if (existingCache !== CACHE_NAME) {
+                        console.log(`[SW EAL6+] Rimozione cache obsoleta: ${existingCache}`);
+                        return caches.delete(existingCache);
                     }
                 })
             );
         }).then(() => {
+            console.log('[SW EAL6+] Reclamo client immediato (clients.claim)...');
             return self.clients.claim();
         })
     );
 });
 
 /**
- * 3. STRATEGIA FETCH (NETWORK FIRST CON FALLBACK CACHE)
+ * 3. STRATEGIA FETCH: NETWORK FIRST CON PRIORITÀ AGGIORNAMENTO LIVE
  */
 self.addEventListener('fetch', (event) => {
-    // Escludi chiamate API a Google Apps Script e metodi diversi da GET
-    if (event.request.method !== 'GET' || event.request.url.includes('script.google.com')) {
+    const requestUrl = event.request.url;
+
+    // Esclusione chiamate dinamiche: Google Apps Script, API esterne, metodi non-GET
+    if (
+        event.request.method !== 'GET' ||
+        requestUrl.includes('script.google.com') ||
+        requestUrl.includes('api.telegram.org') ||
+        requestUrl.includes('google-analytics.com')
+    ) {
         return;
     }
 
     event.respondWith(
         fetch(event.request)
             .then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200 && (networkResponse.type === 'basic' || networkResponse.type === 'cors')) {
-                    const responseToCache = networkResponse.clone();
+                // Se la risposta è valida, aggiorna in background la cache per le risorse essenziali
+                if (
+                    networkResponse &&
+                    networkResponse.status === 200 &&
+                    (networkResponse.type === 'basic' || networkResponse.type === 'cors')
+                ) {
+                    const responseClone = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, responseToCache);
+                        cache.put(event.request, responseClone);
                     });
                 }
                 return networkResponse;
             })
             .catch(() => {
-                console.log('[SW EAL6+] Rete non disponibile. Recupero risorsa da Cache:', event.request.url);
+                // Fallback offline solo in caso di totale assenza di connettività
                 return caches.match(event.request).then((cachedResponse) => {
                     if (cachedResponse) {
                         return cachedResponse;
                     }
+                    // Fallback per navigazione HTML
                     if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
                         return caches.match('./index.html');
                     }
                 });
             })
     );
+});
+
+/**
+ * 4. GESTORE MESSAGGI INTER-CLIENT (FORCE FLUSH SU COMANDO)
+ */
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.action === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
 });
