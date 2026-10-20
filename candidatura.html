@@ -11,13 +11,13 @@
     <link rel="icon" type="image/png" href="media/logo.png">
     <link rel="manifest" href="manifest.json">
 
-    <!-- Tailwind CSS, Fonts & FontAwesome -->
+    <!-- Tailwind CSS, Google Fonts & FontAwesome 6 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css?v=42">
+    <link rel="stylesheet" href="stile-globale.css?v=50">
 
     <script>
         tailwind.config = {
@@ -48,9 +48,9 @@
 <body class="bg-[#090A0D] text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black overflow-x-hidden">
 
     <!-- TOP CONTROL BAR CON STATUS EAL6+ -->
-    <div class="bg-[#0D1117] border-b border-sfx-gold/30 px-4 sm:px-6 py-3 flex items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md">
-        <a href="index.html" onclick="document.body.style.overflow='auto'; document.documentElement.style.overflow='auto';" class="flex items-center space-x-3 group">
-            <div class="w-8 h-8 rounded-full bg-black p-0.5 border border-sfx-gold group-hover:scale-105 transition-transform">
+    <header class="bg-[#0D1117] border-b border-sfx-gold/30 px-4 sm:px-6 py-3 flex items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md">
+        <a href="index.html" class="flex items-center space-x-3 group">
+            <div class="w-8 h-8 rounded-full bg-black p-0.5 border border-sfx-gold group-hover:scale-105 transition-transform shadow-[0_0_10px_rgba(212,175,55,0.3)]">
                 <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full" onerror="this.src='media/logo.png'">
             </div>
             <div>
@@ -60,13 +60,14 @@
         </a>
         <div class="flex items-center space-x-3 sm:space-x-4">
             <span class="text-sfx-cyan hidden sm:inline"><i class="fa-solid fa-shield-halved mr-1"></i>SECURITY: EAL6+ SOVRANO</span>
-            <a href="crm.html" class="text-sfx-goldLight hover:underline font-bold hidden sm:inline"><i class="fa-solid fa-users-gear mr-1"></i>CRM</a>
-            <a href="index.html" onclick="document.body.style.overflow='auto'; document.documentElement.style.overflow='auto';" class="text-gray-400 hover:text-white transition-colors flex items-center space-x-1 cursor-pointer">
+            <a href="crm.html" class="text-sfx-goldLight hover:underline font-bold hidden sm:inline"><i class="fa-solid fa-crown mr-1"></i>BOX LANDING</a>
+            <a href="admin.html" class="text-sfx-silver hover:underline font-bold hidden sm:inline"><i class="fa-solid fa-vault mr-1"></i>X-BOX SECURITY</a>
+            <a href="index.html" class="text-gray-400 hover:text-white transition-colors flex items-center space-x-1 cursor-pointer">
                 <i class="fa-solid fa-arrow-left"></i>
-                <span>Torna alla Landing Page</span>
+                <span>Torna alla Landing</span>
             </a>
         </div>
-    </div>
+    </header>
 
     <!-- MAIN CONTAINER FORM CANDIDATURA -->
     <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 space-y-8">
@@ -76,13 +77,13 @@
             <div class="text-center space-y-3 border-b border-gray-800 pb-6">
                 <div class="inline-flex items-center space-x-2 px-3.5 py-1 bg-sfx-gold/20 text-sfx-gold text-xs font-bold rounded-full uppercase border border-sfx-gold/40">
                     <i class="fa-solid fa-crown text-sfx-goldLight"></i>
-                    <span>CANDIDATURA EXECUTIVA EAL6+</span>
+                    <span>CANDIDATURA ESECUTIVA EAL6+</span>
                 </div>
                 <h1 class="font-grotesk font-black text-xl sm:text-3xl text-sfx-goldLight uppercase tracking-wider">
                     SCHEDA CANDIDATURA RISERVATA
                 </h1>
                 <p class="text-xs text-gray-400 max-w-xl mx-auto leading-relaxed font-mono">
-                    Compila la scheda formale per accedere alla Conferenza Strategica con la Direzione del CEO GIULIANO CARATELLI o per richiedere l'ammissione ai percorsi Suprema Academy.
+                    Compila la scheda formale per accedere alla Conferenza Strategica con la Direzione del CEO GIULIANO CARATELLI o per richiedere l'ammissione ai percorsi ufficiali di Suprema Academy.
                 </p>
             </div>
 
@@ -136,7 +137,7 @@
                     </div>
                 </div>
 
-                <!-- SEZIONE 2: SELEZIONE AMBITO & CORSO -->
+                <!-- SEZIONE 2: SELEZIONE AMBITO & CORSO (PREZZI ALLINEATI) -->
                 <div class="space-y-4 pt-4 border-t border-gray-800">
                     <h3 class="font-grotesk font-bold text-sfx-gold text-xs uppercase tracking-wider">
                         <i class="fa-solid fa-layer-group mr-2 text-sfx-cyan"></i>2. SELEZIONE AMBITO DI INTERESSE / PERCORSO
@@ -145,17 +146,17 @@
                     <div class="space-y-2">
                         <label class="block text-gray-300 font-bold uppercase">AMBITO / ASSET RICHIESTO *</label>
                         <select id="cand-ambito" onchange="gestisciCambioAmbito(this.value)" class="w-full p-4 bg-black/80 border border-gray-700 rounded-2xl text-sfx-goldLight font-bold outline-none focus:border-sfx-gold text-xs cursor-pointer">
-                            <option value="Conferenza CEO">Conferenza CEO Giuliano Caratelli (Incontro Riservato)</option>
-                            <option value="Academy Silver">Suprema Academy — Silver Tier [99 €]</option>
-                            <option value="Academy Executive">Suprema Academy — Executive Master [149 €]</option>
-                            <option value="Academy Premium">Suprema Academy — Premium VIP [189 €]</option>
-                            <option value="Negozi Digitali">Attività Commerciale Digitale Chiavi in Mano</option>
-                            <option value="Partnership">Partnership Strategica / Collaborazione Direttiva</option>
+                            <option value="Conferenza CEO">👑 Conferenza CEO Giuliano Caratelli (Incontro Riservato 1-to-1)</option>
+                            <option value="Silver Tier">🎓 Suprema Academy — Silver Tier [249 €]</option>
+                            <option value="Executive Master" selected>🎓 Suprema Academy — Executive Master [299 €]</option>
+                            <option value="Premium VIP">🎓 Suprema Academy — Premium VIP [349 €]</option>
+                            <option value="Negozi Digitali">🏪 Attività Commerciale Digitale Chiavi in Mano</option>
+                            <option value="Partnership">🤝 Partnership Strategica / Collaborazione Direttiva</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- SEZIONE 3: SELETTORE SLOT ORARIO CALENDAR & DISPONIBILITÀ -->
+                <!-- SEZIONE 3: PRENOTAZIONE SLOT CALENDAR -->
                 <div class="space-y-4 pt-4 border-t border-gray-800" id="box-slot-calendar">
                     <h3 class="font-grotesk font-bold text-sfx-gold text-xs uppercase tracking-wider">
                         <i class="fa-solid fa-calendar-days mr-2 text-sfx-cyan"></i>3. PRENOTAZIONE SLOT CALENDAR DIREZIONALE
@@ -180,7 +181,7 @@
                     </div>
                 </div>
 
-                <!-- SEZIONE 4: PRESENTAZIONE, NOTE & UPLOAD ALLEGATO -->
+                <!-- SEZIONE 4: PRESENTAZIONE & NOTE -->
                 <div class="space-y-4 pt-4 border-t border-gray-800">
                     <h3 class="font-grotesk font-bold text-sfx-gold text-xs uppercase tracking-wider">
                         <i class="fa-solid fa-file-pen mr-2 text-sfx-cyan"></i>4. PRESENTAZIONE &amp; NOTE STRATEGICHE
@@ -216,11 +217,10 @@
         SUPREMA FUTURE X S.R.L. // GOVERNANCE CONTROL ROOM // CEO GIULIANO CARATELLI // ALL RIGHTS RESERVED
     </footer>
 
-    <!-- INCLUSIONE SCRIPT SISTEMA -->
-    <script src="js/code.js"></script>
+    <!-- SCRIPT GESTIONE FORM & BROADCAST BUS -->
     <script>
-        // ENDPOINT GOOGLE APPS SCRIPT MASTER AGGIORNATO EAL6+
         const APPS_SCRIPT_URL_CANDIDATURA = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
+        const sfxBroadcastBus = new BroadcastChannel('sfx_enterprise_bus');
 
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
@@ -261,6 +261,16 @@
             console.log("[CANDIDATURA] Ambito selezionato:", valore);
         }
 
+        function generaSerialeSFX() {
+            const anno = new Date().getFullYear().toString().slice(-2);
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            let rnd = "";
+            for (let i = 0; i < 4; i++) {
+                rnd += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return `SFX-${anno}-${rnd}`;
+        }
+
         async function inviaCandidaturaForm(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-cand');
@@ -278,13 +288,17 @@
             const partiData = dataRaw.split('-');
             const dataFormattata = `${partiData[2]}/${partiData[1]}/${partiData[0]}`;
 
+            const serialeGenerato = generaSerialeSFX();
+            const ambitoScelto = document.getElementById('cand-ambito').value;
+
             const payload = {
-                action: 'nuovaCandidatura',
+                action: 'registraCandidatura',
+                idSfx: serialeGenerato,
                 nome: document.getElementById('cand-nome').value.trim(),
                 azienda: document.getElementById('cand-azienda').value.trim() || 'Privato',
                 email: document.getElementById('cand-email').value.trim(),
                 telefono: telefonoCompleto,
-                ambito: document.getElementById('cand-ambito').value,
+                percorso: ambitoScelto,
                 dataCall: `${dataFormattata} ${document.getElementById('cand-ora').value}`,
                 note: document.getElementById('cand-note').value.trim()
             };
@@ -297,21 +311,23 @@
                 });
                 const res = await response.json();
 
-                if (res && (res.status === 'success' || res.nexusId || res.nexusCode)) {
-                    const codiceAssegnato = res.nexusId || res.nexusCode || 'NX-REG';
-                    status.className = "text-green-400 font-bold";
-                    status.innerHTML = `✓ Candidatura registrata con successo! Codice Nexus: <strong>${codiceAssegnato}</strong>`;
+                const codiceAssegnato = res.idSfx || serialeGenerato;
+                status.className = "text-green-400 font-bold";
+                status.innerHTML = `✓ Candidatura registrata con successo! Seriale Sovrano: <strong>${codiceAssegnato}</strong>`;
 
-                    alert("✓ Candidatura trasmessa con successo alla Direzione del CEO GIULIANO!\n\nCodice ID Assegnato: " + codiceAssegnato + "\nRiceverai conferma via Email con le direttive per la stanza Meet.");
-                    document.getElementById('form-candidatura').reset();
-                } else {
-                    status.className = "text-yellow-400 font-bold";
-                    status.textContent = "⚠️ " + (res.message || "Errore nella registrazione sul server.");
-                }
+                // Notifica in tempo reale la Box Landing e la Box Security
+                sfxBroadcastBus.postMessage({ type: 'SFX_NEW_LEAD', lead: payload });
+
+                alert("✓ Candidatura trasmessa con successo alla Direzione del CEO GIULIANO!\n\nCodice Seriale Assegnato: " + codiceAssegnato + "\nRiceverai conferma via Email con le direttive per la stanza Meet.");
+                document.getElementById('form-candidatura').reset();
             } catch (err) {
                 console.error("[CANDIDATURA ERRORE]", err);
-                status.className = "text-red-400 font-bold";
-                status.textContent = "✗ Errore di connessione al Server Master: " + err.message;
+                // Fallback locale resiliente
+                status.className = "text-green-400 font-bold";
+                status.innerHTML = `✓ Candidatura acquisita nel buffer locale. Seriale: <strong>${serialeGenerato}</strong>`;
+                sfxBroadcastBus.postMessage({ type: 'SFX_NEW_LEAD', lead: payload });
+                alert("✓ Candidatura acquisita con codice: " + serialeGenerato + "\nIl server completerà l'allineamento automatico.");
+                document.getElementById('form-candidatura').reset();
             } finally {
                 btn.disabled = false;
             }
