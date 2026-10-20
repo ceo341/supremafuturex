@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * SUPREMA FUTURE X — ERP & INFRASTRUCTURE BACKEND ENGINE v16 EAL6+
+ * SUPREMA FUTURE X — ERP & CLOUD BACKEND MASTER ENGINE v16.9 EAL6+
  * Dominio Primario: supremafuturex.com
  * Routing Caselle: ceo@ | academy@ | desk@ | support@
  * Copyright © 2026 Suprema Future X. Tutti i diritti riservati.
@@ -8,62 +8,71 @@
  */
 
 // ============================================================================
-// 1. CONFIGURAZIONE CENTRALE, MATRICE PREZZI & TOKEN TELEGRAM
+// 1. CONFIGURAZIONE CENTRALE, LISTINI, PERCENTUALI & TOKEN
 // ============================================================================
 const CONFIG_SFX = {
-  VERSIONE: "16.3.1 - EAL6+ SOVEREIGN FULL MASTER",
+  VERSIONE: "16.9.0 - EAL6+ SOVEREIGN BACKEND ENGINE",
   DOMINIO: "supremafuturex.com",
   NOME_AZIENDA: "Suprema Future X",
   CEO_NOME: "Giuliano Caratelli",
-  // Canali Email Istituzionali Allineati
+  
+  // Canali Email Istituzionali Ufficiali
   EMAIL_CEO: "ceo@supremafuturex.com",
   EMAIL_ACADEMY: "academy@supremafuturex.com",
   EMAIL_DESK: "desk@supremafuturex.com",
   EMAIL_SUPPORT: "support@supremafuturex.com",
 
-  // Integrazione Bot Telegram Ufficiale & Chat ID Personale Convalidato
-   TELEGRAM_BOT_TOKEN: "TUO_TOKEN",
-TELEGRAM_CHAT_ID: "TUO_ID",
+  // Canale Telegram NOC Esecutivo
+  TELEGRAM_BOT_TOKEN: "8881640493:AAEi7Z8sWqJ1k_9vU7XzY3mN0pQ2R5SZdl",
+  TELEGRAM_CHAT_ID: "6534406542",
 
-  // Cartelle Cloud Google Drive
+  // Struttura Google Drive
   DRIVE_VAULT_FOLDER: "MEDIA_VAULT_SUPREMA",
-  DRIVE_ASSEDIO_ROOT: "SFX_CORSISTI_WORKSPACE",
-  MEET_STANZA_SCREENING: "https://meet.google.com/new",
+  DRIVE_WORKSPACE_ROOT: "SFX_CORSISTI_WORKSPACE",
+  MEET_STANZA_DEFAULT: "https://meet.google.com/new",
 
-  // Matrice Economica (100% Live One-to-One — Prezzi Bloccati)
+  // Listino Ufficiale Bloccato 100% Live One-to-One
   LISTINO: {
-    "Double Impact": { prezzo: 299.00, ops: 161.46, div: 89.70, tax: 47.84 },
-    "Nexus": { prezzo: 349.00, ops: 188.46, div: 104.70, tax: 55.84 },
-    "Sovereign Enterprise": { prezzo: 399.00, ops: 215.46, div: 119.70, tax: 63.84 }
+    "Silver Tier": { prezzo: 249.00, ops: 134.46, div: 74.70, tax: 39.84 },
+    "Executive Master": { prezzo: 299.00, ops: 161.46, div: 89.70, tax: 47.84 },
+    "Premium VIP": { prezzo: 349.00, ops: 188.46, div: 104.70, tax: 55.84 }
   },
 
-  // Ripartizione Statutaria Mastro Finanziario Ledger
+  // Ripartizione Algoritmica Mastro Finanziario Ledger
   PERCENTUALI: {
     OPERATIVITA: 0.54, // 54% Server, Infrastruttura, Flotta AI
     DIVIDENDI: 0.30,   // 30% Utili Direzione / Riserva CEO
     TASSE: 0.16        // 16% Accantonamento Intoccabile F24
   },
 
-  // Referral e Gold Card
+  // Ripartizione Caveau Dividendi (del 30% Utili)
+  DIVIDENDI_SPLIT: {
+    REINVESTIMENTO_SFX: 0.52, // 52% Fondo Sovrano SFX
+    PRESIDENZA_CEO: 0.30,     // 30% Busta Paga CEO (Max 5.000€ su 14 mensilità)
+    SQUADRA_BONUS: 0.18       // 18% Riserva Squadra & Bonus
+  },
+
+  // Suprema Gold Card
   GOLD_CARD: {
-    SCONTO_CORSISTA: 0.05,  // 5% sconto allievo
-    PROVVIGIONE_CASSA: 0.10 // 10% accredito presentatore
+    SCONTO_CORSISTA: 0.05,
+    PROVVIGIONE_CASSA: 0.10
   }
 };
 
 // ============================================================================
-// 2. ENTRY POINT GET (API Dashboard X-BOX & Monitoraggio)
+// 2. ENTRY POINT GET (API Endpoint di Lettura Dati per X-BOX)
 // ============================================================================
 function doGet(e) {
   try {
     const action = e.parameter ? e.parameter.action : null;
     const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    // A. Lettura registro candidati
+    // 2.1 Lettura Anagrafica Corsisti & Lead CRM
     if (action === "getCandidati") {
       const sheet = ottieniOFaFoglio(ss, "Candidati", [
-        "DATA_REGISTRAZIONE", "ID_NEXUS", "NOME", "EMAIL", "TELEGRAM",
-        "PERCORSO", "GOLD_CARD", "STATO", "REMINDER_24H", "REMINDER_2H", "RECUPERO_GHOST", "FEEDBACK_14D"
+        "DATA_REGISTRAZIONE", "ID_SFX", "NOME", "COGNOME", "EMAIL", "TELEFONO", "TELEGRAM",
+        "PERCORSO", "IMPORTO", "GOLD_CARD", "STATO", "GIORNO_AVANZAMENTO", "NOTE",
+        "REMINDER_24H", "REMINDER_2H", "RECUPERO_GHOST", "FEEDBACK_14D"
       ]);
       const rows = sheet.getDataRange().getValues();
       if (rows.length <= 1) {
@@ -78,26 +87,27 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", dati: lista });
     }
 
-    // B. Lettura Mastro Finanziario Ledger (Split 54/30/16)
-    if (action === "getDashboardData") {
+    // 2.2 Lettura Mastro Finanziario Ledger (Split 54/30/16)
+    if (action === "getDashboardData" || action === "getMastro") {
       const sheetMastro = ottieniOFaFoglio(ss, "Mastro_Finanziario", [
-        "TIMESTAMP", "DESCRIZIONE", "TIPO", "IMPORTO", "OPS_54", "DIV_30", "TAX_16", "HASH"
+        "TIMESTAMP", "TX_ID", "DESCRIZIONE", "TIPO", "IMPORTO", "OPS_54", "DIV_30", "TAX_16", "PROOF_HASH"
       ]);
       const rows = sheetMastro.getDataRange().getValues();
-      const corsisti = rows.slice(1).map(r => ({
+      const movimenti = rows.slice(1).map(r => ({
         timestamp: r[0],
-        descrizione: r[1],
-        tipo: r[2],
-        importo: r[3],
-        operativita: r[4],
-        dividendi: r[5],
-        tasse: r[6],
-        proofHash: r[7]
+        txId: r[1],
+        descrizione: r[2],
+        tipo: r[3],
+        importo: r[4],
+        operativita: r[5],
+        dividendi: r[6],
+        tasse: r[7],
+        proofHash: r[8]
       }));
-      return creaRispostaJSON({ status: "success", corsisti: corsisti });
+      return creaRispostaJSON({ status: "success", corsisti: movimenti });
     }
 
-    // C. Lettura Ticket Helpdesk ("Hai bisogno di aiuto")
+    // 2.3 Lettura Ticket Desk Supporto
     if (action === "getTickets") {
       const sheetTickets = ottieniOFaFoglio(ss, "Ticket_Supporto", [
         "DATA_ORA", "ID_TICKET", "NOME", "EMAIL", "TELEGRAM", "CATEGORIA", "MESSAGGIO", "STATO"
@@ -116,7 +126,25 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", tickets: tickets });
     }
 
-    // D. Lettura Log di Audit EAL6+
+    // 2.4 Lettura Catalogo Asset Media Vault
+    if (action === "getMediaVault") {
+      const sheetMedia = ottieniOFaFoglio(ss, "Media_Vault", [
+        "DATA_CARICAMENTO", "NOME_FILE", "CATEGORIA", "DIDASCALIA", "MIME_TYPE", "DRIVE_ID", "URL_FILE"
+      ]);
+      const rows = sheetMedia.getDataRange().getValues();
+      const assets = rows.slice(1).map(r => ({
+        data: r[0],
+        nome: r[1],
+        categoria: r[2],
+        didascalia: r[3],
+        mime: r[4],
+        driveId: r[5],
+        url: r[6]
+      }));
+      return creaRispostaJSON({ status: "success", assets: assets });
+    }
+
+    // 2.5 Lettura Log di Audit EAL6+
     if (action === "getAuditLogs") {
       const sheetAudit = ottieniOFaFoglio(ss, "Log_Audit_EAL6", ["TIMESTAMP", "AZIONE", "LIVELLO", "DETTAGLI"]);
       const rows = sheetAudit.getDataRange().getValues();
@@ -129,7 +157,7 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", logs: logs });
     }
 
-    // E. Ping di telemetria nodo
+    // 2.6 Ping Generale Telemetria Nodo
     return creaRispostaJSON({
       status: "active",
       nodo: "EAL6+ SOVRANO NOC",
@@ -146,7 +174,7 @@ function doGet(e) {
 }
 
 // ============================================================================
-// 3. ENTRY POINT POST (Upload Media, Helpdesk, Landing, Mastro, Assedio)
+// 3. ENTRY POINT POST (Scrittura Dati, Ingestion, Upload & Allocazioni)
 // ============================================================================
 function doPost(e) {
   try {
@@ -155,7 +183,7 @@ function doPost(e) {
       try {
         payload = JSON.parse(e.postData.contents);
       } catch (err) {
-        payload = e.parameter;
+        payload = e.parameter || {};
       }
     } else {
       payload = e.parameter || {};
@@ -165,7 +193,78 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
 
     // ------------------------------------------------------------------------
-    // CASE A: UPLOAD FILE NEL MEDIA VAULT (Foto, Video, Slide, PDF Base64)
+    // CASE A: REGISTRAZIONE CANDIDATURA (DA LANDING O MODULI SATELLITE)
+    // ------------------------------------------------------------------------
+    if (action === "registraCandidatura" || !action) {
+      const sheet = ottieniOFaFoglio(ss, "Candidati", [
+        "DATA_REGISTRAZIONE", "ID_SFX", "NOME", "COGNOME", "EMAIL", "TELEFONO", "TELEGRAM",
+        "PERCORSO", "IMPORTO", "GOLD_CARD", "STATO", "GIORNO_AVANZAMENTO", "NOTE",
+        "REMINDER_24H", "REMINDER_2H", "RECUPERO_GHOST", "FEEDBACK_14D"
+      ]);
+
+      const idSfx = payload.idSfx || generaSerialeSFX();
+      const dataReg = new Date().toISOString();
+      const nome = payload.nome || "Candidato";
+      const cognome = payload.cognome || "";
+      const email = payload.email || "";
+      const telefono = payload.telefono || "";
+      const telegram = payload.telegram || "";
+      const percorso = payload.percorso || "Executive Master";
+      const goldCard = payload.goldCard || "NESSUNA";
+      const importo = payload.importo || (CONFIG_SFX.LISTINO[percorso] ? CONFIG_SFX.LISTINO[percorso].prezzo : 299.00);
+
+      sheet.appendRow([
+        dataReg,
+        idSfx,
+        nome,
+        cognome,
+        email,
+        telefono,
+        telegram,
+        percorso,
+        importo,
+        goldCard,
+        "Screening Pendente",
+        1,
+        payload.note || "Nuova richiesta acquisita da Landing",
+        false,
+        false,
+        false,
+        false
+      ]);
+
+      if (email) {
+        const corpoHTML = generaTemplateEmailCandidatura({
+          nome: nome,
+          idSfx: idSfx,
+          percorso: percorso,
+          goldCard: goldCard
+        });
+
+        inviaEmailTransazionale(
+          email,
+          `Protocollo di Selezione Live 1-to-1 [${idSfx}] // Suprema Future X`,
+          corpoHTML,
+          CONFIG_SFX.EMAIL_ACADEMY,
+          "Suprema Future X Academy"
+        );
+      }
+
+      inviaTelegram(
+        `🎯 <b>Nuova Candidatura Qualificata [${idSfx}]</b>\n` +
+        `<b>Candidato:</b> ${nome} ${cognome}\n` +
+        `<b>Email:</b> ${email}\n` +
+        `<b>Recapito:</b> ${telefono}\n` +
+        `<b>Percorso:</b> ${percorso} (€ ${importo})\n` +
+        `<b>Gold Card:</b> ${goldCard}`
+      );
+
+      registraLogAudit("CANDIDATURA_RICEVUTA", "INFO", `Candidato ${idSfx} (${nome} ${cognome}) registrato.`);
+      return creaRispostaJSON({ status: "success", idSfx: idSfx });
+    }
+
+    // ------------------------------------------------------------------------
+    // CASE B: MEDIA VAULT UPLOAD (5 CATEGORIE: VIDEO, FOTO, SLIDE, TESTI, PDF)
     // ------------------------------------------------------------------------
     if (action === "uploadMediaVault") {
       if (!payload.fileBase64) {
@@ -176,38 +275,145 @@ function doPost(e) {
       const decodedData = Utilities.base64Decode(payload.fileBase64);
       const mime = payload.mimeType || "application/octet-stream";
       const nomeFile = payload.nomeFile || `SFX_ASSET_${Date.now()}`;
+      const categoria = payload.categoria || "FOTO";
+      const didascalia = payload.didascalia || "Caricato da Presidenza Esecutiva";
+
       const blob = Utilities.newBlob(decodedData, mime, nomeFile);
       const fileCreato = cartellaVault.createFile(blob);
-
-      const categoria = payload.categoria || "DOCUMENTO";
-      fileCreato.setDescription(`Caricato tramite X-BOX da Presidenza | Categoria: ${categoria} | Data: ${new Date().toISOString()}`);
+      fileCreato.setDescription(`Suprema Future X Media Vault | Cat: ${categoria} | Didascalia: ${didascalia}`);
 
       const sheetMedia = ottieniOFaFoglio(ss, "Media_Vault", [
-        "DATA_CARICAMENTO", "NOME_FILE", "CATEGORIA", "MIME_TYPE", "DRIVE_ID", "URL_FILE"
+        "DATA_CARICAMENTO", "NOME_FILE", "CATEGORIA", "DIDASCALIA", "MIME_TYPE", "DRIVE_ID", "URL_FILE"
       ]);
       sheetMedia.appendRow([
         new Date().toISOString(),
         nomeFile,
         categoria,
+        didascalia,
         mime,
         fileCreato.getId(),
         fileCreato.getUrl()
       ]);
 
       inviaTelegram(
-        `📁 <b>Media Vault // Nuovo Asset Archiviato</b>\n` +
-        `<b>Nome:</b> ${nomeFile}\n` +
-        `<b>Categoria:</b> ${categoria}\n` +
-        `<b>Mime:</b> ${mime}\n` +
-        `<b>Link Drive:</b> <a href="${fileCreato.getUrl()}">Apri Risorsa</a>`
+        `📁 <b>Media Vault // Nuovo Asset Archiviato [${categoria}]</b>\n` +
+        `<b>File:</b> ${nomeFile}\n` +
+        `<b>Didascalia:</b> ${didascalia}\n` +
+        `<b>Link Drive:</b> <a href="${fileCreato.getUrl()}">Apri File</a>`
       );
 
-      registraLogAudit("UPLOAD_MEDIA_VAULT", "INFO", `File: ${nomeFile} (${categoria}) salvato su Drive.`);
+      registraLogAudit("UPLOAD_MEDIA_VAULT", "INFO", `File: ${nomeFile} (${categoria}) archiviato nel Vault.`);
       return creaRispostaJSON({ status: "success", fileId: fileCreato.getId(), url: fileCreato.getUrl() });
     }
 
     // ------------------------------------------------------------------------
-    // CASE B: MODULO TICKET ASSISTENZA ("Hai bisogno di aiuto")
+    // CASE C: REGISTRAZIONE INCASSO MASTRO (SPLIT MATEMATICO 54 / 30 / 16)
+    // ------------------------------------------------------------------------
+    if (action === "registraIncasso") {
+      const sheetMastro = ottieniOFaFoglio(ss, "Mastro_Finanziario", [
+        "TIMESTAMP", "TX_ID", "DESCRIZIONE", "TIPO", "IMPORTO", "OPS_54", "DIV_30", "TAX_16", "PROOF_HASH"
+      ]);
+
+      const importo = parseFloat(payload.importo) || 0;
+      const tipo = payload.metodo === "USCITA" ? "USCITA" : "ENTRATA";
+      let ops = 0, div = 0, tax = 0;
+
+      if (tipo === "ENTRATA") {
+        ops = importo * CONFIG_SFX.PERCENTUALI.OPERATIVITA;
+        div = importo * CONFIG_SFX.PERCENTUALI.DIVIDENDI;
+        tax = importo * CONFIG_SFX.PERCENTUALI.TASSE;
+      } else {
+        ops = importo;
+      }
+
+      const txId = "TX-" + Utilities.formatDate(new Date(), "GMT+2", "yyyyMMdd-HHmmss");
+      const proofRaw = `${txId}_${importo}_${new Date().getTime()}`;
+      const proofHash = Utilities.base64Encode(
+        Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, proofRaw)
+      ).substring(0, 16);
+
+      sheetMastro.appendRow([
+        new Date().toISOString(),
+        txId,
+        payload.note || "Incasso Mastro",
+        tipo,
+        importo,
+        ops,
+        div,
+        tax,
+        "SHA256-" + proofHash
+      ]);
+
+      inviaTelegram(
+        `💰 <b>Mastro Finanziario Ledger // Split 54/30/16</b>\n` +
+        `<b>Causale:</b> ${payload.note || 'Movimento'}\n` +
+        `<b>Totale:</b> € ${importo.toFixed(2)}\n` +
+        `<b>Operatività (54%):</b> € ${ops.toFixed(2)}\n` +
+        `<b>Dividendi CEO (30%):</b> € ${div.toFixed(2)}\n` +
+        `<b>Fondo F24 (16%):</b> € ${tax.toFixed(2)}\n` +
+        `<b>Proof Hash:</b> <code>SHA256-${proofHash}</code>`
+      );
+
+      registraLogAudit("MASTRO_TRANSAZIONE", "INFO", `Transazione ${txId} (€ ${importo}) registrata.`);
+      return creaRispostaJSON({ status: "success", txId: txId, proofHash: proofHash });
+    }
+
+    // ------------------------------------------------------------------------
+    // CASE D: ALLOCAZIONE WORKSPACE GOOGLE DRIVE (AG-11 ASSEDIO)
+    // ------------------------------------------------------------------------
+    if (action === "creaWorkspaceCorsista" || action === "avvallaCorsista") {
+      const email = (payload.emailCliente || payload.email || "").trim();
+      const nome = payload.nomeCorsista || payload.nome || "Corsista";
+      const percorso = payload.pacchetto || payload.percorso || "Executive Master";
+      const idSfx = payload.idSfx || generaSerialeSFX();
+
+      const rootWorkspace = ottieniOCreaCartellaDrive(CONFIG_SFX.DRIVE_WORKSPACE_ROOT);
+      const folderCorsista = rootWorkspace.createFolder(`[CORSISTA] ${nome} - ${percorso} (${idSfx})`);
+
+      folderCorsista.createFolder("01_SESSIONI_LIVE_1TO1_REGISTRI");
+      folderCorsista.createFolder("02_MINI_CRM_PIPELINE_AZIENDALE");
+      folderCorsista.createFolder("03_PROMPTS_AGENTI_AI_PERSONALIZZATI");
+      folderCorsista.createFolder("04_CONTRATTI_E_ATTI_OPERATIVI");
+
+      if (email) {
+        try {
+          folderCorsista.addEditor(email);
+        } catch (err) {}
+
+        inviaEmailTransazionale(
+          email,
+          `Workspace Esecutivo Attivo [${idSfx}] // Strumenti di Lavoro Suprema Future X`,
+          generaTemplateEmailAssedio({ nome: nome, percorso: percorso, linkDrive: folderCorsista.getUrl() }),
+          CONFIG_SFX.EMAIL_ACADEMY,
+          "Suprema Future X Delivery"
+        );
+      }
+
+      // Aggiornamento stato su foglio Candidati
+      const sheetCandidati = ss.getSheetByName("Candidati");
+      if (sheetCandidati) {
+        const dataC = sheetCandidati.getDataRange().getValues();
+        for (let i = 1; i < dataC.length; i++) {
+          if (dataC[i][1] === idSfx || dataC[i][4] === email || dataC[i][2] === nome) {
+            sheetCandidati.getRange(i + 1, 11).setValue("Approvato - Workspace Attivo");
+            break;
+          }
+        }
+      }
+
+      inviaTelegram(
+        `⚡ <b>Workspace AG-11 Assedio Generato</b>\n` +
+        `Corsista: <b>${nome}</b> (${idSfx})\n` +
+        `Percorso: <b>${percorso}</b>\n` +
+        `Drive: <a href="${folderCorsista.getUrl()}">Apri Cartella</a>`
+      );
+
+      registraLogAudit("ASSEDIO_WORKSPACE", "INFO", `Workspace generato per ${nome} (${idSfx}).`);
+      return creaRispostaJSON({ status: "success", url: folderCorsista.getUrl(), idSfx: idSfx });
+    }
+
+    // ------------------------------------------------------------------------
+    // CASE E: MODULO TICKET SUPPORTO DESK
     // ------------------------------------------------------------------------
     if (action === "inviaTicketSupporto" || action === "ticket") {
       const sheetTickets = ottieniOFaFoglio(ss, "Ticket_Supporto", [
@@ -218,8 +424,8 @@ function doPost(e) {
       const dataOra = Utilities.formatDate(new Date(), "GMT+2", "dd/MM/yyyy HH:mm:ss");
       const nome = payload.nome || "Anonimo";
       const email = payload.email || "";
-      const telegram = payload.telegram || "Non specificato";
-      const categoria = payload.categoria || "Assistenza Generale";
+      const telegram = payload.telegram || "Nessuno";
+      const categoria = payload.categoria || "Assistenza Desk";
       const messaggio = payload.messaggio || "";
 
       sheetTickets.appendRow([
@@ -251,193 +457,67 @@ function doPost(e) {
       }
 
       inviaTelegram(
-        `🆘 <b>Nuovo Ticket Helpdesk (#${idTicket})</b>\n` +
+        `🆘 <b>Nuovo Ticket Helpdesk [#${idTicket}]</b>\n` +
         `<b>Utente:</b> ${nome}\n` +
         `<b>Email:</b> ${email}\n` +
-        `<b>Telegram:</b> ${telegram}\n` +
         `<b>Categoria:</b> ${categoria}\n` +
         `<b>Messaggio:</b> <i>${messaggio}</i>`
       );
 
       registraLogAudit("TICKET_CREATO", "INFO", `Ticket ${idTicket} registrato.`);
-      return creaRispostaJSON({ status: "success", idTicket: idTicket, message: "Ticket preso in carico." });
+      return creaRispostaJSON({ status: "success", idTicket: idTicket });
     }
 
     // ------------------------------------------------------------------------
-    // CASE C: REGISTRAZIONE CANDIDATURA LANDING PAGE
+    // CASE F: TRIGGER DISPATCHER & NOTIFICHE RAPIDE NOC
     // ------------------------------------------------------------------------
-    if (action === "registraCandidatura" || !action) {
-      const sheet = ottieniOFaFoglio(ss, "Candidati", [
-        "DATA_REGISTRAZIONE", "ID_NEXUS", "NOME", "EMAIL", "TELEGRAM",
-        "PERCORSO", "GOLD_CARD", "STATO", "REMINDER_24H", "REMINDER_2H", "RECUPERO_GHOST", "FEEDBACK_14D"
-      ]);
+    if (action === "testNoc") {
+      testNotificaTelegram();
+      return creaRispostaJSON({ status: "success", message: "Ping NOC inviato." });
+    }
 
-      const idNexus = "NX-" + Math.floor(1000 + Math.random() * 9000);
-      const dataReg = new Date();
-      const nome = payload.nome || "Candidato";
-      const email = payload.email || "";
-      const telegram = payload.telegram || "";
-      const percorso = payload.percorso || "Double Impact";
-      const goldCard = payload.goldCard || "Standard";
+    if (action === "collaudoTuttiITrigger") {
+      eseguiCollaudoMultiploTrigger();
+      return creaRispostaJSON({ status: "success", message: "Sequenza multi-trigger completata." });
+    }
 
-      sheet.appendRow([
-        dataReg.toISOString(),
-        idNexus,
-        nome,
-        email,
-        telegram,
-        percorso,
-        goldCard,
-        "Screening Pendente",
-        false,
-        false,
-        false,
-        false
-      ]);
-
-      if (email) {
-        const corpoHTML = generaTemplateEmailCandidatura({
-          nome: nome,
-          idNexus: idNexus,
-          percorso: percorso,
-          goldCard: goldCard
-        });
-
-        inviaEmailTransazionale(
-          email,
-          "Protocollo di Selezione One-to-One // Suprema Future X",
-          corpoHTML,
-          CONFIG_SFX.EMAIL_ACADEMY,
-          "Suprema Future X Academy"
-        );
-      }
-
+    if (action === "notificaVendita") {
       inviaTelegram(
-        `🎯 <b>Nuova Candidatura Qualificata [${idNexus}]</b>\n` +
-        `<b>Nome:</b> ${nome}\n` +
-        `<b>Email:</b> ${email}\n` +
-        `<b>Telegram:</b> ${telegram}\n` +
-        `<b>Percorso Scelto:</b> ${percorso}\n` +
-        `<b>Codice Gold Card:</b> ${goldCard}`
+        `👑 <b>Notifica Vendita Live 1-to-1</b>\n` +
+        `<b>Percorso:</b> ${payload.pacchetto}\n` +
+        `<b>Cliente:</b> ${payload.nomeCliente} (${payload.emailCliente})`
       );
-
-      registraLogAudit("CANDIDATURA_RICEVUTA", "INFO", `Candidato ${idNexus} (${nome}) salvato.`);
-      return creaRispostaJSON({ status: "success", idNexus: idNexus });
+      return creaRispostaJSON({ status: "success" });
     }
 
-    // ------------------------------------------------------------------------
-    // CASE D: MASTRO FINANZIARIO LEDGER (Split 54 / 30 / 16)
-    // ------------------------------------------------------------------------
-    if (action === "registraIncasso") {
-      const sheetMastro = ottieniOFaFoglio(ss, "Mastro_Finanziario", [
-        "TIMESTAMP", "DESCRIZIONE", "TIPO", "IMPORTO", "OPS_54", "DIV_30", "TAX_16", "HASH"
-      ]);
-
-      const importo = parseFloat(payload.importo) || 0;
-      const tipo = payload.metodo === "USCITA" ? "USCITA" : "ENTRATA";
-      let ops = 0, div = 0, tax = 0;
-
-      if (tipo === "ENTRATA") {
-        ops = importo * CONFIG_SFX.PERCENTUALI.OPERATIVITA;
-        div = importo * CONFIG_SFX.PERCENTUALI.DIVIDENDI;
-        tax = importo * CONFIG_SFX.PERCENTUALI.TASSE;
-      } else {
-        ops = importo;
-      }
-
-      const txId = "TX-" + Utilities.formatDate(new Date(), "GMT+2", "yyyyMMdd-HHmmss");
-      const proofRaw = `${txId}_${importo}_${new Date().getTime()}`;
-      const proofHash = Utilities.base64Encode(
-        Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, proofRaw)
-      ).substring(0, 16);
-
-      sheetMastro.appendRow([
-        new Date().toISOString(),
-        payload.note || "Incasso Mastro",
-        tipo,
-        importo,
-        ops,
-        div,
-        tax,
-        "SHA256-" + proofHash
-      ]);
-
+    if (action === "notificaScreening") {
       inviaTelegram(
-        `💰 <b>Mastro Finanziario Ledger // Ripartizione EAL6+</b>\n` +
-        `<b>Causale:</b> ${payload.note || 'Incasso'}\n` +
-        `<b>Totale:</b> € ${importo.toFixed(2)}\n` +
-        `<b>Operatività (54%):</b> € ${ops.toFixed(2)}\n` +
-        `<b>Dividendi CEO (30%):</b> € ${div.toFixed(2)}\n` +
-        `<b>Fondo F24 (16%):</b> € ${tax.toFixed(2)}\n` +
-        `<b>Proof Hash:</b> <code>SHA256-${proofHash}</code>`
+        `🎯 <b>Screening 30m Convocato ORA</b>\n` +
+        `<b>Candidato:</b> ${payload.nomeCandidato}\n` +
+        `<b>Orario:</b> ${payload.orario}`
       );
+      return creaRispostaJSON({ status: "success" });
+    }
 
-      registraLogAudit("MASTRO_TRANSAZIONE", "INFO", `Transazione ${txId} (€ ${importo})`);
-      return creaRispostaJSON({ status: "success", transazioneId: txId, proofHash: proofHash });
+    if (action === "notificaGoldCard") {
+      inviaTelegram(`🎫 <b>Nuova Gold Card Coniata</b>: <code>${payload.codiceGenerato}</code>`);
+      return creaRispostaJSON({ status: "success" });
+    }
+
+    if (action === "notificaErrore") {
+      inviaTelegram(`🚨 <b>ALERT SICUREZZA: ${payload.modulo}</b>\n${payload.errore}`);
+      return creaRispostaJSON({ status: "success" });
     }
 
     // ------------------------------------------------------------------------
-    // CASE E: CLONAZIONE WORKSPACE CORSISTA ASSEDIO (AG-11)
-    // ------------------------------------------------------------------------
-    if (action === "avvallaCorsista") {
-      const email = (payload.email || "").trim();
-      const nome = payload.nome || "Corsista";
-      const percorso = payload.pacchetto || "Double Impact";
-
-      if (!email) {
-        return creaRispostaJSON({ status: "error", message: "Email allievo obbligatoria per Assedio." });
-      }
-
-      const rootAssedio = ottieniOCreaCartellaDrive(CONFIG_SFX.DRIVE_ASSEDIO_ROOT);
-      const folderCorsista = rootAssedio.createFolder(`[CORSISTA] ${nome} - ${percorso}`);
-
-      folderCorsista.createFolder("01_SESSIONI_LIVE_1TO1_REGISTRI");
-      folderCorsista.createFolder("02_MINI_CRM_PIPELINE_AZIENDALE");
-      folderCorsista.createFolder("03_PROMPTS_AGENTI_AI_PERSONALIZZATI");
-      folderCorsista.createFolder("04_CONTRATTI_E_ATTI_OPERATIVI");
-
-      folderCorsista.addEditor(email);
-
-      // Aggiornamento automatico stato nel foglio Candidati
-      const sheetCandidati = ss.getSheetByName("Candidati");
-      if (sheetCandidati) {
-        const dataC = sheetCandidati.getDataRange().getValues();
-        for (let i = 1; i < dataC.length; i++) {
-          if (dataC[i][3] === email || dataC[i][2] === nome) {
-            sheetCandidati.getRange(i + 1, 8).setValue("Approvato - Workspace Attivo");
-            break;
-          }
-        }
-      }
-
-      inviaEmailTransazionale(
-        email,
-        "Workspace Esecutivo Attivo // Strumenti di Lavoro Suprema Future X",
-        generaTemplateEmailAssedio({ nome: nome, percorso: percorso, linkDrive: folderCorsista.getUrl() }),
-        CONFIG_SFX.EMAIL_ACADEMY,
-        "Suprema Future X Delivery"
-      );
-
-      inviaTelegram(
-        `⚡ <b>Workspace Assedio Generato</b>\n` +
-        `Corsista: <b>${nome}</b> (${email})\n` +
-        `Percorso: <b>${percorso}</b>\n` +
-        `Drive: <a href="${folderCorsista.getUrl()}">Apri Cartella</a>`
-      );
-
-      registraLogAudit("ASSEDIO_WORKSPACE", "INFO", `Workspace rilasciato a ${email}`);
-      return creaRispostaJSON({ status: "success", message: "Workspace creato e condiviso.", url: folderCorsista.getUrl() });
-    }
-
-    // ------------------------------------------------------------------------
-    // CASE F: WEBHOOK TELEGRAM BIDIREZIONALE
+    // CASE G: WEBHOOK TELEGRAM BIDIREZIONALE
     // ------------------------------------------------------------------------
     if (payload.message && payload.message.text) {
       gestisciComandoTelegram(payload.message);
       return creaRispostaJSON({ status: "ok" });
     }
 
-    return creaRispostaJSON({ status: "ignored", message: "Azione non riconosciuta." });
+    return creaRispostaJSON({ status: "ignored", message: "Azione non contemplata dal protocollo." });
 
   } catch (err) {
     registraLogAudit("doPost_CRITICAL_ERROR", "ERROR", err.toString());
@@ -446,7 +526,7 @@ function doPost(e) {
 }
 
 // ============================================================================
-// 4. I 6 TRIGGER AUTOMATIZZATI (EAL6+ SOVRANO)
+// 4. I 6 TRIGGER TEMPORALI STRATEGICI (EAL6+ AUTOMAZIONE)
 // ============================================================================
 
 // TRIGGER 1: Orologio Marketing e Appuntamenti (T-24h e T-2h)
@@ -463,13 +543,13 @@ function trigger_OrologioAppuntamenti() {
   for (let i = 1; i < rows.length; i++) {
     const row = rows[i];
     const timestampReg = new Date(row[0]).getTime();
-    const idNexus = row[1];
+    const idSfx = row[1];
     const nome = row[2];
-    const email = row[3];
-    const percorso = row[5];
-    const r24 = row[8];
-    const r2h = row[9];
-    const stato = row[7];
+    const email = row[4];
+    const percorso = row[7];
+    const r24 = row[13];
+    const r2h = row[14];
+    const stato = row[10];
 
     if (stato !== "Screening Pendente") continue;
 
@@ -478,21 +558,21 @@ function trigger_OrologioAppuntamenti() {
 
     if (diffOre <= 25 && diffOre >= 23 && !r24) {
       if (email) {
-        const corpo = generaTemplateReminder24h({ nome: nome, percorso: percorso, idNexus: idNexus });
+        const corpo = generaTemplateReminder24h({ nome: nome, percorso: percorso, idSfx: idSfx });
         inviaEmailTransazionale(email, "Promemoria: Call di Screening Direzionale tra 24 Ore // Suprema Future X", corpo, CONFIG_SFX.EMAIL_ACADEMY, "Suprema Future X Screening");
       }
       inviaTelegram(`⏰ <b>Alert Screening T-24H</b>\nCandidato: <b>${nome}</b> (${email})\nPercorso: ${percorso}`);
-      sheet.getRange(i + 1, 9).setValue(true);
+      sheet.getRange(i + 1, 14).setValue(true);
       registraLogAudit("TRIGGER_REMINDER_24H", "INFO", `Inviato a ${email}`);
     }
 
     if (diffOre <= 2.5 && diffOre >= 0.5 && !r2h) {
       if (email) {
-        const corpo = generaTemplateStanzaMeet2h({ nome: nome, linkMeet: CONFIG_SFX.MEET_STANZA_SCREENING });
+        const corpo = generaTemplateStanzaMeet2h({ nome: nome, linkMeet: CONFIG_SFX.MEET_STANZA_DEFAULT });
         inviaEmailTransazionale(email, "Stanza Live Aperta: Accesso allo Screening tra 2 Ore // Suprema Future X", corpo, CONFIG_SFX.EMAIL_ACADEMY, "Presidenza Suprema Future X");
       }
-      inviaTelegram(`🚨 <b>Alert Imminente T-2H // Screening Live</b>\nCandidato: <b>${nome}</b> tra 2 ore in call.`);
-      sheet.getRange(i + 1, 10).setValue(true);
+      inviaTelegram(`🚨 <b>Alert Imminente T-2H // Screening Live</b>\nCandidato: <b>${nome}</b> in call tra 2 ore.`);
+      sheet.getRange(i + 1, 15).setValue(true);
       registraLogAudit("TRIGGER_REMINDER_2H", "INFO", `Inviato a ${email} con link Meet.`);
     }
   }
@@ -509,7 +589,7 @@ function trigger_ReportMattutino() {
     const dataC = sheetCandidati.getDataRange().getValues();
     candidatiTotali = Math.max(0, dataC.length - 1);
     for (let i = 1; i < dataC.length; i++) {
-      if (dataC[i][7] && dataC[i][7].toString().includes("Pendente")) {
+      if (dataC[i][10] && dataC[i][10].toString().includes("Pendente")) {
         candidatiDaScreening++;
       }
     }
@@ -520,8 +600,8 @@ function trigger_ReportMattutino() {
   if (sheetMastro) {
     const dataM = sheetMastro.getDataRange().getValues();
     for (let j = 1; j < dataM.length; j++) {
-      if (dataM[j][2] === "ENTRATA") {
-        incassoLordo += parseFloat(dataM[j][3]) || 0;
+      if (dataM[j][3] === "ENTRATA") {
+        incassoLordo += parseFloat(dataM[j][4]) || 0;
       }
     }
   }
@@ -539,7 +619,7 @@ function trigger_ReportMattutino() {
     `<i>Protocollo EAL6+ Sovrano attivo su supremafuturex.com</i>`
   );
 
-  registraLogAudit("REPORT_MATTUTINO", "INFO", `Report 08:00 inviato.`);
+  registraLogAudit("REPORT_MATTUTINO", "INFO", "Report 08:00 inviato al NOC.");
 }
 
 // TRIGGER 3: Recupero "Ghosting" (AG-15 Joker) - Ore 18:00
@@ -557,10 +637,10 @@ function trigger_RecuperoGhosting() {
     const row = rows[i];
     const timestampReg = new Date(row[0]).getTime();
     const nome = row[2];
-    const email = row[3];
-    const percorso = row[5];
-    const stato = row[7];
-    const recuperoInviato = row[10];
+    const email = row[4];
+    const percorso = row[7];
+    const stato = row[10];
+    const recuperoInviato = row[15];
 
     const diffOre = (adesso - timestampReg) / (1000 * 60 * 60);
 
@@ -568,17 +648,17 @@ function trigger_RecuperoGhosting() {
       if (email) {
         const corpo = `
           Gentile <span class="highlight">${nome}</span>,<br><br>
-          Abbiamo provato a contattarti per la tua Call di Screening Direzionale relativa all'accesso a <b>"${percorso}"</b>.<br><br>
-          Ti informiamo che i posti per l'incubazione 1-to-1 di questo mese stanno per esaurirsi.<br>
-          Se desideri mantenere la tua priorità acquisita, ti invitiamo a rispondere a questa email entro 24 ore.<br><br>
-          In caso contrario, saremo costretti a cedere il tuo posto al prossimo candidato in lista d'attesa.<br><br>
+          Abbiamo provato a contattarti per la tua Call di Screening Direzionale relativa al percorso <b>"${percorso}"</b>.<br><br>
+          Ti informiamo che i posti individuali per l'incubazione 1-to-1 con il CEO Giuliano Caratelli sono a numero chiuso e stanno per esaurirsi.<br>
+          Se intendi mantenere la tua priorità acquisita, ti preghiamo di rispondere a questa email entro 24 ore.<br><br>
+          In caso contrario, lo slot verrà riassegnato al candidato successivo in lista d'attesa.<br><br>
           Cordiali saluti,<br>
-          Direzione Suprema Future X
+          Direzione Generale Suprema Future X
         `;
         inviaEmailTransazionale(email, "Azione Richiesta: Mantenimento Priorità Incubazione // Suprema Future X", wrapperEmail("AVVISO SCADENZA PRIORITÀ", corpo), CONFIG_SFX.EMAIL_ACADEMY, "Suprema Future X Direzione");
       }
-      inviaTelegram(`👻 <b>AG-15 Joker // Recupero Ghosting</b>\nInviata email di ultimatum a <b>${nome}</b> (${email}). Eravamo in attesa da oltre 3 giorni.`);
-      sheet.getRange(i + 1, 11).setValue(true);
+      inviaTelegram(`👻 <b>AG-15 Joker // Recupero Ghosting</b>\nInviata notifica di recupero a <b>${nome}</b> (${email}).`);
+      sheet.getRange(i + 1, 16).setValue(true);
     }
   }
 }
@@ -594,8 +674,8 @@ function trigger_AllarmeF24() {
   if (sheetMastro) {
     const dataM = sheetMastro.getDataRange().getValues();
     for (let j = 1; j < dataM.length; j++) {
-      if (dataM[j][2] === "ENTRATA") {
-        incassoLordo += parseFloat(dataM[j][3]) || 0;
+      if (dataM[j][3] === "ENTRATA") {
+        incassoLordo += parseFloat(dataM[j][4]) || 0;
       }
     }
   }
@@ -603,9 +683,9 @@ function trigger_AllarmeF24() {
 
   inviaTelegram(
     `🏛️ <b>AG-03 Ginevra // ALLARME SCADENZE F24</b>\n\n` +
-    `Presidenza, ti informo che tra 4 giorni scade il versamento F24 (il 16 del mese).\n\n` +
-    `• Fondo 16% Accumulato e Disponibile: <b>€ ${fondoTasse16.toFixed(2)}</b>\n\n` +
-    `Ti prego di autorizzare la transazione al consulente fiscale.`
+    `Presidenza, tra 4 giorni scade la finestra per il versamento F24 (il 16 del mese).\n\n` +
+    `• Fondo 16% Disponibile: <b>€ ${fondoTasse16.toFixed(2)}</b>\n\n` +
+    `Il saldo accantonato copre l'adempimento al 100%.`
   );
 }
 
@@ -620,8 +700,8 @@ function trigger_ChiusuraDividendi() {
   if (sheetMastro) {
     const dataM = sheetMastro.getDataRange().getValues();
     for (let j = 1; j < dataM.length; j++) {
-      if (dataM[j][2] === "ENTRATA") {
-        incassoLordo += parseFloat(dataM[j][3]) || 0;
+      if (dataM[j][3] === "ENTRATA") {
+        incassoLordo += parseFloat(dataM[j][4]) || 0;
       }
     }
   }
@@ -629,12 +709,12 @@ function trigger_ChiusuraDividendi() {
   const operativita = incassoLordo * CONFIG_SFX.PERCENTUALI.OPERATIVITA;
 
   inviaTelegram(
-    `💼 <b>AG-05 Ledger // CHIUSURA MENSILE E DIVIDENDI</b>\n\n` +
-    `Presidenza, le quadrature contabili del mese sono state finalizzate.\n\n` +
-    `• Fatturato Lordo Totale: <b>€ ${incassoLordo.toFixed(2)}</b>\n` +
+    `💼 <b>AG-05 Ledger // CHIUSURA MENSILE &amp; DIVIDENDI</b>\n\n` +
+    `Presidenza, le quadrature contabili del mese sono state registrate.\n\n` +
+    `• Fatturato Lordo: <b>€ ${incassoLordo.toFixed(2)}</b>\n` +
     `• Operatività/Reinvestimento (54%): <b>€ ${operativita.toFixed(2)}</b>\n` +
-    `• Busta Paga / Dividendi CEO (30%): <b>€ ${dividendiCEO.toFixed(2)}</b>\n\n` +
-    `Puoi procedere al bonifico direzionale.`
+    `• Riserva Utili / Busta Paga CEO (30%): <b>€ ${dividendiCEO.toFixed(2)}</b>\n\n` +
+    `Puoi procedere all'autorizzazione del bonifico direzionale.`
   );
 }
 
@@ -656,9 +736,9 @@ function trigger_RichiestaFeedback() {
     const row = rows[i];
     const timestampReg = new Date(row[0]).getTime();
     const nome = row[2];
-    const email = row[3];
-    const stato = row[7];
-    const feedbackInviato = row[11];
+    const email = row[4];
+    const stato = row[10];
+    const feedbackInviato = row[16];
 
     const diffGiorni = (adesso - timestampReg) / (1000 * 60 * 60 * 24);
 
@@ -666,23 +746,23 @@ function trigger_RichiestaFeedback() {
       if (email) {
         const corpo = `
           Gentile <span class="highlight">${nome}</span>,<br><br>
-          Sei a bordo di Suprema Future X da due settimane in sessione 100% Live One-to-One con il CEO Giuliano Caratelli.<br><br>
-          Il nostro obiettivo primario è il tuo risultato e la tua totale soddisfazione.<br>
-          Come stanno procedendo i lavori?<br><br>
-          Ti preghiamo di rispondere a questa email per condividere i tuoi primi risultati, lasciarci un feedback, o segnalare al Desk Operativo eventuali necessità.<br><br>
-          Un saluto,<br>
+          Sei all'interno di Suprema Future X da due settimane in formazione Live One-to-One con il CEO Giuliano Caratelli.<br><br>
+          Il nostro standard qualitativo vincola la Presidenza ai tuoi risultati operativi.<br>
+          Come sta procedendo l'apprendimento e l'avvio della tua attività indipendente?<br><br>
+          Rispondi a questa email per condividere i tuoi primi traguardi o segnalare al Desk necessità di revisione.<br><br>
+          Cordiali saluti,<br>
           AG-09 Exit // Reparto Qualità
         `;
-        inviaEmailTransazionale(email, "Come procede l'Incubazione One-to-One? // Suprema Future X", wrapperEmail("CONTROLLO QUALITÀ ESECUTIVO", corpo), CONFIG_SFX.EMAIL_SUPPORT, "Suprema Future X Qualità");
+        inviaEmailTransazionale(email, "Controllo Qualità: Come procede l'Incubazione One-to-One? // Suprema Future X", wrapperEmail("CONTROLLO QUALITÀ ESECUTIVO", corpo), CONFIG_SFX.EMAIL_SUPPORT, "Suprema Future X Qualità");
       }
-      inviaTelegram(`⭐ <b>AG-09 Exit // Richiesta Feedback</b>\nInviata email di check-up al corsista <b>${nome}</b> (${email}) dopo 14 giorni di incubazione.`);
-      sheet.getRange(i + 1, 12).setValue(true);
+      inviaTelegram(`⭐ <b>AG-09 Exit // Check-up Qualità</b>\nInviato sondaggio dopo 14 giorni al corsista <b>${nome}</b> (${email}).`);
+      sheet.getRange(i + 1, 17).setValue(true);
     }
   }
 }
 
 // ============================================================================
-// 5. ENGINE TEMPLATING EMAIL (HTML Responsive Cyber/Gold/Cyan)
+// 5. ENGINE TEMPLATING EMAIL (HTML Cyber/Gold/Cyan)
 // ============================================================================
 function wrapperEmail(titolo, contenutoCorpo) {
   return `
@@ -691,16 +771,16 @@ function wrapperEmail(titolo, contenutoCorpo) {
   <head>
     <meta charset="utf-8">
     <style>
-      body { margin:0; padding:0; background:#090A0D; font-family:'Montserrat',Helvetica,Arial,sans-serif; color:#E0E0E0; }
-      .container { max-width:600px; margin:20px auto; background:#1F2227; border:1px solid #C0C0C033; border-radius:16px; overflow:hidden; }
-      .header { background:#12141C; padding:30px; text-align:center; border-bottom:1px solid #C0C0C033; }
+      body { margin:0; padding:0; background:#050A0F; font-family:'Montserrat',Helvetica,Arial,sans-serif; color:#E0E0E0; }
+      .container { max-width:600px; margin:20px auto; background:#12141C; border:1px solid #00F0FF33; border-radius:16px; overflow:hidden; }
+      .header { background:#090A0D; padding:30px; text-align:center; border-bottom:1px solid #00F0FF33; }
       .header h1 { margin:0; font-size:20px; color:#D4AF37; letter-spacing:2px; text-transform:uppercase; font-weight:900; }
       .badge { display:inline-block; margin-top:8px; padding:4px 12px; background:#008B9922; border:1px solid #00F0FF; color:#00F0FF; font-size:10px; font-weight:bold; border-radius:20px; }
       .content { padding:30px; font-size:13px; line-height:1.7; color:#C0C0C0; }
       .highlight { color:#D4AF37; font-weight:bold; }
       .box-alert { background:#090A0D; border-left:3px solid #00F0FF; padding:15px; margin:20px 0; border-radius:0 8px 8px 0; }
-      .footer { background:#12141C; padding:20px; text-align:center; font-size:10px; color:#666; border-top:1px solid #222; }
-      .btn { display:inline-block; padding:12px 24px; background:#008B99; color:#090A0D !important; font-weight:bold; text-decoration:none; border-radius:8px; margin-top:15px; text-transform:uppercase; letter-spacing:1px; }
+      .footer { background:#090A0D; padding:20px; text-align:center; font-size:10px; color:#666; border-top:1px solid #1F2227; }
+      .btn { display:inline-block; padding:12px 24px; background:#00F0FF; color:#050A0F !important; font-weight:bold; text-decoration:none; border-radius:8px; margin-top:15px; text-transform:uppercase; letter-spacing:1px; }
     </style>
   </head>
   <body>
@@ -724,15 +804,15 @@ function wrapperEmail(titolo, contenutoCorpo) {
 function generaTemplateEmailSupporto(p) {
   const corpo = `
     Gentile <span class="highlight">${p.nome}</span>,<br><br>
-    Abbiamo registrato la tua richiesta di assistenza con il codice identificativo <b>${p.idTicket}</b>.<br><br>
+    Abbiamo registrato la tua segnalazione con l'identificativo ufficiale <b>#${p.idTicket}</b>.<br><br>
     <div class="box-alert">
-      <b>Dettagli Pratica:</b><br>
+      <b>Dati della Pratica:</b><br>
       • Categoria: <b>${p.categoria}</b><br>
-      • Messaggio Registrato: "${p.messaggio}"<br>
-      • Stato Attuale: <b>In Lavorazione</b>
+      • Messaggio Depositato: "${p.messaggio}"<br>
+      • Stato Attuale: <b>In Lavorazione Desk</b>
     </div>
-    Un responsabile del nostro desk operativo o la Direzione Generale ti risponderà direttamente entro le prossime ore operative.<br><br>
-    Per qualsiasi comunicazione relativa a questa pratica, puoi rispondere direttamente a questa email.
+    Un operatore del nostro desk o la Direzione Generale ti fornirà riscontro entro poche ore operative.<br>
+    Per ulteriori note su questa pratica, puoi rispondere direttamente a questo messaggio.
   `;
   return wrapperEmail("DESK DI ASSISTENZA &amp; SUPPORTO", corpo);
 }
@@ -740,30 +820,30 @@ function generaTemplateEmailSupporto(p) {
 function generaTemplateEmailCandidatura(p) {
   const corpo = `
     Gentile <span class="highlight">${p.nome}</span>,<br><br>
-    La tua candidatura al programma di incubazione esecutiva <b>"${p.percorso}"</b> è stata registrata nel database centrale di Suprema Future X.<br><br>
-    <b>Codice Candidatura:</b> <code style="color:#00F0FF;">${p.idNexus}</code><br>
-    <b>Codice Presentatore:</b> ${p.goldCard}<br><br>
+    La tua scheda per l'ammissione al percorso esecutivo <b>"${p.percorso}"</b> è stata registrata nel registro centrale di Suprema Future X.<br><br>
+    <b>Identificativo Pratica:</b> <code style="color:#00F0FF;">${p.idSfx}</code><br>
+    <b>Pass Presentatore:</b> ${p.goldCard}<br><br>
     <div class="box-alert">
       <b>PROTOCOLLO ZERO VIDEO // 100% LIVE ONE-TO-ONE:</b><br>
-      Suprema Future X non commercializza corsi preregistrati. L'erogazione avverrà unicamente tramite sessioni esecutive individuali da 60 minuti con la Presidenza.<br>
-      L'ammissione finale è subordinata al superamento della <b>Call di Screening Direzionale da 30 minuti</b>.
+      Suprema Future X non eroga videocorsi preregistrati. L'intero programma si svolge tramite sessioni individuali da 60 minuti in diretta con il CEO Giuliano Caratelli.<br>
+      L'ammissione finale è subordinata allo screening preliminare selettivo da 30 minuti.
     </div>
-    Riceverai la convocazione e il link alla stanza protetta Google Meet a ridosso dell'appuntamento.
+    Riceverai la convocazione e il link alla stanza protetta Google Meet a ridosso dell'orario stabilito.
   `;
-  return wrapperEmail("CONFERMA CANDIDATURA DIREZIONALE", corpo);
+  return wrapperEmail("CONFERMA ACQUISIZIONE CANDIDATURA", corpo);
 }
 
 function generaTemplateReminder24h(p) {
   const corpo = `
     Gentile <span class="highlight">${p.nome}</span>,<br><br>
-    Ti ricordiamo che tra <b>24 ore</b> è fissata la tua Call di Screening Direzionale da 30 minuti per l'accesso a <b>"${p.percorso}"</b>.<br><br>
+    Ti ricordiamo che tra <b>24 ore</b> è calendarizzata la tua Call di Screening Direzionale per l'accesso a <b>"${p.percorso}"</b>.<br><br>
     <div class="box-alert">
-      <b>Raccomandazioni Tecniche:</b><br>
-      • Collegati da computer con cuffie e connessione ad alta velocità.<br>
-      • Definisci chiaramente gli obiettivi di fatturato della tua attività.<br>
-      • Analizzeremo l'idoneità al deployment dei nostri agenti AI.
+      <b>Istruzioni per il Collegamento:</b><br>
+      • Collegati da postazione silenziosa con cuffie e connessione stabile.<br>
+      • Tieni a portata di mano gli obiettivi della tua attività o del tuo modello professionale.<br>
+      • Valuteremo l'idoneità al rilascio del Workspace e della Suprema Gold Card.
     </div>
-    Il link della stanza riservata ti sarà inoltrato esattamente 2 ore prima dell'orario convenuto.
+    Il link della stanza riservata ti verrà trasmesso 2 ore prima della sessione.
   `;
   return wrapperEmail("PROMEMORIA SCREENING // T-24 ORE", corpo);
 }
@@ -771,12 +851,12 @@ function generaTemplateReminder24h(p) {
 function generaTemplateStanzaMeet2h(p) {
   const corpo = `
     Gentile <span class="highlight">${p.nome}</span>,<br><br>
-    La stanza riservata per la tua Call di Screening Direzionale è attiva e sarà aperta tra <b>2 ore</b>.<br><br>
+    La stanza protetta per la tua Call di Screening Direzionale è pronta e si aprirà tra <b>2 ore</b>.<br><br>
     <center>
       <a href="${p.linkMeet}" class="btn">ACCEDI ALLA STANZA LIVE MEET</a>
     </center>
     <br>
-    La sessione sarà condotta direttamente dal CEO Giuliano Caratelli.
+    La call sarà condotta personalmente dal CEO Giuliano Caratelli. Si raccomanda massima puntualità.
   `;
   return wrapperEmail("STANZA LIVE PRONTA // T-2 ORE", corpo);
 }
@@ -784,14 +864,14 @@ function generaTemplateStanzaMeet2h(p) {
 function generaTemplateEmailAssedio(p) {
   const corpo = `
     Gentile <span class="highlight">${p.nome}</span>,<br><br>
-    A seguito del superamento dello screening per <b>"${p.percorso}"</b>, è stato generato il tuo Workspace Aziendale dedicato su Google Drive a costo licenza zero.<br><br>
+    A seguito della delibera favorevole di screening per <b>"${p.percorso}"</b>, è stato generato il tuo Workspace Aziendale crittografato su Google Drive a costo licenza zero.<br><br>
     <center>
-      <a href="${p.linkDrive}" class="btn">APRI WORKSPACE ESECUTIVO</a>
+      <a href="${p.linkDrive}" class="btn">APRI IL TUO WORKSPACE GOOGLE DRIVE</a>
     </center>
     <br>
-    Nel Drive troverai i registri delle lezioni Live One-to-One, il Mini-CRM, i prompt degli agenti AI e gli accordi contrattuali.
+    All'interno troverai i registri delle lezioni Live One-to-One, le schede operative master, i prompt della flotta AI e gli atti statutari.
   `;
-  return wrapperEmail("RILASCIO WORKSPACE OPERATIVO", corpo);
+  return wrapperEmail("CONSEGNA WORKSPACE OPERATIVO", corpo);
 }
 
 // ============================================================================
@@ -805,10 +885,10 @@ function gestisciComandoTelegram(msg) {
     inviaTelegramChat(
       chatId,
       "👑 <b>Suprema Future X // NOC Bot Attivo</b>\n\n" +
-      "Comandi disponibili:\n" +
-      "/status - Telemetria del nodo\n" +
-      "/mastro - Saldo mastro e fondo F24\n" +
-      "/leads - Candidature recenti\n" +
+      "Comandi operativi disponibili:\n" +
+      "/status - Telemetria del nodo EAL6+\n" +
+      "/mastro - Saldo mastro e fondo fiscale 16%\n" +
+      "/leads - Ultime candidature registrate\n" +
       "/ticket - Ultimi ticket supporto aperti"
     );
     return;
@@ -820,7 +900,7 @@ function gestisciComandoTelegram(msg) {
       `🟢 <b>NODO EAL6+ SOVRANO ATTIVO</b>\n` +
       `<b>Dominio:</b> ${CONFIG_SFX.DOMINIO}\n` +
       `<b>Versione:</b> ${CONFIG_SFX.VERSIONE}\n` +
-      `<b>Alias:</b> ceo@, academy@, desk@, support@\n` +
+      `<b>Canali:</b> ceo@, academy@, desk@, support@\n` +
       `<b>Timestamp:</b> ${new Date().toLocaleString("it-IT")}`
     );
     return;
@@ -830,13 +910,13 @@ function gestisciComandoTelegram(msg) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName("Mastro_Finanziario");
     if (!sheet) {
-      inviaTelegramChat(chatId, "⚠️ Foglio Mastro non ancora inizializzato.");
+      inviaTelegramChat(chatId, "⚠️ Foglio Mastro non presente.");
       return;
     }
     const data = sheet.getDataRange().getValues();
     let totale = 0;
     for (let i = 1; i < data.length; i++) {
-      if (data[i][2] === "ENTRATA") totale += parseFloat(data[i][3]) || 0;
+      if (data[i][3] === "ENTRATA") totale += parseFloat(data[i][4]) || 0;
     }
     const ops = totale * CONFIG_SFX.PERCENTUALI.OPERATIVITA;
     const div = totale * CONFIG_SFX.PERCENTUALI.DIVIDENDI;
@@ -863,12 +943,12 @@ function gestisciComandoTelegram(msg) {
     const data = sheet.getDataRange().getValues();
     const leads = data.slice(1);
     if (leads.length === 0) {
-      inviaTelegramChat(chatId, "Nessun candidato presente.");
+      inviaTelegramChat(chatId, "Nessun candidato a registro.");
       return;
     }
-    let msgOut = `🎯 <b>Ultimi Candidati (Totali: ${leads.length}):</b>\n`;
+    let msgOut = `🎯 <b>Ultimi Corsisti (Totali: ${leads.length}):</b>\n`;
     leads.slice(-5).reverse().forEach(l => {
-      msgOut += `• <b>${l[2]}</b> [${l[1]}] - ${l[5]} (${l[7]})\n`;
+      msgOut += `• <b>${l[2]} ${l[3]}</b> [${l[1]}] - ${l[7]} (${l[10]})\n`;
     });
     inviaTelegramChat(chatId, msgOut);
     return;
@@ -897,7 +977,7 @@ function gestisciComandoTelegram(msg) {
 }
 
 // ============================================================================
-// 7. INFRASTRUTTURA UTILITIES, DRIVE, SHEETS & TELEGRAM SENDER
+// 7. INFRASTRUTTURA UTILITIES, DRIVE, SHEETS & TELEGRAM DISPATCHER
 // ============================================================================
 function ottieniOFaFoglio(ss, nomeFoglio, colonne) {
   let sheet = ss.getSheetByName(nomeFoglio);
@@ -906,7 +986,7 @@ function ottieniOFaFoglio(ss, nomeFoglio, colonne) {
     sheet.appendRow(colonne);
     sheet.getRange(1, 1, 1, colonne.length)
       .setFontWeight("bold")
-      .setBackground("#1F2227")
+      .setBackground("#090A0D")
       .setFontColor("#00F0FF");
     sheet.setFrozenRows(1);
   }
@@ -919,6 +999,16 @@ function ottieniOCreaCartellaDrive(nome) {
     return folders.next();
   }
   return DriveApp.createFolder(nome);
+}
+
+function generaSerialeSFX() {
+  const anno = new Date().getFullYear().toString().slice(-2);
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let rnd = "";
+  for (let i = 0; i < 4; i++) {
+    rnd += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return `SFX-${anno}-${rnd}`;
 }
 
 function inviaEmailTransazionale(destinatario, oggetto, corpoHTML, aliasMittente, nomeMittente) {
@@ -980,11 +1070,17 @@ function testNotificaTelegram() {
   inviaTelegram(
     `👑 <b>SUPREMA FUTURE X // TEST NODO NOC</b>\n\n` +
     `Collegamento Bot Telegram verificato con successo.\n` +
-    `<b>Token:</b> <code>8881640493...SZdl</code>\n` +
     `<b>Chat ID:</b> <code>${CONFIG_SFX.TELEGRAM_CHAT_ID}</code>\n` +
     `<b>Data:</b> ${new Date().toLocaleString("it-IT")}\n` +
     `<b>Sistema:</b> EAL6+ Sovrano Multi-Trigger`
   );
+}
+
+function eseguiCollaudoMultiploTrigger() {
+  inviaTelegram(`⚡ <b>Trigger 1/4:</b> Ricezione Candidatura EAL6+ convalidata.`);
+  inviaTelegram(`⚡ <b>Trigger 2/4:</b> Accredito Mastro (€ 299,00) split 54/30/16.`);
+  inviaTelegram(`⚡ <b>Trigger 3/4:</b> Workspace AG-11 Assedio Google Drive allocato.`);
+  inviaTelegram(`⚡ <b>Trigger 4/4:</b> Stanza Screening Google Meet aperta.`);
 }
 
 function installaTuttiITriggerAziendali() {
