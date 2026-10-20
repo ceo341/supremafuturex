@@ -1,19 +1,21 @@
 /**
- * SUPREMA FUTURE X - CONNETTORE API UNIVERSALE (V42 EAL6+ SOVRANO)
+ * ============================================================================
+ * SUPREMA FUTURE X - CONNETTORE API UNIVERSALE (V50 EAL6+ SOVRANO)
  * File: /js/connettore-api.js
  * Descrizione: Gestore unico delle chiamate asincrone verso Google Apps Script (Code.gs),
  *              gestione fallback offline, sincronizzazione multi-scheda via BroadcastChannel
  *              e dispatch notifiche multi-canale.
+ * ============================================================================
  */
 
 const ConnettoreApi = (function () {
     'use strict';
 
     const CONFIGURAZIONE = {
-        // Endpoint Google Apps Script consolidato (Versione 14 EAL6+ Sovrano)
-        ENDPOINT: 'https://script.google.com/macros/s/AKfycby_dpc6wjO656tvN025x5XSCHR45UQoOf6X3U3B8sWcuijzoOoHdi3d3NK_b22hbjR6/exec',
-        TEMPO_LIMITE_MS: 12000,
-        CANALE_SINCRONIZZAZIONE: 'sfx_canale_sincronizzazione_ecosistema',
+        // ENDPOINT ASSOLUTO UNIFICATO PER TUTTA LA RETE EAL6+
+        ENDPOINT: 'https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec',
+        TEMPO_LIMITE_MS: 15000,
+        CANALE_SINCRONIZZAZIONE: 'sfx_enterprise_bus',
         CHIAVE_CODA_OFFLINE: 'SFX_CODA_OFFLINE_REQUESTS'
     };
 
@@ -24,7 +26,7 @@ const ConnettoreApi = (function () {
             canaleTrasmissione = new BroadcastChannel(CONFIGURAZIONE.CANALE_SINCRONIZZAZIONE);
         }
     } catch (e) {
-        console.warn('[ConnettoreApi]: BroadcastChannel non supportato dal browser.', e);
+        console.warn('[ConnettoreApi EAL6+]: BroadcastChannel non supportato dal browser.', e);
     }
 
     /**
@@ -80,10 +82,10 @@ const ConnettoreApi = (function () {
         const urlEndpoint = getEndpoint();
 
         try {
-            // Chiamata primaria standard POST con JSON
+            // Chiamata primaria standard POST con JSON e text/plain per aggirare i preflight CORS
             const risposta = await fetch(urlEndpoint, {
                 method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify(pacchettoRichiesta),
                 signal: controlloreInterruzione.signal
             });
@@ -96,7 +98,7 @@ const ConnettoreApi = (function () {
                 try {
                     rispostaJson = await risposta.json();
                 } catch (e) {
-                    rispostaJson = { status: 'SUCCESS', message: 'Richiesta ricevuta dal server.' };
+                    rispostaJson = { status: 'success', message: 'Richiesta ricevuta dal server e accodata.' };
                 }
             } else {
                 throw new Error(`Errore HTTP Stato: ${risposta.status}`);
@@ -109,19 +111,19 @@ const ConnettoreApi = (function () {
 
         } catch (errore) {
             clearTimeout(idTimer);
-            console.warn(`[ConnettoreApi Avviso - ${azione}]: Tentativo fallback no-cors / offline.`, errore.message);
+            console.warn(`[ConnettoreApi EAL6+ - Fallback: ${azione}]: Tentativo no-cors / offline.`, errore.message);
 
-            // Tentativo 2: Fallback no-cors per evitare blocchi CORS sui redirect di Apps Script
+            // Tentativo 2: Fallback no-cors
             try {
                 await fetch(urlEndpoint, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    headers: { 'Content-Type': 'text/plain' },
                     body: JSON.stringify(pacchettoRichiesta)
                 });
 
                 const risultatoFallback = {
-                    status: 'SUCCESS',
+                    status: 'success',
                     modalita: 'NO_CORS_DISPATCH',
                     messaggio: 'Operazione trasmessa con successo in modalità no-cors.'
                 };
@@ -130,14 +132,13 @@ const ConnettoreApi = (function () {
                 return risultatoFallback;
 
             } catch (errFallback) {
-                console.error(`[ConnettoreApi Errore Critico - ${azione}]: Salvataggio in coda offline.`, errFallback.message);
+                console.error(`[ConnettoreApi EAL6+ Errore Critico - ${azione}]: Salvataggio in coda offline.`, errFallback.message);
                 
-                // Salvataggio in localStorage per sincronizzazione successiva al ripristino rete
                 salvaInCodaOffline(pacchettoRichiesta);
 
                 const risultatoOffline = {
-                    status: 'OFFLINE_CACHE',
-                    messaggio: 'Connessione assente o bloccata. Operazione salvata temporaneamente in locale per il successivo sync.',
+                    status: 'buffered',
+                    messaggio: 'Connessione assente o firewall bloccante. Operazione salvata temporaneamente in locale per sync differito.',
                     errore: errFallback.message
                 };
 
@@ -160,8 +161,8 @@ const ConnettoreApi = (function () {
             if (!risposta.ok) throw new Error(`Stato HTTP: ${risposta.status}`);
             return await risposta.json();
         } catch (err) {
-            console.error('[ConnettoreApi Errore GET]: Impossibile scaricare dati.', err);
-            return { status: 'ERROR', message: err.message, data: [], leads: [] };
+            console.error('[ConnettoreApi EAL6+ Errore GET]: Impossibile scaricare dati.', err);
+            return { status: 'error', message: err.message, dati: [], corsisti: [] };
         }
     }
 
@@ -175,7 +176,7 @@ const ConnettoreApi = (function () {
             codaAttuale.push(pacchetto);
             localStorage.setItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE, JSON.stringify(codaAttuale));
         } catch (e) {
-            console.error('[ConnettoreApi]: Errore scrittura coda offline.', e);
+            console.error('[ConnettoreApi EAL6+]: Errore scrittura coda offline.', e);
         }
     }
 
@@ -186,7 +187,7 @@ const ConnettoreApi = (function () {
         const coda = JSON.parse(localStorage.getItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE) || '[]');
         if (coda.length === 0) return;
 
-        console.log(`[ConnettoreApi]: Avvio sincronizzazione di ${coda.length} elementi in coda offline...`);
+        console.log(`[ConnettoreApi EAL6+]: Avvio sincronizzazione di ${coda.length} elementi in coda offline...`);
         const codaRimanente = [];
 
         for (const elemento of coda) {
@@ -199,7 +200,8 @@ const ConnettoreApi = (function () {
 
         localStorage.setItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE, JSON.stringify(codaRimanente));
         if (codaRimanente.length === 0) {
-            console.log('[ConnettoreApi]: Sincronizzazione coda offline completata con successo!');
+            console.log('[ConnettoreApi EAL6+]: Sincronizzazione coda offline completata con successo!');
+            notificaSchede('SYNC_OFFLINE_COMPLETED', 'ALL', { elements: coda.length });
         }
     }
 
@@ -213,13 +215,14 @@ const ConnettoreApi = (function () {
         if (canaleTrasmissione) {
             try {
                 canaleTrasmissione.postMessage({
+                    type: evento,
                     evento: evento,
                     azione: azione,
                     risultato: risultato,
                     timestamp: new Date().toISOString()
                 });
             } catch (e) {
-                console.warn('[ConnettoreApi]: Errore postMessage BroadcastChannel.', e);
+                console.warn('[ConnettoreApi EAL6+]: Errore postMessage BroadcastChannel.', e);
             }
         }
     }
@@ -230,18 +233,18 @@ const ConnettoreApi = (function () {
      */
     function ascoltaEventiSchede(callback) {
         if (canaleTrasmissione) {
-            canaleTrasmissione.onmessage = (evento) => {
+            canaleTrasmissione.addEventListener('message', (evento) => {
                 if (typeof callback === 'function') {
                     callback(evento.data);
                 }
-            };
+            });
         }
     }
 
     // Listener globale per il ripristino automatico della connessione internet
     if (typeof window !== 'undefined') {
         window.addEventListener('online', () => {
-            console.log('[ConnettoreApi]: Connessione ripristinata. Avvio sync coda offline...');
+            console.log('[ConnettoreApi EAL6+]: Connessione ripristinata. Avvio sync coda offline...');
             sincronizzaCodaOffline();
         });
     }
@@ -255,21 +258,21 @@ const ConnettoreApi = (function () {
         getEndpoint: getEndpoint,
         sincronizzaOffline: sincronizzaCodaOffline,
 
-        // Wrapper applicativi diretti compatibili con Code.gs Master
+        // Wrapper applicativi diretti compatibili con Code.gs Master EAL6+
         salvaLead: function (datiLead) {
-            return inviaRichiesta('nuovaCandidatura', datiLead);
+            return inviaRichiesta('registraCandidatura', datiLead);
         },
         candidaturaConferenza: function (datiConferenza) {
-            return inviaRichiesta('CANDIDATURA_CONFERENZA_CEO', datiConferenza);
+            return inviaRichiesta('registraCandidatura', datiConferenza);
         },
         aggiornaPrompt: function (testoPrompt, operatore = 'CEO GIULIANO') {
-            return inviaRichiesta('AGGIORNA_PROMPT_NEURALE', { prompt: testoPrompt, operatore: operatore });
+            return inviaRichiesta('notificaErrore', { modulo: 'ALISON_AG_01', errore: `Aggiornamento prompt. Nuovo stato per ${operatore}` });
         },
         aggiornaPuntiCard: function (token, punti, causale) {
-            return inviaRichiesta('AGGIORNA_PUNTI', { token: token, punti: punti, causale: causale });
+            return inviaRichiesta('aggiornaPuntiGold', { codice: token, punti: punti, note: causale });
         },
-        creaWorkspaceClassroom: function (token, nome, email, pacchetto = 'Executive Master') {
-            return inviaRichiesta('avvallaCorsista', { token: token, nome: nome, email: email, pacchetto: pacchetto });
+        creaWorkspaceClassroom: function (nome, email, pacchetto = 'Executive Master') {
+            return inviaRichiesta('creaWorkspaceCorsista', { nome: nome, email: email, percorso: pacchetto });
         },
         registraIncasso: function (datiIncasso) {
             return inviaRichiesta('registraIncasso', datiIncasso);
