@@ -7,14 +7,14 @@
     <meta name="description" content="X-BOX Security ERP - Sistema Tripartito: Finanza & Fisco, Media & Social Analytics, CRM Cervello & Flotta 15 AI.">
     <meta name="theme-color" content="#050A0F">
 
-    <!-- Favicon -->
+    <!-- Favicon Ufficiale -->
     <link rel="icon" type="image/png" href="media/logo.png">
 
-    <!-- Tailwind CSS, Google Fonts & FontAwesome -->
+    <!-- Tailwind CSS, Google Fonts & FontAwesome 6 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script>
@@ -47,87 +47,107 @@
     </script>
 
     <style>
-        /* SFONDO MATRIX CYAN A DISCESA LENTA */
+        /* SFONDO DINAMICO MATRIX CYAN A CASCATA LENTA */
         body {
             background-color: #050A0F;
             background-image: 
                 linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: matrixScroll 40s linear infinite;
-        }
-        @keyframes matrixScroll {
-            0% { background-position: 0 0, 0 0; }
-            100% { background-position: 0 1000px, 0 0; }
+            background-size: 32px 32px;
+            animation: matrixScroll 45s linear infinite;
         }
 
-        /* PANNELLI NEON EAL6+ AD ALTO CONTRASTO */
+        @keyframes matrixScroll {
+            0% {
+                background-position: 0 0, 0 0;
+            }
+            100% {
+                background-position: 0 1000px, 0 0;
+            }
+        }
+
+        /* PANNELLI BLINDATI AD ALTO CONTRASTO */
         .neon-panel-security {
             background: rgba(18, 20, 28, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 240, 255, 0.35);
             box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);
             border-radius: 1.5rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .neon-panel-security:hover {
-            border-color: rgba(0, 240, 255, 0.6);
+            border-color: rgba(0, 240, 255, 0.65);
             box-shadow: 0 0 35px rgba(0, 240, 255, 0.18);
         }
+
         .neon-panel-gold {
             background: rgba(18, 20, 28, 0.95);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
             border: 1px solid rgba(212, 175, 55, 0.4);
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.1);
             border-radius: 1.5rem;
-        }
-        .neon-panel-gold:hover {
-            border-color: rgba(212, 175, 55, 0.8);
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.2);
-        }
-        .neon-panel-fisco {
-            background: rgba(18, 20, 28, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(192, 192, 192, 0.4);
-            box-shadow: 0 0 25px rgba(192, 192, 192, 0.1);
-            border-radius: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* TASTIERINO NUMERICO PIN SOVRANO */
+        .neon-panel-gold:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.22);
+        }
+
+        .neon-panel-fisco {
+            background: rgba(18, 20, 28, 0.95);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(192, 192, 192, 0.4);
+            box-shadow: 0 0 25px rgba(192, 192, 192, 0.08);
+            border-radius: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* TASTIERINO VIRTUALE PIN SOVRANO */
         .keypad-btn {
             background: #090A0D;
             border: 1px solid #D4AF37;
             color: #D4AF37;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem;
-            font-weight: bold;
+            font-size: 1.35rem;
+            font-weight: 700;
             border-radius: 0.85rem;
-            padding: 1rem;
-            transition: all 0.2s;
+            padding: 1.1rem;
+            transition: all 0.2s ease;
             cursor: pointer;
+            user-select: none;
         }
-        .keypad-btn:hover, .keypad-btn:active {
+
+        .keypad-btn:hover {
             background: #D4AF37;
             color: #090A0D;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
-            transform: scale(1.05);
+            box-shadow: 0 0 22px rgba(212, 175, 55, 0.8);
+            transform: scale(1.04);
         }
+
+        .keypad-btn:active {
+            transform: scale(0.96);
+        }
+
         .pin-dot {
-            width: 14px;
-            height: 14px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             border: 2px solid #D4AF37;
             display: inline-block;
-            margin: 0 4px;
-            transition: all 0.2s;
+            margin: 0 5px;
+            transition: all 0.25s ease;
         }
+
         .pin-dot.filled {
             background: #00F0FF;
             border-color: #00F0FF;
-            box-shadow: 0 0 12px #00F0FF;
+            box-shadow: 0 0 14px #00F0FF;
+            transform: scale(1.15);
         }
 
-        /* TEXT SHIMMER TITOLI */
+        /* EFFETTO SHIMMER METALLICO */
         .text-shimmer {
             background: linear-gradient(90deg, #C0C0C0, #D4AF37, #00F0FF, #B8860B, #C0C0C0);
             background-size: 200% auto;
@@ -135,27 +155,61 @@
             -webkit-text-fill-color: transparent;
             animation: shine 6s linear infinite;
         }
-        @keyframes shine { to { background-position: 200% center; } }
 
-        /* SCROLLBAR PERSONALIZZATA */
-        .scrollbar-sfx::-webkit-scrollbar { width: 6px; height: 6px; }
-        .scrollbar-sfx::-webkit-scrollbar-track { background: #090A0D; }
-        .scrollbar-sfx::-webkit-scrollbar-thumb { background: #008B99; border-radius: 3px; }
-        .scrollbar-sfx::-webkit-scrollbar-thumb:hover { background: #00F0FF; }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
 
-        /* SPIE LED TELEMETRIA */
+        /* SCROLLBAR PERSONALIZZATA CYBER */
+        .scrollbar-sfx::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .scrollbar-sfx::-webkit-scrollbar-track {
+            background: #090A0D;
+        }
+
+        .scrollbar-sfx::-webkit-scrollbar-thumb {
+            background: #008B99;
+            border-radius: 3px;
+        }
+
+        .scrollbar-sfx::-webkit-scrollbar-thumb:hover {
+            background: #00F0FF;
+        }
+
+        /* TELEMETRIA SPIE LED */
         .led-indicator {
-            width: 10px;
-            height: 10px;
+            width: 11px;
+            height: 11px;
             border-radius: 50%;
             display: inline-block;
         }
-        .led-green { background: #00FF66; box-shadow: 0 0 10px #00FF66; }
-        .led-amber { background: #FFBF00; box-shadow: 0 0 10px #FFBF00; }
-        .led-red { background: #FF3344; box-shadow: 0 0 10px #FF3344; }
-        .led-blue { background: #00F0FF; box-shadow: 0 0 10px #00F0FF; }
 
-        /* LASER BEAM DIVISIONALE */
+        .led-green {
+            background: #00FF66;
+            box-shadow: 0 0 12px #00FF66;
+        }
+
+        .led-amber {
+            background: #FFBF00;
+            box-shadow: 0 0 12px #FFBF00;
+        }
+
+        .led-red {
+            background: #FF3344;
+            box-shadow: 0 0 12px #FF3344;
+        }
+
+        .led-blue {
+            background: #00F0FF;
+            box-shadow: 0 0 12px #00F0FF;
+        }
+
+        /* LINEA LASER TESTATA */
         .laser-beam-header {
             height: 2px;
             width: 100%;
@@ -163,13 +217,21 @@
             background-size: 200% 100%;
             animation: laserSlide 4s ease-in-out infinite;
         }
-        @keyframes laserSlide { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        @keyframes laserSlide {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black overflow-x-hidden">
 
     <!-- ===================================================================== -->
-    <!-- SWITCHBOARD GATE: BIVIO DI SMISTAMENTO A 3 PORTE (PORTALE INIZIALE)   -->
+    <!-- SWITCHBOARD GATE: BIVIO DI SMISTAMENTO A 3 PORTE (MODALE OBBLIGATORIA)-->
     <!-- ===================================================================== -->
     <div id="switchboard-gate-modal" class="fixed inset-0 bg-[#050A0F]/95 backdrop-blur-xl z-[9999] flex items-center justify-center p-4">
         <div class="max-w-5xl w-full space-y-8 font-mono text-center">
@@ -191,17 +253,23 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                 
-                <!-- PORTA 01: FINANZA, FISCO & CASSA -->
+                <!-- PORTA 01: FINANZA & FISCO -->
                 <div onclick="apriPortaOperativa('porta-01-finanza')" class="neon-panel-gold p-6 space-y-4 cursor-pointer transform hover:-translate-y-1.5 transition-all group">
                     <div class="flex items-center justify-between">
                         <div class="w-12 h-12 rounded-2xl bg-sfx-gold/20 border border-sfx-gold flex items-center justify-center text-sfx-gold text-2xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-vault"></i>
                         </div>
-                        <span class="text-[9px] px-2 py-0.5 rounded bg-black/60 text-sfx-goldLight border border-sfx-gold/40 font-bold">PORTA 01</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded bg-black/60 text-sfx-goldLight border border-sfx-gold/40 font-bold">
+                            PORTA 01
+                        </span>
                     </div>
                     <div>
-                        <h2 class="font-grotesk font-black text-lg text-white group-hover:text-sfx-goldLight transition-colors">FINANZA &amp; FISCO</h2>
-                        <span class="text-[10px] text-gray-400 block mt-0.5">Tesoreria, Mastro &amp; Adempimenti</span>
+                        <h2 class="font-grotesk font-black text-lg text-white group-hover:text-sfx-goldLight transition-colors">
+                            FINANZA &amp; FISCO
+                        </h2>
+                        <span class="text-[10px] text-gray-400 block mt-0.5">
+                            Tesoreria, Mastro &amp; Adempimenti
+                        </span>
                     </div>
                     <ul class="text-[11px] text-gray-300 space-y-1.5 border-t border-gray-800 pt-3">
                         <li>• Mastro 54/30/16 Notarizzato SHA-256</li>
@@ -214,17 +282,23 @@
                     </button>
                 </div>
 
-                <!-- PORTA 02: MEDIA, SOCIAL, ANALYTICS & AGENT AI -->
+                <!-- PORTA 02: MEDIA, SOCIAL & AI -->
                 <div onclick="apriPortaOperativa('porta-02-media')" class="neon-panel-security p-6 space-y-4 cursor-pointer transform hover:-translate-y-1.5 transition-all group">
                     <div class="flex items-center justify-between">
                         <div class="w-12 h-12 rounded-2xl bg-sfx-cyan/20 border border-sfx-cyan flex items-center justify-center text-sfx-cyan text-2xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-photo-film"></i>
                         </div>
-                        <span class="text-[9px] px-2 py-0.5 rounded bg-black/60 text-sfx-cyanLight border border-sfx-cyan/40 font-bold">PORTA 02</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded bg-black/60 text-sfx-cyanLight border border-sfx-cyan/40 font-bold">
+                            PORTA 02
+                        </span>
                     </div>
                     <div>
-                        <h2 class="font-grotesk font-black text-lg text-white group-hover:text-sfx-cyanLight transition-colors">MEDIA, SOCIAL &amp; AI</h2>
-                        <span class="text-[10px] text-gray-400 block mt-0.5">Vault 5 Cat., Canali &amp; Flotta AI</span>
+                        <h2 class="font-grotesk font-black text-lg text-white group-hover:text-sfx-cyanLight transition-colors">
+                            MEDIA, SOCIAL &amp; AI
+                        </h2>
+                        <span class="text-[10px] text-gray-400 block mt-0.5">
+                            Vault 5 Cat., Canali &amp; Flotta AI
+                        </span>
                     </div>
                     <ul class="text-[11px] text-gray-300 space-y-1.5 border-t border-gray-800 pt-3">
                         <li>• Media Vault &amp; Viewport Player 8"</li>
@@ -243,18 +317,23 @@
                         <div class="w-12 h-12 rounded-2xl bg-sfx-silver/20 border border-sfx-silver flex items-center justify-center text-sfx-silver text-2xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-brain"></i>
                         </div>
-                        <span class="text-[9px] px-2 py-0.5 rounded bg-black/60 text-sfx-silver border border-sfx-silver/40 font-bold">PORTA 03</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded bg-black/60 text-sfx-silver border border-sfx-silver/40 font-bold">
+                            PORTA 03
+                        </span>
                     </div>
                     <div>
-                        <h2 class="font-grotesk font-black text-lg text-white group-hover:text-sfx-silver transition-colors">IL CERVELLO (CRM)</h2>
-                        <span class="text-[10px] text-gray-400 block mt-0.5">Didattica, Contratti &amp; Scheda 90gg</span>
+                        <h2 class="font-grotesk font-black text-lg text-white group-hover:text-sfx-silver transition-colors">
+                            IL CERVELLO (CRM)
+                        </h2>
+                        <span class="text-[10px] text-gray-400 block mt-0.5">
+                            Didattica, Contratti &amp; Scheda 90gg
+                        </span>
                     </div>
                     <ul class="text-[11px] text-gray-300 space-y-1.5 border-t border-gray-800 pt-3">
                         <li>• Contratti Live 1-to-1 &amp; Protocolli</li>
                         <li>• Fabbrica Moduli Auto / Manuale</li>
                         <li>• Scheda Corsista con Spie LED 90gg</li>
-                        <li>• Registro Dormienti &amp; Retargeting</li>
-                        <a href="#modulo-suprema-gold-card" class="block p-2.5 rounded-xl bg-black/50 text-sfx-goldLight hover:bg-[#1F2227] transition-all flex items-center font-bold border border-sfx-gold/30"><i class="fa-solid fa-credit-card w-6 text-sfx-gold"></i> 06. Suprema Gold Card Hub</a>
+                        <li>• Suprema Gold Card Hub &amp; Dormienti</li>
                     </ul>
                     <button class="w-full py-3 bg-[#090A0D] group-hover:bg-sfx-silver group-hover:text-black border border-sfx-silver/50 text-sfx-silver text-xs font-bold rounded-xl transition-all uppercase tracking-wider">
                         Accedi alla Porta 03 &rarr;
@@ -271,7 +350,7 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- TOP CONTROL BAR FISSA: X-BOX AZIENDALE // SECURITY COMMAND            -->
+    <!-- TOP CONTROL BAR FISSA // SECURITY COMMAND                             -->
     <!-- ===================================================================== -->
     <header class="bg-[#090A0D]/95 border-b border-sfx-cyan/40 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-xl shadow-2xl">
         <div class="flex items-center space-x-3">
@@ -281,7 +360,9 @@
             <div>
                 <div class="flex items-center space-x-2">
                     <span class="font-grotesk font-black text-white text-sm tracking-wider">X-BOX SECURITY</span>
-                    <span id="badge-porta-attiva" class="px-2 py-0.5 bg-sfx-gold/20 text-sfx-goldLight text-[9px] font-bold rounded border border-sfx-gold/40">PORTA 01: FINANZA</span>
+                    <span id="badge-porta-attiva" class="px-2 py-0.5 bg-sfx-gold/20 text-sfx-goldLight text-[9px] font-bold rounded border border-sfx-gold/40">
+                        PORTA 01: FINANZA
+                    </span>
                 </div>
                 <span class="text-[10px] text-gray-400 font-mono mt-0.5 flex items-center">
                     <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse mr-1.5"></span> EAL6+ SOVRANO LV.9 &bull; <strong class="text-sfx-cyanLight ml-1">ceo@supremafuturex.com</strong>
@@ -289,34 +370,28 @@
             </div>
         </div>
 
-        <!-- PULSANTIERA VELOCE HEADER -->
         <div class="flex items-center gap-2 mt-2 sm:mt-0 font-mono text-xs">
-            <!-- Pulsante Cambio Porta -->
             <button onclick="mostraSwitchboardGate()" class="px-3 py-2 bg-[#12141C] border border-gray-700 hover:border-sfx-gold text-sfx-goldLight rounded-xl font-bold transition-all flex items-center space-x-1.5 cursor-pointer shadow-md">
                 <i class="fa-solid fa-door-open"></i>
                 <span class="hidden md:inline">CAMBIA PORTA</span>
             </button>
 
-            <!-- Salto alla Box Landing -->
             <a href="crm.html" class="px-3 py-2 bg-[#12141C] border border-sfx-cyan/60 hover:bg-sfx-cyan hover:text-black text-sfx-cyanLight rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md">
                 <i class="fa-solid fa-crown"></i>
                 <span class="hidden md:inline">BOX LANDING</span>
             </a>
 
-            <!-- Kill-Switch Rapido -->
             <button onclick="attivaKillSwitchSovrano()" class="px-3 py-2 bg-red-950/60 hover:bg-red-800 border border-red-500/60 text-red-400 rounded-xl font-bold transition-all flex items-center space-x-1.5 shadow-md cursor-pointer" title="Kill-Switch EAL6+">
                 <i class="fa-solid fa-power-off"></i>
                 <span class="hidden lg:inline">KILL-SWITCH</span>
             </button>
 
-            <!-- Logout -->
             <button onclick="terminaSioneSovrana()" class="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl font-bold transition-all cursor-pointer" title="Termina Sessione">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
         </div>
     </header>
 
-    <!-- LASER BEAM DIVISIONALE -->
     <div class="laser-beam-header"></div>
 
     <!-- ===================================================================== -->
@@ -329,60 +404,109 @@
             <div class="space-y-4">
                 <div class="border-b border-gray-800 pb-3 flex items-center justify-between">
                     <div>
-                        <span class="text-[10px] font-bold text-sfx-cyan tracking-widest uppercase block"><i class="fa-solid fa-compass mr-1"></i>NAVIGATORE NOC</span>
-                        <span class="text-xs font-black text-white" id="sidebar-titolo-porta">PORTA 01: FINANZA</span>
+                        <span class="text-[10px] font-bold text-sfx-cyan tracking-widest uppercase block">
+                            <i class="fa-solid fa-compass mr-1"></i>NAVIGATORE NOC
+                        </span>
+                        <span class="text-xs font-black text-white" id="sidebar-titolo-porta">
+                            PORTA 01: FINANZA
+                        </span>
                     </div>
                     <span class="led-indicator led-green"></span>
                 </div>
 
-                <!-- MENU PORTA 01: FINANZA & FISCO -->
+                <!-- NAV PORTA 01: FINANZA & FISCO -->
                 <nav id="nav-porta-01" class="space-y-1.5">
-                    <a href="#modulo-kpi" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-chart-line w-6 text-sfx-cyan"></i> 01. Radar &amp; NOC</a>
-                    <a href="#modulo-mastro" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-gold hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-calculator w-6 text-sfx-gold"></i> 02. Mastro 54/30/16</a>
-                    <a href="#modulo-fisco" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-silver hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-scale-balanced w-6 text-sfx-silver"></i> 03. Fisco SFX &amp; F24</a>
-                    <a href="#modulo-previsore" class="block p-2.5 rounded-xl bg-black/50 text-yellow-300 hover:bg-[#1F2227] transition-all flex items-center font-bold"><i class="fa-solid fa-calendar-check w-6 text-yellow-400"></i> 04. Previsore 12 Mesi</a>
-                    <a href="#modulo-dividendi" class="block p-2.5 rounded-xl bg-black/50 text-sfx-goldLight hover:bg-[#1F2227] transition-all flex items-center font-bold"><i class="fa-solid fa-vault w-6 text-sfx-goldLight"></i> 05. Cassa Dividendi &amp; PIN</a>
-                    <a href="#modulo-gateway-iban" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-credit-card w-6 text-sfx-cyan"></i> 06. Gateway &amp; SumUp/Rev</a>
+                    <a href="#modulo-kpi" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-chart-line w-6 text-sfx-cyan"></i> 01. Radar &amp; NOC
+                    </a>
+                    <a href="#modulo-mastro" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-gold hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-calculator w-6 text-sfx-gold"></i> 02. Mastro 54/30/16
+                    </a>
+                    <a href="#modulo-fisco" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-silver hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-scale-balanced w-6 text-sfx-silver"></i> 03. Fisco SFX &amp; F24
+                    </a>
+                    <a href="#modulo-previsore" class="block p-2.5 rounded-xl bg-black/50 text-yellow-300 hover:bg-[#1F2227] transition-all flex items-center font-bold">
+                        <i class="fa-solid fa-calendar-check w-6 text-yellow-400"></i> 04. Previsore 12 Mesi
+                    </a>
+                    <a href="#modulo-dividendi" class="block p-2.5 rounded-xl bg-black/50 text-sfx-goldLight hover:bg-[#1F2227] transition-all flex items-center font-bold">
+                        <i class="fa-solid fa-vault w-6 text-sfx-goldLight"></i> 05. Cassa Dividendi &amp; PIN
+                    </a>
+                    <a href="#modulo-gateway-iban" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-credit-card w-6 text-sfx-cyan"></i> 06. Gateway &amp; SumUp/Rev
+                    </a>
                 </nav>
 
-                <!-- MENU PORTA 02: MEDIA, SOCIAL, ANALYTICS & AI (NASCOSTO DI DEFAULT) -->
+                <!-- NAV PORTA 02: MEDIA, SOCIAL, ANALYTICS & AI -->
                 <nav id="nav-porta-02" class="space-y-1.5 hidden">
-                    <a href="#modulo-media-vault" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-photo-film w-6 text-sfx-cyan"></i> 01. Media Vault (5 Cat.)</a>
-                    <a href="#modulo-player-8" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-gold hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-expand w-6 text-sfx-gold"></i> 02. Player 8" Console</a>
-                    <a href="#modulo-social-gateway" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyanLight hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-share-nodes w-6 text-sfx-cyanLight"></i> 03. Gateway 6 Social</a>
-                    <a href="#modulo-scheduler-post" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-yellow-400 hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-calendar-days w-6 text-yellow-400"></i> 04. Scheduler &amp; Keyword</a>
-                    <a href="#modulo-analytics-360" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-green-400 hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-chart-pie w-6 text-green-400"></i> 05. Analytics SFX 360°</a>
-                    <a href="#modulo-flotta-15-ai" class="block p-2.5 rounded-xl bg-black/50 text-purple-400 hover:bg-[#1F2227] transition-all flex items-center font-bold"><i class="fa-solid fa-robot w-6 text-purple-400"></i> 06. Flotta 15 Agenti AI</a>
+                    <a href="#modulo-media-vault" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-photo-film w-6 text-sfx-cyan"></i> 01. Media Vault (5 Cat.)
+                    </a>
+                    <a href="#modulo-player-8" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-gold hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-expand w-6 text-sfx-gold"></i> 02. Player 8" Console
+                    </a>
+                    <a href="#modulo-social-gateway" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyanLight hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-share-nodes w-6 text-sfx-cyanLight"></i> 03. Gateway 6 Social
+                    </a>
+                    <a href="#modulo-scheduler-post" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-yellow-400 hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-calendar-days w-6 text-yellow-400"></i> 04. Scheduler &amp; Keyword
+                    </a>
+                    <a href="#modulo-analytics-360" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-green-400 hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-chart-pie w-6 text-green-400"></i> 05. Analytics SFX 360°
+                    </a>
+                    <a href="#modulo-flotta-15-ai" class="block p-2.5 rounded-xl bg-black/50 text-purple-400 hover:bg-[#1F2227] transition-all flex items-center font-bold">
+                        <i class="fa-solid fa-robot w-6 text-purple-400"></i> 06. Flotta 15 Agenti AI
+                    </a>
                 </nav>
 
-                <!-- MENU PORTA 03: IL CERVELLO (CRM & ARCHIVIO) (NASCOSTO DI DEFAULT) -->
+                <!-- NAV PORTA 03: IL CERVELLO (CRM, ARCHIVIO & GOLD CARD) -->
                 <nav id="nav-porta-03" class="space-y-1.5 hidden">
-                    <a href="#modulo-contratti-protocolli" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-gold hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-file-contract w-6 text-sfx-gold"></i> 01. Contratti &amp; Protocolli</a>
-                    <a href="#modulo-fabbrica-moduli" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-folder-tree w-6 text-sfx-cyan"></i> 02. Fabbrica Moduli Schede</a>
-                    <a href="#modulo-crm-candidati" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-goldLight hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-address-book w-6 text-sfx-goldLight"></i> 03. Registro Candidati SFX</a>
-                    <a href="#modulo-scheda-corsista-led" class="block p-2.5 rounded-xl bg-black/50 text-green-400 hover:bg-[#1F2227] transition-all flex items-center font-bold"><i class="fa-solid fa-traffic-light w-6 text-green-400"></i> 04. Scheda Spie LED 90gg</a>
-                    <a href="#modulo-archivio-dormienti" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-red-400 hover:bg-[#1F2227] transition-all flex items-center"><i class="fa-solid fa-bed w-6 text-red-400"></i> 05. Archivio Dormienti</a>
+                    <a href="#modulo-contratti-protocolli" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-gold hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-file-contract w-6 text-sfx-gold"></i> 01. Contratti &amp; Protocolli
+                    </a>
+                    <a href="#modulo-fabbrica-moduli" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-cyan hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-folder-tree w-6 text-sfx-cyan"></i> 02. Fabbrica Moduli Schede
+                    </a>
+                    <a href="#modulo-crm-candidati" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-sfx-goldLight hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-address-book w-6 text-sfx-goldLight"></i> 03. Registro Candidati SFX
+                    </a>
+                    <a href="#modulo-scheda-corsista-led" class="block p-2.5 rounded-xl bg-black/50 text-green-400 hover:bg-[#1F2227] transition-all flex items-center font-bold">
+                        <i class="fa-solid fa-traffic-light w-6 text-green-400"></i> 04. Scheda Spie LED 90gg
+                    </a>
+                    <a href="#modulo-archivio-dormienti" class="block p-2.5 rounded-xl bg-black/50 text-gray-300 hover:text-red-400 hover:bg-[#1F2227] transition-all flex items-center">
+                        <i class="fa-solid fa-bed w-6 text-red-400"></i> 05. Archivio Dormienti
+                    </a>
+                    <a href="#modulo-suprema-gold-card" class="block p-2.5 rounded-xl bg-black/50 text-sfx-goldLight hover:bg-[#1F2227] transition-all flex items-center font-bold border border-sfx-gold/30">
+                        <i class="fa-solid fa-credit-card w-6 text-sfx-gold"></i> 06. Suprema Gold Card Hub
+                    </a>
                 </nav>
             </div>
 
-            <!-- 4 ALIAS EMAIL CLICCABILI SOTTO LA SIDEBAR -->
-            <div class="border-t border-gray-800 pt-3 space-y-2">
-                <span class="text-[9px] text-gray-500 uppercase tracking-wider block text-center font-bold">4 FREQUENZE EMAIL UFFICIALI</span>
-                <div class="grid grid-cols-2 gap-1.5 text-[9px] font-mono text-center">
-                    <a href="mailto:ceo@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-sfx-gold text-sfx-goldLight rounded transition-colors block truncate">ceo@</a>
-                    <a href="mailto:academy@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-sfx-cyan text-sfx-cyanLight rounded transition-colors block truncate">academy@</a>
-                    <a href="mailto:desk@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-gray-600 text-gray-300 rounded transition-colors block truncate">desk@</a>
-                    <a href="mailto:support@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-gray-600 text-gray-300 rounded transition-colors block truncate">support@</a>
+            <!-- LE 4 FREQUENZE EMAIL UFFICIALI CLICCABILI -->
+            <div class="border-t border-gray-800 pt-3 space-y-2 text-center text-[9px] font-mono text-gray-500">
+                <span class="uppercase tracking-wider font-bold block">
+                    4 FREQUENZE EMAIL UFFICIALI
+                </span>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <a href="mailto:ceo@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-sfx-gold text-sfx-goldLight rounded transition-colors truncate">
+                        ceo@
+                    </a>
+                    <a href="mailto:academy@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-sfx-cyan text-sfx-cyanLight rounded transition-colors truncate">
+                        academy@
+                    </a>
+                    <a href="mailto:desk@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-gray-600 text-gray-300 rounded transition-colors truncate">
+                        desk@
+                    </a>
+                    <a href="mailto:support@supremafuturex.com" class="p-1.5 bg-black border border-gray-800 hover:border-gray-600 text-gray-300 rounded transition-colors truncate">
+                        support@
+                    </a>
                 </div>
-                <div class="pt-1 text-center text-[10px] text-gray-400">
-                    WA: <a href="https://wa.me/393474429091" target="_blank" class="text-green-400 hover:underline font-bold">+39 347 442 9091</a>
+                <div class="pt-1 text-gray-400">
+                    WA: <a href="https://wa.me/393474429091" target="_blank" class="text-green-400 font-bold hover:underline">+39 347 442 9091</a>
                 </div>
             </div>
         </aside>
 
-        <!-- ===================================================================== -->
-        <!-- AREA CONTENUTO OPERATIVO A 3 COMPARTI                                 -->
-        <!-- ===================================================================== -->
+        <!-- AREA CONTENUTI OPERATIVI -->
         <main class="flex-1 space-y-8 min-w-0 font-mono">
 
             <!-- ================================================================= -->
@@ -390,7 +514,7 @@
             <!-- ================================================================= -->
             <div id="compartimento-porta-01" class="space-y-8">
 
-                <!-- 01. RADAR & NOC TELEGRAM DISPATCHER -->
+                <!-- 01. RADAR & NOC TELEGRAM -->
                 <section id="modulo-kpi" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-5">
                         <div>
@@ -410,11 +534,13 @@
                             <div class="text-green-400 font-bold flex items-center justify-end">
                                 <span class="w-2 h-2 rounded-full bg-green-400 animate-ping mr-1.5"></span> CONNESSO A TELEGRAM NOC
                             </div>
-                            <div class="text-sfx-cyanLight text-[10px]" id="xbox-sync-time">SYNC: --:--:--</div>
+                            <div class="text-sfx-cyanLight text-[10px]" id="xbox-sync-time">
+                                SYNC: --:--:--
+                            </div>
                         </div>
                     </div>
 
-                    <!-- CONSOLE NOC DISPATCHER -->
+                    <!-- DISPATCHER TELEGRAM -->
                     <div class="bg-black/90 p-4 rounded-2xl border border-sfx-cyan/40 flex flex-wrap items-center justify-between gap-3 text-xs">
                         <div class="flex items-center space-x-3">
                             <i class="fa-brands fa-telegram text-2xl text-sfx-cyanLight"></i>
@@ -433,10 +559,10 @@
                         </div>
                     </div>
 
-                    <!-- METRICHE SINTETICHE -->
+                    <!-- 4 METRICHE SINTETICHE -->
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
                         <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 flex flex-col justify-between">
-                            <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-users text-sfx-cyan mr-1.5"></i>Candidature Nexus</span>
+                            <span class="text-gray-400 text-[10px] font-bold uppercase"><i class="fa-solid fa-users text-sfx-cyan mr-1.5"></i>Candidature</span>
                             <div class="text-2xl font-black text-white font-grotesk mt-2" id="xbox-metric-leads">0</div>
                         </div>
                         <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 flex flex-col justify-between">
@@ -453,7 +579,7 @@
                         </div>
                     </div>
 
-                    <!-- RADAR GEOGRAFICO & TERMINALE AUDIT -->
+                    <!-- RADAR CANVAS & AUDIT STREAMING -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
                         <div class="lg:col-span-5 bg-black/80 p-5 rounded-2xl border border-gray-800 text-xs">
                             <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-3">
@@ -478,14 +604,14 @@
                                 <span class="text-[9px] text-green-400 flex items-center"><i class="fa-solid fa-circle text-[7px] mr-1 animate-pulse"></i>ONLINE</span>
                             </div>
                             <div id="terminal-audit-box" class="h-40 overflow-y-auto space-y-1.5 text-[11px] text-gray-300 pr-2 scrollbar-sfx">
-                                <div class="text-gray-500">[08:00:00] AG-01 Alison: Presidio screening attivo.</div>
-                                <div class="text-sfx-cyan font-bold">[12:00:00] CANALE NOC: Handshake Telegram convalidato con ID 6534406542.</div>
+                                <div class="text-gray-500">[08:00:00] Inizializzazione protocolli EAL6+ completata.</div>
+                                <div class="text-sfx-cyan font-bold">[12:00:00] CANALE NOC: Handshake convalidato con ID 6534406542.</div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 02. MASTRO FINANZIARIO LEDGER (SPLIT 54 / 30 / 16 — SHA-256) -->
+                <!-- 02. MASTRO FINANZIARIO LEDGER (54/30/16 — SHA-256) -->
                 <section id="modulo-mastro" class="neon-panel-gold p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
@@ -499,7 +625,6 @@
                         </span>
                     </div>
 
-                    <!-- FORM DI REGISTRAZIONE TRANSAZIONE -->
                     <form id="form-ledger" onsubmit="inviaTransazioneLedger(event)" class="space-y-6 text-xs font-mono">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="space-y-2">
@@ -519,7 +644,6 @@
                             </div>
                         </div>
 
-                        <!-- ANTEPRIMA MATEMATICA DELLO SPLIT -->
                         <div class="bg-black/80 p-6 rounded-2xl border border-gray-800 space-y-3">
                             <span class="text-[10px] text-gray-400 uppercase font-bold block">Anteprima Algoritmo Ripartizione Automatica:</span>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center font-mono">
@@ -543,7 +667,6 @@
                         </button>
                     </form>
 
-                    <!-- TABELLA STORICO MASTRO -->
                     <div class="pt-4 border-t border-gray-800 space-y-3 text-xs">
                         <div class="flex items-center justify-between">
                             <h3 class="font-grotesk font-bold text-xs text-white uppercase"><i class="fa-solid fa-clock-rotate-left text-sfx-gold mr-2"></i>STORICO TRANSAZIONI MASTRO</h3>
@@ -574,7 +697,7 @@
                     </div>
                 </section>
 
-                <!-- 03. FISCO ONLINE SFX & FONDO FISCALE 16% (GINEVRA AG-03) -->
+                <!-- 03. FISCO ONLINE SFX // FONDO FISCALE 16% (GINEVRA AG-03) -->
                 <section id="modulo-fisco" class="neon-panel-fisco p-6 sm:p-8 space-y-6">
                     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-4">
                         <div>
@@ -588,7 +711,6 @@
                         </span>
                     </div>
 
-                    <!-- CRUSCOTTO CASSETTA TRIBUTARIA -->
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 font-mono text-xs">
                         <div class="p-5 bg-black/70 rounded-2xl border border-gray-800 space-y-2">
                             <span class="text-gray-400 text-[10px] block font-bold uppercase">FONDO FISCALE CUMULATO</span>
@@ -614,7 +736,6 @@
                         </div>
                     </div>
 
-                    <!-- TRACKER SPESE OBBLIGATORIE & F24 SIMULATI -->
                     <div class="bg-black/60 p-5 rounded-2xl border border-gray-800 space-y-3 text-xs">
                         <span class="text-white font-bold text-xs uppercase block border-b border-gray-800 pb-2">
                             <i class="fa-solid fa-list-check text-sfx-silver mr-2"></i>Voci Fisse di Mantenimento Società &amp; Internet
@@ -640,7 +761,7 @@
                     </div>
                 </section>
 
-                <!-- 04. PREVISORE DI GENNAIO A 12 MESI (IVA, ACCONTI & SALDO A CONTATORE) -->
+                <!-- 04. PREVISORE DI GENNAIO A 12 MESI -->
                 <section id="modulo-previsore" class="neon-panel-gold p-6 sm:p-8 space-y-6">
                     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-4">
                         <div>
@@ -659,7 +780,6 @@
                         </div>
                     </div>
 
-                    <!-- CALCOLATORE STIMA ANNUALE -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
                         <div class="space-y-2">
                             <label class="block text-gray-300 font-bold uppercase text-[10px]">Obiettivo Fatturato Annuo Stimato (€)</label>
@@ -682,7 +802,6 @@
                         </div>
                     </div>
 
-                    <!-- TABELLA DI MARCIA TRIMESTRALE SCADENZE F24 -->
                     <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs font-mono">
                         <div class="p-4 bg-black/70 rounded-xl border border-gray-800 space-y-1">
                             <span class="text-gray-400 text-[10px] font-bold block">1° TRIMESTRE (16 MAG)</span>
@@ -707,7 +826,7 @@
                     </div>
                 </section>
 
-                <!-- 05. CASSA DIVIDENDI & PIN SOVRANO 10 CIFRE (3474429091) -->
+                <!-- 05. CASSA DIVIDENDI & PIN SOVRANO (3474429091) -->
                 <section id="modulo-dividendi" class="neon-panel-gold p-6 sm:p-8 relative space-y-6">
                     <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 mb-2">
                         <div>
@@ -721,7 +840,6 @@
                         </span>
                     </div>
 
-                    <!-- TASTIERINO PIN A 10 CIFRE -->
                     <div id="vault-lock" class="text-center py-6">
                         <p class="text-xs font-mono text-gray-400 mb-4 tracking-widest uppercase">
                             INSERIRE PIN SOVRANO 10 CIFRE PER SBLOCCARE LA CASSA DIVIDENDI:
@@ -746,10 +864,8 @@
                         </p>
                     </div>
 
-                    <!-- CONTENUTO SEGRETO CASSA (SBLOCCATO SOLO CON PIN) -->
                     <div id="vault-content" class="hidden space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Ripartizione Utili Netta -->
                             <div class="bg-black/80 border border-sfx-goldLight p-6 rounded-2xl space-y-4">
                                 <h3 class="font-cyber text-sm text-sfx-goldLight border-b border-gray-800 pb-2">
                                     RIPARTIZIONE UTILI DELLA CASSA PRESIDENZIALE
@@ -770,7 +886,6 @@
                                 </div>
                             </div>
 
-                            <!-- Piano Retributivo CEO -->
                             <div class="bg-black/80 border border-sfx-cyan p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
                                     <h3 class="font-cyber text-sm text-sfx-cyan mb-3 border-b border-gray-800 pb-2">
@@ -795,7 +910,7 @@
                     </div>
                 </section>
 
-                <!-- 06. GATEWAY PAGAMENTI CORSI & SBLOCCO AUTOMATICO AGENTI -->
+                <!-- 06. GATEWAY PAGAMENTI & SBLOCCO CORSI -->
                 <section id="modulo-gateway-iban" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
@@ -813,7 +928,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs font-mono">
-                        <!-- Coordinate Bancarie Attive -->
                         <form onsubmit="aggiornaGateway(event)" class="bg-black/60 p-6 rounded-2xl border border-gray-800 space-y-4">
                             <span class="text-sfx-gold font-bold block border-b border-gray-800 pb-2">COORDINATE BANCARIE AZIENDALI</span>
                             <div>
@@ -839,7 +953,6 @@
                             </button>
                         </form>
 
-                        <!-- Simulatore Ricezione Pagamento e Sblocco Automatico -->
                         <div class="bg-black/60 p-6 rounded-2xl border border-gray-800 space-y-4 flex flex-col justify-between">
                             <div>
                                 <span class="text-sfx-cyan font-bold block border-b border-gray-800 pb-2">SIMULATORE SBLOCCO DIRETTO DA CASSA</span>
@@ -870,21 +983,29 @@
                 </section>
 
             </div>
-           <!-- ================================================================= -->
+           Ecco la PARTE 2 DI 3 di admin.html: incollala direttamente sotto la fine della Parte 1 (subito dopo <!-- FINE COMPARTIMENTO 01 (PORTA 01) -->).
+
+Questa sezione contiene l'intero Compartimento 02: il Media Vault a 5 categorie, il Viewport Player da 8 pollici con tutti i controlli, il Gateway per i 6 social, lo Scheduler con la matrice completa delle 100 keyword, l'Analytics 360° e la griglia della Flotta dei 15 Agenti AI con la modale del Cervello a 11 pollici.
+
+File: admin.html (PARTE 2 DI 3 — Righe 921-1850 circa)
+HTML
+            <!-- ================================================================= -->
             <!-- COMPARTIMENTO 02: PORTA 02 — MEDIA, SOCIAL, ANALYTICS & AGENT AI -->
             <!-- ================================================================= -->
             <div id="compartimento-porta-02" class="space-y-8 hidden">
 
-                <!-- 01. MEDIA VAULT A 5 CATEGORIE & CARICAMENTO POTENZIATO -->
+                <!-- 01. MEDIA VAULT A 5 CATEGORIE & UPLOAD POTENZIATO -->
                 <section id="modulo-media-vault" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-sfx-cyan font-bold text-xs uppercase"><i class="fa-solid fa-photo-film mr-2"></i>DEPOSITO MULTIMEDIALE CENTRALE</span>
+                            <span class="text-sfx-cyan font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-photo-film mr-2"></i>DEPOSITO MULTIMEDIALE MASTER EAL6+
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 01. MEDIA VAULT (VIDEO, FOTO, SLIDE, TESTI, PDF)
                             </h2>
                             <p class="text-[11px] text-gray-400 mt-0.5">
-                                Caricamento potenziato da dispositivo (MacBook / iPhone) con conversione Base64 automatica o inserimento tramite URL esterno e didascalia.
+                                Upload potenziato direttamente da Mac/iPhone con conversione automatica in Base64 per Google Drive, oppure archiviazione per URL esterno con didascalia permanente.
                             </p>
                         </div>
                         <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-lg border border-sfx-cyan/40">
@@ -911,55 +1032,63 @@
                         </button>
                     </div>
 
-                    <!-- DROPZONE E GESTIONE FILE -->
-                    <div class="bg-black/80 p-6 rounded-2xl border-2 border-dashed border-gray-700 space-y-4 text-center text-xs">
-                        <div class="text-4xl text-sfx-cyanLight">
+                    <!-- DROPZONE MULTIFUNZIONE CON ANTEPRIMA FILE -->
+                    <div class="bg-black/80 p-8 rounded-2xl border-2 border-dashed border-gray-700 space-y-4 text-center text-xs font-mono">
+                        <div class="text-5xl text-sfx-cyanLight animate-pulse">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                         </div>
                         <div class="space-y-1">
-                            <p class="text-white font-bold text-sm" id="vault5-drop-label">Caricamento per Categoria: VIDEO</p>
-                            <p class="text-gray-500 text-[10px]">Trascina il file oppure caricalo direttamente dalla memoria del Mac o iPhone.</p>
+                            <p class="text-white font-bold text-sm" id="vault5-drop-label">
+                                Caricamento Selezionato per Categoria: VIDEO
+                            </p>
+                            <p class="text-gray-500 text-[10px]">
+                                Trascina il file oppure clicca sul selettore per accedere alla memoria di massa di Mac o iPhone.
+                            </p>
                         </div>
 
                         <input type="file" id="vault5-file-input" onchange="gestisciFileVault5(this)" class="hidden">
                         
-                        <div class="flex flex-wrap justify-center gap-3">
-                            <button type="button" onclick="document.getElementById('vault5-file-input').click()" class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-white rounded-xl font-bold transition-all cursor-pointer">
-                                <i class="fa-solid fa-folder-open mr-1.5"></i> Sfoglia Dispositivo Locale
+                        <div class="flex flex-wrap justify-center gap-3 pt-2">
+                            <button type="button" onclick="document.getElementById('vault5-file-input').click()" class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-xl font-bold transition-all cursor-pointer shadow-md">
+                                <i class="fa-solid fa-folder-open mr-2"></i> Seleziona File da Mac / iPhone
                             </button>
-                            <button type="button" onclick="apriPlayer8Pollici(null)" class="px-5 py-2.5 bg-sfx-gold hover:bg-yellow-500 text-black rounded-xl font-black transition-all cursor-pointer">
-                                <i class="fa-solid fa-expand mr-1.5"></i> Apri nel Player 8"
+                            <button type="button" onclick="apriPlayer8Pollici(null)" class="px-6 py-3 bg-sfx-gold hover:bg-yellow-500 text-black rounded-xl font-black transition-all cursor-pointer shadow-md">
+                                <i class="fa-solid fa-expand mr-2"></i> Proietta nel Player 8"
                             </button>
                         </div>
 
-                        <!-- SCHEDA ANTEPRIMA FILE CARICATO -->
+                        <!-- SCHEDA FILE CONVALIDATO IN BASE64 -->
                         <div id="vault5-file-card" class="hidden p-4 bg-[#090A0D] border border-sfx-cyan/50 rounded-xl text-left flex items-center justify-between">
                             <div class="flex items-center space-x-3 truncate">
-                                <i class="fa-solid fa-file-circle-check text-2xl text-sfx-cyanLight"></i>
+                                <i class="fa-solid fa-file-circle-check text-2xl text-sfx-cyanLight shrink-0"></i>
                                 <div class="truncate">
                                     <span class="font-bold text-white text-xs block truncate" id="vault5-file-name">file_selezionato.ext</span>
-                                    <span class="text-[10px] text-gray-400 font-mono" id="vault5-file-meta">0.00 KB</span>
+                                    <span class="text-[10px] text-gray-400 font-mono" id="vault5-file-meta">0.00 KB &bull; Tipo binario</span>
                                 </div>
                             </div>
-                            <span class="px-2.5 py-1 bg-green-950/80 border border-green-500 text-green-300 text-[9px] font-bold rounded">
-                                PRONTO
+                            <span class="px-3 py-1 bg-green-950/80 border border-green-500 text-green-300 text-[9px] font-bold rounded">
+                                PRONTO IN MEMORIA
                             </span>
                         </div>
                     </div>
 
-                    <!-- URL DIRETTO, DIDASCALIA & TRASMISSIONE -->
+                    <!-- CAMPI COMPLEMENTARI: URL ESTERNO, DIDASCALIA & TRASMISSIONE -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
                         <div>
-                            <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Oppure inserisci URL Esterno (es. YouTube / Vimeo):</label>
+                            <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">
+                                Oppure Inserisci URL Esterno (es. YouTube / Vimeo):
+                            </label>
                             <input type="url" id="vault5-url-input" placeholder="https://..." class="w-full p-3.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs">
                         </div>
                         <div>
-                            <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Didascalia / Titolo Descrittivo del File:</label>
-                            <input type="text" id="vault5-caption-input" placeholder="Didascalia che apparirà a schermo..." class="w-full p-3.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs">
+                            <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">
+                                Didascalia / Titolo Descrittivo del File:
+                            </label>
+                            <input type="text" id="vault5-caption-input" placeholder="Didascalia visualizzata a schermo..." class="w-full p-3.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs">
                         </div>
                         <div class="flex items-end">
                             <button type="button" onclick="inviaFileAlMediaVault()" class="w-full py-3.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-grotesk font-black uppercase tracking-wider rounded-xl transition-all shadow-lg cursor-pointer text-xs">
-                                <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> Salva nel Vault &amp; Pubblica
+                                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Salva nel Vault &amp; Pubblica
                             </button>
                         </div>
                     </div>
@@ -969,60 +1098,64 @@
                 <section id="modulo-player-8" class="neon-panel-gold p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-sfx-gold font-bold text-xs uppercase"><i class="fa-solid fa-expand mr-2"></i>SIMULATORE AD ALTA RISOLUZIONE</span>
+                            <span class="text-sfx-gold font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-expand mr-2"></i>SIMULATORE AD ALTA RISOLUZIONE
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 02. VIEWPORT PLAYER 8" CON CONTROLLI DIREZIONALI
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
-                                Schermo proporzionato per la verifica immediata di video, foto, slide e documenti prima della distribuzione sui canali e sulla Landing Page.
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
+                                Monitor di visualizzazione proporzionato per la verifica immediata di video, foto, slide e documenti prima della distribuzione sui canali e sulla Landing Page.
                             </p>
                         </div>
-                        <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-goldLight text-[10px] font-bold rounded-lg border border-sfx-gold/40">
+                        <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-goldLight text-[10px] font-bold rounded-lg border border-sfx-gold/40 font-mono">
                             FORMATO 8 POLLICI (16:10)
                         </span>
                     </div>
 
-                    <!-- IL PLAYER A SCHERMO CENTRATO -->
+                    <!-- IL PLAYER SCHERMO CENTRATO -->
                     <div class="max-w-3xl mx-auto bg-black rounded-3xl border-2 border-sfx-cyan/60 p-4 shadow-[0_0_40px_rgba(0,240,255,0.2)] space-y-4">
                         <!-- Schermo effettivo -->
                         <div class="relative w-full aspect-[16/10] bg-[#090A0D] rounded-2xl overflow-hidden border border-gray-800 flex items-center justify-center" id="player8-screen">
                             <div class="text-center space-y-2 p-6" id="player8-placeholder">
                                 <i class="fa-solid fa-film text-5xl text-gray-700"></i>
-                                <p class="text-xs text-gray-500">Nessun media attualmente caricato nel viewport.<br>Seleziona un file dal Media Vault o premi play.</p>
+                                <p class="text-xs text-gray-500 font-mono">
+                                    Nessun media attualmente caricato nel viewport.<br>Seleziona un file dal Media Vault o digita un URL.
+                                </p>
                             </div>
                         </div>
 
                         <!-- Barra Didascalia del Media in Riproduzione -->
-                        <div class="p-3 bg-[#12141C] rounded-xl border border-gray-800 flex items-center justify-between text-xs">
+                        <div class="p-3 bg-[#12141C] rounded-xl border border-gray-800 flex items-center justify-between text-xs font-mono">
                             <span class="text-gray-400 text-[10px] uppercase font-bold">Didascalia attiva:</span>
-                            <span id="player8-caption-text" class="text-sfx-goldLight font-bold">Nessun file selezionato</span>
+                            <span id="player8-caption-text" class="text-sfx-goldLight font-bold truncate ml-2">Nessun file selezionato</span>
                         </div>
 
                         <!-- Pulsantiera di Controllo Completa -->
                         <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-gray-800 text-xs font-mono">
                             <div class="flex items-center space-x-2">
-                                <button onclick="player8Indietro10()" class="p-3 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-xl border border-gray-700" title="Indietro 10s">
+                                <button onclick="player8Indietro10()" class="p-3 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-xl border border-gray-700 cursor-pointer" title="Indietro 10 secondi">
                                     <i class="fa-solid fa-backward-step"></i>
                                 </button>
-                                <button onclick="player8TogglePlay()" id="btn-player8-play" class="px-5 py-3 bg-sfx-cyan hover:bg-cyan-400 text-black font-black rounded-xl shadow-md" title="Play / Pausa">
+                                <button onclick="player8TogglePlay()" id="btn-player8-play" class="px-5 py-3 bg-sfx-cyan hover:bg-cyan-400 text-black font-black rounded-xl shadow-md cursor-pointer" title="Play / Pausa">
                                     <i class="fa-solid fa-play mr-1"></i> PLAY
                                 </button>
-                                <button onclick="player8Stop()" class="p-3 bg-gray-900 hover:bg-gray-800 text-red-400 rounded-xl border border-gray-700" title="Stop">
+                                <button onclick="player8Stop()" class="p-3 bg-gray-900 hover:bg-gray-800 text-red-400 rounded-xl border border-gray-700 cursor-pointer" title="Arresta Riproduzione">
                                     <i class="fa-solid fa-stop"></i>
                                 </button>
-                                <button onclick="player8Avanti10()" class="p-3 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-xl border border-gray-700" title="Avanti 10s">
+                                <button onclick="player8Avanti10()" class="p-3 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-xl border border-gray-700 cursor-pointer" title="Avanti 10 secondi">
                                     <i class="fa-solid fa-forward-step"></i>
                                 </button>
                             </div>
 
-                            <!-- Controllo Volume -->
+                            <!-- Controllo Slider Volume -->
                             <div class="flex items-center space-x-2 bg-gray-900/60 p-2 rounded-xl border border-gray-800">
                                 <i class="fa-solid fa-volume-high text-gray-400 text-xs"></i>
-                                <input type="range" id="player8-volume" min="0" max="1" step="0.05" value="0.8" oninput="player8SetVolume(this.value)" class="w-20 accent-[#00F0FF]">
+                                <input type="range" id="player8-volume" min="0" max="1" step="0.05" value="0.8" oninput="player8SetVolume(this.value)" class="w-20 accent-[#00F0FF] cursor-pointer">
                             </div>
 
-                            <!-- Fullscreen Toggle -->
-                            <button onclick="player8ToggleFullscreen()" class="px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-xl font-bold flex items-center space-x-1.5" title="Schermo Intero">
+                            <!-- Interruttore Fullscreen -->
+                            <button onclick="player8ToggleFullscreen()" class="px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-xl font-bold flex items-center space-x-1.5 cursor-pointer shadow-md" title="Schermo Intero">
                                 <i class="fa-solid fa-expand"></i> <span>Fullscreen</span>
                             </button>
                         </div>
@@ -1033,11 +1166,13 @@
                 <section id="modulo-social-gateway" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-sfx-cyan font-bold text-xs uppercase"><i class="fa-solid fa-share-nodes mr-2"></i>RETE SOCIALE ISTITUZIONALE</span>
+                            <span class="text-sfx-cyan font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-share-nodes mr-2"></i>RETE SOCIALE ISTITUZIONALE
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 03. GATEWAY 6 SOCIAL &amp; DESTINAZIONE AGENTI
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
                                 I 6 link salvati vengono sincronizzati sulla Landing Page e inviati istantaneamente agli agenti Scout (AG-04) e Joker (AG-15).
                             </p>
                         </div>
@@ -1096,12 +1231,14 @@
                 <section id="modulo-scheduler-post" class="neon-panel-gold p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-yellow-400 font-bold text-xs uppercase"><i class="fa-solid fa-calendar-days mr-2"></i>PIANIFICAZIONE EDITORIALE &amp; TRAINING</span>
+                            <span class="text-yellow-400 font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-calendar-days mr-2"></i>PIANIFICAZIONE EDITORIALE &amp; TRAINING
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 04. SCHEDULER POST &amp; MATRICE 100 KEYWORD
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
-                                Redazione contenuti, programmazione per orario di pubblicazione e lista di 100 parole chiave per la caccia e la generazione testi degli agenti.
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
+                                Redazione contenuti, programmazione per orario di pubblicazione e matrice di 100 parole chiave per l'addestramento cognitivo di Scout (AG-04) e Joker (AG-15).
                             </p>
                         </div>
                     </div>
@@ -1190,21 +1327,23 @@
                 <section id="modulo-analytics-360" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-green-400 font-bold text-xs uppercase"><i class="fa-solid fa-chart-pie mr-2"></i>TELEMETRIA ACCESSI &amp; CONVERSIONI</span>
+                            <span class="text-green-400 font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-chart-pie mr-2"></i>TELEMETRIA ACCESSI &amp; CONVERSIONI
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 05. ANALYTICS SFX 360° // COPERTURA TOTALE FLUSSI
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
                                 Analisi degli ingressi sulla Landing Page: visitatori unici, tempo medio di permanenza, sezioni con maggiore permanenza e tasso di drop-off.
                             </p>
                         </div>
                         
                         <!-- FILTRI TEMPORALI -->
                         <div class="flex space-x-1.5 text-xs font-mono">
-                            <button onclick="cambiaRangeAnalytics('OGGI')" id="btn-an-oggi" class="px-3 py-1.5 bg-sfx-cyan text-black font-bold rounded-lg shadow-sm">Oggi</button>
-                            <button onclick="cambiaRangeAnalytics('SETTIMANA')" id="btn-an-settimana" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg">Settimana</button>
-                            <button onclick="cambiaRangeAnalytics('MESE')" id="btn-an-mese" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg">Mese</button>
-                            <button onclick="cambiaRangeAnalytics('ANNO')" id="btn-an-anno" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg">Anno</button>
+                            <button onclick="cambiaRangeAnalytics('OGGI')" id="btn-an-oggi" class="px-3 py-1.5 bg-sfx-cyan text-black font-bold rounded-lg shadow-sm cursor-pointer">Oggi</button>
+                            <button onclick="cambiaRangeAnalytics('SETTIMANA')" id="btn-an-settimana" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg cursor-pointer">Settimana</button>
+                            <button onclick="cambiaRangeAnalytics('MESE')" id="btn-an-mese" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg cursor-pointer">Mese</button>
+                            <button onclick="cambiaRangeAnalytics('ANNO')" id="btn-an-anno" class="px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg cursor-pointer">Anno</button>
                         </div>
                     </div>
 
@@ -1232,14 +1371,14 @@
                         </div>
                     </div>
 
-                    <!-- GRAFICO SIMULATO DELL'ONDA DI TRAFFICO -->
+                    <!-- GRAFICO DELLA CURVA DI ATTENZIONE -->
                     <div class="bg-black/80 p-6 rounded-2xl border border-gray-800 space-y-4">
                         <div class="flex justify-between items-center border-b border-gray-800 pb-2">
                             <span class="text-white font-bold text-xs uppercase"><i class="fa-solid fa-chart-line text-sfx-cyan mr-1.5"></i> Curva di Attenzione per Sezione della Landing Page</span>
                             <span class="text-[10px] text-gray-500">Dati aggregati in tempo reale</span>
                         </div>
                         
-                        <!-- Istogramma Bar Chart ad Alta Risoluzione -->
+                        <!-- BAR CHART AD ALTA RISOLUZIONE -->
                         <div class="space-y-3 font-mono text-xs">
                             <div>
                                 <div class="flex justify-between text-[11px] mb-1">
@@ -1294,20 +1433,22 @@
                 <section id="modulo-flotta-15-ai" class="neon-panel-gold p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-purple-400 font-bold text-xs uppercase"><i class="fa-solid fa-microchip mr-2"></i>RETE NEURALE INDIPENDENTE EAL6+</span>
+                            <span class="text-purple-400 font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-microchip mr-2"></i>RETE NEURALE INDIPENDENTE EAL6+
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 06. CENTRALE FLOTTA 15 AGENTI AI // CONTROLLO 11 POLLICI
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
                                 Ciascun agente possiede commutatori di stato (ON, OFF, PAUSA) e una scheda cervello a tutto schermo (11 pollici) con indottrinamento cumulativo append-only e audit trail.
                             </p>
                         </div>
                         
                         <div class="flex items-center space-x-2">
-                            <button onclick="accendiTuttiAgenti()" class="px-3 py-1.5 bg-green-950 border border-green-500 text-green-300 text-[10px] font-bold rounded-lg hover:bg-green-900">
+                            <button onclick="accendiTuttiAgenti()" class="px-3 py-1.5 bg-green-950 border border-green-500 text-green-300 text-[10px] font-bold rounded-lg hover:bg-green-900 cursor-pointer">
                                 <i class="fa-solid fa-power-off mr-1"></i> ATTIVA TUTTI
                             </button>
-                            <button onclick="spegniTuttiAgenti()" class="px-3 py-1.5 bg-red-950 border border-red-500 text-red-300 text-[10px] font-bold rounded-lg hover:bg-red-900">
+                            <button onclick="spegniTuttiAgenti()" class="px-3 py-1.5 bg-red-950 border border-red-500 text-red-300 text-[10px] font-bold rounded-lg hover:bg-red-900 cursor-pointer">
                                 <i class="fa-solid fa-pause mr-1"></i> PAUSA GENERALE
                             </button>
                         </div>
@@ -1315,7 +1456,7 @@
 
                     <!-- GRIGLIA OPERATIVA DEI 15 AGENTI -->
                     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 font-mono text-xs" id="griglia-15-agenti">
-                        <!-- Generato dinamicamente via JavaScript con stato e pulsanti -->
+                        <!-- Popolato dinamicamente da JavaScript -->
                     </div>
                 </section>
 
@@ -1376,7 +1517,7 @@
                                     <i class="fa-solid fa-terminal text-sfx-cyan mr-1"></i> Report di Presa Visione
                                 </span>
                                 <div id="scheda-agente-audit-report" class="text-[10px] text-gray-400 space-y-1">
-                                    <p>• Ultimo Handshake: <strong class="text-green-400">20/10/2026 12:00</strong></p>
+                                    <p>• Ultimo Handshake: <strong class="text-green-400">Oggi</strong></p>
                                     <p>• Direttive assimilate: <strong class="text-white">12 attive</strong></p>
                                     <p>• Blacklist lessicale: <strong class="text-green-400">100% Blindata</strong></p>
                                     <p>• Deriva sintattica: <strong class="text-sfx-cyan">0.00%</strong></p>
@@ -1386,9 +1527,9 @@
                             <div class="space-y-2 pt-3 border-t border-gray-800">
                                 <span class="text-gray-400 text-[10px] uppercase font-bold block">Commutatore di Stato:</span>
                                 <div class="grid grid-cols-3 gap-1.5 text-center text-[10px]">
-                                    <button onclick="impostaStatoAgenteSelezionato('ATTIVO')" class="p-2 bg-green-950 text-green-300 border border-green-600 rounded font-bold hover:bg-green-900">ON</button>
-                                    <button onclick="impostaStatoAgenteSelezionato('PAUSA')" class="p-2 bg-yellow-950 text-yellow-300 border border-yellow-600 rounded font-bold hover:bg-yellow-900">PAUSA</button>
-                                    <button onclick="impostaStatoAgenteSelezionato('SPENTO')" class="p-2 bg-red-950 text-red-300 border border-red-600 rounded font-bold hover:bg-red-900">OFF</button>
+                                    <button onclick="impostaStatoAgenteSelezionato('ATTIVO')" class="p-2 bg-green-950 text-green-300 border border-green-600 rounded font-bold hover:bg-green-900 cursor-pointer">ON</button>
+                                    <button onclick="impostaStatoAgenteSelezionato('PAUSA')" class="p-2 bg-yellow-950 text-yellow-300 border border-yellow-600 rounded font-bold hover:bg-yellow-900 cursor-pointer">PAUSA</button>
+                                    <button onclick="impostaStatoAgenteSelezionato('SPENTO')" class="p-2 bg-red-950 text-red-300 border border-red-600 rounded font-bold hover:bg-red-900 cursor-pointer">OFF</button>
                                 </div>
                             </div>
                         </div>
@@ -1399,8 +1540,8 @@
                     <div class="pt-4 border-t border-gray-800 flex flex-wrap items-center justify-between gap-3">
                         <span class="text-[10px] text-gray-500">Istruzioni registrate con firma crittografica EAL6+.</span>
                         <div class="flex space-x-2">
-                            <button onclick="chiudiCervelloAgente11()" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-xl text-xs font-bold">Annulla</button>
-                            <button onclick="salvaNuovaDirettivaAgente()" class="px-6 py-2 bg-sfx-gold hover:bg-yellow-500 text-black rounded-xl text-xs font-black shadow-md">
+                            <button onclick="chiudiCervelloAgente11()" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-xl text-xs font-bold cursor-pointer">Annulla</button>
+                            <button onclick="salvaNuovaDirettivaAgente()" class="px-6 py-2 bg-sfx-gold hover:bg-yellow-500 text-black rounded-xl text-xs font-black shadow-md cursor-pointer">
                                 <i class="fa-solid fa-floppy-disk mr-1"></i> ACCÒDA E NOTIFICA ALL'AGENTE
                             </button>
                         </div>
@@ -1409,7 +1550,7 @@
                 </div>
             </div>
             <!-- ================================================================= -->
-            <!-- COMPARTIMENTO 03: PORTA 03 — IL CERVELLO (CRM, ARCHIVIO & PROTOCOLLI) -->
+            <!-- COMPARTIMENTO 03: PORTA 03 — IL CERVELLO (CRM, ARCHIVIO & 15 AI) -->
             <!-- ================================================================= -->
             <div id="compartimento-porta-03" class="space-y-8 hidden">
 
@@ -1417,19 +1558,21 @@
                 <section id="modulo-contratti-protocolli" class="neon-panel-gold p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-sfx-gold font-bold text-xs uppercase"><i class="fa-solid fa-file-contract mr-2"></i>LEGAL MASTER ONBOARDING</span>
+                            <span class="text-sfx-gold font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-file-contract mr-2"></i>LEGAL MASTER ONBOARDING
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 01. CONTRATTI &amp; PROTOCOLLI AZIENDALI LIVE 1-TO-1
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
-                                Redazione, firma digitale e rilascio degli atti di ammissione con clausola vincolante "Zero Video Preregistrati" e tariffa bloccata per i 3 percorsi ufficiali.
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
+                                Redazione, firma digitale e rilascio degli atti statutari con clausola vincolante "Zero Video Preregistrati" e tariffa bloccata per i 3 percorsi ufficiali.
                             </p>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-lg border border-sfx-gold/40">
+                            <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-lg border border-sfx-gold/40 font-mono">
                                 MITTENTE: academy@supremafuturex.com
                             </span>
-                            <button onclick="generaGoldCardP3()" class="px-3 py-1.5 bg-sfx-gold text-black rounded-lg hover:bg-yellow-500 text-[10px] font-bold shadow-md cursor-pointer">
+                            <button onclick="generaGoldCardP3()" class="px-3 py-1.5 bg-sfx-gold text-black rounded-lg hover:bg-yellow-500 text-[10px] font-bold shadow-md cursor-pointer transition-all">
                                 <i class="fa-solid fa-ticket mr-1"></i> Emetti Gold Card
                             </button>
                         </div>
@@ -1443,7 +1586,7 @@
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-gray-400 font-bold uppercase mb-1">NOME E COGNOME CORSISTA *</label>
-                                <input type="text" id="p3-contratto-nome" required placeholder="Es. Marco Rossi" class="w-full p-3.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
+                                <input type="text" id="p3-contratto-nome" required placeholder="Es. Marco Rossi" class="w-full p-3.5 bg-black/60 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold font-bold">
                             </div>
                             <div>
                                 <label class="block text-gray-400 font-bold uppercase mb-1">EMAIL DESTINATARIO *</label>
@@ -1480,9 +1623,15 @@
                         <div class="flex flex-wrap justify-between items-center border-b border-gray-800 pb-3 gap-2">
                             <span class="text-sfx-goldLight font-bold uppercase text-xs">ATTO OPERATIVO GENERATO &amp; SIGILLATO</span>
                             <div class="flex flex-wrap gap-2">
-                                <button onclick="stampaContrattoP3()" class="px-3 py-1.5 bg-gray-800 text-white rounded hover:bg-gray-700 text-[10px] font-bold cursor-pointer"><i class="fa-solid fa-print mr-1"></i> Stampa PDF</button>
-                                <button onclick="inviaEmailContrattoP3()" class="px-3 py-1.5 bg-sfx-silver text-black rounded hover:bg-gray-300 text-[10px] font-bold cursor-pointer"><i class="fa-solid fa-paper-plane mr-1"></i> Spedisci da academy@</button>
-                                <button onclick="allocaWorkspaceDaContrattoP3()" class="px-3 py-1.5 bg-sfx-cyan text-black rounded hover:bg-cyan-400 text-[10px] font-bold cursor-pointer"><i class="fa-solid fa-folder-plus mr-1"></i> Crea Workspace Drive</button>
+                                <button onclick="stampaContrattoP3()" class="px-3 py-1.5 bg-gray-800 text-white rounded hover:bg-gray-700 text-[10px] font-bold cursor-pointer transition-colors">
+                                    <i class="fa-solid fa-print mr-1"></i> Stampa PDF
+                                </button>
+                                <button onclick="inviaEmailContrattoP3()" class="px-3 py-1.5 bg-sfx-silver text-black rounded hover:bg-gray-300 text-[10px] font-bold cursor-pointer transition-colors">
+                                    <i class="fa-solid fa-paper-plane mr-1"></i> Spedisci da academy@
+                                </button>
+                                <button onclick="allocaWorkspaceDaContrattoP3()" class="px-3 py-1.5 bg-sfx-cyan text-black rounded hover:bg-cyan-400 text-[10px] font-bold cursor-pointer transition-colors">
+                                    <i class="fa-solid fa-folder-plus mr-1"></i> Crea Workspace Drive
+                                </button>
                             </div>
                         </div>
                         <pre id="p3-contratto-testo" class="text-gray-300 font-mono text-[11px] leading-relaxed whitespace-pre-wrap max-h-80 overflow-y-auto scrollbar-sfx p-4 bg-black rounded-xl border border-gray-900"></pre>
@@ -1493,15 +1642,17 @@
                 <section id="modulo-fabbrica-moduli" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-sfx-cyan font-bold text-xs uppercase"><i class="fa-solid fa-folder-tree mr-2"></i>DISTRIBUZIONE DIDATTICA DIRETTA</span>
+                            <span class="text-sfx-cyan font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-folder-tree mr-2"></i>DISTRIBUZIONE DIDATTICA DIRETTA
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 02. FABBRICA DEI MODULI DIDATTICI &amp; DISPENSE MASTER
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
                                 Modalità automatica a rilascio cadenzato o caricamento manuale dal dispositivo per l'aggiornamento in tempo reale dei contenuti formativi dei corsisti.
                             </p>
                         </div>
-                        <span class="px-3 py-1 bg-green-950/80 border border-green-500 text-green-300 text-[10px] font-bold rounded-lg">
+                        <span class="px-3 py-1 bg-green-950/80 border border-green-500 text-green-300 text-[10px] font-bold rounded-lg font-mono">
                             DOPPIO CANALE AUTO / MANUALE
                         </span>
                     </div>
@@ -1601,7 +1752,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="p3-tbody-moduli" class="divide-y divide-gray-800/60 text-gray-300">
-                                    <!-- Popolato da JS -->
+                                    <!-- Popolato dinamicamente da JS -->
                                 </tbody>
                             </table>
                         </div>
@@ -1612,15 +1763,17 @@
                 <section id="modulo-crm-candidati" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-sfx-goldLight font-bold text-xs uppercase"><i class="fa-solid fa-address-book mr-2"></i>ANAGRAFICA &amp; SCREENING SELETTIVO</span>
+                            <span class="text-sfx-goldLight font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-address-book mr-2"></i>ANAGRAFICA &amp; SCREENING SELETTIVO
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 03. REGISTRO CANDIDATI &amp; SUPER CRM SFX
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
                                 Filtraggio in tempo reale dei contatti con assegnazione del seriale SFX-26, chat 1-click WhatsApp/Telegram e collegamento diretto alle stanze Meet.
                             </p>
                         </div>
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 font-mono">
                             <button onclick="caricaCandidatiP3()" class="px-3 py-1.5 bg-black border border-gray-700 hover:border-sfx-cyan text-sfx-cyanLight rounded-lg text-xs font-bold transition-all cursor-pointer">
                                 <i class="fa-solid fa-rotate mr-1"></i> Ricarica
                             </button>
@@ -1645,7 +1798,7 @@
                                 <option value="Premium VIP">Premium VIP (€ 349)</option>
                             </select>
                         </div>
-                        <button onclick="azzeraFiltriCRMP3()" class="px-4 py-3 bg-gray-800 text-gray-400 hover:text-white rounded-xl text-xs font-bold cursor-pointer mt-auto">
+                        <button onclick="azzeraFiltriCRMP3()" class="px-4 py-3 bg-gray-800 text-gray-400 hover:text-white rounded-xl text-xs font-bold cursor-pointer mt-auto transition-colors">
                             Azzera Filtri
                         </button>
                     </div>
@@ -1664,25 +1817,27 @@
                                 </tr>
                             </thead>
                             <tbody id="p3-tbody-crm" class="divide-y divide-gray-800/60 text-gray-300">
-                                <!-- Popolato da JS -->
+                                <!-- Popolato dinamicamente da JS -->
                             </tbody>
                         </table>
                     </div>
                 </section>
 
-                <!-- 04. SCHEDA CORSISTA CON TELEMETRIA SPIE LED LUMINOSE A 90 GIORNI -->
+                <!-- 04. SCHEDA CORSISTA CON TELEMETRIA SPIE LED A 90 GIORNI -->
                 <section id="modulo-scheda-corsista-led" class="neon-panel-gold p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-green-400 font-bold text-xs uppercase"><i class="fa-solid fa-traffic-light mr-2"></i>TELEMETRIA PROGRESSO FORMATIVO</span>
+                            <span class="text-green-400 font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-traffic-light mr-2"></i>TELEMETRIA PROGRESSO FORMATIVO
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 04. SCHEDA PERSONALE CORSISTA // SPIE LED 90 GIORNI
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
                                 Monitoraggio dell'avanzamento didattico: 3 semafori di controllo telemetrico (Apertura Materiali, Project Work, Completamento Ciclo 90gg).
                             </p>
                         </div>
-                        <span class="px-3 py-1 bg-green-950/80 border border-green-500 text-green-300 text-[10px] font-bold rounded-lg">
+                        <span class="px-3 py-1 bg-green-950/80 border border-green-500 text-green-300 text-[10px] font-bold rounded-lg font-mono">
                             TRACKING ATTIVO
                         </span>
                     </div>
@@ -1752,7 +1907,7 @@
                             <label class="block text-gray-400 font-bold text-[10px] uppercase">Note di Screening &amp; Accordi One-to-One Riservati:</label>
                             <textarea id="p3-dossier-note" rows="3" class="w-full p-3 bg-[#090A0D] border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-gold text-xs resize-none" placeholder="Annota feedback dalla call, inclinazione all'e-commerce o disponibilità oraria..."></textarea>
                             <div class="flex justify-end space-x-2 pt-1">
-                                <button onclick="salvaNoteCorsistaP3()" class="px-4 py-2 bg-sfx-gold hover:bg-yellow-500 text-black font-bold rounded-lg text-[10px] cursor-pointer">
+                                <button onclick="salvaNoteCorsistaP3()" class="px-4 py-2 bg-sfx-gold hover:bg-yellow-500 text-black font-bold rounded-lg text-[10px] cursor-pointer transition-colors">
                                     <i class="fa-solid fa-floppy-disk mr-1"></i> Salva Note Fascicolo
                                 </button>
                             </div>
@@ -1764,11 +1919,13 @@
                 <section id="modulo-archivio-dormienti" class="neon-panel-security p-6 sm:p-8 space-y-6">
                     <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
                         <div>
-                            <span class="text-red-400 font-bold text-xs uppercase"><i class="fa-solid fa-bed mr-2"></i>GESTIONE CONTATTI INATTIVI</span>
+                            <span class="text-red-400 font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-bed mr-2"></i>GESTIONE CONTATTI INATTIVI
+                            </span>
                             <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
                                 05. ARCHIVIO DORMIENTI &amp; RETARGETING 1-CLICK
                             </h2>
-                            <p class="text-[11px] text-gray-400 mt-0.5">
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
                                 Segmentazione per anzianità (30, 60, 90+ giorni) dei candidati non ancora iscritti e risveglio massivo tramite notifica WhatsApp e l'agente Scout (AG-04).
                             </p>
                         </div>
@@ -1802,7 +1959,7 @@
                         <table class="w-full text-left text-[11px]">
                             <thead>
                                 <tr class="border-b border-gray-800 text-gray-400 uppercase text-[10px] bg-[#090A0D]">
-                                    <th class="p-3 text-center"><input type="checkbox" id="check-all-dormienti" onchange="toggleSelectAllDormienti(this)"></th>
+                                    <th class="p-3 text-center"><input type="checkbox" id="check-all-dormienti" onchange="toggleSelectAllDormienti(this)" class="cursor-pointer"></th>
                                     <th class="p-3">Seriale SFX</th>
                                     <th class="p-3">Nominativo</th>
                                     <th class="p-3">Contatto Diretto</th>
@@ -1812,9 +1969,172 @@
                                 </tr>
                             </thead>
                             <tbody id="p3-tbody-dormienti" class="divide-y divide-gray-800/60 text-gray-300">
-                                <!-- Popolato da JS -->
+                                <!-- Popolato dinamicamente da JS -->
                             </tbody>
                         </table>
+                    </div>
+                </section>
+
+                <!-- 06. CENTRALE SUPREMA GOLD CARD // SIMULATORE PHYGITAL & GROW-SCORE -->
+                <section id="modulo-suprema-gold-card" class="neon-panel-gold p-6 sm:p-8 space-y-6">
+                    <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-4">
+                        <div>
+                            <span class="text-sfx-gold font-bold text-xs uppercase tracking-wider">
+                                <i class="fa-solid fa-credit-card mr-2"></i>CIRCUITO ELITE PRIVATO PHYGITAL
+                            </span>
+                            <h2 class="font-grotesk font-extrabold text-xl sm:text-2xl text-white uppercase mt-1">
+                                06. CENTRALE SUPREMA GOLD CARD &amp; SIMULATORE ACCREDITI
+                            </h2>
+                            <p class="text-[11px] text-gray-400 mt-0.5 font-mono">
+                                Coniazione tessere fisiche/digitali, calcolo del punteggio di crescita per i corsisti, simulatore di richiesta in Landing e applicazione bonus 5% / 10%.
+                            </p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="coniaNuovaGoldCardMaster()" class="px-4 py-2 bg-sfx-gold hover:bg-yellow-500 text-black font-black text-xs rounded-xl shadow-md cursor-pointer transition-all">
+                                <i class="fa-solid fa-plus-circle mr-1"></i> Conia Nuova Card
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- GRIGLIA: ANTEPRIMA TESSERA METALLICA & SIMULATORE RICHIESTA LANDING -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start font-mono text-xs">
+                        
+                        <!-- Colonna Sinistra (5 Col): Rendering Visivo Card Metallica 3D Phygital -->
+                        <div class="lg:col-span-5 space-y-4">
+                            <span class="text-gray-400 text-[10px] font-bold uppercase block">Anteprima Esecutiva Pass Metallica:</span>
+                            
+                            <!-- LA TESSERA ORO FISICA -->
+                            <div class="relative w-full aspect-[1.586/1] bg-gradient-to-br from-[#D4AF37] via-[#85581A] to-[#12141C] p-6 rounded-3xl border-2 border-[#FFE58F] shadow-[0_0_35px_rgba(212,175,55,0.4)] flex flex-col justify-between overflow-hidden text-black select-none">
+                                <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-yellow-400/20 blur-2xl pointer-events-none"></div>
+                                <div class="absolute top-0 right-0 p-3 opacity-20 text-white text-6xl font-black">SFX</div>
+                                
+                                <div class="flex justify-between items-start relative z-10">
+                                    <div>
+                                        <span class="font-grotesk font-black text-xs tracking-widest text-black/80 block">SUPREMA FUTURE X</span>
+                                        <span class="text-[9px] font-bold tracking-wider text-black/60 uppercase">SOVEREIGN GOLD CARD</span>
+                                    </div>
+                                    <div class="w-10 h-7 bg-gradient-to-r from-yellow-200 to-yellow-600 rounded-md border border-black/30 shadow-inner flex items-center justify-center">
+                                        <i class="fa-solid fa-microchip text-black/70 text-xs"></i>
+                                    </div>
+                                </div>
+
+                                <div class="relative z-10 space-y-1">
+                                    <span class="text-[9px] text-black/70 block uppercase font-bold tracking-wider">CODICE SERIALE SOVRANO</span>
+                                    <div class="font-cyber font-black text-xl text-black tracking-widest drop-shadow" id="preview-gold-codice">
+                                        GOLD-849102
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between items-end relative z-10 text-[10px] border-t border-black/20 pt-2 font-bold text-black/90">
+                                    <div>
+                                        <span class="text-[8px] text-black/60 block uppercase">TITOLARE TITOLATO</span>
+                                        <span id="preview-gold-titolare" class="uppercase">MARIO ROSSI</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-[8px] text-black/60 block uppercase">PUNTEGGIO CRESCITA</span>
+                                        <span id="preview-gold-score" class="text-xs font-black text-black">82 / 100</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Punteggio e Regole di Avanzamento -->
+                            <div class="p-4 bg-black/80 rounded-2xl border border-gray-800 space-y-2 text-[10px]">
+                                <span class="text-sfx-goldLight font-bold uppercase block">Parametri di Maturazione Punteggio (Target: 100 pt):</span>
+                                <p class="text-gray-400">• Completamento Moduli Drive: <strong class="text-white">+25 pt</strong></p>
+                                <p class="text-gray-400">• Sessioni 1-to-1 svolte con Presidenza: <strong class="text-white">+35 pt</strong></p>
+                                <p class="text-gray-400">• Attivazione Negozio E-commerce autonomo: <strong class="text-white">+40 pt</strong></p>
+                                <div class="pt-2 border-t border-gray-900 text-green-400 font-bold">
+                                    <i class="fa-solid fa-award mr-1"></i> A 100 pt: Spedizione Confezione Luxury con Card Metallica incisa.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Colonna Destra (7 Col): Simulatore di Richiesta Landing & Assegnazione Punti -->
+                        <div class="lg:col-span-7 space-y-4">
+                            
+                            <!-- Box Simulatore Accredito da Landing Page -->
+                            <div class="bg-black/80 p-5 rounded-2xl border border-gray-800 space-y-3">
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                                    <span class="text-white font-bold text-xs uppercase"><i class="fa-solid fa-bolt text-sfx-gold mr-1.5"></i> Simulatore Richiesta Gold Card da Landing</span>
+                                    <span class="text-[9px] text-sfx-cyanLight">Test Flussi in Tempo Reale</span>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <div>
+                                        <label class="block text-gray-400 text-[10px] mb-1">Nome Candidato:</label>
+                                        <input type="text" id="sim-gold-nome" value="Giulia Bianchi" class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-white text-xs">
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-400 text-[10px] mb-1">Corso Scelto:</label>
+                                        <select id="sim-gold-corso" class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-sfx-gold font-bold text-xs">
+                                            <option value="Executive Master|299">Executive Master (€299)</option>
+                                            <option value="Silver Tier|249">Silver Tier (€249)</option>
+                                            <option value="Premium VIP|349">Premium VIP (€349)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-400 text-[10px] mb-1">Codice Presentatore:</label>
+                                        <input type="text" id="sim-gold-codice-input" value="GOLD-849102" class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-sfx-goldLight font-bold text-xs">
+                                    </div>
+                                </div>
+                                
+                                <button onclick="eseguiSimulazioneRichiestaGold()" class="w-full py-3 bg-[#12141C] border border-sfx-gold hover:bg-sfx-gold hover:text-black text-sfx-gold text-xs font-bold rounded-xl transition-all cursor-pointer">
+                                    Calcola Vantaggi: 5% Sconto Allievo &amp; 10% Accredito Cassa Presentatore
+                                </button>
+
+                                <div id="sim-gold-risultato" class="hidden p-3 bg-green-950/60 border border-green-500 rounded-xl text-green-300 text-[11px] space-y-1">
+                                    <!-- Risultati iniettati via JS -->
+                                </div>
+                            </div>
+
+                            <!-- Modulo Assegnazione Punti Manuale per Corsista -->
+                            <div class="bg-black/80 p-5 rounded-2xl border border-gray-800 space-y-3">
+                                <span class="text-white font-bold text-xs uppercase block border-b border-gray-800 pb-2">
+                                    <i class="fa-solid fa-sliders text-sfx-cyan mr-1.5"></i> Aggiornamento Punteggio Corsista (0-100 Punti)
+                                </span>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
+                                    <div class="sm:col-span-2">
+                                        <label class="block text-gray-400 text-[10px] mb-1">Seleziona Titolare Gold Card:</label>
+                                        <select id="gold-selettore-titolare" onchange="caricaDatiGoldCardSelezionata(this.value)" class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-white text-xs">
+                                            <!-- Opzioni caricate dinamicamente -->
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-400 text-[10px] mb-1">Nuovo Punteggio (Max 100):</label>
+                                        <input type="number" id="gold-modifica-punti" min="0" max="100" value="82" class="w-full p-2.5 bg-[#090A0D] border border-gray-700 rounded-lg text-sfx-gold font-bold text-center text-xs">
+                                    </div>
+                                </div>
+                                <button onclick="applicaNuovoPunteggioGold()" class="w-full py-2.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-bold text-xs rounded-xl transition-all cursor-pointer">
+                                    Salva Punteggio &amp; Sincronizza Scheda Corsista
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- TABELLA REGISTRO DELLE SUPREMA GOLD CARD CONIATE -->
+                    <div class="pt-4 border-t border-gray-800 space-y-3 font-mono text-xs">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-grotesk font-bold text-xs text-white uppercase"><i class="fa-solid fa-list-check text-sfx-gold mr-2"></i>REGISTRO MASTER TESSERE GOLD CARD CONIATE</h3>
+                            <span class="text-[10px] text-gray-400">Verifica Chip Crittografico EAL6+</span>
+                        </div>
+                        <div class="overflow-x-auto bg-black/50 rounded-xl border border-gray-800">
+                            <table class="w-full text-left text-[11px]">
+                                <thead>
+                                    <tr class="border-b border-gray-800 text-gray-400 uppercase text-[10px] bg-[#090A0D]">
+                                        <th class="p-3">Codice Gold</th>
+                                        <th class="p-3">Titolare</th>
+                                        <th class="p-3">Percorso Attivo</th>
+                                        <th class="p-3">Punti Crescita</th>
+                                        <th class="p-3">Stato Card</th>
+                                        <th class="p-3">Consegna Fisica</th>
+                                        <th class="p-3 text-right">Azione</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-gold-cards-master" class="divide-y divide-gray-800/60 text-gray-300">
+                                    <!-- Popolato da JS -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
 
@@ -1847,7 +2167,7 @@
     <script>
         const APPS_SCRIPT_URL_ADMIN = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
 
-        // STATO GLOBALE BOX SECURITY
+        // STATO GLOBALE GESTIONALE
         let portaAttivaCorrente = 'porta-01-finanza';
         let globalFatturato = 0;
         let globalLeadsCache = [];
@@ -1858,8 +2178,9 @@
         let currentPin = "";
         let player8MediaUrl = null;
         let player8IsPlaying = false;
+        let ultimoCorsistaCreato = null;
 
-        // 1. IL PONTE DIRETTO BROADCAST CHANNEL VERSO BOX LANDING & LANDING
+        // 1. IL CANALE RADIO BROADCAST VERSO LANDING & BOX LANDING
         const sfxEnterpriseBus = new BroadcastChannel('sfx_enterprise_bus');
 
         sfxEnterpriseBus.onmessage = function(event) {
@@ -1871,17 +2192,15 @@
             }
         };
 
-        // 2. GESTIONE DELLO SWITCHBOARD GATE & CAMBIO PORTE
+        // 2. SMISTAMENTO BIVIO A 3 PORTE
         function apriPortaOperativa(idPorta) {
             portaAttivaCorrente = idPorta;
             document.getElementById('switchboard-gate-modal').classList.add('hidden');
             
-            // Nascondi tutti i compartimenti
             document.getElementById('compartimento-porta-01').classList.add('hidden');
             document.getElementById('compartimento-porta-02').classList.add('hidden');
             document.getElementById('compartimento-porta-03').classList.add('hidden');
             
-            // Nascondi tutte le nav sidebar
             document.getElementById('nav-porta-01').classList.add('hidden');
             document.getElementById('nav-porta-02').classList.add('hidden');
             document.getElementById('nav-porta-03').classList.add('hidden');
@@ -1916,12 +2235,12 @@
             document.getElementById('switchboard-gate-modal').classList.remove('hidden');
         }
 
-        // 3. DIZIONARIO ESTESO DEI 15 AGENTI AI CON STATO E RUOLI
+        // 3. REGISTRO MASTER DEI 15 AGENTI AI
         const FLOTTA_15_AGENTI = [
             { id: "AG-01", nome: "ALISON", ruolo: "Concierge Accoglienza & Screening 30m", stato: "ATTIVO", prompt: "Sei Alison (AG-01), Lead Qualification & Screening Concierge di Suprema Future X. Rispondi con massima autorevolezza e precisione. Ricorda che Suprema Future X non vende video preregistrati: l'erogazione è 100% Live One-to-One da 60 minuti dopo screening selettivo da 30 minuti. Prezzi inderogabili: Silver 249€, Executive 299€, Premium VIP 349€. Canale email: academy@supremafuturex.com." },
             { id: "AG-02", nome: "NICOLE", ruolo: "Reporting & Audit Direzionale", stato: "ATTIVO", prompt: "Sei Nicole (AG-02 - Reporting Direzionale). Analizzi le metriche delle candidature e trasmetti il bollettino quotidiano a ceo@supremafuturex.com." },
             { id: "AG-03", nome: "GINEVRA", ruolo: "Presidio Fiscale 16% & F24", stato: "ATTIVO", prompt: "Sei Ginevra (AG-03 - Presidio Fiscale). Monitori l'accantonamento intoccabile del 16% per gli adempimenti F24 e la conformità contabile societaria." },
-            { id: "AG-04", nome: "SCOUT", ruolo: "Hunter Social 6 Canali & 100 Keyword", stato: "ATTIVO", prompt: "Sei Scout (AG-04 - Social Hunter). Tracci le provenienze dei contatti attraverso i 6 canali social aziendali monitorando i parametri di traffico e la lista delle 100 keyword." },
+            { id: "AG-04", nome: "SCOUT", ruolo: "Hunter Social 6 Canali & 100 Keyword", stato: "ATTIVO", prompt: "Sei Scout (AG-04 - Social Hunter). Tracci le provenienze dei contatti attraverso i 6 canali social aziendali monitorando i parametri di traffico e la matrice 100 keyword." },
             { id: "AG-05", nome: "LEDGER", ruolo: "Mastro Split 54/30/16 & SHA-256", stato: "ATTIVO", prompt: "Sei Ledger (AG-05 - Tesoreria Mastro). Sovraintendi alla ripartizione automatica 54% Operatività, 30% Utili/CEO, 16% Tasse F24 per ogni entrata." },
             { id: "AG-06", nome: "GATEKEEPER", ruolo: "Filtro Anti-Doppioni & Gold Card", stato: "ATTIVO", prompt: "Sei Gatekeeper (AG-06 - Filtro Qualità). Verifichi la validità dei codici Gold Card (5% sconto corsista / 10% cassa) e impedisci doppie iscrizioni nello stesso slot." },
             { id: "AG-07", nome: "DELTA", ruolo: "Delivery Workspace Drive Corsisti", stato: "ATTIVO", prompt: "Sei Delta (AG-07 - Delivery Workspace). Coordini la consegna degli strumenti di lavoro e la modulistica operativa inviata da academy@supremafuturex.com." },
@@ -1935,7 +2254,7 @@
             { id: "AG-15", nome: "JOKER", ruolo: "Strategist Social & Piani Lancio", stato: "ATTIVO", prompt: "Sei Joker (AG-15 - Strategist). Pianifichi le sequenze persuasive e le bozze dei post per i 6 canali social ufficiali di Suprema Future X." }
         ];
 
-        // 4. MODULI FORMATIVI MASTER & SCHEDE
+        // 4. REGISTRO MODULI FORMATIVI
         let moduliMasterP3 = [
             { id: 'M-01', nome: 'Atto_Statutario_Ammissione_SFX.pdf', percorso: 'TUTTI', versione: 'v2.1', data: '20/10/2026', stato: '100% Live (Zero Video)' },
             { id: 'M-02', nome: 'Scheda_Operativa_Screening_Meet.pdf', percorso: 'TUTTI', versione: 'v1.4', data: '20/10/2026', stato: 'Screening 30m Obbligatorio' },
@@ -1944,7 +2263,14 @@
             { id: 'M-05', nome: 'Dossier_Premium_VIP_CEO.pdf', percorso: 'Premium VIP', versione: 'v1.0', data: '20/10/2026', stato: 'Prezzo Bloccato 349€' }
         ];
 
-        // 5. INIZIALIZZAZIONE ALL'AVVIO
+        // 5. REGISTRO SUPREMA GOLD CARD CONIATE
+        let registroGoldCards = [
+            { codice: "GOLD-849102", titolare: "Mario Rossi", percorso: "Executive Master", punti: 82, stato: "ATTIVA", fisica: "IN PRODUZIONE" },
+            { codice: "GOLD-109283", titolare: "Roberto Ferri", percorso: "Premium VIP", punti: 100, stato: "ATTIVA", fisica: "CONSEGNATA (ROMA)" },
+            { codice: "GOLD-481920", titolare: "Marco Neri", percorso: "Silver Tier", punti: 35, stato: "ATTIVA", fisica: "NON PRONTA (<100 pt)" }
+        ];
+
+        // INIZIALIZZAZIONE ALL'AVVIO
         document.addEventListener('DOMContentLoaded', () => {
             initPinDotsP1();
             caricaMastroFinanziario();
@@ -1953,10 +2279,12 @@
             renderizzaTabellaModuliP3();
             aggiornaSelectDestinatariModuli();
             ricalcolaPrevisoreFiscale();
+            renderizzaTabellaGoldCards();
+            aggiornaSelettoreGoldTitolari();
         });
 
         // =====================================================================
-        // LOGICHE PORTA 01: FINANZA, FISCO, CASSA & PREVISORE
+        // LOGICHE PORTA 01: FINANZA, FISCO & CASSA GATEWAY
         // =====================================================================
         function calcolaPreviewSplit(valore) {
             const amount = parseFloat(valore) || 0;
@@ -2142,7 +2470,7 @@
             const attivo = document.getElementById(`tab-v5-${cat}`);
             if (attivo) attivo.className = "tab-vault5-btn px-4 py-2.5 bg-sfx-cyan text-black rounded-xl font-bold flex items-center space-x-2 transition-all shadow-md";
             document.getElementById('vault5-file-input').accept = ext;
-            document.getElementById('vault5-drop-label').textContent = `Caricamento per Categoria: ${cat}`;
+            document.getElementById('vault5-drop-label').textContent = `Caricamento Selezionato per Categoria: ${cat}`;
         }
 
         function gestisciFileVault5(input) {
@@ -2156,7 +2484,6 @@
 
         function apriPlayer8Pollici(url) {
             const screen = document.getElementById('player8-screen');
-            const placeholder = document.getElementById('player8-placeholder');
             const captionBox = document.getElementById('player8-caption-text');
             const captionInput = document.getElementById('vault5-caption-input').value.trim() || (fileVault5Corrente ? fileVault5Corrente.name : "Asset Preview");
 
@@ -2251,10 +2578,10 @@
         function cambiaRangeAnalytics(range) {
             ['oggi', 'settimana', 'mese', 'anno'].forEach(r => {
                 const el = document.getElementById(`btn-an-${r}`);
-                if (el) el.className = "px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg";
+                if (el) el.className = "px-3 py-1.5 bg-[#090A0D] border border-gray-700 text-gray-300 hover:text-white rounded-lg cursor-pointer";
             });
             const sel = document.getElementById(`btn-an-${range.toLowerCase()}`);
-            if (sel) sel.className = "px-3 py-1.5 bg-sfx-cyan text-black font-bold rounded-lg shadow-sm";
+            if (sel) sel.className = "px-3 py-1.5 bg-sfx-cyan text-black font-bold rounded-lg shadow-sm cursor-pointer";
 
             if (range === 'OGGI') {
                 document.getElementById('an-visitatori').textContent = "1.842";
@@ -2292,7 +2619,7 @@
                             <button onclick="apriCervelloAgente11('${ag.id} ${ag.nome}')" class="flex-1 py-1.5 bg-[#12141C] border border-sfx-gold/50 hover:bg-sfx-gold hover:text-black text-sfx-gold text-[9px] font-bold rounded-lg transition-all cursor-pointer">
                                 <i class="fa-solid fa-brain mr-1"></i> 11"
                             </button>
-                            <button onclick="toggleStatoAgenteRapido('${ag.id}')" class="px-2 py-1.5 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-[9px] font-bold">
+                            <button onclick="toggleStatoAgenteRapido('${ag.id}')" class="px-2 py-1.5 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-[9px] font-bold cursor-pointer transition-colors">
                                 <i class="fa-solid fa-power-off"></i>
                             </button>
                         </div>
@@ -2323,7 +2650,7 @@
             logTerminaleAudit("⏸️ Flotta AI: pausa generale applicata.", "text-yellow-400");
         }
 
-        // SCHEDA A TUTTO SCHERMO 11 POLLICI PER IL CERVELLO AGENTE
+        // MODALE SCHERMO 11 POLLICI PER IL CERVELLO AGENTE
         function apriCervelloAgente11(nomeCompleto) {
             agenteSelezionatoCorrente = nomeCompleto;
             const ag = FLOTTA_15_AGENTI.find(a => `${a.id} ${a.nome}` === nomeCompleto) || FLOTTA_15_AGENTI[0];
@@ -2391,7 +2718,7 @@
         }
 
         // =====================================================================
-        // LOGICHE PORTA 03: CONTRATTI, MODULI, CRM, SPIE LED & DORMIENTI
+        // LOGICHE PORTA 03: CONTRATTI, MODULI, CRM, TELEMETRIA 90GG & GOLD CARD
         // =====================================================================
         function generaGoldCardP3() {
             const num = Math.floor(100000 + Math.random() * 900000);
@@ -2410,6 +2737,8 @@
             const cf = document.getElementById('p3-contratto-cf').value.trim() || 'IN CORSO DI REGISTRAZIONE';
             const gold = document.getElementById('p3-contratto-gold').value.trim() || 'NESSUNO';
             const dataOggi = new Date().toLocaleDateString('it-IT');
+
+            ultimoCorsistaCreato = { nome: nome, email: email, percorso: percorso, prezzo: prezzo };
 
             const atto = `ATTO PRIVATO STATUTARIO DI AMMISSIONE // SUPREMA FUTURE X
 ================================================================================
@@ -2501,7 +2830,7 @@ F.to Per Accettazione e Conformità — ${nome}`;
                         <td class="p-3 text-gray-500">${m.data}</td>
                         <td class="p-3 text-green-400 text-[10px]"><i class="fa-solid fa-shield mr-1"></i>${m.stato}</td>
                         <td class="p-3 text-center">
-                            <button onclick='scaricaModuloMasterP3("${m.nome}")' class="px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded-lg text-[10px] font-bold shadow-md cursor-pointer">
+                            <button onclick='scaricaModuloMasterP3("${m.nome}")' class="px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white rounded-lg text-[10px] font-bold shadow-md cursor-pointer transition-all">
                                 <i class="fa-solid fa-download mr-1"></i> SCARICA PDF
                             </button>
                         </td>
@@ -2584,7 +2913,7 @@ F.to Per Accettazione e Conformità — ${nome}`;
                         <td class="p-3 text-sfx-cyanLight font-bold">${l.PERCORSO}</td>
                         <td class="p-3 text-gray-400 text-[10px]">${l.STATO}</td>
                         <td class="p-3 text-right" onclick="event.stopPropagation()">
-                            <button onclick='apriStanzaMeetP3("${l.NOME}")' class="px-3 py-1 bg-sfx-cyan/20 border border-sfx-cyan text-sfx-cyanLight hover:bg-sfx-cyan hover:text-black rounded text-[10px] font-bold transition-all">
+                            <button onclick='apriStanzaMeetP3("${l.NOME}")' class="px-3 py-1 bg-sfx-cyan/20 border border-sfx-cyan text-sfx-cyanLight hover:bg-sfx-cyan hover:text-black rounded text-[10px] font-bold transition-all cursor-pointer">
                                 <i class="fa-solid fa-video mr-1"></i> Meet
                             </button>
                         </td>
@@ -2620,7 +2949,6 @@ F.to Per Accettazione e Conformità — ${nome}`;
             document.getElementById('p3-dossier-sfx').textContent = lead.ID_SFX;
             document.getElementById('p3-dossier-note').value = lead.NOTE || '';
 
-            // Copia nel form contratto se necessario
             document.getElementById('p3-contratto-sfx').value = lead.ID_SFX;
             document.getElementById('p3-contratto-nome').value = lead.NOME;
             document.getElementById('p3-contratto-email').value = lead.EMAIL;
@@ -2631,7 +2959,6 @@ F.to Per Accettazione e Conformità — ${nome}`;
             document.getElementById('p3-dossier-bar').style.width = `${perc}%`;
             document.getElementById('led-3-stato').textContent = `AVANZAMENTO: ${gg} / 90 GG`;
 
-            // Calcolo spie LED
             const spia1 = document.getElementById('led-1-spia');
             const spia2 = document.getElementById('led-2-spia');
             const spia3 = document.getElementById('led-3-spia');
@@ -2664,14 +2991,14 @@ F.to Per Accettazione e Conformità — ${nome}`;
                 const badgeColor = d.giorni >= 90 ? 'bg-red-950 text-red-300 border-red-700' : d.giorni >= 60 ? 'bg-orange-950 text-orange-300 border-orange-700' : 'bg-yellow-950 text-yellow-300 border-yellow-700';
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-900 border-b border-gray-800/50">
-                        <td class="p-3 text-center"><input type="checkbox" class="dormiente-check"></td>
+                        <td class="p-3 text-center"><input type="checkbox" class="dormiente-check cursor-pointer"></td>
                         <td class="p-3 font-bold text-sfx-gold">${d.sfx}</td>
                         <td class="p-3 text-white font-bold">${d.nome}</td>
                         <td class="p-3"><a href="https://wa.me/${d.tel.replace(/[^0-9]/g, '')}" target="_blank" class="text-green-400 hover:underline"><i class="fa-brands fa-whatsapp"></i> ${d.tel}</a></td>
                         <td class="p-3"><span class="px-2 py-0.5 rounded text-[9px] font-bold border ${badgeColor}">${d.giorni} Giorni</span></td>
                         <td class="p-3 text-gray-300">${d.percorso}</td>
                         <td class="p-3 text-right">
-                            <button onclick='risvegliaSingoloDormiente("${d.nome}", "${d.tel}")' class="px-3 py-1 bg-green-950 hover:bg-green-800 border border-green-600 text-green-300 rounded text-[10px] font-bold">
+                            <button onclick='risvegliaSingoloDormiente("${d.nome}", "${d.tel}")' class="px-3 py-1 bg-green-950 hover:bg-green-800 border border-green-600 text-green-300 rounded text-[10px] font-bold cursor-pointer transition-colors">
                                 Notifica WA
                             </button>
                         </td>
@@ -2694,7 +3021,132 @@ F.to Per Accettazione e Conformità — ${nome}`;
         }
 
         // =====================================================================
-        // DISPATCHER NOC TELEGRAM & SOVEREIGN KILL-SWITCH
+        // MOTORE SUPREMA GOLD CARD: CONIAZIONE, PUNTI E SIMULAZIONE LANDING
+        // =====================================================================
+        function coniaNuovaGoldCardMaster() {
+            const num = Math.floor(100000 + Math.random() * 900000);
+            const nuovoCodice = `GOLD-${num}`;
+            const titolare = prompt("Inserisci il Nome e Cognome del titolare per la nuova Gold Card:") || "Corsista Selezionato";
+            
+            const nuovaCard = {
+                codice: nuovoCodice,
+                titolare: titolare,
+                percorso: "Executive Master",
+                punti: 10,
+                stato: "ATTIVA",
+                fisica: "NON PRONTA (<100 pt)"
+            };
+
+            registroGoldCards.unshift(nuovaCard);
+            renderizzaTabellaGoldCards();
+            aggiornaSelettoreGoldTitolari();
+            caricaDatiGoldCardSelezionata(nuovoCodice);
+            
+            alert(`✓ Suprema Gold Card coniata con successo: ${nuovoCodice} assegnata a ${titolare}.`);
+            logTerminaleAudit(`🎫 Nuova Gold Card emessa: ${nuovoCodice} (${titolare})`, "text-sfx-gold");
+        }
+
+        function renderizzaTabellaGoldCards() {
+            const tbody = document.getElementById('tbody-gold-cards-master');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            
+            registroGoldCards.forEach(c => {
+                const badgeFisica = c.punti >= 100 ? 'text-green-300 bg-green-950 border-green-500' : 'text-gray-400 bg-gray-900 border-gray-700';
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-900 border-b border-gray-800/50 cursor-pointer" onclick="caricaDatiGoldCardSelezionata('${c.codice}')">
+                        <td class="p-3 font-cyber font-bold text-sfx-gold">${c.codice}</td>
+                        <td class="p-3 text-white font-bold">${c.titolare}</td>
+                        <td class="p-3 text-sfx-cyanLight">${c.percorso}</td>
+                        <td class="p-3 font-bold text-yellow-400">${c.punti} / 100 pt</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[9px] font-bold border border-green-600 bg-green-950 text-green-300">${c.stato}</span></td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[9px] font-bold border ${badgeFisica}">${c.fisica}</span></td>
+                        <td class="p-3 text-right">
+                            <button onclick="event.stopPropagation(); revocaGoldCard('${c.codice}')" class="px-2.5 py-1 bg-red-950 hover:bg-red-800 text-red-400 border border-red-700 rounded text-[9px] font-bold cursor-pointer transition-colors">
+                                Revoca
+                            </button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function aggiornaSelettoreGoldTitolari() {
+            const sel = document.getElementById('gold-selettore-titolare');
+            if (!sel) return;
+            sel.innerHTML = '';
+            registroGoldCards.forEach(c => {
+                sel.innerHTML += `<option value="${c.codice}">${c.titolare} &bull; ${c.codice} (${c.punti} pt)</option>`;
+            });
+        }
+
+        function caricaDatiGoldCardSelezionata(codice) {
+            const card = registroGoldCards.find(c => c.codice === codice);
+            if (!card) return;
+            
+            document.getElementById('preview-gold-codice').textContent = card.codice;
+            document.getElementById('preview-gold-titolare').textContent = card.titolare;
+            document.getElementById('preview-gold-score').textContent = `${card.punti} / 100`;
+            document.getElementById('gold-modifica-punti').value = card.punti;
+            
+            const sel = document.getElementById('gold-selettore-titolare');
+            if (sel) sel.value = card.codice;
+        }
+
+        function applicaNuovoPunteggioGold() {
+            const sel = document.getElementById('gold-selettore-titolare').value;
+            const nuovoVal = parseInt(document.getElementById('gold-modifica-punti').value) || 0;
+            const card = registroGoldCards.find(c => c.codice === sel);
+            
+            if (card) {
+                card.punti = Math.min(100, Math.max(0, nuovoVal));
+                if (card.punti >= 100) {
+                    card.fisica = "CONSEGNATA (ROMA)";
+                } else {
+                    card.fisica = "IN PRODUZIONE";
+                }
+                renderizzaTabellaGoldCards();
+                caricaDatiGoldCardSelezionata(card.codice);
+                
+                alert(`✓ Punteggio della Gold Card ${card.codice} aggiornato a ${card.punti} punti.`);
+                logTerminaleAudit(`📈 Punteggio Gold Card ${card.codice} (${card.titolare}) aggiornato a ${card.punti} pt.`, "text-sfx-gold");
+            }
+        }
+
+        function eseguiSimulazioneRichiestaGold() {
+            const nome = document.getElementById('sim-gold-nome').value.trim();
+            const [corso, prezzoBase] = document.getElementById('sim-gold-corso').value.split('|');
+            const codice = document.getElementById('sim-gold-codice-input').value.trim();
+            const prezzo = parseFloat(prezzoBase);
+            
+            // Regola Gold Card: 5% sconto allievo, 10% accredito cassa presentatore
+            const scontoCorsista = prezzo * 0.05;
+            const prezzoScontato = prezzo - scontoCorsista;
+            const accreditoPresentatore = prezzo * 0.10;
+            
+            const box = document.getElementById('sim-gold-risultato');
+            box.innerHTML = `
+                <strong>✓ Simulazione Applicata con Successo (Presentatore: ${codice}):</strong><br>
+                • Corsista: <b>${nome}</b> &bull; Percorso: <b>${corso}</b><br>
+                • Prezzo Base Ufficiale: € ${prezzo.toFixed(2)} &rarr; <b>Sconto 5% Corsista: -€ ${scontoCorsista.toFixed(2)}</b><br>
+                • Quota Effettiva Dovuta dal Corsista: <strong class="text-white">€ ${prezzoScontato.toFixed(2)}</strong><br>
+                • Provvigione Cassa Maturata dal Presentatore (10%): <strong class="text-sfx-gold">€ ${accreditoPresentatore.toFixed(2)}</strong>
+            `;
+            box.classList.remove('hidden');
+            logTerminaleAudit(`🎯 Simulazione Gold Card per ${nome}: sconto € ${scontoCorsista.toFixed(2)}, cassa € ${accreditoPresentatore.toFixed(2)}`, "text-green-400");
+        }
+
+        function revocaGoldCard(codice) {
+            if (confirm(`Confermi la revoca e l'annullamento della Gold Card ${codice}?`)) {
+                registroGoldCards = registroGoldCards.filter(c => c.codice !== codice);
+                renderizzaTabellaGoldCards();
+                aggiornaSelettoreGoldTitolari();
+                if (registroGoldCards.length > 0) caricaDatiGoldCardSelezionata(registroGoldCards[0].codice);
+                logTerminaleAudit(`🚫 Gold Card ${codice} revocata.`, "text-red-400");
+            }
+        }
+
+        // =====================================================================
+        // DISPATCHER NOC TELEGRAM & SOVEREIGN KILL-SWITCH EAL6+
         // =====================================================================
         async function chiamaBackendSFX(payload) {
             try {
@@ -2757,3 +3209,4 @@ F.to Per Accettazione e Conformità — ${nome}`;
     </script>
 </body>
 </html>
+            
