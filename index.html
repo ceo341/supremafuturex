@@ -13,13 +13,13 @@
     <link rel="icon" type="image/png" href="media/logo.png">
     <link rel="manifest" href="manifest.json">
 
-    <!-- Tailwind CSS, Fonts & FontAwesome -->
+    <!-- Tailwind CSS, Google Fonts & FontAwesome 6 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css?v=42">
+    <link rel="stylesheet" href="stile-globale.css?v=50">
 
     <script>
         tailwind.config = {
@@ -148,7 +148,7 @@
         </div>
     </div>
 
-    <!-- NAVBAR HEADER -->
+    <!-- NAVBAR HEADER CON MENU AUTO-CHIUSURA A 15 SECONDI -->
     <header class="sticky top-0 bg-[#F4EFEA]/95 backdrop-blur-md border-b border-[#D1C7B8] z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer select-none" id="sfx-brand-logo-main">
@@ -162,35 +162,35 @@
             </div>
 
             <div class="flex items-center space-x-3 font-mono text-xs">
-                <!-- Dropdown Menu Sezioni con Boutique Luxury VIP -->
-                <div class="nav-dropdown-container relative group">
-                    <button class="px-4 py-2.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/40 hover:bg-black transition-colors flex items-center space-x-2 cursor-pointer">
+                <!-- Dropdown Menu Sezioni con Auto-Chiusura a 15s -->
+                <div class="nav-dropdown-container relative" id="container-menu-sezioni">
+                    <button onclick="toggleMenuSezioni()" id="btn-toggle-menu" class="px-4 py-2.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/40 hover:bg-black transition-colors flex items-center space-x-2 cursor-pointer shadow-sm">
                         <i class="fa-solid fa-bars"></i>
                         <span class="hidden sm:inline">MENU SEZIONI ▼</span>
                     </button>
-                    <div class="nav-dropdown-menu absolute hidden group-hover:block top-full right-0 mt-1 w-64 bg-[#090A0D] border border-sfx-gold/50 rounded-2xl p-2 shadow-2xl z-50 space-y-1">
-                        <a href="#governance-presidenza" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-user-tie mr-2 text-sfx-gold"></i><span id="txt-nav-vision">1. Visione Presidenza</span></a>
-                        <a href="#alison-ai" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-brain mr-2 text-sfx-cyan"></i><span id="txt-nav-alison">2. Console Alison</span></a>
-                        <a href="#academy" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-graduation-cap mr-2 text-sfx-gold"></i><span id="txt-nav-academy">3. Corsi Academy</span></a>
-                        <a href="#dicono-di-noi" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-comments mr-2 text-sfx-cyan"></i><span id="txt-nav-reviews">4. Dicono di Noi</span></a>
-                        <a href="#gold-card" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-crown mr-2 text-sfx-gold"></i><span id="txt-nav-gold">5. Gold Card</span></a>
-                        <a href="#negozi-online" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-store mr-2 text-sfx-goldLight"></i><span id="txt-nav-shops">6. Negozi Online</span></a>
+                    <div id="nav-dropdown-menu" class="hidden absolute top-full right-0 mt-2 w-64 bg-[#090A0D] border border-sfx-gold/50 rounded-2xl p-2 shadow-2xl z-50 space-y-1">
+                        <a href="#governance-presidenza" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-user-tie mr-2 text-sfx-gold"></i><span id="txt-nav-vision">1. Visione Presidenza</span></a>
+                        <a href="#alison-ai" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-brain mr-2 text-sfx-cyan"></i><span id="txt-nav-alison">2. Console Alison</span></a>
+                        <a href="#academy" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-graduation-cap mr-2 text-sfx-gold"></i><span id="txt-nav-academy">3. Corsi Academy</span></a>
+                        <a href="#dicono-di-noi" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-comments mr-2 text-sfx-cyan"></i><span id="txt-nav-reviews">4. Dicono di Noi</span></a>
+                        <a href="#gold-card" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-crown mr-2 text-sfx-gold"></i><span id="txt-nav-gold">5. Gold Card</span></a>
+                        <a href="#negozi-online" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-store mr-2 text-sfx-goldLight"></i><span id="txt-nav-shops">6. Negozi Online</span></a>
                         
                         <!-- VOCE SPECIALE: BOUTIQUE LUXURY VIP -->
-                        <a href="https://www.imperya.com/vetrina/style" target="_blank" class="nav-dropdown-item block px-3 py-2 rounded-xl text-[#D4AF37] hover:text-white hover:bg-[#1F2227] transition-all border border-[#B8860B]/40 bg-black/40 font-bold">
+                        <a href="https://www.imperya.com/vetrina/style" target="_blank" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-[#D4AF37] hover:text-white hover:bg-[#1F2227] transition-all border border-[#B8860B]/40 bg-black/40 font-bold">
                             <i class="fa-solid fa-gem mr-2 text-[#B8860B]"></i><span>Boutique Luxury VIP ↗</span>
                         </a>
 
-                        <a href="#antigravity" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-atom mr-2 text-sfx-cyan"></i><span id="txt-nav-science">7. Polo Tecnologico</span></a>
-                        <a href="#multimedia" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-photo-film mr-2 text-sfx-silver"></i><span id="txt-nav-media">8. Media Showcase</span></a>
-                        <a href="#social-network-ufficiali" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-share-nodes mr-2 text-sfx-gold"></i><span>9. I 6 Canali Social</span></a>
-                        <a href="#documenti-statutari" class="nav-dropdown-item block px-3 py-2 rounded-xl text-yellow-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-file-shield mr-2 text-sfx-gold"></i><span>10. Atti &amp; Codice Etico</span></a>
-                        <a href="#feedback-sezione" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-envelope-open mr-2 text-sfx-cyan"></i><span id="txt-nav-news">11. Notiziario &amp; Feedback</span></a>
-                        <a href="#gateway" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-credit-card mr-2 text-sfx-silver"></i><span id="txt-nav-gateway">12. Gateway Pagamenti</span></a>
+                        <a href="#antigravity" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-atom mr-2 text-sfx-cyan"></i><span id="txt-nav-science">7. Polo Tecnologico</span></a>
+                        <a href="#multimedia" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-photo-film mr-2 text-sfx-silver"></i><span id="txt-nav-media">8. Media Showcase</span></a>
+                        <a href="#social-network-ufficiali" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-share-nodes mr-2 text-sfx-gold"></i><span>9. I 6 Canali Social</span></a>
+                        <a href="#documenti-statutari" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-yellow-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-file-shield mr-2 text-sfx-gold"></i><span>10. Atti &amp; Codice Etico</span></a>
+                        <a href="#feedback-sezione" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-envelope-open mr-2 text-sfx-cyan"></i><span id="txt-nav-news">11. Notiziario &amp; Feedback</span></a>
+                        <a href="#gateway" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-credit-card mr-2 text-sfx-silver"></i><span id="txt-nav-gateway">12. Gateway Pagamenti</span></a>
                     </div>
                 </div>
 
-                <button onclick="toggleDrawer('drawer-chisiamo')" class="px-4 py-2.5 rounded-xl bg-sfx-gold text-black font-bold hover:bg-yellow-600 transition-colors flex items-center space-x-2 cursor-pointer">
+                <button onclick="toggleDrawer('drawer-chisiamo')" class="px-4 py-2.5 rounded-xl bg-sfx-gold text-black font-bold hover:bg-yellow-600 transition-colors flex items-center space-x-2 cursor-pointer shadow-sm">
                     <i class="fa-solid fa-circle-info"></i>
                     <span class="hidden sm:inline" id="txt-btn-chisiamo-header">CHI SIAMO</span>
                 </button>
@@ -224,15 +224,17 @@
                     <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 space-y-2">
                         <span class="text-sfx-goldLight font-bold block uppercase"><i class="fa-solid fa-envelope mr-2"></i>Le 4 Frequenze Email Istituzionali</span>
                         <div class="space-y-1 text-[10px] text-gray-300 font-mono">
-                            <p>• Presidenza: <strong class="text-white">ceo@supremafuturex.com</strong></p>
-                            <p>• Didattica: <strong class="text-white">academy@supremafuturex.com</strong></p>
-                            <p>• Fisco &amp; Cassa: <strong class="text-white">amministrazione@supremafuturex.com</strong></p>
-                            <p>• Concierge H24: <strong class="text-white">concierge@supremafuturex.com</strong></p>
+                            <p>• Presidenza: <a href="mailto:ceo@supremafuturex.com" class="text-white hover:underline">ceo@supremafuturex.com</a></p>
+                            <p>• Didattica &amp; Contratti: <a href="mailto:academy@supremafuturex.com" class="text-white hover:underline">academy@supremafuturex.com</a></p>
+                            <p>• Desk Operativo: <a href="mailto:desk@supremafuturex.com" class="text-white hover:underline">desk@supremafuturex.com</a></p>
+                            <p>• Supporto Clienti: <a href="mailto:support@supremafuturex.com" class="text-white hover:underline">support@supremafuturex.com</a></p>
                         </div>
                     </div>
                     <div class="bg-gray-900 p-4 rounded-2xl border border-gray-800 space-y-2">
                         <span class="text-green-400 font-bold block uppercase"><i class="fa-brands fa-whatsapp mr-2"></i>Presidio Diretto Presidenza</span>
-                        <p class="text-gray-300 text-[11px] font-bold">+39 347 442 9091 (WhatsApp CEO)</p>
+                        <a href="https://wa.me/393474429091" target="_blank" class="text-gray-300 text-[11px] font-bold hover:text-green-400 block transition-colors">
+                            +39 347 442 9091 (WhatsApp CEO)
+                        </a>
                     </div>
                 </div>
             </div>
@@ -525,7 +527,7 @@
             </button>
         </section>
 
-        <!-- 6. SUPREMA GOLD CARD & 10 SOTTOMENU STATUTARI -->
+        <!-- 6. SUPREMA GOLD CARD & SIMULATORE PHYGITAL -->
         <section id="gold-card" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">STATUS PHYGITAL</span>
@@ -555,7 +557,7 @@
             </div>
         </section>
 
-        <!-- 7. DIVISIONE E-COMMERCE & NEGOZI DIGITALI (ORO SCURO AD ALTO CONTRASTO #B8860B) -->
+        <!-- 7. DIVISIONE E-COMMERCE & NEGOZI DIGITALI -->
         <section id="negozi-online" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">OPPORTUNITÀ &amp; ATTIVITÀ AUTONOMA</span>
@@ -577,7 +579,6 @@
                         </span>
                         <h3 class="text-2xl font-bold font-grotesk text-sfx-goldLight">ATTIVITÀ COMMERCIALE DIGITALE CHIAVI IN MANO</h3>
                         
-                        <!-- TESTO DESCRITTIVO IN ORO SCURO (#B8860B) CON BOX SCURO PROTETTIVO -->
                         <div class="bg-black/80 border border-[#B8860B]/50 p-4 rounded-2xl shadow-inner backdrop-blur-sm">
                             <p id="sec-negozio-desc-txt" class="text-[#B8860B] text-xs sm:text-sm leading-relaxed font-bold font-mono drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
                                 <i class="fa-solid fa-shield-halved mr-1.5 text-sfx-cyan"></i> Attraverso la nostra architettura d'impresa, ogni corsista e membro della community può attivare il proprio e-commerce professionale senza anticipare stock di magazzino né gestire la logistica. Un metodo concreto di lavoro immediato con affiancamento costante.
@@ -588,7 +589,6 @@
                             <i class="fa-solid fa-check-circle mr-2 text-green-400"></i>Piattaforma Attiva, Gestione Automatica &amp; Assistenza
                         </div>
                         
-                        <!-- UNICO PULSANTE SMART: SCOPRI DI PIÙ -->
                         <div class="pt-2">
                             <button onclick="apriModale('modal-negozio-online-info')" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-sfx-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-grotesk font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(184,134,11,0.35)] flex items-center justify-center space-x-2 cursor-pointer">
                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -623,7 +623,8 @@
                 </div>
             </div>
         </section>
-<!-- 9. MULTIMEDIA LIBRARY SHOWCASE (REGIA & PLAYER ESPANDIBILE) -->
+
+        <!-- 9. MULTIMEDIA LIBRARY SHOWCASE (REGIA & PLAYER ESPANDIBILE) -->
         <section id="multimedia" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">SHOWCASE MULTIMEDIALE</span>
@@ -666,7 +667,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono text-xs">
-
                 <!-- 01. INSTAGRAM -->
                 <div class="p-6 bg-[#1F2227] rounded-3xl border border-gray-800 hover:border-[#B8860B]/60 transition-all duration-300 flex flex-col justify-between space-y-4 group shadow-xl text-white">
                     <div class="space-y-3">
@@ -804,11 +804,10 @@
                         <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
                 </div>
-
             </div>
         </section>
 
-        <!-- 11. DOCUMENTI STATUTARI PROTETTI // ANTI-DOWNLOAD & ANTI-SCREENSHOT -->
+        <!-- 11. DOCUMENTI STATUTARI // APERTURA MODALI A SCOMPARSA (ZERO MALLOPPI) -->
         <section id="documenti-statutari" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
                 <span class="px-3.5 py-1 bg-sfx-gold/20 text-[#B8860B] text-xs font-bold font-mono rounded-full uppercase border border-[#B8860B]/40">
@@ -818,70 +817,55 @@
                     DOCUMENTAZIONE UFFICIALE &amp; CODICE ETICO
                 </h2>
                 <p class="text-xs font-mono text-gray-600">
-                    Testi protetti da crittografia EAL6+. Consultabili liberamente a schermo: download, selezione e screenshot inibiti da protocollo di sicurezza.
+                    Testi protetti da crittografia EAL6+. Consulta i documenti ufficiali aprendo le rispettive cartelle protette a schermo: download e screenshot inibiti da protocollo di sicurezza.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-mono text-xs">
+            <!-- LE DUE CARD INTELLIGENTI CON PULSANTE DI APERTURA MODALE -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-xs">
                 
-                <!-- DOCUMENTO 1: CODICE ETICO & DEONTOLOGICO SFX -->
-                <div class="protected-doc-container p-6 sm:p-8 space-y-4 shadow-2xl text-gray-300 border border-sfx-gold/60">
-                    <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-scale-balanced text-sfx-gold text-lg"></i>
-                            <h3 class="font-grotesk font-black text-sm text-sfx-goldLight uppercase">CODICE ETICO E DEONTOLOGICO SFX</h3>
+                <!-- CARD 1: CODICE ETICO -->
+                <div class="p-8 bg-[#1F2227] rounded-3xl border border-sfx-gold/50 shadow-2xl space-y-5 text-white flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-2xl bg-sfx-gold/20 border border-sfx-gold flex items-center justify-center text-sfx-gold text-2xl">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-red-950 text-red-400 border border-red-700 text-[10px] font-bold rounded-lg uppercase">
+                                PROTETTO EAL6+
+                            </span>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-red-950 text-red-400 border border-red-700 text-[9px] font-bold">NON SCARICABILE</span>
+                        <h3 class="font-grotesk font-bold text-lg text-sfx-goldLight uppercase">CODICE ETICO E DEONTOLOGICO SFX</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed font-light">
+                            Regolamento di condotta, dovere di riservatezza industriale sulle strategie One-to-One, lealtà commerciale e disciplina della community.
+                        </p>
                     </div>
-
-                    <div class="space-y-3 text-[11px] leading-relaxed text-gray-400 max-h-96 overflow-y-auto custom-scrollbar p-3 bg-black/60 rounded-xl border border-gray-900">
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-gold">Art. 1 — Finalità e Riservatezza</p>
-                        <p>Suprema Future X opera come organismo di eccellenza. Ogni iscritto, candidato e partner assume formale impegno di segretezza sulle metodologie strategiche, sui protocolli proprietari e sui dati condivisi durante le sessioni One-to-One con la Presidenza.</p>
-
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-gold">Art. 2 — Principio di Correttezza Commerciale</p>
-                        <p>L'assegnazione dei negozi digitali in convenzione esclude qualsiasi forma di concorrenza sleale, pubblicità mendace o diffusione di promesse finanziarie irrealistiche. La violazione comporta la revoca immediata della licenza e l'oscuramento della vetrina.</p>
-
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-gold">Art. 3 — Decoro e Dovere di Diligenza</p>
-                        <p>Il possesso della Suprema Gold Card vincola al rigoroso rispetto degli standard di condotta d'impresa. L'inadempimento agli standard comporta la degradazione del punteggio operativo e la decadenza dello status phygital.</p>
-
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-gold">Art. 4 — Tutela della Proprietà Intellettuale</p>
-                        <p>Tutti gli schemi didattici, le architetture operative e i moduli erogati rimangono di esclusiva titolarità di Suprema Future X. È vietata la cessione a terzi a qualsiasi titolo.</p>
-                    </div>
-
-                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-[10px] text-gray-500">
-                        <span>Registrato presso Presidenza SFX</span>
-                        <span class="text-sfx-gold">Revisione: 2026 // Sovrano</span>
-                    </div>
+                    <button onclick="apriModale('modal-codice-etico')" class="w-full py-4 bg-[#090A0D] hover:bg-black border border-sfx-gold text-sfx-gold font-bold uppercase rounded-xl transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-book-open text-sm"></i>
+                        <span>CONSULTA CODICE ETICO A SCHERMO</span>
+                    </button>
                 </div>
 
-                <!-- DOCUMENTO 2: ATTO STATUTARIO DI AMMISSIONE & PROTOCOLLO CORSISTA -->
-                <div class="protected-doc-container p-6 sm:p-8 space-y-4 shadow-2xl text-gray-300 border border-sfx-cyan/60">
-                    <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-file-contract text-sfx-cyan text-lg"></i>
-                            <h3 class="font-grotesk font-black text-sm text-sfx-cyanLight uppercase">ATTO STATUTARIO: COSA RICEVE IL CORSISTA</h3>
+                <!-- CARD 2: ATTO STATUTARIO CORSISTA -->
+                <div class="p-8 bg-[#1F2227] rounded-3xl border border-sfx-cyan/50 shadow-2xl space-y-5 text-white flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-2xl bg-sfx-cyan/20 border border-sfx-cyan flex items-center justify-center text-sfx-cyan text-2xl">
+                                <i class="fa-solid fa-file-contract"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-red-950 text-red-400 border border-red-700 text-[10px] font-bold rounded-lg uppercase">
+                                100% LIVE 1-TO-1
+                            </span>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-red-950 text-red-400 border border-red-700 text-[9px] font-bold">NON SCARICABILE</span>
+                        <h3 class="font-grotesk font-bold text-lg text-sfx-cyanLight uppercase">ATTO STATUTARIO: CONDIZIONI DIDATTICHE</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed font-light">
+                            Garanzia contrattuale Zero Video, assegnazione del Workspace Google Drive a costo licenza zero e trasparenza tariffaria bloccata.
+                        </p>
                     </div>
-
-                    <div class="space-y-3 text-[11px] leading-relaxed text-gray-400 max-h-96 overflow-y-auto custom-scrollbar p-3 bg-black/60 rounded-xl border border-gray-900">
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-cyan">Punto 1 — Protocollo 100% Live (Zero Video)</p>
-                        <p>Suprema Future X garantisce contrattualmente che nessun percorso didattico venga erogato tramite videocorsi preregistrati. L'intero programma si svolge tramite sessioni in diretta One-to-One e revisione applicata in tempo reale.</p>
-
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-cyan">Punto 2 — Consegna Workspace Google Drive</p>
-                        <p>All'atto della registrazione e conferma dello slot, viene predisposto un Workspace Cloud crittografato (SFX_CORSISTI_WORKSPACE) contenente: dispense operative, schede di lavoro, dossier project-work e modulistica master, senza alcun costo di licenza aggiuntivo.</p>
-
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-cyan">Punto 3 — Tariffa Bloccata e Trasparente</p>
-                        <p>La quota di partecipazione versata (Silver 249 €, Executive 299 €, Premium VIP 349 €) rappresenta il corrispettivo omnicomprensivo definitivo. Nessun costo nascosto o canone ricorrente sarà mai applicato per il mantenimento dell'accesso didattico.</p>
-
-                        <p class="text-white font-bold uppercase text-[10px] text-sfx-cyan">Punto 4 — Screening Selettivo di Qualifica</p>
-                        <p>L'accesso effettivo è subordinato alla sessione di screening preliminare di 30 minuti con la Presidenza, finalizzata a verificare l'idoneità del profilo e definire il piano di inserimento nel mercato.</p>
-                    </div>
-
-                    <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-[10px] text-gray-500">
-                        <span>Emesso da academy@supremafuturex.com</span>
-                        <span class="text-sfx-cyan">Standard Live Certificato</span>
-                    </div>
+                    <button onclick="apriModale('modal-atto-statutario')" class="w-full py-4 bg-[#090A0D] hover:bg-black border border-sfx-cyan text-sfx-cyanLight font-bold uppercase rounded-xl transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-file-shield text-sm"></i>
+                        <span>CONSULTA ATTO STATUTARIO A SCHERMO</span>
+                    </button>
                 </div>
 
             </div>
@@ -957,10 +941,10 @@
             
             <div class="space-y-2">
                 <h5 class="text-white font-bold tracking-widest uppercase">LE 4 EMAIL ISTITUZIONALI</h5>
-                <p class="text-gray-400 text-[11px]">Presidenza: <strong class="text-sfx-goldLight block">ceo@supremafuturex.com</strong></p>
-                <p class="text-gray-400 text-[11px]">Academy &amp; Contratti: <strong class="text-sfx-cyanLight block">academy@supremafuturex.com</strong></p>
-                <p class="text-gray-400 text-[11px]">Amministrazione: <strong class="text-gray-200 block">amministrazione@supremafuturex.com</strong></p>
-                <p class="text-gray-400 text-[11px]">Desk Concierge: <strong class="text-yellow-400 block">concierge@supremafuturex.com</strong></p>
+                <p class="text-gray-400 text-[11px]">Presidenza: <a href="mailto:ceo@supremafuturex.com" class="text-sfx-goldLight block hover:underline">ceo@supremafuturex.com</a></p>
+                <p class="text-gray-400 text-[11px]">Didattica &amp; Contratti: <a href="mailto:academy@supremafuturex.com" class="text-sfx-cyanLight block hover:underline">academy@supremafuturex.com</a></p>
+                <p class="text-gray-400 text-[11px]">Desk Operativo: <a href="mailto:desk@supremafuturex.com" class="text-gray-200 block hover:underline">desk@supremafuturex.com</a></p>
+                <p class="text-gray-400 text-[11px]">Supporto Clienti: <a href="mailto:support@supremafuturex.com" class="text-yellow-400 block hover:underline">support@supremafuturex.com</a></p>
             </div>
 
             <div class="space-y-2">
@@ -981,7 +965,7 @@
                     <a href="https://tiktok.com" target="_blank" class="hover:text-white text-center" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                     <a href="https://facebook.com" target="_blank" class="hover:text-[#1877F2] text-center" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 </div>
-                <p class="text-[10px] text-gray-500 pt-1">WhatsApp Presidenza: <strong class="text-white">+39 347 442 9091</strong></p>
+                <p class="text-[10px] text-gray-500 pt-1">WhatsApp Presidenza: <a href="https://wa.me/393474429091" target="_blank" class="text-white font-bold hover:text-green-400">+39 347 442 9091</a></p>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 pt-8 mt-8 border-t border-gray-800 text-center text-[10px] text-gray-500 tracking-widest">
@@ -989,7 +973,81 @@
         </div>
     </footer>
 
-    <!-- SCHEDA DI REGISTRAZIONE NELLA MODALE (SENZA CAMPO SFX MANUALE) -->
+    <!-- ===================================================================== -->
+    <!-- MODALI DI SISTEMA SFX                                                 -->
+    <!-- ===================================================================== -->
+
+    <!-- 1. MODALE PROTETTA: CODICE ETICO E DEONTOLOGICO -->
+    <div id="modal-codice-etico" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-codice-etico') chiudiModale('modal-codice-etico')">
+        <div class="protected-doc-container text-white rounded-3xl p-6 sm:p-10 max-w-3xl w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs max-h-[90vh] flex flex-col justify-between">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-scale-balanced text-sfx-gold text-2xl"></i>
+                    <div>
+                        <h3 class="font-grotesk font-black text-base text-sfx-goldLight uppercase">CODICE ETICO E DEONTOLOGICO SFX</h3>
+                        <p class="text-[10px] text-gray-400">Registrato presso la Presidenza Esecutiva &bull; EAL6+ Sovrano</p>
+                    </div>
+                </div>
+                <button onclick="chiudiModale('modal-codice-etico')" class="text-gray-400 hover:text-white text-3xl leading-none cursor-pointer">&times;</button>
+            </div>
+
+            <div class="space-y-4 text-[11px] leading-relaxed text-gray-300 overflow-y-auto scrollbar-sfx p-4 bg-black/70 rounded-2xl border border-gray-900 flex-1">
+                <p class="text-sfx-gold font-bold uppercase text-[10px]">Art. 1 — Finalità e Riservatezza Industriale</p>
+                <p>Suprema Future X opera come organismo d'eccellenza. Ogni iscritto, candidato e partner assume formale impegno di segretezza sulle metodologie strategiche, sui protocolli proprietari e sui dati condivisi durante le sessioni One-to-One con la Presidenza.</p>
+
+                <p class="text-sfx-gold font-bold uppercase text-[10px]">Art. 2 — Principio di Correttezza Commerciale</p>
+                <p>L'assegnazione dei negozi digitali in convenzione esclude qualsiasi forma di concorrenza sleale, pubblicità mendace o diffusione di promesse finanziarie irrealistiche. La violazione comporta la revoca immediata della licenza e l'oscuramento della vetrina.</p>
+
+                <p class="text-sfx-gold font-bold uppercase text-[10px]">Art. 3 — Decoro e Dovere di Diligenza</p>
+                <p>Il possesso della Suprema Gold Card vincola al rigoroso rispetto degli standard di condotta d'impresa. L'inadempimento agli standard comporta la degradazione del punteggio operativo e la decadenza dello status phygital.</p>
+
+                <p class="text-sfx-gold font-bold uppercase text-[10px]">Art. 4 — Tutela della Proprietà Intellettuale</p>
+                <p>Tutti gli schemi didattici, le architetture operative e i moduli erogati rimangono di esclusiva titolarità di Suprema Future X. È vietata la cessione a terzi o la duplicazione a qualsiasi titolo.</p>
+            </div>
+
+            <div class="pt-4 border-t border-gray-800 flex justify-between items-center text-[10px] text-gray-500">
+                <span>Stampa e screenshot inibiti da protocollo.</span>
+                <button onclick="chiudiModale('modal-codice-etico')" class="px-5 py-2.5 bg-sfx-gold text-black font-bold rounded-xl uppercase hover:bg-yellow-500 cursor-pointer">Chiudi Documento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. MODALE PROTETTA: ATTO STATUTARIO CORSISTA -->
+    <div id="modal-atto-statutario" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-atto-statutario') chiudiModale('modal-atto-statutario')">
+        <div class="protected-doc-container text-white rounded-3xl p-6 sm:p-10 max-w-3xl w-full border-2 border-sfx-cyan shadow-2xl space-y-6 font-mono text-xs max-h-[90vh] flex flex-col justify-between">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-file-contract text-sfx-cyan text-2xl"></i>
+                    <div>
+                        <h3 class="font-grotesk font-black text-base text-sfx-cyanLight uppercase">ATTO STATUTARIO: CONDIZIONI DIDATTICHE</h3>
+                        <p class="text-[10px] text-gray-400">Canale di Delibera: academy@supremafuturex.com</p>
+                    </div>
+                </div>
+                <button onclick="chiudiModale('modal-atto-statutario')" class="text-gray-400 hover:text-white text-3xl leading-none cursor-pointer">&times;</button>
+            </div>
+
+            <div class="space-y-4 text-[11px] leading-relaxed text-gray-300 overflow-y-auto scrollbar-sfx p-4 bg-black/70 rounded-2xl border border-gray-900 flex-1">
+                <p class="text-sfx-cyan font-bold uppercase text-[10px]">Punto 1 — Protocollo 100% Live (Zero Video Preregistrati)</p>
+                <p>Suprema Future X garantisce contrattualmente che nessun percorso didattico venga erogato tramite videocorsi preregistrati asincroni. L'intero programma si svolge tramite sessioni in diretta One-to-One e revisione applicata in tempo reale con la Presidenza.</p>
+
+                <p class="text-sfx-cyan font-bold uppercase text-[10px]">Punto 2 — Consegna Workspace Google Drive</p>
+                <p>All'atto della registrazione e conferma dello slot, viene predisposto un Workspace Cloud crittografato (SFX_CORSISTI_WORKSPACE) contenente: dispense operative, schede di lavoro, dossier project-work e modulistica master, senza alcun costo di licenza aggiuntivo.</p>
+
+                <p class="text-sfx-cyan font-bold uppercase text-[10px]">Punto 3 — Tariffa Bloccata e Trasparente</p>
+                <p>La quota di partecipazione versata (Silver 249 €, Executive 299 €, Premium VIP 349 €) rappresenta il corrispettivo omnicomprensivo definitivo. Nessun costo nascosto o canone ricorrente sarà mai applicato per il mantenimento dell'accesso didattico.</p>
+
+                <p class="text-sfx-cyan font-bold uppercase text-[10px]">Punto 4 — Screening Selettivo di Qualifica</p>
+                <p>L'accesso effettivo è subordinato alla sessione di screening preliminare di 30 minuti con la Presidenza, finalizzata a verificare l'idoneità del profilo e definire il piano di inserimento nel mercato.</p>
+            </div>
+
+            <div class="pt-4 border-t border-gray-800 flex justify-between items-center text-[10px] text-gray-500">
+                <span>Stampa e download inibiti da protocollo.</span>
+                <button onclick="chiudiModale('modal-atto-statutario')" class="px-5 py-2.5 bg-sfx-cyan text-black font-bold rounded-xl uppercase hover:bg-cyan-400 cursor-pointer">Chiudi Documento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. SCHEDA DI REGISTRAZIONE NELLA MODALE (SERIALE SFX AUTOMATICO) -->
     <div id="modal-scheda-registrazione" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4 overflow-y-auto" onclick="if(event.target.id==='modal-scheda-registrazione') chiudiSchedaRegistrazione()">
         <div class="matrix-dark-card text-white rounded-3xl p-6 sm:p-10 max-w-2xl w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs my-auto relative">
             <div class="flex justify-between items-center border-b border-gray-800 pb-4">
@@ -1087,7 +1145,7 @@
         </div>
     </div>
 
-    <!-- MODALE 40 TESTIMONIANZE VERIFICATE -->
+    <!-- 4. MODALE 40 TESTIMONIANZE VERIFICATE -->
     <div id="modal-testimonianze-40" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-testimonianze-40') chiudiModale('modal-testimonianze-40')">
         <div class="bg-[#12141C] text-white rounded-3xl p-6 sm:p-8 max-w-5xl w-full max-h-[85vh] overflow-y-auto border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-700 pb-3 sticky top-0 bg-[#12141C] z-10">
@@ -1098,7 +1156,7 @@
         </div>
     </div>
 
-    <!-- MODALE INFO NEGOZI DIGITALE & BOUTIQUE LUXURY VIP -->
+    <!-- 5. MODALE INFO NEGOZI DIGITALE & BOUTIQUE LUXURY VIP -->
     <div id="modal-negozio-online-info" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-negozio-online-info') chiudiModale('modal-negozio-online-info')">
         <div class="matrix-dark-card text-white rounded-3xl p-8 max-w-xl w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -1124,7 +1182,7 @@
         </div>
     </div>
 
-    <!-- MODALE DETTAGLIO CORSO ACADEMY -->
+    <!-- 6. MODALE DETTAGLIO CORSO ACADEMY -->
     <div id="modal-dettaglio-corso" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-dettaglio-corso') chiudiModale('modal-dettaglio-corso')">
         <div class="matrix-dark-card text-white rounded-3xl p-8 max-w-lg w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -1142,7 +1200,7 @@
         </div>
     </div>
 
-    <!-- TERMINALE SEGRETO DI LOGIN CEO (3 TAP EMBLEMA) -->
+    <!-- 7. TERMINALE SEGRETO DI LOGIN CEO (3 TAP EMBLEMA) -->
     <div id="modal-terminale-9" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-terminale-9') chiudiModale('modal-terminale-9')">
         <div class="relative bg-[#2A2D34] text-white rounded-[2rem] p-8 sm:p-12 w-[45rem] max-w-full border-2 border-sfx-gold shadow-2xl">
             <div class="space-y-6 font-mono text-xs">
@@ -1165,7 +1223,7 @@
         </div>
     </div>
 
-    <!-- CAVEAU X-BOX SELETTIVA (BIVIO DI ACCESSO DIRETTO) -->
+    <!-- 8. CAVEAU X-BOX SELETTIVA (BIVIO DI ACCESSO DIRETTO) -->
     <div id="modal-caveau-8" class="fixed inset-0 bg-[#090A0D]/95 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-caveau-8') chiudiModale('modal-caveau-8')">
         <div class="w-full max-w-4xl space-y-8 text-center font-mono">
             <div class="flex justify-between items-center border-b border-gray-800 pb-4">
@@ -1189,12 +1247,12 @@
         </div>
     </div>
 
-    <!-- SCRIPT SFX ENGINE INTEGRALE CON BROADCAST BUS & DATABASE 50 FAQ -->
+    <!-- SCRIPT SFX ENGINE INTEGRALE: BROADCAST BUS & DATABASE 50 FAQ -->
     <script>
         const APPS_SCRIPT_URL_SFX = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
         let corsoSelezionatoTemp = 'Academy Executive';
 
-        // IL PONTE DIRETTO: CANALE BROADCAST REAL-TIME TRA BOX LANDING E LANDING PAGE
+        // IL PONTE DIRETTO: CANALE BROADCAST TRA BOX LANDING E LANDING PAGE
         const sfxBroadcastBus = new BroadcastChannel('sfx_enterprise_bus');
         sfxBroadcastBus.onmessage = function(event) {
             if (event.data && event.data.type === 'SFX_SEZIONI_UPDATE') {
@@ -1202,7 +1260,43 @@
             }
         };
 
-        // 50 FAQ COMPLETE IN MEMORIA LOCALE (ZERO LATENZA)
+        // GESTIONE MENU SEZIONI CON AUTO-CHIUSURA A 15 SECONDI
+        let menuTimerInattivita = null;
+
+        function toggleMenuSezioni() {
+            const menu = document.getElementById('nav-dropdown-menu');
+            if (!menu) return;
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                avviaTimerMenu15s();
+            } else {
+                chiudiMenuSezioniSubito();
+            }
+        }
+
+        function chiudiMenuSezioniSubito() {
+            const menu = document.getElementById('nav-dropdown-menu');
+            if (menu) menu.classList.add('hidden');
+            if (menuTimerInattivita) clearTimeout(menuTimerInattivita);
+        }
+
+        function avviaTimerMenu15s() {
+            if (menuTimerInattivita) clearTimeout(menuTimerInattivita);
+            menuTimerInattivita = setTimeout(() => {
+                chiudiMenuSezioniSubito();
+            }, 15000);
+        }
+
+        // Chiusura al clic fuori dal menu
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('container-menu-sezioni');
+            if (container && !container.contains(e.target)) {
+                chiudiMenuSezioniSubito();
+            }
+        });
+
+        // 50 FAQ IN MEMORIA LOCALE ZERO LATENZA
         const SFX_FAQ_DATABASE = [
             {"q": "chi e alison", "keywords": ["chi sei", "alison", "ruolo alison", "chi e alison"], "a": "Sono Alison (AG-01), il Concierge Digitale Esecutivo di Suprema Future X. Gestisco il primo orientamento, la verifica delle candidature e l'instradamento verso la Presidenza del CEO Giuliano Caratelli e l'Academy."},
             {"q": "chi e il ceo", "keywords": ["ceo", "giuliano", "caratelli", "fondatore", "presidente"], "a": "Il Fondatore e CEO di Suprema Future X è Giuliano Caratelli. Governa l'architettura d'impresa, le relazioni istituzionali, la direzione strategica e le sessioni direzionali riservate one-to-one."},
@@ -1223,7 +1317,7 @@
             {"q": "sicurezza e protocollo eal6+", "keywords": ["eal6", "sicurezza", "protocollo", "crittografia", "protezione"], "a": "Tutti i dati e le transazioni sono governati dallo standard di sicurezza EAL6+ Sovrano, con crittografia end-to-end, tracciamento audit e protezione delle informazioni personali."},
             {"q": "dove si trova la sede centrale", "keywords": ["sede", "dove siete", "indirizzo", "roma", "ufficio"], "a": "La Sede Centrale di Rappresentanza di Suprema Future X si trova a Roma Centro, in Via della Scrofa."},
             {"q": "contatti ufficiali presidenza", "keywords": ["contatti", "numero", "whatsapp", "email", "telefono"], "a": "Puoi contattare la Presidenza via WhatsApp al +39 347 442 9091 oppure via email ufficiale a ceo@supremafuturex.com."},
-            {"q": "quali sono le 4 email ufficiali", "keywords": ["4 email", "indirizzi email", "frequenze email", "scrivere"], "a": "Le nostre 4 caselle di riferimento sono: ceo@supremafuturex.com (Presidenza), academy@supremafuturex.com (Didattica), amministrazione@supremafuturex.com (Fisco/Cassa) e concierge@supremafuturex.com (Assistenza H24)."},
+            {"q": "quali sono le 4 email ufficiali", "keywords": ["4 email", "indirizzi email", "frequenze email", "scrivere"], "a": "Le nostre 4 caselle di riferimento sono: ceo@supremafuturex.com (Presidenza), academy@supremafuturex.com (Didattica), desk@supremafuturex.com (Operativo) e support@supremafuturex.com (Supporto Clienti)."},
             {"q": "come funziona il drive corsista", "keywords": ["drive", "cartella", "workspace", "materiali cloud"], "a": "All'avvallo del corsista, il sistema genera automaticamente una cartella Google Drive tripartita: 01_Materiali_Operativi, 02_Consegne_Project_Work e 03_Dossier_Amministrativo."},
             {"q": "cosa sono i 15 agenti ai", "keywords": ["15 agenti", "agenti ai", "flotta neurale", "alison nicole ginevra"], "a": "È la flotta neurale autonoma di SFX residente nella Box Security: da AG-01 Alison fino ad AG-15 Joker, passando per Nicole, Ginevra, Scout, Sentinel e Governor."},
             {"q": "chi e scout ag 04", "keywords": ["scout", "ag-04", "hunter", "lead generation"], "a": "Scout (AG-04 Hunter) è l'agente incaricato di scansionare i canali digitali e intercettare opportunità e profili qualificati per l'Ecosistema."},
@@ -1263,36 +1357,31 @@
                 vision: "1. Visione Presidenza", alison: "2. Console Alison", academy: "3. Corsi Academy", reviews: "4. Dicono di Noi",
                 goldcard: "5. Gold Card", shops: "6. Negozi Online", science: "7. Polo Tecnologico", media: "8. Media Showcase",
                 news: "11. Notiziario & Feedback", gateway: "12. Gateway Pagamenti", ceoConf: "CONFERENZA CEO", whoWeAre: "CHI SIAMO",
-                heroTag: "ECOSISTEMA PROFESSIONALE ATTIVO",
-                btnCeo: "Conferenza CEO Riservata", btnAlison: "Parla con Alison"
+                heroTag: "ECOSISTEMA PROFESSIONALE ATTIVO", btnCeo: "Conferenza CEO Riservata", btnAlison: "Parla con Alison"
             },
             en: {
                 vision: "1. Presidency Vision", alison: "2. Alison Console", academy: "3. Academy Courses", reviews: "4. Testimonials",
                 goldcard: "5. Gold Card", shops: "6. Online Stores", science: "7. Technology Hub", media: "8. Media Showcase",
                 news: "11. News & Feedback", gateway: "12. Payment Gateway", ceoConf: "CEO CONFERENCE", whoWeAre: "ABOUT US",
-                heroTag: "ACTIVE PROFESSIONAL ECOSYSTEM",
-                btnCeo: "Reserved CEO Conference", btnAlison: "Talk to Alison"
+                heroTag: "ACTIVE PROFESSIONAL ECOSYSTEM", btnCeo: "Reserved CEO Conference", btnAlison: "Talk to Alison"
             },
             es: {
                 vision: "1. Visión Presidencia", alison: "2. Consola Alison", academy: "3. Cursos Academy", reviews: "4. Opiniones",
                 goldcard: "5. Gold Card", shops: "6. Tiendas Online", science: "7. Polo Tecnológico", media: "8. Showcase Multimedia",
                 news: "11. Boletín y Feedback", gateway: "12. Pasarela de Pagos", ceoConf: "CONFERENCIA CEO", whoWeAre: "QUIÉNES SOMOS",
-                heroTag: "ECOSISTEMA PROFESIONAL ACTIVO",
-                btnCeo: "Conferencia CEO Reservada", btnAlison: "Hablar con Alison"
+                heroTag: "ECOSISTEMA PROFESIONAL ACTIVO", btnCeo: "Conferencia CEO Reservada", btnAlison: "Hablar con Alison"
             },
             fr: {
                 vision: "1. Vision Présidence", alison: "2. Console Alison", academy: "3. Cours Academy", reviews: "4. Témoignages",
                 goldcard: "5. Gold Card", shops: "6. Boutiques en Ligne", science: "7. Pôle Technologique", media: "8. Showcase Médias",
                 news: "11. Bulletin & Feedback", gateway: "12. Passerelle de Paiement", ceoConf: "CONFÉRENCE PDG", whoWeAre: "QUI SOMMES-NOUS",
-                heroTag: "ÉCOSYSTÈME PROFESSIONNEL ACTIF",
-                btnCeo: "Conférence PDG Réservée", btnAlison: "Parler avec Alison"
+                heroTag: "ÉCOSYSTÈME PROFESSIONNEL ACTIF", btnCeo: "Conférence PDG Réservée", btnAlison: "Parler avec Alison"
             },
             de: {
                 vision: "1. Vision Präsidentschaft", alison: "2. Alison Konsole", academy: "3. Academy Kurse", reviews: "4. Bewertungen",
                 goldcard: "5. Gold Card", shops: "6. Online Shops", science: "7. Technologiezentrum", media: "8. Medien Showcase",
                 news: "11. Nachrichten & Feedback", gateway: "12. Zahlungs Gateway", ceoConf: "CEO KONFERENZ", whoWeAre: "ÜBER UNS",
-                heroTag: "AKTIVES BERUFLICHES ÖKOSYSTEM",
-                btnCeo: "Exklusive CEO Konferenz", btnAlison: "Mit Alison sprechen"
+                heroTag: "AKTIVES BERUFLICHES ÖKOSYSTEM", btnCeo: "Exklusive CEO Konferenz", btnAlison: "Mit Alison sprechen"
             }
         };
 
@@ -1314,7 +1403,6 @@
             if (selectLingua) selectLingua.value = linguaSalvata;
             applicaLingua(linguaSalvata);
 
-            // Carica configurazione delle 11 Sezioni memorizzata nel browser da Box Landing
             const salvatoSezioni = localStorage.getItem('sfx_sezioni_config');
             if (salvatoSezioni) {
                 try {
@@ -1326,11 +1414,10 @@
             attivaProtezioneDocumentiStatutari();
         });
 
-        // MOTORE DI APPLICAZIONE LIVE TESTI & PREZZI DA BOX LANDING
+        // APPLICAZIONE LIVE TESTI & PREZZI DA BOX LANDING
         function applicaDatiSezioniInLanding(cfg) {
             if (!cfg) return;
 
-            // Sezione 1: Hero
             if (cfg.sec1) {
                 if (cfg.sec1.active === false) document.getElementById('sezione-landing-1')?.classList.add('hidden');
                 else document.getElementById('sezione-landing-1')?.classList.remove('hidden');
@@ -1339,7 +1426,6 @@
                 }
             }
 
-            // Sezione 2: Presidenza CEO
             if (cfg.sec2) {
                 if (cfg.sec2.active === false) document.getElementById('governance-presidenza')?.classList.add('hidden');
                 else document.getElementById('governance-presidenza')?.classList.remove('hidden');
@@ -1351,7 +1437,6 @@
                 }
             }
 
-            // Sezione 3: Alison Console
             if (cfg.sec3) {
                 if (cfg.sec3.active === false) document.getElementById('alison-ai')?.classList.add('hidden');
                 else document.getElementById('alison-ai')?.classList.remove('hidden');
@@ -1363,7 +1448,6 @@
                 }
             }
 
-            // Sezione 4: Academy Corsi
             if (cfg.sec4) {
                 if (cfg.sec4.active === false) document.getElementById('academy')?.classList.add('hidden');
                 else document.getElementById('academy')?.classList.remove('hidden');
@@ -1378,7 +1462,6 @@
                 }
             }
 
-            // Sezione 7: Negozi Digitali
             if (cfg.sec7) {
                 if (cfg.sec7.active === false) document.getElementById('negozi-online')?.classList.add('hidden');
                 else document.getElementById('negozi-online')?.classList.remove('hidden');
@@ -1388,7 +1471,7 @@
             }
         }
 
-        // SINCRONIZZAZIONE 6 CANALI SOCIAL
+        // SINCRONIZZAZIONE SOCIAL NETWORK
         function sincronizzaSocialNetworkDinamici() {
             const rawSocial = localStorage.getItem('sfx_social_network_links');
             if (rawSocial) {
@@ -1404,7 +1487,7 @@
             }
         }
 
-        // PROTEZIONE DOCUMENTI STATUTARI: ANTI-DOWNLOAD, NO-SELECT, ANTI-SCREENSHOT
+        // PROTEZIONE DOCUMENTI STATUTARI
         function attivaProtezioneDocumentiStatutari() {
             const protetti = document.querySelectorAll('.protected-doc-container');
             protetti.forEach(doc => {
@@ -1412,7 +1495,6 @@
                 doc.addEventListener('copy', e => e.preventDefault());
             });
 
-            // Inibizione comandi da tastiera per screenshot e stampa (Ctrl+P, Cmd+P, Ctrl+S, Cmd+S)
             window.addEventListener('keydown', e => {
                 if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {
                     e.preventDefault();
@@ -1631,7 +1713,7 @@
             }
         }
 
-        // INVIO SCHEDA CANDIDATURA (SERIALE SFX GENERATO DAL SISTEMA)
+        // INVIO SCHEDA CANDIDATURA (SERIALE SFX AUTOMATICO)
         function inviaCandidaturaLead(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-invia-lead');
@@ -1642,7 +1724,6 @@
             const partiData = dataRaw.split('-');
             const dataFormattata = `${partiData[2]}/${partiData[1]}/${partiData[0]}`;
 
-            // Generazione automatica silenziosa del Codice SFX
             const anno = new Date().getFullYear().toString().slice(-2);
             const serialeGenerato = `SFX-${anno}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
@@ -1691,9 +1772,7 @@
                         </div>`;
                 }
 
-                // Invia notifica live alla Box Landing via Broadcast Channel
                 sfxBroadcastBus.postMessage({ type: 'SFX_NEW_LEAD', lead: payload });
-
                 document.getElementById('form-candidatura-lead').reset();
             })
             .catch(err => {
@@ -1778,4 +1857,3 @@
     </script>
 </body>
 </html>
-      
