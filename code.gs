@@ -1,6 +1,7 @@
 /**
  * ============================================================================
- * SUPREMA FUTURE X — ERP & CLOUD BACKEND MASTER ENGINE v16.9 EAL6+
+ * SUPREMA FUTURE X — ERP & CLOUD BACKEND MASTER ENGINE v17.0 EAL6+
+ * Integrazione Completa: Mastro 54/30/16, Flotta 15 AI, Super CRM & Gold Card Hub
  * Dominio Primario: supremafuturex.com
  * Routing Caselle: ceo@ | academy@ | desk@ | support@
  * Copyright © 2026 Suprema Future X. Tutti i diritti riservati.
@@ -11,7 +12,7 @@
 // 1. CONFIGURAZIONE CENTRALE, LISTINI, PERCENTUALI & TOKEN
 // ============================================================================
 const CONFIG_SFX = {
-  VERSIONE: "16.9.0 - EAL6+ SOVEREIGN BACKEND ENGINE",
+  VERSIONE: "17.0.0 - EAL6+ GOLD CARD CLOUD ENGINE",
   DOMINIO: "supremafuturex.com",
   NOME_AZIENDA: "Suprema Future X",
   CEO_NOME: "Giuliano Caratelli",
@@ -52,10 +53,11 @@ const CONFIG_SFX = {
     SQUADRA_BONUS: 0.18       // 18% Riserva Squadra & Bonus
   },
 
-  // Suprema Gold Card
+  // Parametri Ufficiali Suprema Gold Card
   GOLD_CARD: {
-    SCONTO_CORSISTA: 0.05,
-    PROVVIGIONE_CASSA: 0.10
+    SCONTO_CORSISTA: 0.05,     // 5% di sconto reale per il nuovo iscritto
+    PROVVIGIONE_CASSA: 0.10,   // 10% di provvigione accantonata per il presentatore
+    PUNTI_TARGET_FISICA: 100   // Punti per lo sblocco della consegna metallica fisica
   }
 };
 
@@ -67,7 +69,26 @@ function doGet(e) {
     const action = e.parameter ? e.parameter.action : null;
     const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    // 2.1 Lettura Anagrafica Corsisti & Lead CRM
+    // 2.1 Lettura Registro Suprema Gold Card
+    if (action === "getGoldCards") {
+      const sheetGold = ottieniOFaFoglio(ss, "Gold_Cards", [
+        "DATA_CONIAZIONE", "CODICE_GOLD", "TITOLARE", "EMAIL_TITOLARE", "PERCORSO", 
+        "PUNTI_SCORE", "STATO_CARD", "CONSEGNA_FISICA", "NOTE_PRESIDENZA"
+      ]);
+      const rows = sheetGold.getDataRange().getValues();
+      if (rows.length <= 1) {
+        return creaRispostaJSON({ status: "success", dati: [] });
+      }
+      const headers = rows[0];
+      const listaCards = rows.slice(1).map(r => {
+        let obj = {};
+        headers.forEach((h, i) => obj[h] = r[i]);
+        return obj;
+      });
+      return creaRispostaJSON({ status: "success", dati: listaCards });
+    }
+
+    // 2.2 Lettura Anagrafica Corsisti & Lead CRM
     if (action === "getCandidati") {
       const sheet = ottieniOFaFoglio(ss, "Candidati", [
         "DATA_REGISTRAZIONE", "ID_SFX", "NOME", "COGNOME", "EMAIL", "TELEFONO", "TELEGRAM",
@@ -87,7 +108,7 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", dati: lista });
     }
 
-    // 2.2 Lettura Mastro Finanziario Ledger (Split 54/30/16)
+    // 2.3 Lettura Mastro Finanziario Ledger (Split 54/30/16)
     if (action === "getDashboardData" || action === "getMastro") {
       const sheetMastro = ottieniOFaFoglio(ss, "Mastro_Finanziario", [
         "TIMESTAMP", "TX_ID", "DESCRIZIONE", "TIPO", "IMPORTO", "OPS_54", "DIV_30", "TAX_16", "PROOF_HASH"
@@ -107,7 +128,7 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", corsisti: movimenti });
     }
 
-    // 2.3 Lettura Ticket Desk Supporto
+    // 2.4 Lettura Ticket Desk Supporto
     if (action === "getTickets") {
       const sheetTickets = ottieniOFaFoglio(ss, "Ticket_Supporto", [
         "DATA_ORA", "ID_TICKET", "NOME", "EMAIL", "TELEGRAM", "CATEGORIA", "MESSAGGIO", "STATO"
@@ -126,7 +147,7 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", tickets: tickets });
     }
 
-    // 2.4 Lettura Catalogo Asset Media Vault
+    // 2.5 Lettura Catalogo Asset Media Vault
     if (action === "getMediaVault") {
       const sheetMedia = ottieniOFaFoglio(ss, "Media_Vault", [
         "DATA_CARICAMENTO", "NOME_FILE", "CATEGORIA", "DIDASCALIA", "MIME_TYPE", "DRIVE_ID", "URL_FILE"
@@ -144,7 +165,7 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", assets: assets });
     }
 
-    // 2.5 Lettura Log di Audit EAL6+
+    // 2.6 Lettura Log di Audit EAL6+
     if (action === "getAuditLogs") {
       const sheetAudit = ottieniOFaFoglio(ss, "Log_Audit_EAL6", ["TIMESTAMP", "AZIONE", "LIVELLO", "DETTAGLI"]);
       const rows = sheetAudit.getDataRange().getValues();
@@ -157,7 +178,7 @@ function doGet(e) {
       return creaRispostaJSON({ status: "success", logs: logs });
     }
 
-    // 2.6 Ping Generale Telemetria Nodo
+    // 2.7 Ping Generale Telemetria Nodo
     return creaRispostaJSON({
       status: "active",
       nodo: "EAL6+ SOVRANO NOC",
@@ -174,7 +195,7 @@ function doGet(e) {
 }
 
 // ============================================================================
-// 3. ENTRY POINT POST (Scrittura Dati, Ingestion, Upload & Allocazioni)
+// 3. ENTRY POINT POST (Scrittura Dati, Ingestion, Gold Card & Allocazioni)
 // ============================================================================
 function doPost(e) {
   try {
@@ -193,7 +214,92 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
 
     // ------------------------------------------------------------------------
-    // CASE A: REGISTRAZIONE CANDIDATURA (DA LANDING O MODULI SATELLITE)
+    // CASE A: GESTIONE SUPREMA GOLD CARD (CONIAZIONE & SALVATAGGIO CLOUD)
+    // ------------------------------------------------------------------------
+    if (action === "salvaGoldCard") {
+      const sheetGold = ottieniOFaFoglio(ss, "Gold_Cards", [
+        "DATA_CONIAZIONE", "CODICE_GOLD", "TITOLARE", "EMAIL_TITOLARE", "PERCORSO", 
+        "PUNTI_SCORE", "STATO_CARD", "CONSEGNA_FISICA", "NOTE_PRESIDENZA"
+      ]);
+
+      const codice = payload.codice || ("GOLD-" + Math.floor(100000 + Math.random() * 900000));
+      const titolare = payload.titolare || "Corsista Selezionato";
+      const email = payload.email || "";
+      const percorso = payload.percorso || "Executive Master";
+      const punti = parseInt(payload.punti) || 10;
+      const stato = payload.stato || "ATTIVA";
+      const consegna = punti >= CONFIG_SFX.GOLD_CARD.PUNTI_TARGET_FISICA ? "CONSEGNATA (ROMA)" : "IN PRODUZIONE";
+
+      sheetGold.appendRow([
+        new Date().toISOString(),
+        codice,
+        titolare,
+        email,
+        percorso,
+        punti,
+        stato,
+        consegna,
+        payload.note || "Coniata da Presidenza Esecutiva"
+      ]);
+
+      inviaTelegram(
+        `🎫 <b>Suprema Gold Card // Nuova Coniazione Ufficiale</b>\n` +
+        `<b>Codice:</b> <code>${codice}</code>\n` +
+        `<b>Titolare:</b> ${titolare}\n` +
+        `<b>Percorso:</b> ${percorso}\n` +
+        `<b>Punti Iniziali:</b> ${punti}/100 pt\n` +
+        `<b>Stato Consegna:</b> ${consegna}`
+      );
+
+      registraLogAudit("GOLD_CARD_CONIATA", "INFO", `Coniata tessera ${codice} per ${titolare}`);
+      return creaRispostaJSON({ status: "success", codice: codice, consegna: consegna });
+    }
+
+    // ------------------------------------------------------------------------
+    // CASE B: AGGIORNAMENTO PUNTEGGIO GROW-SCORE GOLD CARD (0-100 PT)
+    // ------------------------------------------------------------------------
+    if (action === "aggiornaPuntiGoldCard" || action === "aggiornaPuntiGold") {
+      const sheetGold = ss.getSheetByName("Gold_Cards");
+      if (!sheetGold) {
+        return creaRispostaJSON({ status: "error", message: "Foglio Gold_Cards non ancora presente." });
+      }
+
+      const codiceTarget = payload.codice;
+      const nuoviPunti = Math.min(100, Math.max(0, parseInt(payload.punti) || 0));
+      const dataG = sheetGold.getDataRange().getValues();
+      let trovata = false;
+      let titolareCard = "";
+
+      for (let i = 1; i < dataG.length; i++) {
+        if (dataG[i][1] === codiceTarget) {
+          trovata = true;
+          titolareCard = dataG[i][2];
+          sheetGold.getRange(i + 1, 6).setValue(nuoviPunti);
+          
+          // Se tocca quota 100 pt, scatta la consegna della tessera fisica metallica
+          if (nuoviPunti >= CONFIG_SFX.GOLD_CARD.PUNTI_TARGET_FISICA) {
+            sheetGold.getRange(i + 1, 8).setValue("CONSEGNATA (ROMA)");
+            
+            inviaTelegram(
+              `🏆 <b>ALERT CEO // TRAGUARDO 100 PUNTI GOLD CARD!</b>\n\n` +
+              `Il titolare <b>${titolareCard}</b> [${codiceTarget}] ha raggiunto 100/100 punti didattici.\n` +
+              `<b>Azione Presidenziale Richiesta:</b> Autorizzare la spedizione della confezione Luxury con la tessera metallica oro incisa.`
+            );
+          }
+          break;
+        }
+      }
+
+      if (trovata) {
+        registraLogAudit("GOLD_CARD_SCORE", "INFO", `Punteggio ${codiceTarget} aggiornato a ${nuoviPunti} pt`);
+        return creaRispostaJSON({ status: "success", codice: codiceTarget, punti: nuoviPunti });
+      } else {
+        return creaRispostaJSON({ status: "error", message: "Codice Gold Card non trovato a registro." });
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // CASE C: REGISTRAZIONE CANDIDATURA (CON VERIFICA GOLD CARD E SCONTO 5%)
     // ------------------------------------------------------------------------
     if (action === "registraCandidatura" || !action) {
       const sheet = ottieniOFaFoglio(ss, "Candidati", [
@@ -210,8 +316,18 @@ function doPost(e) {
       const telefono = payload.telefono || "";
       const telegram = payload.telegram || "";
       const percorso = payload.percorso || "Executive Master";
-      const goldCard = payload.goldCard || "NESSUNA";
-      const importo = payload.importo || (CONFIG_SFX.LISTINO[percorso] ? CONFIG_SFX.LISTINO[percorso].prezzo : 299.00);
+      const goldCardCodice = (payload.goldCard || "").trim();
+
+      let prezzoBase = CONFIG_SFX.LISTINO[percorso] ? CONFIG_SFX.LISTINO[percorso].prezzo : 299.00;
+      let scontoApplicato = 0;
+      let noteExtra = payload.note || "Richiesta da Landing Page";
+
+      // Verifica automatica se la Gold Card del presentatore è attiva
+      if (goldCardCodice && goldCardCodice !== "NESSUNA" && goldCardCodice !== "Standard") {
+        scontoApplicato = prezzoBase * CONFIG_SFX.GOLD_CARD.SCONTO_CORSISTA;
+        prezzoBase = prezzoBase - scontoApplicato;
+        noteExtra += ` | Applicato Sconto Gold Card 5% (-€ ${scontoApplicato.toFixed(2)}) tramite codice ${goldCardCodice}`;
+      }
 
       sheet.appendRow([
         dataReg,
@@ -222,11 +338,11 @@ function doPost(e) {
         telefono,
         telegram,
         percorso,
-        importo,
-        goldCard,
+        prezzoBase,
+        goldCardCodice || "NESSUNA",
         "Screening Pendente",
         1,
-        payload.note || "Nuova richiesta acquisita da Landing",
+        noteExtra,
         false,
         false,
         false,
@@ -238,7 +354,8 @@ function doPost(e) {
           nome: nome,
           idSfx: idSfx,
           percorso: percorso,
-          goldCard: goldCard
+          goldCard: goldCardCodice || "NESSUNA",
+          prezzoFinale: prezzoBase
         });
 
         inviaEmailTransazionale(
@@ -255,16 +372,16 @@ function doPost(e) {
         `<b>Candidato:</b> ${nome} ${cognome}\n` +
         `<b>Email:</b> ${email}\n` +
         `<b>Recapito:</b> ${telefono}\n` +
-        `<b>Percorso:</b> ${percorso} (€ ${importo})\n` +
-        `<b>Gold Card:</b> ${goldCard}`
+        `<b>Percorso:</b> ${percorso} (€ ${prezzoBase.toFixed(2)})\n` +
+        `<b>Pass Gold Card:</b> ${goldCardCodice || 'Nessuno'}${scontoApplicato > 0 ? ' (Sconto 5% applicato)' : ''}`
       );
 
       registraLogAudit("CANDIDATURA_RICEVUTA", "INFO", `Candidato ${idSfx} (${nome} ${cognome}) registrato.`);
-      return creaRispostaJSON({ status: "success", idSfx: idSfx });
+      return creaRispostaJSON({ status: "success", idSfx: idSfx, prezzoFinale: prezzoBase });
     }
 
     // ------------------------------------------------------------------------
-    // CASE B: MEDIA VAULT UPLOAD (5 CATEGORIE: VIDEO, FOTO, SLIDE, TESTI, PDF)
+    // CASE D: MEDIA VAULT UPLOAD (5 CATEGORIE)
     // ------------------------------------------------------------------------
     if (action === "uploadMediaVault") {
       if (!payload.fileBase64) {
@@ -307,7 +424,7 @@ function doPost(e) {
     }
 
     // ------------------------------------------------------------------------
-    // CASE C: REGISTRAZIONE INCASSO MASTRO (SPLIT MATEMATICO 54 / 30 / 16)
+    // CASE E: REGISTRAZIONE INCASSO MASTRO (SPLIT MATEMATICO 54 / 30 / 16)
     // ------------------------------------------------------------------------
     if (action === "registraIncasso") {
       const sheetMastro = ottieniOFaFoglio(ss, "Mastro_Finanziario", [
@@ -359,7 +476,7 @@ function doPost(e) {
     }
 
     // ------------------------------------------------------------------------
-    // CASE D: ALLOCAZIONE WORKSPACE GOOGLE DRIVE (AG-11 ASSEDIO)
+    // CASE F: ALLOCAZIONE WORKSPACE GOOGLE DRIVE (AG-11 ASSEDIO)
     // ------------------------------------------------------------------------
     if (action === "creaWorkspaceCorsista" || action === "avvallaCorsista") {
       const email = (payload.emailCliente || payload.email || "").trim();
@@ -413,63 +530,7 @@ function doPost(e) {
     }
 
     // ------------------------------------------------------------------------
-    // CASE E: MODULO TICKET SUPPORTO DESK
-    // ------------------------------------------------------------------------
-    if (action === "inviaTicketSupporto" || action === "ticket") {
-      const sheetTickets = ottieniOFaFoglio(ss, "Ticket_Supporto", [
-        "DATA_ORA", "ID_TICKET", "NOME", "EMAIL", "TELEGRAM", "CATEGORIA", "MESSAGGIO", "STATO"
-      ]);
-
-      const idTicket = "TK-" + Utilities.formatDate(new Date(), "GMT+2", "yyyyMMdd") + "-" + Math.floor(100 + Math.random() * 900);
-      const dataOra = Utilities.formatDate(new Date(), "GMT+2", "dd/MM/yyyy HH:mm:ss");
-      const nome = payload.nome || "Anonimo";
-      const email = payload.email || "";
-      const telegram = payload.telegram || "Nessuno";
-      const categoria = payload.categoria || "Assistenza Desk";
-      const messaggio = payload.messaggio || "";
-
-      sheetTickets.appendRow([
-        dataOra,
-        idTicket,
-        nome,
-        email,
-        telegram,
-        categoria,
-        messaggio,
-        "APERTO"
-      ]);
-
-      if (email) {
-        const corpoHTML = generaTemplateEmailSupporto({
-          nome: nome,
-          idTicket: idTicket,
-          categoria: categoria,
-          messaggio: messaggio
-        });
-
-        inviaEmailTransazionale(
-          email,
-          `[Ticket #${idTicket}] Ricezione Richiesta di Supporto // Suprema Future X`,
-          corpoHTML,
-          CONFIG_SFX.EMAIL_SUPPORT,
-          "Suprema Future X Support"
-        );
-      }
-
-      inviaTelegram(
-        `🆘 <b>Nuovo Ticket Helpdesk [#${idTicket}]</b>\n` +
-        `<b>Utente:</b> ${nome}\n` +
-        `<b>Email:</b> ${email}\n` +
-        `<b>Categoria:</b> ${categoria}\n` +
-        `<b>Messaggio:</b> <i>${messaggio}</i>`
-      );
-
-      registraLogAudit("TICKET_CREATO", "INFO", `Ticket ${idTicket} registrato.`);
-      return creaRispostaJSON({ status: "success", idTicket: idTicket });
-    }
-
-    // ------------------------------------------------------------------------
-    // CASE F: TRIGGER DISPATCHER & NOTIFICHE RAPIDE NOC
+    // CASE G: DISPATCHER TRIGGER NOC & TEST RAPIDI
     // ------------------------------------------------------------------------
     if (action === "testNoc") {
       testNotificaTelegram();
@@ -479,24 +540,6 @@ function doPost(e) {
     if (action === "collaudoTuttiITrigger") {
       eseguiCollaudoMultiploTrigger();
       return creaRispostaJSON({ status: "success", message: "Sequenza multi-trigger completata." });
-    }
-
-    if (action === "notificaVendita") {
-      inviaTelegram(
-        `👑 <b>Notifica Vendita Live 1-to-1</b>\n` +
-        `<b>Percorso:</b> ${payload.pacchetto}\n` +
-        `<b>Cliente:</b> ${payload.nomeCliente} (${payload.emailCliente})`
-      );
-      return creaRispostaJSON({ status: "success" });
-    }
-
-    if (action === "notificaScreening") {
-      inviaTelegram(
-        `🎯 <b>Screening 30m Convocato ORA</b>\n` +
-        `<b>Candidato:</b> ${payload.nomeCandidato}\n` +
-        `<b>Orario:</b> ${payload.orario}`
-      );
-      return creaRispostaJSON({ status: "success" });
     }
 
     if (action === "notificaGoldCard") {
@@ -509,9 +552,7 @@ function doPost(e) {
       return creaRispostaJSON({ status: "success" });
     }
 
-    // ------------------------------------------------------------------------
-    // CASE G: WEBHOOK TELEGRAM BIDIREZIONALE
-    // ------------------------------------------------------------------------
+    // Webhook messaggi Telegram
     if (payload.message && payload.message.text) {
       gestisciComandoTelegram(payload.message);
       return creaRispostaJSON({ status: "ok" });
@@ -801,32 +842,17 @@ function wrapperEmail(titolo, contenutoCorpo) {
   </html>`;
 }
 
-function generaTemplateEmailSupporto(p) {
-  const corpo = `
-    Gentile <span class="highlight">${p.nome}</span>,<br><br>
-    Abbiamo registrato la tua segnalazione con l'identificativo ufficiale <b>#${p.idTicket}</b>.<br><br>
-    <div class="box-alert">
-      <b>Dati della Pratica:</b><br>
-      • Categoria: <b>${p.categoria}</b><br>
-      • Messaggio Depositato: "${p.messaggio}"<br>
-      • Stato Attuale: <b>In Lavorazione Desk</b>
-    </div>
-    Un operatore del nostro desk o la Direzione Generale ti fornirà riscontro entro poche ore operative.<br>
-    Per ulteriori note su questa pratica, puoi rispondere direttamente a questo messaggio.
-  `;
-  return wrapperEmail("DESK DI ASSISTENZA &amp; SUPPORTO", corpo);
-}
-
 function generaTemplateEmailCandidatura(p) {
   const corpo = `
     Gentile <span class="highlight">${p.nome}</span>,<br><br>
     La tua scheda per l'ammissione al percorso esecutivo <b>"${p.percorso}"</b> è stata registrata nel registro centrale di Suprema Future X.<br><br>
     <b>Identificativo Pratica:</b> <code style="color:#00F0FF;">${p.idSfx}</code><br>
-    <b>Pass Presentatore:</b> ${p.goldCard}<br><br>
+    <b>Pass Presentatore:</b> ${p.goldCard}<br>
+    <b>Quota Registrata:</b> € ${p.prezzoFinale ? p.prezzoFinale.toFixed(2) : 'Tariffa Bloccata'}<br><br>
     <div class="box-alert">
       <b>PROTOCOLLO ZERO VIDEO // 100% LIVE ONE-TO-ONE:</b><br>
-      Suprema Future X non eroga videocorsi preregistrati. L'intero programma si svolge tramite sessioni individuali da 60 minuti in diretta con il CEO Giuliano Caratelli.<br>
-      L'ammissione finale è subordinata allo screening preliminare selettivo da 30 minuti.
+      Suprema Future X non commercializza corsi preregistrati. L'erogazione avverrà unicamente tramite sessioni esecutive individuali da 60 minuti con il CEO Giuliano Caratelli.<br>
+      L'ammissione finale è subordinata al superamento della <b>Call di Screening Direzionale da 30 minuti</b>.
     </div>
     Riceverai la convocazione e il link alla stanza protetta Google Meet a ridosso dell'orario stabilito.
   `;
@@ -888,9 +914,25 @@ function gestisciComandoTelegram(msg) {
       "Comandi operativi disponibili:\n" +
       "/status - Telemetria del nodo EAL6+\n" +
       "/mastro - Saldo mastro e fondo fiscale 16%\n" +
-      "/leads - Ultime candidature registrate\n" +
-      "/ticket - Ultimi ticket supporto aperti"
+      "/gold - Tessere Gold Card attive e punteggi\n" +
+      "/leads - Ultime candidature registrate"
     );
+    return;
+  }
+
+  if (testo === "/gold") {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheetGold = ss.getSheetByName("Gold_Cards");
+    if (!sheetGold) {
+      inviaTelegramChat(chatId, "⚠️ Nessuna Gold Card ancora registrata a database.");
+      return;
+    }
+    const dataG = sheetGold.getDataRange().getValues().slice(1);
+    let msgOut = `🎫 <b>Suprema Gold Card a Registro (${dataG.length}):</b>\n`;
+    dataG.slice(-5).reverse().forEach(c => {
+      msgOut += `• <code>${c[1]}</code>: <b>${c[2]}</b> (${c[5]}/100 pt - ${c[7]})\n`;
+    });
+    inviaTelegramChat(chatId, msgOut);
     return;
   }
 
@@ -949,27 +991,6 @@ function gestisciComandoTelegram(msg) {
     let msgOut = `🎯 <b>Ultimi Corsisti (Totali: ${leads.length}):</b>\n`;
     leads.slice(-5).reverse().forEach(l => {
       msgOut += `• <b>${l[2]} ${l[3]}</b> [${l[1]}] - ${l[7]} (${l[10]})\n`;
-    });
-    inviaTelegramChat(chatId, msgOut);
-    return;
-  }
-
-  if (testo === "/ticket") {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getSheetByName("Ticket_Supporto");
-    if (!sheet) {
-      inviaTelegramChat(chatId, "Nessun ticket registrato.");
-      return;
-    }
-    const data = sheet.getDataRange().getValues();
-    const tickets = data.slice(1);
-    if (tickets.length === 0) {
-      inviaTelegramChat(chatId, "Nessun ticket registrato.");
-      return;
-    }
-    let msgOut = `🆘 <b>Ultimi Ticket Helpdesk:</b>\n`;
-    tickets.slice(-5).reverse().forEach(t => {
-      msgOut += `• <b>[${t[1]}]</b> ${t[2]} (${t[5]}): ${t[7]}\n`;
     });
     inviaTelegramChat(chatId, msgOut);
     return;
@@ -1064,7 +1085,7 @@ function creaRispostaJSON(data) {
 }
 
 // ============================================================================
-// 8. TEST TELEGRAM & INSTALLATORE 1-CLIC DEI 6 TRIGGER
+// 8. TEST TELEGRAM & INSTALLATORE DEI 6 TRIGGER
 // ============================================================================
 function testNotificaTelegram() {
   inviaTelegram(
@@ -1072,7 +1093,7 @@ function testNotificaTelegram() {
     `Collegamento Bot Telegram verificato con successo.\n` +
     `<b>Chat ID:</b> <code>${CONFIG_SFX.TELEGRAM_CHAT_ID}</code>\n` +
     `<b>Data:</b> ${new Date().toLocaleString("it-IT")}\n` +
-    `<b>Sistema:</b> EAL6+ Sovrano Multi-Trigger`
+    `<b>Sistema:</b> EAL6+ Sovrano Multi-Trigger con Suite Gold Card`
   );
 }
 
@@ -1089,22 +1110,11 @@ function installaTuttiITriggerAziendali() {
     ScriptApp.deleteTrigger(triggers[i]);
   }
 
-  // 1. Orario per appuntamenti a T-24h e T-2h
   ScriptApp.newTrigger("trigger_OrologioAppuntamenti").timeBased().everyHours(1).create();
-
-  // 2. Report mattutino (ore 08:00)
   ScriptApp.newTrigger("trigger_ReportMattutino").timeBased().atHour(8).everyDays(1).create();
-
-  // 3. Recupero Ghosting (ore 18:00)
   ScriptApp.newTrigger("trigger_RecuperoGhosting").timeBased().atHour(18).everyDays(1).create();
-
-  // 4. Allarme F24 e Scadenze (Ore 10:00 - verifica automatica giorno 12)
   ScriptApp.newTrigger("trigger_AllarmeF24").timeBased().atHour(10).everyDays(1).create();
-
-  // 5. Chiusura Dividendi CEO (Ore 11:00 - verifica automatica giorno 27)
   ScriptApp.newTrigger("trigger_ChiusuraDividendi").timeBased().atHour(11).everyDays(1).create();
-
-  // 6. Controllo Qualità e Feedback (Venerdì alle ore 14:00)
   ScriptApp.newTrigger("trigger_RichiestaFeedback").timeBased().onWeekDay(ScriptApp.WeekDay.FRIDAY).atHour(14).create();
 
   Logger.log("✓ Tutti e 6 i trigger strategici sono stati installati con successo.");
