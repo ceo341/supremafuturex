@@ -11,7 +11,7 @@
 
     const QUEUE_STORAGE_KEY = 'sfx_delta_queue_v50';
     // ENDPOINT MASTER GOOGLE APPS SCRIPT V17.0 EAL6+ SOVRANO:
-    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec';
+    const APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec';
 
     const SFXDeltaQueue = {
         getCoda() {
