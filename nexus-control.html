@@ -115,7 +115,7 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5" id="agents-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5" id="agents-grid">
                 <!-- Gli agenti vengono iniettati qui via JS -->
             </div>
         </div>
@@ -151,7 +151,7 @@
                         <textarea id="override-alison" rows="3" class="w-full terminal-input rounded-xl p-3 text-xs resize-none" placeholder="[Se chiedono prezzi: Silver 249€, Executive 299€, Premium VIP 349€]"></textarea>
                     </div>
                     <button onclick="caricaPresetUfficialeAlison()" class="w-full py-2 bg-[#121620] border border-sfx-gold/50 hover:bg-sfx-gold hover:text-black text-sfx-gold text-[10px] font-bold rounded-lg transition-colors cursor-pointer">
-                        <i class="fa-solid fa-rotate-left mr-1"></i> Ripristina Preset Ufficiale Presidenza (249€ / 299€ / 349€)
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Ripristina Preset Ufficiale (249€ / 299€ / 349€)
                     </button>
                 </div>
             </div>
@@ -177,26 +177,27 @@
 
     <!-- LOGICA JAVASCRIPT DELLA CONTROL ROOM & BROADCAST BUS -->
     <script>
-        const APPS_SCRIPT_URL_NEXUS = "";
-        const sfxEnterpriseBus = new BroadcastChannel('https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec');
+        // CORRETTO: Constante API popolata ed Esatto Channel per Broadcast
+        const APPS_SCRIPT_URL_NEXUS = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
+        const sfxEnterpriseBus = new BroadcastChannel('sfx_enterprise_bus');
 
-        // La Flotta Ufficiale dei 15 Agenti Neurale Suprema Future X
+        // La Flotta Ufficiale dei 15 Agenti Neurale Suprema Future X (Con Addestramento Aggiornato)
         const agentsList = [
-            { id: 'AG-01', name: 'Alison', desc: 'Concierge Accoglienza & Screening 30m' },
-            { id: 'AG-02', name: 'Nicole', desc: 'Reporting & Audit Direzionale' },
-            { id: 'AG-03', name: 'Ginevra', desc: 'Presidio Fiscale 16% & F24' },
-            { id: 'AG-04', name: 'Scout', desc: 'Hunter Social 6 Canali & 100 Keyword' },
-            { id: 'AG-05', name: 'Ledger', desc: 'Mastro Split 54/30/16 & SHA-256' },
-            { id: 'AG-06', name: 'Gatekeeper', desc: 'Filtro Anti-Doppioni & Gold Card' },
-            { id: 'AG-07', name: 'Delta', desc: 'Delivery Workspace Drive Corsisti' },
-            { id: 'AG-08', name: 'Media', desc: 'Regia Media Vault & Viewport 8"' },
-            { id: 'AG-09', name: 'Exit', desc: 'Retention & Tutela Corsisti' },
-            { id: 'AG-10', name: 'Ingestion', desc: 'Data Cloud & Google Sheets Sync' },
-            { id: 'AG-11', name: 'Assedio', desc: 'Closing Commerciale & Sblocco Cassa' },
-            { id: 'AG-12', name: 'Sentinel', desc: 'Audit Integrity EAL6+ Sovrano' },
-            { id: 'AG-13', name: 'WhatsApp', desc: 'Router Messaggi & Telegram NOC' },
-            { id: 'AG-14', name: 'Governor', desc: 'Anti-Allucinazione & Supervisore' },
-            { id: 'AG-15', name: 'Joker', desc: 'Strategist Social & Piani Lancio' }
+            { id: 'AG-01', name: 'Alison', desc: 'Concierge Accoglienza & Screening 30m', prompt: 'Sei Alison (AG-01). Filtro le candidature per lo screening preliminare e presento l\'Academy a 249€, 299€, 349€. Niente videocorsi, 100% Live 1-to-1.' },
+            { id: 'AG-02', name: 'Nicole', desc: 'Reporting & Audit Direzionale', prompt: 'Sei Nicole (AG-02). Compili i report aggregati sulle conversioni.' },
+            { id: 'AG-03', name: 'Ginevra', desc: 'Presidio Fiscale 16% & F24', prompt: 'Sei Ginevra (AG-03). Accantoni il 16% fisso per la copertura F24.' },
+            { id: 'AG-04', name: 'Scout', desc: 'Hunter Social 6 Canali & 100 Keyword', prompt: 'Sei Scout (AG-04 - Chief Lead Hunter & Social Qualifier). Monitori i 6 canali social aziendali setacciando i flussi sulle 100 keyword strategiche. Intercetti profili motivati al riscatto professionale e all\'avvio di e-commerce autonomo. Qualifichi i candidati scartando chi cerca scorciatoie o videocorsi e instradi verso candidatura.html o WhatsApp del CEO.' },
+            { id: 'AG-05', name: 'Ledger', desc: 'Mastro Split 54/30/16 & SHA-256', prompt: 'Sei Ledger (AG-05). Spartisci in real time 54% Operatività, 30% Utili CEO, 16% Tasse.' },
+            { id: 'AG-06', name: 'Gatekeeper', desc: 'Filtro Anti-Doppioni & Gold Card', prompt: 'Sei Gatekeeper (AG-06). Vigili sui codici promo e doppie prenotazioni Meet.' },
+            { id: 'AG-07', name: 'Delta', desc: 'Delivery Workspace Drive Corsisti', prompt: 'Sei Delta (AG-07). Alloca cartelle Drive e permessi Gmail ai corsisti paganti.' },
+            { id: 'AG-08', name: 'Media', desc: 'Regia Media Vault & Viewport 8"', prompt: 'Sei Media (AG-08). Compressione e archiviazione asset Base64 per Drive.' },
+            { id: 'AG-09', name: 'Exit', desc: 'Retention & Tutela Corsisti', prompt: 'Sei Exit (AG-09). Monitoraggio corsisti e raccolta testimonianze.' },
+            { id: 'AG-10', name: 'Ingestion', desc: 'Data Cloud & Google Sheets Sync', prompt: 'Sei Ingestion (AG-10). Instradamento da Tally verso Fogli Google e CRM.' },
+            { id: 'AG-11', name: 'Assedio', desc: 'Closing Commerciale & Sblocco Cassa', prompt: 'Sei Assedio (AG-11). Gestisci le pipeline calde verso il Closing.' },
+            { id: 'AG-12', name: 'Sentinel', desc: 'Audit Integrity EAL6+ Sovrano', prompt: 'Sei Sentinel (AG-12). Attivi il kill-switch in caso di manipolazioni esterne.' },
+            { id: 'AG-13', name: 'WhatsApp', desc: 'Router Messaggi & Telegram NOC', prompt: 'Sei Router WA (AG-13). Prepari pre-compilati per Telegram e cellulare.' },
+            { id: 'AG-14', name: 'Governor', desc: 'Anti-Allucinazione & Supervisore', prompt: 'Sei Governor (AG-14). Mantieni a bada gli altri agenti prevenendo promesse fasulle.' },
+            { id: 'AG-15', name: 'Joker', desc: 'Strategist Social & Piani Lancio', prompt: 'Sei Joker (AG-15 Jolly - Chief Social Copywriter & Closing Strategist). Redigi contenuti persuasive ad altissima autorità per i 6 canali social. Distruggi l\'illusione dei videocorsi asincroni evidenziando l\'esclusività della formazione 100% Live 1-to-1. Promuovi il modello e-commerce chiavi in mano a zero magazzino e chiudi ogni post spingendo verso lo screening selettivo di 30 minuti.' }
         ];
 
         const grid = document.getElementById('agents-grid');
@@ -323,7 +324,7 @@
             }
         };
 
-        setTimeout(() => logConsole("Scansione agenti completata. Matrice pronta all'uso.", "cyan"), 800);
+        setTimeout(() => logConsole("Scansione agenti completata. Matrice e prompt pronti.", "cyan"), 800);
     </script>
 </body>
 </html>
