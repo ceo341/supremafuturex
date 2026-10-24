@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Candidatura Esecutiva — Suprema Future X | EAL6+ Security</title>
   <link rel="icon" type="image/png" href="media/logo.png">
-  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#07080a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,15 +25,12 @@
       --text-muted: #8b92a5;
       --text-dim: #5c6275;
       --border-subtle: #242838;
-      --alert-plum: #4a0e4e;
-      --alert-amber: #ffbf00;
       --success: #2ed573;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
     body { background-color: var(--bg-master); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 40px 20px 80px 20px; overflow-x: hidden; }
 
-    /* HEADER & SECURITY BADGE */
     .top-bar { width: 100%; max-width: 880px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
     .brand { font-size: 16px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main); display: flex; align-items: center; gap: 8px; text-decoration: none; }
     .brand span { color: var(--gold-primary); }
@@ -42,71 +38,55 @@
     .pulse-dot { width: 7px; height: 7px; background-color: var(--cyan-accent); border-radius: 50%; box-shadow: 0 0 8px var(--cyan-accent); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 
-    /* MAIN CONTAINER */
     .master-wrapper { width: 100%; max-width: 880px; background: var(--bg-surface); border: 1px solid var(--gold-border); border-radius: 16px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px var(--gold-glow); position: relative; }
     .header-section { text-align: center; margin-bottom: 36px; }
     .header-section h1 { font-size: 28px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; background: linear-gradient(180deg, #fff 0%, #b8bcc8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .header-section p { font-size: 14px; color: var(--text-muted); font-weight: 400; max-width: 620px; margin: 0 auto; line-height: 1.6; }
 
-    /* SELETTORE PERCORSI */
     .section-label { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 14px; display: block; font-family: 'JetBrains Mono', monospace; }
     .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
     .tier-card { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 18px 14px; cursor: pointer; transition: all 0.25s ease; text-align: center; position: relative; }
     .tier-card:hover { border-color: var(--gold-primary); transform: translateY(-2px); }
     .tier-card.active { border-color: var(--gold-primary); background: rgba(212, 175, 55, 0.08); box-shadow: 0 0 15px rgba(212, 175, 55, 0.25); }
-    .tier-card.active::after { content: "SELEZIONATO"; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: var(--gold-primary); color: #000; font-size: 8px; font-weight: 900; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; }
+    .tier-card.active::after { content: "SELEZIONATO"; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: var(--gold-primary); color: #000; font-size: 8px; font-weight: 900; padding: 2px 6px; border-radius: 4px; }
     .tier-name { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px; text-transform: uppercase; }
     .tier-price { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--gold-light); }
     .tier-desc { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
 
-    /* FORM GRID */
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .full-width { grid-column: span 2; }
     .field-group { display: flex; flex-direction: column; gap: 8px; }
     label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #cfd3e0; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; }
     label .req { color: var(--gold-primary); }
-    input, select, textarea { width: 100%; background: #08090d; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px 16px; color: #fff; font-size: 13px; font-family: 'JetBrains Mono', monospace; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    input, select, textarea { width: 100%; background: #08090d; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px 16px; color: #fff; font-size: 13px; font-family: 'JetBrains Mono', monospace; outline: none; transition: border-color 0.2s; }
     input:focus, select:focus, textarea:focus { border-color: var(--gold-primary); box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
-    input::placeholder, textarea::placeholder { color: var(--text-dim); }
 
-    /* GOLD CARD CHECKER */
+    /* STILE SLOT OCCUPATO */
+    select option:disabled {
+      color: #666;
+      background: #1a1a1a;
+      text-decoration: line-through;
+    }
+
     .gold-box { background: rgba(212, 175, 55, 0.04); border: 1px dashed var(--gold-border); border-radius: 8px; padding: 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-    .gold-box-info { display: flex; flex-direction: column; gap: 4px; }
-    .gold-box-title { font-size: 12px; font-weight: 800; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; }
+    .gold-box-title { font-size: 12px; font-weight: 800; color: var(--gold-primary); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
     .gold-box-sub { font-size: 11px; color: var(--text-muted); }
     .gold-input-wrap { width: 220px; position: relative; }
-    .gold-input-wrap input { padding-right: 36px; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 1px; }
-    .gold-status-icon { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; display: none; }
+    .gold-input-wrap input { text-transform: uppercase; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
-    /* SUMMARY TOTAL */
     .summary-card { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
-    .summary-labels { display: flex; flex-direction: column; gap: 4px; }
     .summary-title { font-size: 13px; font-weight: 700; color: #fff; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
     .summary-subtitle { font-size: 11px; color: var(--text-muted); }
-    .summary-pricing { text-align: right; }
-    .original-price { font-size: 13px; color: var(--text-dim); text-decoration: line-through; display: none; margin-bottom: 2px; }
     .final-price { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--gold-primary); }
 
-    /* ACTION BUTTON */
-    .submit-btn { width: 100%; background: var(--gold-gradient); color: #000; border: none; padding: 18px 24px; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 8px; cursor: pointer; margin-top: 28px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .submit-btn { width: 100%; background: var(--gold-gradient); color: #000; border: none; padding: 18px 24px; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 8px; cursor: pointer; margin-top: 28px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
     .submit-btn:hover { box-shadow: 0 12px 40px rgba(212, 175, 55, 0.5); transform: translateY(-1px); }
-    .submit-btn:active { transform: translateY(1px); }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* MODALE DI CONFERMA */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.88); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
-    .modal-card { background: var(--bg-surface); border: 2px solid var(--gold-primary); border-radius: 16px; width: 100%; max-width: 540px; padding: 36px; box-shadow: 0 20px 80px rgba(0,0,0,0.9), 0 0 40px var(--gold-glow); text-align: center; }
+    .modal-card { background: var(--bg-surface); border: 2px solid var(--gold-primary); border-radius: 16px; width: 100%; max-width: 520px; padding: 36px; box-shadow: 0 20px 80px rgba(0,0,0,0.9); text-align: center; }
     .modal-icon { width: 64px; height: 64px; background: rgba(46, 213, 115, 0.15); border: 2px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: var(--success); font-size: 28px; }
-    .modal-card h2 { font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; color: #fff; }
-    .modal-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
-    .id-sfx-chip { display: inline-block; background: #000; border: 1px solid var(--gold-border); padding: 8px 16px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--gold-light); margin-bottom: 24px; letter-spacing: 1px; }
-    .wa-btn-candidato { width: 100%; background: #25d366; color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; transition: background 0.2s; }
-    .wa-btn-candidato:hover { background: #1eb956; }
-    .wa-btn-ceo { width: 100%; background: transparent; border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
-    .wa-btn-ceo:hover { border-color: var(--gold-primary); color: #fff; }
-    .close-modal-link { display: inline-block; margin-top: 18px; font-size: 11px; color: var(--text-dim); text-decoration: underline; cursor: pointer; }
-
-    .footer-telemetry { margin-top: 30px; text-align: center; font-size: 11px; color: var(--text-dim); letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; }
+    .id-sfx-chip { display: inline-block; background: #000; border: 1px solid var(--gold-border); padding: 8px 16px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--gold-light); margin-bottom: 24px; }
+    .wa-btn-presidenza { width: 100%; background: #25d366; color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 13px; font-weight: 800; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
 
     @media (max-width: 768px) {
       .tier-grid { grid-template-columns: 1fr 1fr; }
@@ -120,25 +100,20 @@
 </head>
 <body>
 
-  <!-- TOP BAR -->
   <div class="top-bar">
     <a href="index.html" class="brand">SUPREMA <span>FUTURE X</span></a>
-    <div class="badge-eal6">
-      <div class="pulse-dot"></div> EAL6+ SYSTEM VERIFIED
-    </div>
+    <div class="badge-eal6"><div class="pulse-dot"></div> EAL6+ SYSTEM VERIFIED</div>
   </div>
 
-  <!-- WRAPPER FORM MASTER -->
   <div class="master-wrapper">
     <div class="header-section">
       <h1>Candidatura Direzionale</h1>
       <p>Screening individuale e ammissione ai percorsi d'élite. Protocollo 100% Live One-to-One. Nessun videocorso preregistrato.</p>
     </div>
 
-    <!-- SELETTORE PERCORSI (4 TIERS CON CONFERENZA CEO A 0€) -->
     <span class="section-label">1. Seleziona Percorso o Screening</span>
     <div class="tier-grid">
-      <div class="tier-card" data-tier="Conferenza CEO" data-price="0">
+      <div class="tier-card active" data-tier="Conferenza CEO" data-price="0">
         <div class="tier-name">Conf. CEO</div>
         <div class="tier-price">0 €</div>
         <div class="tier-desc">Screening 30m</div>
@@ -148,7 +123,7 @@
         <div class="tier-price">249 €</div>
         <div class="tier-desc">Operatività Rapida</div>
       </div>
-      <div class="tier-card active" data-tier="Executive Master" data-price="299">
+      <div class="tier-card" data-tier="Executive Master" data-price="299">
         <div class="tier-name">Executive</div>
         <div class="tier-price">299 €</div>
         <div class="tier-desc">Gold Card Inclusa</div>
@@ -160,20 +135,17 @@
       </div>
     </div>
 
-    <!-- BOX GOLD CARD VALIDATOR -->
     <div class="gold-box">
-      <div class="gold-box-info">
+      <div>
         <div class="gold-box-title">Circuito Suprema Gold Card</div>
-        <div class="gold-box-sub">Inserisci il codice conio (es. GOLD-849102) per applicare il 5% di sconto allievo.</div>
+        <div class="gold-box-sub">Inserisci il codice conio (es. GOLD-849102) per il 5% di sconto allievo.</div>
       </div>
       <div class="gold-input-wrap">
         <input type="text" id="goldCardInput" placeholder="CODICE GOLD" maxlength="16">
-        <span class="gold-status-icon" id="goldIcon">✓</span>
       </div>
     </div>
 
-    <!-- FORM CANDIDATO -->
-    <span class="section-label">2. Anagrafica &amp; Slot di Collegamento</span>
+    <span class="section-label">2. Anagrafica &amp; Slot Orario 60 Minuti</span>
     <form id="sfxMasterForm">
       <div class="form-grid">
         <div class="field-group">
@@ -192,172 +164,155 @@
           <label>Telefono / WhatsApp <span class="req">*</span></label>
           <input type="tel" id="telefono" required placeholder="+39 347 0000000">
         </div>
-        <div class="field-group">
-          <label>Disponibilità Slot Orario <span class="req">*</span></label>
+        
+        <!-- SELETTORE DINAMICO SLOT ORARI -->
+        <div class="field-group full-width">
+          <label>Seleziona Giorno &amp; Slot Orario (60 Minuti) <span class="req">*</span></label>
           <select id="dataCall" required>
-            <option value="10:00 — Mattutina 1">10:00 — Sessione Mattutina 1</option>
-            <option value="11:30 — Mattutina 2">11:30 — Sessione Mattutina 2</option>
-            <option value="15:00 — Pomeridiana 1">15:00 — Sessione Pomeridiana 1</option>
-            <option value="16:30 — Pomeridiana 2" selected>16:30 — Sessione Pomeridiana 2</option>
-            <option value="18:00 — Serale">18:00 — Sessione Serale</option>
+            <option value="" disabled selected>Caricamento calendario disponibilità...</option>
           </select>
         </div>
-        <div class="field-group">
-          <label>Profilo Telegram (Opzionale)</label>
-          <input type="text" id="telegram" placeholder="@username">
-        </div>
+
         <div class="field-group full-width">
           <label>Note Operative o Background Professionale</label>
-          <textarea id="note" rows="3" placeholder="Descrivi brevemente il tuo settore o le tue aspettative..."></textarea>
+          <textarea id="note" rows="2" placeholder="Descrivi brevemente i tuoi obiettivi..."></textarea>
         </div>
       </div>
 
-      <!-- RIEPILOGO TOTALE DINAMICO -->
       <div class="summary-card">
-        <div class="summary-labels">
-          <div class="summary-title" id="summaryTierName">Executive Master</div>
-          <div class="summary-subtitle" id="summarySub">Tariffa Direzionale Standard</div>
+        <div>
+          <div class="summary-title" id="summaryTierName">Conferenza CEO</div>
+          <div class="summary-subtitle" id="summarySub">Screening Preliminare Gratuito a Numero Chiuso</div>
         </div>
-        <div class="summary-pricing">
-          <div class="original-price" id="originalPriceDisplay">€ 299,00</div>
-          <div class="final-price" id="finalPriceDisplay">€ 299,00</div>
-        </div>
+        <div class="final-price" id="finalPriceDisplay">0 €</div>
       </div>
 
-      <!-- SUBMIT TRIGGER -->
       <button type="submit" class="submit-btn" id="btnInvia">
         <span>Conferma e Invia Candidatura</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </button>
     </form>
   </div>
 
-  <div class="footer-telemetry">
-    SUPREMA FUTURE X CLOUD &bull; NOTARIZZAZIONE SHA-256 &bull; ROUTING NOC TELEGRAM &bull; EAL6+ CERTIFIED
-  </div>
-
-  <!-- MODALE POPUP CONFERMA & WHATSAPP 1-CLICK -->
+  <!-- MODALE CONFERMA -->
   <div class="modal-overlay" id="modalConfirmation">
     <div class="modal-card">
       <div class="modal-icon">✓</div>
-      <h2>Candidatura Notarizzata</h2>
-      <p>La tua pratica è stata registrata nei database centrali e inoltrata al NOC di Presidenza con marcatura oraria certa.</p>
+      <h2 style="font-size:22px;margin-bottom:10px;">Candidatura Registrata</h2>
+      <p style="font-size:13px;color:#8b92a5;margin-bottom:20px;">Pratica registrata nel CRM. Notifica inoltrata al NOC di Presidenza.</p>
       <div class="id-sfx-chip" id="modalIdSfx">SFX-26-XXXX</div>
       
-      <a href="#" target="_blank" class="wa-btn-candidato" id="modalWaCandidatoBtn">
-        💬 Apri Chat WhatsApp di Conferma
-      </a>
-      
-      <a href="#" target="_blank" class="wa-btn-ceo" id="modalWaCeoBtn">
-        📲 Forward Diretto Presidenza (+39 347 442 9091)
+      <!-- Invia direttamente al WhatsApp Business del CEO -->
+      <a href="#" target="_blank" class="wa-btn-presidenza" id="modalWaBtn">
+        💬 Conferma su WhatsApp (+39 347 442 9091)
       </a>
 
-      <div>
-        <span class="close-modal-link" id="modalCloseBtn">Chiudi e torna alla navigazione</span>
+      <div style="margin-top:15px;">
+        <span style="font-size:11px;color:#5c6275;cursor:pointer;text-decoration:underline;" onclick="document.getElementById('modalConfirmation').style.display='none'">Chiudi finestra</span>
       </div>
     </div>
   </div>
 
-  <!-- LOGICA APPLICATIVA MASTER ENGINE -->
   <script>
-    // ENDPOINT MASTER BACKEND UNIFICATO
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
     const TELEFONO_CEO_NUM = "393474429091";
 
-    // Canale Broadcast per sincronizzare le altre finestre in tempo reale
-    const sfxEnterpriseBus = (function() {
-      try {
-        if ('BroadcastChannel' in window) return new BroadcastChannel('sfx_enterprise_bus');
-      } catch(e) {}
-      return null;
-    })();
-
-    let selectedTier = "Executive Master";
-    let basePrice = 299.00;
+    let selectedTier = "Conferenza CEO";
+    let basePrice = 0.00;
     let discountMultiplier = 1.0;
+    let slotGiaOccupati = [];
 
-    const tierCards = document.querySelectorAll(".tier-card");
-    const goldInput = document.getElementById("goldCardInput");
-    const goldIcon = document.getElementById("goldIcon");
-    const summaryTierName = document.getElementById("summaryTierName");
-    const summarySub = document.getElementById("summarySub");
-    const originalPriceDisplay = document.getElementById("originalPriceDisplay");
-    const finalPriceDisplay = document.getElementById("finalPriceDisplay");
-    const form = document.getElementById("sfxMasterForm");
-    const btnInvia = document.getElementById("btnInvia");
-    const modal = document.getElementById("modalConfirmation");
-    const modalIdSfx = document.getElementById("modalIdSfx");
-    const modalWaCandidatoBtn = document.getElementById("modalWaCandidatoBtn");
-    const modalWaCeoBtn = document.getElementById("modalWaCeoBtn");
-    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    // Generazione Calendario Orario Ufficiale
+    // Lun: 10-12 | Mar: 15-18:30 | Mer: 10-12 | Gio: NO | Ven: 10-12 & 15-18:30 | Sab/Dom: NO
+    function generaSlotDisponibili(occupati) {
+      const select = document.getElementById("dataCall");
+      select.innerHTML = '<option value="" disabled selected>-- Scegli uno slot da 60 minuti disponibile --</option>';
 
-    // 1. Gestione Selezione Tier
-    tierCards.forEach(card => {
+      const giorniNomi = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+      const orariPerGiorno = {
+        1: ["10:00 - 11:00", "11:00 - 12:00"], // Lunedì
+        2: ["15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "17:30 - 18:30"], // Martedì
+        3: ["10:00 - 11:00", "11:00 - 12:00"], // Mercoledì
+        4: [], // Giovedì escluso
+        5: ["10:00 - 11:00", "11:00 - 12:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00"] // Venerdì
+      };
+
+      const oggi = new Date();
+      let slotTotaliGenerati = 0;
+
+      // Genera slot per i prossimi 14 giorni
+      for (let i = 1; i <= 14; i++) {
+        const d = new Date();
+        d.setDate(oggi.getDate() + i);
+        const dayOfWeek = d.getDay();
+
+        if (orariPerGiorno[dayOfWeek] && orariPerGiorno[dayOfWeek].length > 0) {
+          const giornoNome = giorniNomi[dayOfWeek];
+          const dataStr = ("0" + d.getDate()).slice(-2) + "/" + ("0" + (d.getMonth() + 1)).slice(-2);
+
+          orariPerGiorno[dayOfWeek].forEach(fascia => {
+            const slotStringa = `${giornoNome} ${dataStr} ore ${fascia}`;
+            const opt = document.createElement("option");
+            opt.value = slotStringa;
+
+            // Se lo slot è già presente nel foglio Google, viene disabilitato
+            const isOccupato = occupati.some(occ => occ.includes(dataStr) && occ.includes(fascia.split(" - ")[0]));
+
+            if (isOccupato) {
+              opt.disabled = true;
+              opt.textContent = `⛔ ${slotStringa} [OCCUPATO]`;
+            } else {
+              opt.textContent = `🟢 ${slotStringa}`;
+            }
+
+            select.appendChild(opt);
+            slotTotaliGenerati++;
+          });
+        }
+      }
+    }
+
+    // Caricamento slot occupati da Google Sheets
+    async function caricaSlotOccupati() {
+      try {
+        const res = await fetch(APPS_SCRIPT_URL + "?action=getSlotOccupati");
+        const json = await res.json();
+        slotGiaOccupati = json.slotOccupati || [];
+      } catch (e) {
+        slotGiaOccupati = [];
+      }
+      generaSlotDisponibili(slotGiaOccupati);
+    }
+
+    // Gestione Selezione Percorsi
+    document.querySelectorAll(".tier-card").forEach(card => {
       card.addEventListener("click", () => {
-        tierCards.forEach(c => c.classList.remove("active"));
+        document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("active"));
         card.classList.add("active");
         selectedTier = card.getAttribute("data-tier");
         basePrice = parseFloat(card.getAttribute("data-price"));
-        aggiornaPrezzi();
+        document.getElementById("summaryTierName").innerText = selectedTier;
+        document.getElementById("finalPriceDisplay").innerText = (basePrice * discountMultiplier).toFixed(0) + " €";
       });
     });
 
-    // 2. Validazione e Calcolo Sconto Gold Card (5%)
-    goldInput.addEventListener("input", () => {
-      const val = goldInput.value.trim().toUpperCase();
-      if (val.startsWith("GOLD-") && val.length >= 7) {
-        discountMultiplier = 0.95;
-        goldIcon.style.display = "block";
-        goldIcon.style.color = "var(--gold-primary)";
-        summarySub.innerText = "Sconto Allievo Gold Card 5% Applicato";
-        summarySub.style.color = "var(--gold-primary)";
-      } else {
-        discountMultiplier = 1.0;
-        goldIcon.style.display = "none";
-        summarySub.innerText = "Tariffa Direzionale Standard";
-        summarySub.style.color = "var(--text-muted)";
-      }
-      aggiornaPrezzi();
-    });
-
-    function aggiornaPrezzi() {
-      summaryTierName.innerText = selectedTier;
-      if (basePrice === 0) {
-        originalPriceDisplay.style.display = "none";
-        finalPriceDisplay.innerText = "0 € (Screening)";
-        summarySub.innerText = "Sessione Preliminare Gratuita a Numero Chiuso";
-        return;
-      }
-      const calcolato = basePrice * discountMultiplier;
-      
-      if (discountMultiplier < 1.0) {
-        originalPriceDisplay.style.display = "block";
-        originalPriceDisplay.innerText = "€ " + basePrice.toFixed(2);
-      } else {
-        originalPriceDisplay.style.display = "none";
-      }
-      finalPriceDisplay.innerText = "€ " + calcolato.toFixed(2);
-    }
-
-    // 3. Invio Dati con Notifica Broadcast a Box Landing e Apps Script
-    form.addEventListener("submit", async (e) => {
+    // Invio Form
+    document.getElementById("sfxMasterForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      btnInvia.disabled = true;
-      btnInvia.innerHTML = "<span>NOTARIZZAZIONE NEL CLOUD IN CORSO...</span>";
+      const btn = document.getElementById("btnInvia");
+      btn.disabled = true;
+      btn.innerHTML = "<span>TRASMISSIONE AL CLOUD...</span>";
 
       const anno = new Date().getFullYear().toString().slice(-2);
-      const randomHex = Math.random().toString(36).substring(2, 6).toUpperCase();
-      const generatedIdSfx = `SFX-${anno}-${randomHex}`;
+      const generatedIdSfx = `SFX-${anno}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
       const nomeVal = document.getElementById("nome").value.trim();
       const cognomeVal = document.getElementById("cognome").value.trim();
       const emailVal = document.getElementById("email").value.trim();
       const telVal = document.getElementById("telefono").value.trim();
-      const dataCallVal = document.getElementById("dataCall").value.trim();
-      const telegramVal = document.getElementById("telegram").value.trim();
+      const slotVal = document.getElementById("dataCall").value;
       const noteVal = document.getElementById("note").value.trim();
-      const goldVal = goldInput.value.trim().toUpperCase() || "NESSUNA";
-      const importoFinale = (basePrice * discountMultiplier);
+      const goldVal = document.getElementById("goldCardInput").value.trim().toUpperCase() || "NESSUNA";
+      const importo = basePrice * discountMultiplier;
 
       const payload = {
         action: "nuovaCandidatura",
@@ -366,16 +321,14 @@
         cognome: cognomeVal,
         email: emailVal,
         telefono: telVal,
-        telegram: telegramVal,
         percorso: selectedTier,
-        importo: importoFinale,
+        importo: importo,
         goldCard: goldVal,
-        dataCall: dataCallVal,
+        dataCall: slotVal,
         note: noteVal
       };
 
       try {
-        // Invio al backend
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
@@ -383,38 +336,23 @@
           body: JSON.stringify(payload)
         });
 
-        // Notifica in tempo reale sul bus locale (aggiorna CRM e suona il ping)
-        if (sfxEnterpriseBus) {
-          sfxEnterpriseBus.postMessage({ type: 'SFX_NEW_LEAD', lead: payload });
-        }
+        // Configura il link WhatsApp diretto verso il WhatsApp Business del CEO (+39 347 442 9091)
+        const msgCeo = `👑 *CANDIDATURA CONFERENZA CEO*\nProtocollo: ${generatedIdSfx}\nCandidato: ${nomeVal} ${cognomeVal}\nEmail: ${emailVal}\nTelefono: ${telVal}\nSlot: ${slotVal}\nPercorso: ${selectedTier}\nNote: ${noteVal}`;
+        document.getElementById("modalWaBtn").href = `https://wa.me/${TELEFONO_CEO_NUM}?text=${encodeURIComponent(msgCeo)}`;
 
-        // Configurazione Modale WhatsApp
-        const telClean = telVal.replace(/[^0-9]/g, '');
-        const msgCandidato = `Gentile ${nomeVal} ${cognomeVal}, la sua candidatura per il percorso "${selectedTier}" è stata registrata con successo (ID Pratica: ${generatedIdSfx}).\nSlot indicato: ${dataCallVal}.\n\nPresidenza Esecutiva — Suprema Future X`;
-        const waLinkCandidato = `https://wa.me/${telClean}?text=${encodeURIComponent(msgCandidato)}`;
-
-        const msgCeo = `👑 NUOVA CANDIDATURA SFX [${generatedIdSfx}]\nCandidato: ${nomeVal} ${cognomeVal}\nEmail: ${emailVal}\nTel: ${telVal}\nPercorso: ${selectedTier} (€ ${importoFinale.toFixed(2)})\nSlot: ${dataCallVal}\nGold Card: ${goldVal}\nNote: ${noteVal}`;
-        const waLinkCeo = `https://wa.me/${TELEFONO_CEO_NUM}?text=${encodeURIComponent(msgCeo)}`;
-
-        modalIdSfx.innerText = generatedIdSfx;
-        modalWaCandidatoBtn.href = waLinkCandidato;
-        modalWaCeoBtn.href = waLinkCeo;
-
-        modal.style.display = "flex";
-        form.reset();
-        discountMultiplier = 1.0;
-        aggiornaPrezzi();
+        document.getElementById("modalIdSfx").innerText = generatedIdSfx;
+        document.getElementById("modalConfirmation").style.display = "flex";
+        document.getElementById("sfxMasterForm").reset();
+        caricaSlotOccupati(); // Ricarica gli orari
       } catch (err) {
-        alert("Errore durante la trasmissione: " + err.toString());
+        alert("Errore invio: " + err.toString());
       } finally {
-        btnInvia.disabled = false;
-        btnInvia.innerHTML = '<span>Conferma e Invia Candidatura</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+        btn.disabled = false;
+        btn.innerHTML = "<span>Conferma e Invia Candidatura</span>";
       }
     });
 
-    modalCloseBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+    document.addEventListener("DOMContentLoaded", caricaSlotOccupati);
   </script>
 </body>
 </html>
