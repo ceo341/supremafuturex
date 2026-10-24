@@ -23,7 +23,6 @@
         // CONTROLLO DI SICUREZZA EAL6+ VAULT SOVRANO
         (function checkEAL6VaultAuth() {
             const isAuth = sessionStorage.getItem('sfx_authenticated');
-            const role = sessionStorage.getItem('sfx_role');
             if (isAuth !== 'true' && !window.location.search.includes('bypass=dev')) {
                 console.warn("[VAULT EAL6+] Accesso riservato alla Presidenza verificato.");
             }
@@ -54,7 +53,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
 
     <style>
@@ -110,7 +109,7 @@
                     <i class="fa-solid fa-crown text-xs"></i>
                     <span>X-BOX SUPREMA</span>
                 </a>
-                <a href="index.html" onclick="document.body.style.overflow='auto'; document.documentElement.style.overflow='auto';" class="px-3 py-1.5 rounded-xl bg-[#090A0D] border border-gray-700 hover:border-white text-gray-400 hover:text-white transition-colors" title="Ritorno alla Landing Page con ripristino scroll">
+                <a href="index.html" onclick="document.body.style.overflow='auto'; document.documentElement.style.overflow='auto';" class="px-3 py-1.5 rounded-xl bg-[#090A0D] border border-gray-700 hover:border-white text-gray-400 hover:text-white transition-colors" title="Ritorno al Portale">
                     <i class="fa-solid fa-globe"></i>
                 </a>
             </div>
@@ -119,7 +118,7 @@
 
     <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-8">
         
-        <!-- MOTTO UFFICIALE, NOTARIZZAZIONE E CLEARANCE -->
+        <!-- MOTTO UFFICIALE & NOTARIZZAZIONE -->
         <div class="bg-[#1F2227] p-6 sm:p-8 rounded-3xl border-glow-silver space-y-4 shadow-2xl relative overflow-hidden">
             <div class="laser-line absolute top-0 left-0"></div>
             
@@ -144,7 +143,7 @@
             </div>
         </div>
 
-        <!-- BLUEPRINTS SEGRETI INDUSTRIALI (OPAL LUXURY & LINEA ANTIGRAVITY) -->
+        <!-- BLUEPRINTS SEGRETI INDUSTRIALI -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-xs">
             
             <!-- Pomelli Opal Luxury Fittings -->
@@ -233,7 +232,7 @@
                 </span>
             </div>
 
-            <!-- Pulsanti Selezione Report -->
+            <!-- Selezione Report -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <button onclick="mostraReport('ACADEMY')" class="p-4 bg-black/60 border border-gray-800 rounded-2xl hover:border-sfx-gold text-left space-y-2 transition-colors cursor-pointer">
                     <i class="fa-solid fa-graduation-cap text-sfx-gold text-xl"></i>
@@ -254,7 +253,7 @@
                 </button>
             </div>
 
-            <!-- ANTEPRIMA REPORT ESECUTIVO DINAMICO -->
+            <!-- ANTEPRIMA REPORT -->
             <div id="box-anteprima-report" class="p-6 bg-black/80 rounded-2xl border border-gray-800 space-y-5">
                 <div class="flex flex-wrap justify-between items-center text-sfx-gold font-bold border-b border-gray-800/80 pb-3 gap-2">
                     <span id="rep-titolo" class="text-sm">REPORT ACADEMY CORSI // Q4-2026</span>
@@ -297,10 +296,10 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DI SISTEMA E DINAMICA REPORT -->
-    <script src="js/code.js"></script>
+    <!-- SCRIPT MASTER UNIFICATO -->
     <script>
-        const APPS_SCRIPT_URL_VAULT = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
+        // ENDPOINT BACKEND UNIFICATO MASTER
+        const APPS_SCRIPT_URL_VAULT = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
 
         function mostraReport(tipo) {
             const titolo = document.getElementById('rep-titolo');
