@@ -2269,19 +2269,65 @@ HTML
             { codice: "GOLD-481920", titolare: "Marco Neri", percorso: "Silver Tier", punti: 35, stato: "ATTIVA", fisica: "NON PRONTA (<100 pt)" }
         ];
 
-        // INIZIALIZZAZIONE ALL'AVVIO
-        document.addEventListener('DOMContentLoaded', () => {
-            initPinDotsP1();
-           if (typeof caricaMastroFinanziario === 'function') caricaMastroFinanziario();
-            caricaCandidatiP3();
-            renderizzaGriglia15Agenti();
-            renderizzaTabellaModuliP3();
-            aggiornaSelectDestinatariModuli();
-            ricalcolaPrevisoreFiscale();
-            renderizzaTabellaGoldCards();
-            aggiornaSelettoreGoldTitolari();
-        });
+        // =========================================================================================
+// MOTORE SOVRANO GOLD CARD (GRATUITA) & INIZIALIZZAZIONE PROTETTA
+// =========================================================================================
 
+function generaSupremaGoldCard(titolare, email, percorso) {
+  const randomChars = Math.random().toString(36).substring(2, 6).toUpperCase() + 
+                      Math.random().toString(36).substring(2, 6).toUpperCase();
+  const serialeSovrano = "SGC-2026-" + randomChars.substring(0, 8);
+
+  const nuovaCard = {
+    codice: serialeSovrano,
+    titolare: titolare || "Membro Suprema",
+    email: email || "privato@supremafuturex.com",
+    percorso: percorso || "Executive Tier",
+    punti: 100,
+    stato: "ATTIVA",
+    fisica: "DIGITALE_EMESSA",
+    dataEmissione: new Date().toLocaleDateString('it-IT')
+  };
+
+  if (typeof registroGoldCards !== 'undefined') {
+    registroGoldCards.unshift(nuovaCard);
+  }
+  if (typeof renderizzaTabellaGoldCards === 'function') renderizzaTabellaGoldCards();
+  if (typeof aggiornaSelettoreGoldTitolari === 'function') aggiornaSelettoreGoldTitolari();
+
+  if (typeof APPS_SCRIPT_URL_ADMIN !== 'undefined' && APPS_SCRIPT_URL_ADMIN.length > 10) {
+    fetch(APPS_SCRIPT_URL_ADMIN, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ azione: "REGISTRA_GOLD_CARD", card: nuovaCard })
+    }).catch(err => console.warn("Sync cloud Gold Card differito:", err));
+  }
+
+  alert("✨ SUPREMA GOLD CARD CONIATA!\n\nTitolare: " + nuovaCard.titolare + "\nCodice: " + serialeSovrano + "\nStato: ATTIVA (100 Punti)");
+  return nuovaCard;
+}
+
+function richiediConioManuale() {
+  const nome = prompt("Nome e Cognome del Titolare Gold Card:");
+  if (!nome) return;
+  const email = prompt("Email del Membro:") || "";
+  const percorso = prompt("Percorso / Livello (es. Executive Master, VIP):", "Executive Tier");
+  generaSupremaGoldCard(nome, email, percorso);
+}
+
+// INIZIALIZZAZIONE ALL'AVVIO (TUTTE LE FUNZIONI PROTETTE)
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof initPinDotsP1 === 'function') initPinDotsP1();
+  if (typeof caricaMastroFinanziario === 'function') caricaMastroFinanziario();
+  if (typeof caricaCandidatiP3 === 'function') caricaCandidatiP3();
+  if (typeof renderizzaGriglia15Agenti === 'function') renderizzaGriglia15Agenti();
+  if (typeof renderizzaTabellaModuliP3 === 'function') renderizzaTabellaModuliP3();
+  if (typeof aggiornaSelectDestinatariModuli === 'function') aggiornaSelectDestinatariModuli();
+  if (typeof ricalcolaPrevisoreFiscale === 'function') ricalcolaPrevisoreFiscale();
+  if (typeof renderizzaTabellaGoldCards === 'function') renderizzaTabellaGoldCards();
+  if (typeof aggiornaSelettoreGoldTitolari === 'function') aggiornaSelettoreGoldTitolari();
+});
         // =====================================================================
         // LOGICHE PORTA 01: FINANZA, FISCO & CASSA GATEWAY
         // =====================================================================
