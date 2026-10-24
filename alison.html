@@ -93,7 +93,6 @@
             box-shadow: 0 4px 20px rgba(212, 175, 55, 0.05);
         }
 
-        /* ONDE AUDIO VOCALE NATURALE */
         .voice-wave {
             display: inline-flex;
             align-items: center;
@@ -141,7 +140,7 @@
         </div>
 
         <div class="flex items-center gap-2 font-mono text-xs">
-            <!-- Pulsante Attivazione Voce Fluida / Mute -->
+            <!-- Toggle Voce Fluida -->
             <button onclick="toggleVoceAlison()" id="btn-voce-toggle" class="px-3 py-1.5 bg-sfx-cyan/10 border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded-xl transition-all font-bold flex items-center gap-1.5 cursor-pointer shadow-sm" title="Attiva/Disattiva Risposta Vocale">
                 <i class="fa-solid fa-volume-high" id="voce-icon"></i>
                 <span class="hidden sm:inline" id="voce-stato-testo">VOCE: ATTIVA</span>
@@ -163,7 +162,7 @@
                 <i class="fa-solid fa-crown"></i> <span>Screening</span>
             </a>
 
-            <a href="index.html" class="w-9 h-9 rounded-xl bg-sfx-darker border border-sfx-border flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors" title="Torna alla Landing Page">
+            <a href="index.html" class="w-9 h-9 rounded-xl bg-sfx-darker border border-sfx-border flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors" title="Torna al Portale">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </a>
         </div>
@@ -215,7 +214,7 @@
 
     </main>
 
-    <!-- FOOTER INPUT DI COMUNICAZIONE -->
+    <!-- FOOTER INPUT CHAT -->
     <footer class="bg-sfx-card border-t border-sfx-border p-3 sm:p-4 shrink-0 z-20">
         <div class="max-w-4xl mx-auto flex gap-2.5">
             <div class="flex-1 relative">
@@ -231,17 +230,18 @@
 
     <!-- MOTORE NEURALE DI ALISON, SPEECH SYNTHESIS & 50 FAQ EMBEDDED -->
     <script>
-        const APPS_SCRIPT_URL_ALISON = "";
+        // ENDPOINT UNIFICATO E CANALE BROADCAST SOVRANO
+        const APPS_SCRIPT_URL_ALISON = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
         const sfxEnterpriseBus = new BroadcastChannel('sfx_enterprise_bus');
 
         // STATO MOTORE VOCALE NATURALE
         let synth = window.speechSynthesis;
-        let voceAttiva = true;https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec        let voceItalianaSelezionata = null;
+        let voceAttiva = true;
+        let voceItalianaSelezionata = null;
 
         function caricaVociDisponibili() {
             if (!synth) return;
             const voices = synth.getVoices();
-            // Priorità assoluta a voci italiane calde, morbide e naturali
             voceItalianaSelezionata = voices.find(v => v.lang.includes('it') && (
                 v.name.includes('Natural') || 
                 v.name.includes('Google') || 
@@ -286,9 +286,8 @@
 
         function parlaTestoNaturale(testo) {
             if (!voceAttiva || !synth) return;
-            synth.cancel(); // Arresta frasi pendenti
+            synth.cancel();
 
-            // Pulizia codice HTML, tag ed emoji prima della lettura
             let testoPulito = testo.replace(/<[^>]*>?/gm, ' ')
                                    .replace(/[\u{1F600}-\u{1F6FF}|[\u{2600}-\u{26FF}]/gu, '')
                                    .replace(/\s+/g, ' ')
@@ -299,8 +298,8 @@
             const utterance = new SpeechSynthesisUtterance(testoPulito);
             if (voceItalianaSelezionata) utterance.voice = voceItalianaSelezionata;
             utterance.lang = 'it-IT';
-            utterance.rate = 0.98;  // Cadenza umana rilassata
-            utterance.pitch = 1.05; // Tono caldo non metallico
+            utterance.rate = 0.98;
+            utterance.pitch = 1.05;
 
             utterance.onstart = () => mostraOndaVocale(true);
             utterance.onend = () => mostraOndaVocale(false);
@@ -309,9 +308,7 @@
             synth.speak(utterance);
         }
 
-        // =====================================================================
-        // DATABASE 50 FAQ STRATEGICHE INTELLIGENTI CON PROTOCOLLO EAL6+
-        // =====================================================================
+        // DATABASE 50 FAQ STRATEGICHE INTELLIGENTI
         const SFX_FAQ_CORE = [
             {"k": ["chi sei", "alison", "ruolo", "concierge"], "a": "Sono Alison (AG-01), Concierge Esecutivo di Suprema Future X. Rispondo direttamente al Fondatore e CEO Giuliano Caratelli. Conduco l'orientamento didattico e filtro le candidature per lo screening preliminare."},
             {"k": ["chi e il capo", "chi e il ceo", "giuliano", "caratelli", "fondatore", "presidente"], "a": "Il nostro CEO e Presidente è Giuliano Caratelli. Sovrintende all'intera architettura d'impresa, ai negozi digitali, alle convenzioni luxury e tiene personalmente le sessioni riservate One-to-One per i percorsi accreditati."},
@@ -401,7 +398,7 @@
                                 <span class="text-[9px] text-sfx-cyan font-bold">${timeStr}</span>
                             </div>
                             <p class="text-xs text-gray-200 leading-relaxed font-sans">${testo}</p>
-                            ${ctaHtml ? `<div class="pt-1.5">\${ctaHtml}</div>` : ''}
+                            ${ctaHtml ? `<div class="pt-1.5">${ctaHtml}</div>` : ''}
                         </div>
                     `;
                 }
@@ -421,15 +418,13 @@
                 renderMessage(query, 'user');
                 inputField.value = '';
 
-                // Notifica Broadcast Bus per telemetria
                 sfxEnterpriseBus.postMessage({ type: 'ALISON_CHAT_QUERY', query: query });
 
-                // Elaborazione Risposta & Sintesi Vocale Naturale
                 setTimeout(() => {
                     const elaborata = cercaRispostaNelCore(query);
                     renderMessage(elaborata.testo, 'alison', elaborata.cta);
                     parlaTestoNaturale(elaborata.testo);
-                }, 400);
+                }, 350);
             };
 
             sendBtn.addEventListener('click', handleSend);
@@ -471,7 +466,7 @@
                         <a href="candidatura.html" class="px-3 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black text-[10px] font-black rounded-lg shadow-md transition-all">
                             👑 Riserva Call con il CEO Giuliano
                         </a>
-                        <a href="index.html#academy" class="px-3 py-1.5 bg-sfx-darker border border-sfx-cyan text-sfx-cyan text-[10px] font-bold rounded-lg hover:bg-sfx-cyan hover:text-black transition-all">
+                        <a href="index.html#academy" class="px-3 py-1.5 bg-sfx-dark border border-sfx-cyan text-sfx-cyan text-[10px] font-bold rounded-lg hover:bg-sfx-cyan hover:text-black transition-all">
                             🎓 Listino Corsi Ufficiale
                         </a>
                       </div>`
