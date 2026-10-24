@@ -26,7 +26,7 @@
                             goldLight: '#D4AF37', 
                             cyan: '#008B99', 
                             cyanLight: '#00F0FF', 
-                            dark: '#090A0D',
+                            dark: '#090A0D', 
                             card: '#12141C'
                         } 
                     },
@@ -38,11 +38,10 @@
                     }
                 }
             }
-        }
+        };
     </script>
 
     <style>
-        /* SFONDO MATRIX CYAN RALLENTATO */
         body {
             background-color: #050A0F;
             background-image: 
@@ -57,7 +56,6 @@
             100% { background-position: 0 0, 0 1000px, 0 0; } 
         }
 
-        /* PANNELLI NEON EAL6+ */
         .neon-panel {
             background: rgba(14, 16, 23, 0.95);
             backdrop-filter: blur(14px);
@@ -83,11 +81,9 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.4); }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #00F0FF; border-radius: 3px; }
 
-        /* TOGGLE SWITCH ON/OFF */
         .toggle-checkbox:checked { right: 0; border-color: #00F0FF; }
         .toggle-checkbox:checked + .toggle-label { background-color: #00F0FF; }
 
-        /* BLOCCO SAFE MODE */
         .safe-mode-active input, 
         .safe-mode-active textarea, 
         .safe-mode-active select { 
@@ -98,7 +94,7 @@
 </head>
 <body class="text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-cyan selection:text-black overflow-x-hidden">
 
-    <!-- HEADER & MENU HAMBURGER (CON AUTO-CHIUSURA 15 SEC) -->
+    <!-- HEADER & MENU HAMBURGER (AUTO-CHIUSURA 15s) -->
     <header class="bg-[#090A0D]/95 border-b border-sfx-cyan/50 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between sticky top-0 z-50 backdrop-blur-xl shadow-[0_0_20px_rgba(0,240,255,0.2)]">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 rounded-full bg-black p-0.5 border-2 border-sfx-cyan shadow-[0_0_15px_rgba(0,240,255,0.5)] cursor-pointer" onclick="window.location.href='index.html'">
@@ -145,7 +141,7 @@
     <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 space-y-6 relative z-10 font-mono" id="nexus-core-container">
         
         <!-- ===================================================================== -->
-        <!-- NEXUS ENGINE DASHBOARD (METRICHE, BACKUP & LOG STREAMING)              -->
+        <!-- NEXUS ENGINE DASHBOARD                                                -->
         <!-- ===================================================================== -->
         <div class="neon-panel neon-panel-gold p-6 space-y-5">
             <div class="flex flex-wrap items-end justify-between gap-4 border-b border-gray-800 pb-4">
@@ -185,7 +181,7 @@
         </div>
 
         <!-- ===================================================================== -->
-        <!-- MODULO 1: CONTROLLER DELLE 11 SEZIONI LANDING PAGE                     -->
+        <!-- MODULO 1: CONTROLLER DELLE 11 SEZIONI LANDING                         -->
         <!-- ===================================================================== -->
         <div id="modulo-sezioni" class="neon-panel p-6 sm:p-8 space-y-8">
             <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-2">
@@ -243,7 +239,7 @@
                 </div>
             </div>
 
-            <!-- SEZIONE 4: ACADEMY CORSI & DOSSIER (LISTINO 249€, 299€, 349€) -->
+            <!-- SEZIONE 4: ACADEMY LISTINO (249€, 299€, 349€) -->
             <div class="bg-[#090A0D] p-5 rounded-2xl border border-sfx-gold/50 shadow-[0_0_20px_rgba(212,175,55,0.1)] space-y-4">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-2">
                     <h3 class="font-bold text-sfx-goldLight text-sm"><span class="text-sfx-gold">04.</span> LISTINO ACADEMY &amp; DOSSIER CORSI</h3>
@@ -276,7 +272,7 @@
                 </div>
             </div>
 
-            <!-- SEZIONE 9: SHOWCASE MULTIMEDIALE (YOUTUBE LINK) -->
+            <!-- SEZIONE 9: SHOWCASE MULTIMEDIALE -->
             <div class="bg-[#090A0D] p-5 rounded-2xl border border-gray-800 space-y-3">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-2">
                     <h3 class="font-bold text-white text-sm"><span class="text-sfx-cyan">09.</span> SHOWCASE VIDEO (YOUTUBE LINK)</h3>
@@ -284,10 +280,10 @@
                 </div>
                 <div class="flex items-end gap-3">
                     <div class="flex-1">
-                        <label class="block text-gray-500 text-[10px] mb-1">Sostituisci il video in Landing con un ID YouTube (es. dQw4w9WgXcQ)</label>
-                        <input type="text" id="sec-yt-id" class="sfx-input w-full p-3 bg-[#12141C] border border-red-500/50 rounded-xl text-white outline-none focus:border-red-500 text-xs" placeholder="ID Video YouTube...">
+                        <label class="block text-gray-500 text-[10px] mb-1">Sostituisci il video in Landing con un ID YouTube</label>
+                        <input type="text" id="sec-yt-id" class="sfx-input w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs" placeholder="ID Video YouTube (es: dQw4w9WgXcQ)">
                     </div>
-                    <button onclick="testYouTubeVideo()" class="px-4 py-3 bg-[#1F2227] border border-gray-600 text-gray-300 rounded-xl text-xs hover:bg-black transition-all cursor-pointer"><i class="fa-brands fa-youtube text-red-500 mr-1"></i> Verifica ID</button>
+                    <button onclick="testYouTubeVideo()" class="px-4 py-3 bg-[#1F2227] border border-gray-600 text-gray-300 rounded-xl text-xs hover:bg-black transition-all cursor-pointer"><i class="fa-brands fa-youtube text-sfx-gold mr-1"></i> Verifica</button>
                 </div>
             </div>
 
@@ -300,7 +296,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-[10px]">
                     <div><label class="text-gray-500 mb-1 block"><i class="fa-brands fa-instagram text-pink-500"></i> IG</label><input type="url" id="link-ig" class="sfx-input w-full p-2 bg-[#12141C] border border-gray-700 rounded text-white" placeholder="https://instagram.com/..."></div>
                     <div><label class="text-gray-500 mb-1 block"><i class="fa-brands fa-telegram text-blue-400"></i> TG</label><input type="url" id="link-tg" class="sfx-input w-full p-2 bg-[#12141C] border border-gray-700 rounded text-white" placeholder="https://t.me/..."></div>
-                    <div><label class="text-gray-500 mb-1 block"><i class="fa-brands fa-youtube text-red-500"></i> YT</label><input type="url" id="link-yt" class="sfx-input w-full p-2 bg-[#12141C] border border-gray-700 rounded text-white" placeholder="https://youtube.com/..."></div>
+                    <div><label class="text-gray-500 mb-1 block"><i class="fa-brands fa-youtube text-sfx-gold"></i> YT</label><input type="url" id="link-yt" class="sfx-input w-full p-2 bg-[#12141C] border border-gray-700 rounded text-white" placeholder="https://youtube.com/..."></div>
                     <div><label class="text-gray-500 mb-1 block"><i class="fa-brands fa-linkedin text-blue-600"></i> IN</label><input type="url" id="link-li" class="sfx-input w-full p-2 bg-[#12141C] border border-gray-700 rounded text-white" placeholder="https://linkedin.com/..."></div>
                     <div><label class="text-gray-500 mb-1 block"><i class="fa-brands fa-tiktok text-gray-300"></i> TK</label><input type="url" id="link-tk" class="sfx-input w-full p-2 bg-[#12141C] border border-gray-700 rounded text-white" placeholder="https://tiktok.com/@..."></div>
                     <div><label class="text-gray-500 mb-1 block"><i class="fa-brands fa-facebook text-blue-500"></i> FB</label><input type="url" id="link-fb" class="sfx-input w-full p-2 bg-[#12141C] border border-gray-700 rounded text-white" placeholder="https://facebook.com/..."></div>
@@ -313,7 +309,7 @@
         </div>
 
         <!-- ===================================================================== -->
-        <!-- MODULO 2: CENTRALE PROMEMORIA MATRIX (EMAIL & WHATSAPP)                -->
+        <!-- MODULO 2: CENTRALE PROMEMORIA MATRIX                                  -->
         <!-- ===================================================================== -->
         <div id="modulo-promemoria" class="neon-panel p-6 sm:p-8 space-y-6">
             <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-2">
@@ -329,7 +325,7 @@
             <div id="feedback-matrix" class="hidden p-3 bg-green-950/80 border border-green-500 text-green-400 text-xs font-bold rounded-xl text-center shadow-lg"></div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs font-mono">
-                <!-- Fase T0: Accredito Istantaneo -->
+                <!-- Fase T0 -->
                 <div class="p-5 bg-[#090A0D] rounded-2xl border border-gray-800 space-y-3">
                     <div class="flex items-center justify-between border-b border-gray-800 pb-2">
                         <span class="font-bold text-white flex items-center">
@@ -346,7 +342,7 @@
                     <textarea id="tpl-wa-t0" rows="2" class="sfx-input w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-green-400 outline-none focus:border-green-500 resize-none text-[11px]"></textarea>
                 </div>
 
-                <!-- Fase T7: Materiale Didattico -7 Giorni -->
+                <!-- Fase T-7 -->
                 <div class="p-5 bg-[#090A0D] rounded-2xl border border-gray-800 space-y-3">
                     <div class="flex items-center justify-between border-b border-gray-800 pb-2">
                         <span class="font-bold text-white flex items-center">
@@ -363,7 +359,7 @@
                     <textarea id="tpl-wa-t7" rows="2" class="sfx-input w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-green-400 outline-none focus:border-green-500 resize-none text-[11px]"></textarea>
                 </div>
 
-                <!-- Fase T48: Questionario & Screening -48 Ore -->
+                <!-- Fase T-48 -->
                 <div class="p-5 bg-[#090A0D] rounded-2xl border border-gray-800 space-y-3">
                     <div class="flex items-center justify-between border-b border-gray-800 pb-2">
                         <span class="font-bold text-white flex items-center">
@@ -380,7 +376,7 @@
                     <textarea id="tpl-wa-t48" rows="2" class="sfx-input w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-green-400 outline-none focus:border-green-500 resize-none text-[11px]"></textarea>
                 </div>
 
-                <!-- Fase T5: Accesso Stanza Meet -5 Minuti -->
+                <!-- Fase T-5 -->
                 <div class="p-5 bg-[#090A0D] rounded-2xl border border-gray-800 space-y-3">
                     <div class="flex items-center justify-between border-b border-gray-800 pb-2">
                         <span class="font-bold text-white flex items-center">
@@ -400,7 +396,7 @@
         </div>
 
         <!-- ===================================================================== -->
-        <!-- MODULO 3: SUPER CRM, FILTRI & 1-CLICK CLOSING                         -->
+        <!-- MODULO 3: SUPER CRM & SCREENING CANDIDATI                             -->
         <!-- ===================================================================== -->
         <div id="modulo-crm" class="neon-panel p-6 sm:p-8 space-y-6">
             <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-3">
@@ -418,7 +414,7 @@
                 </div>
             </div>
 
-            <!-- FILTRI DI RICERCA & PRIORITÀ -->
+            <!-- FILTRI -->
             <div class="p-4 bg-[#090A0D] rounded-2xl border border-gray-800 flex flex-wrap gap-4 items-end font-mono text-xs">
                 <div class="flex-1 min-w-[220px]">
                     <label class="block text-gray-500 text-[10px] mb-1 uppercase font-bold">Cerca Corsista (Nome, Seriale, Email):</label>
@@ -445,7 +441,7 @@
                 </div>
             </div>
 
-            <!-- TABELLA REGISTRO CANDIDATI -->
+            <!-- TABELLA -->
             <div class="overflow-x-auto bg-[#090A0D] rounded-2xl border border-gray-800">
                 <table class="w-full text-left font-mono text-[11px]">
                     <thead class="bg-[#12141C] border-b border-gray-800">
@@ -459,13 +455,11 @@
                             <th class="p-4 text-right">Stanza Meet</th>
                         </tr>
                     </thead>
-                    <tbody id="tbody-super-crm" class="divide-y divide-gray-800 text-gray-300">
-                        <!-- Iniettato dinamicamente da JavaScript -->
-                    </tbody>
+                    <tbody id="tbody-super-crm" class="divide-y divide-gray-800 text-gray-300"></tbody>
                 </table>
             </div>
 
-            <!-- SCHEDA DETTAGLIO RAPIDA CORSISTA SELEZIONATO -->
+            <!-- SCHEDA RAPIDA CORSISTA -->
             <div id="pannello-corsista-attivo" class="hidden p-6 bg-[#090A0D] border-2 border-sfx-cyan rounded-2xl space-y-4 font-mono text-xs shadow-[0_0_25px_rgba(0,240,255,0.15)]">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                     <span class="text-white font-black uppercase text-sm" id="pannello-nome-corsista">SCHEDA CORSISTA</span>
@@ -551,7 +545,6 @@
                 </div>
             </form>
 
-            <!-- ANTEPRIMA ATTO STATUTARIO PRONTO -->
             <div id="contratto-anteprima-box" class="hidden p-6 bg-[#090A0D] border-2 border-sfx-goldLight rounded-2xl space-y-4">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                     <span class="text-sfx-goldLight font-black text-xs uppercase tracking-wider">ATTO PRIVATO LIVE REGISTRATO &amp; VALIDATO</span>
@@ -569,7 +562,7 @@
         </div>
 
         <!-- ===================================================================== -->
-        <!-- MODULO 5: MEDIA VAULT NATIVO APPLE & VIEWPORT 11 POLLICI                -->
+        <!-- MODULO 5: MEDIA VAULT NATIVO APPLE & VIEWPORT 11"                     -->
         <!-- ===================================================================== -->
         <div id="modulo-media" class="neon-panel p-6 sm:p-8 space-y-6">
             <div class="border-b border-gray-800 pb-4">
@@ -577,23 +570,21 @@
                 <p class="text-[10px] text-sfx-cyanLight mt-1 font-mono">Upload diretto da memoria interna Mac o iPhone a Google Drive.</p>
             </div>
 
-            <!-- SELETTORE CATEGORIA -->
             <div class="flex flex-wrap gap-2 text-xs font-mono">
-                <button type="button" onclick="selezionaCategoriaVault('FOTO', '.jpg,.png,.webp')" id="tab-vault-FOTO" class="tab-vault-btn px-4 py-2 bg-sfx-cyan text-black rounded-xl font-bold transition-all shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+                <button type="button" onclick="selezionaCategoriaVault('FOTO', '.jpg,.png,.webp')" id="tab-vault-FOTO" class="tab-vault-btn px-4 py-2 bg-sfx-cyan text-black rounded-xl font-bold transition-all shadow-[0_0_10px_rgba(0,240,255,0.3)] cursor-pointer">
                     <i class="fa-solid fa-image mr-1"></i> Immagini &amp; Grafiche
                 </button>
-                <button type="button" onclick="selezionaCategoriaVault('VIDEO', '.mp4,.mov')" id="tab-vault-VIDEO" class="tab-vault-btn px-4 py-2 bg-[#090A0D] border border-gray-700 text-gray-400 hover:text-white rounded-xl font-bold transition-all">
+                <button type="button" onclick="selezionaCategoriaVault('VIDEO', '.mp4,.mov')" id="tab-vault-VIDEO" class="tab-vault-btn px-4 py-2 bg-[#090A0D] border border-gray-700 text-gray-400 hover:text-white rounded-xl font-bold transition-all cursor-pointer">
                     <i class="fa-solid fa-video mr-1"></i> Video 1080p
                 </button>
-                <button type="button" onclick="selezionaCategoriaVault('PDF', '.pdf')" id="tab-vault-PDF" class="tab-vault-btn px-4 py-2 bg-[#090A0D] border border-gray-700 text-gray-400 hover:text-white rounded-xl font-bold transition-all">
+                <button type="button" onclick="selezionaCategoriaVault('PDF', '.pdf')" id="tab-vault-PDF" class="tab-vault-btn px-4 py-2 bg-[#090A0D] border border-gray-700 text-gray-400 hover:text-white rounded-xl font-bold transition-all cursor-pointer">
                     <i class="fa-solid fa-file-pdf mr-1"></i> Documenti Master PDF
                 </button>
             </div>
 
-            <!-- AREA TRASCINAMENTO / UPLOAD -->
             <div class="bg-[#090A0D] p-8 rounded-2xl border-2 border-dashed border-sfx-cyan/50 text-center font-mono text-xs hover:bg-[#12141C] transition-all">
                 <div class="text-4xl text-sfx-cyanLight mb-3"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-                <p class="text-white font-bold text-sm mb-1" id="vault-drop-label">Scegli file per categoria Immagini</p>
+                <p class="text-white font-bold text-sm mb-1" id="vault-drop-label">Scegli file per categoria FOTO</p>
                 <p class="text-gray-500 text-[10px] mb-4">Supporta caricamento rapido da Finder MacBook e Rullino iPhone</p>
                 
                 <input type="file" id="vault-native-input" onchange="gestisciFileVault(this)" accept=".jpg,.png,.webp" class="hidden">
@@ -601,7 +592,6 @@
                     <i class="fa-solid fa-folder-open mr-1"></i> Seleziona da Memoria Locale
                 </button>
 
-                <!-- Box File Confermato -->
                 <div id="vault-file-info" class="hidden mt-6 p-4 bg-[#1F2227] border border-sfx-cyan/40 rounded-xl text-left flex items-center justify-between">
                     <div class="flex items-center space-x-3">
                         <i class="fa-solid fa-file-circle-check text-2xl text-sfx-cyan"></i>
@@ -619,7 +609,6 @@
                 </div>
             </div>
 
-            <!-- INVIO AL BACKEND -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
                 <input type="text" id="vault-custom-title" placeholder="Nome dell'asset per Google Drive (opzionale)..." class="p-4 bg-[#090A0D] border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs">
                 <button type="button" onclick="eseguiUploadVault()" id="btn-vault-send" class="py-4 bg-sfx-cyan hover:bg-cyan-400 text-black font-black uppercase tracking-wider rounded-xl cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all text-xs">
@@ -630,9 +619,7 @@
 
     </main>
 
-    <!-- ===================================================================== -->
-    <!-- VIEWPORT ANTEPRIMA SCHERMO 11 POLLICI CENTRATO                        -->
-    <!-- ===================================================================== -->
+    <!-- VIEWPORT ANTEPRIMA 11" -->
     <div id="modal-screen-11" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4" onclick="if(event.target.id==='modal-screen-11') chiudiAnteprima11Pollici()">
         <div class="relative w-full max-w-4xl bg-[#12141C] border-2 border-sfx-cyan shadow-[0_0_40px_rgba(0,240,255,0.3)] rounded-3xl overflow-hidden flex flex-col">
             <div class="flex justify-between items-center p-4 border-b border-gray-800 bg-[#090A0D]">
@@ -642,15 +629,11 @@
                 </div>
                 <button onclick="chiudiAnteprima11Pollici()" class="text-gray-400 hover:text-white text-2xl leading-none cursor-pointer">&times;</button>
             </div>
-            <div class="relative w-full aspect-[16/10] bg-black flex items-center justify-center p-2" id="screen-11-display">
-                <!-- Il media viene renderizzato qui in scala esatta -->
-            </div>
+            <div class="relative w-full aspect-[16/10] bg-black flex items-center justify-center p-2" id="screen-11-display"></div>
         </div>
     </div>
 
-    <!-- ===================================================================== -->
-    <!-- MOTORE JAVASCRIPT: NEXUS SYNC ENGINE & PROTOCOLLO EAL6+               -->
-    <!-- ===================================================================== -->
+    <!-- MOTORE JAVASCRIPT: NEXUS SYNC ENGINE UNIFICATO -->
     <script>
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
         
@@ -660,17 +643,17 @@
         let categoriaVaultSelezionata = 'FOTO';
         let safeModeAttivo = false;
 
-        // 1. IL PONTE DIRETTO: BROADCAST CHANNEL REAL-TIME
+        // 1. BROADCAST CHANNEL REAL-TIME
         const sfxBroadcastBus = new BroadcastChannel('sfx_enterprise_bus');
         sfxBroadcastBus.onmessage = function(event) {
             if (event.data && event.data.type === 'SFX_NEW_LEAD') {
                 emettiPingSonoro();
-                scriviLogNexus(`Nuovo lead ricevuto in tempo reale: ${event.data.lead.nome} (${event.data.lead.idSfx})`);
+                scriviLogNexus(`Nuovo lead in tempo reale: ${event.data.lead.nome} (${event.data.lead.idSfx})`);
                 caricaLeadsCRM();
             }
         };
 
-        // 2. HAMBURGER MENU: AUTO-CHIUSURA 15 SECONDI & AL CLIC
+        // 2. HAMBURGER MENU
         let timerMenuHamburger = null;
         let secondiRimanentiMenu = 15;
 
@@ -717,7 +700,7 @@
             }
         }
 
-        // 3. SINTETIZZATORE AUDIO PING (WEB AUDIO API)
+        // 3. PING AUDIO
         function emettiPingSonoro() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -735,7 +718,7 @@
             } catch (e) {}
         }
 
-        // 4. LOG NEXUS & CONTROLLO TELEMETRIA
+        // 4. LOG NEXUS
         function scriviLogNexus(messaggio) {
             const logBox = document.getElementById('nexus-log-terminal');
             if (logBox) {
@@ -799,7 +782,7 @@
             reader.readAsText(file);
         }
 
-        // 7. GESTIONE SEZIONI, AUTO-SALVATAGGIO & PUBBLICAZIONE
+        // 7. GESTIONE SEZIONI & PUBBLICAZIONE
         const DEFAULT_CONFIG_SEZIONI = {
             sec1: { active: true, tag: "ECOSISTEMA PROFESSIONALE ATTIVO", text: "Community, Networking & Academy ENTERPRISE. Piattaforma d'élite per la Formazione, Sviluppo Personale, E-Commerce Autonomo e Reindirizzamento al Lavoro Immediato guidata dalla Direzione del CEO GIULIANO." },
             sec2: { active: true, nota1: "Governa l'indirizzo strategico, le relazioni d'affari e i programmi per l'avvio al lavoro. Le sessioni individuali con la Presidenza sono a numero chiuso e calendarizzate direttamente.", nota2: "Colloquio preliminare orientativo. Si raccomanda puntualità e postazione priva di rumori." },
@@ -913,7 +896,7 @@
             scriviLogNexus("Social: Nuove coordinate salvate e trasmesse.");
         }
 
-        // 8. TEMPLATE PROMEMORIA MATRIX (T0, T-7, T-48, T-5)
+        // 8. MATRIX PROMEMORIA
         const DEFAULT_MATRIX_CONFIG = {
             t0: { active: true, email: "Gentile [NOME], confermiamo l'acquisizione della sua candidatura [ID_SFX] per Suprema Future X. Riceverà le coordinate della call.", wa: "Buongiorno [NOME], candidatura [ID_SFX] confermata dalla Direzione SFX." },
             t7: { active: true, email: "Gentile [NOME], la sua sessione si terrà tra 7 giorni. Trova allegata la dispensa propedeutica da esaminare prima della call.", wa: "Promemoria SFX: tra 7 giorni avrà luogo la sua sessione. Dispensa disponibile nel Workspace." },
@@ -976,7 +959,7 @@
             scriviLogNexus("Matrix Promemoria: Tutti i template email e WhatsApp salvati.");
         }
 
-        // 9. SUPER CRM, CALCOLO INCASSI & WHATSAPP SCRIPT
+        // 9. SUPER CRM & METRICHE
         function generaCodiceSFX() {
             const anno = new Date().getFullYear().toString().slice(-2);
             const rnd = Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -1027,7 +1010,7 @@
                 if (ambito.includes('Silver')) totale += 249;
                 else if (ambito.includes('Executive')) totale += 299;
                 else if (ambito.includes('Premium') || ambito.includes('VIP')) totale += 349;
-                else if (ambito.includes('CEO')) totale += 299;
+                else if (ambito.includes('CEO')) totale += 0;
                 else totale += 299;
             });
             const el = document.getElementById('nexus-revenue-calc');
@@ -1145,7 +1128,7 @@
             window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
 
-        // 10. CONTRATTI LIVE 1-TO-1, WORKSPACE & GOLD CARD
+        // 10. CONTRATTI LIVE 1-TO-1
         function generaGoldCardCode() {
             const codice = `GOLD-${Math.floor(100000 + Math.random() * 900000)}`;
             document.getElementById('contratto-gold').value = codice;
@@ -1218,7 +1201,7 @@ F.to Per Accettazione e Conformità — ${nome}`;
             scriviLogNexus(`Drive: Modulistica clonata nel Workspace di ${nome}.`);
         }
 
-        // 11. MEDIA VAULT & VIEWPORT 11 POLLICI
+        // 11. MEDIA VAULT & VIEWPORT 11"
         function selezionaCategoriaVault(cat, estensioni) {
             categoriaVaultSelezionata = cat;
             document.querySelectorAll('.tab-vault-btn').forEach(b => {
@@ -1293,20 +1276,18 @@ F.to Per Accettazione e Conformità — ${nome}`;
             reader.readAsDataURL(fileVaultCorrente);
         }
 
-        // 12. INIZIALIZZAZIONE GLOBALE ALL'AVVIO
+        // 12. INIZIALIZZAZIONE ALL'AVVIO
         document.addEventListener('DOMContentLoaded', () => {
             caricaDatiLocaliInCampi();
             caricaTemplateMatrix();
             caricaLeadsCRM();
 
-            // Auto-salvataggio in tempo reale durante la digitazione
             document.querySelectorAll('.sfx-input').forEach(el => {
                 el.addEventListener('input', () => {
                     scriviLogNexus("Nexus Engine: Bozza locale salvata.");
                 });
             });
 
-            // Caricamento dei 6 link social network
             const rawSocial = localStorage.getItem('sfx_social_network_links');
             if (rawSocial) {
                 try {
