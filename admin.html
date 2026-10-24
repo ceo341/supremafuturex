@@ -3206,97 +3206,65 @@ F.to Per Accettazione e Conformità — ${nome}`;
             }
         }
     </script>
-    <!-- ======================================================== -->
-<!-- SFX EMERGENCY RECOVERY // SBLOCCO PORTE SWITCHBOARD GATE  -->
+   <!-- ======================================================== -->
+<!-- SFX // ROUTER SWITCHBOARD E GESTIONE ACCESSI EAL6+       -->
 <!-- ======================================================== -->
 <script>
-(function() {
-  function forzaSbloccoSwitchboard() {
-    // 1. Rimuove qualsiasi velo trasparente del PIN/Login rimasto a schermo
-    const overlays = document.querySelectorAll(
-      '.modal-backdrop, #pin-overlay, #auth-modal, #modalPin, [id*="overlay"], [class*="backdrop"]'
-    );
-    overlays.forEach(function(el) {
+  // Ripulisce eventuali veli residui del PIN
+  function pulisciVeloPin() {
+    document.querySelectorAll('.modal-backdrop, #pin-overlay').forEach(function(el) {
       el.style.display = 'none';
       el.style.pointerEvents = 'none';
-      el.style.opacity = '0';
-    });
-
-    // 2. Forza tutti i pulsanti e le schede delle porte ad essere cliccabili
-    document.querySelectorAll('[onclick*="apriPortaOperativa"], .neon-panel-fisco, button, a').forEach(function(el) {
-      el.style.pointerEvents = 'auto';
-      el.style.cursor = 'pointer';
     });
   }
 
-  // 3. Ripristino nativo della funzione per aprire Porta 01, 02 e 03
+  // Funzione per aprire una delle 3 porte (Finanza, Media, CRM)
   window.apriPortaOperativa = function(portaId) {
-    // Individua la schermata principale dello switchboard
-    const gate = document.getElementById('switchboard-gate') || 
-                 document.querySelector('.switchboard-gate') || 
-                 document.querySelector('main') ||
-                 document.querySelector('.container');
+    pulisciVeloPin();
 
-    // Elenco contenitori operativi
-    const porteIds = ['porta-01-finanza', 'porta-02-media', 'porta-03-crm'];
-    
-    // Nasconde tutte le altre porte
-    porteIds.forEach(function(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.classList.add('hidden');
-        el.style.display = 'none';
-      }
-    });
+    // 1. Identifica i 4 elementi principali (il Gate e le 3 porte)
+    const gatePrincipale = document.getElementById('switchboard-gate') || document.querySelector('.grid');
+    const porta01 = document.getElementById('porta-01-finanza');
+    const porta02 = document.getElementById('porta-02-media');
+    const porta03 = document.getElementById('porta-03-crm');
 
-    // Mostra la porta selezionata
+    // 2. Nasconde tutto
+    if (gatePrincipale) gatePrincipale.style.display = 'none';
+    if (porta01) porta01.style.display = 'none';
+    if (porta02) porta02.style.display = 'none';
+    if (porta03) porta03.style.display = 'none';
+
+    // 3. Mostra SOLO la porta che hai cliccato
     const target = document.getElementById(portaId);
     if (target) {
-      if (gate) {
-        gate.classList.add('hidden');
-        gate.style.display = 'none';
-      }
-      target.classList.remove('hidden');
       target.style.display = 'block';
+      target.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // Se l'ID è agganciato a una classe o selettore alternativo
-      const targetAlt = document.querySelector('.' + portaId) || document.querySelector('[data-porta="' + portaId + '"]');
-      if (targetAlt) {
-        if (gate) {
-          gate.classList.add('hidden');
-          gate.style.display = 'none';
-        }
-        targetAlt.classList.remove('hidden');
-        targetAlt.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      console.warn("Elemento porta non trovato:", portaId);
     }
   };
 
-  // Funzione per tornare indietro al menu delle 3 porte
+  // Funzione per tornare al menu iniziale con le 3 porte
   window.tornaAlGate = function() {
-    ['porta-01-finanza', 'porta-02-media', 'porta-03-crm'].forEach(function(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.classList.add('hidden');
-        el.style.display = 'none';
-      }
-    });
-    const gate = document.getElementById('switchboard-gate') || 
-                 document.querySelector('.switchboard-gate') || 
-                 document.querySelector('main');
-    if (gate) {
-      gate.classList.remove('hidden');
-      gate.style.display = 'block';
+    pulisciVeloPin();
+    const gatePrincipale = document.getElementById('switchboard-gate') || document.querySelector('.grid');
+    const porta01 = document.getElementById('porta-01-finanza');
+    const porta02 = document.getElementById('porta-02-media');
+    const porta03 = document.getElementById('porta-03-crm');
+
+    if (porta01) porta01.style.display = 'none';
+    if (porta02) porta02.style.display = 'none';
+    if (porta03) porta03.style.display = 'none';
+
+    if (gatePrincipale) {
+      gatePrincipale.style.display = 'grid'; // Usa grid o flex a seconda del CSS originale
+      gatePrincipale.classList.remove('hidden');
     }
   };
 
-  // Esecuzione immediata e su caricamento pagina
-  forzaSbloccoSwitchboard();
-  window.addEventListener('DOMContentLoaded', forzaSbloccoSwitchboard);
-  setTimeout(forzaSbloccoSwitchboard, 500);
-})();
+  // All'avvio pulisce la schermata
+  window.addEventListener('DOMContentLoaded', pulisciVeloPin);
 </script>
 </body>
 </html>
