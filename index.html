@@ -7,7 +7,7 @@
     <meta name="description" content="Suprema Future X - Ecosistema d'élite per la formazione indipendente, community d'impresa, business architecture e reindirizzamento al lavoro.">
     <meta name="keywords" content="Suprema Future X, Community, Networking, Academy, Business Architecture, Formazione, E-Commerce, Lavoro">
     <meta name="author" content="Suprema Future X">
-    <meta name="theme-color" content="#B8860B">
+    <meta name="theme-color" content="#090A0D">
 
     <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/png" href="media/logo.png">
@@ -114,10 +114,10 @@
 </head>
 <body class="cyber-pearl-grid text-[#12141C] font-sans overflow-x-hidden selection:bg-sfx-gold selection:text-white">
 
-    <!-- TOP BAR (TRADUCIBILE & MULTILINGUA) -->
+    <!-- TOP BAR (MULTILINGUA & STATO RETE) -->
     <div class="bg-[#090A0D] text-white border-b border-sfx-gold/30 px-4 py-2 flex flex-wrap items-center justify-between text-[11px] font-mono tracking-wider z-50 relative">
         <div class="flex items-center space-x-3">
-            <div class="w-7 h-7 rounded-full p-0.5 bg-sfx-gold cursor-pointer" id="sfx-brand-logo-status">
+            <div class="w-7 h-7 rounded-full p-0.5 bg-sfx-gold cursor-pointer" id="sfx-brand-logo-status" onclick="window.scrollTo({top:0, behavior:'smooth'})">
                 <img src="media/logo.png" alt="SFX Logo" class="w-full h-full rounded-full object-cover bg-black" onerror="this.src='media/logo.png'">
             </div>
             <span class="inline-flex items-center text-sfx-gold font-bold">
@@ -127,7 +127,7 @@
         </div>
 
         <div class="flex items-center space-x-3 sm:space-x-4">
-            <!-- SELETTORE MULTILINGUA INTEGRATO -->
+            <!-- SELETTORE LINGUA -->
             <div class="flex items-center space-x-1 border border-sfx-gold/40 rounded-lg px-2 py-0.5 bg-black/60 shadow-sm">
                 <i class="fa-solid fa-globe text-sfx-gold text-[10px] mr-1"></i>
                 <select id="sfx-lang-select" onchange="cambiaLingua(this.value)" class="bg-transparent text-sfx-gold text-[10px] font-mono outline-none cursor-pointer">
@@ -141,17 +141,17 @@
 
             <div class="text-sfx-cyan flex items-center font-bold">
                 <span class="w-2 h-2 rounded-full bg-sfx-cyan animate-pulse mr-1.5"></span>
-                ONLINE: <strong class="text-sfx-gold ml-1">24</strong>
+                ONLINE: <strong class="text-sfx-gold ml-1" id="live-visitors">24</strong>
             </div>
             <span class="text-gray-300 hidden md:inline">GOVERNANCE: <strong class="text-sfx-goldLight">CEO GIULIANO</strong></span>
             <a href="login.html" class="text-sfx-gold hover:text-white transition-colors"><i class="fa-solid fa-lock mr-1"></i>TERMINALE</a>
         </div>
     </div>
 
-    <!-- NAVBAR HEADER CON MENU AUTO-CHIUSURA A 15 SECONDI -->
+    <!-- NAVBAR HEADER CON DROPDOWN SEZIONI (AUTO-CHIUSURA 15s) -->
     <header class="sticky top-0 bg-[#F4EFEA]/95 backdrop-blur-md border-b border-[#D1C7B8] z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer select-none" id="sfx-brand-logo-main">
+            <div class="flex items-center space-x-3 cursor-pointer select-none" id="sfx-brand-logo-main" onclick="window.scrollTo({top:0, behavior:'smooth'})">
                 <div class="w-11 h-11 rounded-full p-0.5 bg-gradient-to-tr from-sfx-cyan via-sfx-gold to-sfx-silver shadow-md">
                     <img src="media/logo.png" alt="Logo SFX" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
                 </div>
@@ -162,7 +162,7 @@
             </div>
 
             <div class="flex items-center space-x-3 font-mono text-xs">
-                <!-- Dropdown Menu Sezioni con Auto-Chiusura a 15s -->
+                <!-- Dropdown Menu Sezioni -->
                 <div class="nav-dropdown-container relative" id="container-menu-sezioni">
                     <button onclick="toggleMenuSezioni()" id="btn-toggle-menu" class="px-4 py-2.5 rounded-xl bg-[#090A0D] text-sfx-gold font-bold border border-sfx-gold/40 hover:bg-black transition-colors flex items-center space-x-2 cursor-pointer shadow-sm">
                         <i class="fa-solid fa-bars"></i>
@@ -175,26 +175,25 @@
                         <a href="#dicono-di-noi" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-comments mr-2 text-sfx-cyan"></i><span id="txt-nav-reviews">4. Dicono di Noi</span></a>
                         <a href="#gold-card" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-crown mr-2 text-sfx-gold"></i><span id="txt-nav-gold">5. Gold Card</span></a>
                         <a href="#negozi-online" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-store mr-2 text-sfx-goldLight"></i><span id="txt-nav-shops">6. Negozi Online</span></a>
-                        
-                        <!-- VOCE SPECIALE: BOUTIQUE LUXURY VIP -->
                         <a href="https://www.imperya.com/vetrina/style" target="_blank" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-[#D4AF37] hover:text-white hover:bg-[#1F2227] transition-all border border-[#B8860B]/40 bg-black/40 font-bold">
                             <i class="fa-solid fa-gem mr-2 text-[#B8860B]"></i><span>Boutique Luxury VIP ↗</span>
                         </a>
-
                         <a href="#antigravity" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-atom mr-2 text-sfx-cyan"></i><span id="txt-nav-science">7. Polo Tecnologico</span></a>
                         <a href="#multimedia" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-photo-film mr-2 text-sfx-silver"></i><span id="txt-nav-media">8. Media Showcase</span></a>
                         <a href="#social-network-ufficiali" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-share-nodes mr-2 text-sfx-gold"></i><span>9. I 6 Canali Social</span></a>
-                        <a href="#documenti-statutari" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-yellow-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-file-shield mr-2 text-sfx-gold"></i><span>10. Atti &amp; Codice Etico</span></a>
+                        <a href="#documenti-statutari" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-[#FFBF00] hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-file-shield mr-2 text-sfx-gold"></i><span>10. Atti &amp; Codice Etico</span></a>
                         <a href="#feedback-sezione" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-envelope-open mr-2 text-sfx-cyan"></i><span id="txt-nav-news">11. Notiziario &amp; Feedback</span></a>
                         <a href="#gateway" onclick="chiudiMenuSezioniSubito()" class="nav-dropdown-item block px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-[#1F2227] transition-all"><i class="fa-solid fa-credit-card mr-2 text-sfx-silver"></i><span id="txt-nav-gateway">12. Gateway Pagamenti</span></a>
                     </div>
                 </div>
 
+                <!-- Bottone Drawer Chi Siamo -->
                 <button onclick="toggleDrawer('drawer-chisiamo')" class="px-4 py-2.5 rounded-xl bg-sfx-gold text-black font-bold hover:bg-yellow-600 transition-colors flex items-center space-x-2 cursor-pointer shadow-sm">
                     <i class="fa-solid fa-circle-info"></i>
                     <span class="hidden sm:inline" id="txt-btn-chisiamo-header">CHI SIAMO</span>
                 </button>
                 
+                <!-- CTA Conferenza CEO -->
                 <button onclick="apriSchedaRegistrazione('Conferenza CEO')" class="px-5 py-2.5 rounded-xl bg-gray-900 text-white font-bold border border-sfx-gold/50 hover:bg-black transition-colors hidden md:inline-block shadow-[0_0_12px_rgba(212,175,55,0.25)] cursor-pointer">
                     <i class="fa-solid fa-crown mr-1.5 text-sfx-gold"></i> <span id="txt-btn-ceo-header">CONFERENZA CEO</span>
                 </button>
@@ -267,7 +266,7 @@
     <!-- CORPO PRINCIPALE LANDING PAGE: PROTETTO DALLA TRADUZIONE AUTOMATICA -->
     <main translate="no" class="notranslate space-y-16 py-6">
 
-        <!-- 1. HERO SECTION (COLLEGATA A BROADCAST BUS & BOX LANDING) -->
+        <!-- 1. HERO SECTION -->
         <section id="sezione-landing-1" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 space-y-6">
@@ -303,7 +302,7 @@
             </div>
         </section>
 
-        <!-- 2. GOVERNANCE PRESIDENZA (SPAZIO ESCLUSIVO CEO GIULIANO) -->
+        <!-- 2. GOVERNANCE PRESIDENZA -->
         <section id="governance-presidenza" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
             <div class="bg-[#090A0D] text-white rounded-3xl p-8 sm:p-12 border border-sfx-gold/50 shadow-2xl space-y-8">
                 <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-6">
@@ -353,7 +352,7 @@
             </div>
         </section>
 
-        <!-- 3. ALISON INTERACTIVE CONSOLE (50 FAQ IN CACHE LOCALE) -->
+        <!-- 3. ALISON INTERACTIVE CONSOLE -->
         <section id="alison-ai" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-cyan tracking-widest uppercase">ASSISTENZA DIGITALE H24</span>
@@ -399,7 +398,7 @@
             </div>
         </section>
 
-        <!-- 4. SUPREMA ACADEMY (PREZZI STANDARDIZZATI: €249, €299, €349) -->
+        <!-- 4. SUPREMA ACADEMY (LISTINO 249€, 299€, 349€) -->
         <section id="academy" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">METODO, AUTONOMIA &amp; RISULTATI</span>
@@ -409,7 +408,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
-                <!-- Corso 1: SILVER TIER (€ 249) -->
+                <!-- Corso 1: SILVER TIER (249 €) -->
                 <div class="matrix-dark-card rounded-3xl p-6 text-white flex flex-col justify-between transition-all transform hover:-translate-y-1 relative overflow-hidden" id="card-corso-silver">
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
@@ -442,7 +441,7 @@
                     </button>
                 </div>
 
-                <!-- Corso 2: EXECUTIVE MASTER (€ 299) -->
+                <!-- Corso 2: EXECUTIVE MASTER (299 €) -->
                 <div class="matrix-dark-card rounded-3xl p-6 text-white flex flex-col justify-between transition-all transform hover:-translate-y-1 relative overflow-hidden border-2 border-sfx-gold shadow-[0_0_25px_rgba(212,175,55,0.25)]" id="card-corso-executive">
                     <div class="absolute top-0 right-0 bg-sfx-gold text-black font-mono text-[9px] font-extrabold px-3 py-1 rounded-bl-xl uppercase">
                         CONSIGLIATO DALLA PRESIDENZA
@@ -479,7 +478,7 @@
                     </button>
                 </div>
 
-                <!-- Corso 3: PREMIUM VIP (€ 349) -->
+                <!-- Corso 3: PREMIUM VIP (349 €) -->
                 <div class="matrix-dark-card rounded-3xl p-6 text-white flex flex-col justify-between transition-all transform hover:-translate-y-1 relative overflow-hidden" id="card-corso-vip">
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
@@ -599,7 +598,6 @@
                 </div>
             </div>
         </section>
-
         <!-- 8. POLO TECNOLOGICO LINEA ANTIGRAVITY -->
         <section id="antigravity" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
@@ -624,7 +622,7 @@
             </div>
         </section>
 
-        <!-- 9. MULTIMEDIA LIBRARY SHOWCASE (REGIA & PLAYER ESPANDIBILE) -->
+        <!-- 9. MULTIMEDIA LIBRARY SHOWCASE -->
         <section id="multimedia" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="text-xs font-mono font-bold text-sfx-gold tracking-widest uppercase">SHOWCASE MULTIMEDIALE</span>
@@ -652,7 +650,7 @@
             </div>
         </section>
 
-        <!-- 10. I 6 CANALI SOCIAL UFFICIALI (SINCRONIZZATI DA BOX LANDING) -->
+        <!-- 10. I 6 CANALI SOCIAL UFFICIALI (BONIFICATO: ZERO ROSSO) -->
         <section id="social-network-ufficiali" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span class="px-3.5 py-1 bg-sfx-gold/20 text-[#B8860B] text-xs font-bold font-mono rounded-full uppercase border border-[#B8860B]/40">
@@ -713,24 +711,24 @@
                     </a>
                 </div>
 
-                <!-- 03. YOUTUBE -->
-                <div class="p-6 bg-[#1F2227] rounded-3xl border border-gray-800 hover:border-red-500/60 transition-all duration-300 flex flex-col justify-between space-y-4 group shadow-xl text-white">
+                <!-- 03. YOUTUBE (BONIFICATO IN ORO / ANTRACITE) -->
+                <div class="p-6 bg-[#1F2227] rounded-3xl border border-gray-800 hover:border-sfx-gold/60 transition-all duration-300 flex flex-col justify-between space-y-4 group shadow-xl text-white">
                     <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <div class="w-12 h-12 rounded-2xl bg-[#FF0000] flex items-center justify-center text-white text-xl shadow-md group-hover:scale-105 transition-transform">
+                            <div class="w-12 h-12 rounded-2xl bg-black border border-sfx-gold/50 flex items-center justify-center text-sfx-gold text-xl shadow-md group-hover:scale-105 transition-transform">
                                 <i class="fa-brands fa-youtube"></i>
                             </div>
-                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-black/60 text-red-400 border border-red-500/30 font-bold">MASTER TALK</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-black/60 text-sfx-gold border border-sfx-gold/30 font-bold">MASTER TALK</span>
                         </div>
                         <div>
-                            <h3 class="font-grotesk font-bold text-base text-white group-hover:text-red-400 transition-colors">YOUTUBE</h3>
-                            <span class="text-[11px] text-red-400 font-bold block mt-0.5">Suprema Future X Media</span>
+                            <h3 class="font-grotesk font-bold text-base text-white group-hover:text-sfx-goldLight transition-colors">YOUTUBE</h3>
+                            <span class="text-[11px] text-sfx-gold font-bold block mt-0.5">Suprema Future X Media</span>
                         </div>
                         <p class="text-xs text-gray-300 leading-relaxed font-light">
                             Interventi video del CEO Giuliano Caratelli, spiegazione dell'infrastruttura d'impresa, analisi strategiche ed estratti dei programmi Academy.
                         </p>
                     </div>
-                    <a id="public-social-yt" href="https://youtube.com" target="_blank" class="w-full py-3 bg-black border border-gray-700 hover:border-red-500 hover:text-red-400 text-gray-200 text-xs font-bold rounded-xl text-center transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                    <a id="public-social-yt" href="https://youtube.com" target="_blank" class="w-full py-3 bg-black border border-gray-700 hover:border-sfx-gold hover:text-sfx-gold text-gray-200 text-xs font-bold rounded-xl text-center transition-all flex items-center justify-center space-x-2 cursor-pointer">
                         <span>Iscriviti al Canale</span>
                         <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
@@ -807,7 +805,7 @@
             </div>
         </section>
 
-        <!-- 11. DOCUMENTI STATUTARI // APERTURA MODALI A SCOMPARSA (ZERO MALLOPPI) -->
+        <!-- 11. DOCUMENTI STATUTARI (BADGE BONIFICATI IN PRUGNA SOVRANO) -->
         <section id="documenti-statutari" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
             <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
                 <span class="px-3.5 py-1 bg-sfx-gold/20 text-[#B8860B] text-xs font-bold font-mono rounded-full uppercase border border-[#B8860B]/40">
@@ -821,9 +819,7 @@
                 </p>
             </div>
 
-            <!-- LE DUE CARD INTELLIGENTI CON PULSANTE DI APERTURA MODALE -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-xs">
-                
                 <!-- CARD 1: CODICE ETICO -->
                 <div class="p-8 bg-[#1F2227] rounded-3xl border border-sfx-gold/50 shadow-2xl space-y-5 text-white flex flex-col justify-between">
                     <div class="space-y-3">
@@ -831,7 +827,7 @@
                             <div class="w-12 h-12 rounded-2xl bg-sfx-gold/20 border border-sfx-gold flex items-center justify-center text-sfx-gold text-2xl">
                                 <i class="fa-solid fa-scale-balanced"></i>
                             </div>
-                            <span class="px-2.5 py-1 bg-red-950 text-red-400 border border-red-700 text-[10px] font-bold rounded-lg uppercase">
+                            <span class="px-2.5 py-1 bg-[#4A0E4E] text-[#FFBF00] border border-[#FFBF00]/40 text-[10px] font-bold rounded-lg uppercase">
                                 PROTETTO EAL6+
                             </span>
                         </div>
@@ -853,7 +849,7 @@
                             <div class="w-12 h-12 rounded-2xl bg-sfx-cyan/20 border border-sfx-cyan flex items-center justify-center text-sfx-cyan text-2xl">
                                 <i class="fa-solid fa-file-contract"></i>
                             </div>
-                            <span class="px-2.5 py-1 bg-red-950 text-red-400 border border-red-700 text-[10px] font-bold rounded-lg uppercase">
+                            <span class="px-2.5 py-1 bg-[#4A0E4E] text-sfx-cyanLight border border-sfx-cyan/40 text-[10px] font-bold rounded-lg uppercase">
                                 100% LIVE 1-TO-1
                             </span>
                         </div>
@@ -867,7 +863,6 @@
                         <span>CONSULTA ATTO STATUTARIO A SCHERMO</span>
                     </button>
                 </div>
-
             </div>
         </section>
 
@@ -960,7 +955,7 @@
                 <div class="grid grid-cols-3 gap-4 text-xl text-gray-400">
                     <a href="https://instagram.com" target="_blank" class="hover:text-sfx-gold text-center" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                     <a href="https://telegram.org" target="_blank" class="hover:text-sfx-cyan text-center" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="https://youtube.com" target="_blank" class="hover:text-red-500 text-center" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://youtube.com" target="_blank" class="hover:text-sfx-gold text-center" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
                     <a href="https://linkedin.com" target="_blank" class="hover:text-[#0077b5] text-center" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                     <a href="https://tiktok.com" target="_blank" class="hover:text-white text-center" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                     <a href="https://facebook.com" target="_blank" class="hover:text-[#1877F2] text-center" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
@@ -1047,101 +1042,43 @@
         </div>
     </div>
 
-    <!-- 3. SCHEDA DI REGISTRAZIONE NELLA MODALE (SERIALE SFX AUTOMATICO) -->
+    <!-- 3. MODALE SCHEDA REGISTRAZIONE // INNESTO UFFICIALE FORM TALLY (ID: jearR1) -->
     <div id="modal-scheda-registrazione" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[999] hidden flex items-center justify-center p-4 overflow-y-auto" onclick="if(event.target.id==='modal-scheda-registrazione') chiudiSchedaRegistrazione()">
-        <div class="matrix-dark-card text-white rounded-3xl p-6 sm:p-10 max-w-2xl w-full border-2 border-sfx-gold shadow-2xl space-y-6 font-mono text-xs my-auto relative">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+        <div class="matrix-dark-card text-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full border-2 border-sfx-gold shadow-2xl space-y-4 font-mono text-xs my-auto relative">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                 <div>
-                    <h3 id="modal-reg-titolo" class="font-grotesk font-black text-lg text-sfx-goldLight uppercase">SCHEDA DI ACCREDITO &amp; REGISTRAZIONE</h3>
-                    <p class="text-[10px] text-gray-400">Inserimento diretto in Google Calendar e Registro CRM</p>
+                    <h3 id="modal-reg-titolo" class="font-grotesk font-black text-base sm:text-lg text-sfx-goldLight uppercase tracking-wider">
+                        SCHEDA DI ACCREDITO &amp; REGISTRAZIONE
+                    </h3>
+                    <p class="text-[10px] text-gray-400">Canale Cifrato EAL6+ &bull; Instradamento Diretto CRM Presidenza</p>
                 </div>
-                <button onclick="chiudiSchedaRegistrazione()" class="text-gray-400 hover:text-white text-3xl leading-none cursor-pointer">&times;</button>
+                <button onclick="chiudiSchedaRegistrazione()" class="text-gray-400 hover:text-white text-3xl leading-none cursor-pointer transition-colors">&times;</button>
             </div>
 
-            <form id="form-candidatura-lead" onsubmit="inviaCandidaturaLead(event)" class="space-y-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Nome *</label>
-                        <input type="text" id="lead-nome" required placeholder="Mario" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Cognome *</label>
-                        <input type="text" id="lead-cognome" required placeholder="Rossi" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                    </div>
+            <!-- Iframe Tally Dinamico Responsive -->
+            <div class="w-full rounded-2xl overflow-hidden bg-black/50 border border-gray-800">
+                <iframe 
+                    data-tally-src="https://tally.so/embed/jearR1?transparentBackground=1&dynamicHeight=1" 
+                    loading="lazy" 
+                    width="100%" 
+                    height="460" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    title="Suprema Future X // Scheda Accredito">
+                </iframe>
+            </div>
+
+            <!-- Dispaccio Operativo di Sicurezza EAL6+ -->
+            <div class="p-3.5 bg-black/80 border border-sfx-gold/50 rounded-xl space-y-1 text-center">
+                <div class="text-sfx-goldLight font-bold text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-sfx-cyan"></i>
+                    DISPACCIO OPERATIVO DI SICUREZZA
                 </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Azienda / Attività Attuale</label>
-                        <input type="text" id="lead-azienda" placeholder="Nome Azienda o Libero Professionista" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Città &amp; Provincia *</label>
-                        <div class="flex space-x-2">
-                            <input type="text" id="lead-citta" required placeholder="Roma" class="flex-1 p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                            <input type="text" id="lead-provincia" required maxlength="2" placeholder="RM" class="w-16 p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold uppercase text-center font-bold">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Email Personale / Lavoro *</label>
-                        <input type="email" id="lead-email" required placeholder="mario.rossi@gmail.com" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Telefono / WhatsApp *</label>
-                        <input type="tel" id="lead-telefono" required placeholder="+39 340 0000000" class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sfx-goldLight mb-1 text-[10px] uppercase font-bold">Percorso Selezionato *</label>
-                    <select id="lead-canale" onchange="aggiornaDicituraModulo()" class="w-full p-3.5 bg-black border-2 border-sfx-gold/50 rounded-xl text-white outline-none focus:border-sfx-gold cursor-pointer text-xs font-bold">
-                        <option value="Conferenza CEO">👑 CONFERENZA RISERVATA CON IL CEO GIULIANO CARATELLI</option>
-                        <option value="Academy Silver">🎓 SUPREMA ACADEMY — SILVER TIER [249 €]</option>
-                        <option value="Academy Executive">🎓 SUPREMA ACADEMY — EXECUTIVE MASTER [299 €]</option>
-                        <option value="Academy Premium">🎓 SUPREMA ACADEMY — PREMIUM VIP [349 €]</option>
-                    </select>
-                </div>
-
-                <div class="p-4 bg-black/60 rounded-2xl border border-gray-800 space-y-3">
-                    <div class="flex items-center space-x-2 border-b border-gray-800 pb-2">
-                        <i class="fa-solid fa-calendar-check text-sfx-gold"></i>
-                        <span class="text-xs font-bold text-white uppercase tracking-wider" id="label-sezione-data-ora">
-                            Slot Calendario &amp; Disponibilità
-                        </span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Giorno Appuntamento / Avvio *</label>
-                            <input type="date" id="lead-data" required class="w-full p-3 bg-black border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs">
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-[10px] uppercase font-bold mb-1">Fascia Oraria (Ora Italiana) *</label>
-                            <select id="lead-ora" required class="w-full p-3 bg-black border border-gray-700 rounded-xl text-sfx-gold font-bold outline-none focus:border-sfx-gold text-xs cursor-pointer">
-                                <option value="10:00">10:00 — Sessione Mattutina 1</option>
-                                <option value="11:30">11:30 — Sessione Mattutina 2</option>
-                                <option value="15:00">15:00 — Sessione Pomeridiana 1</option>
-                                <option value="16:30" selected>16:30 — Sessione Pomeridiana 2</option>
-                                <option value="18:00">18:00 — Sessione Serale</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-gray-400 mb-1 text-[10px] uppercase font-bold">Obiettivo Principale o Note</label>
-                    <textarea id="lead-note" rows="2" placeholder="Descrivi brevemente le tue aspettative o il tuo settore..." class="w-full p-3 bg-black/80 border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold resize-none"></textarea>
-                </div>
-
-                <button type="submit" id="btn-invia-lead" class="w-full py-4 bg-sfx-gold hover:bg-yellow-500 text-black font-extrabold uppercase rounded-2xl transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center space-x-2 text-xs tracking-wider cursor-pointer">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    <span id="testo-btn-registrazione">CONFERMA ACCREDITO &amp; INVIA SCHEDA</span>
-                </button>
-            </form>
-
-            <div id="feedback-lead" class="hidden mt-4 p-5 rounded-2xl text-xs font-mono border-2 transition-all"></div>
+                <p class="text-[10px] text-gray-300 leading-relaxed font-sans">
+                    Subito dopo l'invio verrai instradato sul WhatsApp della Presidenza (+39 347 442 9091). Controlla immediatamente la tua casella di posta (incluso il filtro <strong>Spam / Posta Indesiderata</strong>) per salvare l'email del mittente e ricevere le credenziali d'accesso e il link protetto della stanza <strong>Google Meet</strong> prima del colloquio.
+                </p>
+            </div>
         </div>
     </div>
 
@@ -1247,9 +1184,14 @@
         </div>
     </div>
 
+    <!-- SCRIPT LOADER TALLY OFF-LINE & ASYNC -->
+    <script>
+        var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+    </script>
+
     <!-- SCRIPT SFX ENGINE INTEGRALE: BROADCAST BUS & DATABASE 50 FAQ -->
     <script>
-        // ENDPOINT UFFICIALE BOUND SCRIPT SFX (SUPREMA_MASTER_BACKEND)
+        // ENDPOINT UNIFICATO DIRETTO SUPREMA MASTER BACKEND
         const APPS_SCRIPT_URL_SFX = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
         const APPS_SCRIPT_URL = APPS_SCRIPT_URL_SFX;
         let corsoSelezionatoTemp = 'Academy Executive';
@@ -1390,14 +1332,6 @@
         // INIZIALIZZAZIONE & IDRATAZIONE DINAMICA ALL'AVVIO
         document.addEventListener('DOMContentLoaded', () => {
             sbloccaScrollPagina();
-
-            const dateInput = document.getElementById('lead-data');
-            if (dateInput) {
-                const domani = new Date();
-                domani.setDate(domani.getDate() + 1);
-                dateInput.min = domani.toISOString().split('T')[0];
-                dateInput.value = domani.toISOString().split('T')[0];
-            }
             carica40Testimonianze();
 
             const linguaSalvata = localStorage.getItem('sfx_lang') || 'it';
@@ -1570,9 +1504,6 @@
         }
 
         function apriSchedaRegistrazione(canaleDefault) {
-            const selectCanale = document.getElementById('lead-canale');
-            if (selectCanale && canaleDefault) selectCanale.value = canaleDefault;
-            aggiornaDicituraModulo();
             apriModale('modal-scheda-registrazione');
         }
 
@@ -1591,20 +1522,6 @@
         function procediIscrizioneCorso() {
             chiudiModale('modal-dettaglio-corso');
             apriSchedaRegistrazione(corsoSelezionatoTemp);
-        }
-
-        function aggiornaDicituraModulo() {
-            const val = document.getElementById('lead-canale').value;
-            const labelData = document.getElementById('label-sezione-data-ora');
-            const btnTesto = document.getElementById('testo-btn-registrazione');
-
-            if (val === 'Conferenza CEO') {
-                labelData.textContent = "Slot Calendario Presidenza CEO";
-                btnTesto.textContent = "BLOCCA SLOT CON IL CEO & INVIA RICHIESTA";
-            } else {
-                labelData.textContent = "Data di Kick-off & Avvio Modulo";
-                btnTesto.textContent = "REGISTRA ISCRIZIONE AL CORSO";
-            }
         }
 
         function inviaMessaggioCentrale() {
@@ -1713,77 +1630,6 @@
             } else {
                 alert('Credenziali Non Autorizzate. Tentativo Tracciato EAL6+');
             }
-        }
-
-        // INVIO SCHEDA CANDIDATURA (SERIALE SFX AUTOMATICO)
-        function inviaCandidaturaLead(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btn-invia-lead');
-            const feedback = document.getElementById('feedback-lead');
-            const ambitoScelto = document.getElementById('lead-canale').value;
-
-            const dataRaw = document.getElementById('lead-data').value;
-            const partiData = dataRaw.split('-');
-            const dataFormattata = `${partiData[2]}/${partiData[1]}/${partiData[0]}`;
-
-            const anno = new Date().getFullYear().toString().slice(-2);
-            const serialeGenerato = `SFX-${anno}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-
-            const payload = {
-                action: 'nuovaCandidatura',
-                idSfx: serialeGenerato,
-                nome: document.getElementById('lead-nome').value.trim(),
-                cognome: document.getElementById('lead-cognome').value.trim(),
-                azienda: document.getElementById('lead-azienda').value.trim() || 'Privato',
-                email: document.getElementById('lead-email').value.trim(),
-                telefono: document.getElementById('lead-telefono').value.trim(),
-                percorso: ambitoScelto,
-                ambito: ambitoScelto,
-                dataCall: `${dataFormattata} ${document.getElementById('lead-ora').value}`,
-                note: `[Città: ${document.getElementById('lead-citta').value.trim()} (${document.getElementById('lead-provincia').value.trim()})] [Codice SFX: ${serialeGenerato}] - ${document.getElementById('lead-note').value.trim()}`
-            };
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>TRASMISSIONE DATI CRITTOGRAFATA...';
-
-            fetch(APPS_SCRIPT_URL_SFX, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain' },
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(data => {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>CONFERMA ACCREDITO &amp; INVIA SCHEDA';
-
-                feedback.className = "mt-4 p-5 rounded-2xl text-xs font-mono border-2 bg-[#090A0D] border-sfx-gold text-white block shadow-2xl";
-                const codiceRicevuto = data.nexusId || data.idSfx || serialeGenerato;
-
-                if (ambitoScelto === 'Conferenza CEO') {
-                    feedback.innerHTML = `
-                        <div class="space-y-2">
-                            <h4 class="font-grotesk font-bold text-sm text-sfx-gold">✓ CANDIDATURA ACQUISITA [${codiceRicevuto}]</h4>
-                            <p class="leading-relaxed">Grazie per la tua candidatura. Ricevuta inviata per la sessione con il CEO Giuliano Caratelli programmata per il <strong>${dataFormattata} alle ${document.getElementById('lead-ora').value}</strong>.</p>
-                            <p class="text-yellow-300 font-bold">⚠️ Controlla subito la tua casella di posta (incluso Spam) per contrassegnare il mittente come sicuro e ricevere il link della stanza Meet prima dell'incontro.</p>
-                        </div>`;
-                } else {
-                    feedback.innerHTML = `
-                        <div class="space-y-2">
-                            <h4 class="font-grotesk font-bold text-sm text-sfx-gold">✓ ISCRIZIONE REGISTRATA [${codiceRicevuto}]</h4>
-                            <p class="leading-relaxed">Benvenuto nell'Ecosistema. Abbiamo preso in carico la tua iscrizione per il percorso <strong>${ambitoScelto}</strong>.</p>
-                            <p class="text-yellow-300 font-bold">⚠️ Controlla la tua email: ti sono state trasmesse le credenziali didattiche e il materiale propedeutico.</p>
-                        </div>`;
-                }
-
-                sfxBroadcastBus.postMessage({ type: 'SFX_NEW_LEAD', lead: payload });
-                document.getElementById('form-candidatura-lead').reset();
-            })
-            .catch(err => {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>CONFERMA ACCREDITO &amp; INVIA SCHEDA';
-                feedback.className = "mt-4 p-5 rounded-2xl text-xs font-mono border-2 bg-[#4A0E4E] border-[#FFBF00] text-[#FFBF00] block";
-                feedback.innerHTML = `✓ Candidatura registrata con codice ${serialeGenerato}. Il desk direttivo è stato informato.`;
-            });
         }
 
         function inviaNewsletter(e) {
