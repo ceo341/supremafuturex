@@ -50,7 +50,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
 
     <style>
@@ -112,10 +112,10 @@
 </head>
 <body class="text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black overflow-x-hidden">
 
-    <!-- CANVAS PER CORIANDOLI DI GIOIA CELEBRATIVI -->
+    <!-- CANVAS CORIANDOLI DI GIOIA -->
     <canvas id="canvas-confetti-gioia" class="fixed inset-0 w-full h-full pointer-events-none z-[10000]"></canvas>
 
-    <!-- BARRA SUPERIORE MINIMALE DI STATO -->
+    <!-- TOP BAR -->
     <header class="bg-[#0D1117] border-b border-sfx-gold/30 px-4 sm:px-6 py-3 flex items-center justify-between text-xs sticky top-0 z-50 backdrop-blur-md">
         <a href="index.html" class="flex items-center space-x-3 group">
             <div class="w-8 h-8 rounded-full bg-black p-0.5 border border-sfx-gold group-hover:scale-105 transition-transform shadow-[0_0_10px_rgba(212,175,55,0.3)]">
@@ -140,10 +140,10 @@
     <main class="flex-1 flex items-center justify-center p-4 sm:p-6 my-auto">
         <div class="w-full max-w-4xl relative">
             
-            <!-- SCHERMATA LOGIN TERMINALE PRESIDENZIALE -->
+            <!-- SCHERMATA LOGIN -->
             <div id="box-login-terminal" class="bg-[#090A0D]/95 text-white rounded-3xl p-6 sm:p-10 border-2 border-sfx-gold/50 shadow-[0_0_60px_rgba(212,175,55,0.25)] relative overflow-hidden backdrop-blur-xl">
                 
-                <!-- Alert Visivo Violazione (Prugna & Ambra) -->
+                <!-- Allarme Violazione (Prugna & Ambra) -->
                 <div id="terminal-alarm-box" class="absolute inset-0 bg-sfx-prugna flex flex-col items-center justify-center hidden z-50 text-white font-mono text-center p-6 border-4 border-sfx-amber">
                     <i class="fa-solid fa-triangle-exclamation text-7xl text-sfx-amber mb-4 animate-bounce"></i>
                     <h3 class="font-grotesk font-black text-3xl text-sfx-amber mb-2">ACCESS DENIED</h3>
@@ -167,7 +167,7 @@
                         </div>
                     </div>
 
-                    <!-- Colonna 2: Form Master Password + PIN 10 Cifre -->
+                    <!-- Colonna 2: Form Password + PIN 10 Cifre -->
                     <div id="terminal-form-box" class="space-y-5">
                         <div>
                             <div class="inline-flex items-center space-x-2 px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40 mb-2">
@@ -185,11 +185,11 @@
                         <form onsubmit="validaAccessoTerminale(event)" class="space-y-4 font-mono text-xs">
                             <div>
                                 <label class="block text-gray-400 mb-1 uppercase font-bold text-[10px]">Master Authorization Password *</label>
-                                <input type="password" id="terminal-pwd" required class="w-full p-3.5 bg-black border border-stone-700 rounded-xl text-white outline-none focus:border-sfx-gold text-xs transition-colors" placeholder="MARIACHIARAsupremaofficial2026@">
+                                <input type="password" id="terminal-pwd" required class="w-full p-3.5 bg-black border border-stone-700 rounded-xl text-white outline-none focus:border-sfx-gold text-xs transition-colors" placeholder="Master Password...">
                             </div>
                             <div>
                                 <label class="block text-gray-400 mb-1 uppercase font-bold text-[10px]">Codice PIN Sicurezza (10 Cifre) *</label>
-                                <input type="password" id="terminal-pin" required pattern="[0-9]{10}" class="w-full p-3.5 bg-black border border-stone-700 rounded-xl text-sfx-cyan text-center font-bold tracking-[0.4em] outline-none focus:border-sfx-cyan text-sm transition-colors" placeholder="3474429091" maxlength="10">
+                                <input type="password" id="terminal-pin" required pattern="[0-9]{10}" class="w-full p-3.5 bg-black border border-stone-700 rounded-xl text-sfx-cyan text-center font-bold tracking-[0.4em] outline-none focus:border-sfx-cyan text-sm transition-colors" placeholder="PIN 10 Cifre" maxlength="10">
                             </div>
 
                             <button type="submit" id="btn-terminal-unlock" class="w-full py-4 bg-gradient-to-r from-sfx-goldDark via-sfx-gold to-sfx-goldLight text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl hover:brightness-110 transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] cursor-pointer flex items-center justify-center space-x-2">
@@ -207,7 +207,7 @@
                         </div>
                     </div>
 
-                    <!-- Schermata di Benvenuto Celebrativo con Coriandoli -->
+                    <!-- Schermata di Benvenuto Celebrativo -->
                     <div id="terminal-greeting-box" class="space-y-4 hidden flex flex-col items-center justify-center text-center py-6 col-span-1 md:col-span-2">
                         <div class="w-20 h-20 bg-green-500/20 border-2 border-green-400 rounded-full flex items-center justify-center mx-auto text-green-400 text-4xl shadow-[0_0_30px_rgba(74,222,128,0.4)] animate-bounce">
                             <i class="fa-solid fa-crown text-sfx-gold"></i>
@@ -336,13 +336,13 @@
 
     <!-- LOGICA DI CONTROLLO, CANVAS OROLOGIO & CANNONE CORIANDOLI -->
     <script>
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec";
+        // ENDPOINT MASTER UNIFICATO E CREDENZIALI
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
         const PIN_AUTORIZZATO = "3474429091";
         const PWD_AUTORIZZATA = "MARIACHIARAsupremaofficial2026@";
 
         let tentativiFalliti = 0;
 
-        // FRASI MOTIVAZIONALI & CELEBRATIVE DEL CEO
         const FRASI_CEO_CELEBRAZIONE = [
             "\"LA LEADERSHIP NON SI DOMANDA: SI STRUTTURA. IL SISTEMA È AI TUOI ORDINI.\"",
             "\"BENTORNATO COMANDANTE GIULIANO. TUTTE LE MATRICI FINANZIARIE E NEURALI SONO ALLINEATE.\"",
@@ -351,7 +351,7 @@
             "\"TUTTI E 15 GLI AGENTI NEURALI E IL MASTRO 54/30/16 ATTENDONO LE TUE DIRETTIVE.\""
         ];
 
-        // 1. MOTORE CANNONE CORIANDOLI DI GIOIA (CANVAS PURO SENZA DIPENDENZE)
+        // 1. CANNONE CORIANDOLI DI GIOIA (CANVAS SENZA DIPENDENZE)
         function sparaCoriandoliDiGioia() {
             const canvas = document.getElementById('canvas-confetti-gioia');
             if (!canvas) return;
@@ -385,7 +385,7 @@
                 particelle.forEach(p => {
                     p.x += p.vx;
                     p.y += p.vy;
-                    p.vy += 0.35; // Gravità
+                    p.vy += 0.35;
                     p.tiltAngle += p.tiltAngleIncremental;
                     p.tilt = Math.sin(p.tiltAngle) * 15;
 
@@ -406,7 +406,7 @@
             renderConfetti();
         }
 
-        // 2. VALIDAZIONE TERMINALE MASTER CON CELEBRAZIONE CEO
+        // 2. VALIDAZIONE TERMINALE MASTER
         function validaAccessoTerminale(e) {
             e.preventDefault();
             const rawPwd = document.getElementById('terminal-pwd').value;
@@ -427,23 +427,19 @@
                 errBox.classList.add('hidden');
                 document.getElementById('terminal-form-box').classList.add('hidden');
                 
-                // Saluto personalizzato in base all'orario di Roma
                 const ora = new Date().getHours();
                 let saluto = "BUONASERA PRESIDENTE CARATELLI";
                 if (ora < 12) saluto = "BUONGIORNO COMANDANTE GIULIANO";
                 else if (ora < 18) saluto = "BUON POMERIGGIO CEO CARATELLI";
                 
-                // Selezione frase motivazionale
                 const quote = FRASI_CEO_CELEBRAZIONE[Math.floor(Math.random() * FRASI_CEO_CELEBRAZIONE.length)];
                 
                 document.getElementById('terminal-greeting-text').innerText = saluto;
                 document.getElementById('terminal-quote-text').innerText = quote;
                 document.getElementById('terminal-greeting-box').classList.remove('hidden');
 
-                // ESPLOSIONE DEI CORIANDOLI DI GIOIA!
                 sparaCoriandoliDiGioia();
 
-                // Transizione fluida verso il Caveau a 8 pollici dopo la celebrazione
                 setTimeout(() => {
                     document.getElementById('box-login-terminal').classList.add('hidden');
                     document.getElementById('box-caveau-8').classList.remove('hidden');
@@ -476,7 +472,7 @@
             }
         }
 
-        // 3. SMISTAMENTO VERSO X-BOX SUPREMA O X-BOX AZIENDALE CON VERIFICA PIN 3474429091
+        // 3. SMISTAMENTO BIVIO CAVEAU (X-BOX SUPREMA O X-BOX AZIENDALE)
         function validaIngressoXbox(paginaDestinazione, idInputPin) {
             const pin = document.getElementById(idInputPin).value.trim();
             const msgBox = document.getElementById('caveau-msg');
@@ -486,7 +482,6 @@
                 sessionStorage.setItem('sfx_authenticated', 'true');
                 sessionStorage.setItem('sfx_role', paginaDestinazione.includes('admin') ? 'CEO_CLEARANCE' : 'XBOX_ADMIN');
                 
-                // Micro-esplosione coriandoli di conferma
                 sparaCoriandoliDiGioia();
                 
                 setTimeout(() => {
@@ -498,7 +493,7 @@
             }
         }
 
-        // 4. SBLOCCO DI EMERGENZA SOVRANA 7"
+        // 4. SBLOCCO EMERGENZA SOVRANA 7" (itmc2202v)
         function apriEmergenza7() {
             document.getElementById('modal-emergenza-7').classList.remove('hidden');
         }
@@ -531,22 +526,23 @@
             }
         }
 
-        // 5. OROLOGIO ANALOGICO E DIGITALE TEMPO REALE DI ROMA
+        // 5. OROLOGIO ANALOGICO & DIGITALE TEMPO REALE ROMA
         function avviaOrologioRoma() {
             const cvs = document.getElementById('canvas-clock');
             if (!cvs) return;
             const ctx = cvs.getContext('2d');
             const R = cvs.width / 2;
-            ctx.translate(R, R);
 
             function tic() {
-                ctx.clearRect(-R, -R, cvs.width, cvs.height);
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.clearRect(0, 0, cvs.width, cvs.height);
+                ctx.translate(R, R);
+
                 const ora = new Date();
                 const h = ora.getHours();
                 const m = ora.getMinutes();
                 const s = ora.getSeconds();
 
-                // Aggiornamento display digitale
                 const digitalBox = document.getElementById('realtime-clock-digital');
                 if (digitalBox) {
                     digitalBox.textContent = ora.toLocaleTimeString('it-IT') + ' UTC+1';
