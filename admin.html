@@ -3484,6 +3484,39 @@ window.addEventListener("DOMContentLoaded", function() {
   if (croce && croce.innerText === "×") croce.onclick = chiudiTuttoIlBivio;
 });
 </script>
+<script>
+// Spegne la schermata nera del Gate e sblocca la dashboard
+function forzaAperturaPorte() {
+  // 1. Trova e nasconde l'intera schermata con la scritta SWITCHBOARD GATE
+  const tuttiIDiv = document.querySelectorAll("div, section, main");
+  tuttiIDiv.forEach(el => {
+    if (el.innerText && el.innerText.includes("SWITCHBOARD GATE")) {
+      el.style.setProperty("display", "none", "important");
+    }
+  });
+
+  // 2. Accende tutte le sezioni operative e le tabelle sottostanti
+  tuttiIDiv.forEach(el => {
+    if (el.id && (el.id.includes("porta") || el.id.includes("dashboard") || el.id.includes("content") || el.id.includes("admin"))) {
+      el.style.setProperty("display", "block", "important");
+      el.style.setProperty("visibility", "visible", "important");
+      el.style.setProperty("opacity", "1", "important");
+    }
+  });
+}
+
+// Collega lo sblocco immediato a qualsiasi clic sui pulsanti delle porte
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll("button, a").forEach(btn => {
+    const testo = btn.innerText.toUpperCase();
+    if (testo.includes("PORTA") || testo.includes("ACCEDI")) {
+      btn.addEventListener("click", function() {
+        setTimeout(forzaAperturaPorte, 100);
+      });
+    }
+  });
+});
+</script>
 </body>
 </html>
             
