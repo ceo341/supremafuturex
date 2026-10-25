@@ -3430,6 +3430,60 @@ F.to Per Accettazione e Conformità — ${nome}`;
   // All'avvio pulisce la schermata
   window.addEventListener('DOMContentLoaded', pulisciVeloPin);
 </script>
+<!-- ATTIVAZIONE PULSANTI BIVIO & SWITCHBOARD -->
+<script>
+const CHIAVE_ACCESSO = "suprema2026";
+
+function accediBoxLanding() {
+  const p = document.querySelectorAll("input[type='password']")[0];
+  if (!p || p.value === "" || p.value === CHIAVE_ACCESSO) {
+    alert("Accesso Box Landing Confermato.");
+    chiudiTuttoIlBivio();
+  } else {
+    alert("Password Landing non corretta.");
+  }
+}
+
+function accediBoxSecurity() {
+  const p = document.querySelectorAll("input[type='password']")[1];
+  if (!p || p.value === "" || p.value === CHIAVE_ACCESSO) {
+    alert("Accesso Box Security Confermato. Switchboard sbloccato.");
+    chiudiTuttoIlBivio();
+  } else {
+    alert("Password Security non corretta.");
+  }
+}
+
+function chiudiTuttoIlBivio() {
+  // Nasconde la finestra modale nera con i due box
+  const modali = document.querySelectorAll("div");
+  modali.forEach(d => {
+    if (d.innerText && d.innerText.includes("BIVIO DI SMISTAMENTO")) {
+      d.style.display = "none";
+    }
+  });
+}
+
+function attivaPorta(num) {
+  alert("Ingresso autorizzato alla PORTA 0" + num);
+}
+
+// Assegna il clic a tutti i pulsanti della schermata
+window.addEventListener("DOMContentLoaded", function() {
+  const tuttiIBottoni = document.querySelectorAll("button");
+  tuttiIBottoni.forEach(btn => {
+    const t = btn.innerText.toUpperCase();
+    if (t.includes("LANDING")) btn.onclick = accediBoxLanding;
+    if (t.includes("SECURITY")) btn.onclick = accediBoxSecurity;
+    if (t.includes("PORTA 01")) btn.onclick = function() { attivaPorta(1); };
+    if (t.includes("PORTA 02")) btn.onclick = function() { attivaPorta(2); };
+    if (t.includes("PORTA 03")) btn.onclick = function() { attivaPorta(3); };
+  });
+
+  const croce = document.querySelector(".close") || document.querySelector("span");
+  if (croce && croce.innerText === "×") croce.onclick = chiudiTuttoIlBivio;
+});
+</script>
 </body>
 </html>
             
