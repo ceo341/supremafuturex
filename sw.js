@@ -1,98 +1,93 @@
 /**
- * ====================================================================
- * SUPREMA FUTURE X // SERVICE WORKER PWA ENGINE V51 EAL6+
+ * ============================================================================
+ * SUPREMA FUTURE X S.R.L. // SERVICE WORKER PWA ENGINE EAL6+
+ * FILE: sw.js (Root)
+ * CACHE REVISION: SFX-PWA-V55.0-MASTER
  * GOVERNANCE: CEO GIULIANO CARATELLI
- * PROTOCOLLO: EAL6+ SOVRANO // AGGRESSIVE CACHE BUSTING & FLUSH
- * ====================================================================
+ * ============================================================================
  */
 
-const CACHE_VERSION = 'v51-eal6-sovrano';
-const CACHE_NAME = `sfx-cache-${CACHE_VERSION}`;
+const CACHE_NAME = 'sfx-pwa-v55-master';
 
-const ASSETS_TO_CACHE = [
-    './',
-    './index.html',
-    './login.html',
-    './admin.html',
-    './crm.html',
-    './candidatura.html',
-    './alison.html',
-    './vault.html',
-    './nexus-control.html',
-    './stile-globale.css',
-    './manifest.json',
-    './media/logo.png',
-    './js/code.js',
-    './sfx-delta-patch.js'
+// Risorse statiche prioritarie per funzionamento PWA e offline
+const STATIC_ASSETS = [
+  './',
+  'index.html',
+  'candidatura.html',
+  'alison.html',
+  'login.html',
+  'crm.html',
+  'admin.html',
+  'vault.html',
+  'manifest.json',
+  'sfx-delta-patch.js',
+  'stile-globale.css?v=55',
+  'media/logo.png',
+  'js/connettore-api.js',
+  'js/code.js'
 ];
 
+// 1. INSTALLAZIONE: Memorizzazione immediata e skipWaiting
 self.addEventListener('install', (event) => {
-    self.skipWaiting();
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(async (cache) => {
-            for (const asset of ASSETS_TO_CACHE) {
-                try {
-                    await cache.add(new Request(asset, { cache: 'reload' }));
-                } catch (err) {}
-            }
-        })
-    );
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[SW EAL6+]: Memorizzazione cache statica v55 avviata');
+      return cache.addAll(STATIC_ASSETS).catch((err) => {
+        console.warn('[SW EAL6+]: Asset non bloccante omesso dalla precache:', err);
+      });
+    })
+  );
+  self.skipWaiting();
 });
 
+// 2. ATTIVAZIONE: Purga totale di qualsiasi vecchia cache precedente
 self.addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((existingCache) => {
-                    if (existingCache !== CACHE_NAME) {
-                        return caches.delete(existingCache);
-                    }
-                })
-            );
-        }).then(() => self.clients.claim())
-    );
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache !== CACHE_NAME) {
+            console.log('[SW EAL6+]: Eliminata vecchia cache obsoleta:', cache);
+            return caches.delete(cache);
+          }
+        })
+      );
+    }).then(() => self.clients.claim())
+  );
 });
 
+// 3. FETCH STRATEGY: Network-First per API/HTML, Cache-Fallback per Offline
 self.addEventListener('fetch', (event) => {
-    const requestUrl = event.request.url;
+  const req = event.request;
+  const url = new URL(req.url);
 
-    if (
-        event.request.method !== 'GET' ||
-        requestUrl.includes('script.google.com') ||
-        requestUrl.includes('api.telegram.org') ||
-        requestUrl.includes('google-analytics.com')
-    ) {
-        return;
-    }
+  // Non intercettare chiamate backend a Google Script o endpoint esterni POST
+  if (url.origin.includes('script.google.com') || req.method !== 'GET') {
+    return;
+  }
 
-    event.respondWith(
-        fetch(event.request)
-            .then((networkResponse) => {
-                if (
-                    networkResponse &&
-                    networkResponse.status === 200 &&
-                    (networkResponse.type === 'basic' || networkResponse.type === 'cors')
-                ) {
-                    const responseClone = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, responseClone);
-                    });
-                }
-                return networkResponse;
-            })
-            .catch(() => {
-                return caches.match(event.request).then((cachedResponse) => {
-                    if (cachedResponse) return cachedResponse;
-                    if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
-                        return caches.match('./index.html');
-                    }
-                });
-            })
-    );
-});
-
-self.addEventListener('message', (event) => {
-    if (event.data && event.data.action === 'SKIP_WAITING') {
-        self.skipWaiting();
-    }
+  // Network-First con fallback su Cache per mantenere i dati sempre allineati
+  event.respondWith(
+    fetch(req)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const resClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(req, resClone);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() => {
+        // Fallback offline dalla cache
+        return caches.match(req).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          if (req.headers.get('accept') && req.headers.get('accept').includes('text/html')) {
+            return caches.match('index.html');
+          }
+        });
+      })
+  );
 });
