@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-BOX ENTERPRISE // BOX LANDING V.6 (NEXUS ENGINE)</title>
+    <title>X-BOX ENTERPRISE // BOX LANDING V55 (NEXUS SYNC ENGINE)</title>
     <meta name="theme-color" content="#00F0FF">
 
     <link rel="icon" type="image/png" href="media/logo.png">
@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Orbitron:wght@700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="stile-globale.css?v=50">
+    <link rel="stylesheet" href="stile-globale.css?v=55">
 
     <script>
         tailwind.config = {
@@ -165,7 +165,7 @@
                     <span class="text-sfx-gold font-black mt-2 text-xl" id="nexus-revenue-calc">€ 0,00</span>
                 </div>
                 <div class="col-span-2 p-3 bg-black rounded-xl border border-gray-800 font-mono text-[10px] text-gray-400 h-20 overflow-y-auto custom-scrollbar" id="nexus-log-terminal">
-                    <span class="text-sfx-cyan font-bold">&gt;&gt; Inizializzazione Nexus Engine v17.0 completata.</span><br>
+                    <span class="text-sfx-cyan font-bold">&gt;&gt; Inizializzazione Nexus Engine v55.0 completata.</span><br>
                 </div>
             </div>
 
@@ -187,7 +187,7 @@
             <div class="border-b border-gray-800 pb-4 flex flex-wrap justify-between items-center gap-2">
                 <div>
                     <h2 class="font-grotesk font-black text-xl text-white uppercase tracking-wider"><i class="fa-solid fa-layer-group text-sfx-cyan mr-2"></i>CONTROLLER 11 SEZIONI LANDING</h2>
-                    <p class="text-[10px] text-gray-400 font-mono mt-1">Ogni modifica viene auto-salvata in bozza locale. Usa "Pubblica" per inviare in tempo reale alla Landing Page.</p>
+                    <p class="text-[10px] text-gray-400 font-mono mt-1">Ogni modifica viene auto-salvata in bozza locale e inviata a Google Sheets al clic su "Pubblica".</p>
                 </div>
                 <span class="px-3 py-1 rounded bg-sfx-cyan/20 border border-sfx-cyan text-sfx-cyanLight text-[10px] font-bold">CANALE ATTIVO</span>
             </div>
@@ -309,7 +309,7 @@
         </div>
 
         <!-- ===================================================================== -->
-        <!-- MODULO 2: CENTRALE PROMEMORIA MATRIX                                  -->
+        <!-- MODULO 2: CENTRALE PROMEMORIA MATRIX (AUTO-MAIL & WHATSAPP)           -->
         <!-- ===================================================================== -->
         <div id="modulo-promemoria" class="neon-panel p-6 sm:p-8 space-y-6">
             <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-2">
@@ -336,7 +336,7 @@
                             <div id="dot-switch-t0" class="w-3 h-3 bg-white rounded-full absolute top-1 right-1 transition-all"></div>
                         </button>
                     </div>
-                    <label class="block text-gray-500 text-[10px]">Testo Email Notifica Immediata</label>
+                    <label class="block text-gray-500 text-[10px]">Testo Email Notifica Immediata (da desk@ o academy@)</label>
                     <textarea id="tpl-email-t0" rows="3" class="sfx-input w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-gray-200 outline-none focus:border-sfx-gold resize-none text-[11px]"></textarea>
                     <label class="block text-gray-500 text-[10px]">Script WhatsApp Benvenuto</label>
                     <textarea id="tpl-wa-t0" rows="2" class="sfx-input w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-green-400 outline-none focus:border-green-500 resize-none text-[11px]"></textarea>
@@ -396,13 +396,13 @@
         </div>
 
         <!-- ===================================================================== -->
-        <!-- MODULO 3: SUPER CRM & SCREENING CANDIDATI                             -->
+        <!-- MODULO 3: SUPER CRM & SCREENING CANDIDATI (TELEGRAM OBBLIGATORIO)     -->
         <!-- ===================================================================== -->
         <div id="modulo-crm" class="neon-panel p-6 sm:p-8 space-y-6">
             <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-3">
                 <div>
                     <h2 class="font-grotesk font-black text-xl text-sfx-cyanLight uppercase"><i class="fa-solid fa-address-book mr-2"></i>SUPER CRM &amp; SCREENING CANDIDATI</h2>
-                    <p class="text-[10px] text-gray-400 font-mono mt-1">Acquisizione automatica candidature con seriale SFX irreversibile.</p>
+                    <p class="text-[10px] text-gray-400 font-mono mt-1">Acquisizione automatica candidature con contatto Telegram obbligatorio e gestione slot orari.</p>
                 </div>
                 <div class="flex gap-2">
                     <button onclick="caricaLeadsCRM()" class="px-4 py-2 bg-[#090A0D] border border-sfx-cyan/50 hover:bg-sfx-cyan/20 text-sfx-cyanLight rounded-xl text-xs font-bold transition-all cursor-pointer">
@@ -414,80 +414,87 @@
                 </div>
             </div>
 
-            <!-- FILTRI -->
+            <!-- FILTRI DI RICERCA -->
             <div class="p-4 bg-[#090A0D] rounded-2xl border border-gray-800 flex flex-wrap gap-4 items-end font-mono text-xs">
                 <div class="flex-1 min-w-[220px]">
-                    <label class="block text-gray-500 text-[10px] mb-1 uppercase font-bold">Cerca Corsista (Nome, Seriale, Email):</label>
-                    <input type="text" id="crm-search" oninput="filtraSuperCRM()" placeholder="Es. Mario Rossi oppure SFX-26..." class="w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs">
+                    <label class="block text-gray-500 text-[10px] mb-1 uppercase font-bold">Cerca Candidato (Nome, Seriale, Telegram, Email):</label>
+                    <input type="text" id="crm-search" oninput="filtraSuperCRM()" placeholder="Es. Mario Rossi, @username oppure SFX-26..." class="w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs">
                 </div>
                 <div>
                     <label class="block text-gray-500 text-[10px] mb-1 uppercase font-bold">Filtro Percorso:</label>
                     <select id="crm-filter-percorso" onchange="filtraSuperCRM()" class="p-3 bg-[#12141C] border border-gray-700 rounded-xl text-gray-300 outline-none cursor-pointer focus:border-sfx-cyan text-xs">
                         <option value="TUTTI">Tutti i Percorsi</option>
-                        <option value="Conferenza CEO">👑 Screening CEO</option>
-                        <option value="Silver Tier">🎓 Silver Tier (€249)</option>
-                        <option value="Executive Master">🎓 Executive Master (€299)</option>
-                        <option value="Premium VIP">🎓 Premium VIP (€349)</option>
+                        <option value="Conferenza CEO">👑 Screening CEO (€ 0,00)</option>
+                        <option value="Silver Tier">🎓 Silver Tier (€ 249)</option>
+                        <option value="Executive Master">🎓 Executive Master (€ 299)</option>
+                        <option value="Premium VIP">🎓 Premium VIP (€ 349)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-gray-500 text-[10px] mb-1 uppercase font-bold">Stato / Priorità:</label>
+                    <label class="block text-gray-500 text-[10px] mb-1 uppercase font-bold">Stato Slot:</label>
                     <select id="crm-filter-priorita" onchange="filtraSuperCRM()" class="p-3 bg-[#12141C] border border-gray-700 rounded-xl text-gray-300 outline-none cursor-pointer focus:border-sfx-cyan text-xs">
-                        <option value="TUTTI">Tutte le Priorità</option>
-                        <option value="ALTA">🔴 Alta Priorità</option>
-                        <option value="MEDIA">🟡 Media Priorità</option>
-                        <option value="CHIUSO">🟢 Iscritto / Chiuso</option>
+                        <option value="TUTTI">Tutti gli Stati</option>
+                        <option value="IN_ATTESA_CEO">🟡 In Attesa Decisione CEO</option>
+                        <option value="CONFERMATO_CEO">🟢 Confermato &amp; Blindato</option>
+                        <option value="RIFIUTATO_O_LIBERO">⚪ Liberato</option>
                     </select>
                 </div>
             </div>
 
-            <!-- TABELLA -->
+            <!-- TABELLA CANDIDATI -->
             <div class="overflow-x-auto bg-[#090A0D] rounded-2xl border border-gray-800">
                 <table class="w-full text-left font-mono text-[11px]">
                     <thead class="bg-[#12141C] border-b border-gray-800">
                         <tr class="text-sfx-cyanLight uppercase text-[10px] tracking-wider">
-                            <th class="p-4">Priorità</th>
+                            <th class="p-4">Stato Slot</th>
                             <th class="p-4">Seriale SFX</th>
                             <th class="p-4">Candidato / Email</th>
-                            <th class="p-4">Percorso Richiesto</th>
+                            <th class="p-4">Telegram (Obblig.)</th>
+                            <th class="p-4">Percorso</th>
                             <th class="p-4">Slot Orario</th>
-                            <th class="p-4 text-center">1-Click WhatsApp</th>
-                            <th class="p-4 text-right">Stanza Meet</th>
+                            <th class="p-4 text-center">Azione CEO</th>
+                            <th class="p-4 text-right">Contatto Rapido</th>
                         </tr>
                     </thead>
-                    <tbody id="tbody-super-crm" class="divide-y divide-gray-800 text-gray-300"></tbody>
+                    <tbody id="tbody-super-crm" class="divide-y divide-gray-800 text-gray-300">
+                        <tr><td colspan="8" class="p-6 text-center text-gray-500 italic">Caricamento candidature da database cloud...</td></tr>
+                    </tbody>
                 </table>
             </div>
 
-            <!-- SCHEDA RAPIDA CORSISTA -->
+            <!-- SCHEDA RAPIDA CORSISTA SELEZIONATO -->
             <div id="pannello-corsista-attivo" class="hidden p-6 bg-[#090A0D] border-2 border-sfx-cyan rounded-2xl space-y-4 font-mono text-xs shadow-[0_0_25px_rgba(0,240,255,0.15)]">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3">
-                    <span class="text-white font-black uppercase text-sm" id="pannello-nome-corsista">SCHEDA CORSISTA</span>
+                    <span class="text-white font-black uppercase text-sm" id="pannello-nome-corsista">SCHEDA CANDIDATURA</span>
                     <button onclick="chiudiPannelloCorsista()" class="text-gray-500 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="space-y-2 text-gray-400">
                         <p><strong class="text-white">Identificativo:</strong> <span id="pannello-id" class="text-sfx-gold font-bold"></span></p>
                         <p><strong class="text-white">Email Ufficiale:</strong> <span id="pannello-email"></span></p>
-                        <p><strong class="text-white">Recapito:</strong> <span id="pannello-tel"></span></p>
-                        <p><strong class="text-white">Ambito:</strong> <span id="pannello-percorso" class="text-sfx-cyanLight font-bold"></span></p>
+                        <p><strong class="text-white">Recapito Telefonico:</strong> <span id="pannello-tel"></span></p>
+                        <p><strong class="text-white">Telegram Verificato:</strong> <span id="pannello-telegram" class="text-sfx-cyanLight font-bold"></span></p>
+                        <p><strong class="text-white">Percorso Richiesto:</strong> <span id="pannello-percorso" class="text-sfx-gold font-bold"></span></p>
+                        <p><strong class="text-white">Slot Prenotato:</strong> <span id="pannello-slot" class="text-white font-bold"></span></p>
                     </div>
                     <div class="space-y-2">
                         <label class="block text-gray-400 font-bold text-[10px] uppercase">Note di Screening Riservate:</label>
-                        <textarea id="pannello-note" rows="3" class="w-full p-2 bg-[#12141C] border border-gray-700 rounded-lg text-white text-[10px] outline-none resize-none" placeholder="Annota dettagli discussi in call..."></textarea>
+                        <textarea id="pannello-note" rows="4" class="w-full p-2.5 bg-[#12141C] border border-gray-700 rounded-lg text-white text-[10px] outline-none resize-none" placeholder="Annota feedback dallo screening..."></textarea>
                     </div>
                     <div class="flex flex-col justify-end space-y-2">
-                        <button onclick="copiaDatiInContratto()" class="w-full py-3 bg-sfx-gold text-black hover:bg-yellow-500 rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_12px_rgba(212,175,55,0.3)] cursor-pointer">
-                            <i class="fa-solid fa-file-signature mr-1"></i> Emetti Atto Privato 1-to-1
+                        <button onclick="confermaSlotCEO()" class="w-full py-2.5 bg-green-700 hover:bg-green-600 text-white rounded-xl font-bold text-xs uppercase cursor-pointer">
+                            <i class="fa-solid fa-calendar-check mr-1"></i> Conferma Slot &amp; Connetti
                         </button>
-                        <button onclick="inviaScriptWhatsAppDedicato()" class="w-full py-2 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-[10px] uppercase transition-all cursor-pointer">
-                            <i class="fa-brands fa-whatsapp mr-1"></i> Notifica Benvenuto WhatsApp
+                        <button onclick="liberaSlotCEO()" class="w-full py-2.5 bg-gray-800 hover:bg-gray-700 text-red-400 border border-red-900 rounded-xl font-bold text-[10px] uppercase cursor-pointer">
+                            <i class="fa-solid fa-calendar-xmark mr-1"></i> Rifiuta &amp; Libera Slot
+                        </button>
+                        <button onclick="copiaDatiInContratto()" class="w-full py-2.5 bg-sfx-gold text-black hover:bg-yellow-500 rounded-xl font-black text-xs uppercase cursor-pointer shadow-md">
+                            <i class="fa-solid fa-file-signature mr-1"></i> Emetti Atto Privato 1-to-1
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- ===================================================================== -->
         <!-- MODULO 4: GENERATORE CONTRATTI LIVE 1-TO-1 & WORKSPACE DRIVE          -->
         <!-- ===================================================================== -->
@@ -495,7 +502,7 @@
             <div class="flex flex-wrap items-center justify-between border-b border-gray-800 pb-4 gap-2">
                 <div>
                     <h2 class="font-grotesk font-black text-xl text-white uppercase"><i class="fa-solid fa-file-contract text-sfx-gold mr-2"></i>ATTI PRIVATI LIVE 1-TO-1 &amp; WORKSPACE</h2>
-                    <p class="text-[10px] text-gray-400 font-mono mt-1">Emissione documentazione statutaria "Zero Video" a prezzo bloccato.</p>
+                    <p class="text-[10px] text-gray-400 font-mono mt-1">Emissione documentazione statutaria "Zero Video" inviata formalmente da academy@supremafuturex.com.</p>
                 </div>
                 <button onclick="generaGoldCardCode()" class="px-4 py-2 bg-sfx-gold text-black rounded-xl text-xs font-black cursor-pointer shadow-md hover:bg-yellow-500 transition-all">
                     <i class="fa-solid fa-ticket mr-1"></i> Conia Codice Gold Card
@@ -528,7 +535,7 @@
                     </div>
                     <div>
                         <label class="block text-gray-500 mb-1 text-[10px] font-bold">CODICE FISCALE / PARTITA IVA</label>
-                        <input type="text" id="contratto-cf" placeholder="Dati di fatturazione..." class="w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-gray-300 outline-none focus:border-sfx-gold text-xs">
+                        <input type="text" id="contratto-cf" placeholder="Dati fiscali per fatturazione..." class="w-full p-3 bg-[#12141C] border border-gray-700 rounded-xl text-gray-300 outline-none focus:border-sfx-gold text-xs">
                     </div>
                     <div>
                         <label class="block text-gray-500 mb-1 text-[10px] font-bold">SERIALE SUPREMA GOLD CARD</label>
@@ -540,14 +547,14 @@
                         1. GENERA ATTO PRIVATO UFFICIALE (PDF)
                     </button>
                     <button type="button" onclick="eseguiDeliveryWorkspace()" class="flex-1 py-4 bg-transparent border-2 border-sfx-cyan text-sfx-cyanLight hover:bg-sfx-cyan hover:text-black font-black text-xs uppercase tracking-wider rounded-xl shadow-[0_0_15px_rgba(0,240,255,0.2)] transition-all cursor-pointer">
-                        2. INIETTA MODULI NEL WORKSPACE DRIVE
+                        2. INIETTA ALBERO CARTELLE WORKSPACE DRIVE
                     </button>
                 </div>
             </form>
 
             <div id="contratto-anteprima-box" class="hidden p-6 bg-[#090A0D] border-2 border-sfx-goldLight rounded-2xl space-y-4">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3">
-                    <span class="text-sfx-goldLight font-black text-xs uppercase tracking-wider">ATTO PRIVATO LIVE REGISTRATO &amp; VALIDATO</span>
+                    <span class="text-sfx-goldLight font-black text-xs uppercase tracking-wider">ATTO PRIVATO STATUTARIO REGISTRATO &amp; VALIDATO</span>
                     <div class="flex gap-2">
                         <button onclick="stampaContratto()" class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 text-[10px] font-bold cursor-pointer">
                             <i class="fa-solid fa-print mr-1"></i> Stampa / Salva PDF
@@ -567,7 +574,7 @@
         <div id="modulo-media" class="neon-panel p-6 sm:p-8 space-y-6">
             <div class="border-b border-gray-800 pb-4">
                 <h2 class="font-grotesk font-black text-xl text-white uppercase"><i class="fa-solid fa-photo-film text-sfx-cyan mr-2"></i>MEDIA VAULT NATIVO APPLE (BASE64)</h2>
-                <p class="text-[10px] text-sfx-cyanLight mt-1 font-mono">Upload diretto da memoria interna Mac o iPhone a Google Drive.</p>
+                <p class="text-[10px] text-sfx-cyanLight mt-1 font-mono">Upload diretto da memoria interna Mac o iPhone verso Google Drive con notarizzazione EAL6+.</p>
             </div>
 
             <div class="flex flex-wrap gap-2 text-xs font-mono">
@@ -633,13 +640,14 @@
         </div>
     </div>
 
-    <!-- MOTORE JAVASCRIPT: NEXUS SYNC ENGINE UNIFICATO -->
+    <!-- MOTORE JAVASCRIPT: NEXUS SYNC ENGINE V55 UNIFICATO -->
     <script>
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjOsUCBWD2l7lIHPfJdSpq75MM57s6rUGYYp-0UZ0BYAiyVoyn4M8I0jeL4UKaRXJA/exec";
         
         let leadsGlobali = [];
         let leadAttivo = null;
         let fileVaultCorrente = null;
+        let fileVaultBase64 = null;
         let categoriaVaultSelezionata = 'FOTO';
         let safeModeAttivo = false;
 
@@ -653,7 +661,7 @@
             }
         };
 
-        // 2. HAMBURGER MENU
+        // 2. HAMBURGER MENU CON AUTO-CHIUSURA 15s
         let timerMenuHamburger = null;
         let secondiRimanentiMenu = 15;
 
@@ -782,7 +790,7 @@
             reader.readAsText(file);
         }
 
-        // 7. GESTIONE SEZIONI & PUBBLICAZIONE
+        // 7. GESTIONE SEZIONI & PUBBLICAZIONE CLOUD
         const DEFAULT_CONFIG_SEZIONI = {
             sec1: { active: true, tag: "ECOSISTEMA PROFESSIONALE ATTIVO", text: "Community, Networking & Academy ENTERPRISE. Piattaforma d'élite per la Formazione, Sviluppo Personale, E-Commerce Autonomo e Reindirizzamento al Lavoro Immediato guidata dalla Direzione del CEO GIULIANO." },
             sec2: { active: true, nota1: "Governa l'indirizzo strategico, le relazioni d'affari e i programmi per l'avvio al lavoro. Le sessioni individuali con la Presidenza sono a numero chiuso e calendarizzate direttamente.", nota2: "Colloquio preliminare orientativo. Si raccomanda puntualità e postazione priva di rumori." },
@@ -827,7 +835,7 @@
             scriviLogNexus(`Sezione 0${num}: Visibilità impostata su ${attivo ? 'ATTIVA' : 'NASCOSTA'}.`);
         }
 
-        function pubblicaSezione(num) {
+        async function pubblicaSezione(num) {
             let cfg = JSON.parse(localStorage.getItem('sfx_sezioni_config') || JSON.stringify(DEFAULT_CONFIG_SEZIONI));
 
             if (num === 1) {
@@ -853,8 +861,20 @@
 
             localStorage.setItem('sfx_sezioni_config', JSON.stringify(cfg));
             sfxBroadcastBus.postMessage({ type: 'SFX_SEZIONI_UPDATE', config: cfg });
-            scriviLogNexus(`Sezione 0${num}: Pubblicazione live completata.`);
-            alert(`✓ Sezione 0${num} pubblicata istantaneamente sulla Landing Page.`);
+
+            // Invio persistente al Cloud Google Sheets
+            try {
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ azione: 'SALVA_CONFIG_SEZIONI', config: cfg })
+                });
+                scriviLogNexus(`Sezione 0${num}: Notarizzata su Google Sheets.`);
+            } catch (e) {
+                scriviLogNexus(`Sezione 0${num}: Salvata in cache locale.`);
+            }
+
+            alert(`✓ Sezione 0${num} pubblicata istantaneamente sulla Landing Page e sul Cloud.`);
         }
 
         function resetSezione(num) {
@@ -866,13 +886,13 @@
             }
         }
 
-        function pubblicaTuttoSincronizzato() {
-            pubblicaSezione(1);
-            pubblicaSezione(2);
-            pubblicaSezione(4);
-            pubblicaSezione(9);
+        async function pubblicaTuttoSincronizzato() {
+            await pubblicaSezione(1);
+            await pubblicaSezione(2);
+            await pubblicaSezione(4);
+            await pubblicaSezione(9);
             pubblicaSocial();
-            scriviLogNexus("Master Command: Tutte le 11 sezioni sono state sincronizzate.");
+            scriviLogNexus("Master Command: Tutte le 11 sezioni sono state sincronizzate nel Cloud.");
             alert("🚀 Tutte le sezioni sono state pubblicate e allineate sulla Landing Page!");
         }
 
@@ -959,7 +979,7 @@
             scriviLogNexus("Matrix Promemoria: Tutti i template email e WhatsApp salvati.");
         }
 
-        // 9. SUPER CRM & METRICHE
+        // 9. SUPER CRM, TELEGRAM OBBLIGATORIO & METRICHE
         function generaCodiceSFX() {
             const anno = new Date().getFullYear().toString().slice(-2);
             const rnd = Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -967,13 +987,6 @@
         }
 
         async function caricaLeadsCRM() {
-            const cache = localStorage.getItem('sfx_leads_cache');
-            if (cache) {
-                leadsGlobali = JSON.parse(cache);
-                renderizzaSuperCRM(leadsGlobali);
-                calcolaIncassoPotenziale(leadsGlobali);
-            }
-
             try {
                 const res = await fetch(APPS_SCRIPT_URL + '?action=getCandidati');
                 const data = await res.json();
@@ -981,22 +994,21 @@
                     const rawList = data.dati || data.candidati;
                     leadsGlobali = rawList.slice().reverse().map(item => ({
                         ...item,
-                        ID_SFX: item.ID_SFX || item.idSfx || generaCodiceSFX(),
-                        PRIORITA: item.PRIORITA || 'ALTA',
-                        AMBITO: item.PERCORSO || item.AMBITO || 'Executive Master'
+                        ID_SFX: item.ID_LEAD || item.ID_SFX || item.idSfx || generaCodiceSFX(),
+                        STATO_SLOT: item.STATO_SLOT || item.STATO || 'IN_ATTESA_CEO',
+                        AMBITO: item.PERCORSO || item.AMBITO || 'Conferenza CEO',
+                        TELEGRAM_USER: item.TELEGRAM_USER || item.telegram || '@non_registrato',
+                        SLOT_ORARIO: item.SLOT_ORARIO || item.SLOT_MEET || item.dataCall || 'Da Concordare'
                     }));
                     localStorage.setItem('sfx_leads_cache', JSON.stringify(leadsGlobali));
                     renderizzaSuperCRM(leadsGlobali);
                     calcolaIncassoPotenziale(leadsGlobali);
-                    scriviLogNexus(`CRM: Sincronizzati ${leadsGlobali.length} corsisti da database cloud.`);
+                    scriviLogNexus(`CRM: Sincronizzati ${leadsGlobali.length} candidati dal database cloud.`);
                 }
             } catch (err) {
-                if (leadsGlobali.length === 0) {
-                    leadsGlobali = [
-                        { ID_SFX: 'SFX-26-M9A1', NOME: 'Mario', COGNOME: 'Rossi', EMAIL: 'mario.rossi@gmail.com', TELEFONO: '+393471234567', AMBITO: 'Executive Master', PRIORITA: 'ALTA', DATA_CALL: '21/10/2026 16:30' },
-                        { ID_SFX: 'SFX-26-G4K8', NOME: 'Giulia', COGNOME: 'Bianchi', EMAIL: 'giulia.b@hotmail.it', TELEFONO: '+393409876543', AMBITO: 'Conferenza CEO', PRIORITA: 'MEDIA', DATA_CALL: '22/10/2026 10:00' },
-                        { ID_SFX: 'SFX-26-F2W5', NOME: 'Roberto', COGNOME: 'Ferri', EMAIL: 'r.ferri@virgilio.it', TELEFONO: '+393351122334', AMBITO: 'Premium VIP', PRIORITA: 'ALTA', DATA_CALL: '23/10/2026 15:00' }
-                    ];
+                const cache = localStorage.getItem('sfx_leads_cache');
+                if (cache) {
+                    leadsGlobali = JSON.parse(cache);
                     renderizzaSuperCRM(leadsGlobali);
                     calcolaIncassoPotenziale(leadsGlobali);
                 }
@@ -1010,8 +1022,6 @@
                 if (ambito.includes('Silver')) totale += 249;
                 else if (ambito.includes('Executive')) totale += 299;
                 else if (ambito.includes('Premium') || ambito.includes('VIP')) totale += 349;
-                else if (ambito.includes('CEO')) totale += 0;
-                else totale += 299;
             });
             const el = document.getElementById('nexus-revenue-calc');
             if (el) el.innerText = `€ ${totale.toLocaleString('it-IT')},00`;
@@ -1021,7 +1031,7 @@
             const tbody = document.getElementById('tbody-super-crm');
             tbody.innerHTML = '';
             if (leads.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="p-6 text-center text-gray-500 italic">Nessun corsista registrato al momento.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" class="p-6 text-center text-gray-500 italic">Nessuna candidatura presente nel database.</td></tr>';
                 return;
             }
 
@@ -1029,57 +1039,80 @@
                 const sfxCode = l.ID_SFX;
                 const nomeCompleto = `${l.NOME || ''} ${l.COGNOME || ''}`.trim();
                 const telPulito = (l.TELEFONO || '').replace(/[^0-9]/g, '');
-                const prioritaColor = l.PRIORITA === 'ALTA' ? 'text-red-400 bg-red-950/60 border-red-700' : 'text-yellow-400 bg-yellow-950/60 border-yellow-700';
+                const tgUser = l.TELEGRAM_USER || '@non_registrato';
+                const tgLink = "https://t.me/" + tgUser.replace('@', '');
 
-                const testoWA = encodeURIComponent(`Gentile ${l.NOME}, confermo la ricezione della sua candidatura con protocollo ${sfxCode} per l'accesso a Suprema Future X. Confermiamo l'appuntamento?`);
+                let badgeStato = 'text-yellow-400 bg-yellow-950/60 border-yellow-700';
+                if (l.STATO_SLOT === 'CONFERMATO_CEO') badgeStato = 'text-green-400 bg-green-950/60 border-green-700';
+                else if (l.STATO_SLOT === 'RIFIUTATO_O_LIBERO') badgeStato = 'text-gray-400 bg-gray-900 border-gray-700';
+
+                const testoWA = encodeURIComponent(`Gentile ${l.NOME}, confermo la ricezione della sua candidatura protocollo ${sfxCode} per Suprema Future X. Confermiamo l'appuntamento?`);
                 const waLink = telPulito ? `https://wa.me/${telPulito}?text=${testoWA}` : '#';
 
                 tbody.innerHTML += `
                     <tr class="hover:bg-[#1F2227] transition-colors border-b border-gray-800/50 cursor-pointer" onclick='apriPannelloCorsista(${JSON.stringify(l).replace(/'/g, "&apos;")})'>
-                        <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold border ${prioritaColor}">${l.PRIORITA}</span></td>
+                        <td class="p-4"><span class="px-2 py-0.5 rounded text-[9px] font-bold border ${badgeStato}">${l.STATO_SLOT}</span></td>
                         <td class="p-4 font-bold text-sfx-gold font-mono">${sfxCode}</td>
                         <td class="p-4"><strong class="text-white block">${nomeCompleto}</strong><span class="text-[9px] text-gray-500">${l.EMAIL}</span></td>
+                        <td class="p-4" onclick="event.stopPropagation()"><a href="${tgLink}" target="_blank" class="text-sfx-cyan font-bold hover:underline">${tgUser}</a></td>
                         <td class="p-4 text-sfx-cyanLight font-bold text-[10px]">${l.AMBITO || 'N/D'}</td>
-                        <td class="p-4 text-gray-400 text-[10px]">${l.DATA_CALL || 'N/D'}</td>
+                        <td class="p-4 text-gray-300 text-[10px]">${l.SLOT_ORARIO || 'N/D'}</td>
                         <td class="p-4 text-center" onclick="event.stopPropagation()">
-                            <a href="${waLink}" target="_blank" class="px-3 py-1.5 bg-green-950 hover:bg-green-800 text-green-400 border border-green-600 rounded-lg text-[10px] font-bold inline-flex items-center space-x-1 shadow-sm">
-                                <i class="fa-brands fa-whatsapp text-xs"></i> <span>Notifica</span>
-                            </a>
+                            <button onclick='gestisciSlotRapido("${l.SLOT_ORARIO}", "ACCETTA", "${sfxCode}")' class="px-2.5 py-1 bg-green-950 hover:bg-green-800 text-green-300 border border-green-600 rounded text-[9px] font-bold mr-1 cursor-pointer">Conferma</button>
+                            <button onclick='gestisciSlotRapido("${l.SLOT_ORARIO}", "LIBERA", "${sfxCode}")' class="px-2.5 py-1 bg-red-950 hover:bg-red-800 text-red-300 border border-red-700 rounded text-[9px] font-bold cursor-pointer">Libera</button>
                         </td>
                         <td class="p-4 text-right" onclick="event.stopPropagation()">
-                            <button onclick='apriStanzaMeet("${nomeCompleto}")' class="px-3 py-1.5 bg-sfx-cyan/10 border border-sfx-cyan text-sfx-cyanLight hover:bg-sfx-cyan hover:text-black rounded-lg text-[10px] font-bold transition-all cursor-pointer">
-                                <i class="fa-solid fa-video mr-1"></i> Meet
+                            <a href="${waLink}" target="_blank" class="px-2.5 py-1 bg-green-950 hover:bg-green-800 text-green-400 border border-green-600 rounded-lg text-[10px] font-bold inline-flex items-center space-x-1 shadow-sm mr-1">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                            <button onclick='apriStanzaMeet("${nomeCompleto}")' class="px-2.5 py-1 bg-sfx-cyan/10 border border-sfx-cyan text-sfx-cyanLight hover:bg-sfx-cyan hover:text-black rounded-lg text-[10px] font-bold transition-all cursor-pointer">
+                                Meet
                             </button>
                         </td>
                     </tr>`;
             });
         }
 
+        async function gestisciSlotRapido(slot, azione, idLead) {
+            logAuditNexus(`Gestione slot: ${slot} -> ${azione}`);
+            try {
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ azione: 'GESTISCI_STATO_SLOT', slot: slot, nuovoStato: azione, idLead: idLead })
+                });
+                alert(`✓ Slot ${slot} impostato su: ${azione}`);
+                caricaLeadsCRM();
+            } catch (e) {
+                alert("Errore aggiornamento slot.");
+            }
+        }
+
         function filtraSuperCRM() {
             const q = document.getElementById('crm-search').value.toLowerCase().trim();
             const ambito = document.getElementById('crm-filter-percorso').value;
-            const priorita = document.getElementById('crm-filter-priorita').value;
+            const stato = document.getElementById('crm-filter-priorita').value;
 
             const filtrati = leadsGlobali.filter(l => {
-                const searchStr = `${l.NOME} ${l.COGNOME} ${l.EMAIL} ${l.ID_SFX}`.toLowerCase();
+                const searchStr = `${l.NOME} ${l.COGNOME} ${l.EMAIL} ${l.ID_SFX} ${l.TELEGRAM_USER}`.toLowerCase();
                 const matchQ = searchStr.includes(q);
                 const matchAmbito = ambito === 'TUTTI' || (l.AMBITO || '').includes(ambito);
-                const matchPriorita = priorita === 'TUTTI' || (l.PRIORITA || '') === priorita;
-                return matchQ && matchAmbito && matchPriorita;
+                const matchStato = stato === 'TUTTI' || (l.STATO_SLOT || '') === stato;
+                return matchQ && matchAmbito && matchStato;
             });
             renderizzaSuperCRM(filtrati);
         }
 
         function apriStanzaMeet(nome) {
             window.open('https://meet.google.com/new', '_blank');
-            scriviLogNexus(`Stanza Google Meet aperta per il candidato: ${nome}.`);
+            scriviLogNexus(`Stanza Google Meet aperta per: ${nome}.`);
         }
 
         function esportaLeadsCSV() {
             if (leadsGlobali.length === 0) { alert("Nessun dato da esportare."); return; }
-            let csv = "PRIORITA,ID_SFX,NOME,COGNOME,EMAIL,TELEFONO,AMBITO,DATA_CALL\n";
+            let csv = "STATO_SLOT,ID_SFX,NOME,COGNOME,EMAIL,TELEFONO,TELEGRAM,AMBITO,SLOT_ORARIO\n";
             leadsGlobali.forEach(l => {
-                csv += `"${l.PRIORITA}","${l.ID_SFX}","${l.NOME}","${l.COGNOME}","${l.EMAIL}","${l.TELEFONO}","${l.AMBITO}","${l.DATA_CALL}"\n`;
+                csv += `"${l.STATO_SLOT}","${l.ID_SFX}","${l.NOME}","${l.COGNOME}","${l.EMAIL}","${l.TELEFONO}","${l.TELEGRAM_USER}","${l.AMBITO}","${l.SLOT_ORARIO}"\n`;
             });
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement("a");
@@ -1095,7 +1128,9 @@
             document.getElementById('pannello-id').innerText = lead.ID_SFX;
             document.getElementById('pannello-email').innerText = lead.EMAIL;
             document.getElementById('pannello-tel').innerText = lead.TELEFONO || 'N/D';
+            document.getElementById('pannello-telegram').innerText = lead.TELEGRAM_USER || 'N/D';
             document.getElementById('pannello-percorso').innerText = lead.AMBITO || 'N/D';
+            document.getElementById('pannello-slot').innerText = lead.SLOT_ORARIO || 'N/D';
             document.getElementById('pannello-note').value = lead.NOTE || '';
             document.getElementById('pannello-corsista-attivo').classList.remove('hidden');
         }
@@ -1103,6 +1138,18 @@
         function chiudiPannelloCorsista() {
             document.getElementById('pannello-corsista-attivo').classList.add('hidden');
             leadAttivo = null;
+        }
+
+        function confermaSlotCEO() {
+            if (!leadAttivo) return;
+            gestisciSlotRapido(leadAttivo.SLOT_ORARIO, "ACCETTA", leadAttivo.ID_SFX);
+            chiudiPannelloCorsista();
+        }
+
+        function liberaSlotCEO() {
+            if (!leadAttivo) return;
+            gestisciSlotRapido(leadAttivo.SLOT_ORARIO, "LIBERA", leadAttivo.ID_SFX);
+            chiudiPannelloCorsista();
         }
 
         function copiaDatiInContratto() {
@@ -1120,15 +1167,7 @@
             selezionaVoceMenu('modulo-contratti');
         }
 
-        function inviaScriptWhatsAppDedicato() {
-            if (!leadAttivo) return;
-            const tel = (leadAttivo.TELEFONO || '').replace(/[^0-9]/g, '');
-            if (!tel) { alert("Nessun numero di telefono presente per questo contatto."); return; }
-            const msg = encodeURIComponent(`Buongiorno ${leadAttivo.NOME},\nqui la Direzione Esecutiva di Suprema Future X.\n\nLa sua candidatura con identificativo ${leadAttivo.ID_SFX} è stata approvata. Il link alla stanza riservata le è stato appena trasmesso.`);
-            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
-        }
-
-        // 10. CONTRATTI LIVE 1-TO-1
+        // 10. CONTRATTI LIVE 1-TO-1 & WORKSPACE DRIVE
         function generaGoldCardCode() {
             const codice = `GOLD-${Math.floor(100000 + Math.random() * 900000)}`;
             document.getElementById('contratto-gold').value = codice;
@@ -1151,7 +1190,7 @@ DATA DI EMISSIONE: ${dataOggi}
 PROTOCOLLO DI SICUREZZA: EAL6+ SOVRANO
 
 TRA LE PARTI:
-SOCIETÀ: SUPREMA FUTURE X (Sede di Rappresentanza: Roma Centro, Via della Scrofa)
+SOCIETÀ: SUPREMA FUTURE X S.R.L. (Sede: Roma Centro, Via della Scrofa)
 CANDIDATO/A: ${nome.toUpperCase()}
 EMAIL REGISTRATA: ${email}
 STATUS GOLD CARD: ${gold}
@@ -1160,20 +1199,19 @@ SI CONVIENE E SI STIPULA QUANTO SEGUE:
 
 ART. 1 — OGGETTO DEL CONTRATTO
 Ammissione ufficiale al percorso operativo "${percorso.toUpperCase()}".
-Corrispettivo a tariffa omnicomprensiva bloccata e garantita pari a € ${prezzo},00.
+Corrispettivo a tariffa omnicomprensiva bloccata pari a € ${prezzo},00.
 
 ART. 2 — PROTOCOLLO 100% LIVE ONE-TO-ONE (ZERO VIDEO PREREGISTRATI)
 Suprema Future X garantisce contrattualmente che la formazione si svolgerà in forma
 esclusivamente diretta e individuale (One-to-One), con divieto esplicito di
 somministrazione di videocorsi asincroni preregistrati.
 
-ART. 3 — ASSEGNAZIONE WORKSPACE GOOGLE DRIVE
+ART. 3 — ASSEGNAZIONE WORKSPACE GOOGLE DRIVE TRIPARTITO
 All'accettazione del presente atto, viene assegnato al candidato un Workspace Cloud
 crittografato dedicato (SFX_WORKSPACE_${id}) privo di canoni ricorrenti.
 
 ART. 4 — RISERVATEZZA E CODICE ETICO
-Il candidato si vincola al rispetto integrale del Codice Etico e Deontologico SFX,
-con particolare riferimento alla riservatezza industriale e delle metodologie applicate.
+Il candidato si vincola al rispetto integrale del Codice Etico e Deontologico SFX.
 
 F.to La Presidenza Esecutiva — CEO Giuliano Caratelli
 F.to Per Accettazione e Conformità — ${nome}`;
@@ -1195,10 +1233,22 @@ F.to Per Accettazione e Conformità — ${nome}`;
             scriviLogNexus("Contratti: Spedizione telematica inoltrata da academy@.");
         }
 
-        function eseguiDeliveryWorkspace() {
+        async function eseguiDeliveryWorkspace() {
+            const id = document.getElementById('contratto-sfx-id').value;
             const nome = document.getElementById('contratto-nome').value || 'Corsista';
-            alert(`✓ Protocollo avviato: Iniezione modulistica master nel Workspace Google Drive per ${nome} completata.`);
-            scriviLogNexus(`Drive: Modulistica clonata nel Workspace di ${nome}.`);
+            const email = document.getElementById('contratto-email').value;
+
+            try {
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ azione: 'CREA_WORKSPACE_CORSISTA', matricola: id, nominativo: nome, email: email })
+                });
+                alert(`✓ Protocollo avviato: Albero delle 3 cartelle Google Drive creato con successo per ${nome}.`);
+                scriviLogNexus(`Drive: Workspace tripartito creato per ${nome}.`);
+            } catch (err) {
+                alert("Errore nella creazione cartelle Drive.");
+            }
         }
 
         // 11. MEDIA VAULT & VIEWPORT 11"
@@ -1220,7 +1270,14 @@ F.to Per Accettazione e Conformità — ${nome}`;
             document.getElementById('vault-file-info').classList.remove('hidden');
             document.getElementById('vault-file-name').innerText = fileVaultCorrente.name;
             document.getElementById('vault-file-size').innerText = `${(fileVaultCorrente.size / 1024).toFixed(1)} KB`;
-            scriviLogNexus(`Media Vault: File locale caricato (${fileVaultCorrente.name}).`);
+            document.getElementById('vault-custom-title').value = fileVaultCorrente.name.replace(/\.[^/.]+$/, "");
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                fileVaultBase64 = e.target.result;
+                scriviLogNexus(`Media Vault: File convertito in Base64 (${fileVaultCorrente.name}).`);
+            };
+            reader.readAsDataURL(fileVaultCorrente);
         }
 
         function apriAnteprima11Pollici(urlEsterno) {
@@ -1236,7 +1293,7 @@ F.to Per Accettazione e Conformità — ${nome}`;
                 } else if (fileVaultCorrente.type.startsWith('image/')) {
                     container.innerHTML = `<img src="${url}" class="max-w-full max-h-[70vh] object-contain rounded-2xl" alt="Preview 11 pollici">`;
                 } else {
-                    container.innerHTML = `<div class="text-sfx-cyan text-center p-8"><i class="fa-solid fa-file-pdf text-5xl mb-3"></i><p>Documento PDF pronto all'iniezione nel Drive.</p></div>`;
+                    container.innerHTML = `<div class="text-sfx-cyan text-center p-8"><i class="fa-solid fa-file-pdf text-5xl mb-3"></i><p>Documento PDF pronto per la visualizzazione.</p></div>`;
                 }
             } else {
                 container.innerHTML = `<p class="text-gray-500 font-mono text-xs">Nessun media selezionato da proiettare.</p>`;
@@ -1252,28 +1309,42 @@ F.to Per Accettazione e Conformità — ${nome}`;
             document.body.style.overflow = 'auto';
         }
 
-        function eseguiUploadVault() {
-            if (!fileVaultCorrente) { alert("Seleziona prima un file dalla memoria del tuo dispositivo."); return; }
+        async function eseguiUploadVault() {
+            if (!fileVaultBase64 || !fileVaultCorrente) { 
+                alert("Seleziona prima un file dalla memoria del tuo dispositivo."); 
+                return; 
+            }
             const btn = document.getElementById('btn-vault-send');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> CONVERSIONE BASE64 IN CORSO...';
+            const titolo = document.getElementById('vault-custom-title').value.trim() || fileVaultCorrente.name;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> TRASMISSIONE A GOOGLE DRIVE IN CORSO...';
             btn.disabled = true;
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const base64Data = e.target.result.split(',')[1];
-                scriviLogNexus(`Media Vault: Conversione Base64 eseguita (${base64Data.length} byte).`);
-                
-                setTimeout(() => {
-                    alert(`✓ Asset salvato con successo nella cartella Google Drive MEDIA_VAULT_SUPREMA.`);
-                    document.getElementById('vault-file-info').classList.add('hidden');
-                    document.getElementById('vault-native-input').value = '';
-                    fileVaultCorrente = null;
-                    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> TRASMETTI A GOOGLE DRIVE EAL6+';
-                    btn.disabled = false;
-                    scriviLogNexus("Media Vault: Upload completato con tracciamento EAL6+.");
-                }, 1200);
-            };
-            reader.readAsDataURL(fileVaultCorrente);
+            try {
+                const res = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        azione: 'UPLOAD_MEDIA_DRIVE',
+                        nomeFile: fileVaultCorrente.name,
+                        fileBase64: fileVaultBase64,
+                        categoria: categoriaVaultSelezionata,
+                        titolo: titolo
+                    })
+                });
+                const json = await res.json();
+                alert(`✓ Asset "${fileVaultCorrente.name}" archiviato con successo nella cartella Google Drive e notarizzato!`);
+                document.getElementById('vault-file-info').classList.add('hidden');
+                document.getElementById('vault-native-input').value = '';
+                document.getElementById('vault-custom-title').value = '';
+                fileVaultCorrente = null;
+                fileVaultBase64 = null;
+                scriviLogNexus("Media Vault: Upload Drive completato.");
+            } catch (err) {
+                alert("Errore durante l'upload su Google Drive.");
+            } finally {
+                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> TRASMETTI A GOOGLE DRIVE EAL6+';
+                btn.disabled = false;
+            }
         }
 
         // 12. INIZIALIZZAZIONE ALL'AVVIO
