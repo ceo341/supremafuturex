@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Candidatura Esecutiva — Suprema Future X | EAL6+ Security</title>
+  <title>Candidatura Esecutiva // Suprema Future X | EAL6+ Security</title>
   <link rel="icon" type="image/png" href="media/logo.png">
   <meta name="theme-color" content="#07080a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg-master: #07080a;
@@ -31,62 +32,70 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
     body { background-color: var(--bg-master); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 40px 20px 80px 20px; overflow-x: hidden; }
 
-    .top-bar { width: 100%; max-width: 880px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
+    .top-bar { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-subtle); }
     .brand { font-size: 16px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main); display: flex; align-items: center; gap: 8px; text-decoration: none; }
     .brand span { color: var(--gold-primary); }
     .badge-eal6 { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 229, 255, 0.08); border: 1px solid rgba(0, 229, 255, 0.3); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 700; color: var(--cyan-accent); letter-spacing: 1px; }
     .pulse-dot { width: 7px; height: 7px; background-color: var(--cyan-accent); border-radius: 50%; box-shadow: 0 0 8px var(--cyan-accent); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
 
-    .master-wrapper { width: 100%; max-width: 880px; background: var(--bg-surface); border: 1px solid var(--gold-border); border-radius: 16px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px var(--gold-glow); position: relative; }
-    .header-section { text-align: center; margin-bottom: 36px; }
-    .header-section h1 { font-size: 28px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; background: linear-gradient(180deg, #fff 0%, #b8bcc8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .header-section p { font-size: 14px; color: var(--text-muted); font-weight: 400; max-width: 620px; margin: 0 auto; line-height: 1.6; }
+    .master-wrapper { width: 100%; max-width: 900px; background: var(--bg-surface); border: 1px solid var(--gold-border); border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px var(--gold-glow); position: relative; }
+    .header-section { text-align: center; margin-bottom: 32px; }
+    .header-section h1 { font-size: 26px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; background: linear-gradient(180deg, #fff 0%, #b8bcc8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .header-section p { font-size: 13px; color: var(--text-muted); font-weight: 400; max-width: 650px; margin: 0 auto; line-height: 1.6; }
+
+    /* ORARIO ROMA DISPLAY */
+    .roma-time-badge { display: inline-flex; align-items: center; gap: 8px; background: #000; border: 1px solid var(--cyan-accent); border-radius: 12px; padding: 6px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-accent); margin-bottom: 20px; }
 
     .section-label { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 14px; display: block; font-family: 'JetBrains Mono', monospace; }
-    .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
-    .tier-card { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 18px 14px; cursor: pointer; transition: all 0.25s ease; text-align: center; position: relative; }
+    .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+    .tier-card { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 18px 12px; cursor: pointer; transition: all 0.25s ease; text-align: center; position: relative; }
     .tier-card:hover { border-color: var(--gold-primary); transform: translateY(-2px); }
     .tier-card.active { border-color: var(--gold-primary); background: rgba(212, 175, 55, 0.08); box-shadow: 0 0 15px rgba(212, 175, 55, 0.25); }
-    .tier-card.active::after { content: "SELEZIONATO"; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: var(--gold-primary); color: #000; font-size: 8px; font-weight: 900; padding: 2px 6px; border-radius: 4px; }
+    .tier-card.active::after { content: "SELEZIONATO"; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: var(--gold-primary); color: #000; font-size: 8px; font-weight: 900; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; }
     .tier-name { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px; text-transform: uppercase; }
-    .tier-price { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--gold-light); }
-    .tier-desc { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+    .tier-price { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--gold-light); }
+    .tier-desc { font-size: 10px; color: var(--text-muted); margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
 
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .full-width { grid-column: span 2; }
-    .field-group { display: flex; flex-direction: column; gap: 8px; }
+    .field-group { display: flex; flex-direction: column; gap: 6px; }
     label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #cfd3e0; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; }
     label .req { color: var(--gold-primary); }
-    input, select, textarea { width: 100%; background: #08090d; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px 16px; color: #fff; font-size: 13px; font-family: 'JetBrains Mono', monospace; outline: none; transition: border-color 0.2s; }
+    input, select, textarea { width: 100%; background: #08090d; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 13px 15px; color: #fff; font-size: 13px; font-family: 'JetBrains Mono', monospace; outline: none; transition: border-color 0.2s; }
     input:focus, select:focus, textarea:focus { border-color: var(--gold-primary); box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
 
-    /* STILE SLOT OCCUPATO */
-    select option:disabled {
-      color: #666;
-      background: #1a1a1a;
-      text-decoration: line-through;
-    }
+    /* STILE SLOT DISPONIBILE / OCCUPATO */
+    select option { background: #0f1117; color: #fff; padding: 8px; }
+    select option:disabled { color: #888; background: #1a1a1a; font-style: italic; text-decoration: line-through; }
 
-    .gold-box { background: rgba(212, 175, 55, 0.04); border: 1px dashed var(--gold-border); border-radius: 8px; padding: 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .gold-box { background: rgba(212, 175, 55, 0.04); border: 1px dashed var(--gold-border); border-radius: 10px; padding: 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
     .gold-box-title { font-size: 12px; font-weight: 800; color: var(--gold-primary); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
     .gold-box-sub { font-size: 11px; color: var(--text-muted); }
     .gold-input-wrap { width: 220px; position: relative; }
     .gold-input-wrap input { text-transform: uppercase; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
-    .summary-card { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
+    .summary-card { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
     .summary-title { font-size: 13px; font-weight: 700; color: #fff; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
     .summary-subtitle { font-size: 11px; color: var(--text-muted); }
     .final-price { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--gold-primary); }
 
-    .submit-btn { width: 100%; background: var(--gold-gradient); color: #000; border: none; padding: 18px 24px; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 8px; cursor: pointer; margin-top: 28px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .submit-btn { width: 100%; background: var(--gold-gradient); color: #000; border: none; padding: 18px 24px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 10px; cursor: pointer; margin-top: 26px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
     .submit-btn:hover { box-shadow: 0 12px 40px rgba(212, 175, 55, 0.5); transform: translateY(-1px); }
 
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.88); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
-    .modal-card { background: var(--bg-surface); border: 2px solid var(--gold-primary); border-radius: 16px; width: 100%; max-width: 520px; padding: 36px; box-shadow: 0 20px 80px rgba(0,0,0,0.9); text-align: center; }
-    .modal-icon { width: 64px; height: 64px; background: rgba(46, 213, 115, 0.15); border: 2px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: var(--success); font-size: 28px; }
-    .id-sfx-chip { display: inline-block; background: #000; border: 1px solid var(--gold-border); padding: 8px 16px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--gold-light); margin-bottom: 24px; }
-    .wa-btn-presidenza { width: 100%; background: #25d366; color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 13px; font-weight: 800; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+    .modal-card { background: var(--bg-surface); border: 2px solid var(--gold-primary); border-radius: 20px; width: 100%; max-width: 520px; padding: 36px; box-shadow: 0 20px 80px rgba(0,0,0,0.9); text-align: center; font-mono; }
+    .modal-icon { width: 64px; height: 64px; background: rgba(46, 213, 115, 0.15); border: 2px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; color: var(--success); font-size: 28px; }
+    .id-sfx-chip { display: inline-block; background: #000; border: 1px solid var(--gold-border); padding: 8px 18px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: var(--gold-light); margin-bottom: 20px; letter-spacing: 1px; }
+    .wa-btn-presidenza { width: 100%; background: #25d366; color: #fff; border: none; padding: 16px; border-radius: 10px; font-size: 12px; font-weight: 800; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; transition: all 0.2s; }
+    .wa-btn-presidenza:hover { background: #1eb954; transform: translateY(-1px); }
+
+    /* SOCIAL HUBS BOX */
+    .sfx-social-box { margin: 35px auto 10px auto; width: 100%; max-width: 900px; padding: 22px; background: #0f1117; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 16px; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+    .social-box-title { display: block; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #d4af37; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; }
+    .social-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .social-item { display: inline-flex; align-items: center; gap: 8px; background: #161922; border: 1px solid #242838; color: #ffffff; text-decoration: none; padding: 10px 16px; border-radius: 8px; font-size: 11px; font-weight: 700; transition: all 0.25s ease; font-family: 'JetBrains Mono', monospace; }
+    .social-item:hover { border-color: #d4af37; color: #d4af37; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); }
 
     @media (max-width: 768px) {
       .tier-grid { grid-template-columns: 1fr 1fr; }
@@ -94,7 +103,7 @@
       .full-width { grid-column: span 1; }
       .gold-box { flex-direction: column; gap: 14px; align-items: flex-start; }
       .gold-input-wrap { width: 100%; }
-      .master-wrapper { padding: 24px 18px; }
+      .master-wrapper { padding: 24px 16px; }
     }
   </style>
 </head>
@@ -102,13 +111,21 @@
 
   <div class="top-bar">
     <a href="index.html" class="brand">SUPREMA <span>FUTURE X</span></a>
-    <div class="badge-eal6"><div class="pulse-dot"></div> EAL6+ SYSTEM VERIFIED</div>
+    <div class="badge-eal6"><div class="pulse-dot"></div> EAL6+ SOVEREIGN VERIFIED</div>
   </div>
 
   <div class="master-wrapper">
     <div class="header-section">
       <h1>Candidatura Direzionale</h1>
       <p>Screening individuale e ammissione ai percorsi d'élite. Protocollo 100% Live One-to-One. Nessun videocorso preregistrato.</p>
+      
+      <div style="margin-top: 15px;">
+        <div class="roma-time-badge">
+          <span class="pulse-dot"></span>
+          <span>ROMA TIME SERVER:</span>
+          <strong id="live-roma-clock">--:--:-- UTC+1</strong>
+        </div>
+      </div>
     </div>
 
     <span class="section-label">1. Seleziona Percorso o Screening</span>
@@ -138,14 +155,14 @@
     <div class="gold-box">
       <div>
         <div class="gold-box-title">Circuito Suprema Gold Card</div>
-        <div class="gold-box-sub">Inserisci il codice conio (es. GOLD-849102) per il 5% di sconto allievo.</div>
+        <div class="gold-box-sub">Inserisci il codice conio (es. SGC-2026-XXXX) per il 5% di sconto allievo.</div>
       </div>
       <div class="gold-input-wrap">
-        <input type="text" id="goldCardInput" placeholder="CODICE GOLD" maxlength="16">
+        <input type="text" id="goldCardInput" placeholder="CODICE GOLD" maxlength="20">
       </div>
     </div>
 
-    <span class="section-label">2. Anagrafica &amp; Slot Orario 60 Minuti</span>
+    <span class="section-label">2. Anagrafica, Telegram &amp; Slot Orario 60 Minuti</span>
     <form id="sfxMasterForm">
       <div class="form-grid">
         <div class="field-group">
@@ -164,25 +181,31 @@
           <label>Telefono / WhatsApp <span class="req">*</span></label>
           <input type="tel" id="telefono" required placeholder="+39 347 0000000">
         </div>
-        
-        <!-- SELETTORE DINAMICO SLOT ORARI -->
+
+        <!-- TELEGRAM OBBLIGATORIO TASSATIVO -->
         <div class="field-group full-width">
-          <label>Seleziona Giorno &amp; Slot Orario (60 Minuti) <span class="req">*</span></label>
+          <label>Username o Numero Telegram (Obbligatorio) <span class="req">*</span></label>
+          <input type="text" id="telegram" required placeholder="@mariorossi oppure +393470000000" autocomplete="off">
+        </div>
+        
+        <!-- SELETTORE DINAMICO SLOT ORARI (16 SLOT SETTIMANALI DA 60M) -->
+        <div class="field-group full-width">
+          <label>Seleziona Giorno &amp; Slot Orario da 60 Minuti <span class="req">*</span></label>
           <select id="dataCall" required>
-            <option value="" disabled selected>Caricamento calendario disponibilità...</option>
+            <option value="" disabled selected>Caricamento calendario disponibilità live...</option>
           </select>
         </div>
 
         <div class="field-group full-width">
           <label>Note Operative o Background Professionale</label>
-          <textarea id="note" rows="2" placeholder="Descrivi brevemente i tuoi obiettivi..."></textarea>
+          <textarea id="note" rows="2" placeholder="Descrivi brevemente i tuoi obiettivi professionali..."></textarea>
         </div>
       </div>
 
       <div class="summary-card">
         <div>
           <div class="summary-title" id="summaryTierName">Conferenza CEO</div>
-          <div class="summary-subtitle" id="summarySub">Screening Preliminare Gratuito a Numero Chiuso</div>
+          <div class="summary-subtitle" id="summarySub">Screening Preliminare Gratuito con il CEO Giuliano Caratelli</div>
         </div>
         <div class="final-price" id="finalPriceDisplay">0 €</div>
       </div>
@@ -192,148 +215,115 @@
       </button>
     </form>
   </div>
-<!-- ========================================== -->
-<!-- SUPREMA FUTURE X // SOCIAL HUBS BOX        -->
-<!-- ========================================== -->
-<style>
-  .sfx-social-box {
-    margin: 40px auto 20px auto;
-    max-width: 900px;
-    padding: 24px;
-    background: #0f1117;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  }
-  .social-box-title {
-    display: block;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #d4af37;
-    margin-bottom: 20px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .social-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-  .social-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #161922;
-    border: 1px solid #242838;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    transition: all 0.25s ease;
-  }
-  .social-item:hover {
-    border-color: #d4af37;
-    color: #d4af37;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-  }
-  .social-item .icon { font-size: 14px; }
-</style>
 
-<div class="sfx-social-box">
-  <span class="social-box-title">Canali Istituzionali Presidenza</span>
-  
-  <div class="social-grid">
-    <a href="https://wa.me/393474429091" target="_blank" rel="noopener noreferrer" class="social-item">
-      <span class="icon">💬</span><span class="label">WhatsApp</span>
-    </a>
-    <a href="https://t.me/GEK_CAREL" target="_blank" rel="noopener noreferrer" class="social-item">
-      <span class="icon">✈️</span><span class="label">Telegram</span>
-    </a>
-    <a href="https://www.linkedin.com/in/suprema-future-x-gek" target="_blank" rel="noopener noreferrer" class="social-item">
-      <span class="icon">💼</span><span class="label">LinkedIn</span>
-    </a>
-    <a href="https://www.instagram.com/caratelligiuliano/" target="_blank" rel="noopener noreferrer" class="social-item">
-      <span class="icon">📸</span><span class="label">Instagram</span>
-    </a>
-    <a href="https://www.youtube.com/@Giuliano-m4x" target="_blank" rel="noopener noreferrer" class="social-item">
-      <span class="icon">▶️</span><span class="label">YouTube</span>
-    </a>
-    <a href="https://www.tiktok.com/@supremafuturex1" target="_blank" rel="noopener noreferrer" class="social-item">
-      <span class="icon">🎵</span><span class="label">TikTok</span>
-    </a>
-    <a href="https://www.facebook.com/profile.php?id=61594042149730" target="_blank" rel="noopener noreferrer" class="social-item">
-      <span class="icon">🌐</span><span class="label">Facebook</span>
-    </a>
+  <!-- CANALI ISTITUZIONALI PRESIDENZA -->
+  <div class="sfx-social-box">
+    <span class="social-box-title">Canali Istituzionali Presidenza</span>
+    <div class="social-grid">
+      <a href="https://wa.me/393474429091" target="_blank" rel="noopener noreferrer" class="social-item">
+        <span>💬</span><span>WhatsApp</span>
+      </a>
+      <a href="https://t.me/GEK_CAREL" target="_blank" rel="noopener noreferrer" class="social-item">
+        <span>✈️</span><span>Telegram</span>
+      </a>
+      <a href="https://www.linkedin.com/in/suprema-future-x-gek" target="_blank" rel="noopener noreferrer" class="social-item">
+        <span>💼</span><span>LinkedIn</span>
+      </a>
+      <a href="https://www.instagram.com/caratelligiuliano/" target="_blank" rel="noopener noreferrer" class="social-item">
+        <span>📸</span><span>Instagram</span>
+      </a>
+      <a href="https://www.youtube.com/@Giuliano-m4x" target="_blank" rel="noopener noreferrer" class="social-item">
+        <span>▶️</span><span>YouTube</span>
+      </a>
+      <a href="https://www.tiktok.com/@supremafuturex1" target="_blank" rel="noopener noreferrer" class="social-item">
+        <span>🎵</span><span>TikTok</span>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61594042149730" target="_blank" rel="noopener noreferrer" class="social-item">
+        <span>🌐</span><span>Facebook</span>
+      </a>
+    </div>
   </div>
-</div>
-<!-- ========================================== -->  <!-- MODALE CONFERMA -->
+
+  <!-- MODALE CONFERMA CANDIDATURA -->
   <div class="modal-overlay" id="modalConfirmation">
     <div class="modal-card">
       <div class="modal-icon">✓</div>
-      <h2 style="font-size:22px;margin-bottom:10px;">Candidatura Registrata</h2>
-      <p style="font-size:13px;color:#8b92a5;margin-bottom:20px;">Pratica registrata nel CRM. Notifica inoltrata al NOC di Presidenza.</p>
+      <h2 style="font-size:20px;margin-bottom:8px;text-transform:uppercase;">Candidatura Notarizzata</h2>
+      <p style="font-size:12px;color:#8b92a5;margin-bottom:18px;">Pratica registrata nel CRM. Notifica immediata inoltrata al NOC di Presidenza.</p>
       <div class="id-sfx-chip" id="modalIdSfx">SFX-26-XXXX</div>
       
-      <!-- Invia direttamente al WhatsApp Business del CEO -->
       <a href="#" target="_blank" class="wa-btn-presidenza" id="modalWaBtn">
-        💬 Conferma su WhatsApp (+39 347 442 9091)
+        💬 Conferma Istantanea su WhatsApp (+39 347 442 9091)
       </a>
 
-      <div style="margin-top:15px;">
+      <div style="margin-top:14px;">
         <span style="font-size:11px;color:#5c6275;cursor:pointer;text-decoration:underline;" onclick="document.getElementById('modalConfirmation').style.display='none'">Chiudi finestra</span>
       </div>
     </div>
   </div>
 
   <script>
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjOsUCBWD2l7lIHPfJdSpq75MM57s6rUGYYp-0UZ0BYAiyVoyn4M8I0jeL4UKaRXJA/exec";
     const TELEFONO_CEO_NUM = "393474429091";
 
     let selectedTier = "Conferenza CEO";
     let basePrice = 0.00;
     let discountMultiplier = 1.0;
-    let slotGiaOccupati = [];
+    let slotOccupatiList = [];
 
-    // Generazione Calendario Orario Ufficiale
-    // Lun: 10-12 | Mar: 15-18:30 | Mer: 10-12 | Gio: NO | Ven: 10-12 & 15-18:30 | Sab/Dom: NO
+    // OROLOGIO REAL-TIME ROMA UTC+1
+    function aggiornaOrologioRoma() {
+      const now = new Date();
+      const options = { timeZone: "Europe/Rome", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false };
+      const timeStr = new Intl.DateTimeFormat("it-IT", options).format(now);
+      const clockEl = document.getElementById("live-roma-clock");
+      if (clockEl) clockEl.textContent = `${timeStr} (UTC+1)`;
+    }
+    setInterval(aggiornaOrologioRoma, 1000);
+    aggiornaOrologioRoma();
+
+    // MATRICE UFFICIALE DEI 16 SLOT SETTIMANALI (DA 60 MINUTI)
+    // Lun: 10-12 (2) + 15-18 (3) = 5
+    // Mar: 21-23 (2)
+    // Mer: 21-23 (2)
+    // Gio: 18-20 (2)
+    // Ven: Chiuso (0)
+    // Sab: 10-12 (2) + 15-18 (3) = 5
+    // Dom: Chiuso (0)
+    // TOTALE: 16 SLOT
+    const MATRICE_ORARI = {
+      1: ["10:00 - 11:00", "11:00 - 12:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00"], // Lunedì
+      2: ["21:00 - 22:00", "22:00 - 23:00"], // Martedì
+      3: ["21:00 - 22:00", "22:00 - 23:00"], // Mercoledì
+      4: ["18:00 - 19:00", "19:00 - 20:00"], // Giovedì
+      5: [], // Venerdì: Chiuso
+      6: ["10:00 - 11:00", "11:00 - 12:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00"], // Sabato
+      0: []  // Domenica: Chiuso
+    };
+
     function generaSlotDisponibili(occupati) {
       const select = document.getElementById("dataCall");
       select.innerHTML = '<option value="" disabled selected>-- Scegli uno slot da 60 minuti disponibile --</option>';
 
       const giorniNomi = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
-      const orariPerGiorno = {
-        1: ["10:00 - 11:00", "11:00 - 12:00"], // Lunedì
-        2: ["15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "17:30 - 18:30"], // Martedì
-        3: ["10:00 - 11:00", "11:00 - 12:00"], // Mercoledì
-        4: [], // Giovedì escluso
-        5: ["10:00 - 11:00", "11:00 - 12:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00"] // Venerdì
-      };
-
       const oggi = new Date();
-      let slotTotaliGenerati = 0;
 
-      // Genera slot per i prossimi 14 giorni
+      // Generazione slot per i prossimi 14 giorni esecutivi
       for (let i = 1; i <= 14; i++) {
         const d = new Date();
         d.setDate(oggi.getDate() + i);
         const dayOfWeek = d.getDay();
 
-        if (orariPerGiorno[dayOfWeek] && orariPerGiorno[dayOfWeek].length > 0) {
+        if (MATRICE_ORARI[dayOfWeek] && MATRICE_ORARI[dayOfWeek].length > 0) {
           const giornoNome = giorniNomi[dayOfWeek];
           const dataStr = ("0" + d.getDate()).slice(-2) + "/" + ("0" + (d.getMonth() + 1)).slice(-2);
 
-          orariPerGiorno[dayOfWeek].forEach(fascia => {
+          MATRICE_ORARI[dayOfWeek].forEach(fascia => {
             const slotStringa = `${giornoNome} ${dataStr} ore ${fascia}`;
             const opt = document.createElement("option");
             opt.value = slotStringa;
 
-            // Se lo slot è già presente nel foglio Google, viene disabilitato
+            // Auto-lock: verifica se lo slot è già presente nel foglio Google
             const isOccupato = occupati.some(occ => occ.includes(dataStr) && occ.includes(fascia.split(" - ")[0]));
 
             if (isOccupato) {
@@ -344,25 +334,23 @@
             }
 
             select.appendChild(opt);
-            slotTotaliGenerati++;
           });
         }
       }
     }
 
-    // Caricamento slot occupati da Google Sheets
     async function caricaSlotOccupati() {
       try {
         const res = await fetch(APPS_SCRIPT_URL + "?action=getSlotOccupati");
         const json = await res.json();
-        slotGiaOccupati = json.slotOccupati || [];
+        slotOccupatiList = json.slotOccupati || [];
       } catch (e) {
-        slotGiaOccupati = [];
+        slotOccupatiList = [];
       }
-      generaSlotDisponibili(slotGiaOccupati);
+      generaSlotDisponibili(slotOccupatiList);
     }
 
-    // Gestione Selezione Percorsi
+    // GESTIONE SELEZIONE TIER
     document.querySelectorAll(".tier-card").forEach(card => {
       card.addEventListener("click", () => {
         document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("active"));
@@ -370,61 +358,88 @@
         selectedTier = card.getAttribute("data-tier");
         basePrice = parseFloat(card.getAttribute("data-price"));
         document.getElementById("summaryTierName").innerText = selectedTier;
-        document.getElementById("finalPriceDisplay").innerText = (basePrice * discountMultiplier).toFixed(0) + " €";
+        
+        if (basePrice === 0) {
+          document.getElementById("summarySub").innerText = "Screening Preliminare Gratuito con il CEO Giuliano Caratelli";
+          document.getElementById("finalPriceDisplay").innerText = "0 €";
+        } else {
+          document.getElementById("summarySub").innerText = "Percorso Formativo Ufficiale 100% Live One-to-One";
+          document.getElementById("finalPriceDisplay").innerText = (basePrice * discountMultiplier).toFixed(0) + " €";
+        }
       });
     });
 
-    // Invio Form
+    // SCONTO SUPREMA GOLD CARD
+    document.getElementById("goldCardInput").addEventListener("input", function() {
+      const codice = this.value.trim().toUpperCase();
+      if (codice.length >= 6 && basePrice > 0) {
+        discountMultiplier = 0.95; // 5% sconto statutario
+      } else {
+        discountMultiplier = 1.0;
+      }
+      document.getElementById("finalPriceDisplay").innerText = (basePrice * discountMultiplier).toFixed(0) + " €";
+    });
+
+    // INVIO CANDIDATURA
     document.getElementById("sfxMasterForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const btn = document.getElementById("btnInvia");
-      btn.disabled = true;
-      btn.innerHTML = "<span>TRASMISSIONE AL CLOUD...</span>";
-
-      const anno = new Date().getFullYear().toString().slice(-2);
-      const generatedIdSfx = `SFX-${anno}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-
+      
       const nomeVal = document.getElementById("nome").value.trim();
       const cognomeVal = document.getElementById("cognome").value.trim();
       const emailVal = document.getElementById("email").value.trim();
       const telVal = document.getElementById("telefono").value.trim();
+      const tgVal = document.getElementById("telegram").value.trim();
       const slotVal = document.getElementById("dataCall").value;
       const noteVal = document.getElementById("note").value.trim();
       const goldVal = document.getElementById("goldCardInput").value.trim().toUpperCase() || "NESSUNA";
       const importo = basePrice * discountMultiplier;
 
+      // VALIDAZIONE TASSATIVA TELEGRAM
+      if (!tgVal) {
+        alert("ATTENZIONE: Il campo Telegram è obbligatorio per l'assegnazione dello screening.");
+        document.getElementById("telegram").focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = "<span>NOTARIZZAZIONE NEL CLOUD EAL6+...</span>";
+
+      const anno = new Date().getFullYear().toString().slice(-2);
+      const generatedIdSfx = `SFX-${anno}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+
       const payload = {
-        action: "nuovaCandidatura",
+        azione: "nuovaCandidatura",
         idSfx: generatedIdSfx,
         nome: nomeVal,
         cognome: cognomeVal,
         email: emailVal,
         telefono: telVal,
+        telegram: tgVal,
         percorso: selectedTier,
         importo: importo,
         goldCard: goldVal,
-        dataCall: slotVal,
+        slot: slotVal,
         note: noteVal
       };
 
       try {
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
 
-        // Configura il link WhatsApp diretto verso il WhatsApp Business del CEO (+39 347 442 9091)
-        const msgCeo = `👑 *CANDIDATURA CONFERENZA CEO*\nProtocollo: ${generatedIdSfx}\nCandidato: ${nomeVal} ${cognomeVal}\nEmail: ${emailVal}\nTelefono: ${telVal}\nSlot: ${slotVal}\nPercorso: ${selectedTier}\nNote: ${noteVal}`;
+        // Configura il link WhatsApp diretto verso il CEO Giuliano Caratelli (+39 347 442 9091)
+        const msgCeo = `👑 *CANDIDATURA CONFERENZA CEO*\nProtocollo: ${generatedIdSfx}\nCandidato: ${nomeVal} ${cognomeVal}\nEmail: ${emailVal}\nTelefono: ${telVal}\nTelegram: ${tgVal}\nSlot Riservato: ${slotVal}\nPercorso: ${selectedTier}\nNote: ${noteVal}`;
         document.getElementById("modalWaBtn").href = `https://wa.me/${TELEFONO_CEO_NUM}?text=${encodeURIComponent(msgCeo)}`;
 
         document.getElementById("modalIdSfx").innerText = generatedIdSfx;
         document.getElementById("modalConfirmation").style.display = "flex";
         document.getElementById("sfxMasterForm").reset();
-        caricaSlotOccupati(); // Ricarica gli orari
+        caricaSlotOccupati(); // Ricarica e blocca istantaneamente lo slot occupato
       } catch (err) {
-        alert("Errore invio: " + err.toString());
+        alert("Errore invio candidatura: " + err.toString());
       } finally {
         btn.disabled = false;
         btn.innerHTML = "<span>Conferma e Invia Candidatura</span>";
