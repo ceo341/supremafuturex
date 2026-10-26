@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminale Sovrano // Accesso X-BOX Enterprise EAL6+</title>
-    <meta name="description" content="Portale di autenticazione stealth a 2 stadi con bivio caveau EAL6+ per Suprema Future X. Governance: CEO Giuliano Caratelli.">
+    <title>X-BOX // PORTALE DI ACCESSO PRESIDENZIALE EAL6+</title>
+    <meta name="description" content="Gateway di Autenticazione Sovrano EAL6+ Suprema Future X. Governance: CEO Giuliano Caratelli.">
     <meta name="theme-color" content="#050A0F">
-
     <link rel="icon" type="image/png" href="media/logo.png">
 
-    <!-- Tailwind CSS & Fonts -->
+    <!-- Framework Grafico Tailwind & Font Istituzionali SFX -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@600;800;900&family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Syncopate:wght@700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stile-globale.css?v=55">
 
     <script>
         tailwind.config = {
@@ -26,6 +26,10 @@
                             goldLight: '#D4AF37',
                             cyan: '#008B99',
                             cyanLight: '#00F0FF',
+                            silver: '#C0C0C0',
+                            silverLight: '#E2E8F0',
+                            emerald: '#00FF88',
+                            emeraldDark: '#059669',
                             dark: '#050A0F',
                             panel: '#090A0D',
                             card: '#12141C'
@@ -45,365 +49,308 @@
     <style>
         body {
             background-color: #050A0F;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%),
-                linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 28px 28px, 28px 28px;
+            color: #FAF8F5;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
         }
 
-        .neon-card-gold {
-            background: rgba(14, 16, 23, 0.96);
-            backdrop-filter: blur(16px);
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            box-shadow: 0 0 45px rgba(212, 175, 55, 0.15);
-            border-radius: 1.75rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .neon-card-gold:hover {
-            border-color: rgba(212, 175, 55, 0.9);
-            box-shadow: 0 0 55px rgba(212, 175, 55, 0.28);
+        #space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .pin-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 2px solid #D4AF37;
-            display: inline-block;
-            margin: 0 4px;
-            transition: all 0.2s ease;
-        }
-        .pin-dot.filled {
-            background: #00F0FF;
-            border-color: #00F0FF;
-            box-shadow: 0 0 12px #00F0FF;
-            transform: scale(1.15);
+        .console-7-inch {
+            width: 95vw;
+            max-width: 660px;
+            background: rgba(9, 10, 13, 0.95);
+            backdrop-filter: blur(24px);
+            border: 2px solid rgba(212, 175, 55, 0.65);
+            border-radius: 2rem;
+            box-shadow: 
+                0 0 70px rgba(0, 0, 0, 0.98),
+                0 0 45px rgba(212, 175, 55, 0.22),
+                inset 0 0 35px rgba(0, 240, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
         }
 
-        .keypad-btn {
-            background: #090A0D;
-            border: 1px solid #D4AF37;
-            color: #D4AF37;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 800;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            transition: all 0.15s ease;
-            cursor: pointer;
-            user-select: none;
+        .console-7-inch:hover {
+            border-color: rgba(0, 240, 255, 0.85);
+            box-shadow: 
+                0 0 80px rgba(0, 0, 0, 0.98),
+                0 0 55px rgba(0, 240, 255, 0.3),
+                inset 0 0 40px rgba(212, 175, 55, 0.12);
         }
-        .keypad-btn:hover {
-            background: #D4AF37;
-            color: #050A0F;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
-            transform: scale(1.03);
+
+        .laser-beam-header {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #00FF88, #D4AF37, #00F0FF, transparent);
+            background-size: 200% 100%;
+            animation: laserSlide 4s ease-in-out infinite;
+        }
+        @keyframes laserSlide {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .orb-pulse {
+            animation: orbFloat 4s ease-in-out infinite;
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-6px) scale(1.02); }
         }
     </style>
 </head>
-<body class="text-gray-200 font-mono min-h-screen flex flex-col items-center justify-center p-4 selection:bg-sfx-gold selection:text-black">
+<body class="min-h-screen flex flex-col justify-between selection:bg-sfx-gold selection:text-black relative">
 
-    <!-- TOP SECURITY STATUS -->
-    <div class="fixed top-4 left-4 right-4 max-w-5xl mx-auto flex justify-between items-center text-[10px] text-gray-500 font-mono z-20">
-        <div class="flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            <span class="text-gray-400 font-bold uppercase tracking-widest">SFX STEALTH GATEWAY // EAL6+ SOVEREIGN</span>
-        </div>
-        <a href="index.html" class="hover:text-sfx-gold text-gray-400 font-bold transition-colors">
-            <i class="fa-solid fa-arrow-left mr-1"></i> Ritorna al Portale
-        </a>
-    </div>
+    <!-- SFONDO CONTINUO: SATELLITI & MATRIX LENTO -->
+    <canvas id="space-canvas"></canvas>
 
-    <!-- WRAPPER CENTRALE LOGIN -->
-    <div class="max-w-md w-full relative z-10 my-12">
+    <div class="laser-beam-header relative z-30"></div>
 
-        <!-- ================================================================= -->
-        <!-- FASE 1: MASTER LOGIN (PASSWORD + PIN 10 CIFRE)                    -->
-        <!-- ================================================================= -->
-        <div id="step-1-master-container" class="neon-card-gold p-8 space-y-6 text-center">
-            <div class="w-20 h-20 mx-auto rounded-full p-1 bg-black border-2 border-sfx-gold shadow-[0_0_30px_rgba(212,175,55,0.4)]">
+    <!-- HEADER MINIMALE ISTITUZIONALE -->
+    <header class="relative z-20 px-6 py-4 flex justify-between items-center">
+        <a href="index.html" class="flex items-center space-x-3 group">
+            <div class="w-9 h-9 rounded-full p-0.5 bg-gradient-to-tr from-sfx-cyan via-sfx-gold to-yellow-500 shadow-md">
                 <img src="media/logo.png" alt="SFX" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
             </div>
-
-            <div class="space-y-1">
-                <span class="px-3 py-1 bg-sfx-gold/20 text-sfx-gold text-[10px] font-bold rounded-full uppercase border border-sfx-gold/40">
-                    CLEARANCE SOVRANA LV.9
+            <div>
+                <span class="font-grotesk font-black text-xs text-white tracking-wider block group-hover:text-sfx-gold transition-colors">
+                    SUPREMA FUTURE X
                 </span>
-                <h1 class="font-grotesk font-black text-2xl text-white uppercase tracking-wider mt-2">
-                    X-BOX STEALTH LOGIN
-                </h1>
-                <p class="text-[11px] text-gray-400 font-mono">
-                    Autenticazione presidenziale governata da server Google EAL6+.
+                <span class="text-[9px] text-gray-500 block uppercase">
+                    GATEWAY DI CONVALIDA PRESIDENZIALE
+                </span>
+            </div>
+        </a>
+
+        <div class="flex items-center space-x-2 text-[10px] text-gray-400 font-mono">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="hidden sm:inline">PROTOCOLLO EAL6+ ATTIVO</span>
+        </div>
+    </header>
+
+    <!-- CONTAINER CENTRALE: DISPLAY TATTICO DA 7 POLLICI -->
+    <main class="relative z-20 flex-1 flex items-center justify-center p-4">
+        <div class="console-7-inch p-6 sm:p-8 space-y-6">
+
+            <!-- Testata Display -->
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-11 h-11 rounded-2xl bg-black border border-sfx-gold flex items-center justify-center text-sfx-gold text-lg shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div>
+                        <span class="text-[9px] text-sfx-cyanLight font-bold uppercase tracking-widest block font-mono">
+                            TACTICAL COMMAND 7.0" // EAL6+ GATE
+                        </span>
+                        <h1 class="font-grotesk font-black text-sm text-white tracking-wider uppercase">
+                            ACCESSO PRESIDENZIALE
+                        </h1>
+                    </div>
+                </div>
+                <span class="px-2.5 py-1 bg-green-950/80 border border-green-500 text-green-300 text-[9px] font-bold rounded flex items-center">
+                    <i class="fa-solid fa-shield-halved mr-1.5 text-green-400"></i> CANALE PROTETTO
+                </span>
+            </div>
+
+            <!-- Targa di Benvenuto Direzionale -->
+            <div class="p-4 rounded-2xl bg-black/70 border border-sfx-gold/40 text-center space-y-1 orb-pulse shadow-inner">
+                <span class="text-sfx-gold font-bold text-[10px] uppercase tracking-widest block font-mono">
+                    AUTENTICAZIONE MASTER SOVRANA
+                </span>
+                <h2 class="text-white font-grotesk font-black text-base uppercase">
+                    CEO GIULIANO CARATELLI
+                </h2>
+                <p class="text-[11px] text-gray-400 font-light">
+                    Inserisci le chiavi presidenziali per sbloccare la sessione autorizzata dell'ecosistema.
                 </p>
             </div>
 
-            <form onsubmit="eseguiMasterAuth(event)" class="space-y-4 text-left font-mono text-xs">
+            <!-- Form Credenziali -->
+            <form onsubmit="convalidaCredenziali(event)" class="space-y-4 text-xs font-mono">
                 <div>
                     <label class="block text-gray-400 font-bold text-[10px] uppercase mb-1">
-                        Master Password *
+                        Master Password Presidenziale *
                     </label>
-                    <input type="password" id="login-pwd" required placeholder="Inserisci Master Password..." class="w-full p-3.5 bg-black border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold text-xs">
+                    <div class="relative">
+                        <input type="password" id="login-pwd" required placeholder="Inserisci Password..." class="w-full p-3.5 bg-black border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-gold text-xs transition-colors pr-10">
+                        <i class="fa-solid fa-key absolute right-3.5 top-3.5 text-gray-500 text-xs"></i>
+                    </div>
                 </div>
 
                 <div>
                     <label class="block text-gray-400 font-bold text-[10px] uppercase mb-1">
                         PIN Presidenziale (10 Cifre) *
                     </label>
-                    <input type="password" id="login-pin" required maxlength="10" placeholder="PIN 10 Cifre" class="w-full p-3.5 bg-black border border-gray-700 rounded-xl text-sfx-cyanLight text-center font-bold tracking-[0.3em] outline-none focus:border-sfx-cyan text-sm">
+                    <div class="relative">
+                        <input type="password" id="login-pin" maxlength="10" required placeholder="Inserisci PIN 10 cifre..." class="w-full p-3.5 bg-black border border-gray-700 rounded-xl text-sfx-cyanLight text-center font-bold tracking-[0.35em] outline-none focus:border-sfx-cyan text-sm transition-colors">
+                        <i class="fa-solid fa-lock absolute right-3.5 top-3.5 text-gray-500 text-xs"></i>
+                    </div>
                 </div>
 
-                <button type="submit" id="btn-master-submit" class="w-full py-4 bg-gradient-to-r from-sfx-gold to-yellow-600 hover:brightness-110 text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] cursor-pointer">
-                    <i class="fa-solid fa-lock-open mr-1.5"></i> CONVALIDA MASTER &amp; APRI CAVEAU
-                </button>
+                <div id="login-err-msg" class="hidden text-[10px] text-red-400 p-2.5 bg-red-950/70 border border-red-800 rounded-xl text-center"></div>
+
+                <!-- Pulsanti di Destinazione Post-Convalida -->
+                <div class="pt-2 space-y-2.5">
+                    <button type="submit" onclick="impostaDestinazione('admin.html')" class="w-full py-3.5 bg-gradient-to-r from-sfx-gold via-yellow-500 to-yellow-600 hover:brightness-110 text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-[0_0_25px_rgba(212,175,55,0.35)] cursor-pointer flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-crown text-sm"></i>
+                        <span>ENTRA IN X-BOX ENTERPRISE (MASTER)</span>
+                    </button>
+
+                    <button type="submit" onclick="impostaDestinazione('crm.html')" class="w-full py-3 bg-[#12141C] hover:bg-black border border-sfx-cyan/60 hover:border-sfx-cyan text-sfx-cyanLight font-grotesk font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-inbox text-sm"></i>
+                        <span>ENTRA IN BOX LANDING (SUPER CRM)</span>
+                    </button>
+                </div>
             </form>
 
-            <div id="master-error-msg" class="hidden text-[11px] text-red-400 font-mono p-2.5 bg-red-950/60 border border-red-800 rounded-xl animate-pulse"></div>
-
-            <div class="pt-2 border-t border-gray-800/80">
-                <button onclick="apriEmergencyRescue()" class="text-[10px] text-gray-500 hover:text-sfx-cyan font-mono transition-colors cursor-pointer">
-                    <i class="fa-solid fa-life-ring mr-1"></i> Circuito Emergenza Sovrana 7"
-                </button>
+            <!-- Footer Tattico -->
+            <div class="flex justify-between items-center text-[10px] text-gray-500 pt-3 border-t border-gray-800/80 font-mono">
+                <a href="index.html" class="hover:text-gray-300 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Ritorna al Portale Pubblico
+                </a>
+                <span>Hardware ID: <strong class="text-gray-400">EAL6-SFX-7INCH</strong></span>
             </div>
         </div>
+    </main>
 
-        <!-- ================================================================= -->
-        <!-- FASE 2: CAVEAU BIVIO A 2 VARCHI (BOX LANDING VS BOX SECURITY)      -->
-        <!-- ================================================================= -->
-        <div id="step-2-caveau-container" class="neon-card-gold p-8 space-y-6 text-center hidden">
-            <div class="w-16 h-16 mx-auto rounded-full p-1 bg-black border-2 border-sfx-cyan shadow-[0_0_25px_rgba(0,240,255,0.4)] flex items-center justify-center text-sfx-cyan text-2xl">
-                <i class="fa-solid fa-dungeon"></i>
-            </div>
+    <!-- FOOTER LEGALE -->
+    <footer class="relative z-20 py-3 text-center text-[10px] text-gray-600 font-mono">
+        Suprema Future X S.r.l. &bull; Protocollo di Sicurezza EAL6+ Sovrano &bull; Governance: CEO Giuliano Caratelli
+    </footer>
 
-            <div class="space-y-1">
-                <span class="px-3 py-1 bg-sfx-cyan/20 text-sfx-cyanLight text-[10px] font-bold rounded-full uppercase border border-sfx-cyan/40">
-                    VARCO CAVEAU AUTORIZZATO
-                </span>
-                <h2 class="font-grotesk font-black text-xl text-white uppercase tracking-wider mt-2">
-                    BIVIO DIREZIONALE X-BOX
-                </h2>
-                <p class="text-[11px] text-gray-400 font-mono">
-                    Inserisci il PIN autorizzativo per sbloccare la destinazione desiderata.
-                </p>
-            </div>
-
-            <!-- I 2 TASTI VARCO -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-                <!-- VARCO 1: BOX LANDING -->
-                <button onclick="selezionaVarco('LANDING')" id="btn-varco-landing" class="p-5 bg-black/80 rounded-2xl border-2 border-sfx-cyan/50 hover:border-sfx-cyan hover:bg-black transition-all flex flex-col items-center justify-between space-y-2 cursor-pointer shadow-lg">
-                    <i class="fa-solid fa-layer-group text-2xl text-sfx-cyan"></i>
-                    <div>
-                        <strong class="text-white block text-sm">BOX LANDING</strong>
-                        <span class="text-[10px] text-gray-400">crm.html &bull; Nexus Engine</span>
-                    </div>
-                    <span class="text-[9px] text-sfx-cyan font-bold uppercase mt-1">Richiede PIN</span>
-                </button>
-
-                <!-- VARCO 2: BOX SECURITY -->
-                <button onclick="selezionaVarco('SECURITY')" id="btn-varco-security" class="p-5 bg-black/80 rounded-2xl border-2 border-sfx-gold/50 hover:border-sfx-gold hover:bg-black transition-all flex flex-col items-center justify-between space-y-2 cursor-pointer shadow-lg">
-                    <i class="fa-solid fa-shield-halved text-2xl text-sfx-gold"></i>
-                    <div>
-                        <strong class="text-white block text-sm">BOX SECURITY</strong>
-                        <span class="text-[10px] text-gray-400">admin.html &bull; Mastro &amp; AI</span>
-                    </div>
-                    <span class="text-[9px] text-sfx-gold font-bold uppercase mt-1">Richiede PIN</span>
-                </button>
-            </div>
-
-            <!-- TASTIERINO VIRTUALE PER SBLOCCO DEL VARCO SCELTO -->
-            <div id="keypad-varco-box" class="hidden pt-4 border-t border-gray-800 space-y-4">
-                <span id="label-varco-attivo" class="text-xs font-bold uppercase tracking-wider block text-white"></span>
-                <div id="pin-dots-display" class="flex justify-center gap-1.5 my-2"></div>
-
-                <div class="grid grid-cols-3 gap-2.5 max-w-[260px] mx-auto">
-                    <button onclick="digitaPinVarco('1')" class="keypad-btn">1</button>
-                    <button onclick="digitaPinVarco('2')" class="keypad-btn">2</button>
-                    <button onclick="digitaPinVarco('3')" class="keypad-btn">3</button>
-                    <button onclick="digitaPinVarco('4')" class="keypad-btn">4</button>
-                    <button onclick="digitaPinVarco('5')" class="keypad-btn">5</button>
-                    <button onclick="digitaPinVarco('6')" class="keypad-btn">6</button>
-                    <button onclick="digitaPinVarco('7')" class="keypad-btn">7</button>
-                    <button onclick="digitaPinVarco('8')" class="keypad-btn">8</button>
-                    <button onclick="digitaPinVarco('9')" class="keypad-btn">9</button>
-                    <button onclick="resetPinVarco()" class="keypad-btn text-red-400 text-sm"><i class="fa-solid fa-delete-left"></i></button>
-                    <button onclick="digitaPinVarco('0')" class="keypad-btn">0</button>
-                    <button onclick="convalidaAccessoVarco()" class="keypad-btn text-sfx-cyan text-sm"><i class="fa-solid fa-check-double"></i></button>
-                </div>
-                <div id="varco-error-msg" class="hidden text-[10px] text-red-400 font-mono animate-pulse">PIN Non Valido.</div>
-            </div>
-        </div>
-
-        <!-- ================================================================= -->
-        <!-- FASE 3: MODALE EMERGENCY RESCUE SOVRANA (7 POLLICI)                -->
-        <!-- ================================================================= -->
-        <div id="modal-emergency-rescue" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 hidden flex items-center justify-center p-4">
-            <div class="max-w-md w-full bg-[#090A0D] border-2 border-red-500 rounded-3xl p-6 text-center space-y-4 font-mono text-xs shadow-2xl">
-                <div class="w-14 h-14 mx-auto rounded-full bg-red-950/60 border border-red-500 flex items-center justify-center text-red-400 text-2xl">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                </div>
-                <h3 class="font-grotesk font-black text-lg text-white uppercase">CIRCUITO DI EMERGENZA SOVRANA</h3>
-                <p class="text-gray-400 text-[11px]">
-                    Inserisci la chiave di ripristino per il bypass di emergenza riservato al CEO.
-                </p>
-                <input type="password" id="emergency-code-input" placeholder="Chiave segreta di sblocco..." class="w-full p-3 bg-black border border-gray-700 rounded-xl text-white text-center font-bold outline-none focus:border-red-500 text-xs">
-                <div class="flex gap-2">
-                    <button onclick="chiudiEmergencyRescue()" class="flex-1 py-2.5 bg-gray-800 text-white rounded-xl font-bold cursor-pointer">Annulla</button>
-                    <button onclick="eseguiRescueOverride()" class="flex-1 py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold cursor-pointer">Sblocca</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- SCRIPT LOGICA EAL6+ -->
+    <!-- ===================================================================== -->
+    <!-- MOTORE JAVASCRIPT: AUTENTICAZIONE & PERSISTENZA TOKEN SESSIONE       -->
+    <!-- ===================================================================== -->
     <script>
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjOsUCBWD2l7lIHPfJdSpq75MM57s6rUGYYp-0UZ0BYAiyVoyn4M8I0jeL4UKaRXJA/exec";
-        const PIN_AUTORIZZATO = "3474429091";
-        const RESCUE_CODE_DEFAULT = "itmc2202v";
+        const MASTER_PIN_AUTORIZZATO = "3474429091";
+        const MASTER_PWD_AUTORIZZATA = "MARIACHIARAsupremaofficial2026@";
+        let destinazioneTarget = "admin.html";
 
-        let varcoSelezionato = null;
-        let pinVarcoDigitato = "";
+        function impostaDestinazione(fileTarget) {
+            destinazioneTarget = fileTarget;
+        }
 
-        // 1. AUTENTICAZIONE MASTER (STEP 1)
-        async function eseguiMasterAuth(e) {
+        function convalidaCredenziali(e) {
             e.preventDefault();
-            const pwd = document.getElementById('login-pwd').value;
-            const pin = document.getElementById('login-pin').value;
-            const btn = document.getElementById('btn-master-submit');
-            const errBox = document.getElementById('master-error-msg');
 
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> VERIFICA SERVER...';
-            errBox.classList.add('hidden');
+            const pwdInserita = document.getElementById('login-pwd').value.trim().replace(/\s+/g, '');
+            const pinInserito = document.getElementById('login-pin').value.trim();
+            const errBox = document.getElementById('login-err-msg');
 
-            try {
-                const res = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ azione: 'AUTENTICAZIONE_PRESIDENZA', password: pwd, pin: pin })
-                });
-                const json = await res.json();
+            const pwdClean = MASTER_PWD_AUTORIZZATA.replace(/\s+/g, '');
 
-                if (json.status === 'SUCCESS') {
-                    sessionStorage.setItem('sfx_authenticated', 'true');
-                    sessionStorage.setItem('sfx_token_sessione', json.sessionToken);
-                    passaAStep2Caveau();
-                } else {
-                    errBox.textContent = json.message || "Credenziali non autorizzate.";
-                    errBox.classList.remove('hidden');
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="fa-solid fa-lock-open mr-1.5"></i> CONVALIDA MASTER &amp; APRI CAVEAU';
-                }
-            } catch (err) {
-                // Fallback offline con credenziali corrette
-                if (pwd.trim().replace(/\s+/g, '') === "MARIACHIARAsupremaofficial2026@" && pin.trim() === "3474429091") {
-                    sessionStorage.setItem('sfx_authenticated', 'true');
-                    sessionStorage.setItem('sfx_token_sessione', 'OFFLINE_TOKEN_' + Date.now());
-                    passaAStep2Caveau();
-                } else {
-                    errBox.textContent = "Connessione assente o credenziali errate.";
-                    errBox.classList.remove('hidden');
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="fa-solid fa-lock-open mr-1.5"></i> CONVALIDA MASTER &amp; APRI CAVEAU';
-                }
-            }
-        }
-
-        function passaAStep2Caveau() {
-            document.getElementById('step-1-master-container').classList.add('hidden');
-            document.getElementById('step-2-caveau-container').classList.remove('hidden');
-        }
-
-        // 2. SELEZIONE VARCO & KEYPAD PIN (STEP 2)
-        function selezionaVarco(tipo) {
-            varcoSelezionato = tipo;
-            pinVarcoDigitato = "";
-            renderPinDots();
-
-            const keypadBox = document.getElementById('keypad-varco-box');
-            const label = document.getElementById('label-varco-attivo');
-            keypadBox.classList.remove('hidden');
-
-            if (tipo === 'LANDING') {
-                label.innerHTML = '<span class="text-sfx-cyan">VARCO: BOX LANDING (crm.html)</span><br><small class="text-gray-400 font-normal">Immetti il PIN per accedere alla gestione landing e lead.</small>';
+            if (pwdInserita === pwdClean && pinInserito === MASTER_PIN_AUTORIZZATO) {
+                // Imposta il token di sessione valido per tutte le finestre dell'ecosistema
+                sessionStorage.setItem('sfx_authenticated', 'true');
+                errBox.classList.add('hidden');
+                
+                // Reindirizzamento istantaneo al file prescelto
+                window.location.href = destinazioneTarget;
             } else {
-                label.innerHTML = '<span class="text-sfx-gold">VARCO: BOX SECURITY (admin.html)</span><br><small class="text-gray-400 font-normal">Immetti il PIN per accedere a Mastro, Rate e Flotta AI.</small>';
+                errBox.textContent = "Credenziali non valide. Accesso riservato esclusivamente al CEO.";
+                errBox.classList.remove('hidden');
             }
         }
 
-        function renderPinDots() {
-            const container = document.getElementById('pin-dots-display');
-            container.innerHTML = '';
-            for (let i = 0; i < 10; i++) {
-                const filled = i < pinVarcoDigitato.length ? 'filled' : '';
-                container.innerHTML += `<div class="pin-dot ${filled}"></div>`;
-            }
-        }
+        // MOTORE GRAFICO CONTINUO BACKGROUND: SATELLITI & PIOGGIA MATRIX LENTA
+        function avviaSfondo() {
+            const canvas = document.getElementById('space-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
 
-        function digitaPinVarco(num) {
-            if (pinVarcoDigitato.length < 10) {
-                pinVarcoDigitato += num;
-                renderPinDots();
-                if (pinVarcoDigitato.length === 10) {
-                    convalidaAccessoVarco();
+            let w = canvas.width = window.innerWidth;
+            let h = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            });
+
+            const fontSize = 14;
+            const columns = Math.floor(w / fontSize);
+            const drops = Array(columns).fill(1);
+            const chars = "01SFXEAL6+ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            const satelliti = [
+                { x: w * 0.25, y: h * 0.35, r: 4, speed: 0.0006, angle: 0, dist: 95, color: '#00F0FF' },
+                { x: w * 0.75, y: h * 0.65, r: 6, speed: 0.0004, angle: Math.PI, dist: 130, color: '#D4AF37' }
+            ];
+
+            function render() {
+                ctx.fillStyle = "rgba(5, 10, 15, 0.25)";
+                ctx.fillRect(0, 0, w, h);
+
+                // Pianeta 1
+                const gradP1 = ctx.createRadialGradient(w * 0.25, h * 0.35, 10, w * 0.25, h * 0.35, 65);
+                gradP1.addColorStop(0, "rgba(0, 139, 153, 0.35)");
+                gradP1.addColorStop(1, "transparent");
+                ctx.fillStyle = gradP1;
+                ctx.beginPath();
+                ctx.arc(w * 0.25, h * 0.35, 65, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Pianeta 2
+                const gradP2 = ctx.createRadialGradient(w * 0.75, h * 0.65, 15, w * 0.75, h * 0.65, 85);
+                gradP2.addColorStop(0, "rgba(212, 175, 55, 0.25)");
+                gradP2.addColorStop(1, "transparent");
+                ctx.fillStyle = gradP2;
+                ctx.beginPath();
+                ctx.arc(w * 0.75, h * 0.65, 85, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Pioggia Matrix soffusa (opacità 0.08)
+                ctx.fillStyle = "rgba(0, 255, 136, 0.08)";
+                ctx.font = fontSize + "px 'JetBrains Mono', monospace";
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > h && Math.random() > 0.985) {
+                        drops[i] = 0;
+                    }
+                    drops[i] += 0.35;
                 }
-            }
-        }
 
-        function resetPinVarco() {
-            pinVarcoDigitato = "";
-            renderPinDots();
-            document.getElementById('varco-error-msg').classList.add('hidden');
-        }
+                // Satelliti traccianti
+                satelliti.forEach(sat => {
+                    sat.angle += sat.speed * 4;
+                    const satX = sat.x + Math.cos(sat.angle) * sat.dist;
+                    const satY = sat.y + Math.sin(sat.angle) * (sat.dist * 0.4);
 
-        function convalidaAccessoVarco() {
-            if (pinVarcoDigitato === PIN_AUTORIZZATO) {
-                if (varcoSelezionato === 'LANDING') {
-                    window.location.href = "crm.html";
-                } else if (varcoSelezionato === 'SECURITY') {
-                    window.location.href = "admin.html";
-                }
-            } else {
-                const err = document.getElementById('varco-error-msg');
-                err.classList.remove('hidden');
-                setTimeout(resetPinVarco, 1200);
-            }
-        }
+                    ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+                    ctx.beginPath();
+                    ctx.ellipse(sat.x, sat.y, sat.dist, sat.dist * 0.4, 0, 0, Math.PI * 2);
+                    ctx.stroke();
 
-        // 3. EMERGENCY RESCUE SOVRANA
-        function apriEmergencyRescue() {
-            document.getElementById('modal-emergency-rescue').classList.remove('hidden');
-        }
-        function chiudiEmergencyRescue() {
-            document.getElementById('modal-emergency-rescue').classList.add('hidden');
-        }
-
-        async function eseguiRescueOverride() {
-            const key = document.getElementById('emergency-code-input').value.trim().toLowerCase();
-            try {
-                const res = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ azione: 'EMERGENCY_RECOVERY', answerHash: key })
+                    ctx.fillStyle = sat.color;
+                    ctx.beginPath();
+                    ctx.arc(satX, satY, sat.r, 0, Math.PI * 2);
+                    ctx.fill();
                 });
-                const json = await res.json();
-                if (json.status === 'SUCCESS' || key === RESCUE_CODE_DEFAULT) {
-                    sessionStorage.setItem('sfx_authenticated', 'true');
-                    chiudiEmergencyRescue();
-                    passaAStep2Caveau();
-                } else {
-                    alert("Chiave di ripristino non valida.");
-                }
-            } catch (err) {
-                if (key === RESCUE_CODE_DEFAULT) {
-                    sessionStorage.setItem('sfx_authenticated', 'true');
-                    chiudiEmergencyRescue();
-                    passaAStep2Caveau();
-                } else {
-                    alert("Chiave di ripristino non valida.");
-                }
+
+                requestAnimationFrame(render);
             }
+            render();
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            avviaSfondo();
+            
+            // Se già autenticato in precedenza, atterra direttamente alla console master
+            if (sessionStorage.getItem('sfx_authenticated') === 'true') {
+                window.location.href = "admin.html";
+            }
+        });
     </script>
 </body>
 </html>
