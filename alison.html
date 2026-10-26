@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALISON // DESK NEURALE | Suprema Future X</title>
-    
-    <link rel="icon" type="image/png" href="media/logo.png">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#030712">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alison Concierge // Console Neurale EAL6+ | Suprema Future X</title>
+    <meta name="description" content="Console interattiva di Alison (AG-01), Concierge Digitale di Presidenza per Suprema Future X. Screening 30m, orientamento didattico e assistenza EAL6+.">
+    <meta name="theme-color" content="#00F0FF">
 
-    <!-- Tailwind CSS & FontAwesome 6 -->
+    <link rel="icon" type="image/png" href="media/logo.png">
+
+    <!-- Tailwind CSS & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Syncopate:wght@400;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="stile-globale.css?v=50">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stile-globale.css?v=55">
 
     <script>
         tailwind.config = {
@@ -25,14 +23,14 @@
                 extend: {
                     colors: {
                         sfx: {
-                            dark: '#030712',
-                            darker: '#000000',
-                            card: '#0b0f19',
-                            cyan: '#00F0FF',
-                            cyanDark: '#008B99',
-                            gold: '#D4AF37',
-                            goldDark: '#B8860B',
-                            border: '#1f2937'
+                            gold: '#B8860B',
+                            goldLight: '#D4AF37',
+                            cyan: '#008B99',
+                            cyanLight: '#00F0FF',
+                            silver: '#C0C0C0',
+                            dark: '#050A0F',
+                            panel: '#090A0D',
+                            card: '#12141C'
                         }
                     },
                     fontFamily: {
@@ -47,434 +45,289 @@
     </script>
 
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            background-color: #030712;
-            color: #d1d5db;
-            overflow: hidden;
-        }
-        
-        .chat-container {
-            height: calc(100vh - 145px);
-            overflow-y: auto;
-            scroll-behavior: smooth;
+        body {
+            background-color: #050A0F;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.08) 0%, transparent 75%),
+                linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
         }
 
-        .chat-container::-webkit-scrollbar {
-            width: 5px;
+        .neon-card-cyan {
+            background: rgba(18, 20, 28, 0.95);
+            backdrop-filter: blur(14px);
+            border: 2px solid rgba(0, 240, 255, 0.45);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.15);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
         }
-        .chat-container::-webkit-scrollbar-track {
-            background: #0b0f19;
-        }
-        .chat-container::-webkit-scrollbar-thumb {
-            background: #1f2937;
-            border-radius: 4px;
-        }
-        .chat-container::-webkit-scrollbar-thumb:hover {
-            background: #00F0FF;
-        }
-
-        .msg-alison {
-            background: linear-gradient(135deg, rgba(11, 15, 25, 0.98), rgba(3, 7, 18, 0.98));
-            border-left: 3px solid #00F0FF;
-            border-top: 1px solid rgba(0, 240, 255, 0.2);
-            border-bottom: 1px solid rgba(31, 41, 55, 0.8);
-            border-right: 1px solid rgba(31, 41, 55, 0.8);
-            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.05);
+        .neon-card-cyan:hover {
+            border-color: rgba(0, 240, 255, 0.85);
+            box-shadow: 0 0 45px rgba(0, 240, 255, 0.25);
         }
 
-        .msg-user {
-            background: rgba(0, 240, 255, 0.08);
-            border-right: 3px solid #D4AF37;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            border-left: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.05);
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.4); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #00F0FF; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
 
-        .voice-wave {
-            display: inline-flex;
-            align-items: center;
-            gap: 2px;
-            height: 14px;
+        .laser-beam-header {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #00F0FF, #D4AF37, transparent);
+            background-size: 200% 100%;
+            animation: laserSlide 4s ease-in-out infinite;
         }
-        .voice-bar {
-            width: 2px;
-            height: 100%;
-            background-color: #00F0FF;
-            border-radius: 2px;
-            animation: wave 1s ease-in-out infinite;
-        }
-        .voice-bar:nth-child(1) { animation-delay: 0.1s; height: 30%; }
-        .voice-bar:nth-child(2) { animation-delay: 0.2s; height: 75%; }
-        .voice-bar:nth-child(3) { animation-delay: 0.3s; height: 100%; }
-        .voice-bar:nth-child(4) { animation-delay: 0.4s; height: 60%; }
-        .voice-bar:nth-child(5) { animation-delay: 0.5s; height: 35%; }
-
-        @keyframes wave {
-            0%, 100% { transform: scaleY(0.3); }
-            50% { transform: scaleY(1); }
+        @keyframes laserSlide {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
     </style>
 </head>
-<body class="flex flex-col h-screen font-sans selection:bg-sfx-gold selection:text-black">
+<body class="text-gray-200 font-mono min-h-screen flex flex-col justify-between selection:bg-sfx-cyan selection:text-black overflow-x-hidden">
 
-    <!-- HEADER: IDENTITÀ ALISON & CONTROLLI AUDIO -->
-    <header class="bg-sfx-card border-b border-sfx-border py-3 px-4 sm:px-6 flex items-center justify-between shrink-0 z-20 shadow-lg shadow-cyan-900/10">
-        <div class="flex items-center gap-3">
-            <div class="relative w-11 h-11 rounded-full bg-sfx-darker border-2 border-sfx-cyan flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-                <i class="fa-solid fa-brain text-sfx-cyan text-lg animate-pulse"></i>
-                <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-sfx-card rounded-full" title="Core EAL6+ Connesso"></div>
-            </div>
-            
-            <div>
-                <div class="flex items-center gap-2">
-                    <h1 class="text-white font-bold tracking-wider text-sm sm:text-base">ALISON</h1>
-                    <span class="px-2 py-0.5 bg-sfx-cyan/20 text-sfx-cyan text-[9px] font-mono font-bold rounded border border-sfx-cyan/40">AG-01 CONCIERGE</span>
+    <!-- BARRA LASER SUPERIORE -->
+    <div class="laser-beam-header"></div>
+
+    <!-- HEADER DI NAVIGAZIONE -->
+    <header class="bg-[#090A0D]/95 border-b border-sfx-cyan/40 px-4 sm:px-6 py-3.5 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
+                <div class="w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-sfx-cyan via-sfx-gold to-sfx-silver shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+                    <img src="media/logo.png" alt="SFX Logo" class="w-full h-full object-cover rounded-full bg-black" onerror="this.src='media/logo.png'">
                 </div>
-                <p class="text-[10px] text-gray-400 font-mono tracking-widest uppercase">
-                    Desk Esecutivo Presidenza &bull; <strong class="text-sfx-gold">CEO Giuliano Caratelli</strong>
-                </p>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-2 font-mono text-xs">
-            <!-- Toggle Voce Fluida -->
-            <button onclick="toggleVoceAlison()" id="btn-voce-toggle" class="px-3 py-1.5 bg-sfx-cyan/10 border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded-xl transition-all font-bold flex items-center gap-1.5 cursor-pointer shadow-sm" title="Attiva/Disattiva Risposta Vocale">
-                <i class="fa-solid fa-volume-high" id="voce-icon"></i>
-                <span class="hidden sm:inline" id="voce-stato-testo">VOCE: ATTIVA</span>
-            </button>
-
-            <!-- Indicatore Onde Vocali -->
-            <div id="indicatore-parla" class="hidden px-2 py-1 bg-black/60 border border-sfx-cyan/40 rounded-lg items-center gap-1.5 text-[10px] text-sfx-cyan">
-                <div class="voice-wave">
-                    <div class="voice-bar"></div>
-                    <div class="voice-bar"></div>
-                    <div class="voice-bar"></div>
-                    <div class="voice-bar"></div>
-                    <div class="voice-bar"></div>
+                <div>
+                    <span class="font-grotesk font-black text-sm text-white tracking-wider block">SUPREMA FUTURE X</span>
+                    <span class="text-[9px] font-mono text-sfx-cyanLight font-bold uppercase tracking-widest block">ALISON CONCIERGE HUB (AG-01)</span>
                 </div>
-                <span class="hidden md:inline font-bold">In riproduzione...</span>
             </div>
 
-            <a href="candidatura.html" class="px-3 py-1.5 bg-sfx-gold/20 border border-sfx-gold text-sfx-goldLight hover:bg-sfx-gold hover:text-black rounded-xl transition-all font-bold hidden sm:flex items-center gap-1">
-                <i class="fa-solid fa-crown"></i> <span>Screening</span>
-            </a>
-
-            <a href="index.html" class="w-9 h-9 rounded-xl bg-sfx-darker border border-sfx-border flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors" title="Torna al Portale">
-                <i class="fa-solid fa-xmark text-sm"></i>
-            </a>
+            <div class="flex items-center space-x-3 text-xs font-mono">
+                <div class="hidden sm:flex items-center space-x-2 px-3 py-1 bg-black/60 border border-gray-800 rounded-lg">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    <span class="text-green-400 font-bold text-[10px]">NEURAL ENGINE ONLINE</span>
+                </div>
+                <a href="candidatura.html" class="px-3.5 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black rounded-xl font-black text-xs transition-all shadow-md">
+                    <i class="fa-solid fa-crown mr-1"></i> SCREENING (€ 0,00)
+                </a>
+                <a href="index.html" class="w-9 h-9 bg-[#12141C] border border-gray-700 hover:border-gray-500 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors" title="Ritorna al Portale">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- AREA CHAT INTERATTIVA -->
-    <main id="chat-wrapper" class="flex-1 relative chat-container p-4 sm:p-6 lg:px-24 xl:px-48 flex flex-col gap-4 font-mono">
-        
-        <div class="text-center my-1">
-            <div class="inline-block bg-sfx-darker/90 border border-sfx-border px-4 py-1 rounded-full text-[9px] text-gray-400 font-mono tracking-widest uppercase">
-                <i class="fa-solid fa-shield-halved text-sfx-cyan mr-1"></i> PROTOCOLLO EAL6+ SOVRANO &bull; AUDIO SINTESI NATURALE V50
+    <!-- CORPO PRINCIPALE INTERATTIVO ALISON -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <!-- INTRODUZIONE ALISON & CLEARANCE -->
+        <div class="neon-card-cyan p-6 sm:p-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Avatar & Badge -->
+                <div class="lg:col-span-4 text-center space-y-4">
+                    <div class="relative w-40 h-40 mx-auto rounded-full p-1 bg-gradient-to-tr from-sfx-cyan via-sfx-gold to-white shadow-[0_0_35px_rgba(0,240,255,0.35)] overflow-hidden">
+                        <img src="media/alison-avatar.png" alt="Alison Avatar" class="w-full h-full object-cover rounded-full bg-black">
+                        <span class="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-green-500 border-2 border-black flex items-center justify-center text-[8px] text-black font-black" title="Online">✓</span>
+                    </div>
+                    <div>
+                        <h2 class="font-grotesk font-black text-xl text-white">ALISON FUTURE X</h2>
+                        <span class="text-xs text-sfx-cyan font-bold tracking-widest uppercase block mt-0.5">CONCIERGE DI PRESIDENZA (AG-01)</span>
+                    </div>
+                    <div class="flex justify-center gap-2">
+                        <span class="px-2.5 py-0.5 bg-black/60 border border-sfx-cyan/40 text-sfx-cyanLight rounded-md text-[9px] font-bold">100% LIVE 1-TO-1</span>
+                        <span class="px-2.5 py-0.5 bg-black/60 border border-sfx-gold/40 text-sfx-gold rounded-md text-[9px] font-bold">ZERO VIDEO REGISTRATI</span>
+                    </div>
+                </div>
+
+                <!-- Descrizione & Canali Rapidi -->
+                <div class="lg:col-span-8 space-y-5 font-mono text-xs">
+                    <div class="border-b border-gray-800 pb-3">
+                        <span class="text-sfx-gold font-bold text-[10px] uppercase tracking-widest block">INTERFACCIA NEURALE DI ACCOGLIENZA</span>
+                        <h1 class="font-grotesk font-black text-2xl text-white uppercase mt-1">BENVENUTO NELL'ECOSISTEMA SUPREMA</h1>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed font-light text-[13px]">
+                        "Rispondo in conformità allo standard EAL6+ per conto del CEO e Fondatore <strong>Giuliano Caratelli</strong>. Il mio compito è orientarti tra i 3 percorsi formativi dell'Academy, verificare le tue prerogative per lo screening preliminare gratuito di 30 minuti ed evitare qualsiasi dispersione di tempo."
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                        <a href="candidatura.html" class="p-3 bg-black/70 hover:bg-black rounded-xl border border-sfx-gold/50 text-left transition-all block">
+                            <span class="text-sfx-gold font-bold text-[10px] block uppercase">1. SCREENING PRELIMINARE</span>
+                            <strong class="text-white text-xs block mt-0.5">Conferenza CEO 30m (€ 0,00) &rarr;</strong>
+                        </a>
+                        <a href="index.html#academy" class="p-3 bg-black/70 hover:bg-black rounded-xl border border-sfx-cyan/50 text-left transition-all block">
+                            <span class="text-sfx-cyan font-bold text-[10px] block uppercase">2. PERCORSI ACADEMY</span>
+                            <strong class="text-white text-xs block mt-0.5">Silver, Executive &amp; VIP &rarr;</strong>
+                        </a>
+                        <a href="https://wa.me/393474429091" target="_blank" class="p-3 bg-black/70 hover:bg-black rounded-xl border border-green-500/50 text-left transition-all block">
+                            <span class="text-green-400 font-bold text-[10px] block uppercase">3. WHATSAPP DIRETTO</span>
+                            <strong class="text-white text-xs block mt-0.5">+39 347 442 9091 &rarr;</strong>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Messaggio iniziale di Alison -->
-        <div class="flex gap-3 w-full sm:w-[90%] lg:w-[75%]">
-            <div class="w-8 h-8 rounded-full bg-sfx-cyan/20 border border-sfx-cyan flex-shrink-0 flex items-center justify-center mt-1">
-                <i class="fa-solid fa-brain text-sfx-cyan text-xs"></i>
+        <!-- CONSOLE CHAT A SCHERMO INTERO -->
+        <div class="neon-card-cyan overflow-hidden flex flex-col h-[520px]">
+            <div class="bg-[#090A0D] px-6 py-3.5 border-b border-gray-800 flex justify-between items-center text-xs font-mono">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-brain text-sfx-cyan"></i>
+                    <span class="text-white font-bold">ALISON NEURAL TERMINAL // SFX-CANALE-01</span>
+                </div>
+                <div class="flex items-center space-x-2 text-[10px]">
+                    <span class="text-gray-500">DISPACCI:</span>
+                    <strong class="text-sfx-gold">CRITTOGRAFATI SHA-256</strong>
+                </div>
             </div>
-            <div class="msg-alison p-4 rounded-2xl rounded-tl-none shadow-md space-y-2">
-                <div class="flex justify-between items-center border-b border-gray-800 pb-1.5">
-                    <span class="text-xs font-bold text-white font-grotesk">Desk Esecutivo // Alison AG-01</span>
-                    <span class="text-[9px] text-sfx-cyan font-bold">100% LIVE 1-TO-1</span>
-                </div>
-                <p class="text-xs text-gray-200 leading-relaxed font-sans">
-                    Benvenuto in <b>Suprema Future X</b>. Sono <b>Alison</b>, Concierge di Presidenza per il nostro Fondatore e CEO <b>Giuliano Caratelli</b>.<br><br>
-                    Il nostro principio fondante è categorico: <strong>non vendiamo videocorsi preregistrati</strong>. Ogni percorso è svolto in diretta individuale 1-to-1 con tariffa omnicomprensiva bloccata e accesso previo <strong>screening selettivo di 30 minuti</strong>.
-                </p>
-                
-                <!-- Scorciatoie rapide per l'utente -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-[10px] font-bold">
-                    <button onclick="inviaQueryRapida('Chi è il CEO Giuliano Caratelli?')" class="p-2 bg-black/70 border border-gray-700 hover:border-sfx-gold text-sfx-gold rounded-xl text-left transition-colors cursor-pointer">
-                        👑 Chi è il CEO Giuliano?
-                    </button>
-                    <button onclick="inviaQueryRapida('Quali sono i prezzi dei corsi Academy?')" class="p-2 bg-black/70 border border-gray-700 hover:border-sfx-cyan text-sfx-cyan rounded-xl text-left transition-colors cursor-pointer">
-                        🎓 Corsi 249€, 299€, 349€
-                    </button>
-                    <button onclick="inviaQueryRapida('Come prenotare lo screening di 30 minuti?')" class="p-2 bg-black/70 border border-gray-700 hover:border-green-500 text-green-300 rounded-xl text-left transition-colors cursor-pointer">
-                        🎯 Screening 30m Meet
-                    </button>
-                </div>
 
-                <div class="text-[9px] text-gray-500 font-mono flex items-center justify-between pt-1 border-t border-gray-900">
-                    <span><i class="fa-solid fa-circle-check text-green-400 mr-1"></i>Voce Fluida Pronta</span>
-                    <span>Roma Centro, Via della Scrofa</span>
+            <!-- Box Messaggi -->
+            <div id="alison-chat-stream" class="flex-1 p-6 overflow-y-auto space-y-4 font-mono text-xs custom-scrollbar bg-[#050A0F]">
+                <!-- Messaggio Iniziale Alison -->
+                <div class="bg-[#12141C] p-4 rounded-2xl border border-gray-800 max-w-2xl space-y-3 text-gray-200 shadow-md">
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-1.5">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-sfx-cyan animate-pulse"></span>
+                            <strong class="text-sfx-cyan text-xs">Alison AG-01 // Concierge</strong>
+                        </div>
+                        <span class="text-[9px] text-gray-500" id="alison-init-time">10:00</span>
+                    </div>
+                    <p class="leading-relaxed">
+                        Bentornato. Sono a tua completa disposizione. Puoi pormi qualsiasi domanda sui dettagli operativi dei corsi, sulle tariffe bloccate, sul protocollo 100% Live One-to-One o sulla prenotazione di una Conferenza Diretta con il CEO Giuliano Caratelli.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-2 text-[10px]">
+                        <button onclick="inviaDomandaRapida('Quali sono i prezzi dei corsi?')" class="px-3 py-1.5 bg-black/60 hover:bg-black border border-gray-700 text-sfx-cyanLight rounded-lg font-bold transition-all cursor-pointer">
+                            Tariffe Corsi
+                        </button>
+                        <button onclick="inviaDomandaRapida('Come funziona lo screening con il CEO?')" class="px-3 py-1.5 bg-black/60 hover:bg-black border border-gray-700 text-sfx-gold rounded-lg font-bold transition-all cursor-pointer">
+                            Screening CEO (€ 0,00)
+                        </button>
+                        <button onclick="inviaDomandaRapida('Ci sono videocorsi registrati?')" class="px-3 py-1.5 bg-black/60 hover:bg-black border border-gray-700 text-white rounded-lg font-bold transition-all cursor-pointer">
+                            Zero Videocorsi
+                        </button>
+                        <button onclick="inviaDomandaRapida('Come attivo il mio negozio e-commerce?')" class="px-3 py-1.5 bg-black/60 hover:bg-black border border-gray-700 text-yellow-300 rounded-lg font-bold transition-all cursor-pointer">
+                            Negozi Online
+                        </button>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="p-4 bg-[#090A0D] border-t border-gray-800 flex space-x-2">
+                <input type="text" id="alison-user-input" placeholder="Formula una domanda per Alison..." onkeypress="if(event.key==='Enter') inviaMessaggioAlison()" class="flex-1 p-3.5 bg-[#12141C] border border-gray-700 rounded-xl text-white outline-none focus:border-sfx-cyan text-xs font-mono">
+                <button onclick="inviaMessaggioAlison()" id="btn-alison-send" class="px-6 py-3.5 bg-sfx-cyan hover:bg-cyan-400 text-black font-grotesk font-black text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-md">
+                    INVIA
+                </button>
             </div>
         </div>
 
     </main>
 
-    <!-- FOOTER INPUT CHAT -->
-    <footer class="bg-sfx-card border-t border-sfx-border p-3 sm:p-4 shrink-0 z-20">
-        <div class="max-w-4xl mx-auto flex gap-2.5">
-            <div class="flex-1 relative">
-                <input type="text" id="chat-input" placeholder="Chiedi ad Alison su corsi, screening, CEO Giuliano o negozi digitali..." 
-                       class="w-full h-12 bg-sfx-darker border border-sfx-border rounded-xl pl-4 pr-10 text-xs text-white focus:outline-none focus:border-sfx-cyan transition-all font-mono" autocomplete="off">
+    <!-- FOOTER DI STATO -->
+    <footer class="bg-[#090A0D] border-t border-gray-800 py-4 px-6 text-center font-mono text-[10px] text-gray-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span>SUPREMA FUTURE X S.R.L. &bull; CONCIERGE DIGITALE EAL6+</span>
+            <div class="flex items-center space-x-2 text-sfx-cyan">
+                <span>Presidio Operativo:</span>
+                <strong class="text-white">ceo@supremafuturex.com</strong>
             </div>
-            
-            <button id="chat-send" class="w-12 h-12 bg-sfx-cyan hover:bg-cyan-300 text-black font-black rounded-xl flex items-center justify-center text-sm transition-transform hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(0,240,255,0.3)] cursor-pointer">
-                <i class="fa-solid fa-paper-plane"></i>
-            </button>
+            <span>&copy; 2026 SUPREMA FUTURE X. GOVERNANCE: CEO GIULIANO CARATELLI.</span>
         </div>
     </footer>
 
-    <!-- MOTORE NEURALE DI ALISON, SPEECH SYNTHESIS & 50 FAQ EMBEDDED -->
+    <!-- LOGICA JAVASCRIPT DELLA CONSOLE ALISON -->
     <script>
-        // ENDPOINT UNIFICATO E CANALE BROADCAST SOVRANO
-        const APPS_SCRIPT_URL_ALISON = "https://script.google.com/macros/s/AKfycbzNDBJDLegZOWTFdD1QwbgWIxJ-PEmU5eYbAlQmiU8Gf3helYMvVHvlTuWB6JMqlsrFLg/exec";
-        const sfxEnterpriseBus = new BroadcastChannel('sfx_enterprise_bus');
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjOsUCBWD2l7lIHPfJdSpq75MM57s6rUGYYp-0UZ0BYAiyVoyn4M8I0jeL4UKaRXJA/exec";
 
-        // STATO MOTORE VOCALE NATURALE
-        let synth = window.speechSynthesis;
-        let voceAttiva = true;
-        let voceItalianaSelezionata = null;
-
-        function caricaVociDisponibili() {
-            if (!synth) return;
-            const voices = synth.getVoices();
-            voceItalianaSelezionata = voices.find(v => v.lang.includes('it') && (
-                v.name.includes('Natural') || 
-                v.name.includes('Google') || 
-                v.name.includes('Alice') || 
-                v.name.includes('Federica') || 
-                v.name.includes('Siri') || 
-                v.name.includes('Elsa') ||
-                v.name.includes('Cosimo')
-            )) || voices.find(v => v.lang.startsWith('it')) || null;
-        }
-
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = caricaVociDisponibili;
-        }
-        caricaVociDisponibili();
-
-        function toggleVoceAlison() {
-            voceAttiva = !voceAttiva;
-            const icon = document.getElementById('voce-icon');
-            const testo = document.getElementById('voce-stato-testo');
-            const btn = document.getElementById('btn-voce-toggle');
-
-            if (voceAttiva) {
-                icon.className = "fa-solid fa-volume-high";
-                testo.textContent = "VOCE: ATTIVA";
-                btn.className = "px-3 py-1.5 bg-sfx-cyan/10 border border-sfx-cyan text-sfx-cyan hover:bg-sfx-cyan hover:text-black rounded-xl transition-all font-bold flex items-center gap-1.5 cursor-pointer shadow-sm";
-            } else {
-                if (synth) synth.cancel();
-                icon.className = "fa-solid fa-volume-xmark";
-                testo.textContent = "VOCE: MUTE";
-                btn.className = "px-3 py-1.5 bg-gray-900 border border-gray-700 text-gray-400 hover:text-white rounded-xl transition-all font-bold flex items-center gap-1.5 cursor-pointer shadow-sm";
-                mostraOndaVocale(false);
+        const FAQ_ALISON_CORPUS = [
+            {
+                k: ["prezzi", "costo", "tariffe", "quanto costa", "prezzo"],
+                a: "Le tariffe sono inderogabili e bloccate: Silver Tier a 249,00 €, Executive Master a 299,00 € (include Suprema Gold Card) e Premium VIP a 349,00 € (affiancamento One-to-One diretto con il CEO). Lo screening preliminare è a costo zero (€ 0,00)."
+            },
+            {
+                k: ["videocorsi", "preregistrati", "video corsi", "lezioni registrate"],
+                a: "Suprema Future X non vende e non venderà mai videocorsi registrati. Tutta la didattica è erogata al 100% in diretta individuale One-to-One (sessioni dedicate da 60 minuti) con workspace Google Drive assegnato."
+            },
+            {
+                k: ["screening", "conferenza", "conferenza ceo", "call", "colloquio"],
+                a: "Lo screening preliminare di 30 minuti con il Fondatore e CEO Giuliano Caratelli è completamente gratuito (€ 0,00). Puoi prenotare il tuo slot da 60 minuti direttamente nella scheda Candidatura."
+            },
+            {
+                k: ["chi sei", "alison", "ruolo", "ag-01"],
+                a: "Sono Alison (AG-01), Concierge Digitale di Presidenza per Suprema Future X. Opero per qualificare le candidature ed evitare perdite di tempo alla Presidenza del CEO Giuliano Caratelli."
+            },
+            {
+                k: ["negozio", "ecommerce", "e-commerce", "stock", "magazzino", "store"],
+                a: "La divisione E-Commerce consente a corsisti e partner di gestire un negozio online indipendente a zero stock di magazzino e zero costi fissi, collegato direttamente al catalogo Luxury VIP e alla logistica centralizzata."
+            },
+            {
+                k: ["gold card", "carta oro", "punti", "tessera"],
+                a: "La Suprema Gold Card è il pass Phygital d'élite dell'Ecosistema. Assegnata con 100 punti statutari di benvenuto, consente l'avanzamento sui 6 Gradi (fino a 12.000+ PTS) e garantisce il 5% di sconto statutario sui percorsi."
+            },
+            {
+                k: ["contatto", "telefono", "whatsapp", "cellulare", "parlare"],
+                a: "Puoi contattare direttamente la Presidenza su WhatsApp al numero +39 347 442 9091 oppure su Telegram cercando @GEK_CAREL."
             }
-        }
-
-        function mostraOndaVocale(mostra) {
-            const ind = document.getElementById('indicatore-parla');
-            if (!ind) return;
-            if (mostra) ind.classList.remove('hidden');
-            else ind.classList.add('hidden');
-        }
-
-        function parlaTestoNaturale(testo) {
-            if (!voceAttiva || !synth) return;
-            synth.cancel();
-
-            let testoPulito = testo.replace(/<[^>]*>?/gm, ' ')
-                                   .replace(/[\u{1F600}-\u{1F6FF}|[\u{2600}-\u{26FF}]/gu, '')
-                                   .replace(/\s+/g, ' ')
-                                   .trim();
-
-            if (!testoPulito) return;
-
-            const utterance = new SpeechSynthesisUtterance(testoPulito);
-            if (voceItalianaSelezionata) utterance.voice = voceItalianaSelezionata;
-            utterance.lang = 'it-IT';
-            utterance.rate = 0.98;
-            utterance.pitch = 1.05;
-
-            utterance.onstart = () => mostraOndaVocale(true);
-            utterance.onend = () => mostraOndaVocale(false);
-            utterance.onerror = () => mostraOndaVocale(false);
-
-            synth.speak(utterance);
-        }
-
-        // DATABASE 50 FAQ STRATEGICHE INTELLIGENTI
-        const SFX_FAQ_CORE = [
-            {"k": ["chi sei", "alison", "ruolo", "concierge"], "a": "Sono Alison (AG-01), Concierge Esecutivo di Suprema Future X. Rispondo direttamente al Fondatore e CEO Giuliano Caratelli. Conduco l'orientamento didattico e filtro le candidature per lo screening preliminare."},
-            {"k": ["chi e il capo", "chi e il ceo", "giuliano", "caratelli", "fondatore", "presidente"], "a": "Il nostro CEO e Presidente è Giuliano Caratelli. Sovrintende all'intera architettura d'impresa, ai negozi digitali, alle convenzioni luxury e tiene personalmente le sessioni riservate One-to-One per i percorsi accreditati."},
-            {"k": ["videocorsi", "video registrati", "zero video", "preregistrati"], "a": "Suprema Future X non vende e non venderà mai videocorsi preregistrati. La formazione è erogata al 100% in diretta Live One-to-One da 60 minuti. Questo principio è sigillato contrattualmente."},
-            {"k": ["screening", "30 minuti", "call preliminare", "colloquio"], "a": "L'ammissione finale a Suprema Future X è subordinata a uno Screening Selettivo di 30 minuti su Google Meet con la Presidenza. Serve a valutare la motivazione e la disponibilità oraria del candidato prima dell'ammissione."},
-            {"k": ["prezzi", "quanto costa", "costi", "listino", "tariffe"], "a": "Le tariffe sono inderogabili e bloccate: Silver Tier a 249 €, Executive Master a 299 € e Premium VIP a 349 €. Comprendono l'erogazione Live 1-to-1 e il Workspace Google Drive."},
-            {"k": ["silver", "249", "tier 249"], "a": "Il Silver Tier (249 €) fornisce le basi metodologiche del lavoro indipendente, 4 schede didattiche master e l'avvio alla vendita autonoma con certificazione finale."},
-            {"k": ["executive", "299", "master 299"], "a": "L'Executive Master (299 €) è il percorso cardine di 8 settimane: include mentoring applicato, setup del Workspace Drive con AG-11 Assedio e il rilascio della Suprema Gold Card."},
-            {"k": ["premium", "vip", "349"], "a": "Il Premium VIP (349 €) offre affiancamento personale diretto con il CEO Giuliano Caratelli, revisione del modello di carriera professionale e consegna della tessera Gold Card metallica."},
-            {"k": ["gold card", "carta oro", "phygital", "tessera"], "a": "La Suprema Gold Card è il pass phygital d'élite di SFX. Permette di accumulare fino a 100 punti crescita e garantisce il 5% di sconto ai nuovi allievi presentati e il 10% di provvigione cassa al titolare."},
-            {"k": ["negozio online", "e-commerce", "chiavi in mano", "store"], "a": "La nostra divisione e-commerce attiva negozi digitali chiavi in mano a zero magazzino: logistica, packaging e fatturazione sono centralizzati. Il corsista trattiene il margine netto."},
-            {"k": ["magazzino", "anticipare merce", "stock"], "a": "Non serve anticipare merce né gestire pacchi. Il sistema opera a stock zero tramite accordi quadro d'impresa con partner selezionati."},
-            {"k": ["sede", "dove siete", "roma", "indirizzo"], "a": "La Sede Centrale di Rappresentanza di Suprema Future X si trova a Roma Centro, in Via della Scrofa."},
-            {"k": ["email", "contatti", "scrivere", "caselle"], "a": "Le nostre 4 caselle ufficiali sono: ceo@supremafuturex.com (Presidenza), academy@supremafuturex.com (Didattica), desk@supremafuturex.com (Operativo) e support@supremafuturex.com (Supporto)."},
-            {"k": ["whatsapp", "telefono", "cellulare"], "a": "Il contatto WhatsApp diretto della Presidenza è il +39 347 442 9091. È attivo per coordinare le call di screening e le urgenze corsisti."},
-            {"k": ["drive", "workspace", "cartella"], "a": "A ogni corsista ammesso viene generata una cartella crittografata su Google Drive a costo licenza zero (SFX_WORKSPACE) con dispense, registri lezioni e prompt AI."},
-            {"k": ["flotta", "15 agenti", "chi sono gli agenti"], "a": "La flotta neurale EAL6+ comprende 15 agenti dedicati: AG-01 Alison, AG-02 Nicole, AG-03 Ginevra, AG-04 Scout, AG-05 Ledger, AG-11 Assedio, AG-12 Sentinel, AG-15 Joker e altri supervisori."},
-            {"k": ["fisco", "tasse", "ginevra", "16%"], "a": "L'agente AG-03 Ginevra vigila sull'accantonamento intoccabile del 16% per ogni incasso societario, garantendo la totale copertura delle scadenze F24."},
-            {"k": ["mastro", "54", "30", "split"], "a": "Ogni entrata a Mastro viene ripartita con formula notarizzata: 54% Operatività e Server, 30% Dividendi e Riserva CEO, 16% Tasse F24 intoccabili."},
-            {"k": ["requisiti", "chi puo iscriversi", "esperienza"], "a": "Non servono lauree o competenze informatiche avanzate. Richiediamo rigore, puntualità agli appuntamenti e rispetto del codice etico aziendale."},
-            {"k": ["pagamento", "come pagare", "sumup", "revolut"], "a": "I pagamenti sono gestiti tramite SumUp POS protetto (carte Visa, Mastercard) e bonifici istantanei aziendali su Revolut Business."},
-            {"k": ["rate", "dilazione", "finanziamento"], "a": "I prezzi sono già ridotti al minimo sostenibile per sessioni One-to-One (249€, 299€, 349€). Eventuali dilazioni vanno concordate con il CEO durante lo screening."},
-            {"k": ["orari", "quando si fanno le lezioni"], "a": "Le lezioni Live 1-to-1 si concordano su misura in fasce flessibili dal lunedì al venerdì: 10:00, 11:30, 15:00, 16:30 o 18:00."},
-            {"k": ["certificato", "attestato", "diploma"], "a": "Al termine del programma e dopo la verifica del project work, viene rilasciata la Certificazione Ufficiale delle Competenze digitali Suprema Future X."},
-            {"k": ["recensioni", "dicono di noi", "testimonianze"], "a": "Sulla Landing Page trovi oltre 40 testimonianze verificate di imprenditori e allievi che hanno avviato con successo la propria attività autonoma."},
-            {"k": ["social", "canali", "instagram", "telegram"], "a": "Suprema Future X è attiva su 6 canali: Instagram, Telegram NOC (@SupremaFutureX_NocBot), YouTube, LinkedIn, TikTok e Facebook."},
-            {"k": ["boutique", "luxury", "imperya"], "a": "La Boutique Luxury VIP è il nostro circuito convenzionato di prodotti cosmetici e lifestyle di fascia alta, distribuito dai corsisti a margine garantito."},
-            {"k": ["codice sfx", "seriale", "id"], "a": "Il Seriale SFX (es. SFX-26-M9A1) è generato automaticamente dal sistema al momento dell'invio della candidatura per tracciare il fascicolo."},
-            {"k": ["conferenza ceo", "prenotare ceo"], "a": "Puoi candidarti per la Conferenza Presidenziale con Giuliano Caratelli dalla scheda su candidatura.html. Verrai ricontattato via email entro 24 ore."},
-            {"k": ["garanzia", "rimborso"], "a": "La nostra garanzia è l'affiancamento One-to-One: non vieni lasciato solo davanti a un video ma guidato passo-passo fino all'esecuzione operativa."},
-            {"k": ["scout", "ag-04"], "a": "Scout (AG-04) è l'agente hunter che presidia le conversazioni social su 100 keyword strategiche per intercettare profili qualificati."},
-            {"k": ["joker", "ag-15"], "a": "Joker (AG-15) pianifica le sequenze editoriali e le strategie di copywriting per i 6 canali social aziendali."},
-            {"k": ["assedio", "ag-11"], "a": "Assedio (AG-11) è il protocollo didattico ed esecutivo dedicato alla negoziazione, closing commerciale e allocazione del Workspace Drive."},
-            {"k": ["sentinel", "ag-12"], "a": "Sentinel (AG-12) monitora i log di sicurezza EAL6+ e impedisce intrusioni o manomissioni dei listini ufficiali."},
-            {"k": ["antigravity", "polo tecnologico"], "a": "È l'area sperimentale di Suprema Future X dedicata alla fisica applicata e ai campi di levitazione magnetica per l'insonorizzazione direzionale."},
-            {"k": ["dormienti", "recupero"], "a": "I candidati inattivi vengono archiviati nel modulo Dormienti della Box Security e ricontattati con offerte riservate tramite campagne 1-click WhatsApp."},
-            {"k": ["pin cassa", "tetto ceo"], "a": "La Cassa Dividendi Presidenziale è protetta da PIN a 10 cifre. Il piano retributivo del CEO Giuliano prevede un tetto massimo di 5.000 €/mese su 14 mensilità."},
-            {"k": ["kill switch", "emergenza"], "a": "In caso di minaccia informatica grave, il CEO può attivare il Sovereign Kill-Switch EAL6+ per isolare e congelare istantaneamente il portale."},
-            {"k": ["contratto", "statutario", "firma"], "a": "Ogni corsista firma digitalmente un Atto Privato Statutario emesso da academy@supremafuturex.com con datazione certa e clausola Zero Video."},
-            {"k": ["durata", "quante settimane"], "a": "Il percorso base dura 3 settimane, l'Executive Master 8 settimane, mentre il Premium VIP prosegue con assistenza e mentoring continuo."},
-            {"k": ["lavoro da remoto", "lavorare da casa"], "a": "Il nostro obiettivo è renderti professionalmente autonomo per operare da remoto con il tuo computer, gestendo orari e clienti in piena libertà."},
-            {"k": ["fuffa", "guru", "promesse"], "a": "Combattiamo la fuffa del web: niente schemi piramidali o promesse di guadagni facili. Solo metodo, accordi contrattuali chiari e affiancamento live."},
-            {"k": ["posso iniziare da zero", "senza esperienza"], "a": "Sì, l'Academy parte dalle basi operative e ti accompagna fino all'apertura del negozio o all'acquisizione dei primi clienti."},
-            {"k": ["come funziona lo screening", "cosa chiedete"], "a": "Durante la call di 30 minuti analizziamo la tua situazione professionale, i tuoi obiettivi economici e ti mostriamo la struttura della piattaforma."},
-            {"k": ["box landing", "crm.html"], "a": "La Box Landing è la console riservata al governo delle 11 sezioni della pagina pubblica e al monitoraggio delle candidature in ingresso."},
-            {"k": ["box security", "admin.html"], "a": "La Box Security è la sala controllo direzionale con Mastro, Fisco Ginevra 16%, Media Vault a 5 categorie, Player 8 pollici e Flotta 15 AI."},
-            {"k": ["supporto", "assistenza tecnica"], "a": "Il team di supporto e la Direzione rispondono h24 tramite email ufficiale (support@supremafuturex.com) o su WhatsApp al +39 347 442 9091."},
-            {"k": ["presentatore", "referral", "bonus"], "a": "I titolari di Suprema Gold Card guadagnano il 10% di provvigione diretta su ogni allievo che accede a un corso Academy tramite il loro codice."},
-            {"k": ["posso partecipare dall'estero", "svizzera", "fuori italia"], "a": "Certamente, operiamo su scala internazionale. Supportiamo prefissi e bonifici da tutta Europa, Svizzera e Regno Unito."},
-            {"k": ["cosa succede adesso", "come inizio"], "a": "Il primo passo è inviare la tua richiesta di screening dalla pagina Candidatura. Riceverai la conferma e il link alla stanza Google Meet."},
-            {"k": ["ciao", "buongiorno", "buonasera", "salve"], "a": "Salve! Sono Alison. Come posso assisterti oggi? Posso illustrarti i percorsi Academy (249€, 299€, 349€) o predisporre il tuo screening con il CEO Giuliano Caratelli."}
         ];
 
-        // GESTIONE DELLA CHAT
         document.addEventListener('DOMContentLoaded', () => {
-            const inputField = document.getElementById('chat-input');
-            const sendBtn = document.getElementById('chat-send');
-            const chatWrapper = document.getElementById('chat-wrapper');
-
-            const scrollToBottom = () => { chatWrapper.scrollTop = chatWrapper.scrollHeight; };
-
-            window.renderMessage = (testo, type, ctaHtml = '') => {
-                const wrapper = document.createElement('div');
-                const now = new Date();
-                const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
-
-                if (type === 'user') {
-                    wrapper.className = "flex gap-3 w-full sm:w-[90%] lg:w-[75%] self-end flex-row-reverse";
-                    wrapper.innerHTML = `
-                        <div class="w-8 h-8 rounded-full bg-gray-800 border border-sfx-gold flex-shrink-0 flex items-center justify-center mt-1">
-                            <i class="fa-solid fa-user text-sfx-gold text-xs"></i>
-                        </div>
-                        <div class="msg-user p-3.5 rounded-2xl rounded-tr-none shadow-md text-right">
-                            <p class="text-xs text-yellow-100 leading-relaxed font-mono">${escapeHtml(testo)}</p>
-                            <div class="mt-1 text-[9px] text-gray-500 font-mono">${timeStr}</div>
-                        </div>
-                    `;
-                } else {
-                    wrapper.className = "flex gap-3 w-full sm:w-[90%] lg:w-[75%]";
-                    wrapper.innerHTML = `
-                        <div class="w-8 h-8 rounded-full bg-sfx-cyan/20 border border-sfx-cyan flex-shrink-0 flex items-center justify-center mt-1">
-                            <i class="fa-solid fa-brain text-sfx-cyan text-xs"></i>
-                        </div>
-                        <div class="msg-alison p-3.5 rounded-2xl rounded-tl-none shadow-md space-y-2">
-                            <div class="flex justify-between items-center border-b border-gray-800 pb-1">
-                                <span class="text-xs font-bold text-white">Alison Concierge</span>
-                                <span class="text-[9px] text-sfx-cyan font-bold">${timeStr}</span>
-                            </div>
-                            <p class="text-xs text-gray-200 leading-relaxed font-sans">${testo}</p>
-                            ${ctaHtml ? `<div class="pt-1.5">${ctaHtml}</div>` : ''}
-                        </div>
-                    `;
-                }
-                chatWrapper.appendChild(wrapper);
-                scrollToBottom();
-            };
-
-            window.inviaQueryRapida = (domanda) => {
-                inputField.value = domanda;
-                handleSend();
-            };
-
-            const handleSend = () => {
-                const query = inputField.value.trim();
-                if (!query) return;
-
-                renderMessage(query, 'user');
-                inputField.value = '';
-
-                sfxEnterpriseBus.postMessage({ type: 'ALISON_CHAT_QUERY', query: query });
-
-                setTimeout(() => {
-                    const elaborata = cercaRispostaNelCore(query);
-                    renderMessage(elaborata.testo, 'alison', elaborata.cta);
-                    parlaTestoNaturale(elaborata.testo);
-                }, 350);
-            };
-
-            sendBtn.addEventListener('click', handleSend);
-            inputField.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') handleSend();
-            });
+            const timeEl = document.getElementById('alison-init-time');
+            if (timeEl) timeEl.textContent = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
         });
 
-        function cercaRispostaNelCore(testo) {
-            const query = testo.toLowerCase();
-            let migliorMatch = null;
-            let punteggioMax = 0;
-
-            for (const item of SFX_FAQ_CORE) {
-                let punteggio = 0;
-                for (const k of item.k) {
-                    if (query.includes(k.toLowerCase())) {
-                        punteggio += k.length * 2;
-                    }
-                }
-                if (punteggio > punteggioMax) {
-                    punteggioMax = punteggio;
-                    migliorMatch = item;
-                }
-            }
-
-            if (migliorMatch && punteggioMax >= 4) {
-                return {
-                    testo: migliorMatch.a,
-                    cta: `<a href="candidatura.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black text-[10px] font-black rounded-lg transition-all shadow-md">
-                            <i class="fa-solid fa-crown text-[9px]"></i> Prenota Screening 30m con il CEO &rarr;
-                          </a>`
-                };
-            }
-
-            return {
-                testo: "Ho registrato la tua richiesta nel fascicolo esecutivo. Per approfondire il tuo progetto con il CEO Giuliano Caratelli e valutare l'accesso all'Academy Live 1-to-1, ti invito a riservare lo screening preliminare di 30 minuti.",
-                cta: `<div class="flex flex-wrap gap-2 pt-1">
-                        <a href="candidatura.html" class="px-3 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black text-[10px] font-black rounded-lg shadow-md transition-all">
-                            👑 Riserva Call con il CEO Giuliano
-                        </a>
-                        <a href="index.html#academy" class="px-3 py-1.5 bg-sfx-dark border border-sfx-cyan text-sfx-cyan text-[10px] font-bold rounded-lg hover:bg-sfx-cyan hover:text-black transition-all">
-                            🎓 Listino Corsi Ufficiale
-                        </a>
-                      </div>`
-            };
+        function inviaDomandaRapida(testo) {
+            document.getElementById('alison-user-input').value = testo;
+            inviaMessaggioAlison();
         }
 
-        function escapeHtml(str) {
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        function inviaMessaggioAlison() {
+            const input = document.getElementById('alison-user-input');
+            const stream = document.getElementById('alison-chat-stream');
+            const testo = input.value.trim();
+            if (!testo) return;
+
+            const ora = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+            // Messaggio Utente
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-sfx-gold/20 border border-sfx-gold/50 p-4 rounded-2xl max-w-xl ml-auto text-right text-white space-y-1";
+            userMsg.innerHTML = `<div class="text-[9px] text-sfx-gold font-bold">Tu &bull; ${ora}</div><p>${testo}</p>`;
+            stream.appendChild(userMsg);
+            input.value = '';
+            stream.scrollTop = stream.scrollHeight;
+
+            // Elaborazione Risposta Alison
+            setTimeout(() => {
+                let rispostaTrovata = "Ho registrato la tua richiesta. Per approfondire il tuo percorso formativo direttamente con il CEO Giuliano Caratelli, riserva il tuo screening preliminare a costo zero.";
+                const q = testo.toLowerCase();
+
+                for (const item of FAQ_ALISON_CORPUS) {
+                    if (item.k.some(kw => q.includes(kw))) {
+                        rispostaTrovata = item.a;
+                        break;
+                    }
+                }
+
+                const alisonMsg = document.createElement('div');
+                alisonMsg.className = "bg-[#12141C] p-4 rounded-2xl border border-gray-800 max-w-2xl space-y-3 text-gray-200 shadow-md";
+                alisonMsg.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-1.5">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-sfx-cyan animate-pulse"></span>
+                            <strong class="text-sfx-cyan text-xs">Alison AG-01</strong>
+                        </div>
+                        <span class="text-[9px] text-gray-500">${ora}</span>
+                    </div>
+                    <p class="leading-relaxed">${rispostaTrovata}</p>
+                    <div class="pt-2 flex gap-2">
+                        <a href="candidatura.html" class="px-3 py-1.5 bg-sfx-gold hover:bg-yellow-500 text-black font-bold text-[10px] rounded-lg uppercase">
+                            Prenota Screening (€ 0,00) &rarr;
+                        </a>
+                    </div>
+                `;
+                stream.appendChild(alisonMsg);
+                stream.scrollTop = stream.scrollHeight;
+            }, 300);
         }
     </script>
 </body>
