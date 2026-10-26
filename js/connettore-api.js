@@ -1,285 +1,285 @@
 /**
  * ============================================================================
- * SUPREMA FUTURE X - CONNETTORE API UNIVERSALE (V50 EAL6+ SOVRANO)
- * File: /js/connettore-api.js
- * Descrizione: Gestore unico delle chiamate asincrone verso Google Apps Script (Code.gs),
- *              gestione fallback offline, sincronizzazione multi-scheda via BroadcastChannel
- *              e dispatch notifiche multi-canale.
+ * SUPREMA FUTURE X S.R.L. // CONNETTORE API UNIVERSALE EAL6+
+ * FILE: js/connettore-api.js
+ * GOVERNANCE: CEO GIULIANO CARATELLI
+ * PROTOCOLLO: EAL6+ SOVRANO // GESTORE ASINCRONO MULTI-CHANNEL & OFFLINE QUEUE
+ * DATA RILASCIO: 26 OTTOBRE 2026 // VERSIONE V55.0-MASTER
  * ============================================================================
  */
 
 const ConnettoreApi = (function () {
-    'use strict';
+  'use strict';
 
-    const CONFIGURAZIONE = {
-        // ENDPOINT ASSOLUTO UNIFICATO PER TUTTA LA RETE EAL6+
-        ENDPOINT: 'https://script.google.com/macros/s/AKfycbzJ5atqYnvcqvqbfCWvEmX7gZAdxe3kfbv79F_ANBwRuURpQ2Tcw_GuTTtdFIbBNUbU/exec',
-        TEMPO_LIMITE_MS: 15000,
-        CANALE_SINCRONIZZAZIONE: 'sfx_enterprise_bus',
-        CHIAVE_CODA_OFFLINE: 'SFX_CODA_OFFLINE_REQUESTS'
-    };
+  const CONFIGURAZIONE = {
+    // ENDPOINT UNIFICATO MASTER VERIFICATO (VERSIONE 14 // 26 OTT 2026)
+    ENDPOINT: 'https://script.google.com/macros/s/AKfycbzjOsUCBWD2l7lIHPfJdSpq75MM57s6rUGYYp-0UZ0BYAiyVoyn4M8I0jeL4UKaRXJA/exec',
+    TEMPO_LIMITE_MS: 15000,
+    CANALE_BROADCAST: 'sfx_enterprise_bus',
+    CHIAVE_CODA_OFFLINE: 'SFX_CODA_OFFLINE_REQUESTS_V55'
+  };
 
-    // Inizializzazione Canale di trasmissione live tra schede aperte nel browser
-    let canaleTrasmissione = null;
+  // 1. CANALE BROADCAST SOVRANO UNIFICATO TRA SCHEDE BROWSER
+  let canaleBroadcast = null;
+  try {
+    if ('BroadcastChannel' in window) {
+      canaleBroadcast = new BroadcastChannel(CONFIGURAZIONE.CANALE_BROADCAST);
+    }
+  } catch (e) {
+    console.warn('[ConnettoreApi EAL6+]: BroadcastChannel non supportato su questo browser.', e);
+  }
+
+  /**
+   * Recupera l'endpoint attivo garantendo fallback o override controllato
+   */
+  function getEndpoint() {
+    return localStorage.getItem('SFX_APPSCRIPT_URL') || CONFIGURAZIONE.ENDPOINT;
+  }
+
+  /**
+   * Consente l'aggiornamento dinamico dell'endpoint protetto
+   */
+  function impostaEndpoint(nuovoUrl) {
+    if (nuovoUrl && nuovoUrl.startsWith('https://script.google.com')) {
+      localStorage.setItem('SFX_APPSCRIPT_URL', nuovoUrl.trim());
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Prepara e firma il payload canonico conforme al backend Codice.gs
+   */
+  function preparaPayload(azione, datiPayload = {}) {
+    const tokenAuth = sessionStorage.getItem('sfx_token_sessione') || 
+                      sessionStorage.getItem('SFX_TOKEN_AUTENTICAZIONE') || 
+                      '3474429091';
+
+    return Object.assign({
+      action: azione,
+      azione: azione,
+      timestamp: new Date().toISOString(),
+      tokenAutenticazione: tokenAuth,
+      payload: datiPayload
+    }, datiPayload);
+  }
+
+  /**
+   * Invia una richiesta POST al backend Google Apps Script con gestione CORS & Offline
+   */
+  async function inviaRichiesta(azione, datiPayload = {}) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CONFIGURAZIONE.TEMPO_LIMITE_MS);
+    const pacchetto = preparaPayload(azione, datiPayload);
+    const urlEndpoint = getEndpoint();
+
     try {
-        if ('BroadcastChannel' in window) {
-            canaleTrasmissione = new BroadcastChannel(CONFIGURAZIONE.CANALE_SINCRONIZZAZIONE);
-        }
-    } catch (e) {
-        console.warn('[ConnettoreApi EAL6+]: BroadcastChannel non supportato dal browser.', e);
-    }
+      // Chiamata standard POST con Content-Type text/plain (Bypassa Preflight CORS)
+      const risposta = await fetch(urlEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(pacchetto),
+        signal: controller.signal
+      });
 
-    /**
-     * Ottiene l'URL attivo dell'endpoint (con supporto a override dinamico via localStorage)
-     * @returns {string}
-     */
-    function getEndpoint() {
-        return localStorage.getItem('SFX_APPSCRIPT_URL') || CONFIGURAZIONE.ENDPOINT;
-    }
+      clearTimeout(timeoutId);
 
-    /**
-     * Imposta o aggiorna l'URL dell'endpoint Apps Script
-     * @param {string} nuovoUrl 
-     * @returns {boolean}
-     */
-    function impostaEndpoint(nuovoUrl) {
-        if (nuovoUrl && nuovoUrl.startsWith('https://script.google.com')) {
-            localStorage.setItem('SFX_APPSCRIPT_URL', nuovoUrl.trim());
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Prepara e struttura il payload unificato per la massima compatibilità con Code.gs
-     * @param {string} azione 
-     * @param {Object} datiPayload 
-     * @returns {Object}
-     */
-    function preparaPayload(azione, datiPayload = {}) {
-        const tokenAuth = sessionStorage.getItem('SFX_TOKEN_AUTENTICAZIONE') || localStorage.getItem('SFX_CEO_PIN') || '3474429091';
-        
-        return Object.assign({
-            action: azione,
-            azione: azione,
-            timestamp: new Date().toISOString(),
-            tokenAutenticazione: tokenAuth,
-            payload: datiPayload
-        }, datiPayload);
-    }
-
-    /**
-     * Invia un payload JSON al backend Google Apps Script.
-     * @param {string} azione - L'azione richiesta dal sistema (es. 'nuovaCandidatura', 'AGGIORNA_PROMPT')
-     * @param {Object} datiPayload - I dati associati all'operazione
-     * @returns {Promise<Object>} Risposta del server
-     */
-    async function inviaRichiesta(azione, datiPayload = {}) {
-        const controlloreInterruzione = new AbortController();
-        const idTimer = setTimeout(() => controlloreInterruzione.abort(), CONFIGURAZIONE.TEMPO_LIMITE_MS);
-
-        const pacchettoRichiesta = preparaPayload(azione, datiPayload);
-        const urlEndpoint = getEndpoint();
-
+      let jsonRes = null;
+      if (risposta.ok) {
         try {
-            // Chiamata primaria standard POST con JSON e text/plain per aggirare i preflight CORS
-            const risposta = await fetch(urlEndpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain' },
-                body: JSON.stringify(pacchettoRichiesta),
-                signal: controlloreInterruzione.signal
-            });
-
-            clearTimeout(idTimer);
-
-            let rispostaJson = null;
-
-            if (risposta.ok) {
-                try {
-                    rispostaJson = await risposta.json();
-                } catch (e) {
-                    rispostaJson = { status: 'success', message: 'Richiesta ricevuta dal server e accodata.' };
-                }
-            } else {
-                throw new Error(`Errore HTTP Stato: ${risposta.status}`);
-            }
-
-            // Notifica tutte le altre schede aperte via BroadcastChannel
-            notificaSchede('STATO_AGGIORNATO', azione, rispostaJson);
-
-            return rispostaJson;
-
-        } catch (errore) {
-            clearTimeout(idTimer);
-            console.warn(`[ConnettoreApi EAL6+ - Fallback: ${azione}]: Tentativo no-cors / offline.`, errore.message);
-
-            // Tentativo 2: Fallback no-cors
-            try {
-                await fetch(urlEndpoint, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify(pacchettoRichiesta)
-                });
-
-                const risultatoFallback = {
-                    status: 'success',
-                    modalita: 'NO_CORS_DISPATCH',
-                    messaggio: 'Operazione trasmessa con successo in modalità no-cors.'
-                };
-
-                notificaSchede('STATO_AGGIORNATO', azione, risultatoFallback);
-                return risultatoFallback;
-
-            } catch (errFallback) {
-                console.error(`[ConnettoreApi EAL6+ Errore Critico - ${azione}]: Salvataggio in coda offline.`, errFallback.message);
-                
-                salvaInCodaOffline(pacchettoRichiesta);
-
-                const risultatoOffline = {
-                    status: 'buffered',
-                    messaggio: 'Connessione assente o firewall bloccante. Operazione salvata temporaneamente in locale per sync differito.',
-                    errore: errFallback.message
-                };
-
-                notificaSchede('OFFLINE_RECORDED', azione, risultatoOffline);
-                return risultatoOffline;
-            }
+          jsonRes = await risposta.json();
+        } catch (errJson) {
+          jsonRes = { status: 'SUCCESS', message: 'Richiesta acquisita e notarizzata dal server.' };
         }
-    }
+      } else {
+        throw new Error(`Stato HTTP: ${risposta.status}`);
+      }
 
-    /**
-     * Esegue una richiesta GET per scaricare dati dal backend Google Apps Script
-     * @param {string} azioneRichiesta - Azione specifica (default: 'getCandidati')
-     * @returns {Promise<Object>}
-     */
-    async function richiediDati(azioneRichiesta = 'getCandidati') {
-        const urlEndpoint = getEndpoint();
-        try {
-            const queryUrl = `${urlEndpoint}?action=${encodeURIComponent(azioneRichiesta)}&timestamp=${Date.now()}`;
-            const risposta = await fetch(queryUrl);
-            if (!risposta.ok) throw new Error(`Stato HTTP: ${risposta.status}`);
-            return await risposta.json();
-        } catch (err) {
-            console.error('[ConnettoreApi EAL6+ Errore GET]: Impossibile scaricare dati.', err);
-            return { status: 'error', message: err.message, dati: [], corsisti: [] };
-        }
-    }
+      // Notifica in tempo reale su sfx_enterprise_bus
+      notificaSchedeBroadcast('STATO_AGGIORNATO', azione, jsonRes);
+      return jsonRes;
 
-    /**
-     * Salva una richiesta non inviata nella coda offline del browser
-     * @param {Object} pacchetto 
-     */
-    function salvaInCodaOffline(pacchetto) {
-        try {
-            const codaAttuale = JSON.parse(localStorage.getItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE) || '[]');
-            codaAttuale.push(pacchetto);
-            localStorage.setItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE, JSON.stringify(codaAttuale));
-        } catch (e) {
-            console.error('[ConnettoreApi EAL6+]: Errore scrittura coda offline.', e);
-        }
-    }
+    } catch (errore) {
+      clearTimeout(timeoutId);
+      console.warn(`[ConnettoreApi EAL6+ - Fallback ${azione}]: Tentativo no-cors in esecuzione...`, errore.message);
 
-    /**
-     * Sincronizza la coda delle operazioni salvate in locale quando torna la connessione
-     */
-    async function sincronizzaCodaOffline() {
-        const coda = JSON.parse(localStorage.getItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE) || '[]');
-        if (coda.length === 0) return;
-
-        console.log(`[ConnettoreApi EAL6+]: Avvio sincronizzazione di ${coda.length} elementi in coda offline...`);
-        const codaRimanente = [];
-
-        for (const elemento of coda) {
-            try {
-                await inviaRichiesta(elemento.action || elemento.azione, elemento.payload || elemento);
-            } catch (e) {
-                codaRimanente.push(elemento);
-            }
-        }
-
-        localStorage.setItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE, JSON.stringify(codaRimanente));
-        if (codaRimanente.length === 0) {
-            console.log('[ConnettoreApi EAL6+]: Sincronizzazione coda offline completata con successo!');
-            notificaSchede('SYNC_OFFLINE_COMPLETED', 'ALL', { elements: coda.length });
-        }
-    }
-
-    /**
-     * Trasmette messaggi tramite BroadcastChannel a tutte le schede aperte nel browser
-     * @param {string} evento 
-     * @param {string} azione 
-     * @param {Object} risultato 
-     */
-    function notificaSchede(evento, azione, risultato) {
-        if (canaleTrasmissione) {
-            try {
-                canaleTrasmissione.postMessage({
-                    type: evento,
-                    evento: evento,
-                    azione: azione,
-                    risultato: risultato,
-                    timestamp: new Date().toISOString()
-                });
-            } catch (e) {
-                console.warn('[ConnettoreApi EAL6+]: Errore postMessage BroadcastChannel.', e);
-            }
-        }
-    }
-
-    /**
-     * Registra un listener per gli eventi inviati dalle altre schede del sito
-     * @param {Function} callback - Funzione da eseguire alla ricezione del messaggio
-     */
-    function ascoltaEventiSchede(callback) {
-        if (canaleTrasmissione) {
-            canaleTrasmissione.addEventListener('message', (evento) => {
-                if (typeof callback === 'function') {
-                    callback(evento.data);
-                }
-            });
-        }
-    }
-
-    // Listener globale per il ripristino automatico della connessione internet
-    if (typeof window !== 'undefined') {
-        window.addEventListener('online', () => {
-            console.log('[ConnettoreApi EAL6+]: Connessione ripristinata. Avvio sync coda offline...');
-            sincronizzaCodaOffline();
+      // Fallback 1: Modalità no-cors blindata
+      try {
+        await fetch(urlEndpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(pacchetto)
         });
+
+        const fallbackResult = {
+          status: 'SUCCESS',
+          modalita: 'NO_CORS_DELIVERY',
+          messaggio: 'Richiesta instradata al backend con successo.'
+        };
+
+        notificaSchedeBroadcast('STATO_AGGIORNATO', azione, fallbackResult);
+        return fallbackResult;
+
+      } catch (errFallback) {
+        console.error(`[ConnettoreApi EAL6+ Errore]: Salvataggio in coda offline differita.`, errFallback.message);
+        salvaInCodaOffline(pacchetto);
+
+        const offlineResult = {
+          status: 'BUFFERED',
+          messaggio: 'Connessione assente. Richiesta salvata in memoria per sincronizzazione automatica.',
+          errore: errFallback.message
+        };
+
+        notificaSchedeBroadcast('OFFLINE_RECORDED', azione, offlineResult);
+        return offlineResult;
+      }
+    }
+  }
+
+  /**
+   * Richiede dati GET al backend Codice.gs
+   */
+  async function richiediDati(azioneRichiesta = 'FULL_DASHBOARD_SYNC', parametriExtra = {}) {
+    const urlEndpoint = getEndpoint();
+    try {
+      let queryUrl = `${urlEndpoint}?action=${encodeURIComponent(azioneRichiesta)}&timestamp=${Date.now()}`;
+      for (const [k, v] of Object.entries(parametriExtra)) {
+        queryUrl += `&${encodeURIComponent(k)}=${encodeURIComponent(v)}`;
+      }
+      const res = await fetch(queryUrl);
+      if (!res.ok) throw new Error(`Stato HTTP: ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.error('[ConnettoreApi GET Error]:', err);
+      return { status: 'ERROR', message: err.message, dati: {} };
+    }
+  }
+
+  /**
+   * Coda di memorizzazione offline locale
+   */
+  function salvaInCodaOffline(pacchetto) {
+    try {
+      const coda = JSON.parse(localStorage.getItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE) || '[]');
+      coda.push(pacchetto);
+      localStorage.setItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE, JSON.stringify(coda));
+    } catch (e) {}
+  }
+
+  /**
+   * Sincronizzazione automatica al ripristino della connettività internet
+   */
+  async function sincronizzaCodaOffline() {
+    const coda = JSON.parse(localStorage.getItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE) || '[]');
+    if (coda.length === 0) return;
+
+    console.log(`[ConnettoreApi EAL6+]: Sincronizzazione di ${coda.length} richieste in coda offline...`);
+    const rimanenti = [];
+
+    for (const item of coda) {
+      try {
+        await inviaRichiesta(item.action || item.azione, item.payload || item);
+      } catch (e) {
+        rimanenti.push(item);
+      }
     }
 
-    // Export dei metodi operativi per l'ecosistema Suprema Future X
-    return {
-        invia: inviaRichiesta,
-        ottieni: richiediDati,
-        onSincronizzazione: ascoltaEventiSchede,
-        setEndpoint: impostaEndpoint,
-        getEndpoint: getEndpoint,
-        sincronizzaOffline: sincronizzaCodaOffline,
+    localStorage.setItem(CONFIGURAZIONE.CHIAVE_CODA_OFFLINE, JSON.stringify(rimanenti));
+    if (rimanenti.length === 0) {
+      console.log('[ConnettoreApi EAL6+]: Coda offline completamente sincronizzata.');
+      notificaSchedeBroadcast('SYNC_OFFLINE_COMPLETED', 'ALL', { total: coda.length });
+    }
+  }
 
-        // Wrapper applicativi diretti compatibili con Code.gs Master EAL6+
-        salvaLead: function (datiLead) {
-            return inviaRichiesta('registraCandidatura', datiLead);
-        },
-        candidaturaConferenza: function (datiConferenza) {
-            return inviaRichiesta('registraCandidatura', datiConferenza);
-        },
-        aggiornaPrompt: function (testoPrompt, operatore = 'CEO GIULIANO') {
-            return inviaRichiesta('notificaErrore', { modulo: 'ALISON_AG_01', errore: `Aggiornamento prompt. Nuovo stato per ${operatore}` });
-        },
-        aggiornaPuntiCard: function (token, punti, causale) {
-            return inviaRichiesta('aggiornaPuntiGold', { codice: token, punti: punti, note: causale });
-        },
-        creaWorkspaceClassroom: function (nome, email, pacchetto = 'Executive Master') {
-            return inviaRichiesta('creaWorkspaceCorsista', { nome: nome, email: email, percorso: pacchetto });
-        },
-        registraIncasso: function (datiIncasso) {
-            return inviaRichiesta('registraIncasso', datiIncasso);
-        }
-    };
+  /**
+   * Dispaccio eventi BroadcastChannel multi-scheda
+   */
+  function notificaSchedeBroadcast(evento, azione, risultato) {
+    if (canaleBroadcast) {
+      try {
+        canaleBroadcast.postMessage({
+          type: evento,
+          evento: evento,
+          azione: azione,
+          risultato: risultato,
+          timestamp: new Date().toISOString()
+        });
+      } catch (e) {}
+    }
+  }
+
+  /**
+   * Ascolto eventi da altre schede dell'Ecosistema
+   */
+  function ascoltaEventi(callback) {
+    if (canaleBroadcast && typeof callback === 'function') {
+      canaleBroadcast.addEventListener('message', (ev) => callback(ev.data));
+    }
+  }
+
+  // Listener globale ripristino linea
+  if (typeof window !== 'undefined') {
+    window.addEventListener('online', () => {
+      console.log('[ConnettoreApi]: Rete ripristinata. Avvio auto-sync...');
+      sincronizzaCodaOffline();
+    });
+  }
+
+  // METODI PUBBLICI COMPATIBILI CON CODICE.GS V55.0
+  return {
+    invia: inviaRichiesta,
+    ottieni: richiediDati,
+    onSync: ascoltaEventi,
+    setEndpoint: impostaEndpoint,
+    getEndpoint: getEndpoint,
+    syncOffline: sincronizzaCodaOffline,
+
+    // Chiamate Wrapper Native EAL6+
+    registraCandidatura: function (datiCandidato) {
+      return inviaRichiesta('registraCandidatura', datiCandidato);
+    },
+    gestisciStatoSlot: function (slot, nuovoStato, idLead) {
+      return inviaRichiesta('GESTISCI_STATO_SLOT', { slot: slot, nuovoStato: nuovoStato, idLead: idLead });
+    },
+    salvaConfigSezioni: function (config) {
+      return inviaRichiesta('SALVA_CONFIG_SEZIONI', { config: config });
+    },
+    registraIncassoMastro: function (datiIncasso) {
+      return inviaRichiesta('REGISTRA_INCASSO_MANUALE', datiIncasso);
+    },
+    uploadMediaDrive: function (nomeFile, base64, categoria, note) {
+      return inviaRichiesta('UPLOAD_MEDIA_DRIVE', { nomeFile: nomeFile, fileBase64: base64, categoria: categoria, note: note });
+    },
+    aggiornaSblocchiCorsista: function (matricola, moduliCsv, giorno) {
+      return inviaRichiesta('AGGIORNA_SBLOCCHI_DIDATTICI', { matricola: matricola, moduliSbloccatiCsv: moduliCsv, giornoAvanzamento: giorno });
+    },
+    aggiornaRateCorsista: function (matricola, stato, versato, residuo, scadenza) {
+      return inviaRichiesta('AGGIORNA_RATE_CORSISTA', { matricola: matricola, statoPagamento: stato, importoVersato: versato, residuo: residuo, scadenza: scadenza });
+    },
+    salvaSlotLiberoCorsista: function (matricola, indice, titolo, url, attivo) {
+      return inviaRichiesta('SALVA_SLOT_LIBERO_CORSISTA', { matricola: matricola, indiceSlot: indice, titolo: titolo, url: url, attivo: attivo });
+    },
+    creaWorkspaceCorsista: function (matricola, nominativo, email) {
+      return inviaRichiesta('CREA_WORKSPACE_CORSISTA', { matricola: matricola, nominativo: nominativo, email: email });
+    },
+    registraGoldCard: function (cardData) {
+      return inviaRichiesta('REGISTRA_GOLD_CARD', { card: cardData });
+    },
+    aggiornaPromptAgente: function (agenteId, promptMaster) {
+      return inviaRichiesta('AGGIORNA_PROMPT_AGENTE', { agenteId: agenteId, promptMaster: promptMaster });
+    },
+    autenticaPresidenza: function (password, pin) {
+      return inviaRichiesta('AUTENTICAZIONE_PRESIDENZA', { password: password, pin: pin });
+    }
+  };
 })();
 
+// Esportazione globale sicura
+if (typeof window !== 'undefined') {
+  window.ConnettoreApi = ConnettoreApi;
+  window.SFX_APPS_SCRIPT_URL = ConnettoreApi.getEndpoint();
+}
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ConnettoreApi;
+  module.exports = ConnettoreApi;
 }
