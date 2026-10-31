@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>X-BOX Enterprise // Console Direzionale di Vertice (EAL6+)</title>
+  
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="author" content="Giuliano Caratelli">
+  
+  <!-- Design System Unificato Zero Rosso -->
+  <link rel="stylesheet" href="stile-globale.css">
+  <link rel="icon" type="image/png" href="media/favicon.png">
+  <meta name="theme-color" content="#050608">
+
+  <style>
+    /* Regole Specifiche per la Console X-BOX Enterprise */
+    body {
+      background-color: var(--bg-obsidian-deep);
+      color: var(--text-platinum);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sfx-xbox-top-status {
+      height: 38px;
+      background: #020305;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .sfx-col-macro-item, .sfx-col-module-item, .sfx-col-card-item {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      font-family: var(--font-sync);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sfx-col-macro-item:hover, .sfx-col-macro-item.active {
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--gold-primary);
+      border-left: 3px solid var(--gold-primary);
+    }
+
+    .sfx-col-module-item:hover, .sfx-col-module-item.active {
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--cyan-neon);
+      border-left: 3px solid var(--cyan-neon);
+    }
+
+    .sfx-col-card-item:hover, .sfx-col-card-item.active {
+      background: rgba(255, 255, 255, 0.06);
+      color: #FFF;
+      border-left: 3px solid var(--titanium-silver);
+    }
+
+    .sfx-pill-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sfx-viewport-card {
+      background: var(--bg-matrix-card);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .sfx-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .sfx-data-table th, .sfx-data-table td {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+
+    .sfx-data-table th {
+      background: #0D1017;
+      color: var(--gold-primary);
+      font-family: var(--font-orbit);
+    }
+
+    .sfx-data-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Modal Tastierino PIN Caveau */
+    .sfx-vault-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sfx-vault-box {
+      width: 360px;
+      background: var(--bg-matrix-card);
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      padding: 2.2rem;
+      text-align: center;
+      box-shadow: 0 0 40px var(--gold-glow);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================================
+       00. STATUS BAR TELEMETRICA LIVE (EAL6+ KERNEL)
+       ====================================================================== -->
+  <header class="sfx-xbox-top-status">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span class="sfx-status-beacon" style="background-color: var(--status-on); box-shadow: 0 0 8px var(--status-on);"></span>
+      <strong style="color: var(--gold-primary);">X-BOX ENTERPRISE // KERNEL 2026.4.1</strong>
+      <span style="opacity: 0.3;">|</span>
+      <span>PRESIDENZA: GIULIANO CARATELLI (CEO)</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <span>AUTOLOCK: <strong id="sfx-lock-countdown" style="color: var(--cyan-neon);">180s</strong></span>
+      <span style="opacity: 0.3;">|</span>
+      <span id="sfx-clock-roma" style="color: var(--gold-primary);">--:--:-- ROMA</span>
+      <button type="button" id="sfx-btn-logout" class="sfx-btn-ctrl" style="padding: 2px 8px; font-size: 0.7rem; border-color: var(--titanium-silver);">ESCI</button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       01. INTESTAZIONE UNIVERSALE A 4 TASTI + 5 STATI CROMATICI (ZERO ROSSO)
+       ====================================================================== -->
+  <nav class="sfx-xbox-master-header" aria-label="Controlli Universali X-BOX">
+    <div class="sfx-xbox-nav-row">
+      <!-- Breadcrumb Dinamico -->
+      <div class="sfx-xbox-breadcrumb" id="sfx-xbox-live-breadcrumb">
+        X-BOX ENTERPRISE // 01. RADAR ESECUTIVO // 1.1 ALISON H24 // #MONITOR-01
+      </div>
+
+      <!-- Tasti di Stato Modulo (Zero Rosso Policy) -->
+      <div class="sfx-status-controls">
+        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); margin-right: 0.3rem;">STATO REPARTO:</span>
+        <button type="button" class="sfx-btn-state on" data-state="on" title="Attivo e visibile online">ACCESO</button>
+        <button type="button" class="sfx-btn-state off" data-state="off" title="Disattivato dal frontend">SPENTO</button>
+        <button type="button" class="sfx-btn-state standby" data-state="standby" title="Pausa o Manutenzione">STANDBY</button>
+        <button type="button" class="sfx-btn-state edit" data-state="edit" title="Abilita modifica campi">MODIFICA</button>
+        <button type="button" class="sfx-btn-state publish" data-state="publish" id="sfx-btn-publish-all" title="Propaga modifiche al Backend">PUBBLICA</button>
+      </div>
+    </div>
+
+    <div class="sfx-xbox-nav-row" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 0.5rem;">
+      <!-- Navigazione Sequenziale Esecutiva -->
+      <div class="sfx-nav-controls">
+        <button type="button" class="sfx-btn-nav" id="sfx-btn-prima">◄ PRIMA</button>
+        <button type="button" class="sfx-btn-nav" id="sfx-btn-indietro">◄ INDIETRO</button>
+        <button type="button" class="sfx-btn-nav" id="sfx-btn-avanti">AVANTI ►</button>
+        <button type="button" class="sfx-btn-nav" id="sfx-btn-dopo">DOPO ►</button>
+      </div>
+
+      <!-- Badge Stato Attuale & Sincronizzazione Bus -->
+      <div style="display: flex; align-items: center; gap: 0.8rem; font-family: var(--font-mono); font-size: 0.75rem;">
+        <span style="color: var(--text-muted);">BUS SINCRONO:</span>
+        <span id="sfx-bus-status" style="color: var(--status-on);">ATTIVO (0 ms)</span>
+        <div id="sfx-xbox-active-state" class="sfx-btn-state on" style="padding: 2px 10px; font-size: 0.65rem;">ACCESO</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======================================================================
+       02. CASCATA TELESCOPICA A 3 LIVELLI (DEPTH CASCADE SYSTEM)
+       ====================================================================== -->
+  <main class="sfx-xbox-cascade-wrap">
+    
+    <!-- LIVELLO 1: MACRO-AREE (250px) -->
+    <aside class="sfx-col-macro" aria-label="Macro Aree Aziendali">
+      <div class="sfx-col-macro-item active" data-macro="radar">
+        <span>01. RADAR & ALISON</span>
+        <span class="sfx-pill-tag">H24</span>
+      </div>
+      <div class="sfx-col-macro-item" data-macro="landing">
+        <span>02. GESTIONE LANDING</span>
+        <span class="sfx-pill-tag">CMS</span>
+      </div>
+      <div class="sfx-col-macro-item" data-macro="crm">
+        <span>03. CRM & CALENDARIO</span>
+        <span class="sfx-pill-tag">60m</span>
+      </div>
+      <div class="sfx-col-macro-item" data-macro="fisco">
+        <span>04. CASSA & FISCO 16%</span>
+        <span class="sfx-pill-tag">GINEVRA</span>
+      </div>
+      <div class="sfx-col-macro-item" data-macro="vault">
+        <span>05. DIVIDENDI & CEO</span>
+        <span class="sfx-pill-tag" style="border-color: var(--gold-primary); color: var(--gold-primary);">PIN</span>
+      </div>
+      <div class="sfx-col-macro-item" data-macro="flotta">
+        <span>06. FLOTTA 15 AGENTI</span>
+        <span class="sfx-pill-tag" style="border-color: var(--cyan-neon); color: var(--cyan-neon);">AI</span>
+      </div>
+      <div class="sfx-col-macro-item" data-macro="goldcard">
+        <span>07. GOLD CARD & PREMI</span>
+        <span class="sfx-pill-tag">PREMI</span>
+      </div>
+      <div class="sfx-col-macro-item" data-macro="mediavault">
+        <span>08. MEDIA VAULT</span>
+        <span class="sfx-pill-tag">400</span>
+      </div>
+    </aside>
+
+    <!-- LIVELLO 2: MODULI OPERATIVI (270px) -->
+    <aside class="sfx-col-modules" id="sfx-modules-container" aria-label="Moduli Operativi">
+      <!-- Popolato dinamicamente da script -->
+    </aside>
+
+    <!-- LIVELLO 3: SCHEDE ESECUTIVE (290px) -->
+    <aside class="sfx-col-cards" id="sfx-cards-container" aria-label="Schede Esecutive">
+      <!-- Popolato dinamicamente da script -->
+    </aside>
+
+    <!-- AREA DI LAVORO CENTRALE // VIEWPORT FULL-SCREEN -->
+    <section class="sfx-xbox-viewport" id="sfx-viewport" aria-label="Area di Lavoro Esecutiva">
+      <!-- Il contenuto visualizzato a schermo intero viene montato qui -->
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       03. MODALE CAVEAU RISERVATO (PIN 3474429091)
+       ====================================================================== -->
+  <div class="sfx-vault-modal" id="sfx-vault-modal">
+    <div class="sfx-vault-box">
+      <div style="font-family: var(--font-sync); color: var(--gold-primary); font-size: 1rem; margin-bottom: 0.5rem;">
+        CASSAFORTE PRESIDENZIALE
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Inserisci il PIN CEO a 10 cifre per sbloccare il mastro dividendi e la busta paga.
+      </p>
+      <input type="password" id="sfx-vault-pin-input" maxlength="10" placeholder="••••••••••" style="width: 100%; padding: 0.8rem; text-align: center; font-family: var(--font-mono); font-size: 1.2rem; border: 1px solid var(--gold-primary); background: #000; color: var(--gold-primary); border-radius: 4px; outline: none; margin-bottom: 1.2rem;">
+      <div style="display: flex; gap: 0.8rem;">
+        <button type="button" id="sfx-vault-pin-cancel" class="sfx-btn-ctrl" style="flex: 1; border-color: var(--titanium-silver);">ANNULLA</button>
+        <button type="button" id="sfx-vault-pin-confirm" class="sfx-btn-ctrl" style="flex: 1; border-color: var(--gold-primary); color: var(--gold-primary); background: rgba(212,175,55,0.15);">SBLOCCA</button>
+      </div>
+      <div id="sfx-vault-error" style="color: var(--status-standby); font-family: var(--font-mono); font-size: 0.75rem; margin-top: 1rem;"></div>
+    </div>
+  </div>
+
+  <!-- Motore Logico Esecutivo X-BOX -->
+  <script src="js/code.js"></script>
+
+  <script>
+    /**
+     * ============================================================================
+     * LOGICA INTERNA DI GOVERNO DELLA X-BOX ENTERPRISE
+     * Autenticazione di Sessione, Cascata Telescopica e Switch Pagine
+     * ============================================================================
+     */
+    (function() {
+      'use strict';
+
+      // 1. Controllo Sessione Sicura EAL6+
+      const authToken = sessionStorage.getItem('sfx_auth_token');
+      if (!authToken && !window.location.hostname.includes("localhost") && !window.location.protocol.includes("file")) {
+        // Se non autenticato, reindirizza alla Landing
+        window.location.href = "index.html";
+        return;
+      }
+
+      // 2. Orologio di Roma e Contatore Autolock
+      function updateLiveTimer() {
+        const now = new Date();
+        const romaTime = now.toLocaleTimeString('it-IT', { timeZone: 'Europe/Rome' });
+        const clockEl = document.getElementById('sfx-clock-roma');
+        if (clockEl) clockEl.innerText = romaTime + " ROMA";
+      }
+      setInterval(updateLiveTimer, 1000);
+      updateLiveTimer();
+
+      // Logout
+      const btnLogout = document.getElementById('sfx-btn-logout');
+      if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+          sessionStorage.removeItem('sfx_auth_token');
+          window.location.href = "index.html";
+        });
+      }
+
+      // 3. Alberatura Moduli & Schede Esecutive
+      const XBOX_TREE = {
+        radar: {
+          title: "01. RADAR & ALISON",
+          modules: [
+            {
+              id: "m_alison",
+              title: "1.1 ALISON H24",
+              cards: [
+                { id: "c_alison_voice", code: "#ALISON-01", name: "Monitor Voce & Prompt", view: "viewAlisonVoice" },
+                { id: "c_alison_faq", code: "#ALISON-02", name: "Database 50 FAQ", view: "viewAlisonFaq" }
+              ]
+            },
+            {
+              id: "m_telemetria",
+              title: "1.2 TELEMETRIA LIVE",
+              cards: [
+                { id: "c_traffic", code: "#NICOLE-01", name: "Traffico & Permanenza", view: "viewNicoleTraffic" },
+                { id: "c_security_logs", code: "#GATE-01", name: "Log IP & Semaforo EAL6+", view: "viewSecurityLogs" }
+              ]
+            }
+          ]
+        },
+        landing: {
+          title: "02. GESTIONE LANDING",
+          modules: [
+            {
+              id: "m_hero",
+              title: "2.1 HERO & TESTATE",
+              cards: [
+                { id: "c_hero_edit", code: "#CMS-01", name: "Headline & Subtitle", view: "viewHeroEditor" },
+                { id: "c_hero_video", code: "#CMS-02", name: "Video Teaser Ingestion", view: "viewHeroVideo" }
+              ]
+            },
+            {
+              id: "m_ceo",
+              title: "2.2 PRESIDENZA CEO",
+              cards: [
+                { id: "c_ceo_layout", code: "#CEO-01", name: "Selettore Layout Trittico", view: "viewCeoLayout" },
+                { id: "c_ceo_video", code: "#CEO-02", name: "Upload Video & Ritratto", view: "viewCeoMedia" }
+              ]
+            },
+            {
+              id: "m_luxury",
+              title: "2.3 LUXURY SHOP // STYLE",
+              cards: [
+                { id: "c_luxury_cfg", code: "#SHOP-01", name: "Schermatura Cifrata URL", view: "viewLuxuryConfig" }
+              ]
+            }
+          ]
+        },
+        crm: {
+          title: "03. CRM & CALENDARIO",
+          modules: [
+            {
+              id: "m_tally",
+              title: "3.1 LEAD FORM TALLY",
+              cards: [
+                { id: "c_tally_queue", code: "#LEAD-01", name: "Candidature in Entrata", view: "viewTallyLeads" },
+                { id: "c_tally_approved", code: "#LEAD-02", name: "Conferme Meet Inviate", view: "viewApprovedLeads" }
+              ]
+            },
+            {
+              id: "m_calendar",
+              title: "3.2 CALENDARIO 60 MINUTI",
+              cards: [
+                { id: "c_slots_master", code: "#CAL-01", name: "Disponibilita Settimanale", view: "viewCalendarSlots" }
+              ]
+            },
+            {
+              id: "m_students",
+              title: "3.3 REGISTRO ALLIEVI",
+              cards: [
+                { id: "c_stud_directory", code: "#STUD-01", name: "Anagrafica & Drive Folders", view: "viewStudentsDirectory" }
+              ]
+            }
+          ]
+        },
+        fisco: {
+          title: "04. CASSA & FISCO 16%",
+          modules: [
+            {
+              id: "m_gateway",
+              title: "4.1 SWITCH GATEWAY",
+              cards: [
+                { id: "c_switch_iban", code: "#BANK-01", name: "IBAN & Coordinate SEPA", view: "viewSwitchIban" },
+                { id: "c_pos_terminals", code: "#BANK-02", name: "SumUp & Revolut Links", view: "viewPosTerminals" }
+              ]
+            },
+            {
+              id: "m_fisco_ginevra",
+              title: "4.2 GINEVRA (AG-03)",
+              cards: [
+                { id: "c_f24_ledger", code: "#TAX-01", name: "Mastro Fondo F24 (16%)", view: "viewFiscoLedger" }
+              ]
+            }
+          ]
+        },
+        vault: {
+          title: "05. DIVIDENDI & CEO",
+          modules: [
+            {
+              id: "m_vault_access",
+              title: "5.1 CAVEAU SOCIETARIO",
+              cards: [
+                { id: "c_vault_split", code: "#VAULT-01", name: "Split 54/30/16 & Soci", view: "viewVaultSplit" },
+                { id: "c_ceo_salary", code: "#VAULT-02", name: "Busta Paga CEO (14 Mens.)", view: "viewCeoSalary" }
+              ]
+            }
+          ]
+        },
+        flotta: {
+          title: "06. FLOTTA 15 AGENTI",
+          modules: [
+            {
+              id: "m_fleet_ctrl",
+              title: "6.1 CENTRALE DI GOVERNO",
+              cards: [
+                { id: "c_fleet_all", code: "#AI-01", name: "Cruscotto 15 Agenti", view: "viewFleetAll" },
+                { id: "c_fleet_kill", code: "#AI-02", name: "Master Kill-Switch", view: "viewFleetKill" }
+              ]
+            }
+          ]
+        },
+        goldcard: {
+          title: "07. GOLD CARD & PREMI",
+          modules: [
+            {
+              id: "m_gold_ledger",
+              title: "7.1 MASTRO PUNTI",
+              cards: [
+                { id: "c_points_manager", code: "#PTS-01", name: "Accredito & Rettifiche", view: "viewPointsManager" },
+                { id: "c_metal_queue", code: "#PTS-02", name: "Coda Incisione Laser (+800)", view: "viewMetalQueue" }
+              ]
+            },
+            {
+              id: "m_rewards",
+              title: "7.2 RISCATTO SOGLIE",
+              cards: [
+                { id: "c_rewards_dashboard", code: "#REW-01", name: "Approvazione Benefit", view: "viewRewardsDashboard" },
+                { id: "c_qr_scanner", code: "#QR-01", name: "Validatore Scanner EAL6+", view: "viewQrScanner" }
+              ]
+            }
+          ]
+        },
+        mediavault: {
+          title: "08. MEDIA VAULT (400 SLOT)",
+          modules: [
+            {
+              id: "m_media_cat",
+              title: "8.1 CATALOGO ASSET",
+              cards: [
+                { id: "c_media_video", code: "#MED-VID", name: "100 Video Showcase", view: "viewMediaVideos" },
+                { id: "c_media_images", code: "#MED-IMG", name: "100 Immagini HD", view: "viewMediaImages" },
+                { id: "c_media_slides", code: "#MED-SLD", name: "100 Slide & Deck", view: "viewMediaSlides" },
+                { id: "c_media_docs", code: "#MED-DOC", name: "100 Contratti & Statuto", view: "viewMediaDocs" }
+              ]
+            }
+          ]
+        }
+      };
+
+      let activeMacro = "radar";
+      let activeModuleIndex = 0;
+      let activeCardIndex = 0;
+
+      // 4. Rendering Livello 2: Moduli
+      function renderModules() {
+        const container = document.getElementById('sfx-modules-container');
+        container.innerHTML = "";
+        const currentData = XBOX_TREE[activeMacro];
+        
+        currentData.modules.forEach((mod, idx) => {
+          const div = document.createElement('div');
+          div.className = `sfx-col-module-item ${idx === activeModuleIndex ? 'active' : ''}`;
+          div.innerHTML = `<span>${mod.title}</span><span class="sfx-pill-tag">MOD</span>`;
+          div.addEventListener('click', () => {
+            activeModuleIndex = idx;
+            activeCardIndex = 0;
+            renderModules();
+            renderCards();
+            renderViewport();
+          });
+          container.appendChild(div);
+        });
+      }
+
+      // 5. Rendering Livello 3: Schede Esecutive
+      function renderCards() {
+        const container = document.getElementById('sfx-cards-container');
+        container.innerHTML = "";
+        const currentMod = XBOX_TREE[activeMacro].modules[activeModuleIndex];
+        if (!currentMod) return;
+
+        currentMod.cards.forEach((card, idx) => {
+          const div = document.createElement('div');
+          div.className = `sfx-col-card-item ${idx === activeCardIndex ? 'active' : ''}`;
+          div.innerHTML = `
+            <div>
+              <div style="color: var(--gold-primary); font-family: var(--font-mono); font-size: 0.7rem;">${card.code}</div>
+              <div>${card.name}</div>
+            </div>
+            <span class="sfx-status-beacon" style="background-color: var(--status-on);"></span>
+          `;
+          div.addEventListener('click', () => {
+            activeCardIndex = idx;
+            renderCards();
+            renderViewport();
+          });
+          container.appendChild(div);
+        });
+      }
+
+      // 6. Rendering Area di Lavoro (Viewport Esecutivo)
+      function renderViewport() {
+        const viewport = document.getElementById('sfx-viewport');
+        const currentMacroObj = XBOX_TREE[activeMacro];
+        const currentMod = currentMacroObj.modules[activeModuleIndex];
+        const currentCard = currentMod.cards[activeCardIndex];
+
+        // Aggiorna Breadcrumb
+        const breadcrumb = document.getElementById('sfx-xbox-live-breadcrumb');
+        breadcrumb.innerText = `X-BOX ENTERPRISE // ${currentMacroObj.title} // ${currentMod.title} // ${currentCard.code} (${currentCard.name})`;
+
+        // Montaggio Vista Specifica
+        if (VIEW_REGISTRY[currentCard.view]) {
+          viewport.innerHTML = VIEW_REGISTRY[currentCard.view]();
+          attachViewEvents(currentCard.view);
+        } else {
+          viewport.innerHTML = `
+            <div class="sfx-viewport-card">
+              <h2 style="font-family: var(--font-sync); color: var(--gold-primary);">${currentCard.name}</h2>
+              <p style="color: var(--text-muted); margin-top: 0.5rem;">Modulo pronto per l'acquisizione dati.</p>
+            </div>
+          `;
+        }
+      }
+
+      // Registro Viste Esecutive
+      const VIEW_REGISTRY = {
+        viewAlisonVoice: () => `
+          <div class="sfx-viewport-card">
+            <span style="font-family: var(--font-mono); color: var(--cyan-neon); font-size: 0.8rem;">// AGENTE AG-01 DIREZIONE</span>
+            <h2 style="font-family: var(--font-sync); color: #FFF; margin: 0.5rem 0 1rem;">CONSOLE VOCALE ALISON (CONCIERGE H24)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Ascolto e monitoraggio prompt dei visitatori sulla Landing Page pubblica.</p>
+            <div style="background: #000; padding: 1.5rem; border: 1px solid var(--cyan-deep); border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--cyan-neon); margin-bottom: 1.5rem;">
+              [AG-01 STATUS: ONLINE] // Voce: Synthesizer Italiano // Regola 5° Messaggio: ATTIVA
+            </div>
+            <button type="button" class="sfx-btn-ctrl" onclick="alert('Alison: Hola CEO, tutti i flussi sono regolari.')">PROVA VOCE NEURALE ALISON</button>
+          </div>
+        `,
+        viewLuxuryConfig: () => `
+          <div class="sfx-viewport-card">
+            <span style="font-family: var(--font-mono); color: var(--gold-primary); font-size: 0.8rem;">// DIVISIONE E-COMMERCE</span>
+            <h2 style="font-family: var(--font-sync); color: #FFF; margin: 0.5rem 0 1rem;">SCHERMATURA BOUTIQUE STYLE (ZERO SEO LEAK)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Gestione del pulsante Luxury Shop. L'URL è offuscato da Google per impedire associazioni di brand.</p>
+            <div style="max-width: 600px; display: flex; flex-direction: column; gap: 1rem;">
+              <label style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--titanium-silver);">URL DI DESTINAZIONE RISERVATO (BASE64 PROTECTED):</label>
+              <input type="text" id="cfg-luxury-url" value="https://www.imperya.com/vetrina/style" style="padding: 0.8rem; background: #000; border: 1px solid var(--gold-deep); color: var(--gold-primary); font-family: var(--font-mono); border-radius: 4px;">
+              <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                <label style="color: var(--text-muted); font-size: 0.85rem;">VISIBILITÀ PULSANTE:</label>
+                <select style="background: #000; color: var(--gold-primary); border: 1px solid var(--gold-deep); padding: 6px 12px; border-radius: 4px; font-family: var(--font-mono);">
+                  <option value="TRUE" selected>ACCESO (VISIBILE SULLA LANDING)</option>
+                  <option value="FALSE">SPENTO (NASCOSTO)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        `,
+        viewTallyLeads: () => `
+          <div class="sfx-viewport-card">
+            <span style="font-family: var(--font-mono); color: var(--cyan-neon); font-size: 0.8rem;">// INGESTION FORM TALLY (ID: jearR1)</span>
+            <h2 style="font-family: var(--font-sync); color: #FFF; margin: 0.5rem 0 1rem;">TRIAGE CANDIDATURE CONFERENZA CEO</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Elenco candidati in attesa di ammissione da 60 minuti con il CEO Giuliano Caratelli.</p>
+            <table class="sfx-data-table">
+              <thead>
+                <tr>
+                  <th>ID CANDIDATO</th>
+                  <th>NOMINATIVO</th>
+                  <th>RECAPITO</th>
+                  <th>SLOT RICHIESTO</th>
+                  <th>STATO</th>
+                  <th>AZIONE CEO</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color: var(--gold-primary);">SFX-CAND-78A1</td>
+                  <td>Marco Valeri</td>
+                  <td>+39 333 1234567</td>
+                  <td>Lunedì 10:00 - 11:00</td>
+                  <td><span style="color: var(--status-standby);">IN ATTESA</span></td>
+                  <td><button class="sfx-btn-ctrl" style="padding: 4px 8px; font-size: 0.7rem; border-color: var(--status-on); color: var(--status-on);" onclick="alert('Slot Confermato. Inviata email con Meet Link al candidato.')">APPROVA SLOT</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+        viewVaultSplit: () => `
+          <div class="sfx-viewport-card">
+            <span style="font-family: var(--font-mono); color: var(--gold-primary); font-size: 0.8rem;">// CAVEAU TRANSAZIONI & DIVIDENDI</span>
+            <h2 style="font-family: var(--font-sync); color: #FFF; margin: 0.5rem 0 1rem;">RIPARTIZIONE STATUTARIA 54% / 30% / 16%</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Prospetto contabile con segregazione del 16% per imposte F24 (Ginevra AG-03) e split utili sui Soci.</p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: #020305; border: 1px solid var(--titanium-silver); padding: 1.5rem; border-radius: 6px;">
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">FONDO OPERATIVITÀ (54%)</div>
+                <div style="font-family: var(--font-orbit); font-size: 1.8rem; color: var(--cyan-neon); margin-top: 0.4rem;">€ 1.614,60</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">52% Riorganizzazione / 10% MC / 8% Team</div>
+              </div>
+              <div style="background: #020305; border: 1px solid var(--gold-primary); padding: 1.5rem; border-radius: 6px;">
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-primary);">DIVIDENDI CEO (30%)</div>
+                <div style="font-family: var(--font-orbit); font-size: 1.8rem; color: var(--gold-primary); margin-top: 0.4rem;">€ 897,00</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">Disponibile per Giroconto Personale</div>
+              </div>
+              <div style="background: #020305; border: 1px solid var(--status-standby); padding: 1.5rem; border-radius: 6px;">
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--status-standby);">FONDO TASSE F24 (16%)</div>
+                <div style="font-family: var(--font-orbit); font-size: 1.8rem; color: var(--status-standby); margin-top: 0.4rem;">€ 478,40</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">Segregato & Intoccabile // Ginevra AG-03</div>
+              </div>
+            </div>
+            <button type="button" class="sfx-btn-ctrl" style="border-color: var(--gold-primary); color: var(--gold-primary);" onclick="alert('Ordine Giroconto Revolut BIZ 2 -> Conto Personale CEO inoltrato.')">ESEGUI GIROCONTO PERSONALE CEO</button>
+          </div>
+        `,
+        viewFleetAll: () => `
+          <div class="sfx-viewport-card">
+            <span style="font-family: var(--font-mono); color: var(--cyan-neon); font-size: 0.8rem;">// CENTRALE OPERATIVA NEURALE</span>
+            <h2 style="font-family: var(--font-sync); color: #FFF; margin: 0.5rem 0 1rem;">I 15 AGENTI DELL'ECOSISTEMA</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+              <div style="background: #000; border: 1px solid var(--status-on); padding: 1rem; border-radius: 4px;">
+                <div style="font-family: var(--font-orbit); color: var(--status-on); font-size: 0.9rem;">AG-01 ALISON</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Concierge Esecutivo Landing</div>
+              </div>
+              <div style="background: #000; border: 1px solid var(--status-on); padding: 1rem; border-radius: 4px;">
+                <div style="font-family: var(--font-orbit); color: var(--status-on); font-size: 0.9rem;">AG-02 NICOLE</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Telemetria & Report 3h</div>
+              </div>
+              <div style="background: #000; border: 1px solid var(--status-on); padding: 1rem; border-radius: 4px;">
+                <div style="font-family: var(--font-orbit); color: var(--status-on); font-size: 0.9rem;">AG-03 GINEVRA</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Supervisione Fiscale 16%</div>
+              </div>
+              <div style="background: #000; border: 1px solid var(--status-on); padding: 1rem; border-radius: 4px;">
+                <div style="font-family: var(--font-orbit); color: var(--status-on); font-size: 0.9rem;">AG-13 HERMES</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Dispatcher WA & Telegram</div>
+              </div>
+            </div>
+          </div>
+        `
+      };
+
+      function attachViewEvents(viewName) {
+        // Eventuali binding dinamici sui pulsanti del viewport
+      }
+
+      // 7. Click Macro Aree
+      document.querySelectorAll('.sfx-col-macro-item').forEach(el => {
+        el.addEventListener('click', (e) => {
+          document.querySelectorAll('.sfx-col-macro-item').forEach(m => m.classList.remove('active'));
+          el.classList.add('active');
+          activeMacro = el.dataset.macro;
+          activeModuleIndex = 0;
+          activeCardIndex = 0;
+
+          // Se seleziona "vault" (Dividendi & CEO), richiedi PIN di sicurezza
+          if (activeMacro === "vault") {
+            openVaultPinModal();
+          } else {
+            renderModules();
+            renderCards();
+            renderViewport();
+          }
+        });
+      });
+
+      // 8. Gestione Modal PIN Caveau
+      function openVaultPinModal() {
+        const modal = document.getElementById('sfx-vault-modal');
+        modal.style.display = 'flex';
+        document.getElementById('sfx-vault-pin-input').value = "";
+        document.getElementById('sfx-vault-error').innerText = "";
+        document.getElementById('sfx-vault-pin-input').focus();
+      }
+
+      document.getElementById('sfx-vault-pin-cancel').addEventListener('click', () => {
+        document.getElementById('sfx-vault-modal').style.display = 'none';
+        // Torna a radar
+        document.querySelector('[data-macro="radar"]').click();
+      });
+
+      document.getElementById('sfx-vault-pin-confirm').addEventListener('click', () => {
+        const pin = document.getElementById('sfx-vault-pin-input').value;
+        if (pin === "3474429091") {
+          document.getElementById('sfx-vault-modal').style.display = 'none';
+          renderModules();
+          renderCards();
+          renderViewport();
+        } else {
+          document.getElementById('sfx-vault-error').innerText = "PIN ERRATO // ACCESSO NEGATO";
+        }
+      });
+
+      // Avvio iniziale
+      renderModules();
+      renderCards();
+      renderViewport();
+
+    })();
+  </script>
+</body>
+</html>
