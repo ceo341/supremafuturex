@@ -1,0 +1,737 @@
+/**
+ * ============================================================================
+ * SUPREMA FUTURE X ENTERPRISE // DESIGN SYSTEM UNIFICATO (stile-globale.css)
+ * File: stile-globale.css (Root Repository GitHub)
+ * Versione: 2026.4.1 - Zero Red Enterprise Release
+ * Palette: Pearl (#F4EFEA), Ossidiana (#090A0D), Gold (#D4AF37), Cyan (#00F0FF)
+ * Tipografia: Syncopate, Orbitron, Montserrat, JetBrains Mono
+ * ============================================================================
+ */
+
+/* ----------------------------------------------------------------------------
+   1. IMPORT FONT & VARIABILI GLOBALI (DESIGN TOKENS - ZERO RED)
+---------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap');
+
+:root {
+  /* Palette Istituzionale */
+  --bg-pearl: #F4EFEA;
+  --bg-pearl-card: #FAF8F5;
+  --bg-pearl-grid: #E8E2D9;
+  --text-pearl-dark: #12141C;
+  --text-pearl-muted: #5A6072;
+
+  /* Palette Dark Matrix */
+  --bg-obsidian: #090A0D;
+  --bg-obsidian-deep: #050608;
+  --bg-matrix-card: #14171F;
+  --bg-matrix-card-hover: #1F2227;
+  --text-platinum: #F0F4F8;
+  --text-muted: #8E9BAE;
+
+  /* Finiture Metalliche & Indicatori Tattici (Rigido Zero Rosso) */
+  --gold-primary: #D4AF37;
+  --gold-deep: #B8860B;
+  --gold-glow: rgba(212, 175, 55, 0.4);
+  --cyan-neon: #00F0FF;
+  --cyan-deep: #008B99;
+  --cyan-glow: rgba(0, 240, 255, 0.35);
+  --titanium-silver: #D1D5DB;
+
+  /* Stati Operativi EAL6+ */
+  --status-on: #00E676;         /* Verde Smeraldo: Acceso / Valido */
+  --status-off: #2C323D;        /* Antracite Neutro: Spento / Inattivo */
+  --status-standby: #FFBF00;    /* Ambra Esecutiva: Standby / Attesa */
+  --status-edit: #00F0FF;       /* Ciano Neon: Modifica / Editing */
+  --status-lock: #4A0E4E;       /* Prugna Sovrano: Sicurezza Notarile */
+
+  /* Tipografia */
+  --font-sync: 'Syncopate', sans-serif;
+  --font-orbit: 'Orbitron', monospace;
+  --font-mont: 'Montserrat', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transizioni & Curve Fisiche */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ----------------------------------------------------------------------------
+   2. RESET STRUTTURALE & REGOLE BASE
+---------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-mont);
+  color: var(--text-platinum);
+  background-color: var(--bg-obsidian);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Griglia Cyber-Pearl per sezioni chiare */
+.cyber-pearl-section {
+  background-color: var(--bg-pearl);
+  color: var(--text-pearl-dark);
+  background-image: 
+    linear-gradient(to right, var(--bg-pearl-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--bg-pearl-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  position: relative;
+}
+
+.matrix-dark-section {
+  background-color: var(--bg-obsidian);
+  color: var(--text-platinum);
+  background-image: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.05) 0%, transparent 60%);
+  position: relative;
+}
+
+/* ----------------------------------------------------------------------------
+   3. TOP BAR: TICKER DI STATO & SELETTORE 11 LINGUE
+---------------------------------------------------------------------------- */
+.sfx-top-bar {
+  width: 100%;
+  height: 44px;
+  background-color: var(--bg-obsidian-deep);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  z-index: 1000;
+  position: relative;
+}
+
+.sfx-ticker-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--titanium-silver);
+}
+
+.sfx-status-beacon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--status-on);
+  box-shadow: 0 0 10px var(--status-on);
+  animation: pulseBeacon 2s infinite ease-in-out;
+}
+
+@keyframes pulseBeacon {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.sfx-lang-selector select {
+  background: transparent;
+  border: 1px solid var(--gold-deep);
+  color: var(--gold-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------------------------
+   4. HERO & TRITTICO PRESIDENZA (GIULIANO CARATELLI & ALISON AG-01)
+---------------------------------------------------------------------------- */
+.sfx-hero-wrap {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5rem 2rem;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+}
+
+.sfx-hero-headline {
+  font-family: var(--font-sync);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  max-width: 1100px;
+  line-height: 1.25;
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--gold-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+
+.sfx-hero-subtitle {
+  font-family: var(--font-orbit);
+  color: var(--cyan-neon);
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+/* Trigger Segreto 3-Tap */
+.sfx-secret-trigger {
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.sfx-secret-trigger:active {
+  transform: scale(0.96);
+}
+
+/* Layout Trittico Presidenziale */
+.sfx-trittico-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.sfx-trittico-card {
+  background: var(--bg-matrix-card);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.sfx-trittico-card:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--gold-glow);
+  transform: translateY(-4px);
+}
+
+/* ----------------------------------------------------------------------------
+   5. SUPREMA ACADEMY: LE 3 SCHEDE CORSI (SILVER, MASTER, VIP)
+---------------------------------------------------------------------------- */
+.sfx-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 1300px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+}
+
+.sfx-course-card {
+  background: var(--bg-matrix-card);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.sfx-course-card.master-featured {
+  border: 1px solid var(--gold-primary);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+}
+
+.sfx-ribbon-featured {
+  position: absolute;
+  top: 18px;
+  right: -35px;
+  transform: rotate(45deg);
+  background: var(--gold-primary);
+  color: var(--bg-obsidian);
+  font-family: var(--font-orbit);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 40px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.sfx-course-media {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  position: relative;
+}
+
+.sfx-course-media video,
+.sfx-course-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sfx-course-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sfx-course-tier {
+  font-family: var(--font-sync);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  margin-bottom: 0.5rem;
+}
+
+.sfx-course-duration {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cyan-neon);
+  margin-bottom: 1.5rem;
+}
+
+.sfx-course-price {
+  font-family: var(--font-orbit);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-platinum);
+  margin-top: auto;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sfx-course-price span {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ----------------------------------------------------------------------------
+   6. SUPREMA GOLD CARD: SIMULATORE 3D GIROSCOPICO
+---------------------------------------------------------------------------- */
+.sfx-gold-card-simulator {
+  max-width: 620px;
+  aspect-ratio: 1.586 / 1;
+  background: linear-gradient(135deg, #1C1E24 0%, #0A0B0E 100%);
+  border: 2px solid var(--gold-primary);
+  border-radius: 18px;
+  padding: 2.2rem;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(212, 175, 55, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 3rem auto;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.sfx-card-chip {
+  width: 52px;
+  height: 40px;
+  background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.sfx-card-serial {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  letter-spacing: 3px;
+  color: var(--titanium-silver);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.sfx-card-holder-name {
+  font-family: var(--font-sync);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+}
+
+.sfx-card-pts-badge {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: var(--font-orbit);
+  font-size: 1.1rem;
+  color: var(--cyan-neon);
+  border: 1px solid var(--cyan-deep);
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(0, 240, 255, 0.08);
+}
+
+/* ----------------------------------------------------------------------------
+   7. LUXURY SHOP BUTTON (BLINDATURA ZERO SEO LEAK)
+---------------------------------------------------------------------------- */
+.sfx-luxury-shop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-obsidian-deep);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  font-family: var(--font-sync);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.sfx-luxury-shop-btn:hover {
+  background: var(--gold-primary);
+  color: var(--bg-obsidian);
+  box-shadow: 0 0 25px var(--gold-glow);
+}
+
+/* ----------------------------------------------------------------------------
+   8. MEDIA CENTER SHOWCASE: PLAYER 16:10 (OTTIMIZZATO FINO A 11 POLLICI)
+---------------------------------------------------------------------------- */
+.sfx-media-player-container {
+  max-width: 1080px;
+  aspect-ratio: 16 / 10;
+  background: #000;
+  border: 1px solid var(--gold-deep);
+  border-radius: 8px;
+  margin: 2rem auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+}
+
+.sfx-media-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-family: var(--font-sync);
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+  z-index: 5;
+}
+
+.sfx-player-controls-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(9, 10, 13, 0.9);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.sfx-ctrl-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.sfx-btn-ctrl {
+  background: transparent;
+  border: 1px solid var(--gold-deep);
+  color: var(--text-platinum);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sfx-btn-ctrl:hover {
+  background: var(--gold-primary);
+  color: var(--bg-obsidian);
+}
+
+/* ----------------------------------------------------------------------------
+   9. RETE SOCIALE UFFICIALE (GRIGLIA 6 CANALI BONIFICATA ZERO ROSSO)
+---------------------------------------------------------------------------- */
+.sfx-social-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.2rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.sfx-social-card {
+  background: var(--bg-matrix-card);
+  border-radius: 6px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sfx-social-card.instagram { border: 1px solid #4A0E4E; }
+.sfx-social-card.telegram  { border: 1px solid #00F0FF; }
+.sfx-social-card.youtube   { border: 1px solid #D4AF37; }
+.sfx-social-card.linkedin  { border: 1px solid #0A192F; }
+.sfx-social-card.tiktok    { border: 1px solid #8E9BAE; }
+.sfx-social-card.facebook  { border: 1px solid #182B49; }
+
+.sfx-social-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* ----------------------------------------------------------------------------
+   10. GATEWAY TRANSAZIONI EAL6+ (LE 4 CARD DI REGOLAMENTO)
+---------------------------------------------------------------------------- */
+.sfx-gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.sfx-gateway-card {
+  background: var(--bg-pearl-card);
+  border: 1px solid var(--titanium-silver);
+  border-radius: 8px;
+  padding: 2rem;
+  color: var(--text-pearl-dark);
+  position: relative;
+  transition: all var(--transition-smooth);
+}
+
+.sfx-gateway-card:hover {
+  border-color: var(--gold-deep);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.sfx-iban-copy-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #EFEAE4;
+  border: 1px solid #DDD6CE;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------------------------
+   11. X-BOX ENTERPRISE // INTESTAZIONE UNIVERSALE A 4 TASTI + 5 STATI
+---------------------------------------------------------------------------- */
+.sfx-xbox-master-header {
+  width: 100%;
+  background: var(--bg-obsidian-deep);
+  border-bottom: 2px solid var(--gold-deep);
+  padding: 0.8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 500;
+}
+
+.sfx-xbox-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sfx-xbox-breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cyan-neon);
+  text-transform: uppercase;
+}
+
+/* Pulsantiera di Navigazione Fissa (Universal Controls) */
+.sfx-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sfx-btn-nav {
+  background: #14171F;
+  border: 1px solid var(--titanium-silver);
+  color: var(--text-platinum);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sfx-btn-nav:hover {
+  border-color: var(--cyan-neon);
+  color: var(--cyan-neon);
+}
+
+/* Pulsantiera 5 Stati Tattici (Rigido Zero Rosso) */
+.sfx-status-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sfx-btn-state {
+  font-family: var(--font-orbit);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+}
+
+.sfx-btn-state.on      { background: var(--status-on); color: #000; }
+.sfx-btn-state.off     { background: var(--status-off); color: var(--titanium-silver); }
+.sfx-btn-state.standby { background: var(--status-standby); color: #000; }
+.sfx-btn-state.edit    { background: transparent; border-color: var(--status-edit); color: var(--status-edit); }
+.sfx-btn-state.publish { background: var(--gold-primary); color: #000; }
+
+/* ----------------------------------------------------------------------------
+   12. X-BOX ENTERPRISE // MENU A CASCATA TELESCOPICA A 3 LIVELLI
+---------------------------------------------------------------------------- */
+.sfx-xbox-cascade-wrap {
+  display: flex;
+  height: calc(100vh - 110px);
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Livello 1: Macro-Aree */
+.sfx-col-macro {
+  width: 250px;
+  background: var(--bg-obsidian-deep);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-y: auto;
+}
+
+/* Livello 2: Moduli Operativi */
+.sfx-col-modules {
+  width: 270px;
+  background: rgba(20, 23, 31, 0.95);
+  backdrop-filter: blur(16px);
+  border-right: 1px solid rgba(0, 240, 255, 0.15);
+  overflow-y: auto;
+}
+
+/* Livello 3: Schede Esecutive */
+.sfx-col-cards {
+  width: 290px;
+  background: #181C26;
+  border-right: 1px solid rgba(212, 175, 55, 0.2);
+  overflow-y: auto;
+}
+
+/* Area di Lavoro Singola a Tutto Schermo */
+.sfx-xbox-viewport {
+  flex-grow: 1;
+  background: var(--bg-obsidian);
+  padding: 3rem;
+  overflow-y: auto;
+}
+
+/* ----------------------------------------------------------------------------
+   13. PROTOCOLLI DI PROTEZIONE FORENSE & STATUTO BLINDATO (statuto.html)
+----------------------------------------------------------------------------
+   Disabilitazione selezione, isolamento stampa e filigrana dinamica
+---------------------------------------------------------------------------- */
+.sfx-forensic-shield {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+@media print {
+  body {
+    display: none !important;
+  }
+}
+
+.sfx-forensic-watermark {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(212, 175, 55, 0.02) 0px,
+    rgba(212, 175, 55, 0.02) 200px,
+    transparent 200px,
+    transparent 400px
+  );
+  z-index: 9999;
+}
+
+/* ----------------------------------------------------------------------------
+   14. RESPONSIVITÀ MOBILE & ADATTAMENTO SCHERMI FINO A 11"
+---------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .sfx-trittico-grid,
+  .sfx-courses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sfx-social-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sfx-gateway-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sfx-xbox-cascade-wrap {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sfx-col-macro,
+  .sfx-col-modules,
+  .sfx-col-cards {
+    width: 100%;
+  }
+}
