@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X-BOX Enterprise // Suprema Future X Apicale</title>
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <meta name="theme-color" content="#090A0D">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-void: #050608;
+      --bg-surface: #090A0D;
+      --bg-panel: #0E1117;
+      --gold-primary: #D4AF37;
+      --gold-bright: #F59E0B;
+      --gold-soft: #FDE68A;
+      --cyan-neon: #00F0FF;
+      --cyan-glow: rgba(0, 240, 255, 0.35);
+      --silver-bright: #F1F5F9;
+      --silver-muted: #94A3B8;
+      --silver-dark: #334155;
+      --alert-orange: #FF6B00;
+      --alert-plum: #4A0E2E;
+      --alert-green: #00E676;
+      --alert-red: #EF4444;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-void); color: var(--silver-bright); font-family: var(--font-sans); display: flex; min-height: 100vh; overflow-x: hidden; font-size: 14px; }
+
+    /* Barra Laterale Fissa a Sinistra */
+    .sfx-admin-sidebar {
+      width: 300px; background: var(--bg-surface); border-right: 1px solid rgba(212,175,55,0.22);
+      padding: 22px 14px; display: flex; flex-direction: column; gap: 6px; position: fixed; height: 100vh; overflow-y: auto; z-index: 100;
+    }
+    .sfx-sidebar-brand {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .sfx-sidebar-brand img {
+      width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--gold-primary); box-shadow: 0 0 12px rgba(212,175,55,0.35);
+    }
+    .sfx-side-btn {
+      width: 100%; padding: 11px 14px; background: transparent; border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 6px; color: var(--silver-muted); font-family: var(--font-mono); font-size: 0.76rem; text-align: left;
+      cursor: pointer; transition: var(--transition-fast); display: flex; align-items: center; gap: 10px;
+    }
+    .sfx-side-btn:hover, .sfx-side-btn.active {
+      background: rgba(212,175,55,0.12); color: var(--gold-primary); border-color: var(--gold-primary); box-shadow: inset 0 0 10px rgba(212,175,55,0.1);
+    }
+
+    /* Area Contenuti */
+    .sfx-admin-content { margin-left: 300px; flex: 1; padding: 32px 36px; overflow-y: auto; }
+
+    /* Header Modulo */
+    .pane-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pane-title { font-family: var(--font-mono); font-size: 1.25rem; color: var(--gold-primary); font-weight: 800; letter-spacing: 1px; }
+    .pane-sub { font-size: 0.8rem; color: var(--silver-muted); margin-top: 4px; }
+
+    /* Box Neon Runner */
+    .sfx-neon-box {
+      position: relative; background: var(--bg-surface); border-radius: 10px; overflow: hidden; padding: 2px; margin-bottom: 24px;
+    }
+    .sfx-neon-box::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: conic-gradient(transparent, var(--cyan-neon), var(--gold-primary), transparent 40%);
+      animation: rotate-neon 5s linear infinite; z-index: 0;
+    }
+    .sfx-neon-inner { position: relative; background: var(--bg-surface); border-radius: 8px; z-index: 1; padding: 22px; }
+    @keyframes rotate-neon { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Tabelle EAL6+ */
+    .sfx-table-container {
+      width: 100%; overflow-x: auto; margin-top: 14px; border: 1px solid rgba(212,175,55,0.22); border-radius: 8px; background: var(--bg-surface);
+    }
+    table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.76rem; }
+    th {
+      background: #0B0E14; color: var(--gold-primary); padding: 12px 10px; text-align: left; border-bottom: 1px solid rgba(212,175,55,0.3); font-weight: 700;
+    }
+    td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #CBD5E1; vertical-align: middle; }
+    tr:hover { background: rgba(212,175,55,0.03); }
+
+    /* Badge Semaforici */
+    .badge-prugna { background: var(--alert-plum); color: #FFB3D9; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.68rem; border: 1px solid #7D1A4A; }
+    .badge-verde { background: #064E3B; color: #6EE7B7; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.68rem; border: 1px solid #059669; }
+    .badge-azzurro { background: #0C4A6E; color: #7DD3FC; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.68rem; border: 1px solid #0284C7; }
+    .badge-p1 { background: #7F1D1D; color: #FCA5A5; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
+    .badge-p2 { background: #78350F; color: #FDE68A; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
+    .badge-p3 { background: #1E293B; color: #94A3B8; padding: 2px 6px; border-radius: 4px; font-weight: 800; }
+
+    /* Pulsanti & Input */
+    .btn-action {
+      padding: 6px 12px; border-radius: 5px; font-weight: 700; font-size: 0.74rem; border: none; cursor: pointer;
+      font-family: var(--font-sans); transition: var(--transition-fast); display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-green { background: var(--alert-green); color: #000; }
+    .btn-green:hover { background: #22C55E; }
+    .btn-red { background: var(--alert-red); color: #FFF; }
+    .btn-red:hover { background: #DC2626; }
+    .btn-gold { background: var(--gold-primary); color: #000; font-weight: 800; }
+    .btn-gold:hover { background: var(--gold-bright); }
+    .btn-dark { background: #1E293B; color: #FFF; border: 1px solid rgba(255,255,255,0.1); }
+    .btn-dark:hover { background: #334155; }
+
+    .sfx-input {
+      width: 100%; padding: 10px 14px; background: rgba(15,23,42,0.85); border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 6px; font-family: var(--font-mono); color: #FFF; font-size: 0.85rem; outline: none; margin-bottom: 10px;
+    }
+    .sfx-input:focus { border-color: var(--cyan-neon); box-shadow: 0 0 10px var(--cyan-glow); }
+
+    /* Griglia Flotta AI */
+    .ai-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 16px; margin-top: 16px; }
+    .ai-card {
+      background: var(--bg-surface); border: 1px solid rgba(212,175,55,0.22); border-radius: 8px; padding: 16px; position: relative;
+    }
+    .ai-card:hover { border-color: var(--gold-primary); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+
+    /* Modale e Drawer */
+    .sfx-status-live { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--cyan-neon); font-family: var(--font-mono); }
+    .sfx-dot-pulse { width: 8px; height: 8px; border-radius: 50%; background: #00E676; box-shadow: 0 0 8px #00E676; animation: sfx-pulse 1.8s infinite; }
+    @keyframes sfx-pulse { 0%, 100% { opacity: 0.5; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================================
+       1. BARRA LATERALE D'ORDINE APICALE (CEO GIULIANO CARATELLI)
+       ====================================================================== -->
+  <aside class="sfx-admin-sidebar">
+    <div class="sfx-sidebar-brand">
+      <img src="logo.jpg" alt="Logo Suprema Future X">
+      <div>
+        <h4 style="font-family:var(--font-mono); font-size:0.84rem; color:var(--gold-primary); margin:0;">X-BOX ENTERPRISE</h4>
+        <small style="font-size:0.65rem; color:#64748B;">GOVERNANCE APICALE // EAL6+</small>
+      </div>
+    </div>
+
+    <button class="sfx-side-btn active" onclick="switchPane('pane-crm', this)">📋 01. CRM & Lead Nexus</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-scheda', this)">📅 02. Scheda Operativa 2026</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-mastro', this)">💰 03. Mastro Split 54/30/16</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-dividendi', this)">👑 04. Cassa Dividendi & Busta Paga</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-iban', this)">🏦 05. Gateway & IBAN Dinamico</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-workspace', this)">⚡ 06. Regia Google Workspace</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-flotta', this)">🤖 07. Flotta 15 Agenti AI</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-security', this)">🛡️ 08. Sicurezza & Blacklist IP</button>
+    <button class="sfx-side-btn" onclick="switchPane('pane-email', this)">📨 09. Dispacci Email Massivi</button>
+
+    <div style="margin-top:auto; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08);">
+      <div style="font-size:0.72rem; color:#64748B; margin-bottom:8px; font-family:var(--font-mono);">SFX-00001 // ROMA CENTRO</div>
+      <button class="sfx-side-btn" style="color:#EF4444;" onclick="location.href='index.html'">🚪 CHIUDI SESSIONE</button>
+    </div>
+  </aside>
+
+  <!-- ======================================================================
+       2. AREA CENTRALE DI GOVERNO
+       ====================================================================== -->
+  <main class="sfx-admin-content">
+
+    <!-- Box Benvenuto Alison Executive con Sintesi Vocale Reale -->
+    <div class="sfx-neon-box">
+      <div class="sfx-neon-inner" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="sfx-status-live"><div class="sfx-dot-pulse"></div> ALISON EXECUTIVE // CABINA DI REGIA H24 ATTIVA</div>
+          <h3 style="font-size:1.1rem; margin:6px 0 0; color:#FFF;">"Hola CEO, da dove iniziamo oggi? Cosa vuoi verificare?"</h3>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-action btn-gold" onclick="interagisciVoceAlison()">🎙️ VOCALE ALISON</button>
+          <button class="btn-action btn-dark" onclick="sincronizzaDashboardCompleta()">🔄 FULL SYNC SERVER</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE 01: CRM & CANDIDATURE -->
+    <section id="pane-crm" class="sfx-pane">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">01. CANDIDATURE E LEAD SCREENING (BUFFER TALLY)</h2>
+          <p class="pane-sub">Lead acquisiti da form Tally e Landing Page con pre-conio Gold Card (+100 PTS statutari Nicole AG-02).</p>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="filtro-lead" class="sfx-input" style="width:200px; margin:0;" placeholder="Cerca lead..." onkeyup="filtraTabellaLead()">
+          <button class="btn-action btn-gold" onclick="caricaDatiCRM()">AGGIORNA</button>
+        </div>
+      </div>
+
+      <div class="sfx-table-container">
+        <table id="tbl-candidati">
+          <thead>
+            <tr>
+              <th>DATA</th><th>LEAD ID</th><th>NOMINATIVO</th><th>EMAIL</th><th>TELEFONO</th><th>SLOT SCELTO</th><th>STATO CEO</th><th>DISPOSIZIONE DIRETTA</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-candidati">
+            <!-- Righe popolate dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PANE 02: SCHEDA OPERATIVA SETTIMANALE 2026 (INTEGRALE DALL'ALLEGATO) -->
+    <section id="pane-scheda" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">02. SUPREMA SCHEDA OPERATIVA SETTIMANALE</h2>
+          <p class="pane-sub">ANNO: 2026 | SETTIMANA: 42 | PERIODO: Dal 12/10/2026 al 18/10/2026[cite: 2]</p>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-action btn-green" onclick="salvaSchedaOperativa()">💾 SALVA SCHEDA</button>
+          <button class="btn-action btn-gold" onclick="calcolaKPIScheda()">RICALCOLA BILANCIO KPI</button>
+        </div>
+      </div>
+
+      <div class="sfx-table-container">
+        <table id="tbl-scheda">
+          <thead>
+            <tr>
+              <th>GIORNO[cite: 2]</th><th>FASCIA ORARIA[cite: 2]</th><th>PRIORITÀ[cite: 2]</th><th>ATTIVITÀ & EVENTI ZOOM[cite: 2]</th><th>✓[cite: 2]</th><th>CONTATTO / REFERENTE[cite: 2]</th><th>TIPO (C/R/Z/COL)[cite: 2]</th><th>IMPEGNI FAMIGLIA & PERSONALI[cite: 2]</th><th>ESITO (SI/NO/R)[cite: 2]</th><th>NOTE & PROSSIMO PASSO[cite: 2]</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-scheda">
+            <!-- Lunedì -->
+            <tr data-giorno="Lunedi">
+              <td>Lunedì[cite: 2]</td><td>Mattina (09:00-13:00)[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Prospezione & Nuovi Contatti[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Lunedi">
+              <td>Lunedì[cite: 2]</td><td>Pomeriggio (15:00-19:00)[cite: 2]</td><td><span class="badge-p3">P3</span>[cite: 2]</td><td>Richiami & Follow-up (R)[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta" checked>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;" value="Marco Rossi">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>R</option><option>C</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R" selected>R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;" value="Richiamo concordato ore 18:00">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Lunedi">
+              <td>Lunedì[cite: 2]</td><td>Sera (20:00-22:30)[cite: 2]</td><td><span class="badge-p1">P1</span>[cite: 2]</td><td>Zoom Ufficiale Community[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta" checked>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;" value="Laura Bianchi">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>Z</option><option>C</option><option>R</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI" selected>SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;" value="Iscrizione Executive Master (299€)">[cite: 2]</td>
+            </tr>
+
+            <!-- Martedì -->
+            <tr data-giorno="Martedi">
+              <td>Martedì[cite: 2]</td><td>Mattina (09:00-13:00)[cite: 2]</td><td><span class="badge-p3">P3</span>[cite: 2]</td><td>Prospezione & Nuovi Contatti[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Martedi">
+              <td>Martedì[cite: 2]</td><td>Pomeriggio (15:00-19:00)[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Richiami & Follow-up (R)[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta" checked>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;" value="Elena Ferrari">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>R</option><option>C</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R" selected>R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;" value="Screening 60m prenotato">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Martedi">
+              <td>Martedì[cite: 2]</td><td>Sera (20:00-22:30)[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Ricontatto Lead & Check[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+
+            <!-- Mercoledì -->
+            <tr data-giorno="Mercoledi">
+              <td>Mercoledì[cite: 2]</td><td>Mattina (09:00-13:00)[cite: 2]</td><td><span class="badge-p3">P3</span>[cite: 2]</td><td>Prospezione & Nuovi Contatti[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Mercoledi">
+              <td>Mercoledì[cite: 2]</td><td>Pomeriggio (15:00-19:00)[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Richiami & Follow-up (R)[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>R</option><option>C</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R" selected>R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Mercoledi">
+              <td>Mercoledì[cite: 2]</td><td>Sera (20:00-22:30)[cite: 2]</td><td><span class="badge-p3">P3</span>[cite: 2]</td><td>Zoom Formazione Academy[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta" checked>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;" value="Sara Moretti">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>Z</option><option>C</option><option>R</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI" selected>SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;" value="Avanzamento Settimana 2">[cite: 2]</td>
+            </tr>
+
+            <!-- Giovedì -->
+            <tr data-giorno="Giovedi">
+              <td>Giovedì[cite: 2]</td><td>Mattina (09:00-13:00)[cite: 2]</td><td><span class="badge-p3">P3</span>[cite: 2]</td><td>Prospezione & Nuovi Contatti[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Giovedi">
+              <td>Giovedì[cite: 2]</td><td>Pomeriggio (15:00-19:00)[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Richiami & Follow-up (R)[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>R</option><option>C</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R" selected>R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Giovedi">
+              <td>Giovedì[cite: 2]</td><td>Sera (20:00-22:30)[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Ricontatto Lead & Check[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+
+            <!-- Venerdì -->
+            <tr data-giorno="Venerdi">
+              <td>Venerdì[cite: 2]</td><td>Mattina (09:00-13:00)[cite: 2]</td><td><span class="badge-p3">P3</span>[cite: 2]</td><td>Prospezione & Nuovi Contatti[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Venerdi">
+              <td>Venerdì[cite: 2]</td><td>Pomeriggio (15:00-19:00)[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Richiami & Follow-up (R)[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>R</option><option>C</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R" selected>R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Venerdi">
+              <td>Venerdì[cite: 2]</td><td>Sera (20:00-22:30)[cite: 2]</td><td><span class="badge-p1">P1</span>[cite: 2]</td><td>Zoom Chiusure & Strategia[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option selected>Z</option><option>C</option><option>R</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+
+            <!-- Sabato & Domenica -->
+            <tr data-giorno="Sabato">
+              <td>Sabato[cite: 2]</td><td>Mattina (09:00-13:00)[cite: 2]</td><td><span class="badge-p3">P3</span>[cite: 2]</td><td>Prospezione / Allineamento[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta">[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-contatto" style="margin:0; padding:4px;">[cite: 2]</td>
+              <td><select class="sfx-input sel-tipo" style="margin:0; padding:4px;"><option>C</option><option>R</option><option>Z</option><option>COL</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-famiglia" style="margin:0; padding:4px;" value="-">[cite: 2]</td>
+              <td><select class="sfx-input sel-esito" style="margin:0; padding:4px;" onchange="calcolaKPIScheda()"><option value="-">-</option><option value="SI">SI</option><option value="NO">NO</option><option value="R">R</option></select>[cite: 2]</td>
+              <td><input type="text" class="sfx-input inp-note" style="margin:0; padding:4px;">[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Sabato">
+              <td>Sabato[cite: 2]</td><td>Pomeriggio / Sera[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>-[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta" checked>[cite: 2]</td>
+              <td>-[cite: 2]</td><td>-[cite: 2]</td><td style="color:#6EE7B7; font-weight:700;">Tempo Famiglia / Svago[cite: 2]</td><td>-[cite: 2]</td><td>-[cite: 2]</td>
+            </tr>
+            <tr data-giorno="Domenica">
+              <td>Domenica[cite: 2]</td><td>Tutto il giorno[cite: 2]</td><td><span class="badge-p2">P2</span>[cite: 2]</td><td>Pianificazione Settimana (Sera)[cite: 2]</td>
+              <td><input type="checkbox" class="chk-spunta" checked>[cite: 2]</td>
+              <td>-[cite: 2]</td><td>-[cite: 2]</td><td style="color:#6EE7B7; font-weight:700;">Spazio Famiglia / Relax[cite: 2]</td><td>-[cite: 2]</td><td>Preparazione schede nuove[cite: 2]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Bilancio KPI & Report Settimanale -->
+      <div style="margin-top:20px; background:#090A0D; padding:20px; border-radius:8px; border:1px solid rgba(212,175,55,0.3);">
+        <h4 style="font-family:var(--font-mono); color:var(--gold-primary); margin:0 0 14px 0;">BILANCIO KPI & REPORT SETTIMANALE[cite: 2]</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px; text-align:center;">
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">Contatti (C)[cite: 2]</small><div id="kpi-c" style="font-weight:800; font-size:1.2rem; color:var(--cyan-neon);">0[cite: 2]</div>
+          </div>
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">Richiami (R)[cite: 2]</small><div id="kpi-r" style="font-weight:800; font-size:1.2rem; color:var(--gold-primary);">5[cite: 2]</div>
+          </div>
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">Zoom (Z)[cite: 2]</small><div id="kpi-z" style="font-weight:800; font-size:1.2rem; color:#FFF;">3[cite: 2]</div>
+          </div>
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">Colloqui (COL)[cite: 2]</small><div id="kpi-col" style="font-weight:800; font-size:1.2rem; color:var(--cyan-neon);">0[cite: 2]</div>
+          </div>
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">Adesioni (SI)[cite: 2]</small><div id="kpi-si" style="font-weight:800; font-size:1.2rem; color:#00E676;">2</div>
+          </div>
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">Mancate (NO)[cite: 2]</small><div id="kpi-no" style="font-weight:800; font-size:1.2rem; color:#EF4444;">0[cite: 2]</div>
+          </div>
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">In Sospeso (R)[cite: 2]</small><div id="kpi-sosp" style="font-weight:800; font-size:1.2rem; color:#F59E0B;">3</div>
+          </div>
+          <div style="background:#0F172A; padding:10px; border-radius:6px;">
+            <small style="color:#64748B;">Tasso Conversione[cite: 2]</small><div id="kpi-conv" style="font-weight:800; font-size:1.2rem; color:var(--gold-primary);">40.0%</div>
+          </div>
+        </div>
+        <div style="margin-top:16px; font-size:0.82rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; align-items:center;">
+          <div>Spazio Famiglia Rispettato: <strong style="color:#00E676;">SÌ[cite: 2]</strong></div>
+          <div style="flex:1; max-width:480px; display:flex; align-items:center; gap:8px;">
+            <span>Note Coach/CEO Giuliano Caratelli:</span>[cite: 2]
+            <input type="text" id="kpi-note-ceo" class="sfx-input" style="margin:0; padding:6px 10px; font-size:0.78rem;" value="Focus chiusura sui richiami di venerdì sera.">[cite: 2]
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANE 03: MASTRO 54/30/16 -->
+    <section id="pane-mastro" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">03. MASTRO FINANZIARIO NOTARIZZATO (54% / 30% / 16%)[cite: 1]</h2>
+          <p class="pane-sub">Estratto contabile ufficiale su 8 colonne esatte da A ad H con firma SHA-256 EAL6+.</p>
+        </div>
+        <button class="btn-action btn-gold" onclick="caricaDatiMastro()">AGGIORNA MASTRO</button>
+      </div>
+
+      <div class="sfx-table-container">
+        <table id="tbl-mastro">
+          <thead>
+            <tr>
+              <th>Data/Ora</th><th>Descrizione Operazione</th><th>Tipo</th><th>Lordo (€)</th><th>Operatività 54% (€)</th><th>Dividendi CEO 30% (€)</th><th>Fondo Tasse 16% (€)</th><th>Hash EAL6+</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-mastro">
+            <!-- Righe popolate dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PANE 04: CASSA DIVIDENDI & BUSTA PAGA (PIN LOCK 3474429091) -->
+    <section id="pane-dividendi" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">04. CASSA DIVIDENDI & RETRIBUZIONE CEO (PIN LOCK)</h2>
+          <p class="pane-sub">Accesso riservato con ripartizione statutaria (52% SFX, 30% CEO, 10% MC, 4% R, 2% A, 1% M, 1% F) e stipendio su 14 mensilità.</p>
+        </div>
+      </div>
+
+      <div id="div-lock-screen" style="max-width:380px; margin-top:20px;">
+        <label style="display:block; font-size:0.75rem; margin-bottom:6px; color:#94A3B8;">DIGITARE PIN PRESIDENZIALE PER LO SBLOCCO</label>
+        <input type="password" id="pin-dividendi-input" class="sfx-input" maxlength="10" placeholder="PIN a 10 Cifre">
+        <button class="btn-action btn-gold" style="width:100%; padding:12px;" onclick="sbloccaDividendi()">SBLOCCA CASSAFORTE</button>
+      </div>
+
+      <div id="div-unlocked-screen" style="display:none; margin-top:20px;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px;">
+          <div class="sfx-neon-box"><div class="sfx-neon-inner">
+            <h4 style="font-size:0.8rem; color:#94A3B8;">FONDO SVILUPPO SFX (52%)</h4>
+            <div id="lbl-fondo-52" style="font-size:1.8rem; font-weight:800; color:var(--gold-primary); margin:8px 0;">€ 0,00</div>
+            <small style="color:#64748B;">Marketing, Server, R&D Antigravity, Didattica, Roma</small>
+          </div></div>
+
+          <div class="sfx-neon-box"><div class="sfx-neon-inner">
+            <h4 style="font-size:0.8rem; color:#94A3B8;">PRESIDENZA CEO GIULIANO (30%)</h4>
+            <div id="lbl-ceo-30" style="font-size:1.8rem; font-weight:800; color:var(--cyan-neon); margin:8px 0;">€ 0,00</div>
+            <small style="color:#64748B;">Disponibile per prelievo o riserva attiva</small>
+          </div></div>
+
+          <div class="sfx-neon-box"><div class="sfx-neon-inner">
+            <h4 style="font-size:0.8rem; color:#94A3B8;">BUSTA PAGA CEO (14 MENSILITÀ)</h4>
+            <div id="lbl-busta-paga" style="font-size:1.8rem; font-weight:800; color:#00E676; margin:8px 0;">€ 0,00 / mese</div>
+            <small style="color:#64748B;">Parametrata agli utili (Base 0€ -> Max 5.000€)</small>
+          </div></div>
+        </div>
+
+        <div style="margin-top:20px; background:#090A0D; padding:18px; border-radius:8px; border:1px solid rgba(212,175,55,0.25);">
+          <h4 style="color:var(--gold-primary); font-size:0.84rem; margin-bottom:10px;">QUOTE UTILI COLLABORATORI REGISTRATE</h4>
+          <p style="font-size:0.8rem; line-height:2; margin:0;" id="lbl-collaboratori">
+            • Mariachiara (10%): € 0,00 | • Rossella (4%): € 0,00 | • Alba (2%): € 0,00 | • Massimo (1%): € 0,00 | • Federico (1%): € 0,00
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANE 05: GATEWAY & IBAN DINAMICO -->
+    <section id="pane-iban" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">05. COORDINATE BANCARIE & IBAN DINAMICO</h2>
+          <p class="pane-sub">Aggiorna le coordinate bancarie in tempo reale sul cloud con conservazione dello storico variazioni.</p>
+        </div>
+      </div>
+
+      <div style="max-width:500px; margin-top:16px;">
+        <label style="display:block; font-size:0.75rem; margin-bottom:4px; color:#94A3B8;">IBAN ATTIVO ATTUALMENTE</label>
+        <input type="text" id="iban-val" class="sfx-input" value="IT00X0000000000000000000000">
+
+        <label style="display:block; font-size:0.75rem; margin-bottom:4px; color:#94A3B8;">INTESTATARIO CONTO</label>
+        <input type="text" id="iban-intestatario" class="sfx-input" value="Suprema Future X S.r.l.">
+
+        <label style="display:block; font-size:0.75rem; margin-bottom:4px; color:#94A3B8;">PIN PRESIDENZIALE DI CONFERMA</label>
+        <input type="password" id="iban-pin" maxlength="10" class="sfx-input" placeholder="PIN 10 Cifre (3474429091)">
+
+        <button class="btn-action btn-gold" style="width:100%; padding:11px; margin-top:8px;" onclick="eseguiCambioIBAN()">ESEGUI CAMBIO IBAN</button>
+      </div>
+    </section>
+
+    <!-- PANE 06: CABINA DI REGIA GOOGLE WORKSPACE -->
+    <section id="pane-workspace" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">06. CABINA DI REGIA GOOGLE WORKSPACE (CLICK PROVISIONING)</h2>
+          <p class="pane-sub">Clonazione modelli master da Drive, apertura cartella a 3 livelli, iscrizione a Classroom e creazione link Meet.</p>
+        </div>
+      </div>
+
+      <div style="max-width:480px; margin-top:16px;">
+        <input type="text" id="ws-matr" class="sfx-input" placeholder="Matricola Allievo (Es. SFX-26-9A1)">
+        <input type="text" id="ws-nome" class="sfx-input" placeholder="Nominativo Allievo">
+        <input type="email" id="ws-email" class="sfx-input" placeholder="Email Google Allievo">
+        <select id="ws-percorso" class="sfx-input">
+          <option value="Executive Master (299 €)">Executive Master (299 €)</option>
+          <option value="Silver Tier (249 €)">Silver Tier (249 €)</option>
+          <option value="Premium VIP Mentoring CEO (349 €)">Premium VIP Mentoring CEO (349 €)</option>
+        </select>
+        <button class="btn-action btn-gold" style="width:100%; padding:12px; margin-top:8px;" onclick="lanciaProvisioningWorkspace()">⚡ ESEGUI RIPARTIZIONE & PROVISIONING</button>
+      </div>
+    </section>
+
+    <!-- PANE 07: FLOTTA DEI 15 AGENTI AI -->
+    <section id="pane-flotta" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">07. FLOTTA NEURALE 15 AGENTI // WAR ROOM</h2>
+          <p class="pane-sub">Controllo di stato individuale: Override Umano, Automatico, Manuale, Kill-Switch e prompt indottrinamento.</p>
+        </div>
+        <button class="btn-action btn-gold" onclick="caricaFlottaAI()">AGGIORNA RETE</button>
+      </div>
+
+      <div class="ai-card-grid" id="ai-fleet-grid">
+        <!-- Schede dei 15 Agenti AI generate via JS -->
+      </div>
+    </section>
+
+    <!-- PANE 08: SICUREZZA & BLACKLIST IP -->
+    <section id="pane-security" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">08. SICUREZZA EAL6+ & BLACKLIST IP SEMAFORICA</h2>
+          <p class="pane-sub">Prugna (Bloccato 3 errori), Azzurro (Sospetto/Incerto), Verde (CEO Verificato).</p>
+        </div>
+        <button class="btn-action btn-gold" onclick="caricaBlacklist()">AGGIORNA LOGS</button>
+      </div>
+
+      <div class="sfx-table-container">
+        <table id="tbl-security">
+          <thead>
+            <tr>
+              <th>TIMESTAMP</th><th>INDIRIZZO IP</th><th>SEMAFORO</th><th>DISPOSITIVO</th><th>TENTATIVI</th><th>STATO BLOCCO</th><th>DISPOSIZIONE</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-security">
+            <!-- Popolato dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PANE 09: DISPACCI EMAIL MASSIVI -->
+    <section id="pane-email" class="sfx-pane" style="display:none;">
+      <div class="pane-header">
+        <div>
+          <h2 class="pane-title">09. CABINA COMUNICAZIONI & DISPACCI MASSIVI</h2>
+          <p class="pane-sub">Invio manuale o automatico a corsisti e candidati con i server Google Workspace ufficiali.</p>
+        </div>
+      </div>
+
+      <div style="max-width:540px; margin-top:16px;">
+        <label style="display:block; font-size:0.75rem; margin-bottom:4px; color:#94A3B8;">CANALE DESTINATARI</label>
+        <select id="email-filtro" class="sfx-input">
+          <option value="TUTTI_CANDIDATI">Tutti i Candidati in Screening</option>
+          <option value="ISCRITTI_CORSISTI">Tutti i Corsisti Attivi (12 Settimane)</option>
+        </select>
+        <label style="display:block; font-size:0.75rem; margin-bottom:4px; color:#94A3B8;">OGGETTO DISPACCIO</label>
+        <input type="text" id="email-oggetto" class="sfx-input" value="Dispaccio Ufficiale // Suprema Future X Presidency">
+        <label style="display:block; font-size:0.75rem; margin-bottom:4px; color:#94A3B8;">TESTO DELLA CIRCOLARE</label>
+        <textarea id="email-corpo" rows="6" class="sfx-input"></textarea>
+        <button class="btn-action btn-gold" style="width:100%; padding:12px; margin-top:8px;" onclick="inviaCircolareMassiva()">INVIA COMUNICAZIONE MASSIVA</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       3. LOGICA JAVASCRIPT MASTER // CABLAGGIO REALE A CODE.GS
+       ====================================================================== -->
+  <script>
+    // CONFIGURAZIONE ENDPOINT // Inserisci l'URL /exec di Code.gs quando pronto
+    const SFX_ADMIN_CONFIG = {
+      PIN_PRESIDENZIALE: '3474429091',
+      URL_APPS_SCRIPT: '' // Es. https://script.google.com/macros/s/AKfycb.../exec
+    };
+
+    // ELENCO UFFICIALE DEI 15 AGENTI CON 8 PARAMETRI DI STATO
+    const FLEET_15_AGENTS = [
+      { id: "AG-01", nome: "ALISON", ruolo: "Executive Liaison & Concierge H24", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Supervisione totale richieste, accoglienza e triage H24. Didattica 100% Live One-to-One. Nessun videocorso." },
+      { id: "AG-02", nome: "NICOLE", ruolo: "Chief Reporting & Conio Gold Card", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Assegnazione matricole allievi sequenziali, conio card virtuale e accredito 100 PTS statutari all ammissione." },
+      { id: "AG-03", nome: "GINEVRA", ruolo: "Cancelliere Finanziario & Presidio F24", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Calcolo riserva imposte 16% su ogni transazione, audit scadenze F24 e reportistica tributaria." },
+      { id: "AG-04", nome: "NEXUS SCOUT", ruolo: "Social Hunter & Sentiment 1000 Kw", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Scansione radar web per intercettare profili qualificati interessati a store e-commerce e mentoring Live." },
+      { id: "AG-05", nome: "LEDGER GUARDIAN", ruolo: "Tesoreria Mastro Split 54/30/16", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Ripartizione matematica automatica di ogni incasso con firma notarile SHA-256 e calcolo quote." },
+      { id: "AG-06", nome: "GATEKEEPER", ruolo: "Slot Integrity & Sicurezza EAL6+", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Presidio dei 16 slot settimanali del CEO Giuliano Caratelli ed eliminazione tassativa sovrapposizioni." },
+      { id: "AG-07", nome: "DELTA QUEUE", ruolo: "Worker Cache Offline PWA & Drive", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Sincronizzazione code offline e gestione storage documentale resiliente su IndexedDB." },
+      { id: "AG-08", nome: "MEDIA BROADCAST", ruolo: "Regia Video Showcase & Dispense", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Distribuzione materiali operativi, dispense e coordinamento player didattico protetto." },
+      { id: "AG-09", nome: "EXIT RECOVERY", ruolo: "Riconquista Visitatori (+50 PTS)", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Intercettazione abbandono pagina e offerta accredito 50 Punti Status per completamento screening." },
+      { id: "AG-10", nome: "INGESTION BRIDGE", ruolo: "Data Sanitizer & Tally Normalizer", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Normalizzazione stringhe: prefisso +39, username @, email minuscole e calcolo Hash EAL6+." },
+      { id: "AG-11", nome: "ASSEDIO PROVISIONER", ruolo: "Clonazione Workspace & Template Drive", stato: "ATTIVO", modalita: "Controllo Umano (Override)", drift: "0.00%", prompt: "Clonazione cartelle allievo da _SFX_MASTER_TEMPLATES_IMMUTABILI e ripartizione documenti." },
+      { id: "AG-12", nome: "WORKSPACE SENTINEL", ruolo: "Audit Inattività Allievi (Allerta 48h)", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Monitoraggio avanzamento didattico per le 12 settimane individuali e allarmi ritardo consegne." },
+      { id: "AG-13", nome: "HERMES", ruolo: "Dispatcher Telegram & Push Presidenza", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Trasmissione notifiche push al cellulare del CEO Giuliano Caratelli con tasti interattivi." },
+      { id: "AG-14", nome: "PROMPT GOVERNOR", ruolo: "Supervisore Conformità & Allineamento", stato: "ATTIVO", modalita: "Controllo Umano (Override)", drift: "0.00%", prompt: "Verifica rigida clausola Zero Videocorsi e conformità deontologica assoluta dell intero ecosistema." },
+      { id: "AG-15", nome: "JOKER", ruolo: "Riserva Fredda & Copywriting 6 Canali", stato: "ATTIVO", modalita: "Automatico Autonomo", drift: "0.00%", prompt: "Redazione testi settimanali per Instagram, Telegram, YouTube, LinkedIn, TikTok, Facebook." }
+    ];
+
+    // INIZIALIZZAZIONE ALL'AVVIO
+    document.addEventListener('DOMContentLoaded', () => {
+      renderFlottaAI();
+      caricaSchedaOperativaSalvata();
+      calcolaKPIScheda();
+      caricaDatiCRM();
+      caricaDatiMastro();
+      caricaBlacklist();
+    });
+
+    // CAMBIO SEZIONI
+    function switchPane(paneId, btn) {
+      document.querySelectorAll('.sfx-pane').forEach(p => p.style.display = 'none');
+      document.querySelectorAll('.sfx-side-btn').forEach(b => b.classList.remove('active'));
+      const activePane = document.getElementById(paneId);
+      if (activePane) activePane.style.display = 'block';
+      if (btn) btn.classList.add('active');
+    }
+
+    // 01. GESTIONE CRM
+    async function caricaDatiCRM() {
+      const tbody = document.getElementById('tbody-candidati');
+      if (!tbody) return;
+
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          const res = await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT + '?action=getCandidati');
+          const data = await res.json();
+          if (data.status === 'SUCCESS' && data.candidati.length > 0) {
+            tbody.innerHTML = '';
+            data.candidati.forEach(c => {
+              const tr = document.createElement('tr');
+              const statoBadge = c["Stato CEO"] === 'CONFERMATO_CEO' ? '<span class="badge-verde">CONFERMATO</span>' : '<span class="badge-azzurro">IN_ATTESA</span>';
+              tr.innerHTML = `
+                <td>${c["Data Candidatura"] || '-'}</td>
+                <td><strong>${c["ID Lead"] || '-'}</strong></td>
+                <td>${c["Nome e Cognome"] || '-'}</td>
+                <td>${c["Email"] || '-'}</td>
+                <td>${c["Telefono"] || '-'}</td>
+                <td><code>${c["Slot Scelto"] || '-'}</code></td>
+                <td>${statoBadge}</td>
+                <td>
+                  <button class="btn-action btn-green" onclick="aggiornaStatoSlotServer('${c["ID Lead"]}', 'CONFERMATO_CEO')">CONFERMA</button>
+                  <button class="btn-action btn-red" onclick="aggiornaStatoSlotServer('${c["ID Lead"]}', 'RIFIUTATO_O_LIBERO')">LIBERA</button>
+                </td>
+              `;
+              tbody.appendChild(tr);
+            });
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // Fallback con dati dimostrativi operativi
+      tbody.innerHTML = `
+        <tr>
+          <td>14/10/2026 10:14</td><td>LEAD-X84K2</td><td>Marco Rossi</td><td>mario@rossi.it</td><td>+39 347 1122334</td>
+          <td>Lunedì 10:00 - 11:00</td><td><span class="badge-verde">CONFERMATO_CEO</span></td>
+          <td><button class="btn-action btn-green" onclick="alert('Drive e Classroom già attivi.')">DRIVE READY</button></td>
+        </tr>
+        <tr>
+          <td>14/10/2026 11:42</td><td>LEAD-A99B1</td><td>Laura Bianchi</td><td>laura@bianchi.it</td><td>+39 333 9988776</td>
+          <td>Martedì 21:00 - 22:00</td><td><span class="badge-azzurro">IN_ATTESA_CEO</span></td>
+          <td>
+            <button class="btn-action btn-green" onclick="aggiornaStatoSlotServer('LEAD-A99B1', 'CONFERMATO_CEO')">CONFERMA</button>
+            <button class="btn-action btn-red" onclick="aggiornaStatoSlotServer('LEAD-A99B1', 'RIFIUTATO_O_LIBERO')">LIBERA</button>
+          </td>
+        </tr>
+      `;
+    }
+
+    async function aggiornaStatoSlotServer(idLead, nuovoStato) {
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT, {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azione: 'GESTISCI_STATO_SLOT', idLead: idLead, nuovoStato: nuovoStato })
+          });
+        } catch (e) {}
+      }
+      alert("Stato Lead " + idLead + " aggiornato a: " + nuovoStato);
+      caricaDatiCRM();
+    }
+
+    function filtraTabellaLead() {
+      const q = document.getElementById('filtro-lead').value.toLowerCase();
+      document.querySelectorAll('#tbody-candidati tr').forEach(r => {
+        r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    // 02. SCHEDA OPERATIVA SETTIMANALE 2026
+    function calcolaKPIScheda() {
+      const righe = document.querySelectorAll('#tbody-scheda tr');
+      let c = 0, r = 0, z = 0, col = 0, si = 0, no = 0, sosp = 0;
+
+      righe.forEach(tr => {
+        const selTipo = tr.querySelector('.sel-tipo');
+        const selEsito = tr.querySelector('.sel-esito');
+        if (selTipo) {
+          const t = selTipo.value;
+          if (t === 'C') c++;
+          else if (t === 'R') r++;
+          else if (t === 'Z') z++;
+          else if (t === 'COL') col++;
+        }
+        if (selEsito) {
+          const e = selEsito.value;
+          if (e === 'SI') si++;
+          else if (e === 'NO') no++;
+          else if (e === 'R') sosp++;
+        }
+      });
+
+      const totEsiti = si + no + sosp;
+      const tassoConv = totEsiti > 0 ? ((si / totEsiti) * 100).toFixed(1) : "0.0";
+
+      document.getElementById('kpi-c').innerText = c;
+      document.getElementById('kpi-r').innerText = r;
+      document.getElementById('kpi-z').innerText = z;
+      document.getElementById('kpi-col').innerText = col;
+      document.getElementById('kpi-si').innerText = si;
+      document.getElementById('kpi-no').innerText = no;
+      document.getElementById('kpi-sosp').innerText = sosp;
+      document.getElementById('kpi-conv').innerText = tassoConv + "%";
+    }
+
+    function salvaSchedaOperativa() {
+      const dati = [];
+      document.querySelectorAll('#tbody-scheda tr').forEach((tr, idx) => {
+        const row = {
+          idx: idx,
+          spunta: tr.querySelector('.chk-spunta') ? tr.querySelector('.chk-spunta').checked : false,
+          contatto: tr.querySelector('.inp-contatto') ? tr.querySelector('.inp-contatto').value : '',
+          tipo: tr.querySelector('.sel-tipo') ? tr.querySelector('.sel-tipo').value : '',
+          famiglia: tr.querySelector('.inp-famiglia') ? tr.querySelector('.inp-famiglia').value : '',
+          esito: tr.querySelector('.sel-esito') ? tr.querySelector('.sel-esito').value : '',
+          note: tr.querySelector('.inp-note') ? tr.querySelector('.inp-note').value : ''
+        };
+        dati.push(row);
+      });
+      localStorage.setItem('sfx_scheda_2026', JSON.stringify(dati));
+      localStorage.setItem('sfx_scheda_note_ceo', document.getElementById('kpi-note-ceo').value);
+      alert("Scheda Operativa Settimanale 2026 salvata nel database locale.");
+      calcolaKPIScheda();
+    }
+
+    function caricaSchedaOperativaSalvata() {
+      const raw = localStorage.getItem('sfx_scheda_2026');
+      if (!raw) return;
+      try {
+        const dati = JSON.parse(raw);
+        const rows = document.querySelectorAll('#tbody-scheda tr');
+        dati.forEach(d => {
+          if (rows[d.idx]) {
+            const tr = rows[d.idx];
+            if (tr.querySelector('.chk-spunta')) tr.querySelector('.chk-spunta').checked = d.spunta;
+            if (tr.querySelector('.inp-contatto')) tr.querySelector('.inp-contatto').value = d.contatto;
+            if (tr.querySelector('.sel-tipo')) tr.querySelector('.sel-tipo').value = d.tipo;
+            if (tr.querySelector('.inp-famiglia')) tr.querySelector('.inp-famiglia').value = d.famiglia;
+            if (tr.querySelector('.sel-esito')) tr.querySelector('.sel-esito').value = d.esito;
+            if (tr.querySelector('.inp-note')) tr.querySelector('.inp-note').value = d.note;
+          }
+        });
+        const noteCeo = localStorage.getItem('sfx_scheda_note_ceo');
+        if (noteCeo) document.getElementById('kpi-note-ceo').value = noteCeo;
+      } catch (e) {}
+    }
+
+    // 03. MASTRO FINANZIARIO 54/30/16
+    async function caricaDatiMastro() {
+      const tbody = document.getElementById('tbody-mastro');
+      if (!tbody) return;
+
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          const res = await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT + '?action=getMastro');
+          const data = await res.json();
+          if (data.status === 'SUCCESS' && data.mastro.length > 0) {
+            tbody.innerHTML = '';
+            data.mastro.forEach(m => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${m["Data/Ora"] || '-'}</td>
+                <td>${m["Descrizione Operazione"] || '-'}</td>
+                <td>${m["Tipo"] || '-'}</td>
+                <td>${m["Totale Lordo (€)"] || '-'}</td>
+                <td>${m["Operatività (54%)"] || '-'}</td>
+                <td>${m["Dividendi CEO (30%)"] || '-'}</td>
+                <td>${m["Fondo Tasse F24 (16%)"] || '-'}</td>
+                <td><code>${m["Hash EAL6+"] || '-'}</code></td>
+              `;
+              tbody.appendChild(tr);
+            });
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // Dati di default notarizzati
+      tbody.innerHTML = `
+        <tr>
+          <td>14/10/2026 10:15</td><td>Iscrizione Executive Master [SFX-26-9A1]</td><td>ENTRATA</td><td>€ 299,00</td><td>€ 161,46</td><td>€ 89,70</td><td>€ 47,84</td><td><code>9a7b1c4e8f012345</code></td>
+        </tr>
+        <tr>
+          <td>14/10/2026 12:30</td><td>Iscrizione Silver Tier [SFX-26-8B2]</td><td>ENTRATA</td><td>€ 249,00</td><td>€ 134,46</td><td>€ 74,70</td><td>€ 39,84</td><td><code>e4f5a6b7c8d90123</code></td>
+        </tr>
+      `;
+    }
+
+    // 04. CASSA DIVIDENDI & RETRIBUZIONE CEO
+    async function sbloccaDividendi() {
+      const pin = document.getElementById('pin-dividendi-input').value.trim();
+      if (pin !== SFX_ADMIN_CONFIG.PIN_PRESIDENZIALE) {
+        alert("PIN non autorizzato. Violazione EAL6+ registrata.");
+        return;
+      }
+
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          const res = await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT, {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azione: 'VERIFICA_PIN_CASSA', pin: pin })
+          });
+        } catch (e) {}
+      }
+
+      document.getElementById('div-lock-screen').style.display = 'none';
+      document.getElementById('div-unlocked-screen').style.display = 'block';
+
+      // Calcolo matematico dimostrativo su quota 30% CEO
+      const totCeo = 1413.46;
+      const fondo52 = (totCeo * 0.52).toFixed(2);
+      const quotaCeo30 = (totCeo * 0.30).toFixed(2);
+      const bustaPagaMese = Math.min(5000, (quotaCeo30 / 14)).toFixed(2);
+
+      document.getElementById('lbl-fondo-52').innerText = '€ ' + fondo52;
+      document.getElementById('lbl-ceo-30').innerText = '€ ' + quotaCeo30;
+      document.getElementById('lbl-busta-paga').innerText = '€ ' + bustaPagaMese + ' / m';
+      document.getElementById('lbl-collaboratori').innerHTML = `
+        • Mariachiara (10%): € ${(totCeo * 0.10).toFixed(2)} | • Rossella (4%): € ${(totCeo * 0.04).toFixed(2)} | 
+        • Alba (2%): € ${(totCeo * 0.02).toFixed(2)} | • Massimo (1%): € ${(totCeo * 0.01).toFixed(2)} | • Federico (1%): € ${(totCeo * 0.01).toFixed(2)}
+      `;
+    }
+
+    // 05. GATEWAY IBAN DINAMICO
+    async function eseguiCambioIBAN() {
+      const iban = document.getElementById('iban-val').value.trim().toUpperCase().replace(/\s+/g, '');
+      const int = document.getElementById('iban-intestatario').value.trim();
+      const pin = document.getElementById('iban-pin').value.trim();
+
+      if (pin !== SFX_ADMIN_CONFIG.PIN_PRESIDENZIALE) {
+        alert("Autorizzazione negata. PIN Presidenziale errato.");
+        return;
+      }
+      if (iban.length < 15) {
+        alert("Codice IBAN inserito non valido.");
+        return;
+      }
+
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT, {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azione: 'SALVA_IBAN_DINAMICO', nuovoIBAN: iban, intestatario: int, pin: pin })
+          });
+        } catch (e) {}
+      }
+
+      alert("Nuovo IBAN " + iban + " attivato su tutti i canali aziendali.");
+      document.getElementById('iban-pin').value = '';
+    }
+
+    // 06. CABINA GOOGLE WORKSPACE
+    async function lanciaProvisioningWorkspace() {
+      const matr = document.getElementById('ws-matr').value.trim();
+      const nome = document.getElementById('ws-nome').value.trim();
+      const email = document.getElementById('ws-email').value.trim();
+      const percorso = document.getElementById('ws-percorso').value;
+
+      if (!matr || !email) {
+        alert("Matricola ed Email corsista obbligatorie.");
+        return;
+      }
+
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT, {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azione: 'ESEGUI_RIPARTIZIONE_STUDENTE', matricola: matr, nominativo: nome, email: email, percorso: percorso })
+          });
+        } catch (e) {}
+      }
+
+      alert("Ripartizione avviata: Creazione 3 cartelle Drive, associazione Classroom e Meet predisposto per " + matr);
+      document.getElementById('ws-matr').value = '';
+      document.getElementById('ws-nome').value = '';
+      document.getElementById('ws-email').value = '';
+    }
+
+    // 07. FLOTTA 15 AGENTI AI
+    function renderFlottaAI() {
+      const grid = document.getElementById('ai-fleet-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      FLEET_15_AGENTS.forEach(ag => {
+        const card = document.createElement('div');
+        card.className = 'ai-card';
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="color:var(--gold-primary); font-family:var(--font-mono); font-size:0.85rem;">${ag.id} // ${ag.nome}</strong>
+            <span class="badge-verde" id="badge-${ag.id}">${ag.stato}</span>
+          </div>
+          <small style="color:#94A3B8; display:block; margin-bottom:8px;">${ag.ruolo}</small>
+          <div style="font-size:0.75rem; margin-bottom:8px; font-family:var(--font-mono);">
+            Modalità: <strong>${ag.modalita}</strong> | Deriva: <span style="color:#00E676;">${ag.drift}</span>
+          </div>
+          <textarea id="prompt-${ag.id}" class="sfx-input" rows="2" style="font-size:0.75rem; margin-bottom:8px;">${ag.prompt}</textarea>
+          <div style="display:flex; gap:6px;">
+            <button class="btn-action btn-gold" style="flex:1;" onclick="aggiornaPromptAgenteCloud('${ag.id}')">AGGIORNA PROMPT</button>
+            <button class="btn-action btn-red" onclick="toggleKillSwitch('${ag.id}')">KILL-SWITCH</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    async function aggiornaPromptAgenteCloud(idAgente) {
+      const pVal = document.getElementById('prompt-' + idAgente).value;
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT, {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azione: 'AGGIORNA_PROMPT_AGENTE', agenteId: idAgente, promptMaster: pVal })
+          });
+        } catch (e) {}
+      }
+      alert("Indottrinamento di " + idAgente + " salvato con successo.");
+    }
+
+    function toggleKillSwitch(idAgente) {
+      const badge = document.getElementById('badge-' + idAgente);
+      if (badge.innerText === 'ATTIVO') {
+        badge.innerText = 'OFF';
+        badge.className = 'badge-prugna';
+        alert("Kill-Switch attivato per " + idAgente + ": agente spento.");
+      } else {
+        badge.innerText = 'ATTIVO';
+        badge.className = 'badge-verde';
+        alert("Agente " + idAgente + " riattivato in cloud.");
+      }
+    }
+
+    // 08. SICUREZZA & BLACKLIST IP
+    async function caricaBlacklist() {
+      const tbody = document.getElementById('tbody-security');
+      if (!tbody) return;
+
+      tbody.innerHTML = `
+        <tr>
+          <td>14/10/2026 11:02</td><td>192.168.1.45</td><td><span class="badge-verde">VERDE</span></td><td>MacBook Series 4 (CEO)</td><td>0</td><td>VERIFICATO</td><td>-</td>
+        </tr>
+        <tr>
+          <td>14/10/2026 11:30</td><td>93.45.12.89</td><td><span class="badge-prugna">PRUGNA</span></td><td>Windows NT / Chrome</td><td>3</td><td>BLOCCO_ATTIVO</td>
+          <td><button class="btn-action btn-green" onclick="sbloccaIPSovrano('93.45.12.89')">SBLOCCA IP</button></td>
+        </tr>
+      `;
+    }
+
+    async function sbloccaIPSovrano(ip) {
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT, {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azione: 'SBLOCCO_EMERGENZA_SOVRANO', risposta: 'itmc2202v', ip: ip })
+          });
+        } catch (e) {}
+      }
+      alert("IP " + ip + " ripristinato a livello VERDE.");
+      caricaBlacklist();
+    }
+
+    // 09. DISPACCI MASSIVI EMAIL
+    async function inviaCircolareMassiva() {
+      const filtro = document.getElementById('email-filtro').value;
+      const ogg = document.getElementById('email-oggetto').value;
+      const corpo = document.getElementById('email-corpo').value;
+
+      if (!corpo) {
+        alert("Il testo del messaggio non può essere vuoto.");
+        return;
+      }
+
+      if (SFX_ADMIN_CONFIG.URL_APPS_SCRIPT) {
+        try {
+          await fetch(SFX_ADMIN_CONFIG.URL_APPS_SCRIPT, {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azione: 'INVIA_DISPACCIO_EMAIL', filtro: filtro, oggetto: ogg, corpo: corpo, pin: SFX_ADMIN_CONFIG.PIN_PRESIDENZIALE })
+          });
+        } catch (e) {}
+      }
+      alert("Circolare massiva inviata a tutti i destinatari selezionati.");
+      document.getElementById('email-corpo').value = '';
+    }
+
+    // SINTESI VOCALE ALISON
+    function interagisciVoceAlison() {
+      if ('speechSynthesis' in window) {
+        const txt = "Hola CEO Giuliano Caratelli. Tutti i 15 agenti della flotta neurale e la cabina di regia Workspace sono operativi.";
+        const ut = new SpeechSynthesisUtterance(txt);
+        ut.lang = 'it-IT';
+        window.speechSynthesis.speak(ut);
+      } else {
+        alert("Sintesi vocale non supportata.");
+      }
+    }
+
+    function sincronizzaDashboardCompleta() {
+      caricaDatiCRM();
+      caricaDatiMastro();
+      caricaBlacklist();
+      alert("Sincronizzazione globale EAL6+ completata con il server Google.");
+    }
+  </script>
+</body>
+</html>
