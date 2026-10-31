@@ -6,11 +6,12 @@
   <title>Suprema Future X // Ecosistema Didattico 100% Live & Store E-Commerce</title>
   <link rel="icon" type="image/jpeg" href="logo.jpg">
   <link rel="apple-touch-icon" href="logo.jpg">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#D4AF37">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -25,6 +26,7 @@
       --alert-orange: #FF6B00;
       --alert-plum: #581845;
       --alert-green: #00E676;
+      --alert-red: #EF4444;
       --text-dark: #1E293B;
       --text-light: #F8FAFC;
       --font-mono: 'JetBrains Mono', monospace;
@@ -55,7 +57,7 @@
     .sfx-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #00E676; box-shadow: 0 0 8px #00E676; animation: pulse-live 1.8s infinite; }
     @keyframes pulse-live { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.2); opacity: 1; } }
 
-    /* Navigazione & Dropdown 20s */
+    /* Navigazione Top Bar & Tendina con Timer 20s */
     .sfx-nav { display: flex; align-items: center; gap: 1rem; }
     .sfx-nav-item { position: relative; }
     .sfx-nav-btn {
@@ -121,7 +123,7 @@
     .sfx-clock-hand.second { width: 1px; height: 36px; background: var(--cyan-neon); margin-left: -0.5px; }
     .sfx-clock-center-dot { position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--gold-primary); border-radius: 50%; }
 
-    /* Form Fields */
+    /* Form Fields & Bottoni */
     .sfx-terminal-input {
       width: 100%; max-width: 360px; padding: 11px 14px; background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 6px; font-family: var(--font-mono);
@@ -143,7 +145,7 @@
     .sfx-alert-overlay.active { opacity: 1; visibility: visible; animation: pulse-alert 0.4s alternate infinite; }
     @keyframes pulse-alert { 0% { box-shadow: inset 0 0 30px #FF6B00; } 100% { box-shadow: inset 0 0 70px #FF0000; } }
 
-    /* PWA Banner */
+    /* Banner Installazione PWA */
     .sfx-pwa-install-banner {
       position: fixed; bottom: 20px; right: 20px; background: #090A0D; border: 1px solid var(--gold-primary);
       box-shadow: 0 10px 30px rgba(0,0,0,0.6); border-radius: 10px; padding: 14px; display: flex; align-items: center;
@@ -154,10 +156,12 @@
 </head>
 <body>
 
-  <!-- 1. TOP BAR -->
+  <!-- ======================================================================
+       1. TOP BAR MASTER (MENU HOVER/CLICK 20S + TELEMETRIA)
+       ====================================================================== -->
   <header class="sfx-topbar">
     <div class="sfx-brand-group" id="sfx-logo-trigger">
-      <img src="logo.jpg" alt="Logo" class="sfx-logo-img">
+      <img src="logo.jpg" alt="Logo Suprema Future X" class="sfx-logo-img">
       <div class="sfx-brand-title" id="sfx-title-trigger">
         SUPREMA <span>FUTURE X</span>
       </div>
@@ -174,7 +178,7 @@
         <div class="sfx-dropdown-panel">
           <button class="sfx-dropdown-item" onclick="location.href='#conferenza-ceo'">01. Conferenza CEO 60m</button>
           <button class="sfx-dropdown-item" onclick="location.href='#piani-formativi'">02. Piani & Tariffe Live</button>
-          <button class="sfx-dropdown-item" onclick="location.href='#garanzie'">03. Statuto Zero Videocorsi</button>
+          <button class="sfx-dropdown-item" onclick="location.href='#wall-of-proof'">03. Showcase & Wall of Proof</button>
           <button class="sfx-dropdown-item" onclick="location.href='#chi-siamo'">04. Identity & Desk</button>
         </div>
       </div>
@@ -191,8 +195,12 @@
     </nav>
   </header>
 
-  <!-- 2. HERO -->
+  <!-- ======================================================================
+       2. CONTENUTO PRINCIPALE LANDING
+       ====================================================================== -->
   <main style="padding-top: 90px;">
+    
+    <!-- Hero Section -->
     <section class="sfx-neon-border-box" style="margin: 2rem auto; max-width: 1140px;">
       <div class="sfx-neon-inner-content" style="text-align: center; padding: 3.5rem 1.5rem;">
         <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold-primary); letter-spacing: 2px;">
@@ -217,7 +225,7 @@
       </div>
     </section>
 
-    <!-- 3. FORM CANDIDATURA (TALLY & APPS SCRIPT READY) -->
+    <!-- 3. Form Candidatura Screening -->
     <section id="conferenza-ceo" style="max-width: 980px; margin: 4rem auto; padding: 0 1.5rem;">
       <div style="text-align: center; margin-bottom: 2rem;">
         <span style="font-family: var(--font-mono); color: var(--gold-primary); font-size: 0.85rem;">PRENOTAZIONE SCREENING 60 MINUTI</span>
@@ -281,7 +289,7 @@
       </div>
     </section>
 
-    <!-- 4. PIANI & TARIFFE -->
+    <!-- 4. Piani & Tariffe -->
     <section id="piani-formativi" style="max-width: 1140px; margin: 5rem auto; padding: 0 1.5rem;">
       <div style="text-align: center; margin-bottom: 2.5rem;">
         <span style="font-family: var(--font-mono); color: var(--gold-primary); font-size: 0.85rem;">PERCORSI DIDATTICI CERTIFICATI</span>
@@ -337,9 +345,77 @@
         </div>
       </div>
     </section>
+
+    <!-- 5. Media Showcase & Wall of Proof -->
+    <section id="wall-of-proof" style="max-width: 1140px; margin: 5rem auto; padding: 0 1.5rem;">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span style="font-family: var(--font-mono); color: var(--gold-primary); font-size: 0.85rem;">ASSET & RISULTATI REALI</span>
+        <h2 style="font-size: 2rem; font-weight: 800; text-transform: uppercase;">Media Showcase & Wall of Proof</h2>
+        <p style="color: var(--silver-dark); font-size: 0.95rem; margin-top: 10px;">Testimonianze dirette e stralci delle nostre sessioni Live One-to-One.</p>
+      </div>
+
+      <!-- Video Showcase Player Protetto -->
+      <div class="sfx-neon-border-box" style="margin-bottom: 3rem; max-width: 860px; margin-left: auto; margin-right: auto;">
+        <div class="sfx-neon-inner-content" style="padding: 16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon);">▶ VIDEO BROADCAST // AG-08 MEDIA</div>
+            <span style="background:#064E3B; color:#6EE7B7; font-weight:800; font-size:0.68rem; padding:2px 8px; border-radius:4px;">ON-AIR</span>
+          </div>
+          
+          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3);">
+            <iframe 
+              src="https://www.youtube.com/embed/tuo_id_video?rel=0&modestbranding=1" 
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+          </div>
+          
+          <div style="text-align:center; margin-top:16px;">
+            <h4 style="color:#FFF; margin-bottom:6px;">Presentazione Ecosistema Suprema</h4>
+            <p style="font-size:0.85rem; color:var(--silver-dark);">Il CEO Giuliano Caratelli illustra l'infrastruttura Live e la contabilità a Mastro.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wall of Proof Griglia Testimonianze Reali -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        
+        <div style="background: rgba(15,23,42,0.8); border: 1px solid rgba(212,175,55,0.2); border-radius: 8px; padding: 20px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <img src="logo.jpg" alt="Logo" style="width:46px; height:46px; border-radius:50%; border:1px solid var(--gold-primary);">
+            <div>
+              <h5 style="color:var(--gold-primary); font-size:0.95rem; margin:0;">Marco Rossi</h5>
+              <small style="color:#00E676; font-family:var(--font-mono); font-size:0.7rem;">STUDENTE EXECUTIVE</small>
+            </div>
+          </div>
+          <p style="color:var(--silver-bright); font-size:0.88rem; line-height:1.6; font-style:italic;">
+            "Aver abolito i videocorsi è stata la svolta. Le sessioni individuali con Giuliano mi hanno permesso di lanciare lo store con controllo totale dei margini."
+          </p>
+          <div style="margin-top:14px; font-family:var(--font-mono); font-size:0.7rem; color:var(--silver-dark);">VERIFICATO EAL6+ ✓</div>
+        </div>
+
+        <div style="background: rgba(15,23,42,0.8); border: 1px solid rgba(212,175,55,0.2); border-radius: 8px; padding: 20px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <img src="logo.jpg" alt="Logo" style="width:46px; height:46px; border-radius:50%; border:1px solid var(--cyan-neon);">
+            <div>
+              <h5 style="color:var(--cyan-neon); font-size:0.95rem; margin:0;">Laura Bianchi</h5>
+              <small style="color:#00E676; font-family:var(--font-mono); font-size:0.7rem;">PREMIUM VIP</small>
+            </div>
+          </div>
+          <p style="color:var(--silver-bright); font-size:0.88rem; line-height:1.6; font-style:italic;">
+            "La Suprema Gold Card e la linea diretta WhatsApp con il CEO fanno la differenza. Nessun ecosistema offre questo livello di supporto pratico."
+          </p>
+          <div style="margin-top:14px; font-family:var(--font-mono); font-size:0.7rem; color:var(--silver-dark);">VERIFICATO EAL6+ ✓</div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- 5. CHATBOT ALISON -->
+  <!-- ======================================================================
+       6. CHATBOT ALISON (DRAWER H24 // REGOLA 5° MESSAGGIO)
+       ====================================================================== -->
   <div id="sfx-alison-drawer" style="position:fixed; bottom:20px; right:20px; width:340px; max-height:480px; background:#090A0D; border:2px solid var(--gold-primary); border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.8); z-index:900; display:none; flex-direction:column; overflow:hidden;">
     <div style="background:rgba(212,175,55,0.15); border-bottom:1px solid var(--gold-primary); padding:10px 14px; display:flex; justify-content:space-between; align-items:center;">
       <span style="font-family:var(--font-mono); font-size:0.8rem; font-weight:700; color:var(--gold-primary);">ALISON // CONCIERGE H24</span>
@@ -356,7 +432,9 @@
     </div>
   </div>
 
-  <!-- 6. MODALE CHI SIAMO -->
+  <!-- ======================================================================
+       7. MODALE CHI SIAMO (GOVERNANCE & PRESIDENZA)
+       ====================================================================== -->
   <div id="sfx-modal-chi-siamo" class="sfx-modal-backdrop">
     <div class="sfx-terminal-box-9inch" style="max-width: 580px; min-height: 420px;">
       <div style="display:flex; justify-content:space-between; width:100%; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:8px; margin-bottom:14px;">
@@ -373,7 +451,9 @@
     </div>
   </div>
 
-  <!-- 7. TERMINALE 9" MATRIX // TRIPLO CLICK -->
+  <!-- ======================================================================
+       8. TERMINALE 9" MATRIX (TRIPLO CLICK LOGO // OROLOGIO & ACCREDITO)
+       ====================================================================== -->
   <div id="sfx-modal-terminal-9" class="sfx-modal-backdrop">
     <div class="sfx-terminal-box-9inch">
       <canvas id="sfx-terminal-canvas"></canvas>
@@ -409,14 +489,16 @@
     </div>
   </div>
 
-  <!-- SCRIPT INTEGRATO CLIENT (ZERO DIPENDENZE ESTERNE) -->
+  <!-- ======================================================================
+       9. SCRIPT MASTER INTEGRATO (CLIENT LOGIC EAL6+)
+       ====================================================================== -->
   <script>
     const SFX_CONFIG_FRONT = {
       DOMINIO: 'https://supremafuturex.com',
       LOGO: 'logo.jpg',
       HASH_MASTER: 'e9e8f6e61f9457fa96d11e86095318ea1b0da7c03038a8ce6f44d852a3b2b307',
       HASH_PIN: 'ecbb84fa9bcbe0aa3eef33b000b0f0a4f5cbdb0811e74f07a6ec46eef24f8d55',
-      URL_APPS_SCRIPT: '' // Inserisci qui l'URL /exec di Code.gs se vuoi chiamate live
+      URL_APPS_SCRIPT: '' // Incolla qui l'URL /exec del tuo Apps Script
     };
 
     let failCount = parseInt(localStorage.getItem('sfx_fail') || '0', 10);
@@ -424,12 +506,18 @@
     let timerTendina = null, tendinaAttiva = null, alisonMsgCount = 0;
     let clockTimer = null, canvasRunning = false;
 
+    // Calcolo crittografico SHA-256 client
     async function calcolaSHA256(str) {
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str.trim()));
       return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // Top Bar Hover & Click 20s
+    // Registrazione Service Worker PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+
+    // Gestione Top Bar e Timer 20 Secondi
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.sfx-nav-item').forEach(item => {
         const btn = item.querySelector('.sfx-nav-btn');
@@ -488,7 +576,7 @@
         if (touchTitle === 4) { touchTitle = 0; e.stopPropagation(); apriEmergenza7Pollici(); }
       });
 
-      // Chatbot Alison Input
+      // Chatbot Alison Listener
       document.getElementById('sfx-alison-send').addEventListener('click', gestisciMessaggioAlison);
     });
 
@@ -499,7 +587,7 @@
       tendinaAttiva = null;
     }
 
-    // Orologio Analogico Roma
+    // Orologio Analogico (Fuso Roma)
     function avviaOrologio() {
       const hHand = document.getElementById('sfx-clock-hour');
       const mHand = document.getElementById('sfx-clock-min');
@@ -516,7 +604,7 @@
       clockTimer = setInterval(update, 1000);
     }
 
-    // Canvas Matrix 9"
+    // Canvas Matrix per Terminale 9"
     function avviaCanvas() {
       const c = document.getElementById('sfx-terminal-canvas');
       if (!c) return;
@@ -634,7 +722,7 @@
       }
     }
 
-    // Ripristino Emergenza 7"
+    // Procedura Ripristino Emergenza 7"
     function apriEmergenza7Pollici() {
       const r = prompt("EMERGENZA 7 pollici // Domanda di Sicurezza Sovrana:\nCodice primario di Mariachiara in Imperya?");
       if (r && r.trim().toLowerCase() === "itmc2202v") {
@@ -643,11 +731,11 @@
         localStorage.removeItem('sfx_locked');
         alert("ENTERPRISE È TORNATA IN STATO DI ALLERTA COMPLETATO");
       } else if (r !== null) {
-        alert("Risposta non valida.");
+        alert("Risposta non corretta.");
       }
     }
 
-    // Alison Chatbot (Regola 5° Messaggio)
+    // Chatbot Alison (Regola 5° Messaggio)
     function gestisciMessaggioAlison() {
       const inp = document.getElementById('sfx-alison-input');
       const box = document.getElementById('sfx-alison-messages');
@@ -669,14 +757,14 @@
         if (alisonMsgCount >= 5) {
           alisonMsg.innerHTML = "Ok, tutto bene ciò che dici, ma suggerisco un contatto diretto di una conferenza con il CEO e tutto sarà chiaro. Vuoi che ti reindirizzo ad un appuntamento con il CEO?<br><br><button onclick=\"location.href='#conferenza-ceo'\" style=\"background:#D4AF37; color:#000; font-weight:700; border:none; padding:5px 8px; border-radius:4px; cursor:pointer;\">SÌ, CONFERENZA CEO</button>";
         } else {
-          alisonMsg.innerText = "Suprema Future X opera esclusivamente con didattica 100% Live One-to-One e Store a zero magazzino. Nessun videocorso.";
+          alisonMsg.innerText = "Suprema Future X opera esclusivamente con didattica 100% Live One-to-One e Store a zero magazzino. Nessun videocorso registrato.";
         }
         box.appendChild(alisonMsg);
         box.scrollTop = box.scrollHeight;
       }, 500);
     }
 
-    // Invio Candidatura
+    // Invio Candidatura a Code.gs
     async function inviaCandidatura(e) {
       e.preventDefault();
       const btn = document.getElementById('sfx-btn-cand-submit');
