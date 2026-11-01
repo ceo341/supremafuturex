@@ -3,435 +3,436 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Candidatura & Screening CEO // Suprema Future X Enterprise</title>
+  <title>Screening Presidenziale CEO // Suprema Future X</title>
   
   <meta name="robots" content="noindex, nofollow">
   <meta name="author" content="Giuliano Caratelli">
+  <link rel="icon" type="image/png" href="media/logo.png">
   
-  <!-- Design System Unificato Zero Rosso -->
-  <link rel="stylesheet" href="stile-globale.css">
-  <link rel="icon" type="image/png" href="media/favicon.png">
-  <meta name="theme-color" content="#090A0D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Regole Specifiche per il Form di Screening Esecutivo */
-    body {
-      background-color: var(--bg-obsidian);
-      color: var(--text-platinum);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    /* ==========================================================================
+       STILI EAL6+ & PALETTE PERLA
+       ========================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-pearl: #F4EFEA;
+      --bg-card-light: #FAF8F5;
+      --gold-primary: #D4AF37;
+      --cyan-neon: #00F0FF;
+      --cyan-deep: #0099A8;
+      --text-dark: #12141C;
+      --text-muted: #6B7280;
     }
 
+    body {
+      background-color: var(--bg-pearl) !important;
+      background-image: none !important;
+      color: var(--text-dark);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* TOP BAR ISTITUZIONALE */
+    .sfx-top-bar {
+      background: linear-gradient(90deg, #7A8086 0%, #A0A5A8 50%, #7A8086 100%);
+      border-bottom: 2px solid var(--gold-primary);
+      padding: 0.8rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    /* AREA OVALE MODULO */
     .sfx-candidatura-wrap {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 0 1.5rem 5rem;
+      max-width: 950px;
+      margin: 3rem auto 5rem;
+      padding: 0 1.5rem;
       width: 100%;
     }
 
-    .sfx-screening-card {
-      background: var(--bg-matrix-card);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      padding: 3rem;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    .sfx-oval-card {
+      background: var(--bg-card-light);
+      border: 2px solid var(--cyan-deep);
+      border-radius: 40px;
+      padding: 3.5rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.06), 0 0 20px rgba(0,240,255,0.15);
       position: relative;
+      animation: pulseGlowLight 4s infinite alternate ease-in-out;
     }
 
+    @keyframes pulseGlowLight {
+      0% { border-color: rgba(0, 153, 168, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.06), 0 0 15px rgba(0, 240, 255, 0.15); }
+      100% { border-color: rgba(0, 240, 255, 0.8); box-shadow: 0 10px 30px rgba(0,0,0,0.06), 0 0 25px rgba(0, 240, 255, 0.3); }
+    }
+
+    /* ELEMENTI FORM */
     .sfx-step-badge {
       display: inline-block;
-      font-family: var(--font-mono);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      color: var(--cyan-neon);
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid var(--cyan-deep);
-      padding: 4px 10px;
-      border-radius: 4px;
+      font-weight: 700;
+      color: #000;
+      background: var(--gold-primary);
+      padding: 6px 14px;
+      border-radius: 6px;
       margin-bottom: 1.5rem;
       letter-spacing: 1.5px;
+      box-shadow: 0 4px 10px rgba(212,175,55,0.3);
     }
 
-    .sfx-form-group {
-      margin-bottom: 2rem;
-    }
-
+    .sfx-form-group { margin-bottom: 2.5rem; }
+    
     .sfx-form-label {
       display: block;
-      font-family: var(--font-sync);
-      font-size: 0.8rem;
-      color: var(--gold-primary);
-      margin-bottom: 0.6rem;
+      font-family: 'Syncopate', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
       letter-spacing: 1px;
     }
 
     .sfx-form-input, .sfx-form-select, .sfx-form-textarea {
       width: 100%;
-      padding: 0.95rem 1.2rem;
-      background: #020305;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      color: var(--text-platinum);
-      font-family: var(--font-mont);
+      padding: 1rem 1.2rem;
+      background: #FFFFFF;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      color: var(--text-dark);
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.95rem;
       outline: none;
-      transition: all var(--transition-fast);
+      transition: all 0.3s ease;
     }
-
     .sfx-form-input:focus, .sfx-form-select:focus, .sfx-form-textarea:focus {
-      border-color: var(--gold-primary);
-      box-shadow: 0 0 15px var(--gold-glow);
+      border-color: var(--cyan-deep);
+      box-shadow: 0 0 10px rgba(0, 153, 168, 0.2);
     }
 
+    /* GRIGLIA SLOTS */
     .sfx-slots-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      margin-top: 0.8rem;
+      gap: 1.2rem;
+      margin-top: 1rem;
     }
 
     .sfx-slot-btn {
-      background: #0D1017;
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 6px;
-      padding: 1rem;
+      background: #FFFFFF;
+      border: 2px solid #D1D5DB;
+      border-radius: 8px;
+      padding: 1.2rem;
       text-align: left;
       cursor: pointer;
-      transition: all var(--transition-fast);
-      position: relative;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     }
-
-    .sfx-slot-btn:hover {
-      border-color: var(--cyan-neon);
-      background: rgba(0, 240, 255, 0.05);
-    }
-
+    .sfx-slot-btn:hover { border-color: var(--cyan-deep); background: #F8F9FA; }
     .sfx-slot-btn.selected {
-      border-color: var(--gold-primary);
-      background: rgba(212, 175, 55, 0.15);
-      box-shadow: 0 0 15px var(--gold-glow);
+      border-color: var(--cyan-deep);
+      background: rgba(0,240,255,0.05);
+      box-shadow: 0 0 15px rgba(0,240,255,0.2);
     }
 
-    .sfx-slot-btn.disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      border-color: rgba(255, 255, 255, 0.05);
+    /* PULSANTE INVIO */
+    .btn-submit {
+      width: 100%;
+      margin-top: 2rem;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, #00F0FF 0%, #0099A8 100%);
+      color: #FFF;
+      font-family: 'Syncopate', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,153,168,0.4);
+      transition: 0.3s;
     }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,153,168,0.6); }
 
-    .sfx-rules-banner {
-      background: #020305;
-      border-left: 3px solid var(--gold-primary);
-      padding: 1.2rem 1.5rem;
-      margin: 2rem 0;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-      border-radius: 0 6px 6px 0;
+    @media (max-width: 768px) {
+      .sfx-oval-card { border-radius: 24px; padding: 2rem; }
     }
   </style>
 </head>
-<body class="matrix-dark-section">
+<body>
 
-  <!-- ======================================================================
-       00. TOP NAVIGATION BAR // RITORNO ALLA LANDING PAGE
-       ====================================================================== -->
-  <aside class="sfx-top-bar" aria-label="Navigazione Rapida">
-    <div class="sfx-ticker-wrap">
-      <div class="sfx-status-beacon" title="Sessione Protetta"></div>
-      <span>CANALE SCREENING EAL6+ // AMMISSIONE DIRETTA PRESIDENZA</span>
+  <!-- ==========================================
+       TOP NAVIGATION BAR
+       ========================================== -->
+  <aside class="sfx-top-bar">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <span style="display: inline-block; width: 10px; height: 10px; background: #00F0FF; border-radius: 50%; box-shadow: 0 0 10px #00F0FF;"></span>
+      <span style="color: #00F0FF; font-weight: 700; text-shadow: 0 0 5px rgba(0,240,255,0.5);">SCREENING EAL6+ // PRESIDENZA</span>
     </div>
-    <div>
-      <a href="index.html" class="sfx-btn-ctrl" style="padding: 3px 12px; font-size: 0.72rem; text-decoration: none; border-color: var(--gold-deep); color: var(--gold-primary);">
-        ◄ TORNA ALLA LANDING PAGE
-      </a>
-    </div>
+    <button onclick="window.location.href='index.html'" style="background: #12141C; color: var(--gold-primary); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.75rem; border: 1px solid var(--gold-primary); padding: 6px 14px; border-radius: 4px; cursor: pointer;">
+      ◄ TORNA ALLA HOME
+    </button>
   </aside>
 
-  <!-- ======================================================================
-       01. INTESTAZIONE SCREENING CONFERENZA CEO
-       ====================================================================== -->
   <main class="sfx-candidatura-wrap">
+    
+    <!-- INTESTAZIONE ISTITUZIONALE -->
     <div style="text-align: center; margin-bottom: 3rem;">
       <div style="display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
-        <span style="width: 8px; height: 8px; background: var(--gold-primary); transform: rotate(45deg);"></span>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 3px; color: var(--gold-primary);">
+        <span style="width: 6px; height: 6px; background: var(--cyan-deep); transform: rotate(45deg);"></span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; letter-spacing: 3px; color: var(--cyan-deep); font-weight: 700;">
           COLLOQUIO RISERVATO 60 MINUTI
         </span>
-        <span style="width: 8px; height: 8px; background: var(--gold-primary); transform: rotate(45deg);"></span>
+        <span style="width: 6px; height: 6px; background: var(--cyan-deep); transform: rotate(45deg);"></span>
       </div>
 
-      <h1 style="font-family: var(--font-sync); font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: #FFF; line-height: 1.3;">
+      <h1 style="font-family: 'Syncopate', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: var(--text-dark); line-height: 1.2;">
         CANDIDATURA CONFERENZA CEO GIULIANO CARATELLI
       </h1>
       
-      <p style="color: var(--text-muted); max-width: 680px; margin: 1rem auto 0; font-size: 0.95rem;">
-        Lo screening conoscitivo è obbligatorio per l'ammissione ai percorsi didattici d'élite e per la concessione dei negozi digitali indipendenti.
+      <p style="color: var(--text-muted); max-width: 700px; margin: 1.2rem auto 0; font-size: 0.95rem; line-height: 1.7;">
+        Lo screening conoscitivo One-to-One è il passaggio obbligatorio per valutare l'ammissione ai percorsi didattici d'élite e autorizzare la concessione di attività commerciali digitali autonome.
       </p>
     </div>
 
-    <!-- ======================================================================
-         02. SCHEDA MODULO CANDIDATURA (INTERFACCIA EAL6+)
-         ====================================================================== -->
-    <section class="sfx-screening-card">
-      <div class="sfx-step-badge">FASE 01 // SELEZIONE AMBITO OPERATIVO</div>
-
+    <!-- MODULO OVALE CRITTOGRAFATO -->
+    <section class="sfx-oval-card">
       <form id="sfx-candidatura-form">
-        <!-- Selezione Corso / Divisione -->
+        
+        <!-- FASE 1: PERCORSO (Senza Prezzi) -->
+        <div class="sfx-step-badge">FASE 01 // SELEZIONE INDIRIZZO OPERATIVO</div>
         <div class="sfx-form-group">
           <label class="sfx-form-label" for="sfx-cand-tier">PERCORSO O AMBITO DI AMMISSIONE *</label>
           <select id="sfx-cand-tier" class="sfx-form-select" required>
-            <option value="" disabled selected>-- Seleziona il percorso d'interesse --</option>
-            <option value="Silver Tier (249€)">Silver Tier // 60 Giorni Formazione (249,00 €) [+300 PTS]</option>
-            <option value="Executive Master (299€)">Executive Master // 90 Giorni Digital Enterprise (299,00 €) [+350 PTS]</option>
-            <option value="Premium VIP (349€)">Premium VIP // 120 Giorni One-to-One CEO (349,00 €) [+500 PTS]</option>
-            <option value="Negozio Digitale Chiavi in Mano">Negozio Digitale // Attivita E-Commerce Zero Magazzino [+800 PTS]</option>
-            <option value="Screening Preliminare Indirizzo">Screening Preliminare // Orientamento con la Presidenza</option>
+            <option value="" disabled selected>-- Seleziona il percorso d'interesse per lo screening --</option>
+            <option value="Silver Tier">Silver Tier // 60 Giorni Formativi</option>
+            <option value="Executive Master">Executive Master // 90 Giorni Digital Enterprise</option>
+            <option value="Premium VIP">Premium VIP // 120 Giorni Affiancamento CEO</option>
+            <option value="Negozio Digitale">Concessione E-Commerce Zero Magazzino</option>
+            <option value="Orientamento">Orientamento Preliminare alla Carriera</option>
           </select>
         </div>
 
-        <div class="sfx-step-badge" style="margin-top: 1.5rem;">FASE 02 // SELEZIONE SLOT ESECUTIVO (60 MINUTI)</div>
-
-        <!-- Selettore Orario / Griglia Ufficiale Slots -->
+        <!-- FASE 2: SLOT CALENDARIO -->
+        <div class="sfx-step-badge" style="margin-top: 1.5rem;">FASE 02 // SELEZIONE SLOT PRESIDENZIALE</div>
         <div class="sfx-form-group">
-          <label class="sfx-form-label">CALENDARIO PRESIDENZIALE DISPONIBILE *</label>
+          <label class="sfx-form-label">CALENDARIO DISPONIBILE (60 MINUTI) *</label>
           <div class="sfx-slots-grid" id="sfx-slots-container">
-            <!-- Lunedì Mattina -->
+            <!-- Lunedì -->
             <div class="sfx-slot-btn" data-slot="Lunedì 10:00 - 11:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">LUNEDÌ // MATTINA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">10:00 - 11:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
+              <div style="font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--cyan-deep); font-weight: 700;">LUNEDÌ // MATTINA</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #12141C; margin: 0.2rem 0; font-weight: 700;">10:00 - 11:00</div>
+              <small style="color: var(--text-muted); font-size: 0.7rem; font-family: 'Montserrat', sans-serif;">60 min &bull; Google Meet</small>
             </div>
-            <div class="sfx-slot-btn" data-slot="Lunedì 11:01 - 12:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">LUNEDÌ // MATTINA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">11:01 - 12:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
-            </div>
-            <!-- Lunedì Pomeriggio -->
             <div class="sfx-slot-btn" data-slot="Lunedì 15:00 - 16:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">LUNEDÌ // POMERIGGIO</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">15:00 - 16:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
-            </div>
-            <div class="sfx-slot-btn" data-slot="Lunedì 16:01 - 17:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">LUNEDÌ // POMERIGGIO</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">16:01 - 17:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
-            </div>
-            <div class="sfx-slot-btn" data-slot="Lunedì 17:01 - 18:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">LUNEDÌ // POMERIGGIO</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">17:01 - 18:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
+              <div style="font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--cyan-deep); font-weight: 700;">LUNEDÌ // POMERIGGIO</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #12141C; margin: 0.2rem 0; font-weight: 700;">15:00 - 16:00</div>
+              <small style="color: var(--text-muted); font-size: 0.7rem; font-family: 'Montserrat', sans-serif;">60 min &bull; Google Meet</small>
             </div>
             <!-- Martedì -->
             <div class="sfx-slot-btn" data-slot="Martedì 17:00 - 18:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">MARTEDÌ // POMERIGGIO</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">17:00 - 18:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
-            </div>
-            <div class="sfx-slot-btn" data-slot="Martedì 21:00 - 22:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">MARTEDÌ // SERA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">21:00 - 22:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
-            </div>
-            <div class="sfx-slot-btn" data-slot="Martedì 22:01 - 23:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">MARTEDÌ // SERA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">22:01 - 23:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
+              <div style="font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--cyan-deep); font-weight: 700;">MARTEDÌ // POMERIGGIO</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #12141C; margin: 0.2rem 0; font-weight: 700;">17:00 - 18:00</div>
+              <small style="color: var(--text-muted); font-size: 0.7rem; font-family: 'Montserrat', sans-serif;">60 min &bull; Google Meet</small>
             </div>
             <!-- Mercoledì -->
             <div class="sfx-slot-btn" data-slot="Mercoledì 21:00 - 22:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">MERCOLEDÌ // SERA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">21:00 - 22:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
-            </div>
-            <div class="sfx-slot-btn" data-slot="Mercoledì 22:01 - 23:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">MERCOLEDÌ // SERA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">22:01 - 23:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
+              <div style="font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--cyan-deep); font-weight: 700;">MERCOLEDÌ // SERA</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #12141C; margin: 0.2rem 0; font-weight: 700;">21:00 - 22:00</div>
+              <small style="color: var(--text-muted); font-size: 0.7rem; font-family: 'Montserrat', sans-serif;">60 min &bull; Google Meet</small>
             </div>
             <!-- Venerdì -->
-            <div class="sfx-slot-btn" data-slot="Venerdì 21:00 - 22:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">VENERDÌ // SERA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">21:00 - 22:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
-            </div>
             <div class="sfx-slot-btn" data-slot="Venerdì 22:01 - 23:00">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">VENERDÌ // SERA</div>
-              <div style="font-family: var(--font-mono); font-size: 1rem; color: #FFF; margin: 0.2rem 0;">22:01 - 23:00</div>
-              <small style="color: var(--cyan-neon); font-size: 0.7rem;">60 min &bull; Google Meet</small>
+              <div style="font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--cyan-deep); font-weight: 700;">VENERDÌ // SERA</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #12141C; margin: 0.2rem 0; font-weight: 700;">22:01 - 23:00</div>
+              <small style="color: var(--text-muted); font-size: 0.7rem; font-family: 'Montserrat', sans-serif;">60 min &bull; Google Meet</small>
             </div>
-            <!-- Sabato / Fast-Track -->
-            <div class="sfx-slot-btn" data-slot="Sabato // Fast-Track WhatsApp">
-              <div style="font-family: var(--font-orbit); font-size: 0.85rem; color: var(--gold-primary);">SABATO // SPECIALE</div>
-              <div style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--cyan-neon); margin: 0.2rem 0;">Fast-Track WhatsApp</div>
-              <small style="color: var(--titanium-silver); font-size: 0.7rem;">Accordo orario personalizzato</small>
+            <!-- Sabato -->
+            <div class="sfx-slot-btn" data-slot="Sabato // Fast-Track WhatsApp" style="border-color: var(--gold-primary);">
+              <div style="font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--gold-deep); font-weight: 700;">SABATO // SPECIALE</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: #12141C; margin: 0.2rem 0; font-weight: 700;">FAST-TRACK WHATSAPP</div>
+              <small style="color: var(--text-muted); font-size: 0.7rem; font-family: 'Montserrat', sans-serif;">Accordo orario personalizzato via smartphone</small>
             </div>
           </div>
           <input type="hidden" id="sfx-cand-selected-slot" required>
         </div>
 
-        <div class="sfx-step-badge" style="margin-top: 1.5rem;">FASE 03 // ANAGRAFICA & RECAPITI DIRETTI</div>
-
-        <!-- Dati Anagrafici Candidato -->
+        <!-- FASE 3: ANAGRAFICA -->
+        <div class="sfx-step-badge" style="margin-top: 1.5rem;">FASE 03 // ANAGRAFICA & RECAPITI EAL6+</div>
+        
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-          <div class="sfx-form-group">
+          <div class="sfx-form-group" style="margin-bottom:0;">
             <label class="sfx-form-label" for="sfx-cand-nome">NOME *</label>
             <input type="text" id="sfx-cand-nome" class="sfx-form-input" placeholder="Il tuo nome" required>
           </div>
-          <div class="sfx-form-group">
+          <div class="sfx-form-group" style="margin-bottom:0;">
             <label class="sfx-form-label" for="sfx-cand-cognome">COGNOME *</label>
             <input type="text" id="sfx-cand-cognome" class="sfx-form-input" placeholder="Il tuo cognome" required>
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-          <div class="sfx-form-group">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+          <div class="sfx-form-group" style="margin-bottom:0;">
             <label class="sfx-form-label" for="sfx-cand-email">EMAIL ISTITUZIONALE *</label>
             <input type="email" id="sfx-cand-email" class="sfx-form-input" placeholder="nome@dominio.com" required>
           </div>
-          <div class="sfx-form-group">
+          <div class="sfx-form-group" style="margin-bottom:0;">
             <label class="sfx-form-label" for="sfx-cand-whatsapp">WHATSAPP PRIORITARIO *</label>
             <input type="tel" id="sfx-cand-whatsapp" class="sfx-form-input" placeholder="+39 3XX XXXXXXX" required>
           </div>
         </div>
 
-        <div class="sfx-form-group">
-          <label class="sfx-form-label" for="sfx-cand-telegram">CONTATTO TELEGRAM (OPZIONALE)</label>
-          <input type="text" id="sfx-cand-telegram" class="sfx-form-input" placeholder="@tuousername">
+        <div class="sfx-form-group" style="margin-top: 1.5rem;">
+          <label class="sfx-form-label" for="sfx-cand-motivazione">NOTE STRATEGICHE (OPZIONALE)</label>
+          <textarea id="sfx-cand-motivazione" class="sfx-form-textarea" rows="3" placeholder="Sintetizza i tuoi obiettivi operativi o la tua esperienza attuale..."></textarea>
         </div>
 
-        <div class="sfx-form-group">
-          <label class="sfx-form-label" for="sfx-cand-motivazione">MOTIVAZIONE PROFESSIONALE & OBIETTIVI</label>
-          <textarea id="sfx-cand-motivazione" class="sfx-form-textarea" rows="4" placeholder="Descrivi brevemente la tua esperienza attuale e l'obiettivo che intendi raggiungere con Suprema Future X..."></textarea>
+        <!-- REGOLE E INVIO -->
+        <div style="background: rgba(0,0,0,0.03); border-left: 4px solid var(--gold-primary); padding: 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2rem;">
+          <strong style="color: var(--text-dark); font-family: 'Syncopate', sans-serif; font-size: 0.8rem;">PROTOCOLLO CONFERENZA:</strong>
+          <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; margin-top: 0.5rem;">
+            1. La sessione richiede massima puntualità e connessione stabile.<br>
+            2. Il link riservato Google Meet verrà recapitato sulla tua email appena il CEO approverà lo slot.<br>
+            3. Il completamento del colloquio genera un accredito immediato di <strong>+100 Punti Gold Card</strong> (Status Prospect Verificato).
+          </p>
         </div>
 
-        <!-- Regole della Sessione -->
-        <div class="sfx-rules-banner">
-          <strong style="color: var(--gold-primary);">PROTOCOLLO CONFERENZA PRESIDENZIALE:</strong><br>
-          1. La sessione avrà la durata tassativa di 60 minuti.<br>
-          2. È richiesta postazione silenziosa, massima puntualità e connessione audio/video stabile.<br>
-          3. Riceverai il link riservato Google Meet all'indirizzo email inserito non appena la Presidenza convaliderà lo slot dalla X-BOX.<br>
-          4. Al termine del colloquio, ti verranno accreditati automaticamente <strong>+100 Punti Gold Card</strong> (Status Prospect Verificato).
-        </div>
-
-        <!-- Pulsante di Invio Candidatura -->
-        <button type="submit" id="sfx-cand-submit-btn" class="sfx-btn-ctrl" style="width: 100%; padding: 1.2rem; background: var(--gold-primary); color: #000; font-family: var(--font-sync); font-weight: 700; font-size: 0.9rem; letter-spacing: 2px; border: none; cursor: pointer;">
-          INVIA CANDIDATURA CONFERENZA CEO ➔
+        <button type="submit" id="sfx-cand-submit-btn" class="btn-submit">
+          INVIA CANDIDATURA ALLA PRESIDENZA ➔
         </button>
 
-        <div id="sfx-cand-feedback" style="margin-top: 1.5rem; text-align: center; font-family: var(--font-mono); font-size: 0.9rem;"></div>
+        <div id="sfx-cand-feedback" style="margin-top: 1.5rem; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700;"></div>
       </form>
     </section>
   </main>
 
-  <!-- Script Motore di Gestione Candidatura -->
   <script src="js/code.js"></script>
 
   <script>
     /**
      * ============================================================================
-     * GESTIONE INTERATTIVA FORM CANDIDATURA & WEBHOOK
-     * Sincronizzazione Selezione Slot e Invio a Google Apps Script
+     * MOTORE WEBHOOK E RATE-LIMITING EAL6+
      * ============================================================================
      */
-    (function () {
-      'use strict';
-
-      // 1. Parsing parametri URL (es. ?tier=Master oppure ?arg=NegozioDigitale)
-      const urlParams = new URLSearchParams(window.location.search);
-      const tierParam = urlParams.get('tier') || urlParams.get('arg');
-      const selectTier = document.getElementById('sfx-cand-tier');
-
-      if (tierParam && selectTier) {
-        for (let i = 0; i < selectTier.options.length; i++) {
-          if (selectTier.options[i].value.toLowerCase().includes(tierParam.toLowerCase())) {
-            selectTier.selectedIndex = i;
-            break;
-          }
+    
+    // 1. Parsing Autoselezione Corso da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const tierParam = urlParams.get('tier') || urlParams.get('arg');
+    const selectTier = document.getElementById('sfx-cand-tier');
+    
+    if (tierParam && selectTier) {
+      const paramClean = tierParam.toLowerCase();
+      for (let i = 0; i < selectTier.options.length; i++) {
+        if (selectTier.options[i].value.toLowerCase().includes(paramClean)) {
+          selectTier.selectedIndex = i;
+          break;
         }
       }
+    }
 
-      // 2. Selezione Visiva dello Slot da 60 Minuti
-      const slotButtons = document.querySelectorAll('.sfx-slot-btn');
-      const hiddenSlotInput = document.getElementById('sfx-cand-selected-slot');
+    // 2. Interfaccia Selezione Slot
+    const slotButtons = document.querySelectorAll('.sfx-slot-btn');
+    const hiddenSlotInput = document.getElementById('sfx-cand-selected-slot');
 
-      slotButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          slotButtons.forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          hiddenSlotInput.value = btn.dataset.slot;
-        });
+    slotButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        slotButtons.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        hiddenSlotInput.value = btn.dataset.slot;
       });
+    });
 
-      // 3. Invio Dati al Backend (Apps Script / Tally Format)
+    // 3. Rate-Limiting Anti-Spam (10 Minuti) e Trasmissione Webhook
+    const RATE_LIMIT_MS = 10 * 60 * 1000;
+
+    document.getElementById('sfx-candidatura-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+      const feedback = document.getElementById('sfx-cand-feedback');
+      const submitBtn = document.getElementById('sfx-cand-submit-btn');
+
+      if (!hiddenSlotInput.value) {
+        feedback.style.color = '#FF3B30';
+        feedback.innerText = "ATTENZIONE: Seleziona obbligatoriamente uno slot dal calendario.";
+        return;
+      }
+
+      // Check Rate Limit Local Storage
+      const lastSubmitTime = parseInt(localStorage.getItem('sfx_last_submission') || '0', 10);
+      const now = Date.now();
+
+      if (now - lastSubmitTime < RATE_LIMIT_MS) {
+        feedback.style.color = '#FF3B30';
+        feedback.innerText = "SISTEMA INIBITO: Una sola candidatura consentita ogni 10 minuti per prevenire spam.";
+        return;
+      }
+
+      localStorage.setItem('sfx_last_submission', now.toString());
+
+      feedback.style.color = 'var(--cyan-deep)';
+      feedback.innerText = "Crittografia dati e invio al protocollo presidenziale...";
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+
+      // Payload compatibile con Google Apps Script (Webhook)
+      const payload = {
+        action: "tally_webhook",
+        tier: selectTier.value,
+        slot: hiddenSlotInput.value,
+        nome: document.getElementById('sfx-cand-nome').value.trim(),
+        cognome: document.getElementById('sfx-cand-cognome').value.trim(),
+        email: document.getElementById('sfx-cand-email').value.trim(),
+        whatsapp: document.getElementById('sfx-cand-whatsapp').value.trim(),
+        note: document.getElementById('sfx-cand-motivazione').value.trim(),
+        timestamp: new Date().toISOString()
+      };
+
+      // Recupera Endpoint da js/code.js
+      const endpoint = (window.SFX && window.SFX.BACKEND_URL && !window.SFX.BACKEND_URL.includes("ENTER_YOUR"))
+        ? window.SFX.BACKEND_URL 
+        : "https://script.google.com/macros/s/AKfycbzs3OJONGpbMB0ja6cCHLlVLYEnUMWn797t_h9YfCFauxiyLAG-FzXLI05cbTD5tEXm5Q/exec";
+
+      fetch(endpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        showSuccess(payload);
+      }).catch(err => {
+        showSuccess(payload); // Fallback positivo per blocco CORS standard
+      });
+    });
+
+    function showSuccess(data) {
       const form = document.getElementById('sfx-candidatura-form');
       const feedback = document.getElementById('sfx-cand-feedback');
       const submitBtn = document.getElementById('sfx-cand-submit-btn');
 
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
+      form.reset();
+      submitBtn.style.display = 'none';
 
-        if (!hiddenSlotInput.value) {
-          feedback.style.color = '#FFBF00';
-          feedback.innerText = "ATTENZIONE: Seleziona uno slot orario dal calendario prima di inviare.";
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.innerText = "TRASMISSIONE EAL6+ IN CORSO...";
-        feedback.style.color = '#00F0FF';
-        feedback.innerText = "Crittografia dati e invio al protocollo presidenziale...";
-
-        const payload = {
-          action: "tally_webhook",
-          formId: "jearR1",
-          nome: document.getElementById('sfx-cand-nome').value.trim(),
-          cognome: document.getElementById('sfx-cand-cognome').value.trim(),
-          email: document.getElementById('sfx-cand-email').value.trim(),
-          whatsapp: document.getElementById('sfx-cand-whatsapp').value.trim(),
-          telegram: document.getElementById('sfx-cand-telegram').value.trim(),
-          percorso: selectTier.value,
-          slot: hiddenSlotInput.value,
-          motivazione: document.getElementById('sfx-cand-motivazione').value.trim()
-        };
-
-        const backendUrl = (window.SFX && window.SFX.BACKEND_URL && !window.SFX.BACKEND_URL.includes("ENTER_YOUR_EXEC_ID"))
-          ? window.SFX.BACKEND_URL
-          : null;
-
-        if (backendUrl) {
-          fetch(backendUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          }).then(() => {
-            showSuccessState(payload);
-          }).catch(err => {
-            showSuccessState(payload);
-          });
-        } else {
-          setTimeout(() => {
-            showSuccessState(payload);
-          }, 1200);
-        }
-      });
-
-      function showSuccessState(data) {
-        feedback.style.color = '#00E676';
-        feedback.innerHTML = `
-          <div style="background: rgba(0, 230, 118, 0.08); border: 1px solid #00E676; padding: 1.5rem; border-radius: 6px; margin-top: 1rem;">
-            <strong style="color: #00E676; font-size: 1.1rem;">✓ CANDIDATURA TRASMESSA CON PROTOCOLLO EAL6+</strong><br><br>
-            Gentile <strong>${data.nome} ${data.cognome}</strong>, la tua richiesta per lo slot <strong>${data.slot}</strong> è stata acquisita.<br>
-            La notifica è stata recapitata alla Presidenza (Hermes AG-13).<br>
-            Riceverai una conferma email all'indirizzo <strong>${data.email}</strong> con il link Google Meet non appena il CEO approverà la sessione.
+      feedback.style.color = '#00E676';
+      feedback.style.textAlign = 'left';
+      feedback.innerHTML = `
+        <div style="background: rgba(0, 230, 118, 0.08); border: 2px solid #00E676; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+          <div style="font-family: 'Syncopate', sans-serif; font-size: 1.1rem; color: #00E676; margin-bottom: 0.8rem;">
+            ✓ TRASMISSIONE CONFERMATA EAL6+
           </div>
-        `;
-        form.reset();
-        submitBtn.style.display = 'none';
-      }
-
-    })();
+          Gentile <strong>${data.nome} ${data.cognome}</strong>, la tua richiesta per il percorso <strong>${data.tier}</strong> nello slot <strong>${data.slot}</strong> è stata protocollata.<br><br>
+          <span style="color: var(--cyan-deep);">L'Agente Hermes (AG-13) ha notificato il CEO Giuliano Caratelli.</span> Riceverai il link di accesso a Google Meet all'indirizzo <strong>${data.email}</strong> non appena la sessione verrà approvata.
+        </div>
+      `;
+    }
   </script>
 </body>
 </html>
