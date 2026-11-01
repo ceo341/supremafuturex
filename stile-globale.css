@@ -1,404 +1,235 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>CRM & Calendario // X-BOX Suprema Future X</title>
-  
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="author" content="Giuliano Caratelli">
-  <link rel="icon" type="image/png" href="media/logo.png">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap');
 
-  <style>
-    /* STILI BASE & ARCHITETTURA EAL6+ CRM */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-grid: #F5F1E9;
+  --grid-line: #E8E2D5;
+  --card-dark: #0E1015;
+  --card-inner: #151821;
+  --card-champagne: #D9D2C5;
+  --gold-primary: #D4AF37;
+  --gold-dark: #B8860B;
+  --cyan-neon: #00F0FF;
+  --cyan-deep: #0099A8;
+  --text-dark: #12141A;
+  --text-muted: #6B7280;
+  --text-light: #F3F4F6;
+  --bg-pearl: #F4EFEA;
+}
 
-    :root {
-      --bg-dark: #0D1017;
-      --bg-panel: #151821;
-      --bg-card: #1A1D24;
-      --gold-primary: #D4AF37;
-      --cyan-neon: #00F0FF;
-      --status-green: #00E676;
-      --status-amber: #FFBF00;
-      --text-light: #F3F4F6;
-      --text-muted: #8E9BAE;
-      --border-color: rgba(255, 255, 255, 0.08);
-    }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-pearl) !important;
+  background-image: none !important; /* ZERO QUADRETTI */
+  color: var(--text-dark);
+  line-height: 1.5;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 
-    /* INTESTAZIONE UNIVERSALE X-BOX */
-    .sfx-xbox-header {
-      background: #090A0E;
-      border-bottom: 2px solid var(--gold-primary);
-      padding: 0.8rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-    }
+/* TOP BAR */
+.sfx-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
-    .sfx-breadcrumb {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-    }
-    .sfx-breadcrumb span { color: var(--gold-primary); font-weight: 700; }
+.sfx-logo-text {
+  font-family: 'Syncopate', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-    .sfx-nav-controls {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .btn-nav {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      color: var(--text-light);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn-nav:hover { background: rgba(255,255,255,0.05); border-color: var(--text-light); }
+/* HERO EMBLEM & TITLES */
+.sfx-hero-center {
+  text-align: center;
+  padding: 2rem 1.5rem 3rem;
+}
 
-    .sfx-status-controls {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    .btn-state {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      border: 1px solid transparent;
-    }
-    .btn-state.on { background: rgba(0, 230, 118, 0.1); color: var(--status-green); border-color: var(--status-green); }
-    .btn-state.off { background: rgba(255, 255, 255, 0.05); color: #888; border-color: #555; }
-    .btn-state.stby { background: rgba(255, 191, 0, 0.1); color: var(--status-amber); border-color: var(--status-amber); }
-    .btn-state.edit { background: rgba(0, 240, 255, 0.1); color: var(--cyan-neon); border-color: var(--cyan-neon); }
-    .btn-state.pub { background: var(--gold-primary); color: #000; }
+.sfx-emblem-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
 
-    /* GRIGLIA CRM & CALENDARIO */
-    .sfx-crm-container {
-      flex: 1;
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
+.sfx-emblem-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
 
-    .sfx-panel {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .sfx-panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 1rem;
-    }
-    .sfx-panel-title {
-      font-family: 'Syncopate', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #FFF;
-    }
+.sfx-enterprise-pill {
+  background: #000;
+  color: var(--gold-primary);
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 3px 14px;
+  border-radius: 12px;
+  margin-top: -12px;
+  border: 1px solid var(--gold-primary);
+}
 
-    /* TABELLA DATI CRM */
-    .sfx-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-    }
-    .sfx-table th {
-      text-align: left;
-      padding: 12px;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border-color);
-      font-weight: 600;
-    }
-    .sfx-table td {
-      padding: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      vertical-align: middle;
-    }
-    .sfx-table tr:hover { background: rgba(255,255,255,0.02); }
+.sfx-main-3d-title {
+  font-family: 'Syncopate', sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #92DEEB;
+  text-shadow: 
+    0 1px 0 #FFF,
+    0 2px 0 #81C7D4,
+    0 3px 0 #6AA8B4,
+    0 6px 12px rgba(0, 150, 180, 0.35);
+  margin-bottom: 0.5rem;
+}
 
-    .badge-status {
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-    .badge-pending { background: rgba(255, 191, 0, 0.1); color: var(--status-amber); border: 1px solid var(--status-amber); }
-    .badge-approved { background: rgba(0, 230, 118, 0.1); color: var(--status-green); border: 1px solid var(--status-green); }
+.sfx-sub-gold {
+  color: #C88D34;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+}
 
-    .btn-action {
-      background: transparent;
-      border: 1px solid var(--cyan-neon);
-      color: var(--cyan-neon);
-      font-family: inherit;
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.7rem;
-    }
-    .btn-action:hover { background: rgba(0, 240, 255, 0.1); }
-    .btn-approve { border-color: var(--status-green); color: var(--status-green); }
-    .btn-approve:hover { background: rgba(0, 230, 118, 0.1); }
+.sfx-sub-cyan {
+  color: var(--cyan-deep);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  margin-top: 0.3rem;
+}
 
-    /* CALENDARIO SETTIMANALE SLOTS */
-    .sfx-calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .sfx-slot-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      position: relative;
-    }
-    .sfx-slot-card.booked {
-      border-color: var(--status-amber);
-      background: rgba(255, 191, 0, 0.05);
-    }
-    .sfx-slot-card.confirmed {
-      border-color: var(--status-green);
-      background: rgba(0, 230, 118, 0.05);
-    }
-    .sfx-slot-day {
-      font-size: 0.75rem;
-      color: var(--gold-primary);
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-    .sfx-slot-time {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      color: #FFF;
-      font-weight: 700;
-    }
-    .sfx-slot-status {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 0.65rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-    }
+/* AREE OVALI CON LUCE LAMPEGGIANTE (PULSING GLOW) */
+.sfx-oval-area {
+  border-radius: 60px;
+  padding: 3rem;
+  margin: 3rem auto;
+  max-width: 1350px;
+  position: relative;
+  animation: pulseGlow 4s infinite alternate ease-in-out;
+}
 
-    @media (max-width: 1024px) {
-      .sfx-crm-container { grid-template-columns: 1fr; }
-      .sfx-calendar-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-  </style>
-</head>
-<body>
+.sfx-oval-dark {
+  background: #1A1D24;
+  border: 2px solid #D4AF37;
+  color: #F3F4F6;
+}
 
-  <!-- INTESTAZIONE UNIVERSALE X-BOX -->
-  <header class="sfx-xbox-header">
-    <div class="sfx-breadcrumb">
-      X-BOX ENTERPRISE // <span>03. CRM & CALENDARIO</span> // 3.1 LEAD FORM TALLY
-    </div>
-    
-    <div class="sfx-nav-controls">
-      <button class="btn-nav" onclick="window.location.href='admin.html'">◄ TORNA ALLA X-BOX</button>
-      <button class="btn-nav" onclick="refreshData()">🔄 AGGIORNA DATI (0ms)</button>
-    </div>
+.sfx-oval-light {
+  background: #FAF8F5;
+  border: 2px solid #00F0FF;
+  color: #12141C;
+}
 
-    <div class="sfx-status-controls">
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-right: 5px;">STATO MODULO:</span>
-      <button class="btn-state on">ACCESO</button>
-      <button class="btn-state off">SPENTO</button>
-      <button class="btn-state stby">STANDBY</button>
-      <span style="color: #444; margin: 0 4px;">|</span>
-      <button class="btn-state edit">MODIFICA</button>
-      <button class="btn-state pub">PUBBLICA</button>
-    </div>
-  </header>
+@keyframes pulseGlow {
+  0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 35px rgba(0, 240, 255, 0.5); }
+  100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(212, 175, 55, 0.4); }
+}
 
-  <!-- GRIGLIA OPERATIVA CRM & CALENDARIO -->
-  <main class="sfx-crm-container">
-    
-    <!-- PANNELLO 1: INGESTION FORM TALLY (LEADS) -->
-    <section class="sfx-panel">
-      <div class="sfx-panel-header">
-        <h2 class="sfx-panel-title">1. CANDIDATURE IN ENTRATA (TALLY)</h2>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan-neon);">2 DA VALUTARE</span>
-      </div>
-      
-      <div style="overflow-x: auto;">
-        <table class="sfx-table" id="table-leads">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NOMINATIVO & EMAIL</th>
-              <th>CORSO RICHIESTO</th>
-              <th>SLOT ORARIO</th>
-              <th>STATO</th>
-              <th>AZIONE</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="lead-001">
-              <td style="color: var(--gold-primary);">L-001</td>
-              <td><strong>Mario Rossi</strong><br><span style="color: var(--text-muted); font-size: 0.7rem;">mario.rossi@email.com</span><br><span style="color: var(--text-muted); font-size: 0.7rem;">+39 333 1234567</span></td>
-              <td>Executive Master</td>
-              <td>Lun 10:00 - 11:00</td>
-              <td><span class="badge-status badge-pending" id="status-001">IN ATTESA</span></td>
-              <td>
-                <button class="btn-action btn-approve" onclick="approveLead('001', 'Lun 10:00 - 11:00')">APPROVA SLOT</button>
-              </td>
-            </tr>
-            <tr id="lead-002">
-              <td style="color: var(--gold-primary);">L-002</td>
-              <td><strong>Laura Bianchi</strong><br><span style="color: var(--text-muted); font-size: 0.7rem;">laura.b@email.com</span><br><span style="color: var(--text-muted); font-size: 0.7rem;">+39 347 9876543</span></td>
-              <td>Premium VIP</td>
-              <td>Mar 21:00 - 22:00</td>
-              <td><span class="badge-status badge-pending" id="status-002">IN ATTESA</span></td>
-              <td>
-                <button class="btn-action btn-approve" onclick="approveLead('002', 'Mar 21:00 - 22:00')">APPROVA SLOT</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+/* GRIGLIA A 3 COLONNE TRITTICO */
+.sfx-trittico {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
 
-    <!-- PANNELLO 2: CALENDARIO ESECUTIVO (60 MINUTI) -->
-    <section class="sfx-panel">
-      <div class="sfx-panel-header">
-        <h2 class="sfx-panel-title">2. CALENDARIO PRESIDENZIALE (60 MIN)</h2>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--gold-primary);">SETTIMANA CORRENTE</span>
-      </div>
+.sfx-media-box {
+  background: #000;
+  border: 2px solid #D4AF37;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  position: relative;
+}
 
-      <div class="sfx-calendar-grid">
-        <div class="sfx-slot-card" id="slot-lun-10">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">LUNEDÌ // MATTINA</div>
-          <div class="sfx-slot-time">10:00 - 11:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile per screening</div>
-        </div>
-        <div class="sfx-slot-card" id="slot-lun-11">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">LUNEDÌ // MATTINA</div>
-          <div class="sfx-slot-time">11:01 - 12:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile per screening</div>
-        </div>
-        <div class="sfx-slot-card booked" id="slot-lun-15">
-          <div class="sfx-slot-status" style="color: var(--status-amber);">IN ATTESA</div>
-          <div class="sfx-slot-day">LUNEDÌ // POMERIGGIO</div>
-          <div class="sfx-slot-time">15:00 - 16:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Richiesta L-001 (Mario R.)</div>
-        </div>
-        <div class="sfx-slot-card" id="slot-lun-16">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">LUNEDÌ // POMERIGGIO</div>
-          <div class="sfx-slot-time">16:01 - 17:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile</div>
-        </div>
-        
-        <div class="sfx-slot-card" id="slot-mar-17">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">MARTEDÌ // POMERIGGIO</div>
-          <div class="sfx-slot-time">17:00 - 18:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile</div>
-        </div>
-        <div class="sfx-slot-card booked" id="slot-mar-21">
-          <div class="sfx-slot-status" style="color: var(--status-amber);">IN ATTESA</div>
-          <div class="sfx-slot-day">MARTEDÌ // SERA</div>
-          <div class="sfx-slot-time">21:00 - 22:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Richiesta L-002 (Laura B.)</div>
-        </div>
+.sfx-media-box img, .sfx-media-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-        <div class="sfx-slot-card confirmed" id="slot-mer-21">
-          <div class="sfx-slot-status" style="color: var(--status-green);">CONFERMATO</div>
-          <div class="sfx-slot-day">MERCOLEDÌ // SERA</div>
-          <div class="sfx-slot-time">21:00 - 22:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Allievo: Giovanni V. (VIP)</div>
-        </div>
+/* TOP BAR & NAVBAR */
+.sfx-top-bar {
+  background: #8E9BAE;
+  border-bottom: 2px solid #00F0FF;
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
 
-        <div class="sfx-slot-card" id="slot-sab-fast" style="grid-column: span 2; border-color: var(--cyan-neon);">
-          <div class="sfx-slot-status" style="color: var(--cyan-neon);">SPECIALE</div>
-          <div class="sfx-slot-day" style="color: var(--cyan-neon);">SABATO // FAST-TRACK WHATSAPP</div>
-          <div class="sfx-slot-time">ORARIO FLESSIBILE</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Accordo diretto via smartphone CEO</div>
-        </div>
-      </div>
-    </section>
-  </main>
+.sfx-navbar {
+  background: #FFFFFF;
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E8E2D9;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
 
-  <script src="js/code.js"></script>
-  <script>
-    const slotMapping = {
-      'Lun 10:00 - 11:00': 'slot-lun-10',
-      'Lun 11:01 - 12:00': 'slot-lun-11',
-      'Lun 15:00 - 16:00': 'slot-lun-15',
-      'Lun 16:01 - 17:00': 'slot-lun-16',
-      'Mar 17:00 - 18:00': 'slot-mar-17',
-      'Mar 21:00 - 22:00': 'slot-mar-21'
-    };
+/* PULSANTI */
+.btn-gold {
+  background: #D4AF37;
+  color: #000;
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+  transition: 0.3s;
+}
+.btn-gold:hover { transform: scale(1.05); }
 
-    function refreshData() {
-      alert("Sincronizzazione dati da Google Sheets completata in 120ms.\nNessuna nuova candidatura in coda.");
-    }
+/* CASSETTO LATERALE */
+.sfx-drawer {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: 420px;
+  height: 100vh;
+  background: #0D1017;
+  border-left: 2px solid #D4AF37;
+  box-shadow: -15px 0 40px rgba(0,0,0,0.8);
+  z-index: 2000;
+  transition: right 0.3s ease;
+  padding: 2.5rem;
+  color: #FFF;
+}
+.sfx-drawer.open { right: 0; }
 
-    function approveLead(leadId, slotName) {
-      if (confirm(`Confermare lo slot "${slotName}" per il candidato L-${leadId}?`)) {
-        const statusBadge = document.getElementById(`status-${leadId}`);
-        statusBadge.className = "badge-status badge-approved";
-        statusBadge.innerText = "CONFERMATO";
-        
-        const btnCell = statusBadge.parentElement.nextElementSibling;
-        btnCell.innerHTML = `<a href="https://meet.google.com/new" target="_blank" class="btn-action" style="text-decoration:none; display:inline-block; border-color:var(--cyan-neon); color:var(--cyan-neon);">AVVIA MEET ➔</a>`;
-
-        const slotId = slotMapping[slotName];
-        if (slotId) {
-          const slotCard = document.getElementById(slotId);
-          slotCard.className = "sfx-slot-card confirmed";
-          slotCard.querySelector('.sfx-slot-status').innerText = "CONFERMATO";
-          slotCard.querySelector('.sfx-slot-status').style.color = "var(--status-green)";
-          slotCard.querySelector('div:last-child').innerText = `Assegnato a Lead L-${leadId}`;
-        }
-
-        alert(`Slot confermato.\nL'Agente Hermes (AG-13) ha inviato l'Email 2 al candidato con il link Google Meet.\nGoogle Calendar è stato aggiornato.`);
-      }
-    }
-  </script>
-</body>
-</html>
+@media (max-width: 1024px) {
+  .sfx-trittico { grid-template-columns: 1fr; }
+  .sfx-oval-area { border-radius: 30px; padding: 2rem 1.5rem; }
+}
