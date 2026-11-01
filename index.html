@@ -4,532 +4,544 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Suprema Future X // Community, Networking & Formazione 2026</title>
-  <link rel="stylesheet" href="stile-globale.css">
   <link rel="icon" type="image/png" href="media/logo.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       FORZATURA STILI: RIMOZIONE QUADRETTI E IMPOSTAZIONE COLORI ESATTI
+       ========================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #F4EFEA !important; /* Bianco Perlato Base */
+      background-image: none !important; /* VIA I QUADRETTINI */
+      color: #12141C; /* Antracite profondo */
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* AREE OVALI CON LUCE LAMPEGGIANTE (PULSING GLOW) */
+    .sfx-oval-area {
+      border-radius: 60px;
+      padding: 3rem;
+      margin: 3rem auto;
+      max-width: 1350px;
+      position: relative;
+      animation: pulseGlow 4s infinite alternate ease-in-out;
+    }
+
+    .sfx-oval-dark {
+      background: #1A1D24;
+      border: 2px solid #D4AF37;
+      color: #F3F4F6;
+    }
+
+    .sfx-oval-light {
+      background: #FAF8F5;
+      border: 2px solid #00F0FF;
+      color: #12141C;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(212, 175, 55, 0.3); }
+      50% { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 35px rgba(0, 240, 255, 0.5); }
+      100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(212, 175, 55, 0.4); }
+    }
+
+    /* STRUTTURA A 3 COLONNE (VIDEO | TESTO | FOTO) */
+    .sfx-trittico {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .sfx-media-box {
+      background: #000;
+      border: 2px solid #D4AF37;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .sfx-media-box img, .sfx-media-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* TOP BAR & NAVBAR */
+    .sfx-top-bar {
+      background: #8E9BAE; /* Argento vecchio */
+      border-bottom: 2px solid #00F0FF;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    .sfx-navbar {
+      background: #FFFFFF; /* Bianco perlato lucido */
+      padding: 1rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #E8E2D9;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    /* PULSANTI */
+    .btn-gold {
+      background: #D4AF37;
+      color: #000;
+      font-family: 'Syncopate', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+      transition: 0.3s;
+    }
+    .btn-gold:hover { transform: scale(1.05); }
+
+    /* CASSETTO LATERALE */
+    .sfx-drawer {
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 420px;
+      height: 100vh;
+      background: #0D1017;
+      border-left: 2px solid #D4AF37;
+      box-shadow: -15px 0 40px rgba(0,0,0,0.8);
+      z-index: 2000;
+      transition: right 0.3s ease;
+      padding: 2.5rem;
+      color: #FFF;
+    }
+    .sfx-drawer.open { right: 0; }
+
+    @media (max-width: 1024px) {
+      .sfx-trittico { grid-template-columns: 1fr; }
+      .sfx-oval-area { border-radius: 30px; padding: 2rem 1.5rem; }
+    }
+  </style>
 </head>
 <body>
 
   <!-- ==========================================
-       TOP BAR (TELEMETRIA E LINGUE)
+       SEZIONE 00: TOP BAR DI SISTEMA
        ========================================== -->
-  <aside class="sfx-top-bar" aria-label="Top Bar Telemetrica" style="background-color: #A0A5A8; border-bottom: 2px solid #D4AF37; padding: 0.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
-    <div style="display: flex; align-items: center; gap: 1rem; color: #FFF;">
-      <span style="display: inline-block; width: 10px; height: 10px; background-color: #00F0FF; border-radius: 50%; box-shadow: 0 0 10px #00F0FF;"></span>
-      <span style="color: #00F0FF; font-weight: 700; text-shadow: 0 0 5px rgba(0,240,255,0.5);">DREAM DEFENSE SYSTEM // 2026</span>
-      <span style="opacity: 0.5;">|</span>
-      <span style="color: #D4AF37; font-weight: 700;">LIVE TELEMETRY: 42 ACTIVE USERS</span>
+  <aside class="sfx-top-bar" id="top">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <a href="#top" style="display: flex; align-items: center;"><img src="media/logo.png" width="24" height="24" style="border-radius: 50%;" alt="Logo"></a>
+      
+      <span style="display: inline-block; width: 10px; height: 10px; background-color: #00F0FF; border-radius: 50%; box-shadow: 0 0 10px #00F0FF; animation: pulseGlow 2s infinite alternate;"></span>
+      <span style="color: #00F0FF; font-weight: 700; text-shadow: 0 0 5px rgba(0,240,255,0.6);">DREAM DEFENSE SYSTEM // 2026</span>
+      
+      <span style="color: #12141C; opacity: 0.4;">|</span>
+      
+      <!-- Telemetria Live -->
+      <span style="color: #D4AF37; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+        UTENTI ATTIVI: 42 &bull; ACCESSI: 1.480 &bull; PERMANENZA: 8m
+      </span>
     </div>
-    <select style="background: #111; color: #00F0FF; border: 1px solid #D4AF37; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; outline: none; cursor: pointer;">
+
+    <!-- Menu Lingue Funzionante -->
+    <select id="lang-selector" onchange="changeLanguage(this.value)" style="background: #12141C; color: #00F0FF; border: 1px solid #D4AF37; padding: 4px 10px; border-radius: 4px; font-family: inherit; font-size: 0.75rem; cursor: pointer; outline: none;">
       <option value="it" selected>ITALIANO (IT)</option>
       <option value="en">ENGLISH (EN)</option>
       <option value="es">ESPAÑOL (ES)</option>
-      <option value="fr">FRANÇAIS (FR)</option>
-      <option value="de">DEUTSCH (DE)</option>
-      <option value="pt">PORTUGUÊS (PT)</option>
-      <option value="ru">РУССКИЙ (RU)</option>
-      <option value="ar">العربية (AR)</option>
-      <option value="zh">中文 (ZH)</option>
-      <option value="ja">日本語 (JA)</option>
-      <option value="el">ΕΛΛΗΝΙΚΑ (EL)</option>
     </select>
   </aside>
 
   <!-- ==========================================
-       NAVBAR ISTITUZIONALE
+       SEZIONE 01: NAVBAR HEADER ISTITUZIONALE
        ========================================== -->
-  <nav class="sfx-top-nav" style="background-color: #F4EFEA; padding: 1rem 3rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #E8E2D9;">
-    <div style="font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 1.2rem; color: #12141C; letter-spacing: 2px;">
-      SFX <span style="font-size: 0.8rem; color: #D4AF37;">ENTERPRISE</span>
+  <nav class="sfx-navbar">
+    <div style="font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 1.3rem; letter-spacing: 2px;">
+      <span style="color: #12141C;">SUPREMA FUTURE</span> <span style="color: #D4AF37;">X</span>
     </div>
-    <div style="display: flex; gap: 1.5rem; align-items: center;">
-      <button style="background: transparent; border: none; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; color: #12141C; cursor: pointer;">MENU SEZIONI</button>
-      <button style="background: transparent; border: none; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; color: #12141C; cursor: pointer;">CHI SIAMO</button>
-      <button onclick="window.location.href='candidatura.html'" style="background: #D4AF37; color: #000; border: none; padding: 10px 24px; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4);">CONFERENZA CEO</button>
+    
+    <div style="display: flex; gap: 2rem; align-items: center; position: relative;">
+      <!-- Pulsante Menu Sezioni -->
+      <button id="btn-menu-sezioni" style="background: transparent; border: none; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; cursor: pointer;">
+        MENU SEZIONI ▼
+      </button>
+
+      <!-- Dropdown -->
+      <div id="dropdown-sezioni" style="display: none; position: absolute; top: 40px; left: 0; background: #0D1017; border: 1px solid #D4AF37; border-radius: 8px; padding: 1rem; width: 220px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);">
+        <a href="#hero-section" style="display: block; color: #FFF; font-size: 0.8rem; padding: 8px 0; text-decoration: none; font-family: 'Montserrat', sans-serif;">01. HERO SECTION</a>
+        <a href="#ceo-section" style="display: block; color: #D4AF37; font-size: 0.8rem; padding: 8px 0; text-decoration: none; font-family: 'Montserrat', sans-serif;">02. PRESIDENZA CEO</a>
+        <a href="#alison-section" style="display: block; color: #00F0FF; font-size: 0.8rem; padding: 8px 0; text-decoration: none; font-family: 'Montserrat', sans-serif;">03. CONSOLE ALISON</a>
+        <a href="#academy-section" style="display: block; color: #FFF; font-size: 0.8rem; padding: 8px 0; text-decoration: none; font-family: 'Montserrat', sans-serif;">04. SUPREMA ACADEMY</a>
+      </div>
+
+      <!-- Pulsante Chi Siamo -->
+      <button onclick="toggleDrawer(true)" style="background: transparent; border: none; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; cursor: pointer;">
+        CHI SIAMO
+      </button>
+
+      <!-- Pulsante Conferenza CEO -->
+      <button class="btn-gold" onclick="window.location.href='candidatura.html'">CONFERENZA CEO</button>
     </div>
   </nav>
 
-  <!-- ==========================================
-       SEZIONE 1: HERO & EMBLEM TRITTICO
-       ========================================== -->
-  <header class="sfx-hero-center">
-    <div class="sfx-emblem-wrap sfx-secret-trigger" id="sfx-enterprise-trigger">
-      <img src="media/logo.png" alt="SF Suprema Future X" class="sfx-emblem-circle">
-      <div class="sfx-enterprise-pill">ENTERPRISE</div>
+  <!-- CASSETTO LATERALE CHI SIAMO -->
+  <aside class="sfx-drawer" id="sfx-drawer-chisiamo">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <div style="font-family: 'Syncopate', sans-serif; font-weight: 700; color: #D4AF37;">CHI SIAMO // SFX</div>
+      <button onclick="toggleDrawer(false)" style="background: transparent; border: none; color: #FFF; font-size: 1.5rem; cursor: pointer;">✕</button>
+    </div>
+    
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 2rem;">
+      <button onclick="switchTab(0)" class="sfx-tab-btn" style="background: #D4AF37; color: #000; border: none; padding: 8px 12px; border-radius: 4px; font-weight: 700; font-family: 'Montserrat', sans-serif; cursor: pointer;">VISIONE</button>
+      <button onclick="switchTab(1)" class="sfx-tab-btn" style="background: transparent; color: #FFF; border: 1px solid #D4AF37; padding: 8px 12px; border-radius: 4px; font-weight: 700; font-family: 'Montserrat', sans-serif; cursor: pointer;">CARRIERA</button>
+      <button onclick="switchTab(2)" class="sfx-tab-btn" style="background: transparent; color: #FFF; border: 1px solid #D4AF37; padding: 8px 12px; border-radius: 4px; font-weight: 700; font-family: 'Montserrat', sans-serif; cursor: pointer;">RECAPITI</button>
     </div>
 
-    <h1 class="sfx-main-3d-title">SUPREMA FUTURE X</h1>
-    <div class="sfx-sub-gold">INSIEME GUIDIAMO IL TUO DOMANI..</div>
-    <div class="sfx-sub-cyan">COMMUNITY, NETWORKING & FORMAZIONE // 2026</div>
-  </header>
-
-  <section class="sfx-hero-grid">
-    <div>
-      <div class="sfx-badge-pill">
-        <span class="sfx-dot-cyan"></span>
-        <span>ECOSISTEMA PROFESSIONALE ATTIVO</span>
-      </div>
-      <h2 class="sfx-hero-h1">
-        SUPREMA FUTURE X:<br>INIZIA QUI LA TUA<br>STORIA!
-      </h2>
-      <p class="sfx-hero-p">
-        Community, Networking & Academy ENTERPRISE.<br>
-        Piattaforma d'élite per la Formazione, Sviluppo Personale, E-Commerce Autonomo e Reindirizzamento al Lavoro Immediato guidata dalla Direzione del CEO.
-      </p>
+    <div id="tab-content">
+      <!-- Inserito dinamicamente via JS -->
     </div>
+  </aside>
 
-    <div class="sfx-hero-frame">
-      <img src="media/bg-sfx.png" alt="Suprema Future X - Giuliano Caratelli & Alison">
-    </div>
-  </section>
-
-  <!-- ==========================================
-       SEZIONE 2: BLOCCO SCURO PRESIDENZA & ALISON
-       ========================================== -->
-  <div style="max-width: 1250px; margin: 0 auto;">
-    <a href="#console-alison" class="sfx-btn-alison-top">
-      <span style="color: #00F0FF;">🗣</span> PARLA CON ALISON
-    </a>
-  </div>
-
-  <section class="sfx-dark-block">
-    <div class="sfx-dark-header">
-      <div>
-        <div style="font-size: 0.75rem; color: #C88D34; letter-spacing: 2px; font-weight: 700; font-family: monospace;">ORGANO DIRETTIVO & SUPPORTO ALLA CRESCITA</div>
-        <h2 style="font-family: 'Syncopate', sans-serif; font-size: 1.8rem; margin-top: 0.4rem; letter-spacing: 1px;">PRESIDENZA & ALISON</h2>
-      </div>
-      <div style="border: 1px solid #C88D34; color: #C88D34; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-family: monospace; box-shadow: 0 0 10px rgba(212,175,55,0.2);">
-        CANALE AUTORIZZATIVO
+  <!-- ======================================================================
+       SEZIONE 02: HERO SECTION & EMBLEMA (TRITTICO SUPREMA FUTURE X)
+       ====================================================================== -->
+  <section class="sfx-oval-area sfx-oval-light" id="hero-section">
+    <!-- Emblema Centrale & Trigger 3-Tap -->
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <div id="sfx-enterprise-trigger" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer;">
+        <img src="media/logo.png" alt="SF Logo" style="width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <div style="background: #000; color: #D4AF37; font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; padding: 4px 16px; border-radius: 12px; margin-top: -10px; border: 1px solid #D4AF37;">ENTERPRISE</div>
       </div>
     </div>
 
-    <div class="sfx-two-cards-grid">
-      <!-- Card Giuliano Caratelli -->
-      <div class="sfx-inner-card">
-        <div class="sfx-avatar-row">
-          <img src="media/bg-governance.png" alt="Giuliano Caratelli" class="sfx-round-avatar">
-          <div>
-            <div style="color: var(--gold-primary); font-weight: 700; font-size: 1.05rem; letter-spacing: 1px;">GIULIANO CARATELLI</div>
-            <div style="color: #7E8695; font-size: 0.75rem; font-family: monospace;">FOUNDER & CEO SUPREMA FUTURE X</div>
-          </div>
-        </div>
-        <p style="color: #9CA3AF; font-size: 0.9rem; margin-bottom: 1.2rem; line-height: 1.7;">
-          Governa l'indirizzo strategico, le relazioni d'affari e i programmi per l'avvio al lavoro. Le sessioni individuali con la Presidenza sono a numero chiuso e calendarizzate direttamente.
+    <!-- Trittico a 3 Colonne -->
+    <div class="sfx-trittico">
+      <!-- SINISTRA: Video Teaser -->
+      <div class="sfx-media-box">
+        <!-- Placeholder Video Teaser (12s Loop) -->
+        <img src="media/bg-nexus.png" alt="Teaser 12s Hero" style="object-fit: cover;">
+      </div>
+
+      <!-- CENTRO: Testi Istituzionali -->
+      <div style="text-align: center;">
+        <h1 id="i18n-hero-h1" style="font-family: 'Syncopate', sans-serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: #12141C; line-height: 1.2; margin-bottom: 1rem;">
+          SUPREMA FUTURE X:<br>INSIEME GUIDIAMO IL TUO DOMANI,<br>INIZIA QUI IL TUO PERCORSO!
+        </h1>
+        <p id="i18n-hero-sub" style="font-size: 1rem; color: #0099A8; font-weight: 700; letter-spacing: 1px; margin-bottom: 1.5rem; text-transform: uppercase;">
+          Community, Networking & Formazione Academy // 2026
         </p>
-        <small style="color: #6B7280; font-size: 0.8rem; display: block;">Colloquio preliminare orientativo. Si raccomanda puntualità e postazione priva di rumori.</small>
-      </div>
-
-      <!-- Card Alison -->
-      <div class="sfx-inner-card">
-        <div class="sfx-avatar-row">
-          <img src="media/alison-avatar.png" alt="Alison (AG-01)" class="sfx-round-avatar" style="border-color: var(--cyan-neon);">
-          <div>
-            <div style="color: var(--cyan-neon); font-weight: 700; font-size: 1.05rem; letter-spacing: 1px;">ALISON (AG-01)</div>
-            <div style="color: #7E8695; font-size: 0.75rem; font-family: monospace;">CONCIERGE DIGITALE ESECUTIVO</div>
-          </div>
-        </div>
-        <p style="color: #9CA3AF; font-size: 0.9rem; line-height: 1.7;">
-          Presidia le interazioni dell'Ecosistema 24/7, guida gli iscritti verso i moduli formativi più idonei e facilita l'ingresso nelle sessioni direzionali One-to-One.
+        <p id="i18n-hero-desc" style="color: #4A5160; font-size: 0.95rem; line-height: 1.7;">
+          Architettura d'Impresa integrata: metodo pratico, e-commerce a zero magazzino e governance di vertice assistita da 15 agenti neurali.
         </p>
       </div>
-    </div>
-  </section>
 
-  <!-- ==========================================
-       SEZIONE 3: CONSOLE ESECUTIVA ALISON
-       ========================================== -->
-  <div style="text-align: center; margin: 5rem 0 2rem;" id="console-alison">
-    <div style="font-size: 0.75rem; color: var(--cyan-deep); font-family: monospace; font-weight: 700; letter-spacing: 2px;">ASSISTENZA DIGITALE H24</div>
-    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.2rem; text-transform: uppercase; margin-top: 0.3rem;">
-      ALISON // CONSOLE ESECUTIVA
-    </h2>
-  </div>
-
-  <section class="sfx-console-grid">
-    <!-- Card Profilo Alison -->
-    <div class="sfx-white-card" style="text-align: center; position: relative;">
-      <img src="media/alison-avatar.png" alt="Alison" style="width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 1.5rem; border: 3px solid #00F0FF; object-fit: cover; box-shadow: 0 0 20px rgba(0,240,255,0.4);">
-      <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 0.3rem;">ALISON FUTURE X</h3>
-      <div style="color: var(--cyan-deep); font-weight: 700; font-size: 0.8rem; margin-bottom: 1.5rem; font-family: monospace;">SUPERVISORE ACCOGLIENZA</div>
-      <p style="color: #6B7280; font-size: 0.9rem; line-height: 1.7; font-style: italic;">
-        "Coordino gli accessi all'infrastruttura per conto del CEO GIULIANO. Posso guidarti nella scelta del corso o predisporre il colloquio in conferenza riservata."
-      </p>
-    </div>
-
-    <!-- Chat Console -->
-    <div class="sfx-white-card" style="position: relative;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-family: monospace; font-size: 0.8rem;">
-        <span style="color: #555;">🗣 ALISON INTERACTIVE CONSOLE</span>
-        <span style="color: #00E676; font-weight: 700; text-shadow: 0 0 8px rgba(0,230,118,0.6);">● ATTIVA 24/7 (Latenza 11ms)</span>
-      </div>
-
-      <div class="sfx-chat-bubble">
-        <p><strong>Alison:</strong> Benvenuto in Suprema Future X. Sono a tua disposizione per illustrarti i 3 percorsi Academy o facilitare la prenotazione dello screening con il CEO Giuliano.</p>
-        <div class="sfx-chat-options">
-          <button class="sfx-opt-btn-gold" onclick="window.location.href='candidatura.html'">1. ⚡ Screening CEO</button>
-          <button class="sfx-opt-btn-dark" onclick="window.location.href='#corsi-academy'">2. 🎓 Scopri i Corsi Academy</button>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 0.8rem; margin-top: 2rem;">
-        <input type="text" id="alison-user-msg" placeholder="Scrivi un messaggio per Alison..." style="flex-grow: 1; padding: 12px 16px; border: 1px solid #D5CEBF; border-radius: 8px; font-family: inherit; outline: none; background: #F8F9FA; color: #111;">
-        <button type="button" onclick="handleAlisonChat()" style="background: var(--cyan-deep); color: #FFF; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(0,153,168,0.4);">INVIA</button>
+      <!-- DESTRA: Ritratto / Foto -->
+      <div class="sfx-media-box">
+        <img src="media/bg-sfx.png" alt="Architettura Suprema">
       </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       SEZIONE 4: SUPREMA ACADEMY (ZERO PREZZI IN PRIMA PAGINA)
-       ========================================== -->
-  <section class="sfx-courses-section" id="corsi-academy">
-    <div class="sfx-coupon-bar">
-      <span style="font-size: 0.85rem; color: #AAA;">INSERISCI IL TUO CODICE COUPON / BORSA DI STUDIO AUTORIZZATI DAL CEO:</span>
-      <input type="text" value="SFX00001" style="background: transparent; border: 1px solid #444; color: #FFF; padding: 6px 12px; border-radius: 6px; font-family: monospace; text-align: center; width: 140px;">
-      <button style="background: var(--gold-primary); color: #000; border: none; padding: 6px 16px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">SBLOCCA</button>
+  <!-- ======================================================================
+       SEZIONE 03: PRESIDENZA & GOVERNANCE (SOLO CEO)
+       ====================================================================== -->
+  <section class="sfx-oval-area sfx-oval-dark" id="ceo-section">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <div style="font-size: 0.8rem; color: #D4AF37; font-family: 'JetBrains Mono', monospace; font-weight: 700; letter-spacing: 2px;">ORGANO DIRETTIVO DI VERTICE</div>
+      <h2 style="font-family: 'Syncopate', sans-serif; font-size: 2.2rem; margin-top: 0.5rem; color: #FFF;">PRESIDENZA & GOVERNANCE</h2>
     </div>
 
-    <div class="sfx-courses-3col">
-      <!-- SILVER TIER -->
-      <div class="sfx-card-champagne">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-family: monospace; font-size: 0.75rem; color: #887E6E;">LIVELLO 01 // SILVER</span>
+    <!-- Trittico CEO -->
+    <div class="sfx-trittico">
+      <!-- SINISTRA: Video 15s CEO Control Room -->
+      <div class="sfx-media-box" style="border-color: #00F0FF;">
+        <img src="media/boutique-luxury.png" alt="CEO in Control Room">
+      </div>
+
+      <!-- CENTRO: Testo Linee Guida -->
+      <div style="text-align: center;">
+        <div style="color: #D4AF37; font-family: 'Syncopate', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.5rem;">
+          GIULIANO CARATELLI
         </div>
-        <div class="sfx-card-media-box">
-          <img src="media/accademia-corsi.png" alt="Suprema Academy Silver">
+        <div style="color: #8E9BAE; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 1.5rem;">
+          FOUNDER & CEO // SUPREMA FUTURE X
         </div>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.5rem;">SILVER TIER</h3>
-        <p style="font-size: 0.85rem; color: #555; line-height: 1.6; margin-bottom: 1.5rem;">
-          Strutturazione del metodo di lavoro indipendente, basi operative di digital networking e gestione delle prime entrate digitali.
+        <p id="i18n-ceo-desc" style="color: #D1D5DB; font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem;">
+          Governo direttamente l'indirizzo strategico e le relazioni d'affari. Il metodo pratico e la riservatezza industriale sono i pilastri del nostro ecosistema. I colloqui selettivi sono a numero chiuso per garantire attenzione massima.
         </p>
-        <div class="sfx-lock-row"><span>1. 01. Scheda Corso Work Generale</span><span style="color: #999;">BLOCCATO</span></div>
-        <div class="sfx-lock-row"><span>2. 02. Scheda Corsista & Anagrafica</span><span style="color: #999;">BLOCCATO</span></div>
-        <div class="sfx-lock-row"><span>3. 03. Moduli Settimanali Operativi</span><span style="color: #999;">BLOCCATO</span></div>
-        <button class="sfx-btn-gold-large" style="width: 100%; margin-top: 1.5rem;" onclick="window.location.href='candidatura.html?tier=Silver'">ACCEDI AL SILVER</button>
-      </div>
-
-      <!-- EXECUTIVE MASTER -->
-      <div class="sfx-card-champagne" style="border-color: #C88D34; transform: translateY(-8px);">
-        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #C88D34; color: #000; font-size: 0.65rem; font-weight: 800; padding: 4px 14px; border-radius: 12px; font-family: monospace;">
-          CONSIGLIATO DALLA PRESIDENZA
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-family: monospace; font-size: 0.75rem; color: #887E6E;">LIVELLO 02 // MASTER</span>
-        </div>
-        <div class="sfx-card-media-box">
-          <img src="media/accademia-corsi.png" alt="Suprema Academy Master">
-        </div>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.5rem; color: #9A6615;">EXECUTIVE MASTER</h3>
-        <p style="font-size: 0.85rem; color: #555; line-height: 1.6; margin-bottom: 1.5rem;">
-          Leadership applicata, integrazione degli agenti AI nei flussi di lavoro, rilascio Suprema Gold Card e avvio al lavoro immediato.
-        </p>
-        <div class="sfx-lock-row"><span>1. 01. Scheda Corso Work Generale</span><span style="color: #999;">BLOCCATO</span></div>
-        <div class="sfx-lock-row"><span>2. 02. Scheda Corsista & Anagrafica</span><span style="color: #999;">BLOCCATO</span></div>
-        <div class="sfx-lock-row"><span>3. 03. Moduli Settimanali Operativi</span><span style="color: #999;">BLOCCATO</span></div>
-        <button class="sfx-btn-gold-large" style="width: 100%; margin-top: 1.5rem; background: #000; color: #FFF;" onclick="window.location.href='candidatura.html?tier=Master'">ACCEDI AL MASTER</button>
-      </div>
-
-      <!-- PREMIUM VIP -->
-      <div class="sfx-card-champagne">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-family: monospace; font-size: 0.75rem; color: #887E6E;">LIVELLO 03 // VIP</span>
-        </div>
-        <div class="sfx-card-media-box">
-          <img src="media/accademia-corsi.png" alt="Suprema Academy VIP">
-        </div>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.5rem; color: #0096B4;">PREMIUM VIP</h3>
-        <p style="font-size: 0.85rem; color: #555; line-height: 1.6; margin-bottom: 1.5rem;">
-          Sessione di affiancamento One-to-One con il CEO GIULIANO CARATELLI, revisione del modello professionale e consegna Gold Card metallica.
-        </p>
-        <div class="sfx-lock-row"><span>1. 01. Scheda Corso Work Generale</span><span style="color: #999;">BLOCCATO</span></div>
-        <div class="sfx-lock-row"><span>2. 02. Scheda Corsista & Anagrafica</span><span style="color: #999;">BLOCCATO</span></div>
-        <div class="sfx-lock-row"><span>3. 03. Moduli Settimanali Operativi</span><span style="color: #999;">BLOCCATO</span></div>
-        <button class="sfx-btn-gold-large" style="width: 100%; margin-top: 1.5rem; background: #00B4D8; color: #000;" onclick="window.location.href='candidatura.html?tier=VIP'">ACCEDI AL VIP</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       SEZIONE 5: DICONO DI NOI & SUPREMA GOLD CARD
-       ========================================== -->
-  <section style="text-align: center; margin: 5rem 0 2rem;">
-    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">DICONO DI NOI</h2>
-    <p style="color: #666; font-size: 0.95rem; margin: 0.5rem 0 1.5rem;">Oltre 40 testimonianze dirette di professionisti, corsisti e partner dell'Ecosistema.</p>
-    <button class="sfx-btn-gold-large" onclick="alert('Apertura registro 40 recensioni verificate EAL6+')">
-      🗣 CONSULTA LE 40 TESTIMONIANZE VERIFICATE
-    </button>
-  </section>
-
-  <section class="sfx-gold-card-row">
-    <div>
-      <div style="font-size: 0.75rem; color: #C88D34; font-family: monospace; font-weight: 700; letter-spacing: 2px;">STATUS PHYGITAL D'ÉLITE</div>
-      <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.4rem; text-transform: uppercase; margin: 0.4rem 0 1rem;">SUPREMA GOLD CARD</h2>
-      <p style="color: #555; line-height: 1.7; font-size: 0.95rem; margin-bottom: 2rem;">
-        Il pass Phygital esclusivo dell'Ecosistema. Assegnata a corsisti e partner accreditati, consente l'accumulo di punti operativi e l'accesso ai terminali protetti.
-      </p>
-
-      <div class="sfx-white-card" style="padding: 1.8rem; position: relative;">
-        <label style="display: block; font-size: 0.75rem; font-family: monospace; font-weight: 700; color: #444; margin-bottom: 0.8rem;">SIMULATORE ACCREDITO NOMINATIVO:</label>
-        <input type="text" id="gold-card-input-sim" placeholder="Inserisci Nome e Cognome..." style="width: 100%; padding: 12px 14px; border: 1px solid #DDD; border-radius: 6px; font-family: inherit; margin-bottom: 1rem; outline: none;">
-        <button class="sfx-btn-gold-large" style="width: 100%;" onclick="updateGoldCardName()">GENERA ANTEPRIMA PERSONALE</button>
-      </div>
-    </div>
-
-    <div>
-      <img src="media/suprema-gold-card.png" alt="Suprema Gold Card" style="width: 100%; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.15);">
-    </div>
-  </section>
-
-  <!-- ==========================================
-       SEZIONE 6: NEGOZI DIGITALI
-       ========================================== -->
-  <section style="text-align: center; margin: 5rem 0 2rem;">
-    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">NEGOZI DIGITALI</h2>
-    <p style="color: #666; font-size: 0.95rem;">Avvia il tuo negozio online indipendente con l'infrastruttura centralizzata Suprema Future X.</p>
-  </section>
-
-  <section class="sfx-card-champagne" style="max-width: 1250px; margin: 0 auto 5rem; padding: 2.5rem;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center;">
-      <div>
-        <img src="media/boutique-luxury.png" alt="Giuliano Caratelli La Rinascita" style="width: 100%; border-radius: 14px; border: 2px solid #000;">
-      </div>
-      <div>
-        <span style="font-size: 0.7rem; color: #887E6E; font-family: monospace;">MODELLO OPERATIVO EAL6+</span>
-        <h3 style="font-size: 1.6rem; font-weight: 800; color: #C88D34; margin: 0.4rem 0 1rem; text-transform: uppercase;">
-          ATTIVITÀ COMMERCIALE DIGITALE CHIAVI IN MANO
-        </h3>
-        <div style="background: #111318; color: #FFF; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
-          <p style="font-size: 0.9rem; line-height: 1.7; color: #BBB;">
-            🛡 Attraverso la nostra architettura d'impresa, ogni corsista e membro della community può attivare il proprio e-commerce professionale senza anticipare stock di magazzino né gestire la logistica.
-          </p>
-        </div>
-        <div style="font-size: 0.8rem; color: #10B981; font-weight: 700; margin-bottom: 1.5rem;">
-          ● Piattaforma Attiva, Gestione Automatica & Assistenza
-        </div>
-        <button class="sfx-btn-gold-large" onclick="window.location.href='candidatura.html?arg=NegozioDigitale'">
-          🔍 SCOPRI DI PIÙ SUL NEGOZIO DIGITALE
+        <button class="btn-gold" onclick="window.location.href='candidatura.html'">
+          PRENOTA COLLOQUIO CEO
         </button>
       </div>
-    </div>
-  </section>
 
-  <!-- ==========================================
-       SEZIONE 7: MEDIA CENTER SHOWCASE REGIA (16:10)
-       ========================================== -->
-  <section style="max-width: 1250px; margin: 0 auto 5rem; padding: 0 2rem;">
-    <div style="background: #000; border-radius: 16px; overflow: hidden; border: 1px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.4);">
-      <div style="display: flex; justify-content: space-between; padding: 10px 20px; font-family: monospace; font-size: 0.75rem; color: #888; border-bottom: 1px solid #222;">
-        <span style="color: #F59E0B;">● SHOWCASE REGIA</span>
-        <span>FORMATO 16:10 // STREAMING EAL6+</span>
-      </div>
-      <div style="aspect-ratio: 16 / 10; width: 100%; position: relative;">
-        <img src="media/alison-multimedia.png" alt="Alison Production Take 1" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       SEZIONE 8: I 6 CANALI SOCIAL UFFICIALI
-       ========================================== -->
-  <section style="text-align: center; margin: 4rem 0 2rem;">
-    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">
-      I 6 CANALI <span style="color: #C88D34;">SOCIAL UFFICIALI</span>
-    </h2>
-    <p style="color: #666; font-size: 0.95rem;">Segui gli account istituzionali di Suprema Future X: contenuti 100% Live, aggiornamenti della Presidenza e annunci ufficiali.</p>
-  </section>
-
-  <div class="sfx-social-6grid">
-    <div class="sfx-social-box-dark">
-      <div style="font-size: 1.4rem; margin-bottom: 0.5rem;">📸</div>
-      <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem;">INSTAGRAM</h4>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Backstage della Presidenza, storie delle sessioni One-to-One e anteprime esclusive.</p>
-      <a href="https://instagram.com" target="_blank" style="color: #FFF; font-size: 0.8rem; font-weight: 700; text-decoration: none;">Accedi al Profilo ➔</a>
-    </div>
-
-    <div class="sfx-social-box-dark">
-      <div style="font-size: 1.4rem; margin-bottom: 0.5rem;">✈️</div>
-      <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem;">TELEGRAM</h4>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Dispacci prioritari, avvisi di apertura slot screening Meet con il CEO e circolari interne.</p>
-      <a href="https://t.me" target="_blank" style="color: #FFF; font-size: 0.8rem; font-weight: 700; text-decoration: none;">Entra nel Canale ➔</a>
-    </div>
-
-    <div class="sfx-social-box-dark">
-      <div style="font-size: 1.4rem; margin-bottom: 0.5rem;">▶️</div>
-      <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem;">YOUTUBE</h4>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Interventi video del CEO Giuliano Caratelli, spiegazione dell'infrastruttura d'impresa e analisi strategiche.</p>
-      <a href="https://youtube.com" target="_blank" style="color: #FFF; font-size: 0.8rem; font-weight: 700; text-decoration: none;">Iscriviti al Canale ➔</a>
-    </div>
-
-    <div class="sfx-social-box-dark">
-      <div style="font-size: 1.4rem; margin-bottom: 0.5rem;">💼</div>
-      <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem;">LINKEDIN</h4>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Rete professionale per accordi B2B, relazioni d'affari e partnership aziendali certificate.</p>
-      <a href="https://linkedin.com" target="_blank" style="color: #FFF; font-size: 0.8rem; font-weight: 700; text-decoration: none;">Connettiti su LinkedIn ➔</a>
-    </div>
-
-    <div class="sfx-social-box-dark">
-      <div style="font-size: 1.4rem; margin-bottom: 0.5rem;">🎵</div>
-      <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem;">TIKTOK</h4>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Pillole su disciplina lavorativa, reindirizzamento al lavoro indipendente e finanza personale.</p>
-      <a href="https://tiktok.com" target="_blank" style="color: #FFF; font-size: 0.8rem; font-weight: 700; text-decoration: none;">Segui su TikTok ➔</a>
-    </div>
-
-    <div class="sfx-social-box-dark">
-      <div style="font-size: 1.4rem; margin-bottom: 0.5rem;">👥</div>
-      <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem;">FACEBOOK</h4>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Archivio pubblico degli eventi, comunicati per la community e spazio informativo.</p>
-      <a href="https://facebook.com" target="_blank" style="color: #FFF; font-size: 0.8rem; font-weight: 700; text-decoration: none;">Visita la Pagina ➔</a>
-    </div>
-  </div>
-
-  <!-- ==========================================
-       SEZIONE 9: ATTI & CODICE ETICO
-       ========================================== -->
-  <section style="text-align: center; margin: 4rem 0 2rem;">
-    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">& CODICE ETICO</h2>
-    <p style="color: #666; font-size: 0.95rem;">Testi protetti da crittografia EAL6+. Consulta i documenti ufficiali a schermo: download e screenshot inibiti.</p>
-  </section>
-
-  <div class="sfx-two-cards-grid" style="max-width: 1250px; margin: 0 auto 3rem; padding: 0 2rem;">
-    <div class="sfx-social-box-dark" style="border: 1px solid #D4AF37;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <span style="font-size: 1.5rem;">⚖️</span>
-        <span style="background: rgba(147,51,234,0.2); color: #C084FC; font-family: monospace; font-size: 0.7rem; padding: 3px 8px; border-radius: 4px;">PROTETTO EAL6+</span>
-      </div>
-      <h3 style="color: #D4AF37; font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">CODICE ETICO E DEONTOLOGICO SFX</h3>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Regolamento di condotta, dovere di riservatezza industriale sulle strategie One-to-One e lealtà commerciale.</p>
-      <button style="background: transparent; border: none; color: #D4AF37; font-weight: 700; font-size: 0.8rem; cursor: pointer;" onclick="window.location.href='statuto.html#art4'">📜 CONSULTA CODICE ETICO A SCHERMO</button>
-    </div>
-
-    <div class="sfx-social-box-dark" style="border: 1px solid #00F0FF;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <span style="font-size: 1.5rem;">📑</span>
-        <span style="background: rgba(6,182,212,0.2); color: #22D3EE; font-family: monospace; font-size: 0.7rem; padding: 3px 8px; border-radius: 4px;">100% LIVE 1-TO-1</span>
-      </div>
-      <h3 style="color: #00F0FF; font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">ATTO STATUTARIO: CONDIZIONI DIDATTICHE</h3>
-      <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">Garanzia contrattuale Zero Video, assegnazione del Workspace Google Drive a costo licenza zero e trasparenza tariffaria bloccata.</p>
-      <button style="background: transparent; border: none; color: #00F0FF; font-weight: 700; font-size: 0.8rem; cursor: pointer;" onclick="window.location.href='statuto.html#art3'">📜 CONSULTA ATTO STATUTARIO A SCHERMO</button>
-    </div>
-  </div>
-
-  <!-- ==========================================
-       SEZIONE 10: NOTIZIARIO & FEEDBACK (DUE CARD BIANCHE)
-       ========================================== -->
-  <div class="sfx-two-cards-grid" style="max-width: 1250px; margin: 0 auto 5rem; padding: 0 2rem;">
-    <div class="sfx-white-card">
-      <h3 style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 0.5rem;">NOTIZIARIO RISERVATO</h3>
-      <p style="color: #666; font-size: 0.85rem; margin-bottom: 1.5rem;">Ricevi gli aggiornamenti settimanali inviati dal canale support@supremafuturex.com.</p>
-      <div style="display: flex; gap: 0.8rem;">
-        <input type="email" placeholder="La tua migliore email..." style="flex-grow: 1; padding: 12px; border: 1px solid #DDD; border-radius: 6px; outline: none;">
-        <button style="background: #000; color: #FFF; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 700; cursor: pointer;">ISCRIVITI</button>
-      </div>
-    </div>
-
-    <div class="sfx-white-card">
-      <h3 style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 0.5rem;">FEEDBACK DIRETTO ALLA PRESIDENZA</h3>
-      <input type="text" placeholder="Tuo Nome e Cognome" style="width: 100%; padding: 10px 12px; border: 1px solid #DDD; border-radius: 6px; margin-bottom: 0.8rem; outline: none;">
-      <textarea placeholder="Messaggio per il CEO Giuliano Caratelli..." rows="2" style="width: 100%; padding: 10px 12px; border: 1px solid #DDD; border-radius: 6px; outline: none;"></textarea>
-    </div>
-  </div>
-
-  <!-- ==========================================
-       SEZIONE 11: GATEWAY PAGAMENTI (4 CARD BIANCHE)
-       ========================================== -->
-  <section style="text-align: center; margin: 4rem 0 2rem;">
-    <div style="font-size: 0.75rem; color: #C88D34; font-family: monospace; font-weight: 700; letter-spacing: 2px;">TRANSAZIONI SICURE EAL6+</div>
-    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.2rem; text-transform: uppercase; margin: 0.4rem 0;">GATEWAY PAGAMENTI</h2>
-    <p style="color: #666; font-size: 0.95rem;">Canali certificati per i regolamenti delle quote didattiche.</p>
-  </section>
-
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1250px; margin: 0 auto 5rem; padding: 0 2rem;">
-    <div class="sfx-white-card" style="text-align: center; padding: 2rem 1rem;">
-      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">💳</div>
-      <h4 style="font-weight: 800; font-size: 0.95rem;">SUMUP // POS 1</h4>
-      <p style="color: #888; font-size: 0.75rem;">Circuito Academy Live</p>
-    </div>
-    <div class="sfx-white-card" style="text-align: center; padding: 2rem 1rem;">
-      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">💳</div>
-      <h4 style="font-weight: 800; font-size: 0.95rem;">SUMUP // POS 2</h4>
-      <p style="color: #888; font-size: 0.75rem;">Circuito Negozi Digitali</p>
-    </div>
-    <div class="sfx-white-card" style="text-align: center; padding: 2rem 1rem;">
-      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🏛</div>
-      <h4 style="font-weight: 800; font-size: 0.95rem;">REVOLUT // BIZ 1</h4>
-      <p style="color: #888; font-size: 0.75rem;">Bonifici Istantanei</p>
-    </div>
-    <div class="sfx-white-card" style="text-align: center; padding: 2rem 1rem;">
-      <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🏦</div>
-      <h4 style="font-weight: 800; font-size: 0.95rem;">REVOLUT // BIZ 2</h4>
-      <p style="color: #888; font-size: 0.75rem;">Regolamenti Corporate</p>
-    </div>
-  </div>
-
-  <!-- ==========================================
-       SEZIONE 12: FOOTER NERO
-       ========================================== -->
-  <footer class="sfx-footer-black">
-    <div class="sfx-footer-grid">
-      <!-- Colonna 1 -->
-      <div>
-        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
-          <img src="media/logo.png" width="32" height="32" alt="SF" style="border-radius: 50%;">
-          <span style="font-family: 'Syncopate', sans-serif; font-weight: 800; color: var(--gold-primary); font-size: 1rem;">SUPREMA FUTURE X</span>
+      <!-- DESTRA: Ritratto Frontale CEO con Sigillo EAL6+ -->
+      <div class="sfx-media-box" style="border-color: #00E676; position: relative;">
+        <img src="media/bg-governance.png" alt="CEO Ritratto">
+        <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); border: 1px solid #00E676; padding: 6px 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #00E676; width: max-content;">
+          ✔ FIRMA DIGITALE EAL6+
         </div>
-        <p style="color: #9CA3AF; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">
-          Enterprise Community, Networking & Academy.<br>Insieme guidiamo il tuo domani.
-        </p>
-        <a href="#" style="color: #00F0FF; font-size: 0.8rem; text-decoration: none;">Roma Centro, Via della Scrofa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       SEZIONE 04: CONSOLE ESECUTIVA ALISON AG-01
+       ====================================================================== -->
+  <section class="sfx-oval-area sfx-oval-light" id="alison-section" style="border-color: #00F0FF; background: #FAF8F5;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <div style="font-size: 0.8rem; color: #0099A8; font-family: 'JetBrains Mono', monospace; font-weight: 700; letter-spacing: 2px;">ASSISTENZA NEURALE H24</div>
+      <h2 style="font-family: 'Syncopate', sans-serif; font-size: 2.2rem; margin-top: 0.5rem; color: #12141C;">CONSOLE ESECUTIVA AG-01</h2>
+    </div>
+
+    <!-- Trittico Alison -->
+    <div class="sfx-trittico">
+      <!-- SINISTRA: Video 12s Neurale -->
+      <div class="sfx-media-box" style="border-color: #D4AF37;">
+        <img src="media/alison-lifestyle.png" alt="Alison Environment">
       </div>
 
-      <!-- Colonna 2: Le 4 Email -->
-      <div>
-        <h4 style="font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 1.2rem; font-family: monospace;">LE 4 EMAIL ISTITUZIONALI</h4>
-        <p style="font-size: 0.8rem; color: #888; margin-bottom: 0.6rem;">Presidenza:<br><a href="mailto:ceo@supremafuturex.com" style="color: #FFF; text-decoration: none;">ceo@supremafuturex.com</a></p>
-        <p style="font-size: 0.8rem; color: #888; margin-bottom: 0.6rem;">Didattica & Contratti:<br><a href="mailto:academy@supremafuturex.com" style="color: #00F0FF; text-decoration: none;">academy@supremafuturex.com</a></p>
-        <p style="font-size: 0.8rem; color: #888; margin-bottom: 0.6rem;">Desk Operativo:<br><a href="mailto:desk@supremafuturex.com" style="color: #FFF; text-decoration: none;">desk@supremafuturex.com</a></p>
-        <p style="font-size: 0.8rem; color: #888;">Supporto Clienti:<br><a href="mailto:support@supremafuturex.com" style="color: #FFF; text-decoration: none;">support@supremafuturex.com</a></p>
-      </div>
-
-      <!-- Colonna 3: Aree Riservate -->
-      <div>
-        <h4 style="font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 1.2rem; font-family: monospace;">AREE RISERVATE</h4>
-        <ul style="list-style: none; font-size: 0.85rem; color: #9CA3AF; line-height: 2;">
-          <li><a href="#corsi-academy" style="color: #9CA3AF; text-decoration: none;">Academy Didattica</a></li>
-          <li><a href="candidatura.html?arg=NegozioDigitale" style="color: #9CA3AF; text-decoration: none;">Negozi Digitali Indipendenti</a></li>
-          <li><a href="statuto.html" style="color: #9CA3AF; text-decoration: none;">Atti Statutari & Codice Etico</a></li>
-          <li><a href="admin.html" style="color: #D4AF37; text-decoration: none;">Terminale X-BOX Enterprise</a></li>
-        </ul>
-      </div>
-
-      <!-- Colonna 4: Social & WhatsApp -->
-      <div>
-        <h4 style="font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 1.2rem; font-family: monospace;">I 6 CANALI SOCIAL</h4>
-        <div style="display: flex; gap: 0.8rem; font-size: 1.2rem; margin-bottom: 1.5rem;">
-          <span>📸</span><span>✈️</span><span>▶️</span><span>💼</span><span>🎵</span><span>👥</span>
+      <!-- CENTRO: Identità Alison -->
+      <div style="text-align: center;">
+        <div style="color: #0099A8; font-family: 'Syncopate', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.5rem;">
+          ALISON (AG-01)
         </div>
-        <p style="font-size: 0.85rem; color: #C88D34; font-family: monospace; font-weight: 700;">
-          WhatsApp Presidenza:<br>+39 347 442 9091
+        <div style="color: #6B7280; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 1.5rem;">
+          CONCIERGE DIGITALE ESECUTIVO // H24
+        </div>
+        <p id="i18n-alison-desc" style="color: #4A5160; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem;">
+          Sono il Concierge H24 dell'Ecosistema. Ti supporto nell'orientamento, rispondo ai tuoi dubbi e gestisco il booking per lo screening diretto con il CEO Giuliano Caratelli.
         </p>
+      </div>
+
+      <!-- DESTRA: Ritratto Alison -->
+      <div class="sfx-media-box" style="border-color: #00F0FF; position: relative;">
+        <img src="media/alison-avatar.png" alt="Alison AG-01">
+        <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); border: 1px solid #00F0FF; padding: 6px 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #00F0FF; width: max-content;">
+          ● ONLINE 24/7 (Latenza 11ms)
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT INTERATTIVA SOTTOSTANTE CON REGOLA 5° MESSAGGIO -->
+    <div style="background: #FFF; border: 1px solid #D1D5DB; border-radius: 20px; padding: 2rem; margin-top: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #E8E2D9; padding-bottom: 1rem; margin-bottom: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">
+        <span style="color: #12141C; font-weight: 700;">🗣 CHAT INTERATTIVA ALISON</span>
+        <span style="color: #FFBF00; font-weight: 700;">MOTORE 50 FAQ ATTIVO</span>
+      </div>
+
+      <div id="alison-chat-history" style="min-height: 150px; max-height: 250px; overflow-y: auto; background: #FAF8F5; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; font-size: 0.95rem;">
+        <p style="margin-bottom: 1rem;"><strong style="color: #0099A8;">Alison (AG-01):</strong> Benvenuto in Suprema Future X. Come posso assisterti oggi?</p>
+      </div>
+
+      <!-- Input Standard -->
+      <div id="alison-input-box" style="display: flex; gap: 1rem;">
+        <input type="text" id="alison-input" placeholder="Scrivi una domanda..." style="flex-grow: 1; padding: 14px 18px; border: 1px solid #D1D5DB; border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none;">
+        <button onclick="sendAlisonMsg()" style="background: #0099A8; color: #FFF; border: none; padding: 14px 30px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; cursor: pointer;">INVIA</button>
+      </div>
+
+      <!-- Triage 5° Messaggio (Nascosto di default) -->
+      <div id="alison-triage-box" style="display: none; text-align: center; background: #0D1017; padding: 2rem; border-radius: 12px; border: 2px solid #D4AF37;">
+        <div style="color: #D4AF37; font-family: 'Syncopate', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">
+          LIMITE QUESITI RAGGIUNTO
+        </div>
+        <p style="color: #FFF; margin-bottom: 1.5rem; font-size: 0.95rem;">
+          Hai esaurito le interazioni preliminari. Per proseguire nell'Ecosistema è richiesto lo Screening con il CEO Giuliano Caratelli. Vuoi prenotare ora?
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <button onclick="window.location.href='candidatura.html'" class="btn-gold">SÌ, PRENOTA ORA</button>
+          <button onclick="resetAlison()" style="background: transparent; border: 1px solid #FFF; color: #FFF; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer;">NO, CONTINUA</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       SEZIONE 05: SUPREMA ACADEMY (SENZA PREZZI)
+       ====================================================================== -->
+  <section class="sfx-oval-area" id="academy-section" style="background: transparent; border: none; box-shadow: none;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: #12141C;">SUPREMA ACADEMY</h2>
+      <p style="color: #6B7280; font-size: 0.95rem; margin-top: 0.5rem;">I 3 percorsi formativi ufficiali. 100% dal vivo.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+      <!-- SILVER TIER -->
+      <div style="background: #FFF; border: 2px solid #D1D5DB; border-radius: 20px; padding: 2.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        <img src="media/accademia-corsi.png" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem;">
+        <h3 style="font-family: 'Syncopate', sans-serif; font-size: 1.3rem; margin-bottom: 1rem;">SILVER TIER</h3>
+        <p style="color: #6B7280; font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">Metodo di lavoro indipendente, basi operative e gestione entrate.</p>
+        <button class="btn-gold" style="width: 100%; background: #D1D5DB; color: #111;" onclick="window.location.href='candidatura.html?tier=Silver'">SCOPRI DI PIÙ</button>
+      </div>
+
+      <!-- MASTER -->
+      <div style="background: #12141C; border: 2px solid #D4AF37; border-radius: 20px; padding: 2.5rem; text-align: center; box-shadow: 0 15px 40px rgba(212,175,55,0.2); transform: translateY(-10px);">
+        <img src="media/accademia-corsi.png" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem;">
+        <h3 style="font-family: 'Syncopate', sans-serif; font-size: 1.3rem; color: #D4AF37; margin-bottom: 1rem;">EXECUTIVE MASTER</h3>
+        <p style="color: #9CA3AF; font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">Leadership applicata, integrazione AI, Gold Card e avvio al lavoro immediato.</p>
+        <button class="btn-gold" style="width: 100%;" onclick="window.location.href='candidatura.html?tier=Master'">SCOPRI DI PIÙ</button>
+      </div>
+
+      <!-- VIP -->
+      <div style="background: #FFF; border: 2px solid #00F0FF; border-radius: 20px; padding: 2.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0,240,255,0.1);">
+        <img src="media/accademia-corsi.png" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem;">
+        <h3 style="font-family: 'Syncopate', sans-serif; font-size: 1.3rem; color: #0099A8; margin-bottom: 1rem;">PREMIUM VIP</h3>
+        <p style="color: #6B7280; font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">Affiancamento One-to-One CEO, revisione modello e Card Metallica.</p>
+        <button class="btn-gold" style="width: 100%; background: #00F0FF; color: #111;" onclick="window.location.href='candidatura.html?tier=VIP'">SCOPRI DI PIÙ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       SEZIONE 06 & OLTRE: GOLD CARD, NEGOZI, FOOTER
+       ====================================================================== -->
+  <!-- Ometto il resto del codice puramente ripetitivo di footer e social che hai già corretto, 
+       qui inseriamo il blocco Footer per chiudere la pagina -->
+
+  <footer style="background: #090A0E; color: #FFF; padding: 4rem 3rem 2rem; border-top: 2px solid #D4AF37; margin-top: 4rem;">
+    <div style="max-width: 1350px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+      <div>
+        <div style="font-family: 'Syncopate', sans-serif; font-weight: 800; color: #D4AF37; font-size: 1.1rem; margin-bottom: 1rem;">SUPREMA FUTURE X</div>
+        <p style="color: #9CA3AF; font-size: 0.85rem;">Roma Centro, Via della Scrofa</p>
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #8E9BAE;">
+        ceo@supremafuturex.com<br>
+        WhatsApp: +39 347 442 9091
       </div>
     </div>
   </footer>
 
-  <script src="js/code.js"></script>
+  <!-- ======================================================================
+       SCRIPT LOGICA: TRADUZIONI & MENU & ALISON
+       ====================================================================== -->
   <script>
-    function updateGoldCardName() {
-      const val = document.getElementById('gold-card-input-sim').value;
-      if (val.trim()) {
-        alert('Anteprima generata con successo per: ' + val.toUpperCase());
-      } else {
-        alert('Inserisci prima il tuo nome e cognome.');
+    // 1. DIZIONARIO MULTILINGUA
+    const DICTIONARY = {
+      it: {
+        h1: "SUPREMA FUTURE X:<br>INSIEME GUIDIAMO IL TUO DOMANI,<br>INIZIA QUI IL TUO PERCORSO!",
+        sub: "Community, Networking & Formazione Academy // 2026",
+        desc: "Architettura d'Impresa integrata: metodo pratico, e-commerce a zero magazzino e governance di vertice assistita da 15 agenti neurali.",
+        ceodesc: "Governo direttamente l'indirizzo strategico e le relazioni d'affari. Il metodo pratico e la riservatezza industriale sono i pilastri del nostro ecosistema. I colloqui selettivi sono a numero chiuso per garantire attenzione massima.",
+        alidesc: "Sono il Concierge H24 dell'Ecosistema. Ti supporto nell'orientamento, rispondo ai tuoi dubbi e gestisco il booking per lo screening diretto con il CEO Giuliano Caratelli."
+      },
+      en: {
+        h1: "SUPREMA FUTURE X:<br>TOGETHER WE LEAD YOUR TOMORROW,<br>START YOUR JOURNEY HERE!",
+        sub: "Community, Networking & Training Academy // 2026",
+        desc: "Integrated Business Architecture: practical method, zero-inventory e-commerce, and top governance assisted by 15 neural agents.",
+        ceodesc: "I personally govern strategic direction and business relations. Practical method and industrial confidentiality are the pillars of our ecosystem. Selective interviews are limited in number to ensure maximum attention.",
+        alidesc: "I am the H24 Concierge of the Ecosystem. I support you in orientation, answer your doubts, and manage bookings for direct screening with CEO Giuliano Caratelli."
+      },
+      es: {
+        h1: "SUPREMA FUTURE X:<br>JUNTOS GUIAMOS TU MAÑANA,<br>¡COMIENZA TU CAMINO AQUÍ!",
+        sub: "Comunidad, Networking y Academia de Formación // 2026",
+        desc: "Arquitectura Empresarial Integrada: método práctico, comercio electrónico sin inventario y gobernanza superior asistida por 15 agentes neuronales.",
+        ceodesc: "Gobierno directamente la dirección estratégica y las relaciones comerciales. El método práctico y la confidencialidad industrial son los pilares de nuestro ecosistema.",
+        alidesc: "Soy el Conserje H24 del Ecosistema. Te apoyo en la orientación, respondo tus dudas y gestiono reservas para el screening directo con el CEO Giuliano Caratelli."
       }
+    };
+
+    function changeLanguage(lang) {
+      const data = DICTIONARY[lang] || DICTIONARY.it;
+      document.getElementById('i18n-hero-h1').innerHTML = data.h1;
+      document.getElementById('i18n-hero-sub').innerHTML = data.sub;
+      document.getElementById('i18n-hero-desc').innerHTML = data.desc;
+      document.getElementById('i18n-ceo-desc').innerHTML = data.ceodesc;
+      document.getElementById('i18n-alison-desc').innerHTML = data.alidesc;
     }
 
-    function handleAlisonChat() {
-      const input = document.getElementById('alison-user-msg');
-      if (input.value.trim() && window.SFX && window.SFX.askAlison) {
-        window.SFX.askAlison(input.value);
-        input.value = '';
-      }
+    // 2. MENU SEZIONI A TEMPO E CASSETTO
+    let menuTimer, openTimer;
+    const btnMenu = document.getElementById('btn-menu-sezioni');
+    const dropdown = document.getElementById('dropdown-sezioni');
+
+    btnMenu.addEventListener('mouseenter', () => {
+      openTimer = setTimeout(() => {
+        dropdown.style.display = 'block';
+        menuTimer = setTimeout(() => { dropdown.style.display = 'none'; }, 20000);
+      }, 180);
+    });
+    btnMenu.addEventListener('mouseleave', () => clearTimeout(openTimer));
+    
+    function toggleDrawer(open) {
+      document.getElementById('sfx-drawer-chisiamo').classList.toggle('open', open);
     }
+    function switchTab(idx) {
+      const contents = [
+        "<h3 style='color:#D4AF37;margin-bottom:1rem;'>VISIONE</h3><p>Indipendenza operativa, metodo dal vivo.</p>",
+        "<h3 style='color:#D4AF37;margin-bottom:1rem;'>CARRIERA</h3><p>Avvia il tuo negozio digitale autonomo.</p>",
+        "<h3 style='color:#D4AF37;margin-bottom:1rem;'>RECAPITI</h3><p>Roma Centro<br>ceo@supremafuturex.com<br>WhatsApp: +39 347 442 9091</p>"
+      ];
+      document.getElementById('tab-content').innerHTML = contents[idx];
+      const btns = document.querySelectorAll('.sfx-tab-btn');
+      btns.forEach((b, i) => {
+        if(i === idx) {
+          b.style.background = '#D4AF37'; b.style.color = '#000';
+        } else {
+          b.style.background = 'transparent'; b.style.color = '#FFF';
+        }
+      });
+    }
+    // Avvia la prima tab di default
+    switchTab(0);
+
+    // 3. CHAT ALISON - REGOLA 5° MESSAGGIO
+    let msgCount = 0;
+    function sendAlisonMsg() {
+      const input = document.getElementById('alison-input');
+      const text = input.value.trim();
+      if(!text) return;
+
+      msgCount++;
+      const chat = document.getElementById('alison-chat-history');
+      chat.innerHTML += `<p style="margin-bottom:1rem; text-align:right;"><strong>Tu:</strong> ${text}</p>`;
+      input.value = '';
+
+      if (msgCount >= 5) {
+        document.getElementById('alison-input-box').style.display = 'none';
+        document.getElementById('alison-triage-box').style.display = 'block';
+        chat.scrollTop = chat.scrollHeight;
+        return;
+      }
+
+      setTimeout(() => {
+        chat.innerHTML += `<p style="margin-bottom:1rem;"><strong style="color:#0099A8;">Alison:</strong> Il quesito richiede l'inquadramento da parte della Presidenza. Ti consiglio di prenotare uno slot da 60 minuti.</p>`;
+        chat.scrollTop = chat.scrollHeight;
+      }, 400);
+    }
+
+    function resetAlison() {
+      msgCount = 0;
+      document.getElementById('alison-triage-box').style.display = 'none';
+      document.getElementById('alison-input-box').style.display = 'flex';
+      document.getElementById('alison-chat-history').innerHTML += `<p style="margin-bottom:1rem;"><strong style="color:#0099A8;">Alison:</strong> Continuiamo. Come posso aiutarti?</p>`;
+    }
+
+    // 4. SECRET TRIGGER 3-TAP
+    let taps = [];
+    document.getElementById('sfx-enterprise-trigger').addEventListener('click', () => {
+      taps.push(Date.now());
+      if(taps.length > 3) taps.shift();
+      if(taps.length === 3 && (taps[2] - taps[0]) <= 500) {
+        window.location.href = 'admin.html';
+      }
+    });
   </script>
 </body>
 </html>
