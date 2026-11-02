@@ -1,235 +1,785 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;900&family=Syncopate:wght@400;700&display=swap');
+**
+ * ============================================================================
+ * SUPREMA FUTURE X ENTERPRISE // GLOBAL DESIGN SYSTEM
+ * File: stile-globale.css (GitHub Repository: supremafuturex)
+ * Versione: 2026.11.0 - Full Monolithic Stylesheet (EAL6+ Verified)
+ * Governance: Giuliano Caratelli (Founder & CEO)
+ * ============================================================================
+ */
 
+/* ========================================================================== */
+/* 1. VARIABILI ROOT & DESIGN TOKENS                                         */
+/* ========================================================================== */
 :root {
-  --bg-grid: #F5F1E9;
-  --grid-line: #E8E2D5;
-  --card-dark: #0E1015;
-  --card-inner: #151821;
-  --card-champagne: #D9D2C5;
+  /* Palette Primaria Scura (X-BOX, CRM, Modali) */
+  --bg-dark: #090A0E;
+  --bg-obsidian: #050608;
+  --bg-panel: #11141C;
+  --bg-card-dark: #1A1D24;
+  --bg-card-inner: #151821;
+  
+  /* Palette Primaria Chiara (Landing Page, Statuto, Documenti) */
+  --bg-pearl: #F4EFEA;
+  --bg-silver: #E5E0D8;
+  --bg-card-light: rgba(255, 255, 255, 0.78);
+  --bg-card-light-hover: rgba(255, 255, 255, 0.95);
+  
+  /* Accenti Metallici e Oro Istituzionale */
   --gold-primary: #D4AF37;
-  --gold-dark: #B8860B;
+  --gold-deep: #B8860B;
+  --gold-light: #F3E5AB;
+  --gold-glow: rgba(212, 175, 55, 0.35);
+  
+  /* Accenti Ciano & Neon Futuristico */
   --cyan-neon: #00F0FF;
   --cyan-deep: #0099A8;
-  --text-dark: #12141A;
-  --text-muted: #6B7280;
+  --cyan-subtle: rgba(0, 240, 255, 0.15);
+  --cyan-glow: rgba(0, 240, 255, 0.4);
+  
+  /* Blu Profondo Spaziale */
+  --blue-deep: #0B192C;
+  --blue-dark: #040D1A;
+  
+  /* Indicatori di Telemetria & Stato */
+  --status-green: #00E676;
+  --status-green-glow: rgba(0, 230, 118, 0.3);
+  --status-amber: #FFBF00;
+  --status-amber-glow: rgba(255, 191, 0, 0.3);
+  --status-red: #FF3B30;
+  --status-red-glow: rgba(255, 59, 48, 0.35);
+  
+  /* Tipografia & Contrasti */
   --text-light: #F3F4F6;
-  --bg-pearl: #F4EFEA;
+  --text-muted: #8E9BAE;
+  --text-dark: #12141C;
+  --text-muted-dark: #5A6072;
+  
+  /* Bordi & Divisori Forensi */
+  --border-dark: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(0, 0, 0, 0.08);
+  --border-gold: rgba(212, 175, 55, 0.3);
+  --border-cyan: rgba(0, 240, 255, 0.3);
+  
+  /* Font Families */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sync: 'Syncopate', sans-serif;
+  --font-mont: 'Montserrat', sans-serif;
+  
+  /* Transizioni Standard */
+  --trans-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  --trans-smooth: 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  --trans-modal: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* ========================================================================== */
+/* 2. RESET STRUTTURALE & BOX MODEL                                          */
+/* ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: var(--bg-pearl) !important;
-  background-image: none !important; /* ZERO QUADRETTI */
-  color: var(--text-dark);
-  line-height: 1.5;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-/* TOP BAR */
-.sfx-top-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 3rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.sfx-logo-text {
-  font-family: 'Syncopate', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--text-dark);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* HERO EMBLEM & TITLES */
-.sfx-hero-center {
-  text-align: center;
-  padding: 2rem 1.5rem 3rem;
-}
-
-.sfx-emblem-wrap {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-}
-
-.sfx-emblem-circle {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-.sfx-enterprise-pill {
-  background: #000;
-  color: var(--gold-primary);
-  font-family: 'Orbitron', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  padding: 3px 14px;
-  border-radius: 12px;
-  margin-top: -12px;
-  border: 1px solid var(--gold-primary);
-}
-
-.sfx-main-3d-title {
-  font-family: 'Syncopate', sans-serif;
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 800;
-  letter-spacing: 4px;
-  color: #92DEEB;
-  text-shadow: 
-    0 1px 0 #FFF,
-    0 2px 0 #81C7D4,
-    0 3px 0 #6AA8B4,
-    0 6px 12px rgba(0, 150, 180, 0.35);
-  margin-bottom: 0.5rem;
-}
-
-.sfx-sub-gold {
-  color: #C88D34;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-}
-
-.sfx-sub-cyan {
-  color: var(--cyan-deep);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  margin-top: 0.3rem;
-}
-
-/* AREE OVALI CON LUCE LAMPEGGIANTE (PULSING GLOW) */
-.sfx-oval-area {
-  border-radius: 60px;
-  padding: 3rem;
-  margin: 3rem auto;
-  max-width: 1350px;
-  position: relative;
-  animation: pulseGlow 4s infinite alternate ease-in-out;
-}
-
-.sfx-oval-dark {
-  background: #1A1D24;
-  border: 2px solid #D4AF37;
-  color: #F3F4F6;
-}
-
-.sfx-oval-light {
-  background: #FAF8F5;
-  border: 2px solid #00F0FF;
-  color: #12141C;
-}
-
-@keyframes pulseGlow {
-  0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(212, 175, 55, 0.3); }
-  50% { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 35px rgba(0, 240, 255, 0.5); }
-  100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(212, 175, 55, 0.4); }
-}
-
-/* GRIGLIA A 3 COLONNE TRITTICO */
-.sfx-trittico {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
-  gap: 2.5rem;
-  align-items: center;
-}
-
-.sfx-media-box {
-  background: #000;
-  border: 2px solid #D4AF37;
-  border-radius: 24px;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mont);
+  line-height: 1.6;
+  min-height: 100vh;
   position: relative;
 }
 
-.sfx-media-box img, .sfx-media-box video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* TOP BAR & NAVBAR */
-.sfx-top-bar {
-  background: #8E9BAE;
-  border-bottom: 2px solid #00F0FF;
-  padding: 0.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-}
-
-.sfx-navbar {
-  background: #FFFFFF;
-  padding: 1rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #E8E2D9;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
-
-/* PULSANTI */
-.btn-gold {
-  background: #D4AF37;
-  color: #000;
-  font-family: 'Syncopate', sans-serif;
+/* ========================================================================== */
+/* 3. TIPOGRAFIA GERARCHICA & UTILITIES TESTUALI                             */
+/* ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sync);
   font-weight: 700;
-  font-size: 0.85rem;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
   letter-spacing: 1px;
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
-  transition: 0.3s;
+  line-height: 1.2;
 }
-.btn-gold:hover { transform: scale(1.05); }
 
-/* CASSETTO LATERALE */
-.sfx-drawer {
+p {
+  margin-bottom: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.font-sync {
+  font-family: var(--font-sync) !important;
+}
+
+.font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+.font-mont {
+  font-family: var(--font-mont) !important;
+}
+
+.text-gold {
+  color: var(--gold-primary) !important;
+}
+
+.text-cyan {
+  color: var(--cyan-neon) !important;
+}
+
+.text-cyan-deep {
+  color: var(--cyan-deep) !important;
+}
+
+.text-dark {
+  color: var(--text-dark) !important;
+}
+
+.text-light {
+  color: var(--text-light) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.tracking-wide {
+  letter-spacing: 2px !important;
+}
+
+.tracking-wider {
+  letter-spacing: 4px !important;
+}
+
+.uppercase {
+  text-transform: uppercase !important;
+}
+
+/* ========================================================================== */
+/* 4. CURSORE MAGNETICO EAL6+                                                */
+/* ========================================================================== */
+.sfx-cursor {
   position: fixed;
   top: 0;
-  right: -450px;
-  width: 420px;
-  height: 100vh;
-  background: #0D1017;
-  border-left: 2px solid #D4AF37;
-  box-shadow: -15px 0 40px rgba(0,0,0,0.8);
-  z-index: 2000;
-  transition: right 0.3s ease;
-  padding: 2.5rem;
-  color: #FFF;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--blue-deep);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease-out, height 0.25s ease-out, background-color 0.25s ease-out, border-color 0.25s ease-out;
 }
-.sfx-drawer.open { right: 0; }
 
+.sfx-cursor.hovering {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(212, 175, 55, 0.18);
+  border-color: var(--gold-primary);
+  backdrop-filter: blur(3px);
+}
+
+/* ========================================================================== */
+/* 5. AURORA MESH BACKGROUND ANIMATO                                         */
+/* ========================================================================== */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-bg::before,
+.ambient-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.35;
+  animation: floatBg 20s infinite alternate ease-in-out;
+}
+
+.ambient-bg::before {
+  width: 55vw;
+  height: 55vw;
+  background: rgba(0, 153, 168, 0.25);
+  top: -10%;
+  left: -10%;
+}
+
+.ambient-bg::after {
+  width: 65vw;
+  height: 65vw;
+  background: rgba(212, 175, 55, 0.2);
+  bottom: -20%;
+  right: -10%;
+  animation-delay: -6s;
+}
+
+/* ========================================================================== */
+/* 6. BARRE DI STATO, TOPBAR & INTESTAZIONI ISTITUZIONALI                    */
+/* ========================================================================== */
+.sfx-top-bar {
+  background: #090A0E;
+  color: #FFF;
+  border-bottom: 2px solid var(--gold-primary);
+  padding: 0.65rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  z-index: 1000;
+  position: relative;
+}
+
+.sfx-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sfx-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--status-green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--status-green);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+/* ========================================================================== */
+/* 7. HAMBURGER MENU FLUTTUANTE & FULLSCREEN OVERLAY NAV                     */
+/* ========================================================================== */
+.floating-nav {
+  position: fixed;
+  top: 3.5rem;
+  right: 2rem;
+  z-index: 2500;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-hamburger {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 2px solid var(--gold-primary);
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-family: var(--font-sync);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transition: all var(--trans-smooth);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-hamburger:hover {
+  background: var(--text-dark);
+  color: var(--gold-primary);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.45);
+  transform: translateY(-2px);
+}
+
+.nav-overlay {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(244, 239, 234, 0.98);
+  backdrop-filter: blur(25px);
+  z-index: 2400;
+  transition: top var(--trans-modal);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-overlay.active {
+  top: 0;
+}
+
+.nav-item {
+  font-family: var(--font-sync);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--blue-deep);
+  text-decoration: none;
+  margin: 0.8rem 0;
+  transition: all var(--trans-fast);
+  cursor: none;
+  text-align: center;
+}
+
+.nav-item:hover {
+  color: var(--cyan-deep);
+  transform: scale(1.06);
+  text-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+}
+
+/* ========================================================================== */
+/* 8. SISTEMA CARD & GLASSMORPHISM (PERLATO & SCURO)                         */
+/* ========================================================================== */
+.sfx-card {
+  background: var(--bg-card-light);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-light);
+  border-radius: 28px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  transition: all var(--trans-smooth);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.sfx-card:hover {
+  transform: translateY(-8px);
+  background: var(--bg-card-light-hover);
+  box-shadow: 0 30px 60px rgba(0, 153, 168, 0.16);
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.sfx-card-dark {
+  background: var(--bg-card-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: var(--text-light);
+}
+
+.sfx-card-dark:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+}
+
+/* ========================================================================== */
+/* 9. SISTEMA PULSANTI (MAGNETIC, GLOW & NAVIGAZIONE)                        */
+/* ========================================================================== */
+.btn-magnetic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-family: var(--font-sync);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: none;
+  text-decoration: none;
+  transition: all var(--trans-fast);
+  width: 100%;
+  border: 2px solid transparent;
+  text-transform: uppercase;
+}
+
+.btn-gold-glow {
+  background: var(--gold-primary);
+  color: #000;
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+}
+
+.btn-cyan-glow {
+  background: var(--cyan-deep);
+  color: #FFF;
+  box-shadow: 0 10px 25px rgba(0, 153, 168, 0.4);
+}
+
+.btn-dark-glow {
+  background: var(--blue-deep);
+  color: var(--gold-primary);
+  box-shadow: 0 10px 25px rgba(11, 25, 44, 0.4);
+}
+
+.btn-magnetic:hover {
+  transform: scale(1.03);
+  filter: brightness(1.12);
+}
+
+.btn-nav {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-dark);
+  color: var(--text-light);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: none;
+  transition: all var(--trans-fast);
+}
+
+.btn-nav:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+.btn-nav.active {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+/* ========================================================================== */
+/* 10. MODALI A CASCATA (STACKING MODALS & BLUR SYSTEM)                       */
+/* ========================================================================== */
+.landing-wrapper {
+  transition: transform var(--trans-modal), filter var(--trans-modal);
+}
+
+.landing-wrapper.modal-open {
+  transform: scale(0.95);
+  filter: blur(12px) brightness(0.8);
+  pointer-events: none;
+}
+
+.sfx-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--trans-smooth);
+  z-index: 3000;
+  background: rgba(9, 10, 14, 0.72);
+}
+
+.sfx-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sfx-modal-window {
+  background: rgba(17, 20, 28, 0.96);
+  backdrop-filter: blur(28px);
+  border: 1px solid var(--gold-primary);
+  border-radius: 30px;
+  width: 90%;
+  max-width: 1100px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 0;
+  position: relative;
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85);
+  transform: translateY(50px) scale(0.95);
+  transition: transform var(--trans-modal);
+  display: flex;
+  flex-direction: column;
+}
+
+.sfx-modal-overlay.active .sfx-modal-window {
+  transform: translateY(0) scale(1);
+}
+
+.sfx-modal-overlay.stacked-behind .sfx-modal-window {
+  transform: scale(0.92) translateY(-32px);
+  filter: blur(6px) brightness(0.5);
+  pointer-events: none;
+}
+
+.modal-nav-bar {
+  position: sticky;
+  top: 0;
+  background: rgba(17, 20, 28, 0.98);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.2rem 2.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-body {
+  padding: 3rem 2.5rem;
+  color: #FFF;
+  flex: 1;
+}
+
+.modal-btn-nav {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFF;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: none;
+  transition: all var(--trans-fast);
+}
+
+.modal-btn-nav:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+.modal-close-x {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 59, 48, 0.1);
+  border: 1px solid var(--status-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--status-red);
+  font-weight: 800;
+  cursor: none;
+  transition: all var(--trans-fast);
+}
+
+.modal-close-x:hover {
+  background: var(--status-red);
+  color: #FFF;
+  box-shadow: 0 0 15px rgba(255, 59, 48, 0.5);
+}
+
+/* ========================================================================== */
+/* 11. FORM CONTROLS & ELEMENTI DI INPUT                                      */
+/* ========================================================================== */
+.sfx-form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.sfx-input,
+.sfx-textarea,
+.sfx-select {
+  width: 100%;
+  background: #020305;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFF;
+  font-family: var(--font-mont);
+  padding: 12px 14px;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  transition: border-color var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.sfx-input:focus,
+.sfx-textarea:focus,
+.sfx-select:focus {
+  border-color: var(--cyan-neon);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+.sfx-input:disabled,
+.sfx-textarea:disabled,
+.sfx-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ========================================================================== */
+/* 12. TABELLE FORENSI & BADGE DI STATO TELEMETRICI                          */
+/* ========================================================================== */
+.sfx-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.sfx-table th {
+  padding: 12px 14px;
+  text-align: left;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-dark);
+  font-weight: 700;
+}
+
+.sfx-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sfx-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.badge-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.badge-ok {
+  background: rgba(0, 230, 118, 0.1);
+  color: var(--status-green);
+  border: 1px solid var(--status-green);
+}
+
+.badge-warn {
+  background: rgba(255, 191, 0, 0.1);
+  color: var(--status-amber);
+  border: 1px solid var(--status-amber);
+}
+
+.badge-err {
+  background: rgba(255, 59, 48, 0.1);
+  color: var(--status-red);
+  border: 1px solid var(--status-red);
+}
+
+/* ========================================================================== */
+/* 13. SKELETON LOADER & EFFETTI DI CARICAMENTO                              */
+/* ========================================================================== */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ========================================================================== */
+/* 14. ANIMAZIONI KEYFRAMES NATIVE                                            */
+/* ========================================================================== */
+@keyframes floatBg {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(6%, 6%) scale(1.12); }
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+@keyframes skeletonLoading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes borderPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(0, 240, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+}
+
+@keyframes textGlow {
+  from { text-shadow: 0 0 5px var(--cyan-neon); }
+  to { text-shadow: 0 0 15px var(--cyan-neon); }
+}
+
+/* ========================================================================== */
+/* 15. SCROLLBAR PERSONALIZZATA                                              */
+/* ========================================================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+
+/* ========================================================================== */
+/* 16. SCUDO FORENSE & PROTEZIONE STAMPA                                     */
+/* ========================================================================== */
+@media print {
+  body.sfx-forensic-shield {
+    display: none !important;
+  }
+}
+
+.sfx-forensic-shield {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ========================================================================== */
+/* 17. MEDIA QUERIES RESPONSIVE (MOBILE & TABLET BREAKPOINTS)                */
+/* ========================================================================== */
 @media (max-width: 1024px) {
-  .sfx-trittico { grid-template-columns: 1fr; }
-  .sfx-oval-area { border-radius: 30px; padding: 2rem 1.5rem; }
+  .modal-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .sfx-modal-window {
+    width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sfx-top-bar {
+    padding: 0.6rem 1rem;
+    font-size: 0.65rem;
+  }
+  .floating-nav {
+    top: 3rem;
+    right: 1rem;
+  }
+  .btn-hamburger {
+    padding: 8px 18px;
+    font-size: 0.72rem;
+  }
+  .nav-item {
+    font-size: 1.5rem;
+  }
+  .modal-body {
+    padding: 2rem 1.5rem;
+  }
+  .modal-header-title {
+    font-size: 1.6rem;
+  }
+  .modal-nav-bar {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-tags {
+    font-size: 0.72rem;
+    padding: 8px 16px;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+  .btn-magnetic {
+    padding: 14px 20px;
+    font-size: 0.78rem;
+  }
 }
