@@ -1212,3 +1212,208 @@ body {
   .sfx-gold-card-3d { width: 100%; height: 230px; }
   .sfx-tandem-nav-bar { flex-direction: column; align-items: stretch; }
 }
+/* ========================================================================== */
+/* AGGIUNTA MACRO-DECK 04 // COMMUNITY, MEDIA UFFICIALI & DISPACCI NEWSLETTER  */
+/* ========================================================================== */
+
+/* --- GRIGLIA DICONO DI NOI (RECENSIONI VERIFICATE) --- */
+.sfx-feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  margin: 2.5rem 0;
+}
+
+.sfx-feedback-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 24px;
+  padding: 2.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.sfx-feedback-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--cyan-neon);
+  box-shadow: 0 20px 45px rgba(0, 240, 255, 0.15);
+}
+
+.sfx-feedback-quote-mark {
+  font-family: var(--font-sync);
+  font-size: 2.5rem;
+  color: var(--gold-primary);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.sfx-feedback-text {
+  font-size: 0.9rem;
+  color: #CBD5E1;
+  line-height: 1.75;
+  margin-bottom: 1.8rem;
+  font-style: italic;
+}
+
+.sfx-feedback-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.2rem;
+}
+
+.sfx-author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: 2px solid var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sync);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+}
+
+.sfx-author-meta h4 {
+  font-family: var(--font-sync);
+  font-size: 0.85rem;
+  color: #FFF;
+  margin-bottom: 0.2rem;
+}
+
+.sfx-author-meta span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cyan-neon);
+}
+
+/* --- CANALI SOCIAL & PRESIDI MEDIA --- */
+.sfx-media-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin: 2.5rem 0;
+}
+
+.sfx-channel-tile {
+  background: rgba(11, 25, 44, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 1.8rem 1.4rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sfx-channel-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sfx-channel-tile:hover {
+  transform: translateY(-5px);
+  border-color: var(--cyan-neon);
+  box-shadow: 0 15px 35px rgba(0, 240, 255, 0.2);
+}
+
+.sfx-channel-tile:hover::before {
+  opacity: 1;
+}
+
+.sfx-channel-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.sfx-channel-title {
+  font-family: var(--font-sync);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FFF;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+}
+
+.sfx-channel-handle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold-primary);
+}
+
+/* --- BOX DISPACCI DI PRESIDENZA (NEWSLETTER) --- */
+.sfx-newsletter-box {
+  background: linear-gradient(135deg, rgba(11, 25, 44, 0.95), rgba(9, 10, 14, 0.95));
+  border: 2px solid var(--gold-primary);
+  border-radius: 32px;
+  padding: 3.5rem 3rem;
+  margin-top: 3.5rem;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.15);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.sfx-newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.sfx-newsletter-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  color: #FFF;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.sfx-newsletter-field:focus {
+  border-color: var(--cyan-neon);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+.sfx-checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 0.72rem;
+  color: #94A3B8;
+  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+
+.sfx-checkbox-wrapper input[type="checkbox"] {
+  accent-color: var(--gold-primary);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 1024px) {
+  .sfx-feedback-grid { grid-template-columns: 1fr; }
+  .sfx-media-channels-grid { grid-template-columns: repeat(2, 1fr); }
+  .sfx-newsletter-box { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+}
