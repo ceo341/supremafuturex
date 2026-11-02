@@ -888,3 +888,239 @@ async function sfxSubmitNewsletter(event) {
     submitBtn.innerHTML = `<span>RICEVI I DISPACCI DI PRESIDENZA</span><span>➔</span>`;
   }
 }
+/* ----------------------------------------------------------------------------
+ * 16. FUNNEL SCREENING A 3 FASI & CINEMATICA DECK DEAL 3D
+ * ---------------------------------------------------------------------------- */
+let sfxFunnelSelectedTier = "Silver Tier (60 Giorni Live)";
+let sfxFunnelSelectedSlot = "Mattina";
+
+function sfxSelectFunnelTier(cardEl, tierName) {
+  sfxPlayChime('tick');
+  document.querySelectorAll('.sfx-course-choice-card').forEach(c => c.classList.remove('selected'));
+  cardEl.classList.add('selected');
+  sfxFunnelSelectedTier = tierName;
+}
+
+function sfxSelectFunnelSlot(cardEl, slotName) {
+  sfxPlayChime('tick');
+  document.querySelectorAll('.sfx-slot-choice-card').forEach(c => c.classList.remove('selected'));
+  cardEl.classList.add('selected');
+  sfxFunnelSelectedSlot = slotName;
+}
+
+function sfxGoToFunnelStep(stepNum) {
+  sfxPlayChime('chime');
+
+  const nodes = [
+    document.getElementById('funnelNode1'),
+    document.getElementById('funnelNode2'),
+    document.getElementById('funnelNode3')
+  ];
+
+  const phases = [
+    document.getElementById('funnelPhase1'),
+    document.getElementById('funnelPhase2'),
+    document.getElementById('funnelPhase3')
+  ];
+
+  phases.forEach((p, idx) => {
+    if (idx === (stepNum - 1)) p.classList.add('active');
+    else p.classList.remove('active');
+  });
+
+  nodes.forEach((n, idx) => {
+    if (idx < (stepNum - 1)) {
+      n.classList.remove('active');
+      n.classList.add('completed');
+      n.textContent = '✓';
+    } else if (idx === (stepNum - 1)) {
+      n.classList.add('active');
+      n.classList.remove('completed');
+      n.textContent = String(idx + 1).padStart(2, '0');
+    } else {
+      n.classList.remove('active', 'completed');
+      n.textContent = String(idx + 1).padStart(2, '0');
+    }
+  });
+}
+
+async function sfxSubmitScreeningFunnel(e) {
+  e.preventDefault();
+  sfxPlayChime('chime');
+
+  const nome = document.getElementById('funnelNome')?.value.trim();
+  const cognome = document.getElementById('funnelCognome')?.value.trim();
+  const whatsapp = document.getElementById('funnelWhatsapp')?.value.trim();
+  const email = document.getElementById('funnelEmail')?.value.trim();
+  const spunta = document.getElementById('funnelStatutoSpunta')?.checked;
+  const submitBtn = document.getElementById('funnelSubmitBtn');
+
+  if (!spunta) {
+    alert("È obbligatorio accettare lo Statuto Forense per procedere allo screening.");
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `<span>GENERAZIONE DOSSIER IN CORSO...</span>`;
+
+  const payload = {
+    nome: nome,
+    cognome: cognome,
+    whatsapp: whatsapp,
+    email: email,
+    tier: sfxFunnelSelectedTier,
+    slot: sfxFunnelSelectedSlot,
+    note: "Screening richiesto via Funnel 3 Fasi"
+  };
+
+  // Esecuzione chiamata asincrona al backend
+  let responseResult = await sfxSubmitLeadForm(payload);
+
+  // Nascondi le 3 fasi e attiva la scena cinematica Deck Deal 3D
+  document.getElementById('funnelPhase1').style.display = 'none';
+  document.getElementById('funnelPhase2').style.display = 'none';
+  document.getElementById('funnelPhase3').style.display = 'none';
+  
+  const dealStage = document.getElementById('funnelDealStage');
+  dealStage.style.display = 'flex';
+
+  // Popolamento dati sulla scheda Sovrana emessa
+  document.getElementById('dealCandidateName').textContent = `${nome.toUpperCase()} ${cognome.toUpperCase()}`;
+  document.getElementById('dealTier').textContent = sfxFunnelSelectedTier;
+  document.getElementById('dealSlot').textContent = responseResult.scheduled_slot || sfxFunnelSelectedSlot;
+  document.getElementById('dealLeadId').textContent = responseResult.lead_id || "#SFX-LEAD-2026";
+  document.getElementById('dealMeetLink').textContent = responseResult.meet_url || "Inviato su WhatsApp";
+
+  sfxPlayChime('chime');
+}
+
+/* ----------------------------------------------------------------------------
+ * 17. DATABASE INTEGRALE DELLE 50 FAQ FORENSI CERTIFICATE
+ * ---------------------------------------------------------------------------- */
+const sfx50FaqDatabase = [
+  { cat: "DIDATTICA", q: "Qual è la garanzia statutaria sull'erogazione dei corsi?", a: "Tutti i corsi della Suprema Academy sono certificati statutariamente al 100% dal vivo in videoconferenza telematica interattiva. È espressamente vietata la somministrazione di videocorsi pre-registrati passivi." },
+  { cat: "STORE", q: "Come funziona il modello Concessioni Digitali a zero magazzino?", a: "Il titolare gestisce il proprio negozio online autonomo senza anticipo di capitali per merci né gestione di inventario fisico. Confezionamento, logistica e corrieri sono presidiati dal centro logistico SFX." },
+  { cat: "GOVERNANCE", q: "Come si accede al colloquio con il Founder & CEO Giuliano Caratelli?", a: "L'ammissione ai percorsi e alle concessioni richiede il superamento dello screening conoscitivo della durata di 60 minuti via Google Meet direttamente con la Presidenza." },
+  { cat: "GOLDCARD", q: "Cosa rappresenta la Suprema Gold Card metallica?", a: "È il titolo phygital identificativo dello status acquisito, fabbricato in acciaio massiccio dorato con incisione laser del seriale univoco, rilasciato al raggiungimento di 800 Punti Status." },
+  { cat: "DIDATTICA", q: "Quali sono i tre percorsi attivi dell'Academy?", a: "Silver Tier (60 Giorni di basi operative), Executive Master (90 Giorni di automazione e processi complessi) e Premium VIP (120 Giorni con sessioni dirette one-to-one con il CEO)." },
+  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 2.000 Punti?", a: "Dà diritto a 3 Mesi di Conferenze Esecutive Gratuite di aggiornamento con il Founder & CEO Giuliano Caratelli." },
+  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 3.000 Punti?", a: "Garantisce l'invito formale per 2 persone alla prestigiosa Cena Annuale di Gala a Roma Centro." },
+  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 4.500 Punti?", a: "Audit Organizzativo su Misura e 6 Mesi di sessioni strategiche individuali con la Presidenza." },
+  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 6.000 Punti?", a: "Status Sovrano a Vita, un Master completo gratuito a scelta e un intero anno di supervisione diretta del CEO." },
+  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 7.500 Punti?", a: "Weekend Luxury per 2 persone con soggiorno completo in hotel a 5 stelle convenzionato a Roma Centro." },
+  { cat: "STORE", q: "Quanti Punti Status conferisce l'attivazione di uno store?", a: "L'attivazione di ogni Concessione E-Commerce accredita istantaneamente +800 Punti Status sul registro dell'allievo, sbloccando l'ordine della Suprema Gold Card." },
+  { cat: "GOVERNANCE", q: "Cos'è il Dream Defense System?", a: "È il protocollo etico ed esecutivo di presidenza volto a tutelare le risorse, il tempo e la carriera di chi fa formazione o impresa, eliminando promesse illusorie." },
+  { cat: "GOVERNANCE", q: "Chi è l'unico organo decisionale dell'ecosistema?", a: "La direzione strategica, legale, didattica e commerciale fa capo in via esclusiva, inderogabile e personale al Founder & CEO Giuliano Caratelli." },
+  { cat: "GOVERNANCE", q: "Dove si trovano le sedi dell'ecosistema?", a: "La Sede Operativa è presso il Centro Direzionale di Colleferro (Roma), mentre l'Ufficio di Presidenza è in Via della Scrofa, Roma Centro." },
+  { cat: "GOVERNANCE", q: "Cos'è l'Archivio Media Vault 400?", a: "È la banca dati crittografata contenente 400 slot riservati per compendi didattici, contratti e dispense, accessibili solo tramite link temporizzati protetti." },
+  { cat: "GOVERNANCE", q: "Come opera la Flotta Neurale dei 15 Agenti AI?", a: "Ciascun agente AI presidia un dominio deterministico (AG-01 per il triage front-office, AG-10 per le ingestion, AG-12 per la sicurezza sistemica)." },
+  { cat: "GOVERNANCE", q: "Come funziona il Master Fleet Kill-Switch?", a: "È il comando di emergenza riservato al CEO che interrompe istantaneamente le connessioni e i modelli neurali dell'intera flotta in caso di anomalia." },
+  { cat: "GOVERNANCE", q: "Qual è il Foro di competenza giurisdizionale?", a: "Per qualunque controversia legale è stabilita la competenza territoriale esclusiva ed inderogabile del Tribunale di Velletri / Roma." },
+  { cat: "DIDATTICA", q: "Come vengono gestiti i pagamenti dei percorsi?", a: "Tramite circuiti crittografati certificati PCI-DSS Livello 1 (Revolut Pay, SumUp, Stripe) o bonifico SEPA ordinario/istantaneo con causale matricola." },
+  { cat: "GOVERNANCE", q: "Viene rilasciata regolare fattura elettronica?", a: "Sì, a ogni incasso corrisponde l'emissione immediata della fattura elettronica trasmessa tramite Sistema di Interscambio (SDI) a norma di legge." },
+  { cat: "DIDATTICA", q: "Quali requisiti tecnici occorrono per seguire le lezioni?", a: "È richiesta una connessione a banda larga stabile e una postazione audio/video abilitata a Google Meet. È necessaria la presenza attiva dell'allievo." },
+  { cat: "GOLDCARD", q: "Qual è la differenza tra Punti Status e Punti Spendibili?", a: "I Punti Status sono cumulativi a vita e definiscono il rango accademico; i Punti Spendibili rappresentano i crediti convertibili per riscattare i premi del catalogo." },
+  { cat: "GOVERNANCE", q: "Qual è il recapito WhatsApp ufficiale presidenziale?", a: "La linea diretta certificata di coordinamento risponde al recapito +39 347 442 9091." },
+  { cat: "GOVERNANCE", q: "Quali sono i canali Telegram ufficiali autorizzati?", a: "Il Canale Broadcast Istituzionale (@SupremaFutureX_Official) e il bot operativo AG-07 (@SFX_Command_Bot)." },
+  { cat: "GOVERNANCE", q: "Come viene garantita la privacy e il trattamento dati?", a: "In conformità rigorosa al GDPR europeo e allo standard di sicurezza EAL6+. Nessun dato viene commercializzato o condiviso con soggetti terzi." },
+  { cat: "DIDATTICA", q: "Cosa accade durante il colloquio di screening?", a: "È un confronto di 60 minuti via Google Meet per valutare l'attitudine, l'etica e la serietà del candidato prima dell'ammissione formale." },
+  { cat: "GOVERNANCE", q: "Cosa comporta l'inattività prolungata di un allievo?", a: "In caso di 60 giorni consecutivi di inattività senza comunicazione, la posizione viene sospesa e richiede una delibera di riattivazione dalla Presidenza." },
+  { cat: "DIDATTICA", q: "Viene rilasciata una certificazione al termine del percorso?", a: "Sì, al completamento delle lezioni live e al superamento della verifica operativa viene rilasciato un attestato crittografato depositato nel Media Vault." },
+  { cat: "STORE", q: "Per la Concessione Store occorre la partita IVA immediata?", a: "L'avviamento commerciale iniziale prevede un inquadramento agevolato assistito per consentire al concessionario di validare l'operatività." },
+  { cat: "DIDATTICA", q: "Chi conduce le lezioni dell'Executive Master?", a: "Docenti accreditati dell'Academy e il Founder & CEO Giuliano Caratelli per i moduli direzionali e strategici." },
+  { cat: "DIDATTICA", q: "È possibile delegare la partecipazione al colloquio di screening?", a: "No, il colloquio è strettamente personale e non cedibile." },
+  { cat: "DIDATTICA", q: "Quali tematiche di AI vengono affrontate nel Master?", a: "Automazione dei processi operativi, costruzione di flussi di acquisizione e integrazione di agenti neurali per le imprese." },
+  { cat: "GOVERNANCE", q: "Cosa fa il concierge neurale AG-01 Alison?", a: "Fornisce accoglienza, orienta sui temi ufficiali dell'ecosistema e instradata allo screening con il CEO al quinto messaggio." },
+  { cat: "STORE", q: "Come vengono gestite le spedizioni degli ordini nello store?", a: "Il centro logistico SFX riceve l'ordine in tempo reale (T+0), provvede al packaging e affida la spedizione espressa al corriere con tracciamento." },
+  { cat: "GOVERNANCE", q: "Perché i prezzi non sono esposti in prima pagina?", a: "Perché Suprema Future X è un ecosistema di merito: i dettagli economici vengono illustrati all'interno dei sottomenu dedicati o durante lo screening." },
+  { cat: "GOVERNANCE", q: "Come viene tutelata la proprietà intellettuale di Suprema?", a: "Tutti i materiali sono protetti da marchi e brevetti. La violazione del segreto d'impresa comporta la radiazione immediata e l'azione risarcitoria." },
+  { cat: "DIDATTICA", q: "Quali fasce orarie sono disponibili per lo screening?", a: "Sono disponibili tre fasce: Mattina (10:00 - 12:00), Pomeriggio (15:00 - 18:00) e Serale (21:00 - 23:00 CET)." },
+  { cat: "GOLDCARD", q: "La Suprema Gold Card ha un costo di mantenimento?", a: "No, una volta rilasciata per merito (800 Punti Status) la tessera fisica in acciaio dorato resta attiva a tempo indeterminato." },
+  { cat: "GOVERNANCE", q: "Cosa accade dopo l'invio della candidatura?", a: "Il dossier viene archiviato nel CRM protetto e la segreteria provvede a confermare la convocazione Meet via WhatsApp ed email entro 24 ore." },
+  { cat: "GOVERNANCE", q: "Cosa distingue Suprema Future X nel mercato attuale?", a: "Il rifiuto radicale della didattica asincrona registrata, l'impegno diretto del CEO in aula e le concessioni senza magazzino." },
+  { cat: "DIDATTICA", q: "Posso registrare le sessioni live dell'Academy?", a: "Per ragioni di riservatezza e protezione dei compendi, la registrazione non autorizzata è vietata; gli allievi ricevono dispense ufficiali." },
+  { cat: "STORE", q: "Cosa accade se un cliente finale richiede un reso sullo store?", a: "La procedura di reso e sostituzione è interamente presa in carico dal nodo logistico centralizzato SFX, sollevando il concessionario." },
+  { cat: "GOLDCARD", q: "Come si accumulano ulteriori Punti Status?", a: "Completando con successo i percorsi formativi, avviando concessioni commerciali e partecipando alle iniziative di governance." },
+  { cat: "DIDATTICA", q: "È previsto un numero chiuso per le classi live?", a: "Sì, ogni sessione didattica accoglie un numero ristretto di allievi per garantire la massima interazione diretta con il docente." },
+  { cat: "GOVERNANCE", q: "Cosa sono i Dispacci di Presidenza?", a: "Sono le circolari esecutive riservate inviate quindicinalmente via email dal CEO Giuliano Caratelli con analisi strategiche." },
+  { cat: "STORE", q: "Il concessionario può personalizzare il proprio store?", a: "Sì, la piattaforma consente la configurazione dell'identità visiva nel rispetto delle linee guida dell'ecosistema." },
+  { cat: "GOLDCARD", q: "Come si riceve fisicamente la Suprema Gold Card?", a: "Viene recapitata tramite corriere blindato o consegnata personalmente dalla Presidenza in occasione degli eventi istituzionali." },
+  { cat: "DIDATTICA", q: "Posso passare da Silver Tier a Executive Master?", a: "Sì, l'allievo che dimostri idoneità può richiedere l'upgrade di livello previo colloquio di allineamento con la Presidenza." },
+  { cat: "GOVERNANCE", q: "Come posso contattare la segreteria in caso di urgenza?", a: "Tramite la casella segreteria@supremafuturex.it o via WhatsApp al recapito ufficiale +39 347 442 9091." },
+  { cat: "GOVERNANCE", q: "Cosa sancisce lo Statuto Forense di Suprema Future X?", a: "Definisce in 14 articoli inderogabili le regole di governance, la tutela della didattica dal vivo e la trasparenza contrattuale dell'ecosistema." }
+];
+
+/* ----------------------------------------------------------------------------
+ * 18. RENDERING ACCORDION & FILTRO RICERCA IN TEMPO REALE
+ * ---------------------------------------------------------------------------- */
+let sfxCurrentFaqCategory = 'ALL';
+
+function sfxRenderFaqs() {
+  const container = document.getElementById('sfxFaqAccordionList');
+  if (!container) return;
+
+  const searchQuery = (document.getElementById('sfxFaqSearchInput')?.value || '').toLowerCase().trim();
+
+  container.innerHTML = '';
+
+  const filtered = sfx50FaqDatabase.filter(item => {
+    const matchesCategory = (sfxCurrentFaqCategory === 'ALL' || item.cat === sfxCurrentFaqCategory);
+    const matchesSearch = item.q.toLowerCase().includes(searchQuery) || item.a.toLowerCase().includes(searchQuery);
+    return matchesCategory && matchesSearch;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center; padding:2rem; font-family:var(--font-mono); color:#94A3B8;">
+        Nessun quesito corrispondente ai criteri di ricerca impostati.
+      </div>
+    `;
+    return;
+  }
+
+  filtered.forEach((item, index) => {
+    const faqItemEl = document.createElement('div');
+    faqItemEl.className = 'sfx-faq-item';
+    faqItemEl.innerHTML = `
+      <div class="sfx-faq-header" onclick="sfxToggleFaqItem(this.parentElement)">
+        <span class="sfx-faq-question-text">${item.q}</span>
+        <span class="sfx-faq-toggle-icon">+</span>
+      </div>
+      <div class="sfx-faq-body">
+        ${item.a}
+      </div>
+    `;
+    container.appendChild(faqItemEl);
+  });
+}
+
+function sfxToggleFaqItem(faqItemEl) {
+  sfxPlayChime('tick');
+  const isOpen = faqItemEl.classList.contains('open');
+  
+  // Chiudi tutti gli altri elementi per pulizia visiva
+  document.querySelectorAll('.sfx-faq-item').forEach(el => el.classList.remove('open'));
+
+  if (!isOpen) {
+    faqItemEl.classList.add('open');
+  }
+}
+
+function sfxFilterFaqsLive() {
+  sfxRenderFaqs();
+}
+
+function sfxSetFaqCategory(catKey, btnEl) {
+  sfxPlayChime('tick');
+  sfxCurrentFaqCategory = catKey;
+  
+  document.querySelectorAll('.sfx-faq-pill').forEach(b => b.classList.remove('active'));
+  btnEl.classList.add('active');
+
+  sfxRenderFaqs();
+}
+
+// Inizializzazione automatica delle FAQ al caricamento
+document.addEventListener('DOMContentLoaded', () => {
+  sfxRenderFaqs();
+});
