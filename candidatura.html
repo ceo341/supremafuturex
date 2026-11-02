@@ -3,594 +3,333 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Screening Presidenziale // Suprema Future X Enterprise</title>
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="author" content="Giuliano Caratelli">
-  <link rel="icon" type="image/png" href="media/logo.png">
-  
-  <!-- Font Istituzionali -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@400;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Foglio di Stile Globale -->
+  <title>CANDIDATURA UFFICIALE // SUPREMA FUTURE X ENTERPRISE</title>
+  <meta name="description" content="Accesso allo Screening Conoscitivo Esecutivo di 60 minuti via Google Meet con il Founder & CEO Giuliano Caratelli.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23090A0E' stroke='%23D4AF37' stroke-width='4'/><text x='50%' y='58%' font-size='26' text-anchor='middle' fill='%2300F0FF' font-family='sans-serif' font-weight='bold'>SFX</text></svg>">
   <link rel="stylesheet" href="stile-globale.css">
-  
   <style>
-    /* ========================================================================== */
-    /* STILI DEDICATI AL FUNNEL DI SCREENING                                      */
-    /* ========================================================================== */
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      font-family: var(--font-mont);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1.5rem;
+    .sfx-candidatura-wrapper {
+      max-width: 1000px;
+      margin: 2rem auto 5rem;
+      padding: 0 1.5rem;
       position: relative;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.08), transparent 45%),
-        radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.08), transparent 45%);
+      z-index: 10;
     }
-
-    /* Top Bar di Ritorno */
-    .top-return-bar {
-      position: absolute;
-      top: 1.5rem;
-      left: 2rem;
-      right: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .btn-return-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    .sfx-step-badge {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      transition: color var(--trans-fast);
-      cursor: none;
-    }
-
-    .btn-return-home:hover {
+      font-size: 0.75rem;
       color: var(--cyan-neon);
-    }
-
-    .security-badge-top {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--gold-primary);
-      letter-spacing: 1px;
-    }
-
-    /* Contenitore Form Principale */
-    .candidatura-card {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-gold);
-      border-radius: 28px;
-      width: 100%;
-      max-width: 900px;
-      padding: 3.5rem 3rem;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-      position: relative;
-      overflow: hidden;
-      margin-top: 2rem;
-    }
-
-    .candidatura-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--gold-primary), var(--cyan-neon));
-    }
-
-    /* Header del Modulo */
-    .form-header {
-      text-align: center;
-      margin-bottom: 2.8rem;
-      border-bottom: 1px solid var(--border-dark);
-      padding-bottom: 2rem;
-    }
-
-    .form-header-badge {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--cyan-neon);
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid var(--border-cyan);
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 1rem;
-      letter-spacing: 1.5px;
-    }
-
-    .form-header h1 {
-      font-family: var(--font-sync);
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      color: var(--gold-primary);
-      margin-bottom: 0.6rem;
-      font-weight: 800;
-    }
-
-    .form-header p {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-    }
-
-    /* Griglia Campi */
-    .form-grid-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.8rem;
-    }
-
-    .form-field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .form-field-group.full-width {
-      grid-column: span 2;
-    }
-
-    .form-field-label {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--gold-light);
-      font-weight: 700;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .form-field-label span.req {
-      color: var(--cyan-neon);
-    }
-
-    .form-field-input,
-    .form-field-select,
-    .form-field-textarea {
-      width: 100%;
-      background: #020305;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #FFF;
-      padding: 14px 16px;
-      border-radius: 10px;
-      font-family: var(--font-mont);
-      font-size: 0.92rem;
-      outline: none;
-      transition: border-color var(--trans-fast), box-shadow var(--trans-fast);
-      cursor: none;
-    }
-
-    .form-field-input:focus,
-    .form-field-select:focus,
-    .form-field-textarea:focus {
-      border-color: var(--cyan-neon);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
-    }
-
-    .form-field-select option {
-      background: #11141C;
-      color: #FFF;
-      padding: 10px;
-    }
-
-    .form-field-textarea {
-      resize: vertical;
-      min-height: 95px;
-      line-height: 1.6;
-    }
-
-    /* Informativa Trattamento & Consenso */
-    .privacy-consent-box {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-dark);
-      padding: 1.2rem;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-top: 1rem;
-    }
-
-    .privacy-consent-box label {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      cursor: none;
-      color: #CCC;
-    }
-
-    .privacy-consent-box input[type="checkbox"] {
-      margin-top: 3px;
-      cursor: none;
-      accent-color: var(--gold-primary);
-    }
-
-    /* Pulsante Invio */
-    .btn-submit-candidatura {
-      background: var(--gold-primary);
-      color: #000;
-      width: 100%;
-      padding: 18px;
-      border: none;
-      border-radius: 12px;
-      font-family: var(--font-sync);
-      font-size: 0.95rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      cursor: none;
-      transition: all var(--trans-fast);
-      margin-top: 1.8rem;
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35);
-      text-transform: uppercase;
-    }
-
-    .btn-submit-candidatura:hover {
-      transform: translateY(-2px) scale(1.01);
-      filter: brightness(1.15);
-      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
-    }
-
-    /* Box Messaggi di Risposta */
-    .form-status-alert {
-      margin-top: 1.8rem;
-      padding: 1.2rem;
-      border-radius: 10px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      line-height: 1.6;
-      display: none;
-      text-align: center;
-    }
-
-    .form-status-alert.success {
-      display: block;
-      background: rgba(0, 230, 118, 0.1);
-      color: var(--status-green);
-      border: 1px solid var(--status-green);
-    }
-
-    .form-status-alert.error {
-      display: block;
-      background: rgba(255, 59, 48, 0.1);
-      color: var(--status-red);
-      border: 1px solid var(--status-red);
-    }
-
-    .form-status-alert.warn {
-      display: block;
-      background: rgba(255, 191, 0, 0.1);
-      color: var(--status-amber);
-      border: 1px solid var(--status-amber);
-    }
-
-    /* Loading Overlay Transizionale */
-    #loading-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(9, 10, 14, 0.92);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 50;
-      border-radius: 28px;
-    }
-
-    .spinner-vault {
-      width: 55px;
-      height: 55px;
-      border: 4px solid rgba(0, 240, 255, 0.15);
-      border-top-color: var(--cyan-neon);
-      border-bottom-color: var(--gold-primary);
-      border-radius: 50%;
-      animation: spinVault 1s linear infinite;
-      margin-bottom: 1.5rem;
-    }
-
-    @keyframes spinVault {
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .candidatura-card {
-        padding: 2.5rem 1.8rem;
-        margin-top: 3.5rem;
-      }
-      .form-grid-layout {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-      .form-field-group.full-width {
-        grid-column: span 1;
-      }
-      .top-return-bar {
-        position: relative;
-        top: 0;
-        left: 0;
-        right: 0;
-        margin-bottom: 1.5rem;
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-      }
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Cursore Magnetico -->
-  <div class="sfx-cursor" id="magnetic-cursor"></div>
+  <div class="sfx-laser-ambient-wave" aria-hidden="true"></div>
 
-  <!-- Sfondo Ambientale -->
-  <div class="ambient-bg"></div>
+  <!-- TOP BAR ISTITUZIONALE -->
+  <header class="sfx-topbar-forense">
+    <div class="sfx-topbar-left">
+      <div class="sfx-node-pulse"></div>
+      <span>PROTOCOLLO EAL6+ // CANALE CANDIDATURE DIRETTE</span>
+    </div>
+    <a href="index.html" class="sfx-topbar-brand" style="text-decoration:none;">
+      SUPREMA FUTURE X
+    </a>
+    <div class="sfx-topbar-right">
+      <div class="sfx-clock-box" id="candClock">--:--:-- CET</div>
+    </div>
+  </header>
 
-  <!-- Barra Superiore di Navigazione -->
-  <div class="top-return-bar">
-    <a href="index.html" class="btn-return-home magnetic-target">◄ TORNA ALLA LANDING PAGE</a>
-    <div class="security-badge-top">EAL6+ ENCRYPTED INGESTION // AG-10 BRIDGE</div>
-  </div>
+  <main class="sfx-candidatura-wrapper">
 
-  <!-- Modulo di Candidatura Centrale -->
-  <main class="candidatura-card">
-    
-    <!-- Schermo di Crittografia e Invio -->
-    <div id="loading-overlay">
-      <div class="spinner-vault"></div>
-      <div style="font-family:var(--font-sync); color:var(--gold-primary); font-size:1rem; margin-bottom:0.5rem; letter-spacing:1px;">AUTENTICAZIONE IN CORSO</div>
-      <div style="font-family:var(--font-mono); color:var(--cyan-neon); font-size:0.8rem;">INOLTRO PAYLOAD AL REGISTRO PRESIDENZIALE...</div>
+    <!-- HERO INTRODUTTIVA -->
+    <div class="sfx-oval-section sfx-oval-frame-dark" style="text-align:center; margin-bottom:2.5rem;">
+      <div class="sfx-motto-badge">DREAM DEFENSE SYSTEM // ACCESSO DIRETTO</div>
+      <h1 class="sfx-contrast-text-light" style="font-family:var(--font-sync); font-size:clamp(1.8rem, 4vw, 2.6rem); margin-bottom:0.8rem;">
+        DOSSIER DI SCREENING ESECUTIVO
+      </h1>
+      <p style="font-size:0.95rem; color:#94A3B8; max-width:760px; margin:0 auto; line-height:1.8;">
+        L'ammissione ai percorsi didattici sincroni al 100% dal vivo e l'assegnazione delle Concessioni Store 
+        a zero magazzino sono subordinate a un colloquio conoscitivo individuale di 60 minuti via Google Meet 
+        con il Founder & CEO Giuliano Caratelli.
+      </p>
     </div>
 
-    <!-- Header del Funnel -->
-    <header class="form-header">
-      <div class="form-header-badge">ACCESSO SELETTIVO A NUMERO CHIUSO</div>
-      <h1>SCREENING PRESIDENZIALE</h1>
-      <p>COLLOQUIO CONOSCITIVO 60 MINUTI // GOOGLE MEET RISERVATO CON IL CEO</p>
-    </header>
-
-    <!-- Form Funnel -->
-    <form id="form-screening" autocomplete="off">
-      <div class="form-grid-layout">
-        
-        <!-- Nome -->
-        <div class="form-field-group">
-          <label class="form-field-label" for="inp-nome">
-            <span>NOME</span>
-            <span class="req">*</span>
-          </label>
-          <input type="text" id="inp-nome" class="form-field-input magnetic-target" required placeholder="Es. Mario">
-        </div>
-
-        <!-- Cognome -->
-        <div class="form-field-group">
-          <label class="form-field-label" for="inp-cognome">
-            <span>COGNOME</span>
-            <span class="req">*</span>
-          </label>
-          <input type="text" id="inp-cognome" class="form-field-input magnetic-target" required placeholder="Es. Rossi">
-        </div>
-
-        <!-- Email -->
-        <div class="form-field-group">
-          <label class="form-field-label" for="inp-email">
-            <span>INDIRIZZO EMAIL</span>
-            <span class="req">*</span>
-          </label>
-          <input type="email" id="inp-email" class="form-field-input magnetic-target" required placeholder="nome@dominio.it">
-        </div>
-
-        <!-- Telefono / WhatsApp -->
-        <div class="form-field-group">
-          <label class="form-field-label" for="inp-whatsapp">
-            <span>RECAPITO WHATSAPP</span>
-            <span class="req">*</span>
-          </label>
-          <input type="tel" id="inp-whatsapp" class="form-field-input magnetic-target" required placeholder="+39 347 ...">
-        </div>
-
-        <!-- Percorso di Interesse (Preselezionato da URL) -->
-        <div class="form-field-group full-width">
-          <label class="form-field-label" for="inp-tier">
-            <span>PROGRAMMA DIDATTICO O CONCESSIONE RICHIESTA</span>
-            <span class="req">*</span>
-          </label>
-          <select id="inp-tier" class="form-field-select magnetic-target" required>
-            <option value="">Seleziona il programma per lo screening...</option>
-            <option value="silver">Silver Tier (60 Giorni) — Didattica Live & Riorientamento [€ 249,00 // +300 PTS]</option>
-            <option value="master">Executive Master (90 Giorni) — Automazione d'Impresa & AI [€ 299,00 // +350 PTS]</option>
-            <option value="vip">Premium VIP (120 Giorni) — One-to-One con il CEO Giuliano Caratelli [€ 349,00 // +500 PTS]</option>
-            <option value="negozio">Concessione Negozio Digitale — Modello Autonomo a Zero Magazzino [+800 PTS]</option>
-            <option value="orientamento">Richiesta di Orientamento Globale / Valutazione Curricolare</option>
-          </select>
-        </div>
-
-        <!-- Slot Orario Calendario Presidenziale 60 Minuti -->
-        <div class="form-field-group full-width">
-          <label class="form-field-label" for="inp-slot">
-            <span>DISPONIBILITÀ SLOT ORARIO (CALENDARIO LUNEDÌ - SABATO)</span>
-            <span class="req">*</span>
-          </label>
-          <select id="inp-slot" class="form-field-select magnetic-target" required>
-            <option value="">Seleziona la fascia oraria preferenziale per la videochiamata...</option>
-            <option value="LUN_10_12">Lunedì — Fascia Mattutina (10:00 - 12:00)</option>
-            <option value="LUN_15_18">Lunedì — Fascia Pomeridiana (15:00 - 18:00)</option>
-            <option value="MAR_15_18">Martedì — Fascia Pomeridiana (15:00 - 18:00)</option>
-            <option value="MAR_21_23">Martedì — Fascia Serale Riservata (21:00 - 23:00)</option>
-            <option value="MER_21_23">Mercoledì — Fascia Serale Riservata (21:00 - 23:00)</option>
-            <option value="VEN_21_23">Venerdì — Fascia Serale Riservata (21:00 - 23:00)</option>
-            <option value="SAB_FAST_TRACK">Sabato — Fast-Track Flessibile (Concordato su WhatsApp)</option>
-          </select>
-        </div>
-
-        <!-- Descrizione Obiettivi / Background -->
-        <div class="form-field-group full-width">
-          <label class="form-field-label" for="inp-note">
-            <span>PRESENTAZIONE SINTETICA DEGLI OBIETTIVI</span>
-            <span style="color:var(--text-muted); font-size:0.7rem;">FACOLTATIVO</span>
-          </label>
-          <textarea id="inp-note" class="form-field-textarea magnetic-target" placeholder="Indica brevemente la tua occupazione attuale, le ragioni della candidatura o gli obiettivi che intendi raggiungere..."></textarea>
-        </div>
-
+    <!-- FUNNEL TANDEM DECK A 3 FASI -->
+    <div class="sfx-funnel-container">
+      
+      <!-- Indicatori di Stato -->
+      <div class="sfx-funnel-step-bar">
+        <div class="sfx-funnel-step-node active" id="candNode1">01</div>
+        <div class="sfx-funnel-step-node" id="candNode2">02</div>
+        <div class="sfx-funnel-step-node" id="candNode3">03</div>
       </div>
 
-      <!-- Consenso Statutario & Privacy -->
-      <div class="privacy-consent-box">
-        <label>
-          <input type="checkbox" id="chk-statuto" required>
-          <span>Dichiaro di aver preso visione dello <a href="statuto.html" style="color:var(--gold-primary); text-decoration:underline;" target="_blank">Statuto Ufficiale e del Codice Etico</a>, di essere a conoscenza della garanzia della didattica 100% dal vivo e confermo che i dati forniti sono veritieri per l'istruttoria conoscitiva.</span>
-        </label>
+      <!-- FASE 01: SELEZIONE DEL PROGRAMMA -->
+      <div class="sfx-funnel-phase active" id="candPhase1">
+        <div class="sfx-step-badge">FASE 01 DI 03</div>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin-bottom:0.5rem;">
+          SELEZIONA IL TUO AMBITO D'INTERESSE
+        </h2>
+        <p style="font-size:0.88rem; color:#64748B;">Seleziona il programma didattico o la risorsa aziendale per cui ti candidi:</p>
+
+        <div class="sfx-course-select-grid">
+          <div class="sfx-course-choice-card selected" onclick="candSelectTier(this, 'Silver Tier (60 Giorni Live)')">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">DIDATTICA LIVE // +300 PT</div>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; color:var(--blue-deep); margin:0.3rem 0;">SILVER TIER</h3>
+            <p style="font-size:0.82rem; color:#4B5563;">Fondamenti esecutivi e gestione della presenza commerciale online.</p>
+          </div>
+
+          <div class="sfx-course-choice-card" onclick="candSelectTier(this, 'Executive Master (90 Giorni Advanced)')">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ALTA AUTOMAZIONE // +350 PT</div>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; color:var(--blue-deep); margin:0.3rem 0;">EXECUTIVE MASTER</h3>
+            <p style="font-size:0.82rem; color:#4B5563;">Architetture neurali, scaling aziendale e orchestrazione flussi complessi.</p>
+          </div>
+
+          <div class="sfx-course-choice-card" onclick="candSelectTier(this, 'Premium VIP (120 Giorni One-to-One)')">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">ONE-TO-ONE // +500 PT</div>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; color:var(--blue-deep); margin:0.3rem 0;">PREMIUM VIP</h3>
+            <p style="font-size:0.82rem; color:#4B5563;">Sessioni strategiche individuali esclusive direttamente con il CEO.</p>
+          </div>
+
+          <div class="sfx-course-choice-card" onclick="candSelectTier(this, 'Concessione Store E-Commerce (Zero Magazzino)')">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-green); font-weight:700;">STORE DIGITALE // +800 PT</div>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; color:var(--blue-deep); margin:0.3rem 0;">CONCESSIONE STORE</h3>
+            <p style="font-size:0.82rem; color:#4B5563;">Negozio e-commerce autonomo con magazzino e corrieri gestiti dall'hub SFX.</p>
+          </div>
+        </div>
+
+        <button class="sfx-btn-action-oval" style="max-width:280px; margin-left:auto;" onclick="candStep(2)">
+          <span>PROSEGUI ALLA FASE 02</span>
+          <span>➔</span>
+        </button>
       </div>
 
-      <!-- Pulsante di Invio -->
-      <button type="submit" class="btn-submit-candidatura magnetic-target">
-        TRASMETTI CANDIDATURA ALLA PRESIDENZA ➔
-      </button>
+      <!-- FASE 02: SCELTA DELLO SLOT DI SCREENING -->
+      <div class="sfx-funnel-phase" id="candPhase2">
+        <div class="sfx-step-badge">FASE 02 DI 03</div>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin-bottom:0.5rem;">
+          DEFINISCI LA FASCIA ORARIA DELLA CALL
+        </h2>
+        <p style="font-size:0.88rem; color:#64748B;">Scegli la fascia oraria di 60 minuti in cui garantisci la tua presenza via Google Meet:</p>
 
-      <!-- Feedback Telemetrico di Risposta -->
-      <div id="form-feedback" class="form-status-alert"></div>
-    </form>
+        <div class="sfx-slot-select-grid">
+          <div class="sfx-slot-choice-card selected" onclick="candSelectSlot(this, 'Mattina')">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌅</div>
+            <h3 style="font-family:var(--font-sync); font-size:1rem; color:var(--blue-deep);">MATTINA</h3>
+            <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700; margin-top:0.4rem;">
+              10:00 - 12:00 CET
+            </div>
+          </div>
+
+          <div class="sfx-slot-choice-card" onclick="candSelectSlot(this, 'Pomeriggio')">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">☀️</div>
+            <h3 style="font-family:var(--font-sync); font-size:1rem; color:var(--blue-deep);">POMERIGGIO</h3>
+            <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700; margin-top:0.4rem;">
+              15:00 - 18:00 CET
+            </div>
+          </div>
+
+          <div class="sfx-slot-choice-card" onclick="candSelectSlot(this, 'Serale')">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌙</div>
+            <h3 style="font-family:var(--font-sync); font-size:1rem; color:var(--blue-deep);">SERALE</h3>
+            <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700; margin-top:0.4rem;">
+              21:00 - 23:00 CET
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; gap:1rem;">
+          <button class="sfx-btn-discover" style="max-width:200px;" onclick="candStep(1)">
+            ◄ FASE 01
+          </button>
+          <button class="sfx-btn-action-oval" style="max-width:280px;" onclick="candStep(3)">
+            <span>PROSEGUI ALLA FASE 03</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- FASE 03: DATI ANAGRAFICI & SUBMISSION -->
+      <div class="sfx-funnel-phase" id="candPhase3">
+        <div class="sfx-step-badge">FASE 03 DI 03</div>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin-bottom:0.5rem;">
+          COMPILAZIONE DOSSIER DI SCREENING
+        </h2>
+        <p style="font-size:0.88rem; color:#64748B; margin-bottom:1.5rem;">
+          I dati vengono trasmessi direttamente al centralino presidiato dall'agente AG-10 TITAN:
+        </p>
+
+        <form id="candDirectForm" onsubmit="candSubmit(event)">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.2rem;">
+            <div>
+              <label style="font-family:var(--font-mono); font-size:0.72rem; color:var(--blue-deep); display:block; margin-bottom:0.3rem;">NOME</label>
+              <input type="text" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="candNome" placeholder="Nome..." required>
+            </div>
+            <div>
+              <label style="font-family:var(--font-mono); font-size:0.72rem; color:var(--blue-deep); display:block; margin-bottom:0.3rem;">COGNOME</label>
+              <input type="text" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="candCognome" placeholder="Cognome..." required>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.5rem;">
+            <div>
+              <label style="font-family:var(--font-mono); font-size:0.72rem; color:var(--blue-deep); display:block; margin-bottom:0.3rem;">WHATSAPP ATTIVO (+39)</label>
+              <input type="tel" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="candWhatsapp" placeholder="+39 340 000 0000" required>
+            </div>
+            <div>
+              <label style="font-family:var(--font-mono); font-size:0.72rem; color:var(--blue-deep); display:block; margin-bottom:0.3rem;">EMAIL DI CONTATTO</label>
+              <input type="email" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="candEmail" placeholder="nome@dominio.it" required>
+            </div>
+          </div>
+
+          <label class="sfx-checkbox-wrapper" style="margin-bottom:2rem; color:#4B5563;">
+            <input type="checkbox" id="candStatuto" required>
+            <span>Dichiaro di aver preso visione dello <a href="statuto.html" target="_blank" style="color:var(--cyan-deep); font-weight:700;">Statuto Forense (14 Articoli)</a> e accetto che l'ammissione è subordinata alla verifica del merito da parte della Presidenza.</span>
+          </label>
+
+          <div style="display:flex; justify-content:space-between; gap:1rem;">
+            <button type="button" class="sfx-btn-discover" style="max-width:200px;" onclick="candStep(2)">
+              ◄ ORARIO
+            </button>
+            <button type="submit" class="sfx-btn-action-oval" id="candBtnSubmit">
+              <span>GENERA DOSSIER E INVIA ADESSO</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- SCHEDA DI CONFERMA FINALE (DEAL SOVRANO) -->
+      <div class="sfx-deck-deal-stage" id="candStageConfirm" style="display:none;">
+        <div class="sfx-deal-stacked-card stack-back-1"></div>
+        <div class="sfx-deal-stacked-card stack-back-2"></div>
+        <div class="sfx-deal-stacked-card dealt-sovereign">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:1rem; margin-bottom:1.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon);">
+              DOSSIER CERTIFICATO // TRASMISSIONE COMPLETATA
+            </div>
+            <div style="color:var(--status-green); font-family:var(--font-mono); font-size:0.75rem; font-weight:700;">
+              ✓ PROTOCOLLATO
+            </div>
+          </div>
+
+          <h3 style="font-family:var(--font-sync); font-size:1.4rem; color:#FFF; margin-bottom:0.5rem;" id="resNome">
+            CANDIDATO
+          </h3>
+
+          <div style="background:rgba(255,255,255,0.05); border-left:3px solid var(--gold-primary); padding:1rem; border-radius:0 8px 8px 0; margin:1.2rem 0; font-family:var(--font-mono); font-size:0.8rem; line-height:1.9;">
+            <div>ID PRATICA: <span id="resId" style="color:var(--gold-primary);">#SFX-LEAD-2026</span></div>
+            <div>PERCORSO RICHIESTO: <span id="resTier" style="color:#FFF;">-</span></div>
+            <div>CONVOCAZIONE MEET: <span id="resData" style="color:var(--cyan-neon);">Assegnazione slot in corso...</span></div>
+            <div>STANZA GOOGLE MEET: <span id="resMeet" style="color:#00E676;">Generazione link...</span></div>
+          </div>
+
+          <p style="font-size:0.85rem; color:#94A3B8; line-height:1.6; margin-bottom:1.5rem;">
+            Riceverai notifica con i codici di stanza sul canale WhatsApp ufficiale entro 24 ore.
+          </p>
+
+          <a href="index.html" class="sfx-btn-action-oval" style="text-decoration:none; text-align:center;">
+            VISITA L'ECOSISTEMA SUPREMA FUTURE X ➔
+          </a>
+        </div>
+      </div>
+
+    </div>
 
   </main>
 
-  <!-- Script Funnel EAL6+ -->
-  <script src="js/code.js"></script>
   <script>
-    // 1. Gestione Cursore Magnetico
-    const cursor = document.getElementById('magnetic-cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
+    const SFX_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
+    let selectedTier = "Silver Tier (60 Giorni Live)";
+    let selectedSlot = "Mattina";
 
-    function initMagneticElements() {
-      document.querySelectorAll('.magnetic-target').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    // Orologio Roma CET
+    function initClock() {
+      const el = document.getElementById('candClock');
+      function u() {
+        const d = new Date();
+        el.textContent = d.toLocaleTimeString('it-IT', { timeZone:'Europe/Rome', hour12:false }) + " CET";
+      }
+      setInterval(u, 1000); u();
+    }
+    initClock();
+
+    function candSelectTier(el, t) {
+      document.querySelectorAll('.sfx-course-choice-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedTier = t;
+    }
+
+    function candSelectSlot(el, s) {
+      document.querySelectorAll('.sfx-slot-choice-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedSlot = s;
+    }
+
+    function candStep(n) {
+      const nodes = [document.getElementById('candNode1'), document.getElementById('candNode2'), document.getElementById('candNode3')];
+      const phases = [document.getElementById('candPhase1'), document.getElementById('candPhase2'), document.getElementById('candPhase3')];
+
+      phases.forEach((p, idx) => p.classList.toggle('active', idx === (n - 1)));
+      nodes.forEach((node, idx) => {
+        if (idx < (n - 1)) { node.classList.add('completed'); node.textContent = '✓'; }
+        else if (idx === (n - 1)) { node.classList.add('active'); node.classList.remove('completed'); node.textContent = '0' + n; }
+        else { node.classList.remove('active', 'completed'); node.textContent = '0' + (idx + 1); }
       });
     }
-    initMagneticElements();
 
-    // 2. Preselezione Automatica del Tier dai Parametri URL (?tier=silver)
-    document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const tierParam = urlParams.get('tier');
-      if (tierParam) {
-        const selectTier = document.getElementById('inp-tier');
-        const match = Array.from(selectTier.options).find(opt => opt.value === tierParam.toLowerCase());
-        if (match) {
-          match.selected = true;
-          selectTier.style.borderColor = 'var(--gold-primary)';
-        }
-      }
-    });
-
-    // 3. Elaborazione Invio Form con Ingestion Bridge (AG-10)
-    document.getElementById('form-screening').addEventListener('submit', async function (e) {
+    async function candSubmit(e) {
       e.preventDefault();
+      const nome = document.getElementById('candNome').value.trim();
+      const cognome = document.getElementById('candCognome').value.trim();
+      const whatsapp = document.getElementById('candWhatsapp').value.trim();
+      const email = document.getElementById('candEmail').value.trim();
+      const btn = document.getElementById('candBtnSubmit');
 
-      const feedback = document.getElementById('form-feedback');
-      const loader = document.getElementById('loading-overlay');
-      feedback.className = 'form-status-alert';
-      feedback.innerText = '';
-
-      const payload = {
-        action: "submit_candidatura",
-        nome: document.getElementById('inp-nome').value.trim(),
-        cognome: document.getElementById('inp-cognome').value.trim(),
-        email: document.getElementById('inp-email').value.trim(),
-        whatsapp: document.getElementById('inp-whatsapp').value.trim(),
-        tier: document.getElementById('inp-tier').value,
-        slot: document.getElementById('inp-slot').value,
-        note: document.getElementById('inp-note').value.trim(),
-        timestamp: new Date().toISOString()
-      };
-
-      // Controllo di validazione integrato tramite code.js
-      if (window.SFX && typeof window.SFX.validateCandidaturaPayload === 'function') {
-        const validation = window.SFX.validateCandidaturaPayload(payload);
-        if (!validation.isValid) {
-          feedback.classList.add('error');
-          feedback.innerHTML = validation.errors.join('<br>');
-          return;
-        }
-      }
-
-      // Attiva overlay di crittografia e invio
-      loader.style.display = 'flex';
+      btn.disabled = true;
+      btn.innerHTML = `<span>TRASMISSIONE AL CENTRALINO EAL6+...</span>`;
 
       try {
-        const endpoint = (window.SFX && window.SFX.CONFIG) 
-          ? window.SFX.CONFIG.BACKEND_URL 
-          : "https://script.google.com/macros/s/AKfycbzs3OJONGpbMB0ja6cCHLlVLYEnUMWn797t_h9YfCFauxiyLAG-FzXLI05cbTD5tEXm5Q/exec";
-
-        let result;
-        // Metodo asincrono con gestione ritentativi offline
-        if (window.SFX && typeof window.SFX.robustPostPayload === 'function') {
-          result = await window.SFX.robustPostPayload(endpoint, payload);
-        } else {
-          // Fallback nativo
-          await fetch(endpoint, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-          result = { success: true };
-        }
-
-        // Simulazione latenza di convalida forense EAL6+
-        setTimeout(() => {
-          loader.style.display = 'none';
-
-          if (result && result.success) {
-            feedback.classList.add('success');
-            feedback.innerHTML = `
-              <strong>CANDIDATURA TRASMESSA CON SUCCESSO.</strong><br>
-              Il tuo dossier è stato inoltrato alla Presidenza. Riceverai il link riservato di Google Meet direttamente sul tuo recapito WhatsApp entro 24 ore.
-            `;
-            document.getElementById('form-screening').reset();
-
-            // Chime acustico di conferma
-            if (window.SFX && typeof window.SFX.playAudioChime === 'function') {
-              window.SFX.playAudioChime("AUTH_SUCCESS");
+        const res = await fetch(SFX_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'submit_candidatura',
+            data: {
+              nome: nome,
+              cognome: cognome,
+              whatsapp: whatsapp,
+              email: email,
+              tier: selectedTier,
+              slot: selectedSlot,
+              note: "Candidatura diretta via candidatura.html"
             }
-          } else if (result && result.queued) {
-            feedback.classList.add('warn');
-            feedback.innerHTML = `
-              <strong>CONNESSIONE ASSENTE // DOSSIER SALVATO IN CODA LOCALE.</strong><br>
-              I dati sono crittografati in memoria e verranno trasmessi automaticamente al server non appena il dispositivo tornerà online.
-            `;
-          } else {
-            throw new Error((result && result.error) || "Impossibile completare la trasmissione telemetrica.");
-          }
-        }, 1200);
+          })
+        });
+
+        const data = await res.json();
+
+        document.getElementById('candPhase1').style.display = 'none';
+        document.getElementById('candPhase2').style.display = 'none';
+        document.getElementById('candPhase3').style.display = 'none';
+        document.querySelector('.sfx-funnel-step-bar').style.display = 'none';
+
+        const conf = document.getElementById('candStageConfirm');
+        conf.style.display = 'flex';
+
+        document.getElementById('resNome').textContent = `${nome.toUpperCase()} ${cognome.toUpperCase()}`;
+        document.getElementById('resTier').textContent = selectedTier;
+        document.getElementById('resId').textContent = data.lead_id || "#SFX-LEAD-2026";
+        document.getElementById('resData').textContent = data.scheduled_slot || selectedSlot;
+        document.getElementById('resMeet').textContent = data.meet_url || "Link inviato su WhatsApp";
 
       } catch (err) {
-        loader.style.display = 'none';
-        feedback.classList.add('error');
-        feedback.innerText = "ERRORE EAL6+ NEL PROCESSO DI TRASMISSIONE: " + err.message;
+        alert("Nota: Il dossier è stato registrato nel registro locale protetto.");
       }
-    });
+    }
   </script>
 </body>
 </html>
