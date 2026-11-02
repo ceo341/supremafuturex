@@ -1,270 +1,639 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>SUPREMA FUTURE X // ENTERPRISE 2026</title>
-  <meta name="description" content="Infrastruttura esecutiva per l'imprenditoria digitale avanzata, alta formazione interattiva 100% dal vivo e concessioni e-commerce a zero magazzino. Direzione Founder & CEO Giuliano Caratelli.">
-  <meta name="author" content="Giuliano Caratelli">
-  
-  <!-- Favicon Brand -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23090A0E' stroke='%23D4AF37' stroke-width='4'/><text x='50%' y='58%' font-size='32' text-anchor='middle' fill='%23D4AF37' font-family='sans-serif' font-weight='bold'>SFX</text></svg>">
+/**
+ * ============================================================================
+ * SUPREMA FUTURE X ENTERPRISE // CORE LOGIC & NEURAL ENGINE
+ * File: js/code.js
+ * Governance: Founder & CEO Giuliano Caratelli // Anno Operativo 2026
+ * Standard: EAL6+ Compliant // Web Audio API // Speech Synthesis // Radar 60FPS
+ * ============================================================================
+ */
 
-  <!-- Fogli di Stile -->
-  <link rel="stylesheet" href="stile-globale.css">
-</head>
-<body>
+/* ----------------------------------------------------------------------------
+ * 1. SINTESI PROCEDURALE WEB AUDIO API (DOPPIO OSCILLATORE)
+ * ---------------------------------------------------------------------------- */
+let sfxAudioCtx = null;
 
-  <!-- ====================================================================== -->
-  <!-- ELEMENTI D'AMBIENTE (ONDA LASER VERDE & LUCE ZENITALE)                 -->
-  <!-- ====================================================================== -->
-  <div class="sfx-laser-ambient-wave" aria-hidden="true"></div>
-  <div class="sfx-zenith-ray" aria-hidden="true"></div>
+function sfxInitAudio() {
+  if (!sfxAudioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      sfxAudioCtx = new AudioContextClass();
+    }
+  }
+}
 
-  <!-- ====================================================================== -->
-  <!-- FAZIONE 00 // TOP BAR FORENSE EAL6+ & GATEWAY 3-TAP                    -->
-  <!-- ====================================================================== -->
-  <header class="sfx-topbar-forense" id="fazione-00">
-    <div class="sfx-topbar-left">
-      <div class="sfx-node-pulse" title="Stato Nodo: Online"></div>
-      <span>NODO DI TRASMISSIONE: ROMA CENTRO // PROTOCOLLO EAL6+ CERTIFICATO</span>
-    </div>
+function sfxPlayChime(type = 'chime') {
+  try {
+    sfxInitAudio();
+    if (!sfxAudioCtx) return;
+    if (sfxAudioCtx.state === 'suspended') {
+      sfxAudioCtx.resume();
+    }
 
-    <!-- Trigger Segreto 3-Tap: 3 tocchi rapidi per sbloccare la console X-BOX -->
-    <div class="sfx-topbar-brand" id="sfxMasterLogo" title="Gateway Istituzionale">
-      SUPREMA FUTURE X
-    </div>
+    const t = sfxAudioCtx.currentTime;
+    const oscLow = sfxAudioCtx.createOscillator();
+    const oscHigh = sfxAudioCtx.createOscillator();
+    const gainNode = sfxAudioCtx.createGain();
 
-    <div class="sfx-topbar-right">
-      <div class="sfx-clock-box" id="sfxLiveClock">--:--:-- CET</div>
-      <span style="color:var(--gold-primary); font-weight:700;">SFX 2026</span>
-    </div>
-  </header>
+    if (type === 'chime') {
+      // Tono Cristallino Frizione Vetro e Oro
+      oscLow.type = 'triangle';
+      oscLow.frequency.setValueAtTime(200, t);
+      oscLow.frequency.exponentialRampToValueAtTime(60, t + 0.12);
 
-  <!-- ====================================================================== -->
-  <!-- FAZIONE 01 // HERO GOVERNANCE (VIEWPORT 13" RATIO)                     -->
-  <!-- ====================================================================== -->
-  <main class="sfx-viewport-13" id="fazione-01">
+      oscHigh.type = 'sine';
+      oscHigh.frequency.setValueAtTime(1046.5, t); // C6
+      oscHigh.frequency.exponentialRampToValueAtTime(523.25, t + 0.18);
+
+      gainNode.gain.setValueAtTime(0.18, t);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+    } else {
+      // Micro-tick Meccanico
+      oscLow.type = 'sine';
+      oscLow.frequency.setValueAtTime(800, t);
+      oscLow.frequency.exponentialRampToValueAtTime(240, t + 0.05);
+
+      gainNode.gain.setValueAtTime(0.08, t);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+    }
+
+    oscLow.connect(gainNode);
+    if (type === 'chime') oscHigh.connect(gainNode);
+    gainNode.connect(sfxAudioCtx.destination);
+
+    oscLow.start(t);
+    if (type === 'chime') oscHigh.start(t);
+
+    oscLow.stop(t + 0.25);
+    if (type === 'chime') oscHigh.stop(t + 0.25);
+  } catch (e) {
+    // Gestione preventiva policy autoplay browser
+  }
+}
+
+/* ----------------------------------------------------------------------------
+ * 2. MOTORE VOCALE AG-01 ALISON (PARTENZA MUTA & WEB SPEECH API)
+ * ---------------------------------------------------------------------------- */
+let sfxAudioMuted = true;
+const sfxVoiceGreeting = "Benvenuto in questa chatbot, io sono Alison, in che cosa posso aiutarti?";
+
+function sfxToggleAudioEngine() {
+  sfxInitAudio();
+  sfxPlayChime('chime');
+  sfxAudioMuted = !sfxAudioMuted;
+
+  const badge = document.getElementById('sfxAudioStateBadge');
+  const icon = document.getElementById('sfxAudioStateIcon');
+  const label = document.getElementById('sfxAudioStateText');
+
+  if (!sfxAudioMuted) {
+    badge.classList.add('unmuted');
+    icon.textContent = "🔊";
+    label.textContent = "STATO AUDIO: VOCALE ATTIVO // AG-01 TRASMETTE";
+    sfxSpeak(sfxVoiceGreeting);
+  } else {
+    badge.classList.remove('unmuted');
+    icon.textContent = "🔇";
+    label.textContent = "STATO AUDIO: MUTO // CLICCA PER ATTIVARE IL VOCALE";
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
+}
+
+function sfxSpeak(text) {
+  if (sfxAudioMuted) return;
+  if (!('speechSynthesis' in window)) return;
+
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'it-IT';
+  utterance.rate = 1.02;
+  utterance.pitch = 1.05;
+
+  const voices = window.speechSynthesis.getVoices();
+  const italianVoice = voices.find(v => v.lang.includes('it') && (v.name.includes('Elsa') || v.name.includes('Federica') || v.name.includes('Alice') || v.name.includes('Cosimo') || v.name.includes('Google italiano')));
+  if (italianVoice) utterance.voice = italianVoice;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+/* ----------------------------------------------------------------------------
+ * 3. RADAR VETTORIALE CANVAS 60 FPS (AG-01 ALISON)
+ * ---------------------------------------------------------------------------- */
+let radarAngle = 0;
+const radarBlips = [
+  { r: 0.32, angle: 1.1, pulse: 0 },
+  { r: 0.58, angle: 3.4, pulse: 0 },
+  { r: 0.82, angle: 4.9, pulse: 0 }
+];
+
+function sfxInitRadarCanvas() {
+  const canvas = document.getElementById('sfxRadarCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const maxRadius = Math.min(cx, cy) - 14;
+
+    // Cerchi polari ciano
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.18)';
+    ctx.lineWidth = 1;
+    for (let i = 1; i <= 3; i++) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, (maxRadius / 3) * i, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // Assi cartesiani incrociati
+    ctx.beginPath();
+    ctx.moveTo(cx - maxRadius, cy);
+    ctx.lineTo(cx + maxRadius, cy);
+    ctx.moveTo(cx, cy - maxRadius);
+    ctx.lineTo(cx, cy + maxRadius);
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.22)';
+    ctx.stroke();
+
+    // Fascio di scansione radiale dorato-ciano
+    const sweepX = cx + Math.cos(radarAngle) * maxRadius;
+    const sweepY = cy + Math.sin(radarAngle) * maxRadius;
+
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius);
+    grad.addColorStop(0, 'rgba(212, 175, 55, 0.02)');
+    grad.addColorStop(0.7, 'rgba(0, 240, 255, 0.12)');
+    grad.addColorStop(1, 'rgba(0, 240, 255, 0.35)');
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, maxRadius, radarAngle - 0.45, radarAngle);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Linea guida dello sweep
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(sweepX, sweepY);
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+
+    // Blip di telemetria attiva
+    radarBlips.forEach(b => {
+      const bx = cx + Math.cos(b.angle) * (b.r * maxRadius);
+      const by = cy + Math.sin(b.angle) * (b.r * maxRadius);
+
+      ctx.beginPath();
+      ctx.arc(bx, by, 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#00F0FF';
+      ctx.shadowColor = '#00F0FF';
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+
+    radarAngle += 0.038;
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+}
+
+/* ----------------------------------------------------------------------------
+ * 4. BANCA DATI 40 FAQ RIGIDAMENTE IGIENIZZATE (EAL6+ FORENSE)
+ * ---------------------------------------------------------------------------- */
+const sfxFaqDatabase = [
+  { q: "Qual è la garanzia statutaria sull'erogazione dei corsi?", a: "Tutti i corsi della Suprema Academy sono certificati statutariamente al 100% dal vivo in videoconferenza diretta. È vietata la vendita di videocorsi pre-registrati passivi." },
+  { q: "Come funziona il modello Concessioni Digitali a zero magazzino?", a: "Il titolare della concessione gestisce il proprio negozio online senza dover acquistare merci o gestire inventario. Confezionamento, logistica e spedizioni sono centralizzati dall'ecosistema." },
+  { q: "Come si accede al colloquio con il Founder & CEO Giuliano Caratelli?", a: "L'accesso avviene tramite prenotazione nel funnel di screening per un colloquio conoscitivo di 60 minuti via Google Meet per la verifica attitudinale." },
+  { q: "Cosa rappresenta la Suprema Gold Card metallica?", a: "È il riconoscimento phygital in acciaio satinato dorato con incisione laser del seriale univoco, rilasciato a partire da 800 Punti Status." },
+  { q: "Quali sono i percorsi formativi dell'Academy?", a: "I percorsi attivi sono: Silver Tier (60 Giorni), Executive Master (90 Giorni) e Premium VIP (120 Giorni con sessioni one-to-one dirette con il CEO)." },
+  { q: "Cosa sblocca la soglia premi di 2.000 Punti?", a: "Dà diritto a 3 Mesi di Conferenze Esecutive Gratuite con il Founder & CEO Giuliano Caratelli." },
+  { q: "Cosa sblocca la soglia premi di 3.000 Punti?", a: "Consente la partecipazione formale per 2 persone all'esclusiva Cena Annuale di Gala a Roma Centro." },
+  { q: "Cosa sblocca la soglia premi di 4.500 Punti?", a: "Audit Organizzativo su Misura e 6 Mesi di sessioni strategiche individuali con la Presidenza." },
+  { q: "Cosa sblocca la soglia premi di 6.000 Punti?", a: "Status Sovrano a Vita, un Master completo gratuito a scelta e un intero anno di supervisione diretta del CEO." },
+  { q: "Cosa sblocca la soglia premi di 7.500 Punti?", a: "Weekend Luxury per 2 persone con soggiorno completo in hotel a 5 stelle a Roma Centro." },
+  { q: "Quanti Punti Status conferisce l'attivazione di una Concessione Store?", a: "L'attivazione accredita istantaneamente +800 Punti Status, rendendo subito ordinabile la Suprema Gold Card incisa al laser." },
+  { q: "Cos'è il Dream Defense System?", a: "È il protocollo etico ed esecutivo di Presidenza volto a proteggere le risorse, il tempo e il merito dei candidati attraverso affiancamento costante e reale." },
+  { q: "Chi è l'unico organo di rappresentanza decisionale?", a: "La direzione strategica, formativa e commerciale fa capo unicamente al Founder & CEO Giuliano Caratelli." },
+  { q: "Quali sono le sedi ufficiali dell'ecosistema?", a: "La Sede Operativa è nel Centro Direzionale di Colleferro (Roma), mentre l'Ufficio di Presidenza è in Via della Scrofa, Roma Centro." },
+  { q: "Cos'è l'Archivio Media Vault 400?", a: "È l'infrastruttura crittografata contenente 400 slot protetti per dispense, atti contrattuali e materiali con link temporizzati a scadenza 120 minuti." },
+  { q: "Che cos'è la Flotta Neurale dei 15 Agenti AI?", a: "È il sistema di intelligenze artificiali operative dedicate al triage (AG-01), alla didattica, all'audit e alla tutela dei sistemi." },
+  { q: "Come funziona il Master Fleet Kill-Switch?", a: "È il comando di emergenza hardware riservato al CEO che congela all'istante l'attività di tutti i 15 agenti neurali in caso di anomalia." },
+  { q: "Qual è il Foro di competenza giurisdizionale esclusivo?", a: "Per ogni controversia è stabilita la competenza territoriale esclusiva ed inderogabile del Tribunale di Velletri / Roma." },
+  { q: "Come vengono gestiti i pagamenti per l'Academy?", a: "Tramite circuiti crittografati sicuri PCI-DSS (Stripe Enterprise / 3D Secure 2.2) o bonifico bancario con causale vincolata alla matricola del candidato." },
+  { q: "Come avviene la fatturazione?", a: "La fattura fiscale viene generata elettronicamente e trasmessa tramite SDI a norma di legge italiana all'atto dell'incasso." },
+  { q: "Cosa serve per seguire le lezioni della didattica live?", a: "Una connessione internet stabile e un dispositivo abilitato per videoconferenze Google Meet; non sono ammesse visioni passive registrate." },
+  { q: "Quali Punti si possono convertire nei premi del catalogo?", a: "Si utilizzano i Punti Spendibili accumulati, mentre i Punti Status restano cumulativi e a vita come attestato di rango." },
+  { q: "Qual è il canale WhatsApp ufficiale di presidenza?", a: "La linea diretta certificata di coordinamento presidenziale risponde al recapito +39 347 442 9091." },
+  { q: "Quali sono i canali Telegram ufficiali autorizzati?", a: "Il Canale Broadcast Istituzionale e il Bot Esecutivo AG-07 (@SFX_Command_Bot) per gli alert direzionali." },
+  { q: "Come viene garantita la privacy dei candidati?", a: "I dati sono protetti in conformità al GDPR e agli standard di conservazione forense EAL6+, senza cessione a broker terzi." },
+  { q: "Cosa prevede lo screening conoscitivo di 60 minuti?", a: "È un colloquio individuale di orientamento e selezione per verificare l'idoneità etica e professionale al programma." },
+  { q: "Cosa accade se un corsista rimane inattivo?", a: "In caso di 60 giorni consecutivi di inattività senza giustificato motivo, la posizione viene sospesa e richiede riattivazione dal CEO." },
+  { q: "Come vengono distribuiti gli attestati di fine percorso?", a: "Al superamento delle verifiche live viene rilasciato un attestato di merito crittografato depositato nel Media Vault." },
+  { q: "I negozi digitali richiedono partita IVA immediata?", a: "L'inquadramento delle concessioni prevede un avviamento commerciale agevolato con supporto operativo integrato." },
+  { q: "Chi tiene le sessioni dell'Executive Master?", a: "I docenti accreditati dell'Academy e il Founder & CEO Giuliano Caratelli per i moduli strategici di vertice." },
+  { q: "Posso delegare la partecipazione al colloquio di screening?", a: "No, il colloquio è strettamente personale e richiede la presenza diretta del candidato selezionato." },
+  { q: "Quali metodologie AI vengono approfondite nell'Executive Master?", a: "Flussi di automazione dei processi d'impresa, integrazione di agenti neurali e gestione scalabile delle piattaforme." },
+  { q: "Che tipo di assistenza offre l'agente AG-01 Alison?", a: "Triage dei quesiti, guida alle sezioni dell'ecosistema e instradamento allo screening conoscitivo entro il 5° messaggio." },
+  { q: "Come vengono spediti gli ordini dello store a zero magazzino?", a: "Spedizione espressa tracciata gestita direttamente dal centro logistico centralizzato verso il cliente finale." },
+  { q: "I prezzi dei percorsi formativi sono visibili pubblicamente?", a: "Per scelta istituzionale le schede dettagliate e i piani di ammissione vengono esaminati durante lo screening conoscitivo." },
+  { q: "Come viene tutelata la proprietà intellettuale di Suprema?", a: "Attraverso il divieto assoluto di divulgazione o duplicazione dei compendi, con sanzioni contrattuali e legali." },
+  { q: "Posso scegliere l'orario del colloquio con il CEO?", a: "Sì, nel funnel di prenotazione sono disponibili le fasce: Mattina (10-12), Pomeriggio (15-18) e Serale (21-23)." },
+  { q: "La Suprema Gold Card ha una data di scadenza?", a: "No, la tessera fisica e i Punti Status acquisiti mantengono validità permanente come titolo di merito." },
+  { q: "Cosa accade dopo aver inviato la candidatura?", a: "La segreteria e l'agente AG-10 TITAN verificano i dati e inviano la convocazione ufficiale su WhatsApp entro 24 ore." },
+  { q: "Cosa contraddistingue Suprema Future X nel mercato 2026?", a: "La totale trasparenza operativa, il rifiuto dei video registrati e la presenza attiva costante del Fondatore al fianco degli allievi." }
+];
+
+/* ----------------------------------------------------------------------------
+ * 5. CHATBOT ALISON: DIALOGO, TRIAGE AL 5° MESSAGGIO & SINTESI VOCALE
+ * ---------------------------------------------------------------------------- */
+let sfxChatCounter = 0;
+
+function sfxHandleUserMessage() {
+  const input = document.getElementById('sfxChatInput');
+  const stream = document.getElementById('sfxChatStream');
+  if (!input || !stream) return;
+
+  const txt = input.value.trim();
+  if (!txt) return;
+
+  sfxPlayChime('tick');
+
+  // Stampa messaggio utente
+  const userBox = document.createElement('div');
+  userBox.className = 'sfx-msg sfx-msg-user';
+  userBox.style.cssText = "background:rgba(212,175,55,0.14); border-right:3px solid var(--gold-primary); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-end; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
+  userBox.textContent = txt;
+  stream.appendChild(userBox);
+
+  input.value = '';
+  sfxChatCounter++;
+  stream.scrollTop = stream.scrollHeight;
+
+  // Elaborazione risposta di Alison
+  setTimeout(() => {
+    sfxPlayChime('chime');
+    const aliBox = document.createElement('div');
+    aliBox.className = 'sfx-msg sfx-msg-alison';
+    aliBox.style.cssText = "background:rgba(0,240,255,0.08); border-left:3px solid var(--cyan-neon); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-start; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
+
+    let replyText = "";
+
+    if (sfxChatCounter >= 5) {
+      replyText = "Hai raggiunto il limite della sessione orientativa preliminare. In virtù del protocollo, per verificare i requisiti e l'accesso ai percorsi o alle concessioni è indispensabile formalizzare lo screening con il Founder & CEO Giuliano Caratelli.";
+      aliBox.innerHTML = `<strong>[TRIAGE PRESIDENZIALE RAGGIUNTO]</strong><br>${replyText}<br><button class="sfx-btn-action-oval" style="margin-top:0.8rem; padding:0.5rem 1rem; font-size:0.7rem;" onclick="sfxOpenBook('presidenza')">CONVALIDA SCREENING ADESSO ➔</button>`;
+    } else {
+      // Matching intelligente sulle 40 FAQ
+      const queryLower = txt.toLowerCase();
+      let matchedFaq = sfxFaqDatabase.find(f => 
+        queryLower.includes(f.q.toLowerCase().slice(0, 15)) ||
+        (queryLower.includes("corsi") && f.q.includes("corsi")) ||
+        (queryLower.includes("magazzino") && f.q.includes("magazzino")) ||
+        (queryLower.includes("meet") && f.q.includes("Meet")) ||
+        (queryLower.includes("gold card") && f.q.includes("Gold Card")) ||
+        (queryLower.includes("live") && f.q.includes("live"))
+      );
+
+      if (matchedFaq) {
+        replyText = `[AG-01 ALISON] ${matchedFaq.a}`;
+      } else {
+        replyText = `[AG-01 ALISON] Confermo che nell'ecosistema tutta la didattica è al 100% dal vivo e le concessioni operano a zero magazzino. Desideri prenotare lo screening di 60 minuti con la Presidenza?`;
+      }
+      aliBox.textContent = replyText;
+    }
+
+    stream.appendChild(aliBox);
+    stream.scrollTop = stream.scrollHeight;
+    sfxSpeak(replyText.replace(/\[.*?\]/g, ''));
+  }, 600);
+}
+
+function sfxTriggerFaq(index) {
+  const faq = sfxFaqDatabase[index];
+  if (!faq) return;
+
+  const stream = document.getElementById('sfxChatStream');
+  if (!stream) return;
+
+  sfxPlayChime('chime');
+  sfxChatCounter++;
+
+  const userBox = document.createElement('div');
+  userBox.className = 'sfx-msg sfx-msg-user';
+  userBox.style.cssText = "background:rgba(212,175,55,0.14); border-right:3px solid var(--gold-primary); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-end; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
+  userBox.textContent = faq.q;
+  stream.appendChild(userBox);
+
+  setTimeout(() => {
+    const aliBox = document.createElement('div');
+    aliBox.className = 'sfx-msg sfx-msg-alison';
+    aliBox.style.cssText = "background:rgba(0,240,255,0.08); border-left:3px solid var(--cyan-neon); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-start; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
     
-    <div class="sfx-hero-head">
-      <!-- LOGO LOOP ROTANTE A 6 FOTOGRAMMI -->
-      <div class="sfx-logo-loop-container" id="sfxLogoLoop">
-        <div class="sfx-logo-loop-inner">
-          <!-- Frame 1 -->
-          <div class="sfx-logo-frame-item active" data-index="0">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#090A0E"/>
-              <circle cx="60" cy="60" r="45" fill="none" stroke="#D4AF37" stroke-width="3"/>
-              <text x="60" y="68" fill="#D4AF37" font-size="22" font-family="'Syncopate', sans-serif" font-weight="bold" text-anchor="middle">SFX</text>
-            </svg>
-          </div>
-          <!-- Frame 2 -->
-          <div class="sfx-logo-frame-item" data-index="1">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#11141C"/>
-              <polygon points="60,18 98,82 22,82" fill="none" stroke="#00F0FF" stroke-width="3"/>
-              <text x="60" y="70" fill="#00F0FF" font-size="18" font-family="'JetBrains Mono', monospace" font-weight="bold" text-anchor="middle">2026</text>
-            </svg>
-          </div>
-          <!-- Frame 3 -->
-          <div class="sfx-logo-frame-item" data-index="2">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#090A0E"/>
-              <circle cx="60" cy="60" r="42" fill="none" stroke="#00E676" stroke-width="2" stroke-dasharray="6,4"/>
-              <text x="60" y="66" fill="#00E676" font-size="15" font-family="'Syncopate', sans-serif" text-anchor="middle">SOVEREIGN</text>
-            </svg>
-          </div>
-          <!-- Frame 4 -->
-          <div class="sfx-logo-frame-item" data-index="3">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#11141C"/>
-              <circle cx="60" cy="60" r="45" fill="none" stroke="#B8860B" stroke-width="4"/>
-              <text x="60" y="66" fill="#B8860B" font-size="20" font-family="'Syncopate', sans-serif" font-weight="bold" text-anchor="middle">CEO</text>
-            </svg>
-          </div>
-          <!-- Frame 5 -->
-          <div class="sfx-logo-frame-item" data-index="4">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#090A0E"/>
-              <line x1="20" y1="60" x2="100" y2="60" stroke="#00F0FF" stroke-width="2"/>
-              <line x1="60" y1="20" x2="60" y2="100" stroke="#D4AF37" stroke-width="2"/>
-              <circle cx="60" cy="60" r="28" fill="#090A0E" stroke="#FFF" stroke-width="2"/>
-              <text x="60" y="65" fill="#FFF" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="middle">EAL6+</text>
-            </svg>
-          </div>
-          <!-- Frame 6 -->
-          <div class="sfx-logo-frame-item" data-index="5">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#0B192C"/>
-              <circle cx="60" cy="60" r="46" fill="none" stroke="#D4AF37" stroke-width="3"/>
-              <text x="60" y="66" fill="#FFF2A8" font-size="15" font-family="'Syncopate', sans-serif" font-weight="bold" text-anchor="middle">FUTURE X</text>
-            </svg>
-          </div>
+    let answer = `[AG-01 ALISON] ${faq.a}`;
+    aliBox.textContent = answer;
+    stream.appendChild(aliBox);
+    stream.scrollTop = stream.scrollHeight;
+    sfxSpeak(faq.a);
+  }, 400);
+}
+
+/* ----------------------------------------------------------------------------
+ * 6. MODALE SOTTOMENU A LIBRO 3D (MASTER FOLIO FOLD & GALLERIE)
+ * ---------------------------------------------------------------------------- */
+function sfxOpenBook(sectionKey) {
+  sfxPlayChime('chime');
+  const overlay = document.getElementById('sfxMasterBookOverlay');
+  const catTag = document.getElementById('sfxBookCategoryTag');
+  const heading = document.getElementById('sfxBookMainHeading');
+  const leftSummary = document.getElementById('sfxBookLeftSummary');
+  const rightContent = document.getElementById('sfxBookRightContent');
+
+  if (!overlay || !rightContent) return;
+
+  // Generatore di 10 Placeholder Grafici Phygital per le Gallerie
+  function generatePhotoGrid(label) {
+    let html = '<div class="sfx-gallery-grid-10">';
+    for (let i = 1; i <= 10; i++) {
+      html += `
+        <div class="sfx-gallery-thumb" style="display:flex; align-items:center; justify-content:center; background:#11141C; color:var(--gold-primary); font-family:var(--font-mono); font-size:0.65rem; text-align:center; padding:0.5rem; border:1px solid rgba(212,175,55,0.3); border-radius:8px;">
+          ${label} // ARCHIVIO #${String(i).padStart(2, '0')}
         </div>
-      </div>
+      `;
+    }
+    html += '</div>';
+    return html;
+  }
 
-      <!-- TITOLO MONOLINEA & SOTTOTITOLO -->
-      <h1 class="sfx-hero-title-main">SUPREMA FUTURE X</h1>
-      <div class="sfx-hero-subtitle-main">INSIEME GUIDIAMO IL TUO DOMANI</div>
-    </div>
-
-    <!-- ==================================================================== -->
-    <!-- BARRA MULTIFUNZIONE ORIZZONTALE DA BORDO A BORDO                    -->
-    <!-- ==================================================================== -->
-    <nav class="sfx-status-strip-bar" aria-label="Navigazione Primaria">
-      
-      <!-- Gruppo Sinistra: Hamburger, Chatbot Alison, Lingue, Chi Siamo -->
-      <div class="sfx-strip-group">
-        <!-- Bottone Menu Hamburger -->
-        <button class="sfx-btn-hamburger" id="sfxHamburgerTrigger" onclick="sfxToggleMenu(true)">
-          <span>☰</span>
-          <span>ECOSISTEMA (14)</span>
-        </button>
-
-        <!-- Bottone Diretto Alison Chatbot -->
-        <button class="sfx-btn-strip-alison" onclick="sfxOpenAlisonDirect()">
-          <span>🤖</span>
-          <span>ALISON CHATBOT</span>
-        </button>
-
-        <!-- Selettore Dropdown 11 Lingue -->
-        <div class="sfx-lang-dropdown">
-          <button class="sfx-lang-btn" id="sfxLangBtn" onclick="sfxToggleLangMenu()">
-            <span id="sfxCurrentLang">🇮🇹 IT</span>
-            <span>▾</span>
+  if (sectionKey === 'presidenza') {
+    catTag.textContent = "ORGANO DI VERTICE // PROFILO";
+    heading.textContent = "GIULIANO CARATELLI";
+    leftSummary.innerHTML = `
+      <p style="margin-bottom:1rem;">Founder & CEO di Suprema Future X Enterprise. Garante unico della didattica dal vivo e della solidità contrattuale.</p>
+      <p style="margin-bottom:1rem; color:var(--gold-primary);">Motto: "DREAM DEFENSE SYSTEM"</p>
+      <p>Lo screening conoscitivo di 60 minuti via Google Meet certifica il merito e seleziona i partecipanti ai percorsi operativi.</p>
+    `;
+    rightContent.innerHTML = `
+      <div>
+        <h3 style="font-family:var(--font-sync); color:var(--blue-deep); margin-bottom:0.8rem;">TRAIETTORIA ISTITUZIONALE</h3>
+        <p style="font-size:0.9rem; line-height:1.7; color:#374151; margin-bottom:1.5rem;">
+          Con oltre due decenni di esperienza nella direzione d'impresa e nello sviluppo di reti commerciali complesse, 
+          Giuliano Caratelli ha istituito Suprema Future X per superare l'inefficacia dei modelli formativi tradizionali. 
+          Ogni allievo accede a un rapporto autentico e operativo con la dirigenza.
+        </p>
+        <h4 style="font-family:var(--font-sync); font-size:0.8rem; color:var(--gold-aged); margin-bottom:0.5rem;">
+          GALLERIA: 10 MOMENTI SALIENTI DI CARRIERA
+        </h4>
+        ${generatePhotoGrid('CEO CARATELLI')}
+        <div style="margin-top:2rem;">
+          <button class="sfx-btn-action-oval" onclick="sfxCloseMasterBook(); sfxScrollTo('fazione-04');">
+            PRENOTA ORA SCREENING CON IL CEO ➔
           </button>
-          <div class="sfx-lang-menu" id="sfxLangMenu">
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('IT', '🇮🇹 Italiano')">🇮🇹 Italiano (Default)</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('EN', '🇬🇧 English')">🇬🇧 English</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('FR', '🇫🇷 Français')">🇫🇷 Français</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('DE', '🇩🇪 Deutsch')">🇩🇪 Deutsch</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('ES', '🇪🇸 Español')">🇪🇸 Español</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('PT', '🇵🇹 Português')">🇵🇹 Português</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('RO', '🇷🇴 Română')">🇷🇴 Română</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('SQ', '🇦🇱 Shqip')">🇦🇱 Shqip</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('SK', '🇸🇰 Slovenčina')">🇸🇰 Slovenčina</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('AT', '🇦🇹 Österreich')">🇦🇹 Deutsch (AT)</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('CH', '🇨🇭 Schweiz')">🇨🇭 Schweiz</div>
+        </div>
+      </div>
+    `;
+  } else if (sectionKey === 'ecosistema') {
+    catTag.textContent = "ARCHITETTURA // MOTORE D'IMPRESA";
+    heading.textContent = "SUPREMA FUTURE X";
+    leftSummary.innerHTML = `
+      <p style="margin-bottom:1rem;">Alta Formazione Esecutiva 100% Live in Videoconferenza e Concessioni Digitali E-Commerce Autonome a Zero Magazzino.</p>
+      <p>Logistica, spedizioni espresse, contratti corrieri e resi interamente gestiti dal nodo centrale.</p>
+    `;
+    rightContent.innerHTML = `
+      <div>
+        <h3 style="font-family:var(--font-sync); color:var(--blue-deep); margin-bottom:1rem;">3 SHOWCASE VIDEO FISSATI</h3>
+        <div style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:1.5rem;">
+          <div style="background:#090A0E; color:#FFF; padding:0.8rem; border-radius:10px; font-family:var(--font-mono); font-size:0.75rem; border:1px solid var(--gold-primary);">
+            VIDEO 01 // Didattica Live & Principi Statutari Anti-Registrazioni
+          </div>
+          <div style="background:#090A0E; color:#FFF; padding:0.8rem; border-radius:10px; font-family:var(--font-mono); font-size:0.75rem; border:1px solid var(--cyan-neon);">
+            VIDEO 02 // Infrastruttura Store E-Commerce & Logistica Centralizzata
+          </div>
+          <div style="background:#090A0E; color:#FFF; padding:0.8rem; border-radius:10px; font-family:var(--font-mono); font-size:0.75rem; border:1px solid var(--status-green);">
+            VIDEO 03 // Ecosistema Phygital & Riconoscimento Suprema Gold Card
           </div>
         </div>
 
-        <!-- Bottone Modulo "Chi Siamo" -->
-        <button class="sfx-btn-chisiamo" onclick="sfxOpenChiSiamo()">
-          CHI SIAMO // LE 3 STORIE
+        <h4 style="font-family:var(--font-sync); font-size:0.8rem; color:var(--blue-deep); margin-bottom:0.5rem;">
+          10 IMMAGINI OPERATIVE // SEDI & INFRASTRUTTURA
+        </h4>
+        ${generatePhotoGrid('INFRASTRUTTURA SFX')}
+      </div>
+    `;
+  } else if (sectionKey === 'alison') {
+    catTag.textContent = "NEURAL ARCHITECTURE // EAL6+";
+    heading.textContent = "CONCIERGE AG-01";
+    leftSummary.innerHTML = `
+      <p style="margin-bottom:1rem;">Modello linguistico a contesto confinato senza allucinazioni, presidiato da AG-12 Sentinel per la difesa dei perimetri IP.</p>
+      <p>Sintesi vocale deterministica e radar vettoriale con rendering a 60 fps nativi.</p>
+    `;
+    rightContent.innerHTML = `
+      <div>
+        <h3 style="font-family:var(--font-sync); color:var(--blue-deep); margin-bottom:1rem;">SPECIFICHE PROTOCOLLO NEURALE</h3>
+        <ul style="line-height:1.9; font-size:0.88rem; color:#374151; margin-left:1.2rem; margin-bottom:1.5rem;">
+          <li><strong>Pipeline di Triage:</strong> Al quinto scambio scatta l'instradamento obbligatorio alla videoconferenza del CEO.</li>
+          <li><strong>Isolamento Dati:</strong> Nessun segreto industriale o formula finanziaria risiede nei prompt del frontend.</li>
+          <li><strong>Hardware Kill-Switch:</strong> Disattivazione simultanea dei 15 agenti tramite comando direzionale X-BOX.</li>
+        </ul>
+        <button class="sfx-btn-action-oval" style="background:var(--bg-dark); color:var(--cyan-neon); border:1px solid var(--cyan-neon);" onclick="sfxCloseMasterBook(); sfxScrollTo('fazione-04');">
+          APRI CONSOLE CHATBOT ➔
         </button>
       </div>
-
-      <!-- Gruppo Destra: Telemetria & Statistiche Visite Live -->
-      <div class="sfx-strip-counter">
-        <div>VISITATORI LIVE: <span class="sfx-counter-badge" id="sfxVisitorCount">47</span></div>
-        <div>TEMPO MEDIO: <span class="sfx-counter-badge" id="sfxSessionTimer">00:00</span></div>
-        <div>STATUS: <span style="color:var(--cyan-neon);">RATING A+ (EAL6+)</span></div>
-      </div>
-
-    </nav>
-
-  </main>
-
-  <!-- ====================================================================== -->
-  <!-- PANNELLO HAMBURGER MASTER (LE 14 SEZIONI // AUTO-CHIUSURA 15S)         -->
-  <!-- ====================================================================== -->
-  <aside class="sfx-hamburger-panel" id="sfxHamburgerPanel" aria-hidden="true">
-    <div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon);">ARCHITETTURA SFX // 14 SEZIONI</span>
-        <button class="sfx-hamburger-close" onclick="sfxToggleMenu(false)">✕</button>
-      </div>
-
-      <div class="sfx-menu-timer-bar">
-        <div class="sfx-menu-timer-progress" id="sfxMenuProgressBar"></div>
-      </div>
-
-      <ul class="sfx-nav-list">
-        <li class="sfx-nav-item" onclick="sfxNavTo('fazione-00')"><span>00. TOP BAR FORENSE</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('fazione-01')"><span>01. HERO GOVERNANCE</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-presidenza')"><span>02. LA PRESIDENZA (CEO)</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-academy')"><span>03. SUPREMA ACADEMY LIVE</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-concessioni')"><span>04. CONCESSIONI ZERO MAGAZZINO</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-alison')"><span>05. CONCIERGE AG-01 ALISON</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-goldcard')"><span>06. SUPREMA GOLD CARD 3D</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-flotta')"><span>07. FLOTTA NEURALE (15 AGENTI)</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-garanzie')"><span>08. GARANZIE & STATUTO</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-funnel')"><span>09. SCREENING TANDEM DECK</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-faq')"><span>10. ACCORDION 50 FAQ</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-community')"><span>11. NETWORK & DICONO DI NOI</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-vault')"><span>12. MEDIA VAULT 400</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxNavTo('sec-footer')"><span>13. FOOTER FORENSE EAL6+</span><span>➔</span></li>
-      </ul>
-    </div>
-
-    <div>
-      <a href="#sec-funnel" class="sfx-btn-action-oval" style="text-decoration:none;" onclick="sfxToggleMenu(false)">
-        CONFERENZA CEO 60 MIN ➔
-      </a>
-    </div>
-  </aside>
-
-  <!-- ====================================================================== -->
-  <!-- MODALE SOTTOMENU A LIBRO 3D // "CHI SIAMO: LE 3 STORIE"               -->
-  <!-- ====================================================================== -->
-  <div class="sfx-book-overlay" id="sfxChiSiamoModal">
-    <div class="sfx-book-stage">
-      <button class="sfx-book-close" onclick="sfxCloseChiSiamo()">✕</button>
-
-      <!-- Pagina Sinistra (Scelta della Storia) -->
-      <div class="sfx-book-left">
-        <div>
-          <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon); letter-spacing:2px; margin-bottom:0.5rem;">
-            DOSSIER ISTITUZIONALE
-          </div>
-          <h2 style="font-family:var(--font-sync); font-size:1.6rem; color:#FFF; margin-bottom:1.5rem;">
-            CHI SIAMO
-          </h2>
-          <p style="font-size:0.9rem; color:#94A3B8; line-height:1.7;">
-            Tre traiettorie connesse per definire l'innovazione, la guida strategica e la frontiera neurale dell'ecosistema 2026.
-          </p>
-
-          <div style="margin-top:2rem; display:flex; flex-direction:column; gap:0.8rem;">
-            <button class="sfx-btn-discover" id="sfxStoryBtn0" style="text-align:left;" onclick="sfxRenderStory(0)">
-              01 // SUPREMA FUTURE X
-            </button>
-            <button class="sfx-btn-discover" id="sfxStoryBtn1" style="text-align:left;" onclick="sfxRenderStory(1)">
-              02 // FOUNDER & CEO GIULIANO CARATELLI
-            </button>
-            <button class="sfx-btn-discover" id="sfxStoryBtn2" style="text-align:left;" onclick="sfxRenderStory(2)">
-              03 // CONCIERGE NEURALE AG-01 ALISON
-            </button>
-          </div>
+    `;
+  } else if (sectionKey === 'faq') {
+    catTag.textContent = "REGISTRO INFORMATIVO // 40 VOCI";
+    heading.textContent = "FAQ UFFICIALI";
+    leftSummary.innerHTML = `
+      <p>Tutte le risposte ufficiali certificate e igienizzate per la consultazione pubblica immediata.</p>
+    `;
+    let faqListHtml = '<div style="display:flex; flex-direction:column; gap:0.8rem; max-height:55vh; overflow-y:auto; padding-right:0.5rem;">';
+    sfxFaqDatabase.forEach((item, idx) => {
+      faqListHtml += `
+        <div style="background:#FFF; border:1px solid rgba(212,175,55,0.3); border-radius:10px; padding:1rem;">
+          <strong style="color:var(--blue-deep); font-size:0.85rem; font-family:var(--font-sync); display:block; margin-bottom:0.4rem;">
+            ${String(idx + 1).padStart(2, '0')}. ${item.q}
+          </strong>
+          <span style="font-size:0.85rem; color:#4B5563; line-height:1.6; display:block;">
+            ${item.a}
+          </span>
         </div>
+      `;
+    });
+    faqListHtml += '</div>';
+    rightContent.innerHTML = faqListHtml;
+  }
 
-        <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--gold-primary);">
-          ARCHITETTURA MODIFICABILE DA X-BOX CONSOLE // ANNO 2026
-        </div>
-      </div>
+  overlay.classList.add('active');
+}
 
-      <!-- Pagina Destra (Contenuto Dinamico della Storia Selezionata) -->
-      <div class="sfx-book-right" id="sfxStoryContentArea">
-        <!-- Contenuto iniettato via JS -->
-      </div>
-    </div>
-  </div>
+function sfxCloseMasterBook() {
+  sfxPlayChime('tick');
+  const overlay = document.getElementById('sfxMasterBookOverlay');
+  if (overlay) overlay.classList.remove('active');
+}
 
-  <!-- ====================================================================== -->
-  <!-- PULSANTI FLOTTANTI PERSISTENTI (DOCKED BOTTOM)                         -->
-  <!-- ====================================================================== -->
-  <!-- Sinistra: Icona Rapida Alison Chatbot -->
-  <div class="sfx-floating-alison-left" onclick="sfxOpenAlisonDirect()" title="Apri Concierge Neurale Alison">
-    <span style="font-size:1.6rem;">🤖</span>
-  </div>
+/* ----------------------------------------------------------------------------
+ * 7. MENU HAMBURGER A 14 SEZIONI CON TIMEOUT A 15 SECONDI
+ * ---------------------------------------------------------------------------- */
+let sfxMenuTimer = null;
+let sfxMenuProgressInterval = null;
+const SFX_MENU_LIMIT = 15000;
 
-  <!-- Destra: Pulsante Fisso Conferenza CEO -->
-  <a href="#sec-funnel" class="sfx-floating-cta-right" id="sfxFixedCtaMeet">
-    <span>PRENOTA CONFERENZA CEO ➔</span>
-  </a>
+function sfxToggleMenu(open) {
+  const panel = document.getElementById('sfxHamburgerPanel');
+  const bar = document.getElementById('sfxMenuProgressBar');
+  if (!panel) return;
 
-  <!-- ====================================================================== -->
-  <!-- LOGICA UNIFICATA                                                       -->
-  <!-- ====================================================================== -->
-  <script src="js/code.js"></script>
-</body>
-</html>
+  sfxPlayChime('chime');
+
+  if (open) {
+    panel.classList.add('active');
+    panel.setAttribute('aria-hidden', 'false');
+    
+    // Avvio Countdown 15s
+    clearTimeout(sfxMenuTimer);
+    clearInterval(sfxMenuProgressInterval);
+
+    const startTime = Date.now();
+    sfxMenuProgressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(0, SFX_MENU_LIMIT - elapsed);
+      const ratio = remaining / SFX_MENU_LIMIT;
+      if (bar) bar.style.transform = `scaleX(${ratio})`;
+
+      if (remaining <= 0) {
+        sfxToggleMenu(false);
+      }
+    }, 50);
+
+    sfxMenuTimer = setTimeout(() => {
+      sfxToggleMenu(false);
+    }, SFX_MENU_LIMIT);
+  } else {
+    panel.classList.remove('active');
+    panel.setAttribute('aria-hidden', 'true');
+    clearTimeout(sfxMenuTimer);
+    clearInterval(sfxMenuProgressInterval);
+    if (bar) bar.style.transform = 'scaleX(1)';
+  }
+}
+
+/* ----------------------------------------------------------------------------
+ * 8. CAROSELLO LOGO A 6 FRAME & TRIGGER GATEWAY SEGRETO 3-TAP
+ * ---------------------------------------------------------------------------- */
+function sfxInitLogoEngine() {
+  const frames = document.querySelectorAll('.sfx-logo-frame-item');
+  if (frames.length > 0) {
+    let activeIdx = 0;
+    setInterval(() => {
+      frames[activeIdx].classList.remove('active');
+      activeIdx = (activeIdx + 1) % frames.length;
+      frames[activeIdx].classList.add('active');
+    }, 2500);
+  }
+
+  // Gateway 3-Tap su logo SFX Top Bar per la console X-BOX
+  const logoTrigger = document.getElementById('sfxMasterLogo');
+  if (logoTrigger) {
+    let taps = 0;
+    let tapTimer = null;
+    logoTrigger.addEventListener('click', () => {
+      taps++;
+      sfxPlayChime('tick');
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => { taps = 0; }, 1200);
+
+      if (taps === 3) {
+        taps = 0;
+        sfxPlayChime('chime');
+        alert("RILEVAMENTO GATEWAY GOVERNANCE // TRASFERIMENTO ALLA CONSOLE X-BOX...");
+        window.location.href = "admin.html";
+      }
+    });
+  }
+}
+
+/* ----------------------------------------------------------------------------
+ * 9. OROLOGIO SINCRONO T+0 ROMA CET & TELEMETRIA LIVE
+ * ---------------------------------------------------------------------------- */
+function sfxInitLiveClockAndTelemetry() {
+  const clockEl = document.getElementById('sfxLiveClock');
+  if (clockEl) {
+    function updateClock() {
+      const now = new Date();
+      const opts = { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      clockEl.textContent = now.toLocaleTimeString('it-IT', opts) + ' CET';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  }
+
+  // Contatori Visitatori e Tempo di Sessione
+  const visitorBadge = document.getElementById('sfxVisitorCount');
+  const timerBadge = document.getElementById('sfxSessionTimer');
+
+  if (visitorBadge) {
+    setInterval(() => {
+      const variation = (Math.random() > 0.48 ? 1 : -1);
+      let count = parseInt(visitorBadge.textContent, 10) || 47;
+      count = Math.max(35, Math.min(68, count + variation));
+      visitorBadge.textContent = count;
+    }, 4000);
+  }
+
+  if (timerBadge) {
+    let sec = 0;
+    setInterval(() => {
+      sec++;
+      const m = String(Math.floor(sec / 60)).padStart(2, '0');
+      const s = String(sec % 60).padStart(2, '0');
+      timerBadge.textContent = `${m}:${s}`;
+    }, 1000);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+ * 10. SELETTORE 11 LINGUE & FUNZIONI DI SCROLL GUIDATO
+ * ---------------------------------------------------------------------------- */
+function sfxToggleLangMenu() {
+  sfxPlayChime('tick');
+  const menu = document.getElementById('sfxLangMenu');
+  if (menu) menu.classList.toggle('active');
+}
+
+function sfxSelectLang(code, label) {
+  sfxPlayChime('chime');
+  const current = document.getElementById('sfxCurrentLang');
+  if (current) current.textContent = code;
+
+  const menu = document.getElementById('sfxLangMenu');
+  if (menu) menu.classList.remove('active');
+  console.log(`[SFX LINGUA ATTIVA] ${label}`);
+}
+
+function sfxScrollTo(id) {
+  sfxPlayChime('chime');
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function sfxOpenChiSiamo() {
+  sfxOpenBook('presidenza');
+}
+
+/* ----------------------------------------------------------------------------
+ * 11. INIZIALIZZAZIONE GLOBALE
+ * ---------------------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  sfxInitRadarCanvas();
+  sfxInitLogoEngine();
+  sfxInitLiveClockAndTelemetry();
+});
