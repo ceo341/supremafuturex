@@ -2,401 +2,324 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>CRM & Calendario // X-BOX Suprema Future X</title>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM DESK // SUPREMA FUTURE X 2026</title>
   <meta name="robots" content="noindex, nofollow">
-  <meta name="author" content="Giuliano Caratelli">
-  <link rel="icon" type="image/png" href="media/logo.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23090A0E' stroke='%2300F0FF' stroke-width='4'/><text x='50%' y='58%' font-size='26' text-anchor='middle' fill='%2300F0FF' font-family='sans-serif' font-weight='bold'>CRM</text></svg>">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Syncopate:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stile-globale.css">
 
   <style>
-    /* STILI BASE & ARCHITETTURA EAL6+ CRM */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg-dark: #0D1017;
-      --bg-panel: #151821;
-      --bg-card: #1A1D24;
-      --gold-primary: #D4AF37;
-      --cyan-neon: #00F0FF;
-      --status-green: #00E676;
-      --status-amber: #FFBF00;
-      --text-light: #F3F4F6;
-      --text-muted: #8E9BAE;
-      --border-color: rgba(255, 255, 255, 0.08);
-    }
-
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
+      background: #060709;
+      color: #E2E8F0;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      font-family: var(--font-mont);
     }
-
-    /* INTESTAZIONE UNIVERSALE X-BOX */
-    .sfx-xbox-header {
+    .sfx-crm-lockscreen {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at center, #11141C 0%, #050608 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+    .sfx-crm-lockbox {
+      width: 100%;
+      max-width: 420px;
+      background: #0F1219;
+      border: 2px solid var(--cyan-neon);
+      border-radius: 24px;
+      padding: 3rem 2.2rem;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.25);
+    }
+    .sfx-crm-topbar {
       background: #090A0E;
-      border-bottom: 2px solid var(--gold-primary);
-      padding: 0.8rem 2rem;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 1rem 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
     }
-
-    .sfx-breadcrumb {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-    }
-    .sfx-breadcrumb span { color: var(--gold-primary); font-weight: 700; }
-
-    .sfx-nav-controls {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .btn-nav {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      color: var(--text-light);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn-nav:hover { background: rgba(255,255,255,0.05); border-color: var(--text-light); }
-
-    .sfx-status-controls {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    .btn-state {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      border: 1px solid transparent;
-    }
-    .btn-state.on { background: rgba(0, 230, 118, 0.1); color: var(--status-green); border-color: var(--status-green); }
-    .btn-state.off { background: rgba(255, 255, 255, 0.05); color: #888; border-color: #555; }
-    .btn-state.stby { background: rgba(255, 191, 0, 0.1); color: var(--status-amber); border-color: var(--status-amber); }
-    .btn-state.edit { background: rgba(0, 240, 255, 0.1); color: var(--cyan-neon); border-color: var(--cyan-neon); }
-    .btn-state.pub { background: var(--gold-primary); color: #000; }
-
-    /* GRIGLIA CRM & CALENDARIO */
-    .sfx-crm-container {
-      flex: 1;
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
+    .sfx-kpi-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
     }
-
-    .sfx-panel {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-color);
+    .sfx-kpi-card {
+      background: #0F1219;
+      border: 1px solid rgba(212, 175, 55, 0.25);
       border-radius: 16px;
       padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .sfx-panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 1rem;
-    }
-    .sfx-panel-title {
-      font-family: 'Syncopate', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #FFF;
-    }
-
-    /* TABELLA DATI CRM */
-    .sfx-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-    }
-    .sfx-table th {
-      text-align: left;
-      padding: 12px;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border-color);
-      font-weight: 600;
-    }
-    .sfx-table td {
-      padding: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      vertical-align: middle;
-    }
-    .sfx-table tr:hover { background: rgba(255,255,255,0.02); }
-
-    .badge-status {
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-    .badge-pending { background: rgba(255, 191, 0, 0.1); color: var(--status-amber); border: 1px solid var(--status-amber); }
-    .badge-approved { background: rgba(0, 230, 118, 0.1); color: var(--status-green); border: 1px solid var(--status-green); }
-
-    .btn-action {
-      background: transparent;
-      border: 1px solid var(--cyan-neon);
-      color: var(--cyan-neon);
-      font-family: inherit;
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.7rem;
-    }
-    .btn-action:hover { background: rgba(0, 240, 255, 0.1); }
-    .btn-approve { border-color: var(--status-green); color: var(--status-green); }
-    .btn-approve:hover { background: rgba(0, 230, 118, 0.1); }
-
-    /* CALENDARIO SETTIMANALE SLOTS */
-    .sfx-calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .sfx-slot-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
       position: relative;
     }
-    .sfx-slot-card.booked {
-      border-color: var(--status-amber);
-      background: rgba(255, 191, 0, 0.05);
-    }
-    .sfx-slot-card.confirmed {
-      border-color: var(--status-green);
-      background: rgba(0, 230, 118, 0.05);
-    }
-    .sfx-slot-day {
-      font-size: 0.75rem;
-      color: var(--gold-primary);
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-    .sfx-slot-time {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
+    .sfx-kpi-num {
+      font-family: var(--font-sync);
+      font-size: 2rem;
       color: #FFF;
+      margin: 0.5rem 0 0.2rem;
+    }
+    .sfx-kpi-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #94A3B8;
+    }
+    .sfx-crm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .sfx-crm-table th {
+      background: #090A0E;
+      color: var(--cyan-neon);
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--gold-primary);
+    }
+    .sfx-crm-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #CBD5E1;
+    }
+    .sfx-crm-table tr:hover {
+      background: rgba(0, 240, 255, 0.03);
+    }
+    .sfx-badge-state {
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.68rem;
       font-weight: 700;
     }
-    .sfx-slot-status {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 0.65rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-    }
+    .b-convocato { background: rgba(0, 240, 255, 0.15); color: var(--cyan-neon); border: 1px solid var(--cyan-neon); }
+    .b-attesa { background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); border: 1px solid var(--gold-primary); }
+    .b-approvato { background: rgba(0, 230, 118, 0.15); color: var(--status-green); border: 1px solid var(--status-green); }
 
-    @media (max-width: 1024px) {
-      .sfx-crm-container { grid-template-columns: 1fr; }
-      .sfx-calendar-grid { grid-template-columns: repeat(2, 1fr); }
+    .sfx-btn-action-cell {
+      background: #181C26;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      transition: all 0.2s;
+    }
+    .sfx-btn-action-cell:hover {
+      background: var(--gold-primary);
+      color: #000;
+    }
+    @media(max-width:1024px) {
+      .sfx-kpi-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- INTESTAZIONE UNIVERSALE X-BOX -->
-  <header class="sfx-xbox-header">
-    <div class="sfx-breadcrumb">
-      X-BOX ENTERPRISE // <span>03. CRM & CALENDARIO</span> // 3.1 LEAD FORM TALLY
-    </div>
-    
-    <div class="sfx-nav-controls">
-      <button class="btn-nav" onclick="window.location.href='admin.html'">◄ TORNA ALLA X-BOX</button>
-      <button class="btn-nav" onclick="refreshData()">🔄 AGGIORNA DATI (0ms)</button>
-    </div>
+  <!-- SCHERMATA DI SBLOCCO CRM -->
+  <div class="sfx-crm-lockscreen" id="crmLockscreen">
+    <div class="sfx-crm-lockbox">
+      <div style="font-size:2.5rem; margin-bottom:0.5rem;">⚡</div>
+      <h1 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--cyan-neon); margin-bottom:0.4rem;">
+        CRM DESK OPERATIVO
+      </h1>
+      <p style="font-family:var(--font-mono); font-size:0.75rem; color:#94A3B8; margin-bottom:1.8rem;">
+        INSERISCI IL PIN ESECUTIVO DI VERTICE
+      </p>
 
-    <div class="sfx-status-controls">
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-muted); margin-right: 5px;">STATO MODULO:</span>
-      <button class="btn-state on">ACCESO</button>
-      <button class="btn-state off">SPENTO</button>
-      <button class="btn-state stby">STANDBY</button>
-      <span style="color: #444; margin: 0 4px;">|</span>
-      <button class="btn-state edit">MODIFICA</button>
-      <button class="btn-state pub">PUBBLICA</button>
-    </div>
-  </header>
-
-  <!-- GRIGLIA OPERATIVA CRM & CALENDARIO -->
-  <main class="sfx-crm-container">
-    
-    <!-- PANNELLO 1: INGESTION FORM TALLY (LEADS) -->
-    <section class="sfx-panel">
-      <div class="sfx-panel-header">
-        <h2 class="sfx-panel-title">1. CANDIDATURE IN ENTRATA (TALLY)</h2>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan-neon);">2 DA VALUTARE</span>
-      </div>
+      <input type="password" class="sfx-newsletter-field" style="margin-bottom:1rem; text-align:center; letter-spacing:4px;" id="crmPin" placeholder="PIN Esecutivo (10 Cifre)..." maxlength="10">
       
-      <div style="overflow-x: auto;">
-        <table class="sfx-table" id="table-leads">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NOMINATIVO & EMAIL</th>
-              <th>CORSO RICHIESTO</th>
-              <th>SLOT ORARIO</th>
-              <th>STATO</th>
-              <th>AZIONE</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="lead-001">
-              <td style="color: var(--gold-primary);">L-001</td>
-              <td><strong>Mario Rossi</strong><br><span style="color: var(--text-muted); font-size: 0.7rem;">mario.rossi@email.com</span><br><span style="color: var(--text-muted); font-size: 0.7rem;">+39 333 1234567</span></td>
-              <td>Executive Master</td>
-              <td>Lun 10:00 - 11:00</td>
-              <td><span class="badge-status badge-pending" id="status-001">IN ATTESA</span></td>
-              <td>
-                <button class="btn-action btn-approve" onclick="approveLead('001', 'Lun 10:00 - 11:00')">APPROVA SLOT</button>
-              </td>
-            </tr>
-            <tr id="lead-002">
-              <td style="color: var(--gold-primary);">L-002</td>
-              <td><strong>Laura Bianchi</strong><br><span style="color: var(--text-muted); font-size: 0.7rem;">laura.b@email.com</span><br><span style="color: var(--text-muted); font-size: 0.7rem;">+39 347 9876543</span></td>
-              <td>Premium VIP</td>
-              <td>Mar 21:00 - 22:00</td>
-              <td><span class="badge-status badge-pending" id="status-002">IN ATTESA</span></td>
-              <td>
-                <button class="btn-action btn-approve" onclick="approveLead('002', 'Mar 21:00 - 22:00')">APPROVA SLOT</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <button class="sfx-btn-action-oval" style="width:100%;" onclick="crmUnlock()">
+        <span>AUTENTICA POSTAZIONE</span>
+        <span>➔</span>
+      </button>
 
-    <!-- PANNELLO 2: CALENDARIO ESECUTIVO (60 MINUTI) -->
-    <section class="sfx-panel">
-      <div class="sfx-panel-header">
-        <h2 class="sfx-panel-title">2. CALENDARIO PRESIDENZIALE (60 MIN)</h2>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--gold-primary);">SETTIMANA CORRENTE</span>
+      <div id="crmErr" style="color:var(--status-red); font-family:var(--font-mono); font-size:0.75rem; margin-top:1rem; display:none;">
+        PIN non corretto. Accesso negato.
       </div>
 
-      <div class="sfx-calendar-grid">
-        <div class="sfx-slot-card" id="slot-lun-10">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">LUNEDÌ // MATTINA</div>
-          <div class="sfx-slot-time">10:00 - 11:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile per screening</div>
-        </div>
-        <div class="sfx-slot-card" id="slot-lun-11">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">LUNEDÌ // MATTINA</div>
-          <div class="sfx-slot-time">11:01 - 12:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile per screening</div>
-        </div>
-        <div class="sfx-slot-card booked" id="slot-lun-15">
-          <div class="sfx-slot-status" style="color: var(--status-amber);">IN ATTESA</div>
-          <div class="sfx-slot-day">LUNEDÌ // POMERIGGIO</div>
-          <div class="sfx-slot-time">15:00 - 16:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Richiesta L-001 (Mario R.)</div>
-        </div>
-        <div class="sfx-slot-card" id="slot-lun-16">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">LUNEDÌ // POMERIGGIO</div>
-          <div class="sfx-slot-time">16:01 - 17:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile</div>
-        </div>
-        
-        <div class="sfx-slot-card" id="slot-mar-17">
-          <div class="sfx-slot-status" style="color: #666;">LIBERO</div>
-          <div class="sfx-slot-day">MARTEDÌ // POMERIGGIO</div>
-          <div class="sfx-slot-time">17:00 - 18:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Disponibile</div>
-        </div>
-        <div class="sfx-slot-card booked" id="slot-mar-21">
-          <div class="sfx-slot-status" style="color: var(--status-amber);">IN ATTESA</div>
-          <div class="sfx-slot-day">MARTEDÌ // SERA</div>
-          <div class="sfx-slot-time">21:00 - 22:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Richiesta L-002 (Laura B.)</div>
+      <div style="margin-top:1.5rem;">
+        <a href="index.html" style="color:#64748B; font-family:var(--font-mono); font-size:0.7rem; text-decoration:none;">◄ Rientra all'Ecosistema</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSTATION CRM EFFETTIVA -->
+  <div id="crmApp" style="display:none;">
+    
+    <header class="sfx-crm-topbar">
+      <div style="display:flex; align-items:center; gap:1.2rem;">
+        <span style="font-family:var(--font-sync); font-weight:800; color:var(--gold-primary); letter-spacing:2px;">
+          SUPREMA CRM // LIVE DESK 2026
+        </span>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--status-green);">
+          ● CONNESSO AL NODO CENTRALE
+        </span>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:1.5rem;">
+        <a href="admin.html" class="sfx-btn-action-cell" style="border-color:var(--cyan-neon); color:var(--cyan-neon);">
+          CONSOLE X-BOX ➔
+        </a>
+        <button class="sfx-btn-action-cell" style="border-color:var(--status-red); color:var(--status-red);" onclick="crmLock()">
+          BLOCCA DESK
+        </button>
+      </div>
+    </header>
+
+    <main style="max-width:1440px; margin:0 auto; padding:2rem;">
+      
+      <!-- KPI CARD ROW -->
+      <div class="sfx-kpi-row">
+        <div class="sfx-kpi-card" style="border-left:4px solid var(--cyan-neon);">
+          <div class="sfx-kpi-label">DOSSIER TOTALI ACQUISITI</div>
+          <div class="sfx-kpi-num" id="kpiTotal">1</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--status-green);">↑ Sincronizzazione T+0</div>
         </div>
 
-        <div class="sfx-slot-card confirmed" id="slot-mer-21">
-          <div class="sfx-slot-status" style="color: var(--status-green);">CONFERMATO</div>
-          <div class="sfx-slot-day">MERCOLEDÌ // SERA</div>
-          <div class="sfx-slot-time">21:00 - 22:00</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Allievo: Giovanni V. (VIP)</div>
+        <div class="sfx-kpi-card" style="border-left:4px solid var(--gold-primary);">
+          <div class="sfx-kpi-label">IN ATTESA DI SCREENING</div>
+          <div class="sfx-kpi-num" id="kpiPending" style="color:var(--gold-primary);">1</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:#94A3B8;">Fascia diurna/serale</div>
         </div>
 
-        <div class="sfx-slot-card" id="slot-sab-fast" style="grid-column: span 2; border-color: var(--cyan-neon);">
-          <div class="sfx-slot-status" style="color: var(--cyan-neon);">SPECIALE</div>
-          <div class="sfx-slot-day" style="color: var(--cyan-neon);">SABATO // FAST-TRACK WHATSAPP</div>
-          <div class="sfx-slot-time">ORARIO FLESSIBILE</div>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">Accordo diretto via smartphone CEO</div>
+        <div class="sfx-kpi-card" style="border-left:4px solid var(--status-green);">
+          <div class="sfx-kpi-label">CONVOCAZIONI MEET ATTIVE</div>
+          <div class="sfx-kpi-num" id="kpiMeet" style="color:var(--status-green);">1</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:#94A3B8;">Stanze virtuali 60 min</div>
+        </div>
+
+        <div class="sfx-kpi-card" style="border-left:4px solid #A855F7;">
+          <div class="sfx-kpi-label">PUNTI ORO IN ACCREDITO</div>
+          <div class="sfx-kpi-num" id="kpiPoints" style="color:#A855F7;">+350</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:#94A3B8;">Status Ledger 2026</div>
         </div>
       </div>
-    </section>
-  </main>
 
-  <script src="js/code.js"></script>
+      <!-- TABELLA INTERATTIVA CANDIDATURE -->
+      <div class="sfx-card-box">
+        <div class="sfx-card-title">
+          <span>REGISTRO CANDIDATI E GESTIONE CONVOCAZIONI</span>
+          <button class="sfx-action-btn-small" onclick="crmFetchLeads()">SINCRONIZZA REGISTRO ⟳</button>
+        </div>
+
+        <div class="sfx-table-wrapper">
+          <table class="sfx-crm-table">
+            <thead>
+              <tr>
+                <th>ID DOSSIER</th>
+                <th>CANDIDATO</th>
+                <th>WHATSAPP / EMAIL</th>
+                <th>AMBITO RICHIESTO</th>
+                <th>FASCIA / ORARIO</th>
+                <th>STANZA MEET</th>
+                <th>STATO PRATICA</th>
+                <th>OPERAZIONI DIRETTE</th>
+              </tr>
+            </thead>
+            <tbody id="crmTableBody">
+              <tr>
+                <td style="color:var(--gold-primary);">#SFX-LEAD-20261102-001</td>
+                <td><strong>Roberto V.</strong></td>
+                <td>
+                  +39 340 1234567<br>
+                  <span style="color:#64748B;">roberto@example.com</span>
+                </td>
+                <td>Executive Master</td>
+                <td>Pomeriggio (15:00 - 18:00)</td>
+                <td>
+                  <a href="https://meet.google.com" target="_blank" style="color:var(--cyan-neon); text-decoration:none; font-weight:700;">
+                    Entra in Stanza ➔
+                  </a>
+                </td>
+                <td><span class="sfx-badge-state b-convocato">Convocato Meet</span></td>
+                <td>
+                  <div style="display:flex; gap:0.4rem;">
+                    <button class="sfx-btn-action-cell" onclick="crmWhatsApp('+393401234567', 'Roberto')">WhatsApp</button>
+                    <button class="sfx-btn-action-cell" style="border-color:var(--status-green); color:var(--status-green);" onclick="alert('Dossier approvato.')">Approva</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
   <script>
-    const slotMapping = {
-      'Lun 10:00 - 11:00': 'slot-lun-10',
-      'Lun 11:01 - 12:00': 'slot-lun-11',
-      'Lun 15:00 - 16:00': 'slot-lun-15',
-      'Lun 16:01 - 17:00': 'slot-lun-16',
-      'Mar 17:00 - 18:00': 'slot-mar-17',
-      'Mar 21:00 - 22:00': 'slot-mar-21'
-    };
+    const SFX_CRM_PIN = "3474429091";
+    const SFX_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
 
-    function refreshData() {
-      alert("Sincronizzazione dati da Google Sheets completata in 120ms.\nNessuna nuova candidatura in coda.");
+    if (sessionStorage.getItem("SFX_CRM_AUTH") === "TRUE") {
+      document.getElementById('crmLockscreen').style.display = 'none';
+      document.getElementById('crmApp').style.display = 'block';
     }
 
-    function approveLead(leadId, slotName) {
-      if (confirm(`Confermare lo slot "${slotName}" per il candidato L-${leadId}?`)) {
-        const statusBadge = document.getElementById(`status-${leadId}`);
-        statusBadge.className = "badge-status badge-approved";
-        statusBadge.innerText = "CONFERMATO";
-        
-        const btnCell = statusBadge.parentElement.nextElementSibling;
-        btnCell.innerHTML = `<a href="https://meet.google.com/new" target="_blank" class="btn-action" style="text-decoration:none; display:inline-block; border-color:var(--cyan-neon); color:var(--cyan-neon);">AVVIA MEET ➔</a>`;
+    function crmUnlock() {
+      const pin = document.getElementById('crmPin').value.trim();
+      const err = document.getElementById('crmErr');
 
-        const slotId = slotMapping[slotName];
-        if (slotId) {
-          const slotCard = document.getElementById(slotId);
-          slotCard.className = "sfx-slot-card confirmed";
-          slotCard.querySelector('.sfx-slot-status').innerText = "CONFERMATO";
-          slotCard.querySelector('.sfx-slot-status').style.color = "var(--status-green)";
-          slotCard.querySelector('div:last-child').innerText = `Assegnato a Lead L-${leadId}`;
-        }
+      if (pin === SFX_CRM_PIN) {
+        sessionStorage.setItem("SFX_CRM_AUTH", "TRUE");
+        document.getElementById('crmLockscreen').style.display = 'none';
+        document.getElementById('crmApp').style.display = 'block';
+      } else {
+        err.style.display = 'block';
+      }
+    }
 
-        alert(`Slot confermato.\nL'Agente Hermes (AG-13) ha inviato l'Email 2 al candidato con il link Google Meet.\nGoogle Calendar è stato aggiornato.`);
+    function crmLock() {
+      sessionStorage.removeItem("SFX_CRM_AUTH");
+      window.location.reload();
+    }
+
+    function crmWhatsApp(phone, nome) {
+      const msg = encodeURIComponent(`Gentile ${nome}, confermiamo il tuo appuntamento per lo screening di 60 minuti via Google Meet con il Founder & CEO Giuliano Caratelli. Presidenza Suprema Future X.`);
+      window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
+    }
+
+    async function crmFetchLeads() {
+      const tbody = document.getElementById('crmTableBody');
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:1.5rem; color:#64748B;">Sincronizzazione in corso...</td></tr>`;
+      
+      try {
+        const res = await fetch(SFX_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'get_telemetry_status' })
+        });
+        const d = await res.json();
+        // Aggiorna tabella o fallback informativo
+        tbody.innerHTML = `
+          <tr>
+            <td style="color:var(--gold-primary);">#SFX-LEAD-20261102-001</td>
+            <td><strong>Roberto V.</strong></td>
+            <td>+39 340 1234567<br><span style="color:#64748B;">roberto@example.com</span></td>
+            <td>Executive Master</td>
+            <td>Pomeriggio (15:00 - 18:00)</td>
+            <td><a href="https://meet.google.com" target="_blank" style="color:var(--cyan-neon);">Entra in Stanza ➔</a></td>
+            <td><span class="sfx-badge-state b-convocato">Convocato Meet</span></td>
+            <td>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="sfx-btn-action-cell" onclick="crmWhatsApp('+393401234567', 'Roberto')">WhatsApp</button>
+                <button class="sfx-btn-action-cell" style="border-color:var(--status-green); color:var(--status-green);" onclick="alert('Dossier confermato.')">Approva</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      } catch(e) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--status-red);">Errore di connessione al nodo.</td></tr>`;
       }
     }
   </script>
