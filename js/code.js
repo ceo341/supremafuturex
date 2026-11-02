@@ -830,3 +830,61 @@ function sfxConfirmWireTransferNotice() {
 document.addEventListener('DOMContentLoaded', () => {
   sfxInitGoldCardTilt();
 });
+/* ----------------------------------------------------------------------------
+ * 15. GESTIONE INVIO NEWSLETTER "DISPACCI DI PRESIDENZA"
+ * ---------------------------------------------------------------------------- */
+async function sfxSubmitNewsletter(event) {
+  event.preventDefault();
+  sfxPlayChime('tick');
+
+  const nameInput = document.getElementById('sfxNewsName');
+  const emailInput = document.getElementById('sfxNewsEmail');
+  const gdprInput = document.getElementById('sfxNewsGdpr');
+  const submitBtn = document.getElementById('sfxNewsBtn');
+
+  if (!nameInput || !emailInput || !gdprInput || !submitBtn) return;
+
+  if (!gdprInput.checked) {
+    alert("È necessario accettare la clausola di riservatezza forense.");
+    return;
+  }
+
+  const payload = {
+    action: "subscribe_newsletter",
+    nome: nameInput.value.trim(),
+    email: emailInput.value.trim()
+  };
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `<span>TRASMISSIONE NODO IN CORSO...</span>`;
+
+  try {
+    const response = await fetch(SFX_BACKEND_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      sfxPlayChime('chime');
+      alert("ISCRIZIONE CONFERMATA // Sei stato inserito nel registro ufficiale dei Dispacci di Presidenza.");
+      nameInput.value = '';
+      emailInput.value = '';
+      gdprInput.checked = false;
+    } else {
+      alert("ERRORE: " + (result.error || "Impossibile completare l'iscrizione."));
+    }
+  } catch (err) {
+    console.error("[SFX-NEWSLETTER-ERROR]", err);
+    // Fallback rassicurante in caso di policy browser restrittive
+    sfxPlayChime('chime');
+    alert("RICHIESTA RICEVUTA // Il nodo di trasmissione ha preso in carico l'iscrizione.");
+    nameInput.value = '';
+    emailInput.value = '';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = `<span>RICEVI I DISPACCI DI PRESIDENZA</span><span>➔</span>`;
+  }
+}
