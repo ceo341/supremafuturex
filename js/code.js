@@ -1,4 +1,29 @@
+/* Endpoint Ufficiale Google Apps Script SFX 2026 */
+const SFX_BACKEND_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
+
 /**
+ * Trasmissione asincrona della candidatura dal frontend al backend
+ */
+async function sfxSubmitLeadForm(leadPayload) {
+  sfxPlayChime('chime');
+  
+  try {
+    const response = await fetch(SFX_BACKEND_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'submit_candidatura',
+        data: leadPayload
+      })
+    });
+
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.error("[SFX-NETWORK-ERROR]", err);
+    return { success: false, error: "Connessione al nodo di sicurezza non riuscita." };
+  }
+}/**
  * ============================================================================
  * SUPREMA FUTURE X ENTERPRISE // CORE LOGIC & NEURAL ENGINE
  * File: js/code.js
