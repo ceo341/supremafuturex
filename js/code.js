@@ -662,3 +662,171 @@ document.addEventListener('DOMContentLoaded', () => {
   sfxInitLogoEngine();
   sfxInitLiveClockAndTelemetry();
 });
+/* ----------------------------------------------------------------------------
+ * 12. LOGICA TANDEM DECK (ACADEMY, CONCESSIONI, GOLD CARD 3D)
+ * ---------------------------------------------------------------------------- */
+let sfxActiveTandemIndex = 0;
+
+function sfxSwitchTandemCard(targetIndex) {
+  if (targetIndex === sfxActiveTandemIndex) return;
+
+  sfxPlayChime('chime');
+
+  const tabs = document.querySelectorAll('.sfx-tandem-tab-btn');
+  const cards = [
+    document.getElementById('tandemCard0'),
+    document.getElementById('tandemCard1'),
+    document.getElementById('tandemCard2')
+  ];
+  const seam = document.getElementById('sfxFrictionSeam');
+
+  // Attivazione fascio d'attrito ottico
+  if (seam) {
+    seam.style.opacity = '1';
+    seam.style.left = '50%';
+    setTimeout(() => { seam.style.opacity = '0'; }, 350);
+  }
+
+  // Aggiornamento bottoni tab
+  tabs.forEach((tab, idx) => {
+    if (idx === targetIndex) tab.classList.add('active');
+    else tab.classList.remove('active');
+  });
+
+  // Uscita scheda corrente con Vapor Shift
+  const currentCard = cards[sfxActiveTandemIndex];
+  if (currentCard) {
+    currentCard.classList.remove('active');
+    currentCard.classList.add('sfx-card-vaporize');
+    setTimeout(() => {
+      currentCard.classList.remove('sfx-card-vaporize');
+    }, 450);
+  }
+
+  // Ingresso nuova scheda
+  const nextCard = cards[targetIndex];
+  if (nextCard) {
+    nextCard.classList.add('active');
+  }
+
+  sfxActiveTandemIndex = targetIndex;
+}
+
+/* ----------------------------------------------------------------------------
+ * 13. SIMULATORE DINAMICO 3D TILT SUPREMA GOLD CARD
+ * ---------------------------------------------------------------------------- */
+function sfxInitGoldCardTilt() {
+  const card = document.getElementById('sfxGoldCardElement');
+  if (!card) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotX = -((y - centerY) / centerY) * 16;
+    const rotY = ((x - centerX) / centerX) * 16;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  });
+}
+
+/* ----------------------------------------------------------------------------
+ * 14. CASSETTO CHECKOUT MULTI-GATEWAY (REVOLUT, SUMUP, IBAN)
+ * ---------------------------------------------------------------------------- */
+let sfxCurrentCheckoutItem = "";
+let sfxCurrentCheckoutPrice = 0;
+
+function sfxOpenCheckout(itemName, price) {
+  sfxPlayChime('chime');
+
+  sfxCurrentCheckoutItem = itemName;
+  sfxCurrentCheckoutPrice = price;
+
+  const drawer = document.getElementById('sfxCheckoutDrawer');
+  const nameEl = document.getElementById('sfxCheckoutItemName');
+  const priceEl = document.getElementById('sfxCheckoutPrice');
+  const causaleEl = document.getElementById('sfxIbanCausale');
+
+  if (nameEl) nameEl.textContent = itemName;
+  if (priceEl) priceEl.textContent = `€ ${price.toFixed(2)}`;
+  if (causaleEl) {
+    const leadCode = "LEAD" + Math.floor(1000 + Math.random() * 9000);
+    causaleEl.textContent = `SFX-2026-${leadCode}-AMMISSIONE`;
+  }
+
+  // Pre-configurazione link Revolut / SumUp dinamici
+  const revLink = document.getElementById('sfxRevolutPayLink');
+  if (revLink) {
+    revLink.href = `https://revolut.me/giulianocaratelli?amount=${price}&currency=EUR`;
+  }
+
+  const sumupLink = document.getElementById('sfxSumupPayLink');
+  if (sumupLink) {
+    sumupLink.href = `https://sumup.me/supremafuturex?amount=${price}`;
+  }
+
+  if (drawer) {
+    drawer.classList.add('active');
+    drawer.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function sfxCloseCheckout() {
+  sfxPlayChime('tick');
+  const drawer = document.getElementById('sfxCheckoutDrawer');
+  if (drawer) {
+    drawer.classList.remove('active');
+    drawer.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function sfxSwitchPayMethod(methodKey) {
+  sfxPlayChime('tick');
+
+  const tabs = {
+    revolut: document.getElementById('payTabRevolut'),
+    sumup: document.getElementById('payTabSumup'),
+    iban: document.getElementById('payTabIban')
+  };
+
+  const panels = {
+    revolut: document.getElementById('payPanelRevolut'),
+    sumup: document.getElementById('payPanelSumup'),
+    iban: document.getElementById('payPanelIban')
+  };
+
+  for (let key in tabs) {
+    if (tabs[key]) tabs[key].classList.toggle('active', key === methodKey);
+    if (panels[key]) panels[key].classList.toggle('active', key === methodKey);
+  }
+}
+
+function sfxCopyIbanToClipboard() {
+  const ibanText = document.getElementById('sfxIbanCode')?.textContent.trim();
+  if (!ibanText) return;
+
+  navigator.clipboard.writeText(ibanText).then(() => {
+    sfxPlayChime('chime');
+    alert("COORDINATE IBAN COPIATE NEGLI APPUNTI // CIRCUITO VERIFICATO");
+  }).catch(() => {
+    alert("Coordinate IBAN: " + ibanText);
+  });
+}
+
+function sfxConfirmWireTransferNotice() {
+  sfxPlayChime('chime');
+  alert("DISPOSIZIONE DI BONIFICO PRESA IN CARICO // Riceverai conferma formale via WhatsApp e casella email non appena perverrà la notifica bancaria.");
+  sfxCloseCheckout();
+}
+
+// Inizializzazione Listener Gold Card
+document.addEventListener('DOMContentLoaded', () => {
+  sfxInitGoldCardTilt();
+});
