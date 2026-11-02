@@ -2,412 +2,242 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Statuto Ufficiale & Codice Etico // Suprema Future X Enterprise</title>
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="author" content="Giuliano Caratelli">
-  <link rel="icon" type="image/png" href="media/logo.png">
-  
-  <!-- Font Istituzionali -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@400;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Foglio di Stile Globale -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STATUTO FORENSE // SUPREMA FUTURE X ENTERPRISE 2026</title>
+  <meta name="description" content="Statuto Forense e Ordinamento Giuridico-Istituzionale di Suprema Future X Enterprise. Governance esclusiva Founder & CEO Giuliano Caratelli.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23090A0E' stroke='%23D4AF37' stroke-width='4'/><text x='50%' y='58%' font-size='26' text-anchor='middle' fill='%23D4AF37' font-family='sans-serif' font-weight='bold'>LEX</text></svg>">
   <link rel="stylesheet" href="stile-globale.css">
-  
-  <style>
-    body {
-      background-color: var(--bg-pearl);
-      color: var(--text-dark);
-      font-family: var(--font-mont);
-      line-height: 1.85;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    /* Top Bar di Stato Forense */
-    .sfx-top-bar {
-      background: #090A0E;
-      color: #FFF;
-      border-bottom: 2px solid var(--gold-primary);
-      padding: 0.75rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    /* Contenitore Atto Ufficiale */
-    .statuto-container {
-      max-width: 950px;
-      margin: 3.5rem auto 6rem;
-      background: #FFFFFF;
-      border: 1px solid var(--border-light);
-      border-radius: 20px;
-      padding: 4.5rem 4rem;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.06);
-      position: relative;
-    }
-
-    /* Header del Documento */
-    .statuto-header {
-      text-align: center;
-      border-bottom: 2px solid var(--gold-primary);
-      padding-bottom: 2.5rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .statuto-pretitle {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--cyan-deep);
-      letter-spacing: 2px;
-      margin-bottom: 0.6rem;
-      font-weight: 700;
-    }
-
-    .statuto-title {
-      font-family: var(--font-sync);
-      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-      color: var(--blue-deep);
-      margin-bottom: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .statuto-meta {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-family: var(--font-mono);
-    }
-
-    /* Sezioni Articoli */
-    .statuto-article {
-      margin-bottom: 3rem;
-      text-align: justify;
-    }
-
-    .article-title {
-      font-family: var(--font-sync);
-      font-size: 1.05rem;
-      color: var(--gold-deep);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      padding-bottom: 0.4rem;
-    }
-
-    .article-body {
-      font-size: 0.95rem;
-      color: #374151;
-      line-height: 1.85;
-    }
-
-    .article-body p {
-      margin-bottom: 1rem;
-    }
-
-    .article-body ul {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .article-body li {
-      margin-bottom: 0.5rem;
-    }
-
-    /* Box Evidenziatore Matrice e Clausole */
-    .highlight-box {
-      background: rgba(212, 175, 55, 0.06);
-      border-left: 4px solid var(--gold-primary);
-      padding: 1.5rem;
-      border-radius: 0 12px 12px 0;
-      margin: 1.5rem 0;
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      color: var(--blue-deep);
-    }
-
-    .highlight-box-danger {
-      background: rgba(255, 59, 48, 0.05);
-      border-left: 4px solid var(--status-red);
-      padding: 1.5rem;
-      border-radius: 0 12px 12px 0;
-      margin: 1.5rem 0;
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      color: #991B1B;
-    }
-
-    /* Footer Sottoscrizione */
-    .statuto-footer {
-      border-top: 2px solid var(--border-light);
-      padding-top: 3rem;
-      margin-top: 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .signature-block {
-      border-top: 1px solid #000;
-      padding-top: 0.5rem;
-      width: 240px;
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    @media (max-width: 768px) {
-      .statuto-container {
-        padding: 2.5rem 1.8rem;
-        margin: 1.5rem 1rem 3rem;
-      }
-      .statuto-title {
-        font-size: 1.4rem;
-      }
-      .sfx-top-bar {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.68rem;
-      }
-    }
-  </style>
 </head>
-<body class="sfx-forensic-shield">
+<body>
 
-  <!-- Top Bar Forense di Navigazione -->
-  <aside class="sfx-top-bar">
-    <div class="sfx-status-indicator">
-      <span class="sfx-status-dot"></span>
-      <span>ATTO PUBBLICO ESECUTIVO // PROTOCOLLO EAL6+ CERTIFICATO</span>
+  <div class="sfx-laser-ambient-wave" aria-hidden="true"></div>
+
+  <!-- TOP BAR FORENSE -->
+  <header class="sfx-topbar-forense">
+    <div class="sfx-topbar-left">
+      <div class="sfx-node-pulse"></div>
+      <span>ATTO PUBBLICO DEPOSITATO // REGISTRO FORENSE VELLETRI-ROMA</span>
     </div>
-    <a href="index.html" class="magnetic-target" style="color:var(--gold-primary); text-decoration:none; font-weight:700;">◄ TORNA ALLA HOME LANDING</a>
-  </aside>
+    <a href="index.html" class="sfx-topbar-brand" style="text-decoration:none;">
+      SUPREMA FUTURE X
+    </a>
+    <div class="sfx-topbar-right">
+      <a href="index.html" style="color:var(--cyan-neon); text-decoration:none; font-family:var(--font-mono); font-size:0.75rem;">
+        ◄ RIENTRA ALL'ECOSISTEMA
+      </a>
+    </div>
+  </header>
 
-  <!-- Corpo Principale Statuto -->
-  <main class="statuto-container">
+  <!-- CORPO STATUTO -->
+  <main style="max-width:1100px; margin:3rem auto 5rem; padding:0 2rem; position:relative; z-index:10;">
     
-    <header class="statuto-header">
-      <div class="statuto-pretitle">REGISTRO DEPOSITATO // ECOSISTEMA SUPREMA FUTURE X</div>
-      <h1 class="statuto-title">STATUTO & CODICE ETICO</h1>
-      <div class="statuto-meta">DEPOSITO FORENSE ANNO OPERATIVO 2026 // IDENTIFICATIVO HASH: #SFX-STATUTO-EAL6-2026</div>
-    </header>
+    <div class="sfx-oval-section sfx-oval-frame-dark" style="margin-bottom:2.5rem; text-align:center;">
+      <div class="sfx-motto-badge">DOCUMENTO GIURIDICO VINCOLANTE // ANNO OPERATIVO 2026</div>
+      <h1 class="sfx-contrast-text-light" style="font-family:var(--font-sync); font-size:clamp(1.8rem, 4vw, 2.8rem); margin-bottom:1rem;">
+        STATUTO FORENSE DELL'IMPRESA
+      </h1>
+      <p style="font-size:0.95rem; color:#94A3B8; max-width:820px; margin:0 auto; line-height:1.8;">
+        Carta costitutiva, garanzie inderogabili, divieti strutturali e protocolli operativi 
+        posti sotto la direzione diretta ed esclusiva del Founder & CEO Giuliano Caratelli.
+      </p>
+    </div>
 
-    <!-- ARTICOLO 1 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 01 // DENOMINAZIONE, SEDE E SCOPO ISTITUZIONALE</h2>
-      <div class="article-body">
-        <p>
-          È costituito l'ecosistema d'élite denominato <strong>Suprema Future X Enterprise</strong> (di seguito, "SFX"). La piattaforma opera per l'alta formazione esecutiva, il digital networking professionale, l'avviamento commerciale a zero magazzino e il reindirizzamento al lavoro operativo.
-        </p>
-        <p>
-          L'ecosistema stabilisce la propria Sede Operativa nel Centro Direzionale di Colleferro (Roma) e il proprio Ufficio di Presidenza e Rappresentanza Istituzionale in Roma Centro (Via della Scrofa). Tutte le attività sono erogate secondo protocolli informatici ad alta integrità EAL6+ Verified.
-        </p>
-      </div>
-    </article>
+    <div style="display:flex; flex-direction:column; gap:1.8rem;">
 
-    <!-- ARTICOLO 2 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 02 // GOVERNANCE E POTERI DEL FOUNDER & CEO</h2>
-      <div class="article-body">
-        <p>
-          La direzione generale, l'indirizzo strategico, le relazioni commerciali e la supervisione dei piani didattici sono attribuiti in forma esclusiva, irrevocabile e diretta al Fondatore e CEO <strong>Giuliano Caratelli</strong>.
+      <!-- ART. 01 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ARTICOLO 01</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Denominazione, Governance e Centro Decisionale
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          È costituita l'infrastruttura d'impresa denominata «Suprema Future X Enterprise» (SFX 2026). 
+          La governance direzionale, didattica, legale e finanziaria risponde in via monocratica, esclusiva e inderogabile 
+          alla persona del Founder & CEO Giuliano Caratelli. È fatto divieto di delegare ad organi asincroni terzi la 
+          rappresentanza istituzionale dell'ecosistema.
         </p>
-        <p>
-          Il CEO detiene il potere esclusivo di ratifica, sospensione o revoca delle ammissioni all'accademia, delle concessioni commerciali digitali e dell'accesso al tavolo dei soci. Nessun percorso formativo o concessione può essere deliberata in assenza dello screening conoscitivo preliminare svolto dalla Presidenza.
-        </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 3 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 03 // GARANZIA STATUTARIA DELLA DIDATTICA LIVE</h2>
-      <div class="article-body">
-        <p>
-          Suprema Future X stabilisce come vincolo immutabile e inderogabile l'erogazione di tutti i programmi accademici (Silver Tier, Executive Master e Premium VIP) al <strong>100% dal vivo in videoconferenza diretta</strong>.
+      <!-- ART. 02 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-red); font-weight:700;">ARTICOLO 02</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Divieto Assoluto di Schemi MLM e Vendita Piramidale
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          L'ecosistema bandisce categoricamente qualsiasi modello riconducibile a Multi-Level Marketing (MLM), schemi 
+          piramidali, catene di reclutamento, fee di ingresso su nuovi affiliati o rendite passive asincrone. 
+          Ogni transazione economica deve corrispondere a un corrispettivo effettivo per erogazione di formazione sincrona o 
+          a vendita di prodotti fisici tramite concessione e-commerce.
         </p>
-        <div class="highlight-box-danger">
-          <strong>CLAUSOLA DI SALVAGUARDIA FORENSE:</strong><br>
-          È fatto divieto assoluto di somministrare agli iscritti materiale video pre-registrato fine a se stesso. Ciascuna sessione didattica richiede la presenza sincrona del docente o della Presidenza, garantendo la verifica reale dell'apprendimento e il tutoraggio operativo continuo.
-        </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 4 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 04 // MATRICE FISCALE STATUTARIA 54 / 30 / 16</h2>
-      <div class="article-body">
-        <p>
-          Tutti i proventi e le entrate lorde generate dall'erogazione dei percorsi didattici, dalle concessioni dei negozi digitali e dai servizi di consulenza sono sottoposti a ripartizione matematica automatica e istantanea (T+0):
+      <!-- ART. 03 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ARTICOLO 03</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Garanzia della Didattica 100% dal Vivo (Zero Registrazioni)
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Tutti i percorsi formativi erogati da Suprema Academy (Silver Tier, Executive Master, Premium VIP) sono garantiti al 
+          100% dal vivo in videoconferenza telematica interattiva con il corpo docente e la Presidenza. 
+          È fatto divieto statutario di commercializzare videocorsi pre-registrati passivi o compendi asincroni privi di docenza diretta.
         </p>
-        <div class="highlight-box">
-          • <strong>16% - Fondo Fiscale F24 Segregato:</strong> Riserva intoccabile presidiata dall'Agente Neurale Ginevra (AG-03) per il saldo esatto di imposte tributarie, contributi e oneri fiscali entro il 16 di ogni mese.<br>
-          • <strong>30% - Dividendi Presidenziali:</strong> Quota spettante al Founder & CEO Giuliano Caratelli, trasferibile sul conto personale esclusivamente previa autenticazione biometrica e PIN a 10 cifre.<br>
-          • <strong>54% - Fondo Operatività, Sviluppo & Soci:</strong> Destinato al potenziamento dell'infrastruttura tecnologica e alla liquidazione delle quote societarie deliberate.
-        </div>
-        <p>
-          La quota del 54% destinata allo sviluppo e ai soci è statutariamente ripartita come segue: <em>Holding SFX (52%), Mariachiara (10%), Rossella (4%), Alba (2%), Massimo (1%), Federico (1%)</em>.
-        </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 5 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 05 // REGIME DELLE CONCESSIONI COMMERCIALI DIGITALI</h2>
-      <div class="article-body">
-        <p>
-          L'ecosistema autorizza la concessione di Negozi Digitali autonomi operanti nel modello a zero magazzino. La logistica, il confezionamento, l'inventario e le spedizioni sono interamente centralizzati ed eseguiti in virtù dell'accordo di distribuzione con la rete partner Imperya S.r.l.
+      <!-- ART. 04 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-green); font-weight:700;">ARTICOLO 04</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Concessioni Digitali E-Commerce e Modello a Zero Magazzino
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Le Concessioni Digitali assegnate agli allievi qualificati operano nel modello a zero magazzino. 
+          Il concessionario è integralmente sollevato da oneri di acquisto preventivo merce, imballaggio e stipula contratti di trasporto. 
+          La logistica, il packaging e le spedizioni espresse sono centralizzati a livello infrastrutturale dall'hub SFX.
         </p>
-        <p>
-          Il titolare della concessione è esonerato da qualsiasi acquisto preventivo di merce o onere di stoccaggio. L'ammissione alla concessione accredita immediatamente <strong>+800 Punti Status</strong> sul ledger dell'allievo e attiva la commessa tipografica per la tessera metallica.
-        </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 6 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 06 // SUPREMA GOLD CARD & CATALOGO PREMI</h2>
-      <div class="article-body">
-        <p>
-          La Suprema Gold Card costituisce il titolo phygital identificativo dello status raggiunto nell'ecosistema. La contabilità dei punti opera a partita doppia, distinguendo rigorosamente:
+      <!-- ART. 05 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">ARTICOLO 05</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Titolo Phygital Suprema Gold Card e Contabilità Punti a Doppio Binario
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Al raggiungimento di 800 Punti Status viene rilasciata la Suprema Gold Card in acciaio massiccio dorato con seriale univoco. 
+          Il registro adotta una contabilità a doppio binario: i «Punti Status» sono permanenti e cumulativi a vita, definendo il rango 
+          accademico; i «Punti Spendibili» consentono il riscatto dei premi fisici previsti dal catalogo ufficiale di Presidenza.
         </p>
-        <ul>
-          <li><strong>Punti Status:</strong> Cumulativi, non azzerabili e legati alla reputazione accademica dell'allievo.</li>
-          <li><strong>Punti Spendibili:</strong> Utilizzabili per il riscatto delle 5 soglie premi deliberate dalla Presidenza.</li>
-        </ul>
-        <div class="highlight-box">
-          <strong>LE 5 SOGLIE PREMI PRESIDENZIALI:</strong><br>
-          • <strong>2.000 Punti:</strong> 3 Mesi di Conferenze Esecutive Gratuite con il CEO Giuliano Caratelli.<br>
-          • <strong>3.000 Punti:</strong> Invito per 2 persone alla prestigiosa Cena Annuale di Gala a Roma Centro.<br>
-          • <strong>4.500 Punti:</strong> Audit Fiscale su misura con Ginevra (AG-03) + 6 Mesi Call individuali CEO.<br>
-          • <strong>6.000 Punti:</strong> Upgrade Status Sovrano a vita + 1 Corso gratuito a scelta + 1 Anno Call CEO.<br>
-          • <strong>7.500 Punti:</strong> Weekend Luxury per 2 persone in hotel 5 stelle partner a Roma Centro.
-        </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 7 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 07 // PROTOCOLLO DELLA FLOTTA NEURALE (15 AGENTI AI)</h2>
-      <div class="article-body">
-        <p>
-          La piattaforma integra una squadra di 15 Agenti di Intelligenza Artificiale deputati al supporto operativo, alla telemetria e alla sicurezza. Ciascun agente opera nel rispetto rigoroso dei limiti di processo assegnati (da AG-01 Alison per il triage informativo fino ad AG-15 Joker).
+      <!-- ART. 06 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ARTICOLO 06</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Protocollo di Screening Conoscitivo Obbligatorio (60 Minuti)
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Nessun candidato può accedere ai percorsi didattici o all'assegnazione di Concessioni Store senza aver superato lo 
+          screening conoscitivo individuale di 60 minuti via Google Meet. Il colloquio accerta l'idoneità etica, la motivazione e la 
+          compatibilità del candidato con il Dream Defense System, a insindacabile giudizio della Presidenza.
         </p>
-        <p>
-          In caso di anomalie di sistema, violazioni di sicurezza o discrepanze di bilancio, il CEO dispone dell'autorità esclusiva per azionare il <strong>Master Fleet Kill-Switch</strong>, congelando all'istante l'elaborazione dei modelli neurali.
-        </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 8 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 08 // SEGRETO INDUSTRIALE E NON-DIVULGAZIONE</h2>
-      <div class="article-body">
-        <p>
-          Tutti i corsisti, i collaboratori e i concessionari commerciali assumono l'obbligo vincolante di osservare il più stretto segreto aziendale su metodologie didattiche, architetture software, automazioni neurali e contratti della holding.
+      <!-- ART. 07 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ARTICOLO 07</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Flotta Neurale Determinante e Master Fleet Kill-Switch Hardware
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          I 15 agenti neurali di presidio (inclusi AG-01 Alison, AG-10 Titan e AG-12 Sentinel) operano con perimetro deterministico e 
+          senza allucinazioni. Il Founder & CEO dispone del Master Fleet Kill-Switch per la sospensione immediata e totale delle 
+          comunicazioni AI in caso di anomalia o violazione di sicurezza.
         </p>
-        <p>
-          È fatto espresso divieto di duplicare, cedere a terzi, commercializzare o sottoporre a reverse engineering il codice sorgente, i layout di processo o i flussi API di Suprema Future X. Le violazioni comportano l'immediata radiazione dall'ecosistema e l'azione legale per risarcimento danni presso il Foro competente.
-        </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 9 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 09 // CRITERI DI SCREENING E AMMISSIONE SELETTIVA</h2>
-      <div class="article-body">
-        <p>
-          L'ammissione a Suprema Future X non è un diritto d'acquisto, bensì una concessione di merito. Il candidato deve superare con esito favorevole il colloquio di screening conoscitivo da 60 minuti via Google Meet.
+      <!-- ART. 08 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">ARTICOLO 08</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Tutela della Proprietà Intellettuale e Segreto d'Impresa EAL6+
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Tutti i codici sorgente, i layout di design system, i modelli di prompt, le dispense del Media Vault e i marchi registrati 
+          costituiscono segreto industriale protetto. È fatto espresso divieto di duplicazione, registrazione audio/video non autorizzata o 
+          cessione a terzi, con previsione di radiazione immediata e rivalsa economica.
         </p>
-        <p>
-          La Presidenza valuta motivazione, etica del lavoro, integrità personale e potenziale di crescita. Le domande non conformi o provenienti da profili non allineati ai principi di serietà statutaria vengono respinte con facoltà di rate-limiting e blocco del contatto.
-        </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 10 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 10 // DECADENZA, SOSPENSIONE E INATTIVITÀ</h2>
-      <div class="article-body">
-        <p>
-          Lo status di corsista o concessionario decade in caso di gravi violazioni etiche, denigrazione del network o tentativi accertati di elusione dei protocolli di sicurezza.
+      <!-- ART. 09 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-green); font-weight:700;">ARTICOLO 09</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Trasparenza Fiscale, Tracciabilità e Fatturazione SDI
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Ogni operazione di incasso è regolata unicamente tramite circuiti tracciabili certificati PCI-DSS (Revolut Pay, SumUp, 
+          Stripe o Bonifico Bancario SEPA con causale univoca). A ciascuna transazione corrisponde l'immediata emissione di regolare 
+          fattura elettronica trasmessa tramite il Sistema di Interscambio (SDI) dell'Agenzia delle Entrate.
         </p>
-        <p>
-          L'Agente Neurale Sentinel (AG-12) monitora l'operatività: decorsi 60 giorni consecutivi di inattività ingiustificata senza partecipazione alle sessioni live, la posizione viene congelata e richiede istanza formale di riattivazione alla Presidenza.
-        </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 11 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 11 // ARCHIVIO CENTRALE MEDIA VAULT 400</h2>
-      <div class="article-body">
-        <p>
-          Tutti i contratti didattici, le attestazioni di merito, le dispense esecutive e le registrazioni di supporto sono custoditi nel Media Vault EAL6+ organizzato in 400 slot crittografati con chiavi simmetriche e token CDN a scadenza 120 minuti.
+      <!-- ART. 10 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-red); font-weight:700;">ARTICOLO 10</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Codice di Condotta e Decadenza per Inattività (60 Giorni)
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          I membri dell'ecosistema si impegnano a tenere una condotta consona all'autorità del brand. Un'inattività ingiustificata 
+          protratta per oltre 60 giorni consecutivi comporta la sospensione cautelare della matricola e dei privilegi operativi, la cui 
+          riattivazione è subordinata a delibera esplicita della Presidenza.
         </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 12 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 12 // TUTELA DELLA PRIVACY FORENSE (GDPR & EAL6+)</h2>
-      <div class="article-body">
-        <p>
-          I dati dei candidati e degli iscritti sono trattati esclusivamente per le finalità connesse all'erogazione dei percorsi e delle concessioni. Nessun dato viene venduto o condiviso con broker esterni. Il cliente ha diritto all'oblio forense previa istanza diretta al Responsabile del Trattamento.
+      <!-- ART. 11 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ARTICOLO 11</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Centralizzazione di Resi e Tutela del Consumatore Finale
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          A tutela della reputazione commerciale dei concessionari e dell'ecosistema, le richieste di recesso, sostituzione e 
+          assistenza post-vendita avanzate dai consumatori finali degli store digitali sono istruite e concluse dal polo logistico 
+          centralizzato SFX in conformità al Codice del Consumo vigente.
         </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 13 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 13 // FORO ESCLUSIVO DI COMPETENZA</h2>
-      <div class="article-body">
-        <p>
-          Per qualsiasi controversia derivante dall'interpretazione, esecuzione, validità o risoluzione del presente Statuto e dei patti ad esso collegati, è designato quale Foro di competenza esclusivo e inderogabile il <strong>Tribunale di Velletri / Roma</strong>.
+      <!-- ART. 12 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ARTICOLO 12</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Protezione dei Dati, Riservatezza Forense e Standard EAL6+
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Il trattamento dei dati personali dei candidati e dei membri rispetta i più stringenti protocolli di sicurezza crittografica 
+          a riposo e in transito (Zero-Trust Backend). Nessun recapito, identità o dato anagrafico sarà ceduto a intermediari terzi o broker di marketing.
         </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- ARTICOLO 14 -->
-    <article class="statuto-article">
-      <h2 class="article-title">ART. 14 // VALIDAZIONE FORENSE E FIRMA DIGITALE</h2>
-      <div class="article-body">
-        <p>
-          Il presente Statuto entra in vigore con decorrenza immediata dal momento del deposito nel registro decentralizzato e fa fede ad ogni effetto di legge per ciascun partecipante ammesso nell'ecosistema.
+      <!-- ART. 13 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">ARTICOLO 13</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Foro Competente Territoriale Esclusivo ed Inderogabile
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Per qualsiasi controversia interpretativa, esecutiva, contrattuale o giudiziale dipendente dal presente Statuto o dai rapporti con 
+          Suprema Future X Enterprise, le parti stabiliscono la competenza territoriale esclusiva ed inderogabile del Tribunale di Velletri / Roma.
         </p>
-      </div>
-    </article>
+      </article>
 
-    <!-- Sottoscrizione Ufficiale -->
-    <footer class="statuto-footer">
-      <div>
-        <strong style="color:var(--blue-deep); font-size:0.95rem;">PRESIDENZA SUPREMA FUTURE X</strong><br>
-        <span style="color:var(--text-muted);">GIULIANO CARATELLI // Fondatore & CEO</span>
-        <div class="signature-block">
-          <em>F.to Giuliano Caratelli</em>
-        </div>
+      <!-- ART. 14 -->
+      <article class="sfx-oval-section" style="padding:2.2rem 2.5rem; margin:0;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ARTICOLO 14</span>
+        <h2 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--blue-deep); margin:0.3rem 0 0.8rem;">
+          Efficacia Temporale, Accettazione e Clausola di Salvaguardia
+        </h2>
+        <p style="color:#4B5563; font-size:0.92rem; line-height:1.8;">
+          Il presente Statuto entra in vigore con l'approvazione presidenziale per l'anno operativo 2026. L'invio della candidatura di screening 
+          o la sottoscrizione di un programma implica la totale e incondizionata accettazione di tutti i 14 articoli forensi.
+        </p>
+      </article>
+
+    </div>
+
+    <!-- BOX RIENTRO E FIRMA -->
+    <div class="sfx-oval-frame-dark" style="margin-top:3.5rem; text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--gold-primary); margin-bottom:1rem;">
+        ATTO CONFORME ALL'ORIGINALE // FIRMATO DIGITALMENTE DALLA PRESIDENZA
       </div>
-      
-      <div style="text-align:right;">
-        <span style="color:var(--cyan-deep); font-weight:700;">CERTIFICAZIONE EAL6+ COMPLIANT</span><br>
-        <span style="color:var(--text-muted);">DEPOSITATO NEL REGISTRO FORENSE 2026</span><br>
-        <span style="font-size:0.7rem; color:#888;">SHA-256: 8f4e2c1a90b5d7e3f...VALIDATO</span>
-      </div>
-    </footer>
+      <a href="index.html" class="sfx-btn-action-oval" style="max-width:320px; margin:0 auto; text-decoration:none;">
+        RIENTRA ALLA LANDING PAGE ➔
+      </a>
+    </div>
 
   </main>
 
-  <!-- Script di Sicurezza Forense -->
-  <script src="js/code.js"></script>
 </body>
 </html>
