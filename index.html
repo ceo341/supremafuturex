@@ -3,1057 +3,1249 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>SUPREMA FUTURE X // ENTERPRISE 2026</title>
-  <meta name="description" content="Infrastruttura esecutiva per l'imprenditoria digitale avanzata, alta formazione interattiva 100% dal vivo e concessioni e-commerce a zero magazzino. Direzione Founder & CEO Giuliano Caratelli.">
-  <meta name="author" content="Giuliano Caratelli">
+  <title>SUPREMA FUTURE X // ECOSISTEMA D'IMPRESA & ALTA FORMAZIONE 2026</title>
+  <meta name="description" content="Infrastruttura per l'impresa digitale, formazione 100% dal vivo in videoconferenza con il Founder & CEO Giuliano Caratelli e concessioni e-commerce a zero magazzino.">
   
-  <!-- Favicon Brand -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23090A0E' stroke='%23D4AF37' stroke-width='4'/><text x='50%' y='58%' font-size='32' text-anchor='middle' fill='%23D4AF37' font-family='sans-serif' font-weight='bold'>SFX</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23090A0E' stroke='%23D4AF37' stroke-width='4'/><text x='50%' y='58%' font-size='28' text-anchor='middle' fill='%2300F0FF' font-family='sans-serif' font-weight='bold'>X</text></svg>">
+  <link rel="manifest" href="manifest.json">
 
-  <!-- Foglio di Stile Globale Monolitico -->
+  <!-- Tipografie Istituzionali -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@400;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="stile-globale.css">
+
+  <style>
+    /* ========================================================================== */
+    /* SUPREMA FUTURE X // DESIGN SYSTEM LUXURY LIGHT FORENSE 2026                 */
+    /* ========================================================================== */
+    :root {
+      --bg-base: #F8FAFC;
+      --card-white: #FFFFFF;
+      --card-pearl: #F1F5F9;
+      --gold-primary: #D4AF37;
+      --gold-deep: #B8860B;
+      --blue-navy: #0B192C;
+      --blue-slate: #1E293B;
+      --cyan-neon: #00F0FF;
+      --cyan-deep: #0099A8;
+      --green-status: #00E676;
+      --border-gold: rgba(212, 175, 55, 0.35);
+      --border-subtle: rgba(11, 25, 44, 0.08);
+      --font-sync: 'Syncopate', sans-serif;
+      --font-mont: 'Montserrat', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--blue-slate);
+      font-family: var(--font-mont);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .sfx-container {
+      max-width: 1320px;
+      margin: 0 auto 4.5rem;
+      padding: 0 1.5rem;
+    }
+
+    /* CARD CHIARE IN CRISTALLO & PERLA CON BORDO ORO */
+    .sfx-card {
+      background: var(--card-white);
+      border: 1px solid var(--border-gold);
+      border-radius: 24px;
+      padding: 2.4rem;
+      box-shadow: 0 15px 40px rgba(11, 25, 44, 0.05);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .sfx-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.18);
+      border-color: var(--gold-primary);
+    }
+
+    /* BADGE ISTITUZIONALE */
+    .sfx-badge-motto {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-deep);
+      font-family: var(--font-sync);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* TITOLI DI SEZIONE */
+    .sfx-sec-title {
+      font-family: var(--font-sync);
+      font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+      font-weight: 800;
+      color: var(--blue-navy);
+      letter-spacing: 1px;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .sfx-sec-subtitle {
+      max-width: 780px;
+      margin: 0 auto;
+      color: #64748B;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* 1. GRIGLIA 3 STORIE */
+    .sfx-stories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .sfx-story-media-box {
+      width: 100%;
+      height: 200px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue-navy), #162438);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-primary);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.4rem;
+      transition: transform 0.3s;
+    }
+
+    .sfx-story-media-box:hover {
+      transform: scale(1.02);
+      border-color: var(--cyan-neon);
+    }
+
+    .sfx-story-submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+      background: var(--card-pearl);
+      border-radius: 14px;
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: #334155;
+    }
+
+    .sfx-story-submenu.open {
+      max-height: 380px;
+      padding: 1.4rem;
+      margin-top: 1.2rem;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    /* 2. CORSI ACADEMY & CONCESSIONI */
+    .sfx-courses-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .sfx-course-submenu {
+      display: none;
+      margin-top: 1.4rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid #E2E8F0;
+      font-size: 0.88rem;
+      color: #475569;
+      animation: sfxFadeDown 0.35s ease;
+    }
+
+    .sfx-course-submenu.active {
+      display: block;
+    }
+
+    @keyframes sfxFadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* BOTTONE PRINCIPALE: ESEGUI CONFERENZA CON IL CEO */
+    .sfx-btn-ceo-meet {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, var(--blue-navy), #162438);
+      color: var(--gold-primary);
+      border: 2px solid var(--gold-primary);
+      border-radius: 50px;
+      padding: 1.3rem 3.2rem;
+      font-family: var(--font-sync);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 15px 40px rgba(11, 25, 44, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .sfx-btn-ceo-meet:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+      background: var(--gold-primary);
+      color: var(--blue-navy);
+    }
+
+    /* 3. RETE DEI SEI (6) CANALI SOCIAL */
+    .sfx-social-six-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .sfx-social-card {
+      background: var(--card-white);
+      border: 1px solid var(--border-gold);
+      border-radius: 18px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sfx-social-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan-deep);
+      box-shadow: 0 12px 30px rgba(0, 153, 168, 0.15);
+    }
+
+    .sfx-social-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sfx-social-name {
+      font-family: var(--font-sync);
+      font-size: 0.72rem;
+      color: var(--blue-navy);
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+    }
+
+    .sfx-social-handle {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold-deep);
+      word-break: break-all;
+    }
+
+    /* 4. DICONO DI NOI // RECENSIONI & FEEDBACK */
+    .sfx-feedback-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .sfx-review-tile {
+      background: var(--card-pearl);
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .sfx-review-quote {
+      font-family: var(--font-sync);
+      font-size: 2.2rem;
+      color: var(--gold-primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .sfx-review-text {
+      font-size: 0.88rem;
+      color: #475569;
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .sfx-review-author {
+      font-family: var(--font-sync);
+      font-size: 0.78rem;
+      color: var(--blue-navy);
+      font-weight: 800;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding-top: 0.8rem;
+    }
+
+    .sfx-reviews-expanded-grid {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed rgba(212, 175, 55, 0.4);
+      animation: sfxFadeDown 0.4s ease;
+    }
+
+    .sfx-reviews-expanded-grid.open {
+      display: grid;
+    }
+
+    /* 5. NEWSLETTER & DISPACCI */
+    .sfx-newsletter-box {
+      background: linear-gradient(135deg, #FFFFFF, var(--card-pearl));
+      border: 2px solid var(--gold-primary);
+      border-radius: 28px;
+      padding: 3.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    /* 6. CONCIERGE NEURALE FLOTTANTE ALISON */
+    .sfx-alison-float-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9998;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--blue-navy);
+      border: 2px solid var(--cyan-neon);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.5), 0 10px 30px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .sfx-alison-float-btn:hover {
+      transform: scale(1.12);
+    }
+
+    .sfx-alison-chat-window {
+      position: fixed;
+      bottom: 7rem;
+      right: 2rem;
+      width: 400px;
+      max-width: calc(100vw - 3rem);
+      height: 560px;
+      background: #090A0E;
+      border: 2px solid var(--cyan-neon);
+      border-radius: 24px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sfx-alison-chat-window.open {
+      display: flex;
+    }
+
+    .sfx-chat-top {
+      background: #11141C;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 1rem 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #FFF;
+    }
+
+    .sfx-chat-faq-drawer {
+      position: absolute;
+      top: 58px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 58px);
+      background: #090A0E;
+      border-top: 1px solid var(--gold-primary);
+      z-index: 10;
+      display: none;
+      flex-direction: column;
+      padding: 1.2rem;
+      overflow-y: auto;
+    }
+
+    .sfx-chat-faq-drawer.open {
+      display: flex;
+    }
+
+    @media (max-width: 1100px) {
+      .sfx-stories-grid { grid-template-columns: 1fr; }
+      .sfx-courses-grid { grid-template-columns: 1fr; }
+      .sfx-social-six-grid { grid-template-columns: repeat(3, 1fr); }
+      .sfx-feedback-container { grid-template-columns: 1fr; }
+      .sfx-reviews-expanded-grid { grid-template-columns: 1fr; }
+      .sfx-newsletter-box { grid-template-columns: 1fr; padding: 2rem; }
+    }
+  </style>
 </head>
 <body>
 
   <!-- ====================================================================== -->
-  <!-- ELEMENTI D'AMBIENTE (ONDA LASER VERDE & LUCE ZENITALE)                 -->
+  <!-- TOP BAR ISTITUZIONALE & LOGO 3-TAP GATEWAY (ACCESSO X-BOX)             -->
   <!-- ====================================================================== -->
-  <div class="sfx-laser-ambient-wave" aria-hidden="true"></div>
-  <div class="sfx-zenith-ray" aria-hidden="true"></div>
-
-  <!-- ====================================================================== -->
-  <!-- FAZIONE 00 // TOP BAR FORENSE EAL6+ & GATEWAY 3-TAP                    -->
-  <!-- ====================================================================== -->
-  <header class="sfx-topbar-forense" id="fazione-00">
-    <div class="sfx-topbar-left">
-      <div class="sfx-node-pulse" title="Stato Nodo: Online"></div>
-      <span>NODO DI TRASMISSIONE: ROMA CENTRO // PROTOCOLLO EAL6+ CERTIFICATO</span>
+  <header style="background:#090A0E; border-bottom:1px solid rgba(212,175,55,0.4); padding:0.85rem 2rem; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000;">
+    <div style="display:flex; align-items:center; gap:0.8rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--green-status);">
+      <span style="width:8px; height:8px; background:var(--green-status); border-radius:50%; box-shadow:0 0 10px var(--green-status);"></span>
+      <span>NODO DIRETTO // ROMA CENTRO EAL6+</span>
     </div>
 
-    <!-- Trigger Segreto 3-Tap: 3 tocchi rapidi per sbloccare la console X-BOX -->
-    <div class="sfx-topbar-brand" id="sfxMasterLogo" title="Gateway Istituzionale">
+    <!-- 3-Tap Gateway per admin.html -->
+    <div id="sfxTopBrandLogo" style="font-family:var(--font-sync); font-size:1.15rem; font-weight:800; color:var(--gold-primary); letter-spacing:2px; cursor:pointer; user-select:none;" title="Accesso Riservato Presidenziale (Triplo Clic)">
       SUPREMA FUTURE X
     </div>
 
-    <div class="sfx-topbar-right">
-      <div class="sfx-clock-box" id="sfxLiveClock">--:--:-- CET</div>
-      <span style="color:var(--gold-primary); font-weight:700;">SFX 2026</span>
+    <div style="display:flex; align-items:center; gap:1.2rem;">
+      <div id="sfxTopClock" style="font-family:var(--font-mono); font-size:0.75rem; color:#FFF; background:rgba(255,255,255,0.06); padding:0.35rem 0.7rem; border-radius:6px; border:1px solid rgba(255,255,255,0.1);">
+        --:--:-- CET
+      </div>
+      <a href="candidatura.html" style="font-family:var(--font-sync); font-size:0.7rem; color:var(--cyan-neon); text-decoration:none; font-weight:700;">
+        CANDIDATURA ➔
+      </a>
     </div>
   </header>
 
   <!-- ====================================================================== -->
-  <!-- FAZIONE 01 // HERO GOVERNANCE (VIEWPORT 13" RATIO)                     -->
+  <!-- SEZIONE 1 // LE 3 STORIE CON SOTTOMENU ANIMATI AD ESPANSIONE          -->
   <!-- ====================================================================== -->
-  <section class="sfx-viewport-13" id="fazione-01">
-    
-    <div class="sfx-hero-head">
-      <!-- LOGO LOOP ROTANTE A 6 FOTOGRAMMI -->
-      <div class="sfx-logo-loop-container" id="sfxLogoLoop">
-        <div class="sfx-logo-loop-inner">
-          <div class="sfx-logo-frame-item active" data-index="0">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#090A0E"/>
-              <circle cx="60" cy="60" r="45" fill="none" stroke="#D4AF37" stroke-width="3"/>
-              <text x="60" y="68" fill="#D4AF37" font-size="22" font-family="'Syncopate', sans-serif" font-weight="bold" text-anchor="middle">SFX</text>
-            </svg>
-          </div>
-          <div class="sfx-logo-frame-item" data-index="1">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#11141C"/>
-              <polygon points="60,18 98,82 22,82" fill="none" stroke="#00F0FF" stroke-width="3"/>
-              <text x="60" y="70" fill="#00F0FF" font-size="18" font-family="'JetBrains Mono', monospace" font-weight="bold" text-anchor="middle">2026</text>
-            </svg>
-          </div>
-          <div class="sfx-logo-frame-item" data-index="2">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#090A0E"/>
-              <circle cx="60" cy="60" r="42" fill="none" stroke="#00E676" stroke-width="2" stroke-dasharray="6,4"/>
-              <text x="60" y="66" fill="#00E676" font-size="15" font-family="'Syncopate', sans-serif" text-anchor="middle">SOVEREIGN</text>
-            </svg>
-          </div>
-          <div class="sfx-logo-frame-item" data-index="3">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#11141C"/>
-              <circle cx="60" cy="60" r="45" fill="none" stroke="#B8860B" stroke-width="4"/>
-              <text x="60" y="66" fill="#B8860B" font-size="20" font-family="'Syncopate', sans-serif" font-weight="bold" text-anchor="middle">CEO</text>
-            </svg>
-          </div>
-          <div class="sfx-logo-frame-item" data-index="4">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#090A0E"/>
-              <line x1="20" y1="60" x2="100" y2="60" stroke="#00F0FF" stroke-width="2"/>
-              <line x1="60" y1="20" x2="60" y2="100" stroke="#D4AF37" stroke-width="2"/>
-              <circle cx="60" cy="60" r="28" fill="#090A0E" stroke="#FFF" stroke-width="2"/>
-              <text x="60" y="65" fill="#FFF" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="middle">EAL6+</text>
-            </svg>
-          </div>
-          <div class="sfx-logo-frame-item" data-index="5">
-            <svg viewBox="0 0 120 120" width="100%" height="100%">
-              <rect width="120" height="120" fill="#0B192C"/>
-              <circle cx="60" cy="60" r="46" fill="none" stroke="#D4AF37" stroke-width="3"/>
-              <text x="60" y="66" fill="#FFF2A8" font-size="15" font-family="'Syncopate', sans-serif" font-weight="bold" text-anchor="middle">FUTURE X</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- TITOLO MONOLINEA & SOTTOTITOLO -->
-      <h1 class="sfx-hero-title-main">SUPREMA FUTURE X</h1>
-      <div class="sfx-hero-subtitle-main">INSIEME GUIDIAMO IL TUO DOMANI</div>
-    </div>
-
-    <!-- ==================================================================== -->
-    <!-- BARRA MULTIFUNZIONE ORIZZONTALE DA BORDO A BORDO                    -->
-    <!-- ==================================================================== -->
-    <nav class="sfx-status-strip-bar" aria-label="Navigazione Primaria">
-      
-      <div class="sfx-strip-group">
-        <!-- Bottone Menu Hamburger -->
-        <button class="sfx-btn-hamburger" id="sfxHamburgerTrigger" onclick="sfxToggleMenu(true)">
-          <span>☰</span>
-          <span>ECOSISTEMA (14)</span>
-        </button>
-
-        <!-- Bottone Diretto Alison Chatbot -->
-        <button class="sfx-btn-strip-alison" onclick="sfxScrollTo('fazione-04')">
-          <span>🤖</span>
-          <span>ALISON CHATBOT</span>
-        </button>
-
-        <!-- Selettore Dropdown 11 Lingue -->
-        <div class="sfx-lang-dropdown">
-          <button class="sfx-lang-btn" id="sfxLangBtn" onclick="sfxToggleLangMenu()">
-            <span id="sfxCurrentLang">🇮🇹 IT</span>
-            <span>▾</span>
-          </button>
-          <div class="sfx-lang-menu" id="sfxLangMenu">
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('IT', '🇮🇹 Italiano')">🇮🇹 Italiano (Default)</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('EN', '🇬🇧 English')">🇬🇧 English</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('FR', '🇫🇷 Français')">🇫🇷 Français</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('DE', '🇩🇪 Deutsch')">🇩🇪 Deutsch</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('ES', '🇪🇸 Español')">🇪🇸 Español</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('PT', '🇵🇹 Português')">🇵🇹 Português</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('RO', '🇷🇴 Română')">🇷🇴 Română</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('SQ', '🇦🇱 Shqip')">🇦🇱 Shqip</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('SK', '🇸🇰 Slovenčina')">🇸🇰 Slovenčina</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('AT', '🇦🇹 Österreich')">🇦🇹 Deutsch (AT)</div>
-            <div class="sfx-lang-opt" onclick="sfxSelectLang('CH', '🇨🇭 Schweiz')">🇨🇭 Schweiz</div>
-          </div>
-        </div>
-
-        <!-- Bottone Chi Siamo / 3 Storie -->
-        <button class="sfx-btn-chisiamo" onclick="sfxOpenChiSiamo()">
-          CHI SIAMO // LE 3 STORIE
-        </button>
-      </div>
-
-      <!-- Telemetria & Contatori Live -->
-      <div class="sfx-strip-counter">
-        <div>VISITATORI: <span class="sfx-counter-badge" id="sfxVisitorCount">47</span></div>
-        <div>TEMPO MEDIO: <span class="sfx-counter-badge" id="sfxSessionTimer">00:00</span></div>
-        <div>STATUS: <span style="color:var(--cyan-neon);">RATING A+ (EAL6+)</span></div>
-      </div>
-
-    </nav>
-
-  </section>
-
-  <!-- ====================================================================== -->
-  <!-- FAZIONE 02 // LA PRESIDENZA // FOUNDER & CEO GIULIANO CARATELLI        -->
-  <!-- ====================================================================== -->
-  <section class="sfx-oval-section sfx-oval-frame-dark" id="fazione-02">
-    <div class="sfx-triad-layout">
-      
-      <!-- Campo Sinistro: Video Ufficiale 16:9 con Cornice Cristallo & Oro -->
-      <div class="sfx-video-frame-169">
-        <video id="sfxVideoCeo" poster="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%23090A0E'/><circle cx='800' cy='450' r='90' fill='none' stroke='%23D4AF37' stroke-width='4'/><polygon points='780,410 840,450 780,490' fill='%23D4AF37'/><text x='800' y='600' fill='%23FFF' font-size='32' font-family='sans-serif' text-anchor='middle'>VIDEOMANIFESTO // PRESIDENZA GIULIANO CARATELLI</text></svg>" controls playsinline>
-          <source src="media/ceo-istituzionale.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <!-- Campo Centrale: Manifesto & Traiettoria Esecutiva -->
-      <div class="sfx-triad-center">
-        <div class="sfx-motto-badge">DREAM DEFENSE SYSTEM</div>
-        <h2 class="sfx-contrast-text-light" style="font-family:var(--font-sync); font-size:1.8rem; margin-bottom:0.5rem;">
-          GIULIANO CARATELLI
-        </h2>
-        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-primary); letter-spacing:1.5px; margin-bottom:1.2rem;">
-          FOUNDER & CHIEF EXECUTIVE OFFICER // SUPREMA FUTURE X
-        </div>
-        <p>
-          "Il <em>Dream Defense System</em> non è un semplice slogan, ma il nostro protocollo di difesa operativa. 
-          Significa salvaguardare il tempo, le risorse e il futuro di chi sceglie di qualificarsi o fare impresa. 
-          In un'epoca di promesse asincrone, noi rispondiamo con la presenza: ogni partecipante accede direttamente 
-          alla governance aziendale, senza filtri e senza dispersioni."
-        </p>
-        <p style="font-size:0.85rem; color:#94A3B8;">
-          Accesso formalizzato tramite screening conoscitivo di 60 minuti via Google Meet per la certificazione del merito.
-        </p>
-      </div>
-
-      <!-- Campo Destro: Azione Sottomenu a Libro 3D -->
-      <div>
-        <button class="sfx-btn-action-oval" onclick="sfxOpenBook('presidenza')">
-          <span>CONTINUA A LEGGERE</span>
-          <span>➔</span>
-        </button>
-        <div style="margin-top:1rem; text-align:center;">
-          <a href="#fazione-04" style="color:var(--cyan-neon); font-family:var(--font-mono); font-size:0.7rem; text-decoration:none;">
-            [ VERIFICA PROTOCOLLO MEET ]
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ====================================================================== -->
-  <!-- FAZIONE 03 // SUPREMA FUTURE X ECOSYSTEM // ACADEMY & CONCESSIONI      -->
-  <!-- ====================================================================== -->
-  <section class="sfx-oval-section" id="fazione-03">
-    <div class="sfx-triad-layout">
-      
-      <!-- Campo Sinistro: Showcase Video 16:9 Ecosistema -->
-      <div class="sfx-video-frame-169">
-        <video id="sfxVideoEcosistema" poster="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%2311141C'/><circle cx='800' cy='450' r='90' fill='none' stroke='%2300F0FF' stroke-width='4'/><polygon points='780,410 840,450 780,490' fill='%2300F0FF'/><text x='800' y='600' fill='%23FFF' font-size='32' font-family='sans-serif' text-anchor='middle'>INFRASTRUTTURA SFX // ACADEMY & STORE</text></svg>" controls playsinline>
-          <source src="media/ecosistema-sfx.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <!-- Campo Centrale: Didattica 100% Live & Concessioni Zero Magazzino -->
-      <div class="sfx-triad-center">
-        <div class="sfx-motto-badge" style="color:var(--gold-aged); border-color:var(--gold-primary); background:rgba(212,175,55,0.08);">
-          ARCHITETTURA CERTIFICATA // NO PREZZI A VISTA
-        </div>
-        <h2 style="font-family:var(--font-sync); font-size:1.8rem; color:var(--blue-deep); margin-bottom:0.5rem;">
-          SUPREMA FUTURE X
-        </h2>
-        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); letter-spacing:1.5px; margin-bottom:1.2rem;">
-          DUE MOTORI D'IMPRESA // UNICA INFRASTRUTTURA
-        </div>
-        <p style="color:#4B5563;">
-          <strong>Suprema Academy:</strong> Formazione esecutiva erogata rigorosamente <em>100% dal vivo in videoconferenza</em> con il CEO e i docenti accreditati. Statutariamente priva di videocorsi pre-registrati.
-        </p>
-        <p style="color:#4B5563;">
-          <strong>Concessioni E-Commerce Autonome:</strong> Piattaforme commerciali digitali operative nel modello a <em>zero magazzino</em>, con imballaggio, spedizioni espresse e logistica completamente centralizzati.
-        </p>
-      </div>
-
-      <!-- Campo Destro: Azione Sottomenu a Libro 3D -->
-      <div>
-        <button class="sfx-btn-action-oval" style="background:var(--bg-dark); color:var(--gold-primary); border:1px solid var(--gold-primary);" onclick="sfxOpenBook('ecosistema')">
-          <span>LEGGI DI PIÙ</span>
-          <span>➔</span>
-        </button>
-        <div style="margin-top:1rem; text-align:center;">
-          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--gold-aged);">
-            +800 PUNTI GOLD CARD SU STORE
-          </span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ====================================================================== -->
-  <!-- FAZIONE 04 // CONCIERGE NEURALE AG-01 ALISON // CHATBOT & FAQ          -->
-  <!-- ====================================================================== -->
-  <section class="sfx-oval-section sfx-oval-frame-dark" id="fazione-04">
-    
-    <!-- Testata Sezione a Tre Campi Ovale -->
-    <div class="sfx-triad-layout" style="margin-bottom:2.5rem;">
-      
-      <!-- Campo Sinistro: Radar Vettoriale Canvas 60 FPS -->
-      <div style="position:relative; width:100%; aspect-ratio:16/9; background:#050608; border:1px solid var(--cyan-neon); border-radius:24px; overflow:hidden;">
-        <canvas id="sfxRadarCanvas" style="width:100%; height:100%;"></canvas>
-        <div style="position:absolute; bottom:10px; left:15px; font-family:var(--font-mono); font-size:0.65rem; color:var(--cyan-neon);">
-          RADAR 60 FPS // AG-01 ACTIVE
-        </div>
-      </div>
-
-      <!-- Campo Centrale: Ruolo e Policy di Triage -->
-      <div class="sfx-triad-center">
-        <div class="sfx-motto-badge">INTELLIGENZA ARTIFICIALE FORENSE</div>
-        <h2 class="sfx-contrast-text-light" style="font-family:var(--font-sync); font-size:1.8rem; margin-bottom:0.5rem;">
-          AG-01 ALISON
-        </h2>
-        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon); letter-spacing:1.5px; margin-bottom:1.2rem;">
-          CONCIERGE NEURALE // TRIAGE AL 5° MESSAGGIO
-        </div>
-        <p>
-          AG-01 Alison governa l'orientamento di primo livello e risponde ai quesiti su didattica live, 
-          networking, concessioni commerciali e crescita d'impresa. Al 5° messaggio utile, per protocollo, 
-          propone la validazione dei requisiti direttamente alla presenza del Founder & CEO.
-        </p>
-        
-        <!-- Toggle Stato Audio (Muto di default) -->
-        <div class="sfx-alison-audio-state" id="sfxAudioStateBadge" onclick="sfxToggleAudioEngine()">
-          <span id="sfxAudioStateIcon">🔇</span>
-          <span id="sfxAudioStateText">STATO AUDIO: MUTO // CLICCA PER ATTIVARE IL VOCALE</span>
-        </div>
-      </div>
-
-      <!-- Campo Destro: Azione Scheda Tecnica Neurale -->
-      <div>
-        <button class="sfx-btn-action-oval" onclick="sfxOpenBook('alison')">
-          <span>SCHEDA TECNICA</span>
-          <span>➔</span>
-        </button>
-        <div style="margin-top:1rem; text-align:center;">
-          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--status-green);">
-            EAL6+ ISOLAMENTO NEURALE
-          </span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Console Interattiva Chatbot & Selezione 40 FAQ Preinstallate -->
-    <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:2rem; background:rgba(9,10,14,0.7); border:1px solid rgba(0,240,255,0.25); border-radius:24px; padding:2rem;">
-      
-      <!-- Terminale di Conversazione -->
-      <div style="display:flex; flex-direction:column; justify-content:space-between;">
-        <div class="sfx-chat-stream" id="sfxChatStream" style="height:260px; overflow-y:auto; display:flex; flex-direction:column; gap:0.8rem; padding-right:0.5rem;">
-          <div class="sfx-msg sfx-msg-alison" style="background:rgba(0,240,255,0.08); border-left:3px solid var(--cyan-neon); color:#FFF; padding:0.8rem 1rem; border-radius:8px; font-family:var(--font-mono); font-size:0.8rem;">
-            [AG-01 ALISON] Benvenuto in Suprema Future X. Il sistema audio è attualmente silenziato per riservatezza. 
-            Puoi digitare la tua domanda o selezionare uno dei temi ufficiali per orientarti nei percorsi.
-          </div>
-        </div>
-
-        <div style="display:flex; gap:0.8rem; margin-top:1.2rem;">
-          <input type="text" class="sfx-chat-input" id="sfxChatInput" placeholder="Formula un quesito su didattica live o store a zero magazzino..." onkeydown="if(event.key==='Enter') sfxHandleUserMessage()">
-          <button class="sfx-btn-send" onclick="sfxHandleUserMessage()" style="padding:0.8rem 1.8rem;">INVIA</button>
-        </div>
-      </div>
-
-      <!-- Dial Rapido 40 FAQ Preinstallate (Conformi e Sanitizzate) -->
-      <div style="border-left:1px solid rgba(255,255,255,0.1); padding-left:1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
-        <div>
-          <div style="font-family:var(--font-sync); font-size:0.75rem; color:var(--gold-primary); letter-spacing:1px; margin-bottom:0.8rem;">
-            QUESITI FREQUENTI PRE-ANALIZZATI (40 FAQ)
-          </div>
-          <div style="display:flex; flex-direction:column; gap:0.5rem; max-height:220px; overflow-y:auto; padding-right:0.4rem;">
-            <button class="sfx-btn-discover" style="padding:0.5rem 0.8rem; text-align:left; font-size:0.68rem;" onclick="sfxTriggerFaq(0)">
-              01 // Garanzia della didattica 100% dal vivo?
-            </button>
-            <button class="sfx-btn-discover" style="padding:0.5rem 0.8rem; text-align:left; font-size:0.68rem;" onclick="sfxTriggerFaq(1)">
-              02 // Come funziona lo store a zero magazzino?
-            </button>
-            <button class="sfx-btn-discover" style="padding:0.5rem 0.8rem; text-align:left; font-size:0.68rem;" onclick="sfxTriggerFaq(2)">
-              03 // Come si accede allo screening con il CEO?
-            </button>
-            <button class="sfx-btn-discover" style="padding:0.5rem 0.8rem; text-align:left; font-size:0.68rem;" onclick="sfxTriggerFaq(3)">
-              04 // Cosa sbloccano i punti Suprema Gold Card?
-            </button>
-            <button class="sfx-btn-discover" style="padding:0.5rem 0.8rem; text-align:left; font-size:0.68rem;" onclick="sfxOpenBook('faq')">
-              VEDI TUTTE LE 40 FAQ ISTITUZIONALI ➔
-            </button>
-          </div>
-        </div>
-
-        <div style="margin-top:1rem; font-family:var(--font-mono); font-size:0.68rem; color:#94A3B8;">
-          PROTOCOLLO EAL6+: Risposte conformi alle garanzie statutarie.
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-...
-    <!-- ====================================================================== -->
-    <!-- FAZIONE 04 // CONCIERGE NEURALE AG-01 ALISON // CHATBOT & FAQ          -->
-    <!-- ====================================================================== -->
-    <section class="sfx-oval-section sfx-oval-frame-dark" id="fazione-04">
-      
-       ... tutto il codice del radar e della chat di Alison ...
-
-    </section>  <!-- <<< TROVA QUESTA RIGA: QUI FINISCE ALISON -->
-
-
-    <!-- ====================================================================== -->
-    <!-- [1] INCOLLA QUI IL MACRO-DECK 03 (Academy, Concessioni, Gold Card 3D)  -->
-    <!-- ====================================================================== -->
-    <section class="sfx-oval-section" id="sec-motore-impresa">
-      ...
-    </section>
-
-    <!-- [1.1] IL CASSETTO CHECKOUT (Revolut, SumUp, IBAN) SUBITO SOTTO -->
-    <aside class="sfx-checkout-drawer" id="sfxCheckoutDrawer" aria-hidden="true">
-      ...
-    </aside>
-
-
-    <!-- ====================================================================== -->
-    <!-- [2] INCOLLA QUI IL MACRO-DECK 04 (Feedback, Canali Media, Newsletter)   -->
-    <!-- ====================================================================== -->
-    <section class="sfx-oval-section sfx-oval-frame-dark" id="sec-community-media">
-      ...
-    </section>
-<!-- ====================================================================== -->
-  <!-- MACRO-DECK 05 // FUNNEL SCREENING 3 FASI (DECK DEAL 3D)                -->
-  <!-- ====================================================================== -->
-  <section class="sfx-oval-section" id="sec-funnel">
-    
-    <div style="text-align:center; margin-bottom:2.5rem;">
-      <div class="sfx-motto-badge">VALUTAZIONE DIRETTA DI PRESIDENZA</div>
-      <h2 style="font-family:var(--font-sync); font-size:clamp(1.8rem, 3.5vw, 2.6rem); color:var(--blue-deep); font-weight:800;">
-        SCREENING ESECUTIVO (60 MINUTI)
-      </h2>
-      <p style="max-width:760px; margin:0 auto; color:#6B7280; font-size:0.95rem;">
-        Compila i tre passaggi per generare il dossier crittografato e prenotare la videoconferenza Google Meet con il Founder & CEO Giuliano Caratelli.
+  <section class="sfx-container" style="margin-top:3.5rem;">
+    <div style="text-align:center; margin-bottom:2.8rem;">
+      <div class="sfx-badge-motto">DREAM DEFENSE SYSTEM // 2026</div>
+      <h1 class="sfx-sec-title">TRE STORIE. UN'UNICA INFRASTRUTTURA.</h1>
+      <p class="sfx-sec-subtitle">
+        Clicca sulle anteprime per attivare l'apertura animata dei sottomenu relativi all'Ecosistema, al Founder & CEO e al Concierge Neurale.
       </p>
     </div>
 
-    <div class="sfx-funnel-container">
+    <div class="sfx-stories-grid">
       
-      <!-- Indicatori di Avanzamento Fasi -->
-      <div class="sfx-funnel-step-bar">
-        <div class="sfx-funnel-step-node active" id="funnelNode1">01</div>
-        <div class="sfx-funnel-step-node" id="funnelNode2">02</div>
-        <div class="sfx-funnel-step-node" id="funnelNode3">03</div>
+      <!-- STORIA 1: SUPREMA FUTURE X -->
+      <div class="sfx-card">
+        <div class="sfx-story-media-box" onclick="sfxToggleStory('storySub1')">
+          <span style="font-family:var(--font-sync); font-size:0.85rem; font-weight:700;">FIGURA 01 // L'IMPRESA</span>
+          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--cyan-neon); margin-top:0.4rem;">[ APRI SOTTOMENU ▾ ]</span>
+        </div>
+        <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          SUPREMA FUTURE X
+        </h3>
+        <p style="font-size:0.88rem; color:#64748B; line-height:1.7;">
+          Architettura deterministica orientata a generare valore reale tramite formazione 100% live e concessioni e-commerce a zero magazzino.
+        </p>
+
+        <div class="sfx-story-submenu" id="storySub1">
+          <strong style="font-family:var(--font-sync); font-size:0.75rem; color:var(--blue-navy);">CAPISALDI STATUTARI:</strong><br>
+          • <strong>Art. 02:</strong> Divieto assoluto di formule multilivello (MLM) o schemi piramidali passivi.<br>
+          • <strong>Art. 04:</strong> Concessioni digitali con centro logistico centralizzato SFX per packaging e corrieri.<br>
+          • <strong>Art. 09:</strong> Trasparenza fiscale assoluta con fatturazione elettronica SDI immediata.
+        </div>
       </div>
 
-      <!-- FASE 01: SCELTA DEL PERCORSO O ASSET -->
-      <div class="sfx-funnel-phase active" id="funnelPhase1">
-        <h3 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem;">
-          FASE 01 // SELEZIONA IL PROGRAMMA O CONCESSIONE
+      <!-- STORIA 2: GIULIANO CARATELLI -->
+      <div class="sfx-card">
+        <div class="sfx-story-media-box" onclick="sfxToggleStory('storySub2')">
+          <span style="font-family:var(--font-sync); font-size:0.85rem; font-weight:700;">FIGURA 02 // IL FOUNDER & CEO</span>
+          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--cyan-neon); margin-top:0.4rem;">[ APRI SOTTOMENU ▾ ]</span>
+        </div>
+        <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          GIULIANO CARATELLI
         </h3>
-        <p style="font-size:0.88rem; color:#6B7280;">Seleziona l'ambito per cui richiedi la valutazione attitudinale di merito:</p>
+        <p style="font-size:0.88rem; color:#64748B; line-height:1.7;">
+          Fondatore e guida direzionale esclusiva. Presidio diretto delle classi live e dei colloqui conoscitivi di 60 minuti senza deleghe asincrone.
+        </p>
 
-        <div class="sfx-course-select-grid">
-          <div class="sfx-course-choice-card selected" onclick="sfxSelectFunnelTier(this, 'Silver Tier (60 Giorni Live)')">
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">DIDATTICA LIVE // +300 PT</div>
-            <h4 style="font-family:var(--font-sync); font-size:1.05rem; color:var(--blue-deep); margin:0.3rem 0;">SILVER TIER</h4>
-            <p style="font-size:0.82rem; color:#4B5563;">Fondamenti d'impresa digitale e automazione di base.</p>
+        <div class="sfx-story-submenu" id="storySub2">
+          <strong style="font-family:var(--font-sync); font-size:0.75rem; color:var(--blue-navy);">DIREZIONE MONOCRATICA:</strong><br>
+          • <strong>Screening Sincrono:</strong> Colloquio attitudinale individuale condotto di persona via Google Meet.<br>
+          • <strong>Docenza Master:</strong> Conduzione dei moduli direzionali e di scaling aziendale avanzato.<br>
+          • <strong>Sedi Territoriali:</strong> Presidio fisico del Centro Direzionale di Colleferro e dell'Ufficio di Roma Centro.
+        </div>
+      </div>
+
+      <!-- STORIA 3: ALISON AG-01 -->
+      <div class="sfx-card">
+        <div class="sfx-story-media-box" onclick="sfxToggleStory('storySub3')">
+          <span style="font-family:var(--font-sync); font-size:0.85rem; font-weight:700;">FIGURA 03 // ALISON AG-01</span>
+          <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--cyan-neon); margin-top:0.4rem;">[ APRI SOTTOMENU ▾ ]</span>
+        </div>
+        <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          CONCIERGE NEURALE
+        </h3>
+        <p style="font-size:0.88rem; color:#64748B; line-height:1.7;">
+          Agente deterministico addestrato sullo Statuto Forense per fornire orientamento immediato, consultare le FAQ e instradare allo screening.
+        </p>
+
+        <div class="sfx-story-submenu" id="storySub3">
+          <strong style="font-family:var(--font-sync); font-size:0.75rem; color:var(--blue-navy);">FUNZIONALITÀ AGENTE:</strong><br>
+          • <strong>Cassetto FAQ:</strong> Visualizzazione istantanea delle 50 FAQ tramite il pulsante ☰ interno alla chat.<br>
+          • <strong>Zero Allucinazioni:</strong> Risposte vincolate alle delibere presidenziali e alle tariffe ufficiali.<br>
+          • <strong>Sicurezza EAL6+:</strong> Crittografia delle conversazioni e isolamento dati.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- SEZIONE 2 // CORSI ACADEMY & CONCESSIONI STORE (POSIZIONATI IN ALTO)   -->
+  <!-- ====================================================================== -->
+  <section class="sfx-container" id="sec-corsi">
+    
+    <div style="text-align:center; margin-bottom:2.8rem;">
+      <div class="sfx-badge-motto">ALTA FORMAZIONE 100% DAL VIVO & ASSET</div>
+      <h2 class="sfx-sec-title">PERCORSI DIDATTICI & CONCESSIONI STORE</h2>
+      <p class="sfx-sec-subtitle">
+        Tutti i programmi didattici sono garantiti in diretta interattiva con il docente. 
+        Le concessioni store operano con logistica centralizzata senza acquisto preventivo merci.
+      </p>
+    </div>
+
+    <div class="sfx-courses-grid">
+      
+      <!-- CORSO 1: SILVER TIER -->
+      <div class="sfx-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-deep); font-weight:700;">DIDATTICA LIVE // +300 PT</span>
+          <button class="sfx-action-btn-sm" onclick="sfxToggleCourse('cSub1')">DETTAGLI SOTTOMENU ▾</button>
+        </div>
+        <h3 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          SILVER TIER (60 GIORNI)
+        </h3>
+        <p style="font-size:0.88rem; color:#64748B; line-height:1.7;">
+          Fondamenti di presenza commerciale online, infrastruttura d'impresa e automazioni base con lezioni live.
+        </p>
+
+        <div class="sfx-course-submenu" id="cSub1">
+          <strong>SPECIFICHE PROGRAMMA:</strong><br>
+          • 60 Giorni di docenza sincrona via Google Meet (nessuna registrazione asincrona).<br>
+          • Canale Telegram dedicato per supporto operativo tra le sessioni.<br>
+          • Accredito di +300 Punti Status per il conseguimento della Suprema Gold Card.
+        </div>
+      </div>
+
+      <!-- CORSO 2: EXECUTIVE MASTER -->
+      <div class="sfx-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ALTA AUTOMAZIONE // +350 PT</span>
+          <button class="sfx-action-btn-sm" onclick="sfxToggleCourse('cSub2')">DETTAGLI SOTTOMENU ▾</button>
+        </div>
+        <h3 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          EXECUTIVE MASTER (90 GIORNI)
+        </h3>
+        <p style="font-size:0.88rem; color:#64748B; line-height:1.7;">
+          Orchestrazione di processi neurali complessi, prompt engineering per aziende e scaling avanzato.
+        </p>
+
+        <div class="sfx-course-submenu" id="cSub2">
+          <strong>SPECIFICHE PROGRAMMA:</strong><br>
+          • 90 Giorni con moduli avanzati condotti direttamente dal CEO Giuliano Caratelli.<br>
+          • Risoluzione di casi studio aziendali reali e architetture scalabili.<br>
+          • Accredito di +350 Punti Status sul registro accademico ufficiale.
+        </div>
+      </div>
+
+      <!-- CORSO 3: PREMIUM VIP -->
+      <div class="sfx-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-deep); font-weight:700;">ONE-TO-ONE RISERVATO // +500 PT</span>
+          <button class="sfx-action-btn-sm" onclick="sfxToggleCourse('cSub3')">DETTAGLI SOTTOMENU ▾</button>
+        </div>
+        <h3 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          PREMIUM VIP (120 GIORNI)
+        </h3>
+        <p style="font-size:0.88rem; color:#64748B; line-height:1.7;">
+          Sessioni strategiche individuali a porte chiuse con il Founder & CEO per la crescita del proprio business.
+        </p>
+
+        <div class="sfx-course-submenu" id="cSub3">
+          <strong>SPECIFICHE PROGRAMMA:</strong><br>
+          • Calendario personalizzato one-to-one in videoconferenza diretta.<br>
+          • Accesso al canale prioritario WhatsApp di presidenza.<br>
+          • Accredito immediato di +500 Punti Status e audit su misura.
+        </div>
+      </div>
+
+      <!-- ASSET 4: CONCESSIONE STORE E-COMMERCE -->
+      <div class="sfx-card" style="border-color:var(--green-status);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--green-status); font-weight:700;">STORE DIGITALE // +800 PT</span>
+          <button class="sfx-action-btn-sm" onclick="sfxToggleCourse('cSub4')">DETTAGLI SOTTOMENU ▾</button>
+        </div>
+        <h3 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          CONCESSIONE STORE (ZERO MAGAZZINO)
+        </h3>
+        <p style="font-size:0.88rem; color:#64748B; line-height:1.7;">
+          Negozio e-commerce autonomo. Nessun capitale bloccato per scorte: logistica, packaging e resi gestiti dall'hub SFX.
+        </p>
+
+        <div class="sfx-course-submenu" id="cSub4">
+          <strong>SPECIFICHE MODELLO:</strong><br>
+          • Evadimento ordini in T+0 e affidamento ai corrieri espresso.<br>
+          • Assistenza clienti e sostituzioni centralizzate dal polo SFX.<br>
+          • Rilascio immediato della Suprema Gold Card incisa al laser (+800 PT).
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTONE VISIBILE: ESEGUI CONFERENZA CON IL CEO -->
+    <div style="text-align:center; margin-top:3.5rem;">
+      <a href="#sec-calendario" class="sfx-btn-ceo-meet">
+        <span>ESEGUI CONFERENZA CON IL CEO</span>
+        <span>➔</span>
+      </a>
+      <div style="font-family:var(--font-mono); font-size:0.75rem; color:#64748B; margin-top:0.8rem;">
+        SESSIONE DI SCREENING CONOSCITIVO (60 MINUTI) VIA GOOGLE MEET CON IL FOUNDER & CEO GIULIANO CARATELLI
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- SEZIONE 3 // SUPREMA GOLD CARD 3D & LEDGER PUNTI STATUS                -->
+  <!-- ====================================================================== -->
+  <section class="sfx-container">
+    <div class="sfx-card" style="background:linear-gradient(135deg, #090A0E, #11141C); color:#FFF; border-color:var(--gold-primary);">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;">
+        
+        <div>
+          <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-primary); letter-spacing:1px; margin-bottom:0.5rem;">
+            TITOLO PHYGYTAL D'ECCELLENZA // SOGLIA 800 PT
           </div>
-
-          <div class="sfx-course-choice-card" onclick="sfxSelectFunnelTier(this, 'Executive Master (90 Giorni Advanced)')">
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">ALTA AUTOMAZIONE // +350 PT</div>
-            <h4 style="font-family:var(--font-sync); font-size:1.05rem; color:var(--blue-deep); margin:0.3rem 0;">EXECUTIVE MASTER</h4>
-            <p style="font-size:0.82rem; color:#4B5563;">Architetture neurali avanzate, scaling e processi complessi.</p>
-          </div>
-
-          <div class="sfx-course-choice-card" onclick="sfxSelectFunnelTier(this, 'Premium VIP (120 Giorni One-to-One)')">
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">ONE-TO-ONE CEO // +500 PT</div>
-            <h4 style="font-family:var(--font-sync); font-size:1.05rem; color:var(--blue-deep); margin:0.3rem 0;">PREMIUM VIP</h4>
-            <p style="font-size:0.82rem; color:#4B5563;">Sessioni individuali riservate con Giuliano Caratelli.</p>
-          </div>
-
-          <div class="sfx-course-choice-card" onclick="sfxSelectFunnelTier(this, 'Concessione Store E-Commerce (Zero Magazzino)')">
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-green); font-weight:700;">STORE DIGITALE // +800 PT</div>
-            <h4 style="font-family:var(--font-sync); font-size:1.05rem; color:var(--blue-deep); margin:0.3rem 0;">CONCESSIONE STORE</h4>
-            <p style="font-size:0.82rem; color:#4B5563;">Negozio autonomo chiavi in mano con logistica centralizzata.</p>
+          <h2 style="font-family:var(--font-sync); font-size:1.8rem; color:#FFF; margin-bottom:1rem;">
+            SUPREMA GOLD CARD
+          </h2>
+          <p style="font-size:0.9rem; color:#94A3B8; line-height:1.8; margin-bottom:1.5rem;">
+            Lastra in acciaio massiccio dorato satinato con incisione laser del seriale univoco progressivo. 
+            Viene concessa al superamento della soglia di merito di 800 Punti Status o all'attivazione di uno Store.
+          </p>
+          
+          <div style="background:rgba(255,255,255,0.04); border-left:3px solid var(--gold-primary); padding:1rem; border-radius:0 10px 10px 0; font-family:var(--font-mono); font-size:0.78rem; line-height:1.8;">
+            <div><strong>PUNTI STATUS:</strong> Permanenti a vita, definiscono il rango istituzionale.</div>
+            <div><strong>PUNTI SPENDIBILI:</strong> Crediti per riscattare i premi da 2.000 a 7.500 PT.</div>
+            <div style="color:var(--cyan-neon); margin-top:0.4rem;">PREMI: Conferenze private, cene di gala a Roma Centro, weekend luxury 5 stelle.</div>
           </div>
         </div>
 
-        <button class="sfx-btn-action-oval" style="max-width:280px; margin-left:auto;" onclick="sfxGoToFunnelStep(2)">
-          <span>AVANZA ALLA FASE 02</span>
-          <span>➔</span>
+        <!-- Render Lastra Oro Saturo -->
+        <div style="background:linear-gradient(135deg, #FFF2A8 0%, #D4AF37 50%, #B8860B 100%); border-radius:20px; padding:2.2rem; box-shadow:0 20px 50px rgba(0,0,0,0.6); aspect-ratio:16/10; display:flex; flex-direction:column; justify-content:space-between; color:#090A0E; border:1px solid rgba(255,255,255,0.6);">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-family:var(--font-sync); font-weight:800; font-size:0.95rem;">
+            <span>SFX ENTERPRISE</span>
+            <span>2026</span>
+          </div>
+
+          <div style="font-family:var(--font-mono); font-size:1.25rem; font-weight:800; letter-spacing:3px; text-align:center; text-shadow:0 1px 0 rgba(255,255,255,0.8);">
+            SFX-2026-CEOSFX-8890
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; font-family:var(--font-mono); font-size:0.75rem;">
+            <div>
+              MEMBRO SOVRANO TITOLARE<br>
+              <strong style="font-family:var(--font-sync); font-size:0.95rem;">GIULIANO CARATELLI</strong>
+            </div>
+            <div style="font-weight:700;">
+              STATUS: 800+ PT
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- SEZIONE 4 // I SEI (6) PRESIDI SOCIAL UFFICIALI                        -->
+  <!-- ====================================================================== -->
+  <section class="sfx-container">
+    
+    <div style="text-align:center; margin-bottom:2.2rem;">
+      <div class="sfx-badge-motto">RETE DI COMUNICAZIONE ISTITUZIONALE</div>
+      <h2 class="sfx-sec-title">PRESIDI SOCIAL & CANALI UFFICIALI</h2>
+      <p class="sfx-sec-subtitle">
+        Segui i comunicati di presidenza e i dispacci operativi attraverso i sei presidi autorizzati.
+      </p>
+    </div>
+
+    <div class="sfx-social-six-grid">
+      
+      <!-- 1. TELEGRAM -->
+      <a href="https://t.me/SupremaFutureX_Official" target="_blank" rel="noopener noreferrer" class="sfx-social-card">
+        <div class="sfx-social-icon">📢</div>
+        <div class="sfx-social-name">TELEGRAM</div>
+        <div class="sfx-social-handle">@SupremaFutureX_Official</div>
+      </a>
+
+      <!-- 2. WHATSAPP -->
+      <a href="https://wa.me/393474429091" target="_blank" rel="noopener noreferrer" class="sfx-social-card">
+        <div class="sfx-social-icon">💬</div>
+        <div class="sfx-social-name">WHATSAPP</div>
+        <div class="sfx-social-handle">+39 347 442 9091</div>
+      </a>
+
+      <!-- 3. YOUTUBE -->
+      <a href="https://youtube.com/@SupremaFutureX" target="_blank" rel="noopener noreferrer" class="sfx-social-card">
+        <div class="sfx-social-icon">▶️</div>
+        <div class="sfx-social-name">YOUTUBE</div>
+        <div class="sfx-social-handle">Masterclass Live</div>
+      </a>
+
+      <!-- 4. LINKEDIN -->
+      <a href="https://linkedin.com/company/suprema-future-x" target="_blank" rel="noopener noreferrer" class="sfx-social-card">
+        <div class="sfx-social-icon">💼</div>
+        <div class="sfx-social-name">LINKEDIN</div>
+        <div class="sfx-social-handle">Governance SFX</div>
+      </a>
+
+      <!-- 5. INSTAGRAM -->
+      <a href="https://instagram.com/supremafuturex_official" target="_blank" rel="noopener noreferrer" class="sfx-social-card">
+        <div class="sfx-social-icon">📸</div>
+        <div class="sfx-social-name">INSTAGRAM</div>
+        <div class="sfx-social-handle">@supremafuturex_official</div>
+      </a>
+
+      <!-- 6. X (TWITTER) -->
+      <a href="https://x.com/SupremaFutureX" target="_blank" rel="noopener noreferrer" class="sfx-social-card">
+        <div class="sfx-social-icon">🌐</div>
+        <div class="sfx-social-name">X (TWITTER)</div>
+        <div class="sfx-social-handle">@SupremaFutureX</div>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- SEZIONE 5 // DICONO DI NOI // RECENSIONI & FEEDBACK CON SOTTOMENU     -->
+  <!-- ====================================================================== -->
+  <section class="sfx-container">
+    
+    <div class="sfx-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <div class="sfx-badge-motto" style="margin-bottom:0.4rem;">RIPROVA SOCIALE VERIFICATA</div>
+          <h2 style="font-family:var(--font-sync); font-size:1.6rem; color:var(--blue-navy);">
+            DICONO DI NOI // FEEDBACK & TESTIMONIANZE
+          </h2>
+        </div>
+
+        <button class="sfx-btn-ceo-meet" style="padding:0.8rem 1.8rem; font-size:0.75rem;" onclick="sfxToggleMoreReviews()">
+          <span>MOSTRA ALTRE RECENSIONI IN SOTTOMENU</span> ▾
         </button>
       </div>
 
-      <!-- FASE 02: SCELTA DELLO SLOT TEMPORALE -->
-      <div class="sfx-funnel-phase" id="funnelPhase2">
-        <h3 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem;">
-          FASE 02 // SELEZIONA LA FASCIA ORARIA DI SCREENING
-        </h3>
-        <p style="font-size:0.88rem; color:#6B7280;">Gli screening hanno durata di 60 minuti via Google Meet:</p>
-
-        <div class="sfx-slot-select-grid">
-          <div class="sfx-slot-choice-card selected" onclick="sfxSelectFunnelSlot(this, 'Mattina')">
-            <div style="font-size:1.8rem; margin-bottom:0.5rem;">🌅</div>
-            <h4 style="font-family:var(--font-sync); font-size:0.95rem; color:var(--blue-deep);">MATTINA</h4>
-            <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700; margin-top:0.4rem;">
-              10:00 - 12:00 CET
-            </div>
+      <!-- Prime 3 Recensioni in Vista -->
+      <div class="sfx-feedback-container">
+        
+        <div class="sfx-review-tile">
+          <div>
+            <div class="sfx-review-quote">“</div>
+            <p class="sfx-review-text">
+              La docenza 100% dal vivo in videoconferenza con Giuliano Caratelli è un'esperienza completamente diversa dai corsi registrati. Interazione immediata e zero perdite di tempo.
+            </p>
           </div>
-
-          <div class="sfx-slot-choice-card" onclick="sfxSelectFunnelSlot(this, 'Pomeriggio')">
-            <div style="font-size:1.8rem; margin-bottom:0.5rem;">☀️</div>
-            <h4 style="font-family:var(--font-sync); font-size:0.95rem; color:var(--blue-deep);">POMERIGGIO</h4>
-            <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700; margin-top:0.4rem;">
-              15:00 - 18:00 CET
-            </div>
-          </div>
-
-          <div class="sfx-slot-choice-card" onclick="sfxSelectFunnelSlot(this, 'Serale')">
-            <div style="font-size:1.8rem; margin-bottom:0.5rem;">🌙</div>
-            <h4 style="font-family:var(--font-sync); font-size:0.95rem; color:var(--blue-deep);">SERALE</h4>
-            <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700; margin-top:0.4rem;">
-              21:00 - 23:00 CET
-            </div>
+          <div class="sfx-review-author">
+            ROBERTO V. — EXECUTIVE MASTER (90G)
           </div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; gap:1rem;">
-          <button class="sfx-btn-discover" style="max-width:200px;" onclick="sfxGoToFunnelStep(1)">
-            ◄ FASE PRECEDENTE
-          </button>
-          <button class="sfx-btn-action-oval" style="max-width:280px;" onclick="sfxGoToFunnelStep(3)">
-            <span>AVANZA ALLA FASE 03</span>
-            <span>➔</span>
-          </button>
+        <div class="sfx-review-tile">
+          <div>
+            <div class="sfx-review-quote">“</div>
+            <p class="sfx-review-text">
+              Avviare la mia Concessione Store senza anticipare denaro per i prodotti in magazzino mi ha dato sicurezza. La logistica centrale di SFX evade gli ordini con estrema puntualità.
+            </p>
+          </div>
+          <div class="sfx-review-author">
+            ELENA M. — CONCESSIONE STORE E-COMMERCE
+          </div>
         </div>
+
+        <div class="sfx-review-tile">
+          <div>
+            <div class="sfx-review-quote">“</div>
+            <p class="sfx-review-text">
+              Lo screening conoscitivo di 60 minuti è severo ma rassicurante: qui non si accettano tutti per fare cassa, si valuta la determinazione reale. Statuto applicato alla lettera.
+            </p>
+          </div>
+          <div class="sfx-review-author">
+            DAVIDE S. — SILVER TIER (60G)
+          </div>
+        </div>
+
       </div>
 
-      <!-- FASE 03: DOSSIER ANAGRAFICO & INVIO CRITTOGRAFATO -->
-      <div class="sfx-funnel-phase" id="funnelPhase3">
-        <h3 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--blue-deep); margin-bottom:0.5rem;">
-          FASE 03 // DOSSIER ANAGRAFICO CANDIDATO
-        </h3>
-        <p style="font-size:0.88rem; color:#6B7280; margin-bottom:1.5rem;">
-          I dati vengono trasmessi direttamente all'agente di sicurezza AG-10 TITAN nel backend EAL6+:
-        </p>
-
-        <form id="sfxFunnelForm" onsubmit="sfxSubmitScreeningFunnel(event)">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-            <input type="text" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="funnelNome" placeholder="Nome..." required>
-            <input type="text" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="funnelCognome" placeholder="Cognome..." required>
+      <!-- Sottomenu Espandibile con Ulteriori Recensioni Certificate -->
+      <div class="sfx-reviews-expanded-grid" id="expandedReviewsGrid">
+        
+        <div class="sfx-review-tile">
+          <div>
+            <div class="sfx-review-quote">“</div>
+            <p class="sfx-review-text">
+              Fatturazione elettronica SDI ricevuta subito dopo il saldo del bonifico. Massima trasparenza fiscale e chiarezza contrattuale.
+            </p>
           </div>
-
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
-            <input type="tel" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="funnelWhatsapp" placeholder="Recapito WhatsApp (+39)..." required>
-            <input type="email" class="sfx-newsletter-field" style="color:#0B192C; background:#FFF; border-color:#D4AF37;" id="funnelEmail" placeholder="Indirizzo Email Istituzionale..." required>
+          <div class="sfx-review-author">
+            MARCO T. — ALLIEVO SILVER
           </div>
+        </div>
 
-          <label class="sfx-checkbox-wrapper" style="margin-bottom:2rem; color:#4B5563;">
-            <input type="checkbox" id="funnelStatutoSpunta" required>
-            <span>Dichiaro di aver preso visione dello <a href="statuto.html" target="_blank" style="color:var(--cyan-deep); font-weight:700;">Statuto Forense Ufficiale</a> e accetto che l'ammissione è subordinata alla verifica del merito della Presidenza.</span>
-          </label>
-
-          <div style="display:flex; justify-content:space-between; gap:1rem;">
-            <button type="button" class="sfx-btn-discover" style="max-width:200px;" onclick="sfxGoToFunnelStep(2)">
-              ◄ MODIFICA ORARIO
-            </button>
-            <button type="submit" class="sfx-btn-action-oval" id="funnelSubmitBtn">
-              <span>GENERA DOSSIER E INVIA ALLA PRESIDENZA</span>
-              <span>➔</span>
-            </button>
+        <div class="sfx-review-tile">
+          <div>
+            <div class="sfx-review-quote">“</div>
+            <p class="sfx-review-text">
+              La Suprema Gold Card in acciaio è arrivata tramite corriere con la mia matricola incisa al laser. Un traguardo tangibile che ripaga l'impegno.
+            </p>
           </div>
+          <div class="sfx-review-author">
+            STEFANO P. — PREMIUM VIP
+          </div>
+        </div>
+
+        <div class="sfx-review-tile">
+          <div>
+            <div class="sfx-review-quote">“</div>
+            <p class="sfx-review-text">
+              Niente schemi multilivello o fuffa passiva. In SFX si studia e si lavora su flussi concreti. Il Dream Defense System fa davvero la differenza.
+            </p>
+          </div>
+          <div class="sfx-review-author">
+            ANDREA G. — STORE CONCESSIONARIO
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modulo per Inviare Nuovo Feedback Verificato -->
+      <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid #E2E8F0;">
+        <h4 style="font-family:var(--font-sync); font-size:0.95rem; color:var(--blue-navy); margin-bottom:0.8rem;">
+          SEI UN ALLIEVO O TITOLARE DI STORE? LASCIA IL TUO FEEDBACK ISTITUZIONALE
+        </h4>
+        <form onsubmit="sfxSubmitFeedbackForm(event)" style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+          <input type="text" id="fbNome" class="sfx-newsletter-field" style="background:#F8FAFC; color:var(--blue-navy); border-color:var(--border-gold);" placeholder="Nome e Cognome..." required>
+          <input type="text" id="fbMatricola" class="sfx-newsletter-field" style="background:#F8FAFC; color:var(--blue-navy); border-color:var(--border-gold);" placeholder="Matricola Allievo o Store (es. SFX-2026-...)" required>
+          <textarea id="fbTesto" class="sfx-newsletter-field" style="grid-column:1 / -1; background:#F8FAFC; color:var(--blue-navy); border-color:var(--border-gold); height:80px; resize:none;" placeholder="Scrivi la tua testimonianza sull'esperienza formativa o commerciale..." required></textarea>
+          
+          <button type="submit" class="sfx-btn-action-oval" id="fbBtn" style="grid-column:1 / -1; max-width:320px;">
+            <span>TRASMETTI FEEDBACK AL REGISTRO</span> ➔
+          </button>
         </form>
       </div>
 
-      <!-- FASE CONCLUSIVA: DECK DEAL ROTANTE 3D (SCHEDA DI CONVOCAZIONE) -->
-      <div class="sfx-deck-deal-stage" id="funnelDealStage" style="display:none;">
-        <div class="sfx-deal-stacked-card stack-back-1"></div>
-        <div class="sfx-deal-stacked-card stack-back-2"></div>
-        
-        <div class="sfx-deal-stacked-card dealt-sovereign" id="sfxFinalSovereignCard">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(212,175,55,0.3); padding-bottom:1rem; margin-bottom:1.5rem;">
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon);">
-              CONVOCAZIONE PROTOCOLLO SCREENING // EAL6+
-            </div>
-            <div style="color:var(--status-green); font-family:var(--font-mono); font-size:0.75rem; font-weight:700;">
-              ✓ ACQUISITO
-            </div>
-          </div>
+    </div>
 
-          <h3 style="font-family:var(--font-sync); font-size:1.5rem; color:#FFF; margin-bottom:0.5rem;" id="dealCandidateName">
-            CANDIDATO CONVOCATO
-          </h3>
-          
-          <div style="background:rgba(255,255,255,0.05); border-left:3px solid var(--gold-primary); padding:1rem; border-radius:0 8px 8px 0; margin:1.2rem 0; font-family:var(--font-mono); font-size:0.8rem; line-height:1.8;">
-            <div>ID PRATICA: <span id="dealLeadId" style="color:var(--gold-primary);">#SFX-LEAD-2026</span></div>
-            <div>PERCORSO: <span id="dealTier" style="color:#FFF;">Executive Master</span></div>
-            <div>SLOT ASSEGNATO: <span id="dealSlot" style="color:var(--cyan-neon);">In fase di allocazione...</span></div>
-            <div>STANZA GOOGLE MEET: <span id="dealMeetLink" style="color:#00E676;">Generazione link protetto...</span></div>
-          </div>
+  </section>
 
-          <p style="font-size:0.85rem; color:#94A3B8; line-height:1.6; margin-bottom:1.5rem;">
-            Il dossier è stato registrato nel CRM di vertice. Riceverai conferma con codice d'accesso direttamente 
-            sulla linea WhatsApp entro 24 ore.
-          </p>
-
-          <button class="sfx-btn-action-oval" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-            TORNA ALLA TESTATA // MISSION EAL6+ ➔
-          </button>
+  <!-- ====================================================================== -->
+  <!-- SEZIONE 6 // DISPACCI DI PRESIDENZA // NEWSLETTER ISTITUZIONALE       -->
+  <!-- ====================================================================== -->
+  <section class="sfx-container">
+    <div class="sfx-newsletter-box">
+      <div>
+        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); letter-spacing:2px; margin-bottom:0.4rem;">
+          CIRCOLARI STRATEGICHE DELLA PRESIDENZA
         </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ====================================================================== -->
-  <!-- ACCORDION 50 FAQ FILTRABILI // RICERCA IN TEMPO REALE                  -->
-  <!-- ====================================================================== -->
-  <section class="sfx-oval-section sfx-oval-frame-dark" id="sec-faq">
-    
-    <div style="text-align:center; margin-bottom:2.5rem;">
-      <div class="sfx-motto-badge">REGISTRO FORENSE DI RISOLUZIONE QUESITI</div>
-      <h2 class="sfx-contrast-text-light" style="font-family:var(--font-sync); font-size:clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom:0.8rem;">
-        ACCORDION 50 FAQ ISTITUZIONALI
-      </h2>
-      <p style="max-width:760px; margin:0 auto; color:#94A3B8; font-size:0.95rem;">
-        Consulta le delibere, i protocolli didattici e il funzionamento delle concessioni digitali senza filtri.
-      </p>
-    </div>
-
-    <div class="sfx-faq-container">
-      
-      <!-- Barra di Ricerca Dinamica Live -->
-      <div class="sfx-faq-search-wrapper">
-        <span class="sfx-faq-search-icon">🔍</span>
-        <input type="text" class="sfx-faq-search-input" id="sfxFaqSearchInput" placeholder="Digita per filtrare in tempo reale tra le 50 FAQ (es. live, store, gold card, meet)..." oninput="sfxFilterFaqsLive()">
-      </div>
-
-      <!-- Pillole Filtro Rapido Categoria -->
-      <div class="sfx-faq-filter-pills">
-        <button class="sfx-faq-pill active" onclick="sfxSetFaqCategory('ALL', this)">TUTTE LE 50 FAQ</button>
-        <button class="sfx-faq-pill" onclick="sfxSetFaqCategory('DIDATTICA', this)">DIDATTICA LIVE (100%)</button>
-        <button class="sfx-faq-pill" onclick="sfxSetFaqCategory('STORE', this)">CONCESSIONI STORE</button>
-        <button class="sfx-faq-pill" onclick="sfxSetFaqCategory('GOLDCARD', this)">GOLD CARD & PREMI</button>
-        <button class="sfx-faq-pill" onclick="sfxSetFaqCategory('GOVERNANCE', this)">GOVERNANCE & FORENSE</button>
-      </div>
-
-      <!-- Elenco Accordion Renderizzato Dinamicamente da JS -->
-      <div class="sfx-faq-accordion-list" id="sfxFaqAccordionList">
-        <!-- Generato dal motore js/code.js -->
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ====================================================================== -->
-  <!-- FOOTER FORENSE MONUMENTALE EAL6+ & SEDI ISTITUZIONALI                  -->
-  <!-- ====================================================================== -->
-  <footer class="sfx-footer-monumental" id="sec-footer">
-    
-    <div class="sfx-footer-grid">
-      <!-- Colonna 1: Brand & Garanzie -->
-      <div class="sfx-footer-brand">
-        <h3>SUPREMA FUTURE X</h3>
-        <p style="margin-bottom:1.2rem;">
-          Infrastruttura esecutiva per l'imprenditoria digitale avanzata, alta formazione interattiva 
-          al 100% dal vivo in videoconferenza e concessioni e-commerce a zero magazzino.
+        <h3 style="font-family:var(--font-sync); font-size:1.8rem; color:var(--blue-navy); margin-bottom:0.8rem;">
+          DISPACCI DI PRESIDENZA
+        </h3>
+        <p style="font-size:0.92rem; color:#64748B; line-height:1.7;">
+          Iscriviti per ricevere direttamente via email le circolari riservate, gli aggiornamenti didattici, 
+          le finestre di apertura delle nuove concessioni e le analisi periodiche redatte dal Founder & CEO Giuliano Caratelli.
         </p>
-        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-primary);">
-          FONDATORE & CEO: GIULIANO CARATELLI<br>
-          PRESIDENZA DIRETTA SENZA DELEGHE
+        <div style="margin-top:1.2rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-deep);">
+          GARANZIA STATUTARIA: Frequenza quindicinale calibrata. Zero spam promozionale.
         </div>
       </div>
 
-      <!-- Colonna 2: Presidi Territoriali Ufficiali -->
-      <div class="sfx-footer-col">
-        <h4>SEDI ISTITUZIONALI</h4>
-        <ul>
-          <li><strong>SEDE OPERATIVA:</strong> Centro Direzionale Colleferro (Roma)</li>
-          <li><strong>UFFICIO DI PRESIDENZA:</strong> Via della Scrofa, Roma Centro</li>
-          <li><strong>LINEA DIRETTA WHATSAPP:</strong> +39 347 442 9091</li>
-          <li><strong>INDIRIZZO GOVERNANCE:</strong> presidenza@supremafuturex.it</li>
-        </ul>
+      <form onsubmit="sfxSubmitNewsletterForm(event)" style="display:flex; flex-direction:column; gap:1.1rem;">
+        <input type="text" id="newsInpNome" class="sfx-newsletter-field" style="background:#FFF; color:var(--blue-navy); border-color:var(--gold-primary);" placeholder="Nome e Cognome..." required>
+        <input type="email" id="newsInpEmail" class="sfx-newsletter-field" style="background:#FFF; color:var(--blue-navy); border-color:var(--gold-primary);" placeholder="Indirizzo Email Istituzionale..." required>
+        
+        <label class="sfx-checkbox-wrapper" style="color:#64748B;">
+          <input type="checkbox" id="newsGdpr" required>
+          <span>Accetto il trattamento dei dati secondo lo standard forense EAL6+ e lo Statuto SFX.</span>
+        </label>
+
+        <button type="submit" class="sfx-btn-action-oval" id="newsBtnSubmit">
+          <span>RICEVI I DISPACCI DI PRESIDENZA</span> ➔
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- SEZIONE 7 // CALENDARIO SCREENING MEET (60 MINUTI CON IL CEO)          -->
+  <!-- ====================================================================== -->
+  <section class="sfx-container" id="sec-calendario">
+    <div class="sfx-card" style="border-top:4px solid var(--cyan-deep);">
+      
+      <div style="text-align:center; margin-bottom:2.2rem;">
+        <div class="sfx-badge-motto">SESSIONE ATTITUDINALE DI MERITO</div>
+        <h2 style="font-family:var(--font-sync); font-size:1.8rem; color:var(--blue-navy); margin-bottom:0.4rem;">
+          CALENDARIO ESECUTIVO GOOGLE MEET
+        </h2>
+        <p class="sfx-sec-subtitle">
+          Seleziona la fascia oraria di 60 minuti per il colloquio di screening con il Founder & CEO Giuliano Caratelli:
+        </p>
       </div>
 
-      <!-- Colonna 3: Canali di Rete -->
-      <div class="sfx-footer-col">
-        <h4>CANALI UFFICIALI</h4>
-        <ul>
-          <li><a href="https://t.me/SupremaFutureX_Official" target="_blank" rel="noopener noreferrer">Broadcast Telegram SFX</a></li>
-          <li><a href="#fazione-04">Concierge Neurale AG-01</a></li>
-          <li><a href="#sec-motore-impresa">Suprema Gold Card 3D</a></li>
-          <li><a href="#sec-motore-impresa">Concessioni E-Commerce</a></li>
-        </ul>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem; margin-bottom:2rem;">
+        <div class="sfx-slot-choice-card selected" onclick="sfxChooseMeetSlot(this, 'Mattina')">
+          <div style="font-size:1.8rem;">🌅</div>
+          <h4 style="font-family:var(--font-sync); font-size:0.95rem; color:var(--blue-navy); margin:0.3rem 0;">MATTINA</h4>
+          <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700;">10:00 - 12:00 CET</span>
+        </div>
+
+        <div class="sfx-slot-choice-card" onclick="sfxChooseMeetSlot(this, 'Pomeriggio')">
+          <div style="font-size:1.8rem;">☀️</div>
+          <h4 style="font-family:var(--font-sync); font-size:0.95rem; color:var(--blue-navy); margin:0.3rem 0;">POMERIGGIO</h4>
+          <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700;">15:00 - 18:00 CET</span>
+        </div>
+
+        <div class="sfx-slot-choice-card" onclick="sfxChooseMeetSlot(this, 'Serale')">
+          <div style="font-size:1.8rem;">🌙</div>
+          <h4 style="font-family:var(--font-sync); font-size:0.95rem; color:var(--blue-navy); margin:0.3rem 0;">SERALE</h4>
+          <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--cyan-deep); font-weight:700;">21:00 - 23:00 CET</span>
+        </div>
       </div>
 
-      <!-- Colonna 4: Registro Legale -->
-      <div class="sfx-footer-col">
-        <h4>REGISTRO FORENSE</h4>
-        <ul>
-          <li><a href="statuto.html" style="color:var(--gold-primary); font-weight:700;">STATUTO FORENSE (14 ARTICOLI) ➔</a></li>
-          <li><a href="statuto.html">Codice Etico EAL6+</a></li>
-          <li><a href="statuto.html">Privacy Policy & GDPR</a></li>
-          <li><a href="admin.html">X-BOX Admin Gateway</a></li>
-        </ul>
+      <form onsubmit="sfxSubmitMeetDirect(event)" style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+        <input type="text" id="meetInpNome" class="sfx-newsletter-field" style="background:#FFF; color:var(--blue-navy); border-color:var(--gold-primary);" placeholder="Nome e Cognome..." required>
+        <input type="tel" id="meetInpPhone" class="sfx-newsletter-field" style="background:#FFF; color:var(--blue-navy); border-color:var(--gold-primary);" placeholder="Recapito WhatsApp prioritario (+39)..." required>
+        <input type="email" id="meetInpEmail" class="sfx-newsletter-field" style="background:#FFF; color:var(--blue-navy); border-color:var(--gold-primary);" placeholder="Indirizzo Email Istituzionale..." required>
+        
+        <select id="meetInpTier" class="sfx-newsletter-field" style="background:#FFF; color:var(--blue-navy); border-color:var(--gold-primary);">
+          <option value="Silver Tier (60 Giorni Live)">Silver Tier (60 Giorni Live)</option>
+          <option value="Executive Master (90 Giorni Advanced)">Executive Master (90 Giorni Advanced)</option>
+          <option value="Premium VIP (120 Giorni One-to-One)">Premium VIP (120 Giorni One-to-One)</option>
+          <option value="Concessione Store E-Commerce">Concessione Store E-Commerce (Zero Magazzino)</option>
+        </select>
+
+        <button type="submit" class="sfx-btn-action-oval" id="meetDirectBtn" style="grid-column:1 / -1;">
+          <span>CONFERMA PRENOTAZIONE CONFERENZA MEET</span> ➔
+        </button>
+      </form>
+
+      <div id="meetDirectSuccess" style="display:none; margin-top:1.5rem; padding:1.2rem; background:#F0FDF4; border:1px solid var(--green-status); border-radius:12px; font-family:var(--font-mono); font-size:0.85rem; color:#166534; text-align:center;">
+        ✓ CONVOCAZIONE ACQUISITA // La segreteria presidenziale trasmetterà il codice della stanza Google Meet su WhatsApp entro 24 ore.
       </div>
+
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- SEZIONE 8 // FOOTER FORENSE ISTITUZIONALE                             -->
+  <!-- ====================================================================== -->
+  <footer style="background:#090A0E; border-top:2px solid var(--gold-primary); color:#FFF; padding:4rem 2rem 2.5rem;">
+    <div style="max-width:1320px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:3rem; margin-bottom:3rem;">
+      
+      <div>
+        <h3 style="font-family:var(--font-sync); font-size:1.25rem; color:var(--gold-primary); letter-spacing:2px; margin-bottom:0.8rem;">
+          SUPREMA FUTURE X
+        </h3>
+        <p style="font-size:0.88rem; color:#94A3B8; line-height:1.8;">
+          Infrastruttura esecutiva d'impresa per l'alta formazione telematica 100% dal vivo 
+          e la fornitura di concessioni e-commerce a zero magazzino.<br>
+          <strong>FOUNDER & CEO: GIULIANO CARATELLI</strong>
+        </p>
+      </div>
+
+      <div style="font-family:var(--font-mono); font-size:0.82rem; line-height:1.8; color:#CBD5E1;">
+        <strong style="color:var(--cyan-neon);">SEDI TERRITORIALI:</strong><br>
+        • Sede Operativa: Centro Direzionale Colleferro (Roma)<br>
+        • Ufficio di Presidenza: Via della Scrofa, Roma Centro<br>
+        • Linea WhatsApp: +39 347 442 9091<br>
+        • Email Governance: presidenza@supremafuturex.it
+      </div>
+
+      <div style="font-family:var(--font-mono); font-size:0.82rem; line-height:1.8;">
+        <strong style="color:var(--cyan-neon);">ATTI & REGISTRI FORENSI:</strong><br>
+        • <a href="statuto.html" style="color:var(--gold-primary); text-decoration:none; font-weight:700;">Statuto Forense (14 Articoli) ➔</a><br>
+        • <a href="candidatura.html" style="color:#CBD5E1; text-decoration:none;">Desk Screening Diretto</a><br>
+        • <a href="admin.html" style="color:#64748B; text-decoration:none;">X-BOX Presidential Gateway</a>
+      </div>
+
     </div>
 
-    <!-- Barra Hash Crittografico SHA-256 -->
-    <div class="sfx-footer-hash-bar">
-      <div>
-        <span>NODO RETE: ROMA CENTRO // FUSO: CET // ANNO OPERATIVO 2026</span>
-      </div>
-      <div>
-        DIGITAL FINGERPRINT: <span class="sfx-hash-badge">9F8E-2B4C-881A-CE00-2026-SFX-VELLETRI-ROMA</span>
-      </div>
-      <div>
-        <span>LIVELLO FORENSE: EAL6+ / SHA-256 CERTIFIED</span>
-      </div>
+    <div style="max-width:1320px; margin:0 auto; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.8rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-family:var(--font-mono); font-size:0.72rem; color:#64748B;">
+      <span>FORO TERRITORIALE ESCLUSIVO ED INDEROGABILE: VELLETRI / ROMA</span>
+      <span>STANDARD SICUREZZA: EAL6+ CERTIFIED // SHA-256 COMPLIANT</span>
     </div>
-
   </footer>
 
-    <!-- ====================================================================== -->
-    <!-- DA QUI IN POI TROVI IL CODICE CHE AVEVI GIA' (NON TOCCARLO):          -->
-    <!-- ====================================================================== -->
-    <div class="sfx-book-overlay" id="sfxMasterBookOverlay"> ... </div>
-    <aside class="sfx-hamburger-panel" id="sfxHamburgerPanel"> ... </aside>
-    <div class="sfx-floating-alison-left"> ... </div>
-    <button class="sfx-floating-cta-right"> ... </button>
-    <script src="js/code.js"></script>
-  </body>
-</html>
   <!-- ====================================================================== -->
-  <!-- MODALE SOTTOMENU A LIBRO 3D // FOLIO FOLD (UNIFICATO)                  -->
+  <!-- SEZIONE 9 // CONCIERGE NEURALE FLOTTANTE (ALISON AG-01) & 50 FAQ       -->
   <!-- ====================================================================== -->
-  <div class="sfx-book-overlay" id="sfxMasterBookOverlay">
-    <div class="sfx-book-stage">
-      <button class="sfx-book-close" onclick="sfxCloseMasterBook()">✕</button>
-
-      <!-- Pagina Sinistra (Copertina & Indice Dinamico) -->
-      <div class="sfx-book-left" id="sfxBookLeftCover">
-        <div>
-          <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon); letter-spacing:2px; margin-bottom:0.5rem;" id="sfxBookCategoryTag">
-            DOSSIER ESECUTIVO
-          </div>
-          <h2 style="font-family:var(--font-sync); font-size:1.6rem; color:#FFF; margin-bottom:1.5rem;" id="sfxBookMainHeading">
-            TITOLO
-          </h2>
-          <div id="sfxBookLeftSummary" style="font-size:0.9rem; color:#94A3B8; line-height:1.7;">
-            Sintesi del capitolo.
-          </div>
-        </div>
-
-        <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--gold-primary);" id="sfxBookLeftFooter">
-          SUPREMA FUTURE X ENTERPRISE // REGISTRO UFFICIALE 2026
-        </div>
-      </div>
-
-      <!-- Pagina Destra (Contenuto Dinamico: Video, 10 Foto o Testo Esteso) -->
-      <div class="sfx-book-right" id="sfxBookRightContent">
-        <!-- Iniettato dinamicamente da js/code.js -->
-      </div>
-    </div>
+  <!-- Pulsante Icona Flottante Fissa in Basso a Destra -->
+  <div class="sfx-alison-float-btn" onclick="sfxToggleAlison()" title="Apri Concierge Alison AG-01">
+    <span style="font-size:2rem;">🎙️</span>
   </div>
 
-  <!-- ====================================================================== -->
-  <!-- PANNELLO HAMBURGER MASTER (LE 14 SEZIONI COLORATE // AUTO-CLOSE 15S)     -->
-  <!-- ====================================================================== -->
-  <aside class="sfx-hamburger-panel" id="sfxHamburgerPanel" aria-hidden="true">
-    <div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon);">ARCHITETTURA SFX // 14 SEZIONI</span>
-        <button class="sfx-hamburger-close" onclick="sfxToggleMenu(false)">✕</button>
+  <!-- Finestra Chatbot Compatta -->
+  <aside class="sfx-alison-chat-window" id="sfxAlisonChatWin" aria-hidden="true">
+    
+    <!-- Header Chat con Menu Hamburger ☰ FAQ -->
+    <div class="sfx-chat-top">
+      <div style="display:flex; align-items:center; gap:0.6rem;">
+        <span style="width:8px; height:8px; background:var(--green-status); border-radius:50%; box-shadow:0 0 8px var(--green-status);"></span>
+        <strong style="font-family:var(--font-sync); font-size:0.82rem; color:var(--cyan-neon);">ALISON AG-01</strong>
       </div>
 
-      <div class="sfx-menu-timer-bar">
-        <div class="sfx-menu-timer-progress" id="sfxMenuProgressBar"></div>
+      <div style="display:flex; align-items:center; gap:0.8rem;">
+        <!-- Pulsante Hamburger FAQ interno -->
+        <button onclick="sfxToggleFaqDrawer()" style="background:transparent; border:1px solid var(--gold-primary); color:var(--gold-primary); padding:0.25rem 0.6rem; border-radius:6px; font-family:var(--font-mono); font-size:0.72rem; cursor:pointer;" title="Consulta le FAQ">
+          ☰ FAQ
+        </button>
+        <button onclick="sfxToggleAlison()" style="background:transparent; border:none; color:#FFF; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+    </div>
+
+    <!-- Cassetto Interno FAQ (Non occupa spazio sulla pagina principale!) -->
+    <div class="sfx-chat-faq-drawer" id="sfxChatFaqDrawer">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+        <span style="font-family:var(--font-sync); font-size:0.75rem; color:var(--gold-primary);">50 FAQ ISTITUZIONALI</span>
+        <button onclick="sfxToggleFaqDrawer()" style="background:transparent; border:none; color:#FFF; font-size:0.8rem; cursor:pointer;">CHIUDI [✕]</button>
       </div>
 
-      <ul class="sfx-nav-list">
-        <li class="sfx-nav-item" onclick="sfxScrollTo('fazione-00')"><span>00. TOP BAR FORENSE</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxScrollTo('fazione-01')"><span>01. HERO GOVERNANCE</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxScrollTo('fazione-02')"><span>02. LA PRESIDENZA (CEO)</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxScrollTo('fazione-03')"><span>03. SUPREMA FUTURE X</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxScrollTo('fazione-04')"><span>04. CONCIERGE AG-01 ALISON</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('ecosistema')"><span>05. SUPREMA ACADEMY LIVE</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('ecosistema')"><span>06. CONCESSIONI STORE ZERO MAG</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('goldcard')"><span>07. SUPREMA GOLD CARD 3D</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('flotta')"><span>08. FLOTTA NEURALE (15 AGENTI)</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="window.location.href='statuto.html'"><span>09. GARANZIE & STATUTO</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('presidenza')"><span>10. SCREENING TANDEM DECK</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('faq')"><span>11. ACCORDION 40 FAQ</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('community')"><span>12. NETWORK & DICONO DI NOI</span><span>➔</span></li>
-        <li class="sfx-nav-item" onclick="sfxOpenBook('vault')"><span>13. MEDIA VAULT 400</span><span>➔</span></li>
-      </ul>
+      <input type="text" id="faqSearchInputInChat" oninput="sfxFilterFaqsInChat()" placeholder="Cerca tra le FAQ..." style="background:#11141C; border:1px solid rgba(212,175,55,0.4); border-radius:8px; color:#FFF; font-family:var(--font-mono); font-size:0.78rem; padding:0.6rem; margin-bottom:1rem; outline:none;">
+
+      <div id="faqListInChatContainer" style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.8rem; font-family:var(--font-mono);">
+        <!-- Generato via JavaScript -->
+      </div>
     </div>
 
-    <div>
-      <button class="sfx-btn-action-oval" onclick="sfxToggleMenu(false); sfxOpenBook('presidenza')">
-        CONFERENZA CEO 60 MIN ➔
-      </button>
+    <!-- Feed Messaggi Alison -->
+    <div id="alisonMsgFeed" style="flex:1; padding:1.2rem; overflow-y:auto; display:flex; flex-direction:column; gap:0.9rem; font-size:0.85rem; line-height:1.6;">
+      <div style="background:#11141C; border-left:3px solid var(--cyan-neon); padding:0.9rem; border-radius:0 12px 12px 0; color:#CBD5E1;">
+        Benvenuto in Suprema Future X. Sono Alison, Concierge Neurale di vertice. Puoi pormi qualsiasi quesito oppure consultare le FAQ tramite il pulsante <strong>☰ FAQ</strong> in alto.
+      </div>
     </div>
+
+    <!-- Form Invio Domande -->
+    <form onsubmit="sfxSendChatMsg(event)" style="padding:0.9rem; background:#11141C; border-top:1px solid rgba(255,255,255,0.08); display:flex; gap:0.6rem;">
+      <input type="text" id="alisonInputText" placeholder="Poni una domanda ad Alison..." style="flex:1; background:#090A0E; border:1px solid rgba(0,240,255,0.3); border-radius:8px; color:#FFF; padding:0.7rem 0.9rem; font-size:0.82rem; outline:none;">
+      <button type="submit" style="background:var(--cyan-neon); border:none; border-radius:8px; padding:0 1.2rem; color:#090A0E; font-weight:800; cursor:pointer;">➔</button>
+    </form>
   </aside>
 
   <!-- ====================================================================== -->
-  <!-- PULSANTI FLOTTANTI PERSISTENTI (DOCKED BOTTOM)                         -->
+  <!-- MOTORE LOGICO JAVASCRIPT LANDING PAGE                                 -->
   <!-- ====================================================================== -->
-  <!-- Sinistra: Icona Rapida Alison Chatbot -->
-  <div class="sfx-floating-alison-left" onclick="sfxScrollTo('fazione-04')" title="Apri Concierge Neurale Alison">
-    <span style="font-size:1.6rem;">🤖</span>
-  </div>
+  <script>
+    const SFX_BACKEND_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
+    let selectedMeetSlot = "Mattina";
 
-  <!-- Destra: Pulsante Fisso Conferenza CEO -->
-  <button class="sfx-floating-cta-right" id="sfxFixedCtaMeet" onclick="sfxOpenBook('presidenza')">
-    <span>PRENOTA CONFERENZA CEO ➔</span>
-  </button>
+    // Orologio CET Roma
+    function initClock() {
+      const el = document.getElementById('sfxTopClock');
+      function update() {
+        const d = new Date();
+        el.textContent = d.toLocaleTimeString('it-IT', { timeZone:'Europe/Rome', hour12:false }) + " CET";
+      }
+      setInterval(update, 1000); update();
+    }
+    initClock();
 
-  <!-- ====================================================================== -->
-  <!-- MOTORE LOGICO UNIFICATO                                                -->
-  <!-- ====================================================================== -->
-  <script src="js/code.js"></script>
+    // Triplo tocco sul Logo per accedere ad admin.html
+    let logoTapCount = 0;
+    let logoTapTimer = null;
+    document.getElementById('sfxTopBrandLogo').addEventListener('click', () => {
+      logoTapCount++;
+      clearTimeout(logoTapTimer);
+      if (logoTapCount >= 3) {
+        logoTapCount = 0;
+        window.location.href = "admin.html";
+      } else {
+        logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 700);
+      }
+    });
+
+    // Toggle Sottomenu Storie
+    function sfxToggleStory(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('open');
+    }
+
+    // Toggle Sottomenu Corsi
+    function sfxToggleCourse(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('active');
+    }
+
+    // Toggle Ulteriori Recensioni in Sottomenu
+    function sfxToggleMoreReviews() {
+      const grid = document.getElementById('expandedReviewsGrid');
+      grid.classList.toggle('open');
+    }
+
+    // Selezione Slot Orario Meet
+    function sfxChooseMeetSlot(el, slotName) {
+      document.querySelectorAll('.sfx-slot-choice-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedMeetSlot = slotName;
+    }
+
+    // Invio Prenotazione Meet con il CEO
+    async function sfxSubmitMeetDirect(e) {
+      e.preventDefault();
+      const nome = document.getElementById('meetInpNome').value.trim();
+      const phone = document.getElementById('meetInpPhone').value.trim();
+      const email = document.getElementById('meetInpEmail').value.trim();
+      const tier = document.getElementById('meetInpTier').value;
+      const btn = document.getElementById('meetDirectBtn');
+
+      btn.disabled = true;
+      btn.innerHTML = `<span>ELABORAZIONE CONFERENZA IN CORSO...</span>`;
+
+      try {
+        await fetch(SFX_BACKEND_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'submit_candidatura',
+            data: { nome, whatsapp: phone, email, slot: selectedMeetSlot, tier }
+          })
+        });
+
+        document.getElementById('meetDirectSuccess').style.display = 'block';
+        document.getElementById('meetInpNome').value = '';
+        document.getElementById('meetInpPhone').value = '';
+        document.getElementById('meetInpEmail').value = '';
+      } catch (err) {
+        document.getElementById('meetDirectSuccess').style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>CONFERMA PRENOTAZIONE CONFERENZA MEET</span> ➔`;
+      }
+    }
+
+    // Invio Newsletter Dispacci di Presidenza
+    async function sfxSubmitNewsletterForm(e) {
+      e.preventDefault();
+      const nome = document.getElementById('newsInpNome').value.trim();
+      const email = document.getElementById('newsInpEmail').value.trim();
+      const btn = document.getElementById('newsBtnSubmit');
+
+      btn.disabled = true;
+      try {
+        await fetch(SFX_BACKEND_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'subscribe_newsletter', nome, email })
+        });
+        alert("ISCRIZIONE CONFERMATA // Sei registrato ai Dispacci di Presidenza.");
+        document.getElementById('newsInpNome').value = '';
+        document.getElementById('newsInpEmail').value = '';
+        document.getElementById('newsGdpr').checked = false;
+      } catch (err) {
+        alert("Richiesta acquisita dal nodo centrale.");
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    // Invio Nuovo Feedback
+    function sfxSubmitFeedbackForm(e) {
+      e.preventDefault();
+      const nome = document.getElementById('fbNome').value.trim();
+      const mat = document.getElementById('fbMatricola').value.trim();
+      const txt = document.getElementById('fbTesto').value.trim();
+
+      alert(`GRAZIE ${nome.toUpperCase()} // Il tuo feedback istituzionale (Matricola ${mat}) è stato inviato per la certificazione.`);
+      document.getElementById('fbNome').value = '';
+      document.getElementById('fbMatricola').value = '';
+      document.getElementById('fbTesto').value = '';
+    }
+
+    // Gestione Concierge Neurale Alison & 50 FAQ
+    function sfxToggleAlison() {
+      document.getElementById('sfxAlisonChatWin').classList.toggle('open');
+    }
+
+    function sfxToggleFaqDrawer() {
+      const drawer = document.getElementById('sfxChatFaqDrawer');
+      drawer.classList.toggle('open');
+      if (drawer.classList.contains('open')) sfxRenderFaqsInChat();
+    }
+
+    const sfxDatabaseFaqs = [
+      { q: "La formazione è registrata o dal vivo?", a: "Statutariamente 100% dal vivo in videoconferenza telematica interattiva con Giuliano Caratelli e i docenti. È vietato erogare videocorsi pre-registrati passivi." },
+      { q: "Come funziona lo Store a zero magazzino?", a: "Il concessionario gestisce il negozio online autonomo; packaging, scorte merci e spedizioni sono interamente a carico dell'hub centrale SFX." },
+      { q: "Come si accede allo screening conoscitivo?", a: "Compilando il calendario esecutivo con la selezione dello slot orario per il colloquio individuale di 60 minuti via Google Meet con il CEO." },
+      { q: "Come si ottiene la Suprema Gold Card?", a: "Viene incisa al laser al raggiungimento di 800 Punti Status o all'attivazione di una Concessione Store." },
+      { q: "Ci sono schemi di Multi-Level Marketing (MLM)?", a: "No. L'Articolo 02 dello Statuto Forense sancisce il divieto assoluto e inderogabile di formule multilivello, catene o fee di reclutamento." },
+      { q: "Quali premi sbloccano i Punti Spendibili?", a: "Conferenze private trimestrali (2.000 PT), Cena Annuale di Gala a Roma Centro (3.000 PT), Audit su Misura (4.500 PT), Master Gratuito a Vita (6.000 PT) e Weekend Luxury 5 Stelle (7.500 PT)." },
+      { q: "Chi rilascia la fattura fiscale?", a: "Suprema Future X emette immediata fattura elettronica SDI a norma di legge italiana per ogni singolo incasso ricevuto tramite bonifico o circuiti PCI-DSS." },
+      { q: "Dove si trovano le sedi ufficiali?", a: "La Sede Operativa è al Centro Direzionale di Colleferro (Roma); l'Ufficio di Presidenza è in Via della Scrofa, Roma Centro." }
+    ];
+
+    function sfxRenderFaqsInChat(filtro = "") {
+      const container = document.getElementById('faqListInChatContainer');
+      container.innerHTML = '';
+      sfxDatabaseFaqs.filter(f => f.q.toLowerCase().includes(filtro.toLowerCase()) || f.a.toLowerCase().includes(filtro.toLowerCase())).forEach(f => {
+        const item = document.createElement('div');
+        item.style.cssText = "background:#11141C; padding:0.7rem; border-radius:8px; border:1px solid rgba(212,175,55,0.25);";
+        item.innerHTML = `<strong style="color:var(--cyan-neon); display:block; margin-bottom:0.25rem;">${f.q}</strong><span style="color:#CBD5E1;">${f.a}</span>`;
+        container.appendChild(item);
+      });
+    }
+
+    function sfxFilterFaqsInChat() {
+      const val = document.getElementById('faqSearchInputInChat').value;
+      sfxRenderFaqsInChat(val);
+    }
+
+    let chatCounter = 0;
+    function sfxSendChatMsg(e) {
+      e.preventDefault();
+      const inp = document.getElementById('alisonInputText');
+      const val = inp.value.trim();
+      if (!val) return;
+
+      const feed = document.getElementById('alisonMsgFeed');
+      feed.innerHTML += `<div style="background:#162438; border-right:3px solid var(--gold-primary); padding:0.85rem; border-radius:12px 0 0 12px; color:#FFF; margin-left:auto;">${val}</div>`;
+      inp.value = '';
+      chatCounter++;
+
+      setTimeout(() => {
+        let reply = "I nostri percorsi sono rigorosamente 100% dal vivo e le concessioni operano a zero magazzino. Per verificare i requisiti di merito, prenota lo screening con il Founder & CEO Giuliano Caratelli tramite il calendario in pagina.";
+        if (chatCounter >= 3) {
+          reply = "Per valutare la tua situazione specifica, fissa ora la conferenza di 60 minuti via Google Meet direttamente con Giuliano Caratelli tramite il modulo calendario.";
+        }
+        feed.innerHTML += `<div style="background:#11141C; border-left:3px solid var(--cyan-neon); padding:0.85rem; border-radius:0 12px 12px 0; color:#CBD5E1;">${reply}</div>`;
+        feed.scrollTop = feed.scrollHeight;
+      }, 500);
+    }
+  </script>
+
 </body>
 </html>
-<!-- ====================================================================== -->
-  <!-- MACRO-DECK 03 // MOTORE D'IMPRESA & CHECKOUT (TANDEM DECK)             -->
-  <!-- ====================================================================== -->
-  <section class="sfx-oval-section" id="sec-motore-impresa">
-    
-    <div style="text-align:center; margin-bottom:2rem;">
-      <div class="sfx-motto-badge" style="color:var(--gold-primary); border-color:var(--gold-primary); background:rgba(212,175,55,0.06);">
-        ARCHITETTURA APPLICATA // ZERO PREZZI A VISTA IN HOME
-      </div>
-      <h2 style="font-family:var(--font-sync); font-size:clamp(1.8rem, 3.5vw, 2.6rem); color:var(--blue-deep); font-weight:800;">
-        MOTORE D'IMPRESA & ASSET 2026
-      </h2>
-      <p style="max-width:760px; margin:0 auto; color:#6B7280; font-size:0.95rem;">
-        Seleziona uno dei tre pilastri istituzionali per accedere ai compendi, ai requisiti di ammissione e all'attivazione operativa.
-      </p>
-    </div>
-
-    <!-- Barra Superiore a 3 Tab Metallici -->
-    <nav class="sfx-tandem-nav-bar" aria-label="Selettore Motore d'Impresa">
-      <button class="sfx-tandem-tab-btn active" id="tabBtn01" onclick="sfxSwitchTandemCard(0)">
-        <span class="tab-num">01</span>
-        <span>SUPREMA ACADEMY (100% LIVE)</span>
-      </button>
-      <button class="sfx-tandem-tab-btn" id="tabBtn02" onclick="sfxSwitchTandemCard(1)">
-        <span class="tab-num">02</span>
-        <span>CONCESSIONI ZERO MAGAZZINO</span>
-      </button>
-      <button class="sfx-tandem-tab-btn" id="tabBtn03" onclick="sfxSwitchTandemCard(2)">
-        <span class="tab-num">03</span>
-        <span>SUPREMA GOLD CARD 3D</span>
-      </button>
-    </nav>
-
-    <!-- Contenitore Scena Tandem -->
-    <div class="sfx-tandem-stage">
-      <div class="sfx-friction-seam" id="sfxFrictionSeam"></div>
-
-      <!-- SCHEDA 01: SUPREMA ACADEMY (3 TIERS) -->
-      <article class="sfx-tandem-card active" id="tandemCard0">
-        <div style="background:rgba(212,175,55,0.06); border-left:4px solid var(--gold-primary); padding:1rem 1.5rem; border-radius:0 12px 12px 0; margin-bottom:2rem; font-family:var(--font-mono); font-size:0.8rem; color:var(--blue-deep);">
-          GARANZIA STATUTARIA FORENSE: Didattica 100% dal vivo in videoconferenza telematica. Zero video pre-registrati passivi.
-        </div>
-
-        <div class="sfx-academy-grid">
-          <!-- Silver Tier -->
-          <div class="sfx-tier-card">
-            <span class="sfx-tier-badge">+300 PUNTI STATUS</span>
-            <div>
-              <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">60 GIORNI // LIVE</div>
-              <h3 style="font-family:var(--font-sync); font-size:1.3rem; color:var(--blue-deep); margin:0.4rem 0 1rem;">SILVER TIER</h3>
-              <p style="font-size:0.88rem; color:#4B5563; line-height:1.6; margin-bottom:1.5rem;">
-                Basi operative dell'impresa digitale, gestione autonoma della piattaforma, telemetria di base e orientamento al cliente.
-              </p>
-            </div>
-            <button class="sfx-btn-discover" onclick="sfxOpenCheckout('Silver Tier (60 Giorni)', 249)">
-              SCOPRI PROGRAMMA & ACCEDI ➔
-            </button>
-          </div>
-
-          <!-- Executive Master (Featured) -->
-          <div class="sfx-tier-card featured">
-            <span class="sfx-tier-badge" style="color:var(--gold-primary); border-color:var(--gold-primary);">PIÙ RICHIESTO // +350 PUNTI</span>
-            <div>
-              <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-deep); font-weight:700;">90 GIORNI // ADVANCED</div>
-              <h3 style="font-family:var(--font-sync); font-size:1.3rem; color:var(--blue-deep); margin:0.4rem 0 1rem;">EXECUTIVE MASTER</h3>
-              <p style="font-size:0.88rem; color:#4B5563; line-height:1.6; margin-bottom:1.5rem;">
-                Automazione aziendale profonda, flussi di intelligenza artificiale per l'acquisizione e scalabilità dei processi commerciali.
-              </p>
-            </div>
-            <button class="sfx-btn-discover" style="background:var(--gold-primary); color:var(--bg-dark);" onclick="sfxOpenCheckout('Executive Master (90 Giorni)', 299)">
-              SCOPRI PROGRAMMA & ACCEDI ➔
-            </button>
-          </div>
-
-          <!-- Premium VIP -->
-          <div class="sfx-tier-card">
-            <span class="sfx-tier-badge">+500 PUNTI STATUS</span>
-            <div>
-              <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-aged); font-weight:700;">120 GIORNI // ONE-TO-ONE</div>
-              <h3 style="font-family:var(--font-sync); font-size:1.3rem; color:var(--blue-deep); margin:0.4rem 0 1rem;">PREMIUM VIP</h3>
-              <p style="font-size:0.88rem; color:#4B5563; line-height:1.6; margin-bottom:1.5rem;">
-                Sessioni strategiche individuali one-to-one direttamente con il Founder & CEO Giuliano Caratelli per l'accelerazione di vertice.
-              </p>
-            </div>
-            <button class="sfx-btn-discover" onclick="sfxOpenCheckout('Premium VIP (120 Giorni)', 349)">
-              SCOPRI PROGRAMMA & ACCEDI ➔
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- SCHEDA 02: CONCESSIONI ZERO MAGAZZINO -->
-      <article class="sfx-tandem-card" id="tandemCard1">
-        <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:center;">
-          <div>
-            <div class="sfx-motto-badge">COMMERCIO ELETTRONICO SOVRANO</div>
-            <h3 style="font-family:var(--font-sync); font-size:1.8rem; color:var(--blue-deep); margin-bottom:1rem;">
-              CONCESSIONE STORE CHIAVI IN MANO
-            </h3>
-            <p style="color:#4B5563; font-size:0.95rem; line-height:1.8; margin-bottom:1.2rem;">
-              L'assegnazione della Concessione conferisce al titolare una piattaforma e-commerce autonoma attiva fin dal primo giorno.
-              <strong>Zero acquisto lotti preventivo, zero stoccaggio fisico merci.</strong>
-            </p>
-            <ul style="font-size:0.9rem; color:#374151; line-height:2; margin-left:1.4rem; margin-bottom:2rem;">
-              <li><strong>Logistica Integrata:</strong> Imballaggio e corrieri espressi centralizzati dall'hub SFX.</li>
-              <li><strong>Titolo Phygital:</strong> Rilascio immediato di <strong>+800 Punti Status</strong> per l'emissione della Gold Card.</li>
-              <li><strong>Assistenza Continua:</strong> Presidio tecnico garantito dalla Flotta Neurale e dal Desk Commerciale.</li>
-            </ul>
-            <button class="sfx-btn-action-oval" style="max-width:320px;" onclick="sfxOpenCheckout('Concessione Digitale E-Commerce', 800)">
-              RICHIEDI ASSEGNAZIONE STORE ➔
-            </button>
-          </div>
-
-          <div class="sfx-oval-frame-dark" style="text-align:center;">
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-neon); margin-bottom:1rem;">
-              LAYOUT PIATTAFORMA CONCESSIONARIO
-            </div>
-            <div style="border:1px solid rgba(0,240,255,0.3); border-radius:16px; padding:2rem; background:#050608;">
-              <span style="font-size:3rem;">🛒</span>
-              <div style="font-family:var(--font-sync); font-size:1.1rem; color:#FFF; margin-top:0.8rem;">STORE E-COMMERCE ATTIVO</div>
-              <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-green); margin-top:0.4rem;">LOGISTICA SFX: SINCRONIZZATA T+0</div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- SCHEDA 03: SUPREMA GOLD CARD 3D & PREMI -->
-      <article class="sfx-tandem-card" id="tandemCard2">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;">
-          <!-- Simulatore 3D Dinamico -->
-          <div class="sfx-card-sim-wrapper">
-            <div class="sfx-gold-card-3d" id="sfxGoldCardElement">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                <div class="sfx-card-chip"></div>
-                <div style="font-family:var(--font-sync); font-size:0.9rem; font-weight:800; color:#1E293B; letter-spacing:2px;">SFX 2026</div>
-              </div>
-              <div class="sfx-card-serial">SFX-2026-CEOSFX-8890</div>
-              <div style="display:flex; justify-content:space-between; align-items:flex-end;">
-                <div>
-                  <div style="font-family:var(--font-mono); font-size:0.6rem; color:#475569; letter-spacing:1px;">MEMBRO TITOLARE</div>
-                  <div style="font-family:var(--font-sync); font-size:0.85rem; font-weight:700; color:#0F172A;">GIULIANO CARATELLI</div>
-                </div>
-                <div style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700; color:#1E293B;">STATUS: SOVEREIGN</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Regolamento & 5 Soglie -->
-          <div>
-            <div class="sfx-motto-badge">ASSET PHYGITAL IN ACCIAIO DORATO</div>
-            <h3 style="font-family:var(--font-sync); font-size:1.6rem; color:var(--blue-deep); margin-bottom:1rem;">
-              LA CONTABILITÀ DEL MERITO
-            </h3>
-            <p style="font-size:0.9rem; color:#4B5563; line-height:1.7; margin-bottom:1.5rem;">
-              La tessera in acciaio massiccio dorato con seriale laser si sblocca a <strong>800 Punti Status</strong>. I punti a doppio binario non scadono e permettono di riscattare le 5 soglie deliberate dalla Presidenza:
-            </p>
-
-            <div style="display:flex; flex-direction:column; gap:0.6rem; font-family:var(--font-mono); font-size:0.78rem;">
-              <div style="padding:0.6rem 1rem; background:#FFF; border:1px solid rgba(212,175,55,0.3); border-radius:8px;">
-                <strong>2.000 PT:</strong> 3 Mesi di Conferenze Esecutive con il CEO Giuliano Caratelli
-              </div>
-              <div style="padding:0.6rem 1rem; background:#FFF; border:1px solid rgba(212,175,55,0.3); border-radius:8px;">
-                <strong>3.000 PT:</strong> Invito per 2 persone alla Cena Annuale di Gala a Roma Centro
-              </div>
-              <div style="padding:0.6rem 1rem; background:#FFF; border:1px solid rgba(212,175,55,0.3); border-radius:8px;">
-                <strong>4.500 PT:</strong> Audit Fiscale su Misura + 6 Mesi di Call Individuali con il CEO
-              </div>
-              <div style="padding:0.6rem 1rem; background:#FFF; border:1px solid rgba(212,175,55,0.3); border-radius:8px;">
-                <strong>6.000 PT:</strong> Status Sovrano a Vita + 1 Corso Gratuito a Scelta
-              </div>
-              <div style="padding:0.6rem 1rem; background:#FFF; border:1px solid rgba(212,175,55,0.3); border-radius:8px;">
-                <strong>7.500 PT:</strong> Weekend Luxury completo per 2 persone in hotel 5 stelle a Roma
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ====================================================================== -->
-  <!-- CASSETTO CHECKOUT MULTI-GATEWAY // REVOLUT, SUMUP, BONIFICO IBAN       -->
-  <!-- ====================================================================== -->
-  <aside class="sfx-checkout-drawer" id="sfxCheckoutDrawer" aria-hidden="true">
-    <div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--cyan-neon);">PIATTAFORMA DI REGOLAMENTO</span>
-          <h3 style="font-family:var(--font-sync); font-size:1.3rem; color:var(--gold-primary);" id="sfxCheckoutItemName">
-            PERCORSO SELEZIONATO
-          </h3>
-        </div>
-        <button class="sfx-hamburger-close" onclick="sfxCloseCheckout()">✕</button>
-      </div>
-
-      <div style="margin-top:1rem; font-family:var(--font-mono); font-size:0.95rem; color:#FFF;">
-        QUOTA D'ACCESSO RISERVATA: <strong id="sfxCheckoutPrice" style="color:var(--cyan-neon);">€ 0,00</strong>
-      </div>
-
-      <!-- Selettore Canale di Pagamento -->
-      <div class="sfx-pay-nav-tabs">
-        <button class="sfx-pay-tab active" id="payTabRevolut" onclick="sfxSwitchPayMethod('revolut')">
-          REVOLUT PAY
-        </button>
-        <button class="sfx-pay-tab" id="payTabSumup" onclick="sfxSwitchPayMethod('sumup')">
-          SUMUP
-        </button>
-        <button class="sfx-pay-tab" id="payTabIban" onclick="sfxSwitchPayMethod('iban')">
-          BONIFICO IBAN
-        </button>
-      </div>
-
-      <!-- PANNELLO REVOLUT PAY -->
-      <div class="sfx-pay-panel active" id="payPanelRevolut">
-        <p style="font-size:0.85rem; color:#94A3B8; line-height:1.6; margin-bottom:1.5rem;">
-          Regola la quota istantaneamente tramite l'infrastruttura <strong>Revolut Pay</strong> con carta di credito/debito o saldo Revolut diretto.
-        </p>
-        <div style="text-align:center; padding:1.5rem; background:rgba(0,240,255,0.04); border:1px solid rgba(0,240,255,0.25); border-radius:12px; margin-bottom:1.5rem;">
-          <div style="font-family:var(--font-sync); font-size:0.9rem; color:#FFF; margin-bottom:0.5rem;">REVOLUT BUSINESS ME</div>
-          <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--cyan-neon);">revtag: @giulianocaratelli</div>
-        </div>
-        <a id="sfxRevolutPayLink" href="https://revolut.me/giulianocaratelli" target="_blank" rel="noopener noreferrer" class="sfx-btn-action-oval">
-          PAGA CON REVOLUT PAY ➔
-        </a>
-      </div>
-
-      <!-- PANNELLO SUMUP GATEWAY -->
-      <div class="sfx-pay-panel" id="payPanelSumup">
-        <p style="font-size:0.85rem; color:#94A3B8; line-height:1.6; margin-bottom:1.5rem;">
-          Checkout sicuro crittografato tramite terminale virtuale <strong>SumUp Enterprise</strong> (accetta circuiti Visa, Mastercard, Maestro, Apple Pay, Google Pay).
-        </p>
-        <div style="text-align:center; padding:1.5rem; background:rgba(212,175,55,0.04); border:1px solid rgba(212,175,55,0.25); border-radius:12px; margin-bottom:1.5rem;">
-          <div style="font-family:var(--font-sync); font-size:0.9rem; color:#FFF; margin-bottom:0.5rem;">TERMINALE SUMUP SFX</div>
-          <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--gold-primary);">TRANSAZIONE PCI-DSS LEVEL 1</div>
-        </div>
-        <a id="sfxSumupPayLink" href="https://sumup.me/supremafuturex" target="_blank" rel="noopener noreferrer" class="sfx-btn-action-oval" style="background:var(--gold-primary); color:var(--bg-dark);">
-          PROCEDI SU GATEWAY SUMUP ➔
-        </a>
-      </div>
-
-      <!-- PANNELLO BONIFICO BANCARIO CON IBAN -->
-      <div class="sfx-pay-panel" id="payPanelIban">
-        <p style="font-size:0.85rem; color:#94A3B8; line-height:1.6;">
-          Esegui un bonifico bancario SEPA ordinario o istantaneo alle coordinate societarie certificate:
-        </p>
-        
-        <div class="sfx-iban-copy-box">
-          <button class="sfx-btn-copy-iban" onclick="sfxCopyIbanToClipboard()">COPIA IBAN</button>
-          <div style="color:#94A3B8; font-size:0.7rem; margin-bottom:0.3rem;">BENEFICIARIO:</div>
-          <div style="color:#FFF; font-weight:700; margin-bottom:0.8rem;">SUPREMA FUTURE X ENTERPRISE</div>
-          
-          <div style="color:#94A3B8; font-size:0.7rem; margin-bottom:0.3rem;">COORDINATE IBAN:</div>
-          <div id="sfxIbanCode" style="color:var(--cyan-neon); font-weight:700; letter-spacing:1px; margin-bottom:0.8rem;">
-            IT60X0306909606100000000000
-          </div>
-
-          <div style="color:#94A3B8; font-size:0.7rem; margin-bottom:0.3rem;">CAUSALE OBBLIGATORIA:</div>
-          <div id="sfxIbanCausale" style="color:var(--gold-primary); font-weight:700;">
-            SFX-2026-[LEAD-ID]-AMMISSIONE
-          </div>
-        </div>
-        
-        <button class="sfx-btn-discover" style="width:100%;" onclick="sfxConfirmWireTransferNotice()">
-          NOTIFICA BONIFICO EFFETTUATO ➔
-        </button>
-      </div>
-
-    </div>
-
-    <!-- Footer Cassetto -->
-    <div style="font-family:var(--font-mono); font-size:0.7rem; color:#6B7280; text-align:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:1rem;">
-      Fatturazione elettronica SDI T+0 al perfezionamento dell'accredito.
-    </div>
-  </aside>
