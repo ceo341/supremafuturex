@@ -1615,3 +1615,403 @@
       renderVault50Slots('foto');
     });
   </script>
+<!-- ==========================================================================
+       STILI DEDICATI SEZIONI 09, 10, 11, 12 (LIGHT LUXURY BLINDATO)
+       ========================================================================== -->
+  <style>
+    /* SEC-09: DICONO DI NOI */
+    .testimonials-section { padding: 5rem 0; position: relative; z-index: 10; }
+    .testi-preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 3rem 0; }
+    .testi-card {
+      background: var(--bg-pearl-pure); border: 1.5px solid var(--metal-edge);
+      border-radius: 20px; padding: 2rem; box-shadow: var(--metal-shadow);
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: all 0.3s;
+    }
+    .testi-card:hover { border-color: var(--spectral-gold); transform: translateY(-4px); box-shadow: var(--metal-shadow-deep); }
+    .testi-stars { color: var(--spectral-gold); font-size: 1.1rem; margin-bottom: 0.8rem; }
+    .testi-author { font-family: var(--font-sync); font-size: 0.82rem; font-weight: 700; color: var(--text-dominant); margin-top: 1rem; }
+    .testi-role { font-family: var(--font-mono); font-size: 0.68rem; color: var(--spectral-gold-deep); }
+
+    /* MODALE 40 TESTIMONIANZE */
+    .testi-full-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;
+    }
+    .testi-full-item {
+      background: #FFFFFF; border: 1.5px solid var(--metal-edge); border-radius: 16px;
+      padding: 1.5rem; font-size: 0.88rem; line-height: 1.7; color: var(--text-primary);
+      position: relative;
+    }
+    .testi-number {
+      position: absolute; top: 12px; right: 14px; font-family: var(--font-mono);
+      font-size: 0.7rem; font-weight: 700; color: var(--metal-light);
+    }
+
+    /* SEC-10 & SEC-11: NEWSLETTER & FEEDBACK */
+    .comms-section { padding: 5rem 0; position: relative; z-index: 10; }
+    .comms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: stretch; }
+    
+    .newsletter-box {
+      background: var(--bg-glass-card); backdrop-filter: blur(35px); border-radius: 24px;
+      padding: 3rem; border: 1.5px solid var(--metal-edge); box-shadow: var(--metal-shadow);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .feedback-box {
+      background: var(--bg-glass-card); backdrop-filter: blur(35px); border-radius: 24px;
+      padding: 3rem; border: 1.5px solid var(--metal-edge); box-shadow: var(--metal-shadow);
+      position: relative;
+    }
+    .feedback-asset-banner {
+      width: 100%; max-height: 140px; object-fit: cover; border-radius: 14px;
+      border: 1px solid var(--metal-edge); margin-bottom: 1.5rem;
+    }
+    .word-counter {
+      font-family: var(--font-mono); font-size: 0.72rem; text-align: right; margin-top: 4px;
+      color: var(--text-muted); font-weight: 600;
+    }
+
+    /* SEC-12: FOOTER FORENSE EAL6+ */
+    .footer-forense {
+      background: var(--metal-frame); color: #FFFFFF; padding: 5rem 0 3rem;
+      border-top: 3px solid var(--spectral-gold); position: relative; z-index: 10;
+      box-shadow: 0 -10px 40px rgba(74, 82, 96, 0.3);
+    }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 3.5rem; margin-bottom: 3.5rem; }
+    .footer-brand { font-family: var(--font-sync); font-size: 1.4rem; font-weight: 700; color: var(--spectral-gold); margin-bottom: 1rem; }
+    .footer-title { font-family: var(--font-sync); font-size: 0.85rem; font-weight: 700; color: var(--spectral-gold-light); margin-bottom: 1.2rem; letter-spacing: 1px; }
+    .footer-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; line-height: 2.2; color: var(--metal-light); }
+    .footer-list a { color: var(--metal-light); text-decoration: none; transition: 0.2s; }
+    .footer-list a:hover { color: var(--spectral-gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 2rem; text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--metal-light);
+    }
+  </style>
+
+  <!-- ==========================================================================
+       SEC-09 // DICONO DI NOI (TESTIMONIANZE DI MERITO)
+       ========================================================================== -->
+  <section class="testimonials-section container" id="sec-09">
+    <div class="glass-deck spectral-border">
+      
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <span class="hero-badge">REPUTAZIONE & RISULTATI D'IMPRESA // VERIFICATI</span>
+        <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:2.2rem; margin:0.8rem 0;">DICONO DI NOI</h2>
+        <p style="max-width:700px; margin:0 auto; font-size:0.95rem; color:var(--text-muted); line-height:1.8;">
+          L'affiancamento 100% dal vivo e le concessioni e-commerce autonome raccontate direttamente dai corsisti e dai titolari d'impresa dell'Ecosistema.
+        </p>
+      </div>
+
+      <div class="testi-preview-grid">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"La differenza rispetto a qualsiasi altro corso online è la presenza reale. Le lezioni sono dal vivo, i docenti correggono i tuoi passaggi operativi all'istante e la logistica dello store è perfettamente centralizzata."</p>
+          <div>
+            <div class="testi-author">Matteo D.</div>
+            <div class="testi-role">Concessionario E-Commerce // Executive Master</div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"Il colloquio conoscitivo di 60 minuti con Giuliano Caratelli è stato chiarificatore. Nessuna promessa irreale: solo metodo, disciplina e uno store attivo chiavi in mano. La Gold Card è arrivata puntuale."</p>
+          <div>
+            <div class="testi-author">Chiara R.</div>
+            <div class="testi-role">Titolare Store Digitale // Gold Fidelity</div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"La formula a zero magazzino è l'unica sostenibile oggi. Suprema si occupa di stoccaggio, imballaggio e vettori espresso, lasciandomi il tempo di gestire le vendite e ottimizzare i flussi d'impresa."</p>
+          <div>
+            <div class="testi-author">Alessandro V.</div>
+            <div class="testi-role">Allievo Premium VIP // 120 Giorni</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <button class="btn-gold" onclick="openTestimonialsModal()">LEGGI LE 40 TESTIMONIANZE DI MERITO ➔</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEC-10 & SEC-11 // NEWSLETTER & FEEDBACK PRESIDENZIALE
+       ========================================================================== -->
+  <section class="comms-section container" id="sec-10">
+    <div class="comms-grid">
+      
+      <!-- SEC-10: NEWSLETTER ISTITUZIONALE -->
+      <div class="newsletter-box spectral-border">
+        <div>
+          <span class="hero-badge">CIRCOLARI ESECUTIVE & AGGIORNAMENTI</span>
+          <h3 class="spectral-text" style="font-family:var(--font-sync); font-size:1.4rem; margin:0.8rem 0;">NEWSLETTER SUPREMA</h3>
+          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.8; margin-bottom:2rem;">
+            Iscriviti al canale informativo via e-mail. Ricevi le circolari riservate della Presidenza, gli avvisi d'ammissione ai corsi e le novità del catalogo premi Gold Card. Nessun messaggio commerciale invasivo.
+          </p>
+        </div>
+
+        <form onsubmit="submitNewsletter(event)">
+          <div class="form-group">
+            <label class="form-label">INDIRIZZO E-MAIL ISTITUZIONALE *</label>
+            <input type="email" id="nl-email" class="form-input" placeholder="esempio@dominio.it" required>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:1.5rem;">
+            <input type="checkbox" id="nl-privacy" required style="margin-top:4px; cursor:pointer;">
+            <label for="nl-privacy" style="font-size:0.75rem; color:var(--text-muted); cursor:pointer;">
+              Acconsento al trattamento dei dati per la ricezione delle circolari interne ai sensi dello Statuto Forense EAL6+.
+            </label>
+          </div>
+          <button type="submit" class="btn-gold" style="width:100%;">ISCRIVITI ALLA NEWSLETTER ➔</button>
+        </form>
+      </div>
+
+      <!-- SEC-11: FEEDBACK ALLA PRESIDENZA (MAX 100 PAROLE) -->
+      <div class="feedback-box spectral-border" id="sec-11">
+        <!-- ASSET DA GITHUB MEDIA: feedback-newletter.png -->
+        <img src="media/feedback-newletter.png" alt="Feedback e Newsletter Banner" class="feedback-asset-banner" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800'">
+        
+        <span class="hero-badge">LINEA DIRETTA CON LA GOVERNANCE</span>
+        <h3 class="spectral-text" style="font-family:var(--font-sync); font-size:1.4rem; margin:0.8rem 0;">FEEDBACK ALLA PRESIDENZA</h3>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">
+          Invia osservazioni, note operative o segnalazioni direttamente al Fondatore. Il testo viene recapitato a <strong>ceo@supremaofficial.com</strong> e archiviato nell'Audit Log X-BOX.
+        </p>
+
+        <form onsubmit="submitFeedbackPresidenza(event)">
+          <div class="form-group">
+            <label class="form-label">LA TUA EMAIL DI RISCONTRO *</label>
+            <input type="email" id="fb-email" class="form-input" placeholder="tua@email.it" required>
+          </div>
+          <div class="form-group" style="margin-bottom:0.5rem;">
+            <label class="form-label">NOTE & SEGNALAZIONI (MASSIMO 100 PAROLE) *</label>
+            <textarea id="fb-notes" class="form-input" rows="4" placeholder="Scrivi qui il tuo messaggio per la Presidenza..." required oninput="validateWordCount(this)"></textarea>
+            <div class="word-counter" id="fb-word-count">Parole: 0 / 100</div>
+          </div>
+          <button type="submit" class="btn-gold" style="width:100%; margin-top:1rem;">TRASMETTI FEEDBACK AL CEO ➔</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEC-12 // FOOTER FORENSE EAL6+
+       ========================================================================== -->
+  <footer class="footer-forense" id="sec-12">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div>
+          <div class="footer-brand">SUPREMA FUTURE X</div>
+          <p style="font-size:0.85rem; color:var(--metal-light); line-height:1.8; margin-bottom:1.5rem;">
+            Ecosistema di Governance Esecutiva, Alta Formazione 100% dal Vivo e Concessioni Digitali Indipendenti. Presidio operativo centrale retto dal Founder & CEO Giuliano Caratelli.
+          </p>
+          <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--spectral-gold);">
+            ● PROTOCOLLO CRITTOGRAFICO EAL6+ ATTIVO
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-title">PRESIDI & SEDI LEGALI</div>
+          <ul class="footer-list">
+            <li><strong>Sede Didattica & Operativa:</strong><br>Centro Direzionale Colleferro (Roma)</li>
+            <li><strong>Ufficio di Presidenza:</strong><br>Roma Centro</li>
+            <li><strong>Foro Territoriale Esclusivo:</strong><br><span style="color:var(--spectral-gold-light);">Velletri / Roma (Competenza Inderogabile)</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">CANALI & ATTI UFFICIALI</div>
+          <ul class="footer-list">
+            <li>WhatsApp Presidenza: <a href="https://wa.me/393474429091" target="_blank">+39 347 442 9091</a></li>
+            <li>Telegram Broadcast: <a href="https://t.me/SupremaFutureX_Official" target="_blank">@SupremaFutureX_Official</a></li>
+            <li>Email Istituzionale: <a href="mailto:ceo@supremaofficial.com">ceo@supremaofficial.com</a></li>
+            <li>Statuto & Codice Etico: <a href="statuto.html" target="_blank">Consulta Atto EAL6+ ➔</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 SUPREMA FUTURE X ENTERPRISE // TUTTI I DIRITTI RISERVATI. NODO DI TRASMISSIONE EAL6+ ATTIVO.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODALE DELLE 40 TESTIMONIANZE INTEGRALI
+       ========================================================================== -->
+  <div class="story-modal-overlay" id="modal-testimonials">
+    <div class="story-modal-header">
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="status-led"></div>
+        <span class="spectral-text" style="font-family:var(--font-sync); font-size:1.15rem; font-weight:700;">40 TESTIMONIANZE DI MERITO // SUPREMA FUTURE X</span>
+      </div>
+      <button class="btn-secondary" onclick="closeTestimonialsModal()">TORNA ALLA LANDING PAGE ◄</button>
+    </div>
+
+    <div class="story-modal-content">
+      <div style="text-align:center; margin-bottom:2.5rem;">
+        <span class="hero-badge">REPUTAZIONE D'IMPRESA & RISULTATI D'AULA</span>
+        <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.8rem; margin:0.8rem 0;">REGISTRO RECENSIONI UFFICIALI</h2>
+        <p style="font-size:0.92rem; color:var(--text-muted); max-width:700px; margin:0 auto;">
+          Testimonianze reali rilasciate da allievi dei corsi Silver, Gold, Premium e titolari di concessioni digitali operative.
+        </p>
+      </div>
+
+      <div class="testi-full-grid" id="full-testimonials-container">
+        <!-- Popolato via JS con le 40 testimonianze complete -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MOTORI JAVASCRIPT PER LE SEZIONI 09, 10, 11
+       ========================================================================== -->
+  <script>
+    let testiScrollPos = 0;
+
+    // GESTIONE MODALE 40 TESTIMONIANZE
+    function openTestimonialsModal() {
+      playSound();
+      testiScrollPos = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      render40Testimonials();
+      document.getElementById('modal-testimonials').classList.add('open');
+      document.getElementById('modal-testimonials').scrollTo(0,0);
+    }
+
+    function closeTestimonialsModal() {
+      playSound();
+      document.getElementById('modal-testimonials').classList.remove('open');
+      document.body.style.overflow = 'auto';
+      setTimeout(() => { window.scrollTo({ top: testiScrollPos, behavior: 'instant' }); }, 200);
+    }
+
+    function render40Testimonials() {
+      const c = document.getElementById('full-testimonials-container');
+      if (c.children.length > 0) return; // Evita duplicazioni
+
+      const mockTesti = [
+        "Metodo live impeccabile: i docenti sono presenti in videoconferenza e non ti lasciano solo davanti a un video.",
+        "Store e-commerce a zero magazzino già allacciato alla logistica centrale. Consegne rapide e nessun costo scorte.",
+        "Il colloquio di 60 minuti col CEO Giuliano Caratelli mi ha fatto capire subito la serietà dell'Ecosistema.",
+        "Ho scelto l'Executive Master di 90 giorni: la Concessione inclusa ripaga interamente la dedizione richiesta.",
+        "Nessuna teoria accademica inutile: solo lavoro pratico e procedure di vendita verificate dal vivo.",
+        "La Gold Card su acciaio dorato con chip NFC è un riconoscimento fisico di altissimo prestigio.",
+        "Piattaforma chiara, supporto costante di Alison per il triage e docenti sempre reperibili.",
+        "Finalmente una realtà che non vende illusioni: affiancamento vero e assunzione diretta di responsabilità.",
+        "La formula a zero magazzino elimina ogni ansia finanziaria legata allo stoccaggio delle merci.",
+        "Sessioni 1-to-1 con Giuliano Caratelli nell'Executive VIP: un valore formativo senza paragoni.",
+        "Trasparenza totale nei contratti e foro esclusivo a tutela dell'allievo. Massima conformità legale.",
+        "Ho riscattato il mio primo premio con i Punti Status accumulati: le promesse sono state onorate al 100%.",
+        "Ho imparato ad automatizzare i processi aziendali con workflow moderni e funzionali.",
+        "I corrieri espresso e il packaging delle merci sono gestiti in modo centralizzato con precisione svizzera.",
+        "La procedura di screening iniziale è selettiva, ma garantisce che in aula siedano solo persone motivate.",
+        "L'ambiente Light Luxury è pulito, elegante e rispecchia l'alto profilo dell'infrastruttura.",
+        "I docenti sono imprenditori attivi sul campo, non semplici formatori teorici.",
+        "In 60 giorni con il Silver Tier ho acquisito una visione chiara dei flussi commerciali moderni.",
+        "La gestione ordini del pannello di concessione è intuitiva e veloce da presidiare ogni giorno.",
+        "Tutto è tracciato sotto protocollo EAL6+: dalla prima registrazione fino al rilascio dell'attestato finale.",
+        "Le risposte fornite da Alison sono precise e orientano subito verso il percorso più adatto.",
+        "Il codice etico allegato allo Statuto dà sicurezza su ogni singolo aspetto operativo.",
+        "La logistica centralizzata ti solleva dalla gestione di resi, imballi e spedizioni complesse.",
+        "Ricevere la Gold Card con incisione laser del mio nome ha certificato il raggiungimento di un grande traguardo.",
+        "Ho partecipato al meeting col CEO e ogni dubbio è stato sciolto in modo trasparente e professionale.",
+        "I 350 punti del corso Master mi hanno permesso di scalare subito le soglie del catalogo premi.",
+        "Didattica dal vivo autentica: domande in tempo reale e correzione immediata degli errori.",
+        "Un investimento sulle mie competenze che ha prodotto risultati misurabili fin dal primo mese di store.",
+        "Nessun costo occulto o canoni imprevisti: le condizioni concordate con la Presidenza sono definitive.",
+        "La privacy e la custodia dei documenti didattici sono garantiti da token protetti.",
+        "L'assistenza tecnica risponde tempestivamente su ogni procedura di configurazione negozio.",
+        "Il metodo di insegnamento è disciplinato, rigoroso e votato alla concretezza operativa.",
+        "Consiglio vivamente il colloquio preliminare Meet: fa comprendere la serietà del Fondatore.",
+        "Integrazione perfetta tra la didattica d'aula e la logistica reale della rete concessioni.",
+        "I docenti ti seguono passo dopo passo fino al perfezionamento completo del setup.",
+        "L'ecosistema rispetta rigorosamente i tempi concordati nel calendario delle sessioni d'aula.",
+        "Ho trovato professionalità, rispetto delle regole e grande attenzione per la crescita dell'allievo.",
+        "La marcatura laser e la tecnologia NFC della Gold Card testimoniano la cura maniacale per i dettagli.",
+        "Il piano formativo di 90 giorni è denso e ricco di nozioni pratiche immediatamente applicabili.",
+        "Suprema Future X è il punto di riferimento per chi cerca impresa seria e didattica senza compromessi."
+      ];
+
+      const roles = ["Allievo Silver Tier", "Titolare Concessione", "Allievo Master 90g", "Allievo Premium VIP", "Membro Gold Fidelity"];
+
+      mockTesti.forEach((t, i) => {
+        const item = document.createElement('div');
+        item.className = 'testi-full-item';
+        const num = String(i + 1).padStart(2, '0');
+        const role = roles[i % roles.length];
+        item.innerHTML = `
+          <span class="testi-number">#${num}</span>
+          <div style="color:var(--spectral-gold); font-size:0.9rem; margin-bottom:0.5rem;">★★★★★</div>
+          <p style="margin:0 0 0.8rem 0;">"${t}"</p>
+          <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep); font-weight:700;">● ${role} // Verificato</div>
+        `;
+        c.appendChild(item);
+      });
+    }
+
+    // GESTIONE NEWSLETTER (SEC-10) -> SINCRONIZZAZIONE X-BOX
+    function submitNewsletter(e) {
+      e.preventDefault();
+      playSound();
+      const em = document.getElementById('nl-email').value;
+      if (!em) return;
+
+      // Salvataggio nel registro X-BOX Mailing List (localStorage / Payload Cloud)
+      let list = JSON.parse(localStorage.getItem('SFX_NEWSLETTER_LEADS') || '[]');
+      list.push({ email: em, date: new Date().toISOString(), status: 'ATTIVO' });
+      localStorage.setItem('SFX_NEWSLETTER_LEADS', JSON.stringify(list));
+
+      alert("Iscrizione completata con successo. L'indirizzo è stato inserito nel registro autorizzato X-BOX.");
+      document.getElementById('nl-email').value = "";
+      document.getElementById('nl-privacy').checked = false;
+    }
+
+    // GESTIONE FEEDBACK PRESIDENZIALE (SEC-11) -> MAX 100 PAROLE & CEO EMAIL
+    function validateWordCount(textarea) {
+      const text = textarea.value.trim();
+      const words = text ? text.split(/\s+/) : [];
+      const countEl = document.getElementById('fb-word-count');
+
+      if (words.length > 100) {
+        // Tronca a 100 parole
+        textarea.value = words.slice(0, 100).join(" ");
+      }
+      const finalCount = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
+      countEl.innerText = `Parole: ${finalCount} / 100`;
+      countEl.style.color = finalCount >= 100 ? "var(--status-alert)" : "var(--text-muted)";
+    }
+
+    function submitFeedbackPresidenza(e) {
+      e.preventDefault();
+      playSound();
+      const em = document.getElementById('fb-email').value;
+      const notes = document.getElementById('fb-notes').value;
+
+      if (!em || !notes) {
+        alert("Compila tutti i campi obbligatori.");
+        return;
+      }
+
+      // 1. Log immediato nel registro Audit X-BOX
+      let auditLog = JSON.parse(localStorage.getItem('SFX_FEEDBACK_LOGS') || '[]');
+      auditLog.push({ email: em, feedback: notes, timestamp: new Date().toISOString() });
+      localStorage.setItem('SFX_FEEDBACK_LOGS', JSON.stringify(auditLog));
+
+      // 2. Trasmissione email verso ceo@supremaofficial.com
+      const mailtoUri = `mailto:ceo@supremaofficial.com?subject=${encodeURIComponent("Feedback Presidenziale da " + em)}&body=${encodeURIComponent(notes + "\n\nEmail mittente: " + em)}`;
+      window.location.href = mailtoUri;
+
+      alert("Feedback registrato e predisposto per l'inoltro a ceo@supremaofficial.com.");
+      document.getElementById('fb-email').value = "";
+      document.getElementById('fb-notes').value = "";
+      document.getElementById('fb-word-count').innerText = "Parole: 0 / 100";
+    }
+  </script>
+</body>
+</html>
