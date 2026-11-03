@@ -875,3 +875,743 @@
   </script>
 </body>
 </html>
+<!-- ==========================================================================
+       STILI DEDICATI SEZIONI 05, 06, 07, 08 (LIGHT LUXURY BLINDATO)
+       ========================================================================== -->
+  <style>
+    /* SEC-05: ACADEMY OVALE */
+    .academy-section { padding: 5rem 0; position: relative; z-index: 10; }
+    .oval-academy-frame {
+      border-radius: 90px; padding: 4.5rem 3.5rem; background: var(--bg-glass-card);
+      border: 2px solid var(--metal-frame); box-shadow: var(--metal-shadow-deep);
+      position: relative; overflow: hidden;
+    }
+    .academy-banner {
+      width: 100%; max-height: 260px; object-fit: cover; border-radius: 40px;
+      border: 1.5px solid var(--metal-edge); margin-bottom: 3rem; display: block;
+      box-shadow: var(--metal-shadow);
+    }
+    .academy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .course-card {
+      background: var(--bg-pearl-pure); border: 1.5px solid var(--metal-edge);
+      border-radius: 24px; padding: 2.5rem 2rem; display: flex; flex-direction: column;
+      justify-content: space-between; transition: all 0.3s; position: relative;
+    }
+    .course-card:hover { border-color: var(--spectral-gold); transform: translateY(-5px); box-shadow: var(--metal-shadow-deep); }
+    .course-badge {
+      font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+      color: var(--spectral-gold-deep); background: rgba(212,175,55,0.1);
+      padding: 4px 12px; border-radius: 50px; display: inline-block; margin-bottom: 1rem;
+    }
+    .course-title { font-family: var(--font-sync); font-size: 1.15rem; color: var(--text-dominant); margin: 0 0 1rem 0; font-weight: 700; }
+    .course-features { list-style: none; padding: 0; margin: 0 0 2rem 0; font-size: 0.88rem; color: var(--text-muted); line-height: 2; }
+    .course-features li::before { content: "✔ "; color: var(--spectral-emerald); font-weight: bold; }
+    .course-actions { display: flex; flex-direction: column; gap: 0.7rem; }
+
+    /* SEC-06: GOLD CARD FIDELITY */
+    .goldcard-section { padding: 5rem 0; position: relative; z-index: 10; }
+    .goldcard-trittico { display: grid; grid-template-columns: 360px 1fr 340px; gap: 2.5rem; align-items: center; }
+    .goldcard-asset-box {
+      width: 100%; aspect-ratio: 16/10; border-radius: 20px; overflow: hidden;
+      border: 2px solid var(--spectral-gold); box-shadow: 0 10px 30px rgba(212,175,55,0.25);
+      background: #000; position: relative;
+    }
+    .goldcard-asset-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* SEC-07: MEDIA VAULT */
+    .mediavault-section { padding: 5rem 0; position: relative; z-index: 10; }
+    .vault-banner {
+      width: 100%; max-height: 220px; object-fit: cover; border-radius: 20px;
+      border: 1.5px solid var(--metal-edge); margin-bottom: 2.5rem;
+    }
+    .vault-tabs { display: flex; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .vault-tab-btn {
+      background: var(--bg-pearl-pure); border: 1.5px solid var(--metal-edge);
+      color: var(--text-dominant); font-family: var(--font-sync); font-size: 0.72rem;
+      font-weight: 700; padding: 12px 24px; border-radius: 50px; cursor: pointer; transition: 0.3s;
+    }
+    .vault-tab-btn.active, .vault-tab-btn:hover {
+      background: var(--spectral-gold); border-color: var(--spectral-gold-deep); color: #000;
+    }
+    
+    /* PLAYER MULTIMEDIALE INTEGRATO */
+    .vault-player-box {
+      background: #0B192C; border-radius: 20px; padding: 2rem; margin-bottom: 2.5rem;
+      border: 2px solid var(--spectral-cyan); box-shadow: var(--metal-shadow-deep); color: #FFF;
+    }
+    .player-screen {
+      width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px;
+      display: flex; justify-content: center; align-items: center; font-family: var(--font-mono);
+      font-size: 0.9rem; color: var(--spectral-cyan); position: relative; overflow: hidden;
+    }
+    .player-controls {
+      display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .player-btn-group { display: flex; gap: 0.6rem; }
+    .p-btn {
+      background: rgba(255,255,255,0.1); border: 1px solid var(--metal-light); color: #FFF;
+      padding: 8px 16px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.75rem;
+      cursor: pointer; transition: 0.2s;
+    }
+    .p-btn:hover { background: var(--spectral-gold); color: #000; }
+    .vault-grid-50 {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 1rem;
+      max-height: 380px; overflow-y: auto; padding-right: 0.5rem;
+    }
+    .slot-item-50 {
+      background: var(--bg-pearl-light); border: 1.5px dashed var(--metal-edge);
+      border-radius: 12px; padding: 14px 10px; text-align: center; font-family: var(--font-mono);
+      font-size: 0.68rem; color: var(--text-muted); cursor: pointer; transition: 0.2s;
+    }
+    .slot-item-50:hover { border-color: var(--spectral-gold); background: #FFF; color: var(--text-dominant); transform: scale(1.03); }
+
+    /* SEC-08: SOCIAL NETWORK */
+    .social-section { padding: 5rem 0; position: relative; z-index: 10; }
+    .social-banner {
+      width: 100%; max-height: 200px; object-fit: cover; border-radius: 20px;
+      border: 1.5px solid var(--metal-edge); margin-bottom: 2.5rem;
+    }
+    .social-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
+    .social-card {
+      background: var(--bg-pearl-pure); border: 1.5px solid var(--metal-edge); border-radius: 20px;
+      padding: 2.2rem 1.5rem; text-align: center; text-decoration: none; display: flex;
+      flex-direction: column; justify-content: space-between; align-items: center; min-height: 180px;
+      box-shadow: var(--metal-shadow); transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .social-card:hover { transform: translateY(-5px); box-shadow: var(--metal-shadow-deep); }
+    .social-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    }
+    .social-card.fb::after { background: #1877F2; }
+    .social-card.ig::after { background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); }
+    .social-card.tt::after { background: #000000; box-shadow: 0 0 10px #00F0FF; }
+    .social-card.yt::after { background: #FF0000; }
+    .social-card.li::after { background: #0A66C2; }
+    .social-icon-box { font-size: 2.4rem; margin-bottom: 0.8rem; }
+    .social-name { font-family: var(--font-sync); font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); }
+
+    /* GATEWAY MODAL STYLES */
+    .gateway-badge {
+      display: inline-block; padding: 6px 12px; border-radius: 6px; font-family: var(--font-mono);
+      font-size: 0.75rem; font-weight: 700; margin-right: 0.5rem; margin-bottom: 0.5rem; cursor: pointer;
+      border: 1px solid var(--metal-edge); background: #FFF;
+    }
+    .gateway-badge.selected { border-color: var(--spectral-gold); background: rgba(212,175,55,0.15); color: var(--spectral-gold-deep); }
+  </style>
+
+  <!-- ==========================================================================
+       SEC-05 // SUPREMA ACADEMY (100% LIVE // SEZIONE OVALE)
+       ========================================================================== -->
+  <section class="academy-section container" id="sec-05">
+    <div class="oval-academy-frame spectral-border">
+      
+      <!-- ASSET RIPESCATO DA GITHUB MEDIA: accademia-corsi.png -->
+      <img src="media/accademia-corsi.png" alt="Suprema Academy Corsi" class="academy-banner" onerror="this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200'">
+
+      <div style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="hero-badge">DIDATTICA CERTIFICATA // ZERO REGISTRAZIONI</span>
+        <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:2.2rem; margin:0.8rem 0;">SUPREMA ACADEMY 100% LIVE</h2>
+        <p style="max-width:750px; margin:0 auto; font-size:0.95rem; color:var(--text-primary); line-height:1.8;">
+          Affiancamento continuo dal vivo in videoconferenza diretta. Nessun videocorso passivo. I programmi approfonditi, le selezioni di merito e le condizioni d'accesso vengono calibrate unicamente durante la Conferenza conoscitiva col CEO.
+        </p>
+      </div>
+
+      <div class="academy-grid">
+        
+        <!-- CORSO 1: SILVER TIER -->
+        <div class="course-card">
+          <div>
+            <span class="course-badge">DURATA: 60 GIORNI // +300 PUNTI STATUS</span>
+            <h3 class="course-title">SUPREMA SILVER</h3>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Fondamenti di commercio digitale, workflow operativi d'aula e verifica continua delle competenze.</p>
+            <ul class="course-features">
+              <li>Docenza 100% dal vivo in aula Meet</li>
+              <li>Avvio setup operativo guidato</li>
+              <li>Supporto continuo dei tutor d'aula</li>
+              <li>+300 Punti Status per Gold Card</li>
+            </ul>
+          </div>
+          <div class="course-actions">
+            <button class="btn-gold" onclick="openConfigCourseModal('Suprema Silver', 300)">CONFIGURA CORSO ➔</button>
+            <button class="btn-secondary" onclick="openAcademyDetailsModal('silver')">DETTAGLI REGOLAMENTO</button>
+            <button class="btn-secondary" style="border-color:var(--spectral-gold); color:var(--text-accent);" onclick="openBonusCourseModal('Suprema Silver', 249)">SCOPRI IL TUO BONUS 10%</button>
+          </div>
+        </div>
+
+        <!-- CORSO 2: GOLD TIER -->
+        <div class="course-card" style="border-color:var(--spectral-gold); box-shadow:var(--metal-shadow);">
+          <div>
+            <span class="course-badge" style="background:rgba(212,175,55,0.2);">DURATA: 90 GIORNI // +350 PUNTI STATUS</span>
+            <h3 class="course-title" style="color:var(--spectral-gold-deep);">SUPREMA GOLD</h3>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Executive Master completo. Include concessione e-commerce attiva a zero magazzino e logistica centrale.</p>
+            <ul class="course-features">
+              <li>Tutto ciò che include il Silver Tier</li>
+              <li>Store digitale autonomo chiavi in mano</li>
+              <li>Logistica e spedizioni centralizzate</li>
+              <li>+350 Punti Status per Gold Card</li>
+            </ul>
+          </div>
+          <div class="course-actions">
+            <button class="btn-gold" onclick="openConfigCourseModal('Suprema Gold', 350)">CONFIGURA CORSO ➔</button>
+            <button class="btn-secondary" onclick="openAcademyDetailsModal('gold')">DETTAGLI REGOLAMENTO</button>
+            <button class="btn-secondary" style="border-color:var(--spectral-gold); color:var(--text-accent);" onclick="openBonusCourseModal('Suprema Gold', 299)">SCOPRI IL TUO BONUS 10%</button>
+          </div>
+        </div>
+
+        <!-- CORSO 3: PREMIUM VIP -->
+        <div class="course-card">
+          <div>
+            <span class="course-badge">DURATA: 120 GIORNI // +500 PUNTI STATUS</span>
+            <h3 class="course-title">SUPREMA PREMIUM</h3>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Alta direzione e governance. Sessioni individuali 1-to-1 direttamente con il Founder & CEO Giuliano Caratelli.</p>
+            <ul class="course-features">
+              <li>Tutto ciò che include il Gold Tier</li>
+              <li>Sessioni individuali 1-to-1 col CEO</li>
+              <li>Audit strategico d'impresa personalizzato</li>
+              <li>+500 Punti Status per Gold Card</li>
+            </ul>
+          </div>
+          <div class="course-actions">
+            <button class="btn-gold" onclick="openConfigCourseModal('Suprema Premium', 500)">CONFIGURA CORSO ➔</button>
+            <button class="btn-secondary" onclick="openAcademyDetailsModal('premium')">DETTAGLI REGOLAMENTO</button>
+            <button class="btn-secondary" style="border-color:var(--spectral-gold); color:var(--text-accent);" onclick="openBonusCourseModal('Suprema Premium', 349)">SCOPRI IL TUO BONUS 10%</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEC-06 // SUPREMA GOLD CARD FIDELITY
+       ========================================================================== -->
+  <section class="goldcard-section container" id="sec-06">
+    <div class="glass-deck spectral-border">
+      
+      <div style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="hero-badge">RICONOSCIMENTO PHYGITAL ESCLUSIVO // EMISSIONE SU ACCIAIO</span>
+      </div>
+
+      <div class="goldcard-trittico">
+        
+        <!-- SX: SLOT VIDEO 16:9 MARCATURA LASER -->
+        <div>
+          <div class="media-slot-16-9">
+            <div class="slot-corner-gold"></div>
+            VIDEO MARCATURA LASER FIBRA (X-BOX)
+          </div>
+          <p style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); margin-top:0.6rem; text-align:center;">Produzione fisica e chip crittografico FIDO2 NFC</p>
+        </div>
+
+        <!-- CENTRO: DESCRIZIONE & ACCESSO CATALOGO -->
+        <div style="text-align: center; padding: 0 1rem;">
+          <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.8rem; margin:0 0 1rem 0;">GOLD CARD SUPREMA FIDELITY</h2>
+          <p style="font-size:0.9rem; color:var(--text-primary); line-height:1.8; margin-bottom:1.8rem;">
+            Tessera metallica emessa al raggiungimento di <strong>+800 Punti Status</strong>. I punti si cumulano con l'iscrizione e il completamento dei percorsi (+300 Silver, +350 Gold, +500 Premium), con la Concessione Store (+800) e tramite i <em>Punti Bonus di merito</em> conferiti personalmente dal CEO.
+          </p>
+          <button class="btn-gold" onclick="openGoldCatalogModal()">ACCEDI AL CATALOGO PREMI ➔</button>
+        </div>
+
+        <!-- DX: ASSET DA GITHUB MEDIA: suprema-gold-card.png -->
+        <div>
+          <div class="goldcard-asset-box">
+            <img src="media/suprema-gold-card.png" alt="Suprema Gold Card" onerror="this.src='https://images.unsplash.com/photo-1556761175-5973dc0f32d7?w=600'">
+          </div>
+          <p style="font-family:var(--font-mono); font-size:0.68rem; color:var(--spectral-gold-deep); margin-top:0.6rem; text-align:center; font-weight:700;">MATRICOLA LASER PERSONALE</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEC-07 // SUPREMA MEDIA VAULT (ARCHIVIO 5 CATEGORIE X 50 SLOT)
+       ========================================================================== -->
+  <section class="mediavault-section container" id="sec-07">
+    <div class="glass-deck spectral-border">
+      
+      <!-- ASSET RIPESCATO DA GITHUB MEDIA: alison-multimedia.png -->
+      <img src="media/alison-multimedia.png" alt="Media Vault Banner" class="vault-banner" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?w=1200'">
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <span class="hero-badge">CONSERVAZIONE DOCUMENTALE // TOKEN 120 MINUTI</span>
+          <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.8rem; margin:0.5rem 0 0 0;">SUPREMA MEDIA VAULT</h2>
+        </div>
+        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-online); background:rgba(0,230,118,0.08); padding:8px 16px; border-radius:50px; border:1px solid var(--spectral-emerald);">
+          ● CONNESSO A NODO X-BOX PROTOCOLLO EAL6+
+        </div>
+      </div>
+
+      <!-- SELETTORE DELLE 5 CATEGORIE -->
+      <div class="vault-tabs">
+        <button class="vault-tab-btn active" onclick="switchVaultCategory('foto', this)">GALLERIA FOTO (50)</button>
+        <button class="vault-tab-btn" onclick="switchVaultCategory('video', this)">ARCHIVIO VIDEO (50)</button>
+        <button class="vault-tab-btn" onclick="switchVaultCategory('slide', this)">SLIDE DIDATTICHE (50)</button>
+        <button class="vault-tab-btn" onclick="switchVaultCategory('pdf', this)">DISPENSE PDF (50)</button>
+        <button class="vault-tab-btn" onclick="switchVaultCategory('testi', this)">CIRCOLARI & TESTI (50)</button>
+      </div>
+
+      <!-- PLAYER MULTIMEDIALE INTEGRATO CON FULLSCREEN 11" -->
+      <div class="vault-player-box">
+        <div class="player-screen" id="vault-player-display">
+          <span>SELEZIONA UN CONTENUTO PER AVVIARE LA RIPRODUZIONE</span>
+        </div>
+        <div class="player-controls">
+          <div class="player-btn-group">
+            <button class="p-btn" onclick="playMedia()">▶ PLAY</button>
+            <button class="p-btn" onclick="stopMedia()">■ STOP</button>
+            <button class="p-btn" onclick="skipMedia(-10)">◄◄ -10s</button>
+            <button class="p-btn" onclick="skipMedia(10)">+10s ►►</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.8rem;">
+            <span style="font-family:var(--font-mono); font-size:0.75rem;">VOL:</span>
+            <input type="range" min="0" max="100" value="80" style="cursor:pointer;" onchange="setVolume(this.value)">
+            <button class="p-btn" style="border-color:var(--spectral-cyan); color:var(--spectral-cyan);" onclick="togglePlayerFullscreen()">⛶ FULLSCREEN 11"</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRIGLIA FINO A 50 SLOT DI CARICAMENTO REMOTO DA X-BOX -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); font-weight:700;">SLOT DISPONIBILI CATEGORIA (<span id="cat-label-indicator">FOTO</span>):</span>
+        <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--spectral-gold-deep);">CARICAMENTO REMOTO CENTRALIZZATO VIA X-BOX</span>
+      </div>
+
+      <div class="vault-grid-50" id="vault-slots-container">
+        <!-- Generati dinamicamente 50 slot per la categoria attiva -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEC-08 // SUPREMA SOCIAL NETWORK (PRESIDI DIGITALI UFFICIALI)
+       ========================================================================== -->
+  <section class="social-section container" id="sec-08">
+    <div class="glass-deck spectral-border">
+      
+      <!-- ASSET RIPESCATO DA GITHUB MEDIA: social.png -->
+      <img src="media/social.png" alt="Social Network Suprema" class="social-banner" onerror="this.src='https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200'">
+
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="hero-badge">PRESIDI DIGITALI UFFICIALI // NETWORK EAL6+</span>
+        <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:2rem; margin:0.8rem 0;">CANALI & RETE ISTITUZIONALE</h2>
+        <p style="font-size:0.9rem; color:var(--text-muted); max-width:650px; margin:0 auto;">
+          I collegamenti sono protetti da crittografia end-to-end e monitorati direttamente dalla console presidenziale X-BOX.
+        </p>
+      </div>
+
+      <div class="social-grid">
+        
+        <a href="https://facebook.com" target="_blank" class="social-card fb" onclick="playSound()">
+          <div class="social-icon-box" style="color:#1877F2;">f</div>
+          <div>
+            <div class="social-name">FACEBOOK</div>
+            <div style="font-size:0.68rem; color:var(--text-muted); margin-top:4px;">@SupremaOfficial</div>
+          </div>
+          <span class="btn-secondary" style="padding:6px 14px; font-size:0.65rem; width:100%;">COLLEGATI ➔</span>
+        </a>
+
+        <a href="https://instagram.com" target="_blank" class="social-card ig" onclick="playSound()">
+          <div class="social-icon-box" style="color:#DD2A7B;">📸</div>
+          <div>
+            <div class="social-name">INSTAGRAM</div>
+            <div style="font-size:0.68rem; color:var(--text-muted); margin-top:4px;">@supremafuturex</div>
+          </div>
+          <span class="btn-secondary" style="padding:6px 14px; font-size:0.65rem; width:100%;">COLLEGATI ➔</span>
+        </a>
+
+        <a href="https://tiktok.com" target="_blank" class="social-card tt" onclick="playSound()">
+          <div class="social-icon-box" style="color:#000;">🎵</div>
+          <div>
+            <div class="social-name">TIKTOK</div>
+            <div style="font-size:0.68rem; color:var(--text-muted); margin-top:4px;">@suprema_broadcast</div>
+          </div>
+          <span class="btn-secondary" style="padding:6px 14px; font-size:0.65rem; width:100%;">COLLEGATI ➔</span>
+        </a>
+
+        <a href="https://youtube.com" target="_blank" class="social-card yt" onclick="playSound()">
+          <div class="social-icon-box" style="color:#FF0000;">▶</div>
+          <div>
+            <div class="social-name">YOUTUBE</div>
+            <div style="font-size:0.68rem; color:var(--text-muted); margin-top:4px;">Suprema Future X</div>
+          </div>
+          <span class="btn-secondary" style="padding:6px 14px; font-size:0.65rem; width:100%;">COLLEGATI ➔</span>
+        </a>
+
+        <a href="https://linkedin.com" target="_blank" class="social-card li" onclick="playSound()">
+          <div class="social-icon-box" style="color:#0A66C2;">in</div>
+          <div>
+            <div class="social-name">LINKEDIN</div>
+            <div style="font-size:0.68rem; color:var(--text-muted); margin-top:4px;">Suprema Enterprise</div>
+          </div>
+          <span class="btn-secondary" style="padding:6px 14px; font-size:0.65rem; width:100%;">COLLEGATI ➔</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MODALI OPERATIVI PER LE SEZIONI 05 E 06 (CONFIGURA, DETTAGLI, BONUS, PREMI)
+       ========================================================================= -->
+
+  <!-- MODALE CONFIGURA CORSO & GATEWAY PAGAMENTO -->
+  <div class="drawer-overlay" id="modal-config-course" style="justify-content:center; align-items:center;">
+    <div class="modal-box-center spectral-border" style="pointer-events:all; max-width:680px; max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; border-bottom:1px solid var(--metal-edge); padding-bottom:1rem;">
+        <div>
+          <span class="course-badge" id="cfg-points-badge">+300 PUNTI STATUS</span>
+          <h3 class="spectral-text" style="font-family:var(--font-sync); font-size:1.3rem; margin:4px 0 0;" id="cfg-modal-title">CONFIGURA PERCORSO ACCADEMICO</h3>
+        </div>
+        <button style="background:none; border:none; font-size:1.8rem; cursor:pointer;" onclick="closeConfigCourseModal()">✕</button>
+      </div>
+
+      <form onsubmit="submitCourseConfig(event)">
+        <div class="form-group">
+          <label class="form-label">SELEZIONE RAPIDA PERCORSO O COLLOQUIO</label>
+          <select id="cfg-select-tier" class="form-input" onchange="syncSelectedTier(this.value)">
+            <option value="Suprema Silver">Suprema Silver (60 Giorni // +300 pt)</option>
+            <option value="Suprema Gold">Suprema Gold (90 Giorni // +350 pt // Store incluso)</option>
+            <option value="Suprema Premium">Suprema Premium VIP (120 Giorni // +500 pt // 1-to-1 CEO)</option>
+            <option value="Conferenza CEO">Conferenza CEO Conoscitiva (60 Minuti Meet)</option>
+          </select>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group"><label class="form-label">NOME CANDIDATO *</label><input type="text" id="cfg-nome" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">COGNOME *</label><input type="text" id="cfg-cognome" class="form-input" required></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group"><label class="form-label">EMAIL UFFICIALE *</label><input type="email" id="cfg-email" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">NUMERO WHATSAPP *</label><input type="tel" id="cfg-wa" class="form-input" required></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">CODICE SFX CARD (BONUS RISERVATO)</label>
+          <input type="text" id="cfg-bonus-code" class="form-input" placeholder="Incolla codice sconto 10% (opzionale)">
+        </div>
+
+        <!-- GATEWAY DI PAGAMENTO ATTIVABILE DA X-BOX -->
+        <div style="background:rgba(246,242,235,0.7); border:1.5px solid var(--metal-edge); border-radius:12px; padding:1.2rem; margin:1.5rem 0;">
+          <span style="font-family:var(--font-mono); font-size:0.7rem; font-weight:700; color:var(--text-dominant); display:block; margin-bottom:0.6rem;">METODO DI SALDO PROTOCOLLO EAL6+ (X-BOX GATEWAY):</span>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+            <span class="gateway-badge selected" onclick="selectGatewayBadge(this)">💳 CARTA CREDITO / DEBITO</span>
+            <span class="gateway-badge" onclick="selectGatewayBadge(this)">🏛️ BONIFICO BANCARIO</span>
+            <span class="gateway-badge" onclick="selectGatewayBadge(this)">⚡ SUMUP LINK</span>
+            <span class="gateway-badge" onclick="selectGatewayBadge(this)">🌐 REVOLUT PAY</span>
+          </div>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin:0.6rem 0 0;">Il link diretto e le coordinate bancarie vengono verificate e vidimate dalla Presidenza tramite X-BOX.</p>
+        </div>
+
+        <div style="display:flex; gap:1rem;">
+          <button type="button" class="btn-secondary" style="flex:1;" onclick="closeConfigCourseModal()">ANNULLA</button>
+          <button type="submit" class="btn-gold" style="flex:2;">CONFERMA E PROCEDI AL GATEWAY ➔</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALE BONUS 10% & GENERAZIONE CODICE SFX CARD -->
+  <div class="drawer-overlay" id="modal-bonus-course" style="justify-content:center; align-items:center;">
+    <div class="modal-box-center spectral-border" style="pointer-events:all; max-width:520px; text-align:center;">
+      <span class="course-badge" style="background:rgba(212,175,55,0.2);">BONUS RISERVATO ALLIEVI</span>
+      <h3 class="spectral-text" style="font-family:var(--font-sync); font-size:1.4rem; margin:0.8rem 0;" id="bonus-course-name">SUPREMA BONUS 10%</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.7;">
+        Attivando il codice promozionale sblocchi il <strong>10% di sconto reale immediato</strong> sulla quota d'iscrizione del percorso e ricevi l'accredito dei Punti Status sulla tua Gold Card.
+      </p>
+
+      <div style="background:#FFF; border:2px dashed var(--spectral-gold); border-radius:12px; padding:1.2rem; margin:1.5rem 0;">
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted);">IL TUO CODICE SFX CARD GENERATO:</span>
+        <div style="font-family:var(--font-mono); font-size:1.3rem; font-weight:700; color:var(--spectral-gold-deep); margin:0.5rem 0;" id="generated-sfx-code">SFX-BONUS-10-GOLD</div>
+        <span style="font-size:0.75rem; color:var(--status-online); font-weight:700;">✔ CODICE ATTIVO E VALIDO PER L'ORDINE</span>
+      </div>
+
+      <div style="display:flex; gap:0.8rem;">
+        <button class="btn-secondary" style="flex:1;" onclick="closeBonusCourseModal()">CHIUDI</button>
+        <button class="btn-gold" style="flex:1.5;" onclick="applyBonusAndOpenConfig()">APPLICA E CONFIGURA ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALE DETTAGLI CORSO (REGOLAMENTO + 5 SLOT FOTO 11" + 3 VIDEO 16:9) -->
+  <div class="story-modal-overlay" id="modal-course-details">
+    <div class="story-modal-header">
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="status-led"></div>
+        <span class="spectral-text" style="font-family:var(--font-sync); font-size:1.15rem; font-weight:700;" id="details-modal-title">DETTAGLI & REGOLAMENTO DIDATTICO</span>
+      </div>
+      <button class="btn-secondary" onclick="closeAcademyDetailsModal()">TORNA ALLA LANDING PAGE ◄</button>
+    </div>
+
+    <div class="story-modal-content">
+      <div style="display:grid; grid-template-columns: 320px 1fr; gap:3rem;">
+        
+        <!-- SX: 3 SLOT VIDEO + 5 SLOT FOTO INGRANDIBILI A 11 POLLICI -->
+        <div>
+          <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--spectral-cyan); display:block; margin-bottom:0.8rem;">3 VIDEO D'AULA ESECUTIVI:</span>
+          <div style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:2rem;">
+            <div class="media-slot-16-9"><div class="slot-corner-gold"></div>VIDEO 01: SESSIONE LIVE MEET</div>
+            <div class="media-slot-16-9"><div class="slot-corner-gold"></div>VIDEO 02: FLUSSI E-COMMERCE</div>
+            <div class="media-slot-16-9"><div class="slot-corner-gold"></div>VIDEO 03: INTERVENTO DEL CEO</div>
+          </div>
+
+          <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--spectral-gold-deep); display:block; margin-bottom:0.8rem;">5 SLOT FOTO (CLICK PER INGRANDIRE 11"):</span>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.6rem;">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600" class="gallery-img" onclick="openLightbox(this.src)">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32d7?w=600" class="gallery-img" onclick="openLightbox(this.src)">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600" class="gallery-img" onclick="openLightbox(this.src)">
+            <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600" class="gallery-img" onclick="openLightbox(this.src)">
+            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600" class="gallery-img" onclick="openLightbox(this.src)">
+          </div>
+        </div>
+
+        <!-- DX: TESTO STATUTARIO E CODICE ETICO -->
+        <div>
+          <h2 style="font-family:var(--font-sync); font-size:1.4rem; color:var(--text-dominant); margin-top:0;">PATTO FORMATIVO & CODICE ETICO</h2>
+          <p>La partecipazione a Suprema Academy è disciplinata dal principio della presenza viva e diretta. L'allievo non acquista pacchetti digitali preconfezionati, ma entra in un percorso di addestramento operativo condotto in tempo reale dai docenti d'aula e supervisionato dal Fondatore Giuliano Caratelli.</p>
+          <h4 style="font-family:var(--font-sync); font-size:0.95rem; margin-top:1.5rem;">IMPEGNO RECIPROCO:</h4>
+          <ul style="line-height:2; font-size:0.92rem; color:var(--text-primary);">
+            <li>Presenza attiva alle sessioni in videoconferenza concordate nel calendario.</li>
+            <li>Segretezza assoluta delle automazioni e delle procedure logistiche centralizzate.</li>
+            <li>Divieto assoluto di divulgazione di materiali protetti da copyright statutario.</li>
+            <li>Competenza territoriale e giurisdizionale esclusiva ed inderogabile del <strong>Foro di Velletri / Roma</strong>.</li>
+          </ul>
+          <div style="margin-top:2.5rem;">
+            <button class="btn-gold" onclick="closeAcademyDetailsModal(); scrollToSection('sec-04');">PROCEDI ALLO SCREENING ➔</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALE CATALOGO PREMI SUPREMA GOLD CARD -->
+  <div class="story-modal-overlay" id="modal-gold-catalog">
+    <div class="story-modal-header">
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="status-led"></div>
+        <span class="spectral-text" style="font-family:var(--font-sync); font-size:1.15rem; font-weight:700;">CATALOGO PREMI // SUPREMA GOLD CARD FIDELITY</span>
+      </div>
+      <button class="btn-secondary" onclick="closeGoldCatalogModal()">TORNA ALLA LANDING PAGE ◄</button>
+    </div>
+
+    <div class="story-modal-content">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <span class="hero-badge">TABELLA MERITOCRATICA PUNTI STATUS</span>
+        <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.8rem; margin:0.8rem 0;">LE 5 SOGLIE DI PREMIAZIONE NAZIONALE</h2>
+        <p style="font-size:0.95rem; color:var(--text-muted); max-width:700px; margin:0 auto;">
+          I premi vengono conferiti direttamente dalla Presidenza al superamento delle soglie certificate nel registro X-BOX.
+        </p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        
+        <div style="background:#FFF; border:1.5px solid var(--metal-edge); border-radius:16px; padding:1.8rem; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="course-badge" style="background:rgba(212,175,55,0.15);">SOGLIA 1 // 2.000 PUNTI STATUS</span>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--text-dominant);">3 MESI CONFERENZE CON IL CEO</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Accesso a sessioni quindicinali riservate di confronto operativo con Giuliano Caratelli.</p>
+          </div>
+          <span style="font-family:var(--font-mono); font-size:1.3rem; font-weight:700; color:var(--spectral-gold-deep);">2.000 PT</span>
+        </div>
+
+        <div style="background:#FFF; border:1.5px solid var(--metal-edge); border-radius:16px; padding:1.8rem; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="course-badge" style="background:rgba(212,175,55,0.15);">SOGLIA 2 // 3.000 PUNTI STATUS</span>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--text-dominant);">GRAN GALA ANNUALE ROMA CENTRO</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Invito istituzionale con accredito per 1 persona alla cena di gala dell'Ecosistema a Roma.</p>
+          </div>
+          <span style="font-family:var(--font-mono); font-size:1.3rem; font-weight:700; color:var(--spectral-gold-deep);">3.000 PT</span>
+        </div>
+
+        <div style="background:#FFF; border:1.5px solid var(--metal-edge); border-radius:16px; padding:1.8rem; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="course-badge" style="background:rgba(212,175,55,0.15);">SOGLIA 3 // 4.500 PUNTI STATUS</span>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--text-dominant);">AUDIT 1-TO-1 + 6 MESI LINEA DIRETTA</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Audit strategico d'impresa dal vivo con Giuliano Caratelli e 6 mesi di filo diretto telefonico.</p>
+          </div>
+          <span style="font-family:var(--font-mono); font-size:1.3rem; font-weight:700; color:var(--spectral-gold-deep);">4.500 PT</span>
+        </div>
+
+        <div style="background:#FFF; border:1.5px solid var(--metal-edge); border-radius:16px; padding:1.8rem; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="course-badge" style="background:rgba(212,175,55,0.15);">SOGLIA 4 // 6.000 PUNTI STATUS</span>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--text-dominant);">STATUS SOVRANO + 1 CORSO MASTER OMAGGIO</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Assegnazione gratuita del percorso Executive Master completo per un collaboratore designato.</p>
+          </div>
+          <span style="font-family:var(--font-mono); font-size:1.3rem; font-weight:700; color:var(--spectral-gold-deep);">6.000 PT</span>
+        </div>
+
+        <div style="background:#FFF; border:2px solid var(--spectral-gold); border-radius:16px; padding:1.8rem; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="course-badge" style="background:var(--spectral-gold); color:#000;">SOGLIA APICALE // 7.500 PUNTI STATUS</span>
+            <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--spectral-gold-deep);">WEEKEND LUXURY A ROMA PER 2 PERSONE</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Soggiorno completo per 2 persone in hotel 5 stelle lusso a Roma Centro e cena con la Presidenza.</p>
+          </div>
+          <span style="font-family:var(--font-mono); font-size:1.4rem; font-weight:700; color:var(--spectral-gold-deep);">7.500 PT</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MOTORI JAVASCRIPT SEZIONI 05, 06, 07, 08
+       ========================================================================== -->
+  <script>
+    // GESTIONE ANCORE SCROLL PER MODALI SEZIONI NUOVE
+    let academyScrollPos = 0;
+    let goldScrollPos = 0;
+
+    // SEC-05: MODALE CONFIGURAZIONE CORSO
+    let activeSelectedTier = "Suprema Silver";
+    let activeTierPrice = 249;
+
+    function openConfigCourseModal(tierName, pts) {
+      playSound();
+      activeSelectedTier = tierName;
+      document.getElementById('cfg-modal-title').innerText = "CONFIGURA: " + tierName.toUpperCase();
+      document.getElementById('cfg-points-badge').innerText = "+" + pts + " PUNTI STATUS";
+      document.getElementById('cfg-select-tier').value = tierName;
+      document.getElementById('modal-config-course').classList.add('open');
+    }
+
+    function closeConfigCourseModal() {
+      playSound();
+      document.getElementById('modal-config-course').classList.remove('open');
+    }
+
+    function syncSelectedTier(val) {
+      playSound();
+      activeSelectedTier = val;
+      const ptsMap = { "Suprema Silver": 300, "Suprema Gold": 350, "Suprema Premium": 500, "Conferenza CEO": 100 };
+      document.getElementById('cfg-points-badge').innerText = "+" + (ptsMap[val] || 300) + " PUNTI STATUS";
+      document.getElementById('cfg-modal-title').innerText = "CONFIGURA: " + val.toUpperCase();
+    }
+
+    function selectGatewayBadge(elem) {
+      playSound();
+      document.querySelectorAll('.gateway-badge').forEach(b => b.classList.remove('selected'));
+      elem.classList.add('selected');
+    }
+
+    function submitCourseConfig(e) {
+      e.preventDefault();
+      playSound();
+      const n = document.getElementById('cfg-nome').value;
+      const c = document.getElementById('cfg-cognome').value;
+      alert(`Configurazione registrata per ${n} ${c} sul percorso [${activeSelectedTier}]. Reindirizzamento al Gateway di pagamento X-BOX EAL6+ in corso...`);
+      closeConfigCourseModal();
+    }
+
+    // SEC-05: MODALE BONUS 10%
+    function openBonusCourseModal(tierName, basePrice) {
+      playSound();
+      activeTierPrice = basePrice;
+      const discounted = (basePrice * 0.9).toFixed(2);
+      document.getElementById('bonus-course-name').innerText = tierName.toUpperCase() + " // BONUS 10%";
+      document.getElementById('generated-sfx-code').innerText = "SFX-BONUS-10-" + tierName.replace(/\s+/g, '').toUpperCase();
+      document.getElementById('modal-bonus-course').classList.add('open');
+    }
+
+    function closeBonusCourseModal() {
+      playSound();
+      document.getElementById('modal-bonus-course').classList.remove('open');
+    }
+
+    function applyBonusAndOpenConfig() {
+      playSound();
+      const code = document.getElementById('generated-sfx-code').innerText;
+      closeBonusCourseModal();
+      openConfigCourseModal(activeSelectedTier, 350);
+      document.getElementById('cfg-bonus-code').value = code;
+    }
+
+    // SEC-05: MODALE DETTAGLI CORSO
+    function openAcademyDetailsModal(type) {
+      playSound();
+      academyScrollPos = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modal-course-details').classList.add('open');
+      document.getElementById('modal-course-details').scrollTo(0,0);
+    }
+
+    function closeAcademyDetailsModal() {
+      playSound();
+      document.getElementById('modal-course-details').classList.remove('open');
+      document.body.style.overflow = 'auto';
+      setTimeout(() => { window.scrollTo({ top: academyScrollPos, behavior: 'instant' }); }, 200);
+    }
+
+    // SEC-06: MODALE CATALOGO GOLD CARD
+    function openGoldCatalogModal() {
+      playSound();
+      goldScrollPos = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modal-gold-catalog').classList.add('open');
+      document.getElementById('modal-gold-catalog').scrollTo(0,0);
+    }
+
+    function closeGoldCatalogModal() {
+      playSound();
+      document.getElementById('modal-gold-catalog').classList.remove('open');
+      document.body.style.overflow = 'auto';
+      setTimeout(() => { window.scrollTo({ top: goldScrollPos, behavior: 'instant' }); }, 200);
+    }
+
+    // SEC-07: MEDIA VAULT PLAYER & TAB
+    let activeCategory = 'foto';
+    function switchVaultCategory(cat, btn) {
+      playSound();
+      activeCategory = cat;
+      document.querySelectorAll('.vault-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('cat-label-indicator').innerText = cat.toUpperCase();
+      renderVault50Slots(cat);
+    }
+
+    function renderVault50Slots(cat) {
+      const container = document.getElementById('vault-slots-container');
+      container.innerHTML = "";
+      for (let i = 1; i <= 50; i++) {
+        const slotNum = String(i).padStart(2, '0');
+        const box = document.createElement('div');
+        box.className = 'slot-item-50';
+        box.innerHTML = `<strong>SLOT ${slotNum}</strong><br><span style="font-size:0.6rem; color:#888;">${cat.toUpperCase()}</span>`;
+        box.onclick = () => loadMediaSlot(cat, slotNum);
+        container.appendChild(box);
+      }
+    }
+
+    function loadMediaSlot(cat, num) {
+      playSound();
+      const screen = document.getElementById('vault-player-display');
+      screen.innerHTML = `<span>CARICAMENTO ASSET [${cat.toUpperCase()} - SLOT ${num}] DAL VAULT 400...</span>`;
+      setTimeout(() => {
+        screen.innerHTML = `<span style="color:var(--status-online); font-weight:700;">▶ ASSET ${cat.toUpperCase()} #${num} IN RIPRODUZIONE EAL6+</span>`;
+      }, 500);
+    }
+
+    function playMedia() { playSound(); alert("Riproduzione avviata dal Media Vault."); }
+    function stopMedia() { playSound(); document.getElementById('vault-player-display').innerHTML = "<span>RIPRODUZIONE ARRESTATA</span>"; }
+    function skipMedia(sec) { playSound(); alert(`Avanzamento traccia: ${sec > 0 ? '+' : ''}${sec}s`); }
+    function setVolume(v) { /* Feedback volume */ }
+    function togglePlayerFullscreen() {
+      playSound();
+      const screen = document.getElementById('vault-player-display');
+      if (!document.fullscreenElement) {
+        screen.requestFullscreen().catch(() => { alert("Modalità 11 pollici massimizzata."); });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Inizializzazione automatica dei 50 slot all'avvio
+    window.addEventListener('DOMContentLoaded', () => {
+      renderVault50Slots('foto');
+    });
+  </script>
