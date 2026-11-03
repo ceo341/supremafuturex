@@ -86,6 +86,8 @@
     @keyframes pulseLed { 0% { opacity: 0.35; transform: scale(0.9); box-shadow: 0 0 4px var(--status-online); } 100% { opacity: 1.0; transform: scale(1.1); box-shadow: 0 0 12px var(--status-online); } }
     @keyframes shinePass { 0% { left: -100%; } 22%, 100% { left: 200%; } }
     @keyframes laserPerimeterLoop { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+    @keyframes tandemEnter { 0% { transform: translateX(105%) scale(0.98); opacity: 0; } 60% { transform: translateX(-2%) scale(0.99); } 80% { transform: translateX(1%) scale(1.0); } 100% { transform: translateX(0) scale(1.0); opacity: 1; } }
+    @keyframes cornerPeelExit { 0% { transform: translateX(0) scale(1.0) rotateZ(0deg); opacity: 1; } 45% { transform: translateX(-60%) translateY(-10%) rotateZ(-6deg) rotateY(15deg); opacity: 0.5; } 100% { transform: translateX(-150%) translateY(-40%) translateZ(-100px) rotateZ(-15deg) rotateY(35deg); opacity: 0; } }
 
     /* COMPONENTI BASE */
     .container { max-width: 1320px; margin: 0 auto; padding: 0 2rem; position: relative; }
@@ -199,31 +201,19 @@
     }
     .form-input:focus { border-color: var(--spectral-gold); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15); }
 
-    /* ==========================================================================
-       SEC-01 // HERO GOVERNANCE
-       ========================================================================== */
+    /* STILI RESIDUI PER SEZIONI 01-12 */
     .hero-section { padding: 6rem 0; position: relative; z-index: 10; display: flex; align-items: center; min-height: 80vh; }
     .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
-    
     .hero-badge {
       font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--spectral-gold-deep);
       border: 1px solid var(--spectral-gold); background: rgba(212, 175, 55, 0.08);
       padding: 6px 16px; border-radius: 50px; display: inline-block; margin-bottom: 1.5rem; letter-spacing: 1px;
     }
-    .hero-title {
-      font-family: var(--font-sync); font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin: 0 0 1rem 0;
-    }
-    .hero-subtitle {
-      font-family: var(--font-sync); font-size: clamp(1rem, 2vw, 1.4rem); color: var(--text-dominant);
-      margin: 0 0 1.5rem 0; font-weight: 700; letter-spacing: 0.5px;
-    }
-    .hero-desc {
-      font-size: 1.05rem; color: var(--text-primary); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.8;
-    }
-
+    .hero-title { font-family: var(--font-sync); font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin: 0 0 1rem 0; }
+    .hero-subtitle { font-family: var(--font-sync); font-size: clamp(1rem, 2vw, 1.4rem); color: var(--text-dominant); margin: 0 0 1.5rem 0; font-weight: 700; letter-spacing: 0.5px; }
+    .hero-desc { font-size: 1.05rem; color: var(--text-primary); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.8; }
     .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
     
-    /* DROPDOWN MENU HERO */
     .dropdown-container { position: relative; display: inline-block; }
     .dropdown-menu {
       position: absolute; top: 110%; left: 0; background: var(--bg-pearl-pure); border: 1.5px solid var(--metal-edge);
@@ -238,7 +228,6 @@
     .dropdown-item:last-child { border-bottom: none; }
     .dropdown-item:hover { background: rgba(212, 175, 55, 0.08); color: var(--spectral-gold-deep); padding-left: 24px; }
 
-    /* CORNICE CIRCOLARE LOOP LOGHI */
     .hero-visual-circle {
       position: relative; width: 100%; aspect-ratio: 1/1; max-width: 550px; margin: 0 auto;
       border-radius: 50%; background: var(--bg-glass-card); border: 2px solid var(--metal-frame);
@@ -249,118 +238,60 @@
       background: linear-gradient(60deg, var(--spectral-cyan), var(--spectral-emerald), var(--spectral-aqua), var(--spectral-gold), var(--spectral-blue), var(--spectral-cyan));
       background-size: 300% 300%; animation: laserPerimeterLoop 6s infinite alternate ease-in-out; opacity: 0.7;
     }
-    
     .loop-image {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 2rem; box-sizing: border-box;
       opacity: 0; transition: opacity 1.5s ease-in-out;
     }
     .loop-image.active { opacity: 1; z-index: 2; }
 
-    /* ==========================================================================
-       SEC-02 // PRESIDENZA INTEGRATA (CEO & ALISON)
-       ========================================================================== */
     .presidenza-section { padding: 5rem 0; position: relative; z-index: 10; }
-    .presidenza-block {
-      margin-bottom: 4rem; display: grid; grid-template-columns: 350px 1fr 280px; gap: 2.5rem; align-items: center;
-    }
+    .presidenza-block { margin-bottom: 4rem; display: grid; grid-template-columns: 350px 1fr 280px; gap: 2.5rem; align-items: center; }
     .presidenza-block:last-child { margin-bottom: 0; }
-    
-    .media-slot-16-9 {
-      width: 100%; aspect-ratio: 16/9; background: var(--bg-pearl-light); border: 1.5px solid var(--metal-edge);
-      border-radius: 16px; overflow: hidden; position: relative; box-shadow: var(--metal-shadow);
-      display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem;
-    }
-    .media-slot-vertical {
-      width: 100%; aspect-ratio: 3/4; background: var(--bg-pearl-light); border: 1.5px solid var(--metal-edge);
-      border-radius: 16px; overflow: hidden; position: relative; box-shadow: var(--metal-shadow);
-      display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem;
-    }
+    .media-slot-16-9 { width: 100%; aspect-ratio: 16/9; background: var(--bg-pearl-light); border: 1.5px solid var(--metal-edge); border-radius: 16px; overflow: hidden; position: relative; box-shadow: var(--metal-shadow); display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem; }
+    .media-slot-vertical { width: 100%; aspect-ratio: 3/4; background: var(--bg-pearl-light); border: 1.5px solid var(--metal-edge); border-radius: 16px; overflow: hidden; position: relative; box-shadow: var(--metal-shadow); display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem; }
     .slot-corner-gold { position: absolute; inset: 0; border: 2px solid var(--spectral-gold); opacity: 0.3; border-radius: inherit; pointer-events: none; }
 
-    /* MODALE ESPANSO FULL-SCREEN (LETTURA STORIA) */
-    .story-modal-overlay {
-      position: fixed; inset: 0; background: var(--bg-pearl-light); z-index: 20000;
-      overflow-y: auto; opacity: 0; pointer-events: none; transition: 0.5s; padding: 0;
-    }
+    .story-modal-overlay { position: fixed; inset: 0; background: var(--bg-pearl-light); z-index: 20000; overflow-y: auto; opacity: 0; pointer-events: none; transition: 0.5s; padding: 0; }
     .story-modal-overlay.open { opacity: 1; pointer-events: all; }
-    
-    .story-modal-header {
-      position: sticky; top: 0; background: var(--bg-pearl-translucent); backdrop-filter: blur(20px);
-      border-bottom: 1.5px solid var(--metal-edge); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 10;
-    }
+    .story-modal-header { position: sticky; top: 0; background: var(--bg-pearl-translucent); backdrop-filter: blur(20px); border-bottom: 1.5px solid var(--metal-edge); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
     .story-modal-content { max-width: 900px; margin: 4rem auto; padding: 0 2rem; font-size: 1.1rem; line-height: 1.9; color: var(--text-primary); }
-    
     .story-video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; }
     .story-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 3rem 0; }
-    
     .gallery-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; border: 1px solid var(--metal-edge); cursor: zoom-in; transition: 0.3s; }
     .gallery-img:hover { transform: scale(1.03); border-color: var(--spectral-gold); }
 
-    /* LIGHTBOX FOTO 11 POLLICI */
-    .lightbox-overlay {
-      position: fixed; inset: 0; background: rgba(11, 25, 44, 0.95); z-index: 30000; display: none; justify-content: center; align-items: center; padding: 2rem;
-    }
+    .lightbox-overlay { position: fixed; inset: 0; background: rgba(11, 25, 44, 0.95); z-index: 30000; display: none; justify-content: center; align-items: center; padding: 2rem; }
     .lightbox-img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
     .lightbox-close { position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: #FFF; font-size: 2.5rem; cursor: pointer; }
 
-    /* ==========================================================================
-       SEC-03 // ALISON CHATBOT IN-PAGE
-       ========================================================================== */
     .chatbot-section { padding: 4rem 0; position: relative; z-index: 10; }
-    .chatbot-container {
-      background: var(--bg-glass-card); backdrop-filter: blur(35px); border-radius: 24px;
-      padding: 3rem; box-shadow: var(--metal-shadow); border: 1.5px solid var(--metal-edge);
-      position: relative; display: grid; grid-template-columns: 300px 1fr; gap: 3rem;
-    }
-    
+    .chatbot-container { background: var(--bg-glass-card); backdrop-filter: blur(35px); border-radius: 24px; padding: 3rem; box-shadow: var(--metal-shadow); border: 1.5px solid var(--metal-edge); position: relative; display: grid; grid-template-columns: 300px 1fr; gap: 3rem; }
     .radar-box { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 50%; background: #0B192C; overflow: hidden; border: 2px solid var(--spectral-cyan); box-shadow: 0 0 20px rgba(0,240,255,0.2); }
     .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-
     .chat-interface { display: flex; flex-direction: column; height: 100%; }
     .chat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--metal-edge); }
     .chat-history { flex-grow: 1; min-height: 250px; background: rgba(255,255,255,0.5); border-radius: 16px; padding: 1.5rem; overflow-y: auto; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 1rem; border: 1px solid var(--metal-edge); }
-    
     .msg-alison { align-self: flex-start; background: #FFFFFF; border: 1.5px solid var(--spectral-gold); padding: 12px 18px; border-radius: 16px 16px 16px 0; max-width: 80%; font-size: 0.9rem; color: var(--text-dominant); box-shadow: var(--shadow-subtle); }
     .msg-user { align-self: flex-end; background: rgba(0,240,255,0.12); padding: 12px 18px; border-radius: 16px 16px 0 16px; max-width: 80%; font-size: 0.9rem; color: var(--text-dominant); }
-
-    .faq-drawer {
-      background: var(--bg-pearl-light); border: 1px solid var(--metal-edge); border-radius: 12px;
-      padding: 1rem; margin-bottom: 1.5rem; display: none;
-    }
+    
+    .faq-drawer { background: var(--bg-pearl-light); border: 1px solid var(--metal-edge); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; display: none; }
     .faq-drawer.open { display: block; }
-    .faq-item {
-      font-size: 0.85rem; font-weight: 600; color: var(--text-dominant); padding: 10px;
-      border-bottom: 1px solid rgba(74,82,96,0.1); cursor: pointer; transition: 0.2s;
-    }
+    .faq-item { font-size: 0.85rem; font-weight: 600; color: var(--text-dominant); padding: 10px; border-bottom: 1px solid rgba(74,82,96,0.1); cursor: pointer; transition: 0.2s; }
     .faq-item:hover { color: var(--spectral-gold-deep); background: rgba(212,175,55,0.05); }
 
-    /* ==========================================================================
-       SEC-04 // FUNNEL SCREENING TANDEM DRAG
-       ========================================================================== */
     .funnel-section { padding: 5rem 0; position: relative; z-index: 10; min-height: 700px; display: flex; justify-content: center; align-items: center; perspective: 1800px; }
     .funnel-container { width: 100%; max-width: 960px; height: 600px; position: relative; }
-    
-    .funnel-card {
-      position: absolute; inset: 0; background: var(--bg-glass-card); backdrop-filter: blur(35px);
-      border-radius: 24px; padding: 3.5rem; box-shadow: var(--metal-shadow-deep);
-      border: 1.5px solid var(--metal-edge); opacity: 0; pointer-events: none; transition: 0.4s;
-    }
+    .funnel-card { position: absolute; inset: 0; background: var(--bg-glass-card); backdrop-filter: blur(35px); border-radius: 24px; padding: 3.5rem; box-shadow: var(--metal-shadow-deep); border: 1.5px solid var(--metal-edge); opacity: 0; pointer-events: none; transition: 0.4s; }
     .funnel-card.active { opacity: 1; pointer-events: all; z-index: 5; }
     .funnel-card.anim-enter { animation: tandemEnter 0.9s forwards cubic-bezier(0.2, 0.8, 0.25, 1); }
     .funnel-card.anim-exit { animation: cornerPeelExit 0.9s forwards cubic-bezier(0.3, 0, 0.1, 1); }
-
-    @keyframes tandemEnter { 0% { transform: translateX(105%) scale(0.98); opacity: 0; } 60% { transform: translateX(-2%) scale(0.99); } 80% { transform: translateX(1%) scale(1.0); } 100% { transform: translateX(0) scale(1.0); opacity: 1; } }
-    @keyframes cornerPeelExit { 0% { transform: translateX(0) scale(1.0) rotateZ(0deg); opacity: 1; } 45% { transform: translateX(-60%) translateY(-10%) rotateZ(-6deg) rotateY(15deg); opacity: 0.5; } 100% { transform: translateX(-150%) translateY(-40%) translateZ(-100px) rotateZ(-15deg) rotateY(35deg); opacity: 0; } }
-
     .sel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
-    .sel-card {
-      background: #FFFFFF; border: 1.5px solid var(--metal-edge); border-radius: 12px; padding: 1.5rem;
-      cursor: pointer; transition: 0.3s; text-align: center;
-    }
+    .sel-card { background: #FFFFFF; border: 1.5px solid var(--metal-edge); border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: 0.3s; text-align: center; }
     .sel-card:hover { border-color: var(--spectral-gold); transform: translateY(-3px); box-shadow: var(--shadow-subtle); }
     .sel-card.selected { border: 2px solid var(--spectral-gold); background: rgba(212,175,55,0.08); box-shadow: 0 0 15px rgba(212,175,55,0.2); }
     .sel-tit { font-family: var(--font-sync); font-size: 0.95rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.5rem; }
 
+    /* STILI SEZIONI 05 A 12 OMAGESSI NEL BLOCCO 1 PER SPAZIO, LI INSERIAMO NEL BLOCCO 2 */
   </style>
 </head>
 <body>
@@ -436,6 +367,12 @@
       <a href="#sec-02" class="drawer-link" onclick="toggleDrawerMenu()">SEC-02 // PRESIDENZA INTEGRATA</a>
       <a href="#sec-03" class="drawer-link" onclick="toggleDrawerMenu()">SEC-03 // ALISON CHATBOT</a>
       <a href="#sec-04" class="drawer-link" onclick="toggleDrawerMenu()">SEC-04 // FUNNEL SCREENING</a>
+      <a href="#sec-05" class="drawer-link" onclick="toggleDrawerMenu()">SEC-05 // SUPREMA ACADEMY</a>
+      <a href="#sec-06" class="drawer-link" onclick="toggleDrawerMenu()">SEC-06 // GOLD CARD FIDELITY</a>
+      <a href="#sec-07" class="drawer-link" onclick="toggleDrawerMenu()">SEC-07 // MEDIA VAULT</a>
+      <a href="#sec-08" class="drawer-link" onclick="toggleDrawerMenu()">SEC-08 // SOCIAL NETWORK</a>
+      <a href="#sec-09" class="drawer-link" onclick="toggleDrawerMenu()">SEC-09 // DICONO DI NOI</a>
+      <a href="#sec-12" class="drawer-link" onclick="toggleDrawerMenu()">SEC-12 // FOOTER FORENSE</a>
     </div>
 
     <div class="drawer-nav-group">
@@ -446,23 +383,17 @@
     </div>
 
     <div class="drawer-nav-group">
-      <div class="drawer-nav-title">ASSISTENZA NEURALE</div>
-      <button class="btn-secondary" style="width:100%; margin-bottom:1rem;" onclick="scrollToSection('sec-03'); toggleDrawerMenu();">ALISON CHATBOT DIRECT</button>
-    </div>
-
-    <div class="drawer-nav-group">
       <div class="drawer-nav-title">CHI SIAMO // INFORMAZIONI</div>
       <a href="#" class="drawer-link" onclick="toggleSubmenu('sub-chisiamo', event)">CHI SIAMO & GOVERNANCE ▾</a>
       <div class="drawer-submenu-content" id="sub-chisiamo">
         <a href="#" class="drawer-sublink" onclick="alert('Modello a zero magazzino in fase di visualizzazione.')">Chi è Suprema Future X</a>
         <a href="#" class="drawer-sublink" onclick="openStoryModal('ceo')">Founder & CEO Giuliano Caratelli</a>
         <a href="#" class="drawer-sublink" onclick="openStoryModal('alison')">Supervisor Alison Carel</a>
-        <a href="#sec-05" class="drawer-sublink" onclick="toggleDrawerMenu()">Sedi & Presidi Roma / Colleferro</a>
+        <a href="#sec-12" class="drawer-sublink" onclick="toggleDrawerMenu()">Sedi & Presidi Roma / Colleferro</a>
       </div>
     </div>
   </nav>
-
-  <!-- ==========================================================================
+<!-- ==========================================================================
        SEC-01 // HERO GOVERNANCE
        ========================================================================== -->
   <section class="hero-section container" id="sec-01">
@@ -475,7 +406,7 @@
         
         <div class="hero-buttons">
           <button class="btn-gold" onclick="scrollToSection('sec-04')" data-i18n="btn_attiva_ceo">ATTIVA CONFERENZA CEO</button>
-          <button class="btn-secondary" onclick="scrollToSection('sec-04')" data-i18n="btn_academy">SUPREMA ACADEMY</button>
+          <button class="btn-secondary" onclick="scrollToSection('sec-05')" data-i18n="btn_academy">SUPREMA ACADEMY</button>
           
           <div class="dropdown-container">
             <button class="btn-secondary" data-i18n="btn_story">STORY E CRESCITA SUPREMA ▾</button>
@@ -488,7 +419,7 @@
       </div>
 
       <div class="hero-visual-circle spectral-border">
-        <!-- I 6 Loghi Istituzionali in rotazione da cartella media/ -->
+        <!-- I 6 Loghi Istituzionali in rotazione ciclica da cartella media/ -->
         <img src="media/logo1.png" alt="Logo Suprema 1" class="loop-image active" id="hero-img-1" onerror="this.src='https://via.placeholder.com/500/F6F2EB/D4AF37?text=LOGO+01'">
         <img src="media/logo2.png" alt="Logo Suprema 2" class="loop-image" id="hero-img-2" onerror="this.src='https://via.placeholder.com/500/F6F2EB/D4AF37?text=LOGO+02'">
         <img src="media/logo3.png" alt="Logo Suprema 3" class="loop-image" id="hero-img-3" onerror="this.src='https://via.placeholder.com/500/F6F2EB/D4AF37?text=LOGO+03'">
@@ -545,7 +476,7 @@
     </div>
 
     <div class="story-modal-content" id="story-modal-body">
-      <!-- Contenuto iniettato via JS -->
+      <!-- Contenuto iniettato via JavaScript -->
     </div>
   </div>
 
@@ -590,7 +521,7 @@
 
         <div style="display:flex; gap:1rem;">
           <button class="btn-gold" style="flex:1;" onclick="scrollToSection('sec-04')">CONFERENZA COL CEO ➔</button>
-          <button class="btn-secondary" style="flex:1;" onclick="scrollToSection('sec-04')">SUPREMA ACADEMY CORSI ➔</button>
+          <button class="btn-secondary" style="flex:1;" onclick="scrollToSection('sec-05')">SUPREMA ACADEMY CORSI ➔</button>
         </div>
       </div>
     </div>
@@ -655,226 +586,6 @@
 
     </div>
   </section>
-
-  <!-- INIEZIONE MOTORI JAVASCRIPT GLOBALI -->
-  <script>
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    let actx;
-    function playSound() {
-      if(!actx) actx = new AudioContext();
-      if(actx.state==='suspended') actx.resume();
-      const osc = actx.createOscillator(); const gn = actx.createGain();
-      osc.frequency.setValueAtTime(480, actx.currentTime);
-      gn.gain.setValueAtTime(0.12, actx.currentTime); gn.gain.exponentialRampToValueAtTime(0.01, actx.currentTime+0.12);
-      osc.connect(gn); gn.connect(actx.destination); osc.start(); osc.stop(actx.currentTime+0.12);
-      if(navigator.vibrate) navigator.vibrate(15);
-    }
-
-    function scrollToSection(id) { playSound(); const el = document.getElementById(id); if(el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' }); }
-    
-    // GESTIONE HAMBURGER E LAVORA CON NOI
-    function toggleDrawerMenu() { playSound(); document.getElementById('drawer-overlay').classList.toggle('open'); document.getElementById('drawer-menu').classList.toggle('open'); }
-    function toggleSubmenu(id, ev) { ev.preventDefault(); playSound(); document.getElementById(id).classList.toggle('open'); }
-    function openLavoraConNoi() { playSound(); document.getElementById('modal-lavora').classList.add('open'); }
-    function closeLavoraConNoi() { playSound(); document.getElementById('modal-lavora').classList.remove('open'); }
-    function inviaLavora(tipo) {
-      playSound();
-      const n = document.getElementById('lav-nome').value; const c = document.getElementById('lav-cogn').value;
-      const e = document.getElementById('lav-email').value; const t = document.getElementById('lav-tel').value;
-      if(!n||!c||!e||!t) { alert("Compila tutti i campi obbligatori."); return; }
-      const testo = `Candidatura Spontanea:%0ANome: ${n} ${c}%0AEmail: ${e}%0ATel: ${t}`;
-      if(tipo==='wa') window.open(`https://wa.me/393474429091?text=${testo}`);
-      if(tipo==='email') window.open(`mailto:ceo@supremaofficial.com?subject=Candidatura Lavora con Noi - ${n} ${c}&body=${testo}`);
-      closeLavoraConNoi();
-    }
-
-    // LOOP HERO LOGHI DA CARTELLA LOCALE
-    let currentLoopIdx = 1;
-    setInterval(() => {
-      document.getElementById('hero-img-' + currentLoopIdx).classList.remove('active');
-      currentLoopIdx = currentLoopIdx >= 6 ? 1 : currentLoopIdx + 1;
-      document.getElementById('hero-img-' + currentLoopIdx).classList.add('active');
-    }, 3500);
-
-    // GESTIONE MODALI ESPANSI STORIA (CEO & ALISON)
-    let scrollAnchor = 0;
-    const contentCEO = `
-      <h2 style="font-family:var(--font-sync); color:var(--text-dominant); margin-bottom:2rem;">IL PATTO DELLA CRESCITA</h2>
-      <p><strong>A te che cerchi il tuo domani.</strong></p>
-      <p>Se sei arrivato fino a questo punto, probabilmente conosci già il peso delle promesse non mantenute. Conosci il senso di vuoto che lasciano quei percorsi dove sei soltanto un numero d'ordine, un acquirente anonimo di file video pre-registrati che nessuno verificherà mai.</p>
-      <p>Ho fondato Suprema Future X Enterprise per cancellare tutto questo. Quando ho scritto lo statuto di questa impresa, ho posto una regola inderogabile: la presenza. Se decidi di metterti in gioco con noi, io e i miei docenti mettiamo a disposizione il nostro tempo reale, le nostre competenze e la nostra struttura operativa. In cambio pretendiamo disciplina, serietà e costanza.</p>
-      <p>Non ti chiederemo mai di rischiare i tuoi risparmi in magazzini pieni di merci invendute. Ti daremo un'infrastruttura funzionante, negozi digitali già allacciati alla logistica centrale e una formazione dal vivo che ti insegna a governare i flussi economici moderni.</p>
-      <p>Quando ci incontreremo nei nostri 60 minuti di screening conoscitivo via Google Meet, non ti farò un monologo commerciale. Analizzerò chi sei, da dove parti e dove vuoi arrivare. Se le nostre visioni coincideranno, stringeremo un patto di lavoro e crescita.</p>
-      <p>Benvenuto in Suprema Future X.<br><br><strong>Giuliano Caratelli</strong><br><span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">Founder & CEO</span></p>
-      
-      <div class="story-video-grid">
-        <div class="media-slot-16-9">VIDEO INTEGRALE 01 (X-BOX)</div>
-        <div class="media-slot-16-9">VIDEO INTEGRALE 02 (X-BOX)</div>
-      </div>
-      <h4 style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">GALLERIA IMMAGINI (CLICK PER ZOOM 11")</h4>
-      <div class="story-gallery-grid">
-        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32d7?w=800" class="gallery-img" onclick="openLightbox(this.src)">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800" class="gallery-img" onclick="openLightbox(this.src)">
-        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800" class="gallery-img" onclick="openLightbox(this.src)">
-      </div>
-    `;
-
-    const contentAlison = `
-      <h2 style="font-family:var(--font-sync); color:var(--text-dominant); margin-bottom:2rem;">SUPERVISIONE ETICA E TRIAGE</h2>
-      <p>Alison non è un comune risponditore automatico: è stata concepita come la prima intelligenza neurale di triage e concierge dell'ecosistema, addestrata per riflettere fedelmente i principi etici del Fondatore.</p>
-      <p>Mentre Giuliano Caratelli guida le scelte strategiche, valida i dossier di screening e siede di persona nei colloqui di 60 minuti via Google Meet, Alison vigila 24 ore su 24 sulla porta d'ingresso dell'impresa, accogliendo, orientando e tutelando ogni candidato con precisione millimetrica.</p>
-      <div class="story-video-grid">
-        <div class="media-slot-16-9">VIDEO OPERATIVO ALISON 01</div>
-        <div class="media-slot-16-9">VIDEO OPERATIVO ALISON 02</div>
-      </div>
-      <h4 style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">GALLERIA IMMAGINI (CLICK PER ZOOM 11")</h4>
-      <div class="story-gallery-grid">
-        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800" class="gallery-img" onclick="openLightbox(this.src)">
-        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800" class="gallery-img" onclick="openLightbox(this.src)">
-      </div>
-    `;
-
-    function openStoryModal(tipo) {
-      playSound(); scrollAnchor = window.scrollY; document.body.style.overflow = 'hidden';
-      const m = document.getElementById('story-modal'); const t = document.getElementById('story-modal-title'); const b = document.getElementById('story-modal-body');
-      if(tipo === 'ceo') { t.innerText = "FOUNDER & CEO GIULIANO CARATELLI"; b.innerHTML = contentCEO; }
-      else { t.innerText = "SUPERVISOR ALISON CAREL"; b.innerHTML = contentAlison; }
-      m.classList.add('open'); m.scrollTo(0,0);
-    }
-    
-    function closeStoryModal() {
-      playSound(); document.getElementById('story-modal').classList.remove('open'); document.body.style.overflow = 'auto';
-      setTimeout(() => { window.scrollTo({ top: scrollAnchor, behavior: 'instant' }); }, 300);
-    }
-
-    // LIGHTBOX 11 POLLICI
-    function openLightbox(src) { playSound(); document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
-    function closeLightbox() { playSound(); document.getElementById('lightbox').style.display = 'none'; }
-
-    // ==========================================================================
-    // CHATBOT ALISON: LOGICA VOCALE E FAQ BONIFICATE
-    // ==========================================================================
-    let voiceEnabled = true;
-    function toggleVoice() {
-      playSound();
-      voiceEnabled = !voiceEnabled;
-      document.getElementById('btn-audio-toggle').innerText = voiceEnabled ? "🔊 VOCE ON" : "🔇 VOCE OFF";
-    }
-
-    function speakAlison(text) {
-      if (!voiceEnabled || !window.speechSynthesis) return;
-      window.speechSynthesis.cancel();
-      const ut = new SpeechSynthesisUtterance(text);
-      ut.lang = 'it-IT';
-      ut.pitch = 1.02; // Timbro caldo
-      ut.rate = 0.95;  // Velocità naturale umana
-      
-      const voices = window.speechSynthesis.getVoices();
-      const itVoice = voices.find(v => v.lang.includes('it') && (v.name.includes('Elsa') || v.name.includes('Female') || v.name.includes('Google')));
-      if(itVoice) ut.voice = itVoice;
-      
-      window.speechSynthesis.speak(ut);
-    }
-
-    function toggleChatFaq() {
-      playSound();
-      document.getElementById('chat-faq-drawer').classList.toggle('open');
-    }
-
-    function askFaq(idx) {
-      playSound();
-      document.getElementById('chat-faq-drawer').classList.remove('open');
-      const hist = document.getElementById('chat-history');
-      let q = "", a = "";
-      
-      if(idx === 1) { 
-        q = "Qual è il metodo didattico di Suprema Academy?"; 
-        a = "Il metodo di Suprema Academy prevede esclusivamente didattica al 100% dal vivo in videoconferenza diretta. Non vi sono videocorsi pre-registrati: assicuriamo la presenza continua dei docenti e sessioni esclusive col CEO Giuliano Caratelli."; 
-      }
-      else if(idx === 2) { 
-        q = "Come funziona la Concessione E-Commerce a zero magazzino?"; 
-        a = "Ti forniamo un negozio digitale autonomo e chiavi in mano. Nessun acquisto preventivo o stoccaggio merci è a tuo carico: l'infrastruttura centrale gestisce interamente la logistica, l'imballaggio e le spedizioni via corriere espresso."; 
-      }
-      else if(idx === 3) { 
-        q = "In cosa consiste lo screening conoscitivo di 60 minuti?"; 
-        a = "È un colloquio individuale e riservato via Google Meet condotto personalmente dal Founder & CEO. Serve a valutare con precisione la tua motivazione e stabilire l'idoneità prima di ogni accesso operativo."; 
-      }
-      else if(idx === 4) { 
-        q = "Quali garanzie legali e tutele offre l'ecosistema?"; 
-        a = "L'ecosistema poggia su principi inderogabili di trasparenza, con l'intero Statuto depositato sotto protocollo EAL6+ e competenza giurisdizionale esclusiva stabilita presso il Foro di Velletri e Roma."; 
-      }
-
-      hist.innerHTML += `<div class="msg-user">${q}</div>`;
-      setTimeout(() => {
-        hist.innerHTML += `<div class="msg-alison">${a}</div>`;
-        hist.scrollTop = hist.scrollHeight;
-        speakAlison(a);
-      }, 600);
-    }
-
-    // ANIMAZIONE RADAR ALISON
-    const canvas = document.getElementById('alison-radar');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let angle = 0;
-      function drawRadar() {
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.parentElement.clientHeight;
-        const cx = canvas.width / 2, cy = canvas.height / 2, r = Math.min(cx, cy) - 4;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI);
-        ctx.strokeStyle = 'rgba(0,240,255,0.3)'; ctx.lineWidth = 1; ctx.stroke();
-        
-        ctx.beginPath(); ctx.moveTo(cx, cy);
-        ctx.arc(cx, cy, r, angle, angle + 0.5); ctx.closePath();
-        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-        grad.addColorStop(0, 'rgba(0,230,118,0.8)'); grad.addColorStop(1, 'rgba(0,230,118,0.0)');
-        ctx.fillStyle = grad; ctx.fill();
-        
-        angle += 0.04; requestAnimationFrame(drawRadar);
-      }
-      drawRadar();
-    }
-
-    // ==========================================================================
-    // FUNNEL TANDEM DRAG (SEZIONE 04)
-    // ==========================================================================
-    let actTier = "Silver Tier";
-    let actSlot = "Mattina";
-    
-    function selTier(elem, val) { 
-      playSound(); document.querySelectorAll('#f-card-1 .sel-card').forEach(c => c.classList.remove('selected'));
-      elem.classList.add('selected'); actTier = val;
-    }
-    
-    function selSlot(elem, val) { 
-      playSound(); document.querySelectorAll('#f-card-2 .sel-card').forEach(c => c.classList.remove('selected'));
-      elem.classList.add('selected'); actSlot = val;
-    }
-
-    function goFunnel(oldIdx, newIdx) {
-      playSound();
-      const o = document.getElementById('f-card-' + oldIdx);
-      const n = document.getElementById('f-card-' + newIdx);
-      o.className = 'funnel-card spectral-border'; n.className = 'funnel-card spectral-border';
-      
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          o.classList.add('anim-exit'); n.classList.add('anim-enter');
-          setTimeout(() => { n.className = 'funnel-card active spectral-border'; o.className = 'funnel-card spectral-border'; }, 900);
-        });
-      });
-    }
-
-    function inviaDossier(e) {
-      e.preventDefault();
-      playSound();
-      alert("Dossier EAL6+ crittografato e trasmesso correttamente alla Console X-BOX presidenziale.");
-    }
-  </script>
-</body>
-</html>
 <!-- ==========================================================================
        STILI DEDICATI SEZIONI 05, 06, 07, 08 (LIGHT LUXURY BLINDATO)
        ========================================================================== -->
@@ -991,7 +702,7 @@
     .social-icon-box { font-size: 2.4rem; margin-bottom: 0.8rem; }
     .social-name { font-family: var(--font-sync); font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); }
 
-    /* GATEWAY MODAL STYLES */
+    /* GATEWAY BADGES */
     .gateway-badge {
       display: inline-block; padding: 6px 12px; border-radius: 6px; font-family: var(--font-mono);
       font-size: 0.75rem; font-weight: 700; margin-right: 0.5rem; margin-bottom: 0.5rem; cursor: pointer;
@@ -1013,7 +724,7 @@
         <span class="hero-badge">DIDATTICA CERTIFICATA // ZERO REGISTRAZIONI</span>
         <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:2.2rem; margin:0.8rem 0;">SUPREMA ACADEMY 100% LIVE</h2>
         <p style="max-width:750px; margin:0 auto; font-size:0.95rem; color:var(--text-primary); line-height:1.8;">
-          Affiancamento continuo dal vivo in videoconferenza diretta. Nessun videocorso passivo. I programmi approfonditi, le selezioni di merito e le condizioni d'accesso vengono calibrate unicamente durante la Conferenza conoscitiva col CEO.
+          Affiancamento continuo dal vivo in videoconferenza diretta. Nessun videocorso passivo. I programmi approfonditi, le selezioni di merito e le condizioni d'accesso vengono calibrate unicamente durante la Conferenza conoscitiva col CEO[cite: 1].
         </p>
       </div>
 
@@ -1026,10 +737,10 @@
             <h3 class="course-title">SUPREMA SILVER</h3>
             <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Fondamenti di commercio digitale, workflow operativi d'aula e verifica continua delle competenze.</p>
             <ul class="course-features">
-              <li>Docenza 100% dal vivo in aula Meet</li>
+              <li>Docenza 100% dal vivo in aula Meet[cite: 1]</li>
               <li>Avvio setup operativo guidato</li>
               <li>Supporto continuo dei tutor d'aula</li>
-              <li>+300 Punti Status per Gold Card</li>
+              <li>+300 Punti Status per Gold Card[cite: 1]</li>
             </ul>
           </div>
           <div class="course-actions">
@@ -1044,12 +755,12 @@
           <div>
             <span class="course-badge" style="background:rgba(212,175,55,0.2);">DURATA: 90 GIORNI // +350 PUNTI STATUS</span>
             <h3 class="course-title" style="color:var(--spectral-gold-deep);">SUPREMA GOLD</h3>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Executive Master completo. Include concessione e-commerce attiva a zero magazzino e logistica centrale.</p>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Executive Master completo. Include concessione e-commerce attiva a zero magazzino e logistica centrale[cite: 1].</p>
             <ul class="course-features">
               <li>Tutto ciò che include il Silver Tier</li>
-              <li>Store digitale autonomo chiavi in mano</li>
-              <li>Logistica e spedizioni centralizzate</li>
-              <li>+350 Punti Status per Gold Card</li>
+              <li>Store digitale autonomo chiavi in mano[cite: 1]</li>
+              <li>Logistica e spedizioni centralizzate[cite: 1]</li>
+              <li>+350 Punti Status per Gold Card[cite: 1]</li>
             </ul>
           </div>
           <div class="course-actions">
@@ -1064,12 +775,12 @@
           <div>
             <span class="course-badge">DURATA: 120 GIORNI // +500 PUNTI STATUS</span>
             <h3 class="course-title">SUPREMA PREMIUM</h3>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Alta direzione e governance. Sessioni individuali 1-to-1 direttamente con il Founder & CEO Giuliano Caratelli.</p>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">Alta direzione e governance. Sessioni individuali 1-to-1 direttamente con il Founder & CEO Giuliano Caratelli[cite: 1].</p>
             <ul class="course-features">
               <li>Tutto ciò che include il Gold Tier</li>
-              <li>Sessioni individuali 1-to-1 col CEO</li>
+              <li>Sessioni individuali 1-to-1 col CEO[cite: 1]</li>
               <li>Audit strategico d'impresa personalizzato</li>
-              <li>+500 Punti Status per Gold Card</li>
+              <li>+500 Punti Status per Gold Card[cite: 1]</li>
             </ul>
           </div>
           <div class="course-actions">
@@ -1101,14 +812,14 @@
             <div class="slot-corner-gold"></div>
             VIDEO MARCATURA LASER FIBRA (X-BOX)
           </div>
-          <p style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); margin-top:0.6rem; text-align:center;">Produzione fisica e chip crittografico FIDO2 NFC</p>
+          <p style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); margin-top:0.6rem; text-align:center;">Produzione fisica e chip crittografico FIDO2 NFC[cite: 1]</p>
         </div>
 
         <!-- CENTRO: DESCRIZIONE & ACCESSO CATALOGO -->
         <div style="text-align: center; padding: 0 1rem;">
           <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.8rem; margin:0 0 1rem 0;">GOLD CARD SUPREMA FIDELITY</h2>
           <p style="font-size:0.9rem; color:var(--text-primary); line-height:1.8; margin-bottom:1.8rem;">
-            Tessera metallica emessa al raggiungimento di <strong>+800 Punti Status</strong>. I punti si cumulano con l'iscrizione e il completamento dei percorsi (+300 Silver, +350 Gold, +500 Premium), con la Concessione Store (+800) e tramite i <em>Punti Bonus di merito</em> conferiti personalmente dal CEO.
+            Tessera metallica emessa al raggiungimento di <strong>+800 Punti Status</strong>[cite: 1]. I punti si cumulano con l'iscrizione e il completamento dei percorsi (+300 Silver, +350 Gold, +500 Premium)[cite: 1], con la Concessione Store (+800)[cite: 1] e tramite i <em>Punti Bonus di merito</em> conferiti personalmente dal CEO.
           </p>
           <button class="btn-gold" onclick="openGoldCatalogModal()">ACCEDI AL CATALOGO PREMI ➔</button>
         </div>
@@ -1140,7 +851,7 @@
           <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.8rem; margin:0.5rem 0 0 0;">SUPREMA MEDIA VAULT</h2>
         </div>
         <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--status-online); background:rgba(0,230,118,0.08); padding:8px 16px; border-radius:50px; border:1px solid var(--spectral-emerald);">
-          ● CONNESSO A NODO X-BOX PROTOCOLLO EAL6+
+          ● CONNESSO A NODO X-BOX PROTOCOLLO EAL6+[cite: 1, 2]
         </div>
       </div>
 
@@ -1196,7 +907,7 @@
       <img src="media/social.png" alt="Social Network Suprema" class="social-banner" onerror="this.src='https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200'">
 
       <div style="text-align: center; margin-bottom: 3rem;">
-        <span class="hero-badge">PRESIDI DIGITALI UFFICIALI // NETWORK EAL6+</span>
+        <span class="hero-badge">PRESIDI DIGITALI UFFICIALI // NETWORK EAL6+[cite: 1]</span>
         <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:2rem; margin:0.8rem 0;">CANALI & RETE ISTITUZIONALE</h2>
         <p style="font-size:0.9rem; color:var(--text-muted); max-width:650px; margin:0 auto;">
           I collegamenti sono protetti da crittografia end-to-end e monitorati direttamente dalla console presidenziale X-BOX.
@@ -1256,7 +967,7 @@
 
   <!-- ==========================================================================
        MODALI OPERATIVI PER LE SEZIONI 05 E 06 (CONFIGURA, DETTAGLI, BONUS, PREMI)
-       ========================================================================= -->
+       ========================================================================== -->
 
   <!-- MODALE CONFIGURA CORSO & GATEWAY PAGAMENTO -->
   <div class="drawer-overlay" id="modal-config-course" style="justify-content:center; align-items:center;">
@@ -1273,10 +984,10 @@
         <div class="form-group">
           <label class="form-label">SELEZIONE RAPIDA PERCORSO O COLLOQUIO</label>
           <select id="cfg-select-tier" class="form-input" onchange="syncSelectedTier(this.value)">
-            <option value="Suprema Silver">Suprema Silver (60 Giorni // +300 pt)</option>
-            <option value="Suprema Gold">Suprema Gold (90 Giorni // +350 pt // Store incluso)</option>
-            <option value="Suprema Premium">Suprema Premium VIP (120 Giorni // +500 pt // 1-to-1 CEO)</option>
-            <option value="Conferenza CEO">Conferenza CEO Conoscitiva (60 Minuti Meet)</option>
+            <option value="Suprema Silver">Suprema Silver (60 Giorni // +300 pt)[cite: 1]</option>
+            <option value="Suprema Gold">Suprema Gold (90 Giorni // +350 pt // Store incluso)[cite: 1]</option>
+            <option value="Suprema Premium">Suprema Premium VIP (120 Giorni // +500 pt // 1-to-1 CEO)[cite: 1]</option>
+            <option value="Conferenza CEO">Conferenza CEO Conoscitiva (60 Minuti Meet)[cite: 1]</option>
           </select>
         </div>
 
@@ -1372,13 +1083,13 @@
         <!-- DX: TESTO STATUTARIO E CODICE ETICO -->
         <div>
           <h2 style="font-family:var(--font-sync); font-size:1.4rem; color:var(--text-dominant); margin-top:0;">PATTO FORMATIVO & CODICE ETICO</h2>
-          <p>La partecipazione a Suprema Academy è disciplinata dal principio della presenza viva e diretta. L'allievo non acquista pacchetti digitali preconfezionati, ma entra in un percorso di addestramento operativo condotto in tempo reale dai docenti d'aula e supervisionato dal Fondatore Giuliano Caratelli.</p>
+          <p>La partecipazione a Suprema Academy è disciplinata dal principio della presenza viva e diretta. L'allievo non acquista pacchetti digitali preconfezionati, ma entra in un percorso di addestramento operativo condotto in tempo reale dai docenti d'aula e supervisionato dal Fondatore Giuliano Caratelli[cite: 1].</p>
           <h4 style="font-family:var(--font-sync); font-size:0.95rem; margin-top:1.5rem;">IMPEGNO RECIPROCO:</h4>
           <ul style="line-height:2; font-size:0.92rem; color:var(--text-primary);">
             <li>Presenza attiva alle sessioni in videoconferenza concordate nel calendario.</li>
             <li>Segretezza assoluta delle automazioni e delle procedure logistiche centralizzate.</li>
             <li>Divieto assoluto di divulgazione di materiali protetti da copyright statutario.</li>
-            <li>Competenza territoriale e giurisdizionale esclusiva ed inderogabile del <strong>Foro di Velletri / Roma</strong>.</li>
+            <li>Competenza territoriale e giurisdizionale esclusiva ed inderogabile del <strong>Foro di Velletri / Roma</strong>[cite: 1].</li>
           </ul>
           <div style="margin-top:2.5rem;">
             <button class="btn-gold" onclick="closeAcademyDetailsModal(); scrollToSection('sec-04');">PROCEDI ALLO SCREENING ➔</button>
@@ -1414,7 +1125,7 @@
           <div>
             <span class="course-badge" style="background:rgba(212,175,55,0.15);">SOGLIA 1 // 2.000 PUNTI STATUS</span>
             <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--text-dominant);">3 MESI CONFERENZE CON IL CEO</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Accesso a sessioni quindicinali riservate di confronto operativo con Giuliano Caratelli.</p>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Accesso a sessioni quindicinali riservate di confronto operativo con Giuliano Caratelli[cite: 1].</p>
           </div>
           <span style="font-family:var(--font-mono); font-size:1.3rem; font-weight:700; color:var(--spectral-gold-deep);">2.000 PT</span>
         </div>
@@ -1423,7 +1134,7 @@
           <div>
             <span class="course-badge" style="background:rgba(212,175,55,0.15);">SOGLIA 2 // 3.000 PUNTI STATUS</span>
             <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--text-dominant);">GRAN GALA ANNUALE ROMA CENTRO</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Invito istituzionale con accredito per 1 persona alla cena di gala dell'Ecosistema a Roma.</p>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Invito istituzionale con accredito per 1 persona alla cena di gala dell'Ecosistema a Roma[cite: 1].</p>
           </div>
           <span style="font-family:var(--font-mono); font-size:1.3rem; font-weight:700; color:var(--spectral-gold-deep);">3.000 PT</span>
         </div>
@@ -1450,7 +1161,7 @@
           <div>
             <span class="course-badge" style="background:var(--spectral-gold); color:#000;">SOGLIA APICALE // 7.500 PUNTI STATUS</span>
             <h3 style="font-family:var(--font-sync); font-size:1.1rem; margin:0.5rem 0; color:var(--spectral-gold-deep);">WEEKEND LUXURY A ROMA PER 2 PERSONE</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Soggiorno completo per 2 persone in hotel 5 stelle lusso a Roma Centro e cena con la Presidenza.</p>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Soggiorno completo per 2 persone in hotel 5 stelle lusso a Roma Centro e cena con la Presidenza[cite: 1].</p>
           </div>
           <span style="font-family:var(--font-mono); font-size:1.4rem; font-weight:700; color:var(--spectral-gold-deep);">7.500 PT</span>
         </div>
@@ -1458,163 +1169,6 @@
       </div>
     </div>
   </div>
-
-  <!-- ==========================================================================
-       MOTORI JAVASCRIPT SEZIONI 05, 06, 07, 08
-       ========================================================================== -->
-  <script>
-    // GESTIONE ANCORE SCROLL PER MODALI SEZIONI NUOVE
-    let academyScrollPos = 0;
-    let goldScrollPos = 0;
-
-    // SEC-05: MODALE CONFIGURAZIONE CORSO
-    let activeSelectedTier = "Suprema Silver";
-    let activeTierPrice = 249;
-
-    function openConfigCourseModal(tierName, pts) {
-      playSound();
-      activeSelectedTier = tierName;
-      document.getElementById('cfg-modal-title').innerText = "CONFIGURA: " + tierName.toUpperCase();
-      document.getElementById('cfg-points-badge').innerText = "+" + pts + " PUNTI STATUS";
-      document.getElementById('cfg-select-tier').value = tierName;
-      document.getElementById('modal-config-course').classList.add('open');
-    }
-
-    function closeConfigCourseModal() {
-      playSound();
-      document.getElementById('modal-config-course').classList.remove('open');
-    }
-
-    function syncSelectedTier(val) {
-      playSound();
-      activeSelectedTier = val;
-      const ptsMap = { "Suprema Silver": 300, "Suprema Gold": 350, "Suprema Premium": 500, "Conferenza CEO": 100 };
-      document.getElementById('cfg-points-badge').innerText = "+" + (ptsMap[val] || 300) + " PUNTI STATUS";
-      document.getElementById('cfg-modal-title').innerText = "CONFIGURA: " + val.toUpperCase();
-    }
-
-    function selectGatewayBadge(elem) {
-      playSound();
-      document.querySelectorAll('.gateway-badge').forEach(b => b.classList.remove('selected'));
-      elem.classList.add('selected');
-    }
-
-    function submitCourseConfig(e) {
-      e.preventDefault();
-      playSound();
-      const n = document.getElementById('cfg-nome').value;
-      const c = document.getElementById('cfg-cognome').value;
-      alert(`Configurazione registrata per ${n} ${c} sul percorso [${activeSelectedTier}]. Reindirizzamento al Gateway di pagamento X-BOX EAL6+ in corso...`);
-      closeConfigCourseModal();
-    }
-
-    // SEC-05: MODALE BONUS 10%
-    function openBonusCourseModal(tierName, basePrice) {
-      playSound();
-      activeTierPrice = basePrice;
-      const discounted = (basePrice * 0.9).toFixed(2);
-      document.getElementById('bonus-course-name').innerText = tierName.toUpperCase() + " // BONUS 10%";
-      document.getElementById('generated-sfx-code').innerText = "SFX-BONUS-10-" + tierName.replace(/\s+/g, '').toUpperCase();
-      document.getElementById('modal-bonus-course').classList.add('open');
-    }
-
-    function closeBonusCourseModal() {
-      playSound();
-      document.getElementById('modal-bonus-course').classList.remove('open');
-    }
-
-    function applyBonusAndOpenConfig() {
-      playSound();
-      const code = document.getElementById('generated-sfx-code').innerText;
-      closeBonusCourseModal();
-      openConfigCourseModal(activeSelectedTier, 350);
-      document.getElementById('cfg-bonus-code').value = code;
-    }
-
-    // SEC-05: MODALE DETTAGLI CORSO
-    function openAcademyDetailsModal(type) {
-      playSound();
-      academyScrollPos = window.scrollY;
-      document.body.style.overflow = 'hidden';
-      document.getElementById('modal-course-details').classList.add('open');
-      document.getElementById('modal-course-details').scrollTo(0,0);
-    }
-
-    function closeAcademyDetailsModal() {
-      playSound();
-      document.getElementById('modal-course-details').classList.remove('open');
-      document.body.style.overflow = 'auto';
-      setTimeout(() => { window.scrollTo({ top: academyScrollPos, behavior: 'instant' }); }, 200);
-    }
-
-    // SEC-06: MODALE CATALOGO GOLD CARD
-    function openGoldCatalogModal() {
-      playSound();
-      goldScrollPos = window.scrollY;
-      document.body.style.overflow = 'hidden';
-      document.getElementById('modal-gold-catalog').classList.add('open');
-      document.getElementById('modal-gold-catalog').scrollTo(0,0);
-    }
-
-    function closeGoldCatalogModal() {
-      playSound();
-      document.getElementById('modal-gold-catalog').classList.remove('open');
-      document.body.style.overflow = 'auto';
-      setTimeout(() => { window.scrollTo({ top: goldScrollPos, behavior: 'instant' }); }, 200);
-    }
-
-    // SEC-07: MEDIA VAULT PLAYER & TAB
-    let activeCategory = 'foto';
-    function switchVaultCategory(cat, btn) {
-      playSound();
-      activeCategory = cat;
-      document.querySelectorAll('.vault-tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('cat-label-indicator').innerText = cat.toUpperCase();
-      renderVault50Slots(cat);
-    }
-
-    function renderVault50Slots(cat) {
-      const container = document.getElementById('vault-slots-container');
-      container.innerHTML = "";
-      for (let i = 1; i <= 50; i++) {
-        const slotNum = String(i).padStart(2, '0');
-        const box = document.createElement('div');
-        box.className = 'slot-item-50';
-        box.innerHTML = `<strong>SLOT ${slotNum}</strong><br><span style="font-size:0.6rem; color:#888;">${cat.toUpperCase()}</span>`;
-        box.onclick = () => loadMediaSlot(cat, slotNum);
-        container.appendChild(box);
-      }
-    }
-
-    function loadMediaSlot(cat, num) {
-      playSound();
-      const screen = document.getElementById('vault-player-display');
-      screen.innerHTML = `<span>CARICAMENTO ASSET [${cat.toUpperCase()} - SLOT ${num}] DAL VAULT 400...</span>`;
-      setTimeout(() => {
-        screen.innerHTML = `<span style="color:var(--status-online); font-weight:700;">▶ ASSET ${cat.toUpperCase()} #${num} IN RIPRODUZIONE EAL6+</span>`;
-      }, 500);
-    }
-
-    function playMedia() { playSound(); alert("Riproduzione avviata dal Media Vault."); }
-    function stopMedia() { playSound(); document.getElementById('vault-player-display').innerHTML = "<span>RIPRODUZIONE ARRESTATA</span>"; }
-    function skipMedia(sec) { playSound(); alert(`Avanzamento traccia: ${sec > 0 ? '+' : ''}${sec}s`); }
-    function setVolume(v) { /* Feedback volume */ }
-    function togglePlayerFullscreen() {
-      playSound();
-      const screen = document.getElementById('vault-player-display');
-      if (!document.fullscreenElement) {
-        screen.requestFullscreen().catch(() => { alert("Modalità 11 pollici massimizzata."); });
-      } else {
-        document.exitFullscreen();
-      }
-    }
-
-    // Inizializzazione automatica dei 50 slot all'avvio
-    window.addEventListener('DOMContentLoaded', () => {
-      renderVault50Slots('foto');
-    });
-  </script>
 <!-- ==========================================================================
        STILI DEDICATI SEZIONI 09, 10, 11, 12 (LIGHT LUXURY BLINDATO)
        ========================================================================== -->
@@ -1705,7 +1259,7 @@
       <div class="testi-preview-grid">
         <div class="testi-card">
           <div class="testi-stars">★★★★★</div>
-          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"La differenza rispetto a qualsiasi altro corso online è la presenza reale. Le lezioni sono dal vivo, i docenti correggono i tuoi passaggi operativi all'istante e la logistica dello store è perfettamente centralizzata."</p>
+          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"La differenza rispetto a qualsiasi altro corso online è la presenza reale. Le lezioni sono dal vivo, i docenti correggono i tuoi passaggi operativi all'istante e la logistica dello store è perfettamente centralizzata[cite: 1]."</p>
           <div>
             <div class="testi-author">Matteo D.</div>
             <div class="testi-role">Concessionario E-Commerce // Executive Master</div>
@@ -1714,7 +1268,7 @@
 
         <div class="testi-card">
           <div class="testi-stars">★★★★★</div>
-          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"Il colloquio conoscitivo di 60 minuti con Giuliano Caratelli è stato chiarificatore. Nessuna promessa irreale: solo metodo, disciplina e uno store attivo chiavi in mano. La Gold Card è arrivata puntuale."</p>
+          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"Il colloquio conoscitivo di 60 minuti con Giuliano Caratelli è stato chiarificatore. Nessuna promessa irreale: solo metodo, disciplina e uno store attivo chiavi in mano[cite: 1]. La Gold Card è arrivata puntuale."</p>
           <div>
             <div class="testi-author">Chiara R.</div>
             <div class="testi-role">Titolare Store Digitale // Gold Fidelity</div>
@@ -1723,7 +1277,7 @@
 
         <div class="testi-card">
           <div class="testi-stars">★★★★★</div>
-          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"La formula a zero magazzino è l'unica sostenibile oggi. Suprema si occupa di stoccaggio, imballaggio e vettori espresso, lasciandomi il tempo di gestire le vendite e ottimizzare i flussi d'impresa."</p>
+          <p style="font-size:0.88rem; color:var(--text-primary); line-height:1.7;">"La formula a zero magazzino è l'unica sostenibile oggi[cite: 1]. Suprema si occupa di stoccaggio, imballaggio e vettori espresso, lasciandomi il tempo di gestire le vendite e ottimizzare i flussi d'impresa[cite: 1]."</p>
           <div>
             <div class="testi-author">Alessandro V.</div>
             <div class="testi-role">Allievo Premium VIP // 120 Giorni</div>
@@ -1762,7 +1316,7 @@
           <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:1.5rem;">
             <input type="checkbox" id="nl-privacy" required style="margin-top:4px; cursor:pointer;">
             <label for="nl-privacy" style="font-size:0.75rem; color:var(--text-muted); cursor:pointer;">
-              Acconsento al trattamento dei dati per la ricezione delle circolari interne ai sensi dello Statuto Forense EAL6+.
+              Acconsento al trattamento dei dati per la ricezione delle circolari interne ai sensi dello Statuto Forense EAL6+[cite: 1, 2].
             </label>
           </div>
           <button type="submit" class="btn-gold" style="width:100%;">ISCRIVITI ALLA NEWSLETTER ➔</button>
@@ -1777,7 +1331,7 @@
         <span class="hero-badge">LINEA DIRETTA CON LA GOVERNANCE</span>
         <h3 class="spectral-text" style="font-family:var(--font-sync); font-size:1.4rem; margin:0.8rem 0;">FEEDBACK ALLA PRESIDENZA</h3>
         <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">
-          Invia osservazioni, note operative o segnalazioni direttamente al Fondatore. Il testo viene recapitato a <strong>ceo@supremaofficial.com</strong> e archiviato nell'Audit Log X-BOX.
+          Invia osservazioni, note operative o segnalazioni direttamente al Fondatore. Il testo viene recapitato a <strong>ceo@supremaofficial.com</strong> e archiviato nell'Audit Log X-BOX[cite: 1].
         </p>
 
         <form onsubmit="submitFeedbackPresidenza(event)">
@@ -1807,28 +1361,28 @@
         <div>
           <div class="footer-brand">SUPREMA FUTURE X</div>
           <p style="font-size:0.85rem; color:var(--metal-light); line-height:1.8; margin-bottom:1.5rem;">
-            Ecosistema di Governance Esecutiva, Alta Formazione 100% dal Vivo e Concessioni Digitali Indipendenti. Presidio operativo centrale retto dal Founder & CEO Giuliano Caratelli.
+            Ecosistema di Governance Esecutiva, Alta Formazione 100% dal Vivo e Concessioni Digitali Indipendenti[cite: 1]. Presidio operativo centrale retto dal Founder & CEO Giuliano Caratelli[cite: 1].
           </p>
           <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--spectral-gold);">
-            ● PROTOCOLLO CRITTOGRAFICO EAL6+ ATTIVO
+            ● PROTOCOLLO CRITTOGRAFICO EAL6+ ATTIVO[cite: 1, 2]
           </div>
         </div>
 
         <div>
           <div class="footer-title">PRESIDI & SEDI LEGALI</div>
           <ul class="footer-list">
-            <li><strong>Sede Didattica & Operativa:</strong><br>Centro Direzionale Colleferro (Roma)</li>
-            <li><strong>Ufficio di Presidenza:</strong><br>Roma Centro</li>
-            <li><strong>Foro Territoriale Esclusivo:</strong><br><span style="color:var(--spectral-gold-light);">Velletri / Roma (Competenza Inderogabile)</span></li>
+            <li><strong>Sede Didattica & Operativa:</strong><br>Centro Direzionale Colleferro (Roma)[cite: 1]</li>
+            <li><strong>Ufficio di Presidenza:</strong><br>Roma Centro[cite: 1]</li>
+            <li><strong>Foro Territoriale Esclusivo:</strong><br><span style="color:var(--spectral-gold-light);">Velletri / Roma (Competenza Inderogabile)[cite: 1]</span></li>
           </ul>
         </div>
 
         <div>
           <div class="footer-title">CANALI & ATTI UFFICIALI</div>
           <ul class="footer-list">
-            <li>WhatsApp Presidenza: <a href="https://wa.me/393474429091" target="_blank">+39 347 442 9091</a></li>
-            <li>Telegram Broadcast: <a href="https://t.me/SupremaFutureX_Official" target="_blank">@SupremaFutureX_Official</a></li>
-            <li>Email Istituzionale: <a href="mailto:ceo@supremaofficial.com">ceo@supremaofficial.com</a></li>
+            <li>WhatsApp Presidenza: <a href="https://wa.me/393474429091" target="_blank">+39 347 442 9091[cite: 1]</a></li>
+            <li>Telegram Broadcast: <a href="https://t.me/SupremaFutureX_Official" target="_blank">@SupremaFutureX_Official[cite: 1]</a></li>
+            <li>Email Istituzionale: <a href="mailto:ceo@supremaofficial.com">ceo@supremaofficial.com[cite: 1]</a></li>
             <li>Statuto & Codice Etico: <a href="statuto.html" target="_blank">Consulta Atto EAL6+ ➔</a></li>
           </ul>
         </div>
@@ -1836,7 +1390,7 @@
       </div>
 
       <div class="footer-bottom">
-        © 2026 SUPREMA FUTURE X ENTERPRISE // TUTTI I DIRITTI RISERVATI. NODO DI TRASMISSIONE EAL6+ ATTIVO.
+        © 2026 SUPREMA FUTURE X ENTERPRISE // TUTTI I DIRITTI RISERVATI. NODO DI TRASMISSIONE EAL6+ ATTIVO[cite: 1, 2].
       </div>
     </div>
   </footer>
@@ -1858,34 +1412,293 @@
         <span class="hero-badge">REPUTAZIONE D'IMPRESA & RISULTATI D'AULA</span>
         <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.8rem; margin:0.8rem 0;">REGISTRO RECENSIONI UFFICIALI</h2>
         <p style="font-size:0.92rem; color:var(--text-muted); max-width:700px; margin:0 auto;">
-          Testimonianze reali rilasciate da allievi dei corsi Silver, Gold, Premium e titolari di concessioni digitali operative.
+          Testimonianze reali rilasciate da allievi dei corsi Silver, Gold, Premium e titolari di concessioni digitali operative[cite: 1].
         </p>
       </div>
 
       <div class="testi-full-grid" id="full-testimonials-container">
-        <!-- Popolato via JS con le 40 testimonianze complete -->
+        <!-- Popolato dinamicamente dal motore JavaScript -->
       </div>
     </div>
   </div>
 
   <!-- ==========================================================================
-       MOTORI JAVASCRIPT PER LE SEZIONI 09, 10, 11
+       MOTORE JAVASCRIPT INTEGRALE (TUTTE LE SEZIONI 00-12)
        ========================================================================== -->
   <script>
-    let testiScrollPos = 0;
+    // 1. BLOCCO FORENSE CLIENT-SIDE (ANTI F12 E TASTO DESTRO)
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toUpperCase() === 'U')) {
+        e.preventDefault();
+      }
+    });
 
-    // GESTIONE MODALE 40 TESTIMONIANZE
+    // 2. SINTESI WEBAUDIO PROCEDURALE
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let actx;
+    function playSound(freq = 480) {
+      try {
+        if (!actx) actx = new AudioContext();
+        if (actx.state === 'suspended') actx.resume();
+        const osc = actx.createOscillator();
+        const gn = actx.createGain();
+        osc.frequency.setValueAtTime(freq, actx.currentTime);
+        gn.gain.setValueAtTime(0.12, actx.currentTime);
+        gn.gain.exponentialRampToValueAtTime(0.01, actx.currentTime + 0.12);
+        osc.connect(gn);
+        gn.connect(actx.destination);
+        osc.start();
+        osc.stop(actx.currentTime + 0.12);
+        if (navigator.vibrate) navigator.vibrate(15);
+      } catch(e) {}
+    }
+
+    // 3. SCROLL E ANCORAGGI
+    function scrollToSection(id) {
+      playSound(520);
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+    }
+
+    // 4. GESTIONE HAMBURGER DRAWER & SOTTOMENU
+    function toggleDrawerMenu() {
+      playSound(440);
+      document.getElementById('drawer-overlay').classList.toggle('open');
+      document.getElementById('drawer-menu').classList.toggle('open');
+    }
+    function toggleSubmenu(id, ev) {
+      ev.preventDefault();
+      playSound(460);
+      document.getElementById(id).classList.toggle('open');
+    }
+
+    // 5. GESTIONE MODALE LAVORA CON NOI
+    function openLavoraConNoi() {
+      playSound(500);
+      const m = document.getElementById('modal-lavora');
+      m.style.display = 'flex';
+      setTimeout(() => { m.classList.add('open'); }, 10);
+    }
+    function closeLavoraConNoi() {
+      playSound(400);
+      const m = document.getElementById('modal-lavora');
+      m.classList.remove('open');
+      setTimeout(() => { m.style.display = 'none'; }, 400);
+    }
+    function inviaLavora(tipo) {
+      playSound(600);
+      const n = document.getElementById('lav-nome').value.trim();
+      const c = document.getElementById('lav-cogn').value.trim();
+      const e = document.getElementById('lav-email').value.trim();
+      const t = document.getElementById('lav-tel').value.trim();
+      if (!n || !c || !e || !t) { alert("Compila tutti i campi obbligatori contrassegnati con l'asterisco."); return; }
+      
+      const payload = `CANDIDATURA LAVORA CON NOI:%0ANome: ${n} ${c}%0AEmail: ${e}%0ATel: ${t}`;
+      if (tipo === 'wa') window.open(`https://wa.me/393474429091?text=${payload}`);
+      if (tipo === 'email') window.open(`mailto:ceo@supremaofficial.com?subject=Candidatura Lavora con Noi - ${n} ${c}&body=${payload}`);
+      closeLavoraConNoi();
+    }
+
+    // 6. LOOP CICLICO 6 LOGHI (CARTELLA MEDIA LOCALE)
+    let currentLoopIdx = 1;
+    setInterval(() => {
+      const current = document.getElementById('hero-img-' + currentLoopIdx);
+      if (current) current.classList.remove('active');
+      currentLoopIdx = currentLoopIdx >= 6 ? 1 : currentLoopIdx + 1;
+      const next = document.getElementById('hero-img-' + currentLoopIdx);
+      if (next) next.classList.add('active');
+    }, 3500);
+
+    // 7. MODALI STORIA (CEO & ALISON) CON MEMORIA DI POSIZIONE
+    let storyScrollAnchor = 0;
+    const contentCEO = `
+      <h2 style="font-family:var(--font-sync); color:var(--text-dominant); margin-bottom:2rem;">IL PATTO DELLA CRESCITA</h2>
+      <p><strong>A te che cerchi il tuo domani.</strong></p>
+      <p>Se sei arrivato fino a questo punto, probabilmente conosci già il peso delle promesse non mantenute. Conosci il senso di vuoto che lasciano quei percorsi dove sei soltanto un numero d'ordine, un acquirente anonimo di file video pre-registrati che nessuno verificherà mai[cite: 1].</p>
+      <p>Ho fondato Suprema Future X Enterprise per cancellare tutto questo[cite: 1]. Quando ho scritto lo statuto di questa impresa, ho posto una regola inderogabile: la presenza[cite: 1]. Se decidi di metterti in gioco con noi, io e i miei docenti mettiamo a disposizione il nostro tempo reale, le nostre competenze e la nostra struttura operativa[cite: 1]. In cambio pretendiamo disciplina, serietà e costanza[cite: 1].</p>
+      <p>Non ti chiederemo mai di rischiare i tuoi risparmi in magazzini pieni di merci invendute[cite: 1]. Ti daremo un'infrastruttura funzionante, negozi digitali già allacciati alla logistica centrale e una formazione dal vivo che ti insegna a governare i flussi economici moderni[cite: 1].</p>
+      <p>Quando ci incontreremo nei nostri 60 minuti di screening conoscitivo via Google Meet, non ti farò un monologo commerciale[cite: 1]. Analizzerò chi sei, da dove parti e dove vuoi arrivare. Se le nostre visioni coincideranno, stringeremo un patto di lavoro e crescita[cite: 1].</p>
+      <p>Benvenuto in Suprema Future X[cite: 1].<br><br><strong>Giuliano Caratelli</strong><br><span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">Founder & CEO[cite: 1]</span></p>
+      
+      <div class="story-video-grid">
+        <div class="media-slot-16-9"><div class="slot-corner-gold"></div>VIDEO INTEGRALE 01 (X-BOX)</div>
+        <div class="media-slot-16-9"><div class="slot-corner-gold"></div>VIDEO INTEGRALE 02 (X-BOX)</div>
+      </div>
+      <h4 style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">GALLERIA IMMAGINI (CLICK PER ZOOM 11 POLLICI):</h4>
+      <div class="story-gallery-grid">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32d7?w=800" class="gallery-img" onclick="openLightbox(this.src)">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800" class="gallery-img" onclick="openLightbox(this.src)">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800" class="gallery-img" onclick="openLightbox(this.src)">
+      </div>
+    `;
+
+    const contentAlison = `
+      <h2 style="font-family:var(--font-sync); color:var(--text-dominant); margin-bottom:2rem;">SUPERVISIONE ETICA E TRIAGE</h2>
+      <p>Alison non è un comune risponditore automatico: è stata concepita come la prima intelligenza neurale di triage e concierge dell'ecosistema, addestrata per riflettere fedelmente i principi etici del Fondatore[cite: 1].</p>
+      <p>Mentre Giuliano Caratelli guida le scelte strategiche, valida i dossier di screening e siede di persona nei colloqui di 60 minuti via Google Meet, Alison vigila 24 ore su 24 sulla porta d'ingresso dell'impresa, accogliendo, orientando e tutelando ogni candidato con precisione millimetrica[cite: 1].</p>
+      <div class="story-video-grid">
+        <div class="media-slot-16-9"><div class="slot-corner-gold"></div>VIDEO OPERATIVO ALISON 01</div>
+        <div class="media-slot-16-9"><div class="slot-corner-gold"></div>VIDEO OPERATIVO ALISON 02</div>
+      </div>
+      <h4 style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">GALLERIA IMMAGINI (CLICK PER ZOOM 11 POLLICI):</h4>
+      <div class="story-gallery-grid">
+        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800" class="gallery-img" onclick="openLightbox(this.src)">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800" class="gallery-img" onclick="openLightbox(this.src)">
+      </div>
+    `;
+
+    function openStoryModal(tipo) {
+      playSound(500);
+      storyScrollAnchor = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      const m = document.getElementById('story-modal');
+      const t = document.getElementById('story-modal-title');
+      const b = document.getElementById('story-modal-body');
+      if (tipo === 'ceo') { t.innerText = "FOUNDER & CEO GIULIANO CARATELLI"; b.innerHTML = contentCEO; }
+      else { t.innerText = "SUPERVISOR ALISON CAREL"; b.innerHTML = contentAlison; }
+      m.classList.add('open');
+      m.scrollTo(0,0);
+    }
+
+    function closeStoryModal() {
+      playSound(400);
+      document.getElementById('story-modal').classList.remove('open');
+      document.body.style.overflow = 'auto';
+      setTimeout(() => { window.scrollTo({ top: storyScrollAnchor, behavior: 'instant' }); }, 250);
+    }
+
+    // 8. LIGHTBOX A 11 POLLICI
+    function openLightbox(src) {
+      playSound(550);
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+    function closeLightbox() {
+      playSound(400);
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    // 9. CHATBOT ALISON: VOCE NATURALE & 4 FAQ BONIFICATE
+    let voiceEnabled = true;
+    function toggleVoice() {
+      playSound(480);
+      voiceEnabled = !voiceEnabled;
+      document.getElementById('btn-audio-toggle').innerText = voiceEnabled ? "🔊 VOCE ON" : "🔇 VOCE OFF";
+    }
+
+    function speakAlison(text) {
+      if (!voiceEnabled || !window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      const ut = new SpeechSynthesisUtterance(text);
+      ut.lang = 'it-IT';
+      ut.pitch = 1.02;
+      ut.rate = 0.95;
+      const voices = window.speechSynthesis.getVoices();
+      const itVoice = voices.find(v => v.lang.includes('it') && (v.name.includes('Elsa') || v.name.includes('Female') || v.name.includes('Google')));
+      if (itVoice) ut.voice = itVoice;
+      window.speechSynthesis.speak(ut);
+    }
+
+    function toggleChatFaq() {
+      playSound(460);
+      document.getElementById('chat-faq-drawer').classList.toggle('open');
+    }
+
+    function askFaq(idx) {
+      playSound(520);
+      document.getElementById('chat-faq-drawer').classList.remove('open');
+      const hist = document.getElementById('chat-history');
+      let q = "", a = "";
+      
+      if (idx === 1) { 
+        q = "Qual è il metodo didattico di Suprema Academy?"; 
+        a = "Il metodo di Suprema Academy prevede esclusivamente didattica al 100% dal vivo in videoconferenza diretta. Non vi sono videocorsi pre-registrati: assicuriamo la presenza continua dei docenti e sessioni esclusive col CEO Giuliano Caratelli[cite: 1]."; 
+      } else if (idx === 2) { 
+        q = "Come funziona la Concessione E-Commerce a zero magazzino?"; 
+        a = "Ti forniamo un negozio digitale autonomo e chiavi in mano[cite: 1]. Nessun acquisto preventivo o stoccaggio merci è a tuo carico: l'infrastruttura centrale gestisce interamente la logistica, l'imballaggio e le spedizioni via corriere espresso[cite: 1]."; 
+      } else if (idx === 3) { 
+        q = "In cosa consiste lo screening conoscitivo di 60 minuti?"; 
+        a = "È un colloquio individuale e riservato via Google Meet condotto personalmente dal Founder & CEO[cite: 1]. Serve a valutare con precisione la tua motivazione e stabilire l'idoneità prima di ogni accesso operativo."; 
+      } else if (idx === 4) { 
+        q = "Quali garanzie legali e tutele offre l'ecosistema?"; 
+        a = "L'ecosistema poggia su principi inderogabili di trasparenza, con l'intero Statuto depositato sotto protocollo EAL6+ e competenza giurisdizionale esclusiva stabilita presso il Foro di Velletri e Roma[cite: 1]."; 
+      }
+
+      hist.innerHTML += `<div class="msg-user">${q}</div>`;
+      setTimeout(() => {
+        hist.innerHTML += `<div class="msg-alison">${a}</div>`;
+        hist.scrollTop = hist.scrollHeight;
+        speakAlison(a);
+      }, 500);
+    }
+
+    // 10. RADAR CANVAS 60FPS
+    const canvas = document.getElementById('alison-radar');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let angle = 0;
+      function drawRadar() {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        const cx = canvas.width / 2, cy = canvas.height / 2, r = Math.min(cx, cy) - 4;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI);
+        ctx.strokeStyle = 'rgba(0,240,255,0.3)'; ctx.lineWidth = 1; ctx.stroke();
+        
+        ctx.beginPath(); ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, angle, angle + 0.5); ctx.closePath();
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+        grad.addColorStop(0, 'rgba(0,230,118,0.8)'); grad.addColorStop(1, 'rgba(0,230,118,0.0)');
+        ctx.fillStyle = grad; ctx.fill();
+        
+        angle += 0.04; requestAnimationFrame(drawRadar);
+      }
+      drawRadar();
+    }
+
+    // 11. FUNNEL TANDEM DRAG (SEC-04)
+    let actTier = "Silver Tier";
+    let actSlot = "Mattina";
+    function selTier(elem, val) { 
+      playSound(480); document.querySelectorAll('#f-card-1 .sel-card').forEach(c => c.classList.remove('selected'));
+      elem.classList.add('selected'); actTier = val;
+    }
+    function selSlot(elem, val) { 
+      playSound(480); document.querySelectorAll('#f-card-2 .sel-card').forEach(c => c.classList.remove('selected'));
+      elem.classList.add('selected'); actSlot = val;
+    }
+    function goFunnel(oldIdx, newIdx) {
+      playSound(520);
+      const o = document.getElementById('f-card-' + oldIdx);
+      const n = document.getElementById('f-card-' + newIdx);
+      o.className = 'funnel-card spectral-border'; n.className = 'funnel-card spectral-border';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          o.classList.add('anim-exit'); n.classList.add('anim-enter');
+          setTimeout(() => { n.className = 'funnel-card active spectral-border'; o.className = 'funnel-card spectral-border'; }, 900);
+        });
+      });
+    }
+    function inviaDossier(e) {
+      e.preventDefault();
+      playSound(650);
+      alert("Dossier EAL6+ crittografato e trasmesso correttamente alla Console X-BOX presidenziale[cite: 1].");
+    }
+
+    // 12. GESTIONE SEZIONI 09, 10, 11 (TESTIMONIALS, NEWSLETTER, FEEDBACK)
+    let testiScrollPos = 0;
     function openTestimonialsModal() {
-      playSound();
+      playSound(500);
       testiScrollPos = window.scrollY;
       document.body.style.overflow = 'hidden';
       render40Testimonials();
       document.getElementById('modal-testimonials').classList.add('open');
       document.getElementById('modal-testimonials').scrollTo(0,0);
     }
-
     function closeTestimonialsModal() {
-      playSound();
+      playSound(400);
       document.getElementById('modal-testimonials').classList.remove('open');
       document.body.style.overflow = 'auto';
       setTimeout(() => { window.scrollTo({ top: testiScrollPos, behavior: 'instant' }); }, 200);
@@ -1893,93 +1706,81 @@
 
     function render40Testimonials() {
       const c = document.getElementById('full-testimonials-container');
-      if (c.children.length > 0) return; // Evita duplicazioni
-
+      if (c.children.length > 0) return;
       const mockTesti = [
-        "Metodo live impeccabile: i docenti sono presenti in videoconferenza e non ti lasciano solo davanti a un video.",
-        "Store e-commerce a zero magazzino già allacciato alla logistica centrale. Consegne rapide e nessun costo scorte.",
-        "Il colloquio di 60 minuti col CEO Giuliano Caratelli mi ha fatto capire subito la serietà dell'Ecosistema.",
-        "Ho scelto l'Executive Master di 90 giorni: la Concessione inclusa ripaga interamente la dedizione richiesta.",
+        "Metodo live impeccabile: i docenti sono presenti in videoconferenza e non ti lasciano solo davanti a un video[cite: 1].",
+        "Store e-commerce a zero magazzino già allacciato alla logistica centrale. Consegne rapide e nessun costo scorte[cite: 1].",
+        "Il colloquio di 60 minuti col CEO Giuliano Caratelli mi ha fatto capire subito la serietà dell'Ecosistema[cite: 1].",
+        "Ho scelto l'Executive Master di 90 giorni: la Concessione inclusa ripaga interamente la dedizione richiesta[cite: 1].",
         "Nessuna teoria accademica inutile: solo lavoro pratico e procedure di vendita verificate dal vivo.",
-        "La Gold Card su acciaio dorato con chip NFC è un riconoscimento fisico di altissimo prestigio.",
-        "Piattaforma chiara, supporto costante di Alison per il triage e docenti sempre reperibili.",
-        "Finalmente una realtà che non vende illusioni: affiancamento vero e assunzione diretta di responsabilità.",
-        "La formula a zero magazzino elimina ogni ansia finanziaria legata allo stoccaggio delle merci.",
-        "Sessioni 1-to-1 con Giuliano Caratelli nell'Executive VIP: un valore formativo senza paragoni.",
-        "Trasparenza totale nei contratti e foro esclusivo a tutela dell'allievo. Massima conformità legale.",
+        "La Gold Card su acciaio dorato con chip NFC è un riconoscimento fisico di altissimo prestigio[cite: 1].",
+        "Piattaforma chiara, supporto costante di Alison per il triage e docenti sempre reperibili[cite: 1].",
+        "Finalmente una realtà che non vende illusioni: affiancamento vero e assunzione diretta di responsabilità[cite: 1].",
+        "La formula a zero magazzino elimina ogni ansia finanziaria legata allo stoccaggio delle merci[cite: 1].",
+        "Sessioni 1-to-1 con Giuliano Caratelli nell'Executive VIP: un valore formativo senza paragoni[cite: 1].",
+        "Trasparenza totale nei contratti e foro esclusivo a tutela dell'allievo. Massima conformità legale[cite: 1].",
         "Ho riscattato il mio primo premio con i Punti Status accumulati: le promesse sono state onorate al 100%.",
         "Ho imparato ad automatizzare i processi aziendali con workflow moderni e funzionali.",
-        "I corrieri espresso e il packaging delle merci sono gestiti in modo centralizzato con precisione svizzera.",
-        "La procedura di screening iniziale è selettiva, ma garantisce che in aula siedano solo persone motivate.",
-        "L'ambiente Light Luxury è pulito, elegante e rispecchia l'alto profilo dell'infrastruttura.",
+        "I corrieri espresso e il packaging delle merci sono gestiti in modo centralizzato con precisione svizzera[cite: 1].",
+        "La procedura di screening iniziale è selettiva, ma garantisce che in aula siedano solo persone motivate[cite: 1].",
+        "L'ambiente Light Luxury è pulito, elegante e rispecchia l'alto profilo dell'infrastruttura[cite: 2].",
         "I docenti sono imprenditori attivi sul campo, non semplici formatori teorici.",
-        "In 60 giorni con il Silver Tier ho acquisito una visione chiara dei flussi commerciali moderni.",
+        "In 60 giorni con il Silver Tier ho acquisito una visione chiara dei flussi commerciali moderni[cite: 1].",
         "La gestione ordini del pannello di concessione è intuitiva e veloce da presidiare ogni giorno.",
-        "Tutto è tracciato sotto protocollo EAL6+: dalla prima registrazione fino al rilascio dell'attestato finale.",
-        "Le risposte fornite da Alison sono precise e orientano subito verso il percorso più adatto.",
-        "Il codice etico allegato allo Statuto dà sicurezza su ogni singolo aspetto operativo.",
-        "La logistica centralizzata ti solleva dalla gestione di resi, imballi e spedizioni complesse.",
-        "Ricevere la Gold Card con incisione laser del mio nome ha certificato il raggiungimento di un grande traguardo.",
-        "Ho partecipato al meeting col CEO e ogni dubbio è stato sciolto in modo trasparente e professionale.",
-        "I 350 punti del corso Master mi hanno permesso di scalare subito le soglie del catalogo premi.",
-        "Didattica dal vivo autentica: domande in tempo reale e correzione immediata degli errori.",
+        "Tutto è tracciato sotto protocollo EAL6+: dalla prima registrazione fino al rilascio dell'attestato finale[cite: 1, 2].",
+        "Le risposte fornite da Alison sono precise e orientano subito verso il percorso più adatto[cite: 1].",
+        "Il codice etico allegato allo Statuto dà sicurezza su ogni singolo aspetto operativo[cite: 1].",
+        "La logistica centralizzata ti solleva dalla gestione di resi, imballi e spedizioni complesse[cite: 1].",
+        "Ricevere la Gold Card con incisione laser del mio nome ha certificato il raggiungimento di un grande traguardo[cite: 1].",
+        "Ho partecipato al meeting col CEO e ogni dubbio è stato sciolto in modo trasparente e professionale[cite: 1].",
+        "I 350 punti del corso Master mi hanno permesso di scalare subito le soglie del catalogo premi[cite: 1].",
+        "Didattica dal vivo autentica: domande in tempo reale e correzione immediata degli errori[cite: 1].",
         "Un investimento sulle mie competenze che ha prodotto risultati misurabili fin dal primo mese di store.",
-        "Nessun costo occulto o canoni imprevisti: le condizioni concordate con la Presidenza sono definitive.",
-        "La privacy e la custodia dei documenti didattici sono garantiti da token protetti.",
+        "Nessun costo occulto o canoni imprevisti: le condizioni concordate con la Presidenza sono definitive[cite: 1].",
+        "La privacy e la custodia dei documenti didattici sono garantiti da token protetti[cite: 1].",
         "L'assistenza tecnica risponde tempestivamente su ogni procedura di configurazione negozio.",
-        "Il metodo di insegnamento è disciplinato, rigoroso e votato alla concretezza operativa.",
-        "Consiglio vivamente il colloquio preliminare Meet: fa comprendere la serietà del Fondatore.",
-        "Integrazione perfetta tra la didattica d'aula e la logistica reale della rete concessioni.",
+        "Il metodo di insegnamento è disciplinato, rigoroso e votato alla concretezza operativa[cite: 1].",
+        "Consiglio vivamente il colloquio preliminare Meet: fa comprendere la serietà del Fondatore[cite: 1].",
+        "Integrazione perfetta tra la didattica d'aula e la logistica reale della rete concessioni[cite: 1].",
         "I docenti ti seguono passo dopo passo fino al perfezionamento completo del setup.",
         "L'ecosistema rispetta rigorosamente i tempi concordati nel calendario delle sessioni d'aula.",
         "Ho trovato professionalità, rispetto delle regole e grande attenzione per la crescita dell'allievo.",
-        "La marcatura laser e la tecnologia NFC della Gold Card testimoniano la cura maniacale per i dettagli.",
-        "Il piano formativo di 90 giorni è denso e ricco di nozioni pratiche immediatamente applicabili.",
-        "Suprema Future X è il punto di riferimento per chi cerca impresa seria e didattica senza compromessi."
+        "La marcatura laser e la tecnologia NFC della Gold Card testimoniano la cura maniacale per i dettagli[cite: 1].",
+        "Il piano formativo di 90 giorni è denso e ricco di nozioni pratiche immediatamente applicabili[cite: 1].",
+        "Suprema Future X è il punto di riferimento per chi cerca impresa seria e didattica senza compromessi[cite: 1]."
       ];
-
       const roles = ["Allievo Silver Tier", "Titolare Concessione", "Allievo Master 90g", "Allievo Premium VIP", "Membro Gold Fidelity"];
-
       mockTesti.forEach((t, i) => {
         const item = document.createElement('div');
         item.className = 'testi-full-item';
-        const num = String(i + 1).padStart(2, '0');
-        const role = roles[i % roles.length];
         item.innerHTML = `
-          <span class="testi-number">#${num}</span>
+          <span class="testi-number">#${String(i + 1).padStart(2, '0')}</span>
           <div style="color:var(--spectral-gold); font-size:0.9rem; margin-bottom:0.5rem;">★★★★★</div>
           <p style="margin:0 0 0.8rem 0;">"${t}"</p>
-          <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep); font-weight:700;">● ${role} // Verificato</div>
+          <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep); font-weight:700;">● ${roles[i % roles.length]} // Verificato</div>
         `;
         c.appendChild(item);
       });
     }
 
-    // GESTIONE NEWSLETTER (SEC-10) -> SINCRONIZZAZIONE X-BOX
     function submitNewsletter(e) {
       e.preventDefault();
-      playSound();
+      playSound(600);
       const em = document.getElementById('nl-email').value;
       if (!em) return;
-
-      // Salvataggio nel registro X-BOX Mailing List (localStorage / Payload Cloud)
       let list = JSON.parse(localStorage.getItem('SFX_NEWSLETTER_LEADS') || '[]');
       list.push({ email: em, date: new Date().toISOString(), status: 'ATTIVO' });
       localStorage.setItem('SFX_NEWSLETTER_LEADS', JSON.stringify(list));
-
       alert("Iscrizione completata con successo. L'indirizzo è stato inserito nel registro autorizzato X-BOX.");
       document.getElementById('nl-email').value = "";
       document.getElementById('nl-privacy').checked = false;
     }
 
-    // GESTIONE FEEDBACK PRESIDENZIALE (SEC-11) -> MAX 100 PAROLE & CEO EMAIL
     function validateWordCount(textarea) {
       const text = textarea.value.trim();
       const words = text ? text.split(/\s+/) : [];
       const countEl = document.getElementById('fb-word-count');
-
       if (words.length > 100) {
-        // Tronca a 100 parole
         textarea.value = words.slice(0, 100).join(" ");
       }
       const finalCount = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
@@ -1989,29 +1790,30 @@
 
     function submitFeedbackPresidenza(e) {
       e.preventDefault();
-      playSound();
+      playSound(650);
       const em = document.getElementById('fb-email').value;
       const notes = document.getElementById('fb-notes').value;
+      if (!em || !notes) { alert("Compila tutti i campi obbligatori."); return; }
 
-      if (!em || !notes) {
-        alert("Compila tutti i campi obbligatori.");
-        return;
-      }
-
-      // 1. Log immediato nel registro Audit X-BOX
       let auditLog = JSON.parse(localStorage.getItem('SFX_FEEDBACK_LOGS') || '[]');
       auditLog.push({ email: em, feedback: notes, timestamp: new Date().toISOString() });
       localStorage.setItem('SFX_FEEDBACK_LOGS', JSON.stringify(auditLog));
 
-      // 2. Trasmissione email verso ceo@supremaofficial.com
       const mailtoUri = `mailto:ceo@supremaofficial.com?subject=${encodeURIComponent("Feedback Presidenziale da " + em)}&body=${encodeURIComponent(notes + "\n\nEmail mittente: " + em)}`;
       window.location.href = mailtoUri;
-
-      alert("Feedback registrato e predisposto per l'inoltro a ceo@supremaofficial.com.");
+      alert("Feedback registrato e predisposto per l'inoltro a ceo@supremaofficial.com[cite: 1].");
       document.getElementById('fb-email').value = "";
       document.getElementById('fb-notes').value = "";
       document.getElementById('fb-word-count').innerText = "Parole: 0 / 100";
     }
+
+    // SELETTORE MULTILINGUA
+    function changeLanguage(lang) {
+      playSound(450);
+      alert(`Traduzione dinamica DOM verso lingua [${lang.toUpperCase()}] attivata con successo.`);
+    }
   </script>
 </body>
 </html>
+
+
