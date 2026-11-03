@@ -1,53 +1,111 @@
-/* ========================================================================== */
-/* SUPREMA FUTURE X ENTERPRISE // DESIGN SYSTEM MONOLITICO                    */
-/* File: stile-globale.css                                                    */
-/* Governance: Founder & CEO Giuliano Caratelli // Anno Operativo 2026        */
-/* Protocollo Visivo: Luxury Enterprise / EAL6+ Shield                        */
-/* ========================================================================== */
+/* ==========================================================================
+   SUPREMA FUTURE X ENTERPRISE // MONOLITHIC GLOBAL STYLESHEET
+   File: assets/css/stile-globale.css
+   Versione: 2026.5.0 - EAL6+ Forense // Production Release
+   Governance: Founder & CEO Giuliano Caratelli
+   Architettura: Pure Light Luxury & Spectral Liquid Metals (Zero Ossidiana)
+   Ottimizzazione Viewport: Display 13" Pollici Nativo + Multi-Device Responsive
+   ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@400;700;800&display=swap');
+/* ==========================================================================
+   1. IMPORTAZIONE FONT & ENCODING
+   ========================================================================== */
+@charset "UTF-8";
 
-/* -------------------------------------------------------------------------- */
-/* 1. DESIGN TOKENS & VARIABILI GLOBALI                                       */
-/* -------------------------------------------------------------------------- */
+/* ==========================================================================
+   2. TOKEN CROMATICI, VARIABILI ARCHITETTONICHE & GEOMETRICHE
+   ========================================================================== */
 :root {
-  /* Tavolozza Cromatica Primaria */
-  --bg-pearl: #F9F6F0;
-  --bg-pearl-warm: #F4EFE6;
-  --bg-silver: #EFE9E0;
-  --bg-silver-metallic: #DFD7CC;
-  --bg-iron-deep: #2B303A;
-  --bg-dark: #090A0E;
-  --bg-panel: #11141C;
+  /* Basi Piane, Cristalli e Superfici Satinate (Zero Scuri) */
+  --bg-pearl-satin: #F6F2EB;
+  --bg-pearl-light: #FAF8F5;
+  --bg-pearl-pure: #FFFFFF;
+  --bg-pearl-translucent: rgba(246, 242, 235, 0.88);
+  --bg-glass-card: rgba(250, 248, 245, 0.84);
+  --bg-glass-card-hover: rgba(255, 255, 255, 0.96);
+  --bg-glass-sub: rgba(242, 238, 230, 0.78);
+  --bg-glass-input: rgba(255, 255, 255, 0.9);
+  --bg-modal-overlay: rgba(246, 242, 235, 0.75);
 
-  /* Accenti Metallici e Luci Tecnologiche */
-  --gold-primary: #D4AF37;
-  --gold-aged: #B8860B;
-  --gold-sheen: #FFF2A8;
-  --cyan-neon: #00F0FF;
-  --cyan-deep: #0099A8;
-  --blue-deep: #0B192C;
-  --laser-green: #00E676;
-  --laser-green-glow: rgba(0, 230, 118, 0.45);
+  /* Scocche e Telai in Metallo Profondo */
+  --metal-frame: #4A5260;
+  --metal-edge: #7A8494;
+  --metal-light: #D1D5DB;
+  --metal-dark: #2D333E;
+  --metal-reflect: #A3ABB8;
+  --metal-shadow: rgba(74, 82, 96, 0.15);
+  --metal-shadow-deep: rgba(74, 82, 96, 0.28);
+  --metal-border-subtle: rgba(74, 82, 96, 0.12);
 
-  /* Indicatori di Telemetria */
-  --status-green: #00E676;
-  --status-amber: #FFBF00;
-  --status-red: #FF3B30;
+  /* Flusso Spettrale Continuo (Laser Seam Liquid Metals) */
+  --spectral-cyan: #00F0FF;
+  --spectral-aqua: #00E5C9;
+  --spectral-emerald: #00E676;
+  --spectral-gold: #D4AF37;
+  --spectral-gold-deep: #B8860B;
+  --spectral-gold-light: #F4DF8E;
+  --spectral-blue: #1E40AF;
+  --spectral-blue-deep: #0B192C;
 
-  /* Tipografia Ufficiale */
+  /* Indicatori di Stato Telemetrico EAL6+ */
+  --status-online: #00E676;
+  --status-standby: #FFBF00;
+  --status-alert: #FF3B30;
+  --status-info: #00F0FF;
+
+  /* Tipografia ad Alto Contrasto */
+  --text-dominant: #0B192C;
+  --text-primary: #1E293B;
+  --text-muted: #5A6270;
+  --text-light: #7E8794;
+  --text-accent: #8C6D23;
+  --text-inverse: #FFFFFF;
+
+  /* Font Families Ufficiali */
+  --font-mono: 'JetBrains Mono', monospace;
   --font-sync: 'Syncopate', sans-serif;
   --font-mont: 'Montserrat', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
 
-  /* Coordinate per lo Specular Glare (gestite da JS) */
-  --mx: 50%;
-  --my: 50%;
+  /* Raggi di Curvatura Ovale Istituzionali */
+  --radius-oval-large: 64px / 48px;
+  --radius-oval-medium: 48px / 36px;
+  --radius-oval-small: 36px / 28px;
+  --radius-pill: 50px;
+  --radius-card: 24px;
+  --radius-inner: 16px;
+  --radius-input: 12px;
+
+  /* Ombreggiature Calcolate per Sfondi Chiari */
+  --shadow-diffuse: 0 25px 60px rgba(74, 82, 96, 0.12);
+  --shadow-hover: 0 35px 80px rgba(74, 82, 96, 0.20);
+  --shadow-gold: 0 20px 50px rgba(212, 175, 55, 0.25);
+  --shadow-cyan: 0 15px 35px rgba(0, 240, 255, 0.25);
+  --shadow-subtle: 0 10px 25px rgba(74, 82, 96, 0.08);
+  --shadow-inner-glow: inset 0 0 15px rgba(255, 255, 255, 0.8);
+
+  /* Curve d'Inerzia e Transizioni */
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-fast: 0.2s ease-out;
+  --transition-tandem: 0.9s cubic-bezier(0.2, 0.8, 0.25, 1);
 }
 
-/* -------------------------------------------------------------------------- */
-/* 2. RESET DI BASE & CONTROLLO ANTI-SFARFALLIO (GPU ACCELERATED)            */
-/* -------------------------------------------------------------------------- */
+/* ==========================================================================
+   3. SHIELD FORENSE DI PROTEZIONE LATO CLIENT & ANTI-STAMPA
+   ========================================================================== */
+@media print {
+  html, body {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
+/* ==========================================================================
+   4. RESET, BOX-SIZING & NORMALIZZAZIONE
+   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -59,1782 +117,1171 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  background-color: var(--bg-dark);
+  background-color: var(--bg-pearl-satin);
+  text-rendering: optimizeLegibility;
+  height: 100%;
 }
 
 body {
-  width: 100%;
-  min-height: 100vh;
-  background-color: var(--bg-pearl);
-  color: var(--blue-deep);
+  background-color: var(--bg-pearl-satin);
+  color: var(--text-dominant);
   font-family: var(--font-mont);
-  line-height: 1.7;
   overflow-x: hidden;
-  position: relative;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 3. ONDA DINAMICA VERDE FLUORESCENTE // SHADOW WAVE LOOP                   */
-/* -------------------------------------------------------------------------- */
-.sfx-laser-ambient-wave {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 280px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 230, 118, 0.03) 30%,
-    var(--laser-green-glow) 50%,
-    rgba(0, 230, 118, 0.03) 70%,
-    transparent 100%
-  );
-  filter: blur(45px);
-  pointer-events: none;
-  z-index: 5;
-  mix-blend-mode: overlay;
-  animation: sfxLaserWaveLoop 14s ease-in-out infinite alternate;
-}
-
-@keyframes sfxLaserWaveLoop {
-  0% {
-    left: -200px;
-    opacity: 0.2;
-    transform: skewX(-8deg);
-  }
-  50% {
-    opacity: 0.7;
-    transform: skewX(6deg);
-  }
-  100% {
-    left: calc(100vw + 200px);
-    opacity: 0.2;
-    transform: skewX(-8deg);
-  }
-}
-
-/* Luce Zenitale Superiore */
-.sfx-zenith-ray {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90vw;
-  height: 550px;
-  background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.14) 0%, rgba(0, 240, 255, 0.05) 45%, transparent 75%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 4. GEOMETRIA OVALE E BORDI LUMINOSI A CONTRASTO                           */
-/* -------------------------------------------------------------------------- */
-.sfx-oval-section {
-  position: relative;
-  border-radius: 48px;
-  background: linear-gradient(135deg, var(--bg-pearl) 0%, var(--bg-silver) 100%);
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  box-shadow: 
-    0 15px 40px rgba(43, 48, 58, 0.08),
-    0 0 0 1px rgba(212, 175, 55, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  padding: 3.5rem;
-  margin: 2.5rem auto;
-  max-width: 1360px;
-  overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-}
-
-.sfx-oval-section:hover {
-  box-shadow: 
-    0 25px 60px rgba(43, 48, 58, 0.14),
-    0 0 25px rgba(0, 240, 255, 0.25),
-    0 0 0 1px var(--gold-primary);
-}
-
-/* Bordo Profilato Grigio Ferro Opaco per Profondità */
-.sfx-oval-frame-dark {
-  border-radius: 40px;
-  background: var(--bg-dark);
-  color: #FFF;
-  border: 1px solid var(--bg-iron-deep);
-  box-shadow: 
-    inset 0 0 35px rgba(0, 0, 0, 0.8),
-    0 20px 45px rgba(9, 10, 14, 0.6);
-  padding: 2.8rem;
-  position: relative;
-}
-
-/* Tipografia ad Alto Contrasto (Contorno Nero-Oro) */
-.sfx-contrast-heading {
-  font-family: var(--font-sync);
-  font-weight: 800;
-  color: var(--blue-deep);
-  text-shadow: 
-    0 1px 1px rgba(255, 255, 255, 0.9),
-    0 0 2px var(--gold-primary),
-    0 2px 4px rgba(9, 10, 14, 0.25);
-  letter-spacing: 1.5px;
-}
-
-.sfx-contrast-text-light {
-  color: #FFFFFF;
-  text-shadow: 
-    0 1px 2px #000000,
-    0 0 1px var(--gold-aged);
-}
-
-/* -------------------------------------------------------------------------- */
-/* 5. OTTIMIZZAZIONE VIEWPORT 13 POLLICI (16:10 ABOVE THE FOLD)               */
-/* -------------------------------------------------------------------------- */
-.sfx-viewport-13 {
-  width: 100%;
-  min-height: calc(100vh - 48px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1.5rem 2.5rem 2.5rem;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-}
-
-@media (min-width: 1200px) and (max-height: 900px) {
-  .sfx-viewport-13 {
-    height: 100vh;
-    padding: 1rem 2rem 1.5rem;
-  }
-  .sfx-hero-title-main {
-    font-size: 2.5rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  .sfx-logo-loop-container {
-    width: 120px !important;
-    height: 120px !important;
-  }
-}
-
-/* -------------------------------------------------------------------------- */
-/* 6. FAZIONE 00 // TOP BAR FORENSE EAL6+ & GATEWAY 3-TAP                     */
-/* -------------------------------------------------------------------------- */
-.sfx-topbar-forense {
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 48px;
-  background: var(--bg-dark);
-  color: #FFF;
-  border-bottom: 2px solid var(--gold-primary);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.sfx-topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.sfx-node-pulse {
-  width: 8px;
-  height: 8px;
-  background-color: var(--status-green);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--status-green);
-  animation: sfxPulseLed 1s infinite alternate ease-in-out;
-}
-
-@keyframes sfxPulseLed {
-  from { opacity: 0.4; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1.2); box-shadow: 0 0 14px var(--status-green); }
-}
-
-.sfx-topbar-brand {
-  cursor: pointer;
+  min-height: 100vh;
+  line-height: 1.6;
   user-select: none;
-  font-family: var(--font-sync);
-  font-weight: 700;
-  color: var(--gold-primary);
-  letter-spacing: 2px;
-  transition: transform 0.15s ease, filter 0.2s ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
-.sfx-topbar-brand:active {
-  transform: scale(0.95);
-  filter: brightness(1.3);
-}
-
-.sfx-topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.sfx-clock-box {
-  background: rgba(0, 240, 255, 0.07);
-  border: 1px solid rgba(0, 240, 255, 0.3);
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  color: var(--cyan-neon);
-  letter-spacing: 1px;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 7. HERO: ROTATING LOGO FRAME & TITOLO MONOLINEA                            */
-/* -------------------------------------------------------------------------- */
-.sfx-hero-head {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.sfx-logo-loop-container {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 1rem;
-  border-radius: 50%;
-  padding: 6px;
-  background: linear-gradient(135deg, var(--gold-primary), var(--cyan-neon), var(--gold-aged));
-  box-shadow: 
-    0 0 25px rgba(212, 175, 55, 0.35),
-    0 10px 30px rgba(0, 0, 0, 0.15);
-  position: relative;
-  overflow: hidden;
-}
-
-.sfx-logo-loop-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: var(--bg-dark);
-  position: relative;
-  overflow: hidden;
-}
-
-.sfx-logo-frame-item {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.1);
-  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-}
-
-.sfx-logo-frame-item.active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.sfx-hero-title-main {
-  font-family: var(--font-sync);
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 800;
-  color: var(--blue-deep);
-  letter-spacing: 3px;
-  white-space: nowrap;
-  margin-bottom: 0.4rem;
-  background: linear-gradient(135deg, var(--blue-deep) 0%, var(--gold-aged) 50%, var(--gold-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.sfx-hero-subtitle-main {
-  font-family: var(--font-sync);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  color: var(--gold-aged);
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 8. BARRA DI STATO ORIZZONTALE DA PARTE A PARTE                            */
-/* -------------------------------------------------------------------------- */
-.sfx-status-strip-bar {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  background: rgba(11, 25, 44, 0.96);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(212, 175, 55, 0.4);
-  border-bottom: 2px solid var(--gold-primary);
-  padding: 0.75rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  position: relative;
-  z-index: 100;
-}
-
-.sfx-strip-group {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-/* Bottone Hamburger con Icona */
-.sfx-btn-hamburger {
-  background: transparent;
-  border: 1px solid var(--gold-primary);
-  color: var(--gold-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-family: var(--font-sync);
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  transition: all 0.3s ease;
-}
-
-.sfx-btn-hamburger:hover {
-  background: var(--gold-primary);
-  color: var(--bg-dark);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-}
-
-/* Pulsante Diretto Chatbot Alison nella Barra */
-.sfx-btn-strip-alison {
-  background: rgba(0, 240, 255, 0.12);
-  border: 1px solid var(--cyan-neon);
-  color: var(--cyan-neon);
-  padding: 0.5rem 1.1rem;
-  border-radius: 8px;
-  font-family: var(--font-sync);
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.sfx-btn-strip-alison:hover {
-  background: var(--cyan-neon);
-  color: var(--bg-dark);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
-}
-
-/* Selettore Lingue 11 Nazionalità */
-.sfx-lang-dropdown {
-  position: relative;
-}
-
-.sfx-lang-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #FFF;
-  padding: 0.5rem 0.9rem;
-  border-radius: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.sfx-lang-menu {
-  position: absolute;
-  top: 120%;
-  left: 0;
-  background: var(--bg-dark);
-  border: 1px solid var(--gold-primary);
-  border-radius: 10px;
-  padding: 0.5rem 0;
-  display: none;
-  flex-direction: column;
-  min-width: 140px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-}
-
-.sfx-lang-menu.active {
-  display: flex;
-}
-
-.sfx-lang-opt {
-  padding: 0.4rem 1rem;
-  color: #FFF;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.sfx-lang-opt:hover {
-  background: rgba(212, 175, 55, 0.2);
-  color: var(--gold-primary);
-}
-
-/* Modulo Chi Siamo / Storie */
-.sfx-btn-chisiamo {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #FFF;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-family: var(--font-sync);
-  font-size: 0.72rem;
-  cursor: pointer;
-}
-
-.sfx-btn-chisiamo:hover {
-  border-color: var(--gold-primary);
-  color: var(--gold-primary);
-}
-
-/* Telemetria e Contatore Live */
-.sfx-strip-counter {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #FFF;
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.sfx-counter-badge {
-  color: var(--status-green);
-  font-weight: 700;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 9. PANNELLO HAMBURGER MASTER (LE 14 SEZIONI COLORATE // AUTO-CLOSE 15S)     */
-/* -------------------------------------------------------------------------- */
-.sfx-hamburger-panel {
-  position: fixed;
-  top: 0;
-  left: -420px;
-  width: 380px;
-  height: 100vh;
-  background: var(--bg-dark);
-  border-right: 2px solid var(--gold-primary);
-  padding: 2.5rem 2rem;
-  box-shadow: 20px 0 60px rgba(0, 0, 0, 0.8);
-  z-index: 2000;
-  transition: left 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sfx-hamburger-panel.active {
-  left: 0;
-}
-
-.sfx-hamburger-close {
-  align-self: flex-end;
-  background: transparent;
-  border: none;
-  color: #FFF;
-  font-size: 1.4rem;
-  cursor: pointer;
-  font-family: var(--font-sync);
-}
-
-.sfx-nav-list {
-  list-style: none;
-  margin: 1.5rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-
-.sfx-nav-item {
-  font-family: var(--font-sync);
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.6rem 0.8rem;
-  border-radius: 6px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.sfx-nav-item:hover {
-  transform: translateX(8px);
-  background: #FFFFFF;
-  color: #090A0E !important;
-}
-
-/* Assegnazione dei singoli colori ufficiali per le 14 sezioni */
-.sfx-nav-item:nth-child(1)  { color: var(--gold-primary); }
-.sfx-nav-item:nth-child(2)  { color: var(--cyan-neon); }
-.sfx-nav-item:nth-child(3)  { color: var(--gold-aged); }
-.sfx-nav-item:nth-child(4)  { color: var(--cyan-deep); }
-.sfx-nav-item:nth-child(5)  { color: var(--laser-green); }
-.sfx-nav-item:nth-child(6)  { color: #E0E7FF; }
-.sfx-nav-item:nth-child(7)  { color: var(--gold-primary); }
-.sfx-nav-item:nth-child(8)  { color: var(--cyan-neon); }
-.sfx-nav-item:nth-child(9)  { color: var(--status-amber); }
-.sfx-nav-item:nth-child(10) { color: #FCA5A5; }
-.sfx-nav-item:nth-child(11) { color: var(--laser-green); }
-.sfx-nav-item:nth-child(12) { color: var(--cyan-deep); }
-.sfx-nav-item:nth-child(13) { color: var(--gold-aged); }
-.sfx-nav-item:nth-child(14) { color: #E2E8F0; }
-
-.sfx-menu-timer-bar {
-  width: 100%;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-.sfx-menu-timer-progress {
-  height: 100%;
-  width: 100%;
-  background: var(--gold-primary);
-  transform-origin: left;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 10. FAZIONE 02, 03 & 04 // LAYOUT OVALE A TRE CAMPI                       */
-/* -------------------------------------------------------------------------- */
-.sfx-triad-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr 0.7fr;
-  gap: 2rem;
-  align-items: center;
-}
-
-.sfx-video-frame-169 {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 24px;
-  border: 1px solid var(--gold-primary);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  background: #000;
-  position: relative;
-}
-
-.sfx-video-frame-169 video, .sfx-video-frame-169 iframe {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.sfx-motto-badge {
-  font-family: var(--font-sync);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--cyan-neon);
-  background: rgba(0, 240, 255, 0.08);
-  border: 1px solid var(--cyan-deep);
-  padding: 0.4rem 1rem;
-  border-radius: 50px;
-  display: inline-block;
-  margin-bottom: 1rem;
-}
-
-.sfx-triad-center h2 {
-  font-family: var(--font-sync);
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #FFF;
-  margin-bottom: 0.8rem;
-}
-
-.sfx-triad-center p {
-  font-size: 0.95rem;
-  color: #CBD5E1;
-  line-height: 1.8;
-  margin-bottom: 1rem;
-}
-
-.sfx-btn-action-oval {
-  width: 100%;
-  padding: 1.1rem 1.5rem;
-  background: linear-gradient(135deg, var(--gold-primary), var(--gold-aged));
-  color: var(--bg-dark);
-  border: none;
-  border-radius: 50px;
-  font-family: var(--font-sync);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  text-decoration: none;
-}
-
-.sfx-btn-action-oval:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.6);
-  color: #000;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 11. SOTTOMENU A LIBRO 3D (FOLIO FOLD) & VAPORIZZAZIONE (VAPOR SHIFT)       */
-/* -------------------------------------------------------------------------- */
-.sfx-book-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(9, 10, 14, 0.92);
-  backdrop-filter: blur(18px);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 3000;
-  perspective: 1800px;
-}
-
-.sfx-book-overlay.active {
-  display: flex;
-}
-
-.sfx-book-stage {
-  width: 92%;
-  max-width: 1100px;
-  height: 82vh;
-  background: #FFF;
-  border-radius: 24px;
-  border: 2px solid var(--gold-primary);
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  transform-origin: left center;
-  transform: rotateY(90deg);
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-  position: relative;
-}
-
-.sfx-book-overlay.active .sfx-book-stage {
-  transform: rotateY(0deg);
-}
-
-.sfx-book-left {
-  background: var(--bg-dark);
-  color: #FFF;
-  padding: 3rem;
-  border-right: 1px solid var(--gold-aged);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow-y: auto;
-}
-
-.sfx-book-right {
-  background: var(--bg-pearl);
-  color: var(--blue-deep);
-  padding: 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow-y: auto;
-}
-
-.sfx-book-close {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.5rem;
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  color: var(--blue-deep);
-  cursor: pointer;
-  font-family: var(--font-sync);
-  z-index: 10;
-}
-
-/* Griglia per le 10 Foto d'Archivio nel Sottomenu */
-.sfx-gallery-grid-10 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
-  margin: 1.5rem 0;
-}
-
-.sfx-gallery-thumb {
-  width: 100%;
-  height: 90px;
-  border-radius: 10px;
-  object-fit: cover;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.sfx-gallery-thumb:hover {
-  transform: scale(1.05);
-  border-color: var(--cyan-neon);
-}
-
-/* Classe di Vaporizzazione per Scheda Uscente */
-.sfx-card-vaporize {
-  opacity: 0 !important;
-  filter: blur(14px) brightness(1.3) !important;
-  transform: scale(0.94) translateX(-50px) !important;
-  transition: all 450ms cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* -------------------------------------------------------------------------- */
-/* 12. CHATBOT ALISON: VOCE, RADAR & FAQ DIAL (PARTENZA MUTA)                */
-/* -------------------------------------------------------------------------- */
-.sfx-alison-audio-state {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  background: rgba(255, 59, 48, 0.12);
-  border: 1px solid var(--status-red);
-  color: #FFA4A0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-.sfx-alison-audio-state.unmuted {
-  background: rgba(0, 230, 118, 0.12);
-  border-color: var(--status-green);
-  color: var(--status-green);
-}
-
-/* -------------------------------------------------------------------------- */
-/* 13. PULSANTI FLOTTANTI PERSISTENTI (FIXED DOCKED AL FONDO)                 */
-/* -------------------------------------------------------------------------- */
-.sfx-floating-cta-right {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 990;
-  background: linear-gradient(135deg, var(--gold-primary), var(--gold-aged));
-  color: var(--bg-dark);
-  border: 2px solid var(--cyan-neon);
-  border-radius: 50px;
-  padding: 0.9rem 1.6rem;
-  font-family: var(--font-sync);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-decoration: none;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(0, 240, 255, 0.4);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.sfx-floating-cta-right:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 
-    0 15px 40px rgba(0, 0, 0, 0.7),
-    0 0 30px var(--cyan-neon);
-}
-
-.sfx-floating-alison-left {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  z-index: 990;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: var(--bg-dark);
-  border: 2px solid var(--cyan-neon);
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(0, 240, 255, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-  animation: sfxAlisonPulse 2.5s infinite ease-in-out;
-}
-
-.sfx-floating-alison-left:hover {
-  transform: scale(1.1);
-  border-color: var(--gold-primary);
-}
-
-@keyframes sfxAlisonPulse {
-  0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
-  50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.7); }
-}
-
-/* -------------------------------------------------------------------------- */
-/* 14. MEDIA QUERIES RESPONSIVE (MOBILE & TABLET)                             */
-/* -------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .sfx-triad-layout {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .sfx-oval-section {
-    padding: 2.2rem 1.5rem;
-    border-radius: 32px;
-  }
-  .sfx-status-strip-bar {
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  .sfx-book-stage {
-    grid-template-columns: 1fr;
-    max-height: 85vh;
-  }
-  .sfx-book-left {
-    border-right: none;
-    border-bottom: 1px solid var(--gold-aged);
-  }
-  .sfx-hero-title-main {
-    font-size: 2.2rem;
-    white-space: normal;
-  }
-}
-/* ========================================================================== */
-/* AGGIUNTA MACRO-DECK 03 // TANDEM SLIDER, GOLD CARD 3D & GATEWAY MULTI-CONTO */
-/* ========================================================================== */
-
-/* --- SELETTORE A 3 TAB METALLICI SUPERIORE --- */
-.sfx-tandem-nav-bar {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 2.5rem;
-  position: relative;
-  z-index: 10;
-}
-
-.sfx-tandem-tab-btn {
-  background: rgba(11, 25, 44, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  color: var(--bg-silver);
-  padding: 0.9rem 1.8rem;
-  border-radius: 50px;
-  font-family: var(--font-sync);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.sfx-tandem-tab-btn span.tab-num {
-  font-family: var(--font-mono);
-  color: var(--cyan-neon);
-  font-size: 0.75rem;
-}
-
-.sfx-tandem-tab-btn:hover {
-  border-color: var(--gold-primary);
-  color: #FFF;
-  transform: translateY(-2px);
-}
-
-.sfx-tandem-tab-btn.active {
-  background: var(--bg-dark);
-  border-color: var(--gold-primary);
-  color: var(--gold-primary);
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.2);
-}
-
-/* --- TANDEM STAGE CONTAINER --- */
-.sfx-tandem-stage {
-  position: relative;
-  width: 100%;
-  min-height: 580px;
-  perspective: 1600px;
-  overflow: hidden;
-}
-
-.sfx-tandem-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(100px) scale(0.96);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease, visibility 0.45s ease;
-  pointer-events: none;
-}
-
-.sfx-tandem-card.active {
-  position: relative;
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0) scale(1);
-  pointer-events: all;
-  z-index: 5;
-}
-
-/* Linea laser attrito (Friction Seam Light) */
-.sfx-friction-seam {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, transparent, var(--cyan-neon), var(--gold-primary), transparent);
-  box-shadow: 0 0 20px var(--cyan-neon);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 20;
-  transition: opacity 0.3s;
-}
-
-/* --- GRIGLIA ACADEMY (3 TIERS) --- */
-.sfx-academy-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-.sfx-tier-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: 36px;
-  padding: 2.8rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 20px 45px rgba(11, 25, 44, 0.05);
-  transition: all 0.35s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.sfx-tier-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--gold-primary);
-  box-shadow: 0 25px 60px rgba(212, 175, 55, 0.18);
-}
-
-.sfx-tier-card.featured {
-  background: linear-gradient(180deg, #FFFFFF 0%, rgba(212, 175, 55, 0.04) 100%);
-  border: 2px solid var(--gold-primary);
-}
-
-.sfx-tier-badge {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--cyan-deep);
-  background: rgba(0, 240, 255, 0.08);
-  border: 1px solid rgba(0, 153, 168, 0.3);
-  padding: 0.2rem 0.6rem;
-  border-radius: 50px;
-  font-weight: 700;
-}
-
-/* --- SIMULATORE 3D SUPREMA GOLD CARD --- */
-.sfx-card-sim-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem 1rem;
-  perspective: 1200px;
-}
-
-.sfx-gold-card-3d {
-  width: 440px;
-  height: 270px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #FFF2A8 0%, #D4AF37 40%, #B8860B 75%, #FFF2A8 100%);
-  box-shadow: 
-    0 25px 60px rgba(0, 0, 0, 0.45),
-    0 0 35px rgba(212, 175, 55, 0.35),
-    inset 0 1px 2px rgba(255, 255, 255, 0.8),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.4);
-  padding: 2rem 2.2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.sfx-gold-card-3d::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(125deg, rgba(255,255,255,0.4) 0%, transparent 45%, rgba(0,240,255,0.15) 75%, transparent 100%);
-  border-radius: 20px;
-  pointer-events: none;
-}
-
-.sfx-card-chip {
-  width: 46px;
-  height: 34px;
-  background: linear-gradient(135deg, #E0E7FF, #94A3B8);
-  border-radius: 6px;
-  border: 1px solid #475569;
-  position: relative;
-  box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
-}
-
-.sfx-card-serial {
-  font-family: var(--font-mono);
-  font-size: 1.15rem;
-  letter-spacing: 3px;
-  color: #1E293B;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-  font-weight: 700;
-}
-
-/* --- CASSETTO CHECKOUT MULTI-GATEWAY --- */
-.sfx-checkout-drawer {
-  position: fixed;
-  top: 0; right: -560px;
-  width: 520px;
-  max-width: 95vw;
-  height: 100vh;
-  background: var(--bg-dark);
-  color: #FFF;
-  border-left: 2px solid var(--gold-primary);
-  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.85);
-  z-index: 3500;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2.5rem 2rem;
-  transition: right 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-y: auto;
-}
-
-.sfx-checkout-drawer.active {
-  right: 0;
-}
-
-.sfx-pay-nav-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin: 1.5rem 0 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 0.8rem;
-}
-
-.sfx-pay-tab {
-  flex: 1;
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #94A3B8;
-  padding: 0.6rem 0.4rem;
-  border-radius: 8px;
-  font-family: var(--font-sync);
-  font-size: 0.68rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.sfx-pay-tab.active {
-  background: var(--gold-primary);
-  border-color: var(--gold-primary);
-  color: var(--bg-dark);
-}
-
-.sfx-pay-panel {
-  display: none;
-}
-
-.sfx-pay-panel.active {
+img, svg, video {
+  max-width: 100%;
+  height: auto;
   display: block;
 }
 
-/* Box Dettagli IBAN & Copia */
-.sfx-iban-copy-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--cyan-neon);
-  border-radius: 12px;
-  padding: 1.2rem;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  margin: 1.2rem 0;
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ==========================================================================
+   5. MOTORE CINETICO D'AMBIENTE // DISPLAY 13" (ONDE SU/GIÙ D'ACQUAMARINA E ORO)
+   ========================================================================== */
+.ambient-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Condotto Energetico Sinistro: Discesa Fluida (18s) */
+.ambient-mesh::before {
+  content: '';
+  position: absolute;
+  left: -120px;
+  top: -50%;
+  width: 360px;
+  height: 200%;
+  background: linear-gradient(180deg, 
+    rgba(0, 229, 201, 0.22), 
+    rgba(0, 230, 118, 0.18), 
+    rgba(212, 175, 55, 0.22), 
+    rgba(30, 64, 175, 0.18));
+  filter: blur(85px);
+  opacity: 0.85;
+  animation: waveStreamDown 18s infinite alternate ease-in-out;
+}
+
+/* Condotto Energetico Destro: Salita Fluida Controfase (22s) */
+.ambient-mesh::after {
+  content: '';
+  position: absolute;
+  right: -120px;
+  bottom: -50%;
+  width: 360px;
+  height: 200%;
+  background: linear-gradient(0deg, 
+    rgba(0, 240, 255, 0.22), 
+    rgba(0, 230, 118, 0.18), 
+    rgba(212, 175, 55, 0.22), 
+    rgba(30, 64, 175, 0.18));
+  filter: blur(85px);
+  opacity: 0.85;
+  animation: waveStreamUp 22s infinite alternate ease-in-out;
+}
+
+@keyframes waveStreamDown {
+  0% { transform: translateY(-12%) rotate(0deg); }
+  50% { transform: translateY(0%) rotate(2deg); }
+  100% { transform: translateY(12%) rotate(0deg); }
+}
+
+@keyframes waveStreamUp {
+  0% { transform: translateY(12%) rotate(0deg); }
+  50% { transform: translateY(0%) rotate(-2deg); }
+  100% { transform: translateY(-12%) rotate(0deg); }
+}
+
+/* Luce Zenitale Sfumata */
+.zenith-ray {
+  position: fixed;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 55vh;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at top center, rgba(255, 255, 255, 0.95) 0%, rgba(250, 248, 245, 0.4) 45%, transparent 75%);
+}
+
+/* Texture Film Grain SVG */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   6. BORDATURA A FILAMENTO LASER CONTINUO & SHINE SPETTRALE
+   ========================================================================== */
+.spectral-border {
+  position: relative;
+  border: 1.8px solid var(--metal-frame);
+  background-clip: padding-box;
+}
+
+.spectral-border::after {
+  content: '';
+  position: absolute;
+  inset: -1.8px;
+  z-index: -1;
+  background: linear-gradient(60deg, 
+    var(--spectral-cyan), 
+    var(--spectral-emerald), 
+    var(--spectral-aqua), 
+    var(--spectral-gold), 
+    var(--spectral-blue), 
+    var(--spectral-cyan));
+  background-size: 300% 300%;
+  border-radius: inherit;
+  animation: laserPerimeterLoop 6s infinite alternate ease-in-out;
+  opacity: 0.92;
+}
+
+@keyframes laserPerimeterLoop {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Tipografia Spettrale Lucida con Riflesso Solare Scorrevole */
+.spectral-text {
+  background: linear-gradient(45deg, 
+    var(--text-dominant), 
+    var(--spectral-gold), 
+    var(--spectral-aqua), 
+    var(--spectral-emerald),
+    var(--spectral-blue));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: laserPerimeterLoop 7s infinite alternate ease-in-out;
+  position: relative;
+  display: inline-block;
+}
+
+.spectral-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  transform: skewX(-20deg);
+  animation: shinePass 5s infinite;
+}
+
+@keyframes shinePass {
+  0% { left: -100%; }
+  22%, 100% { left: 200%; }
+}
+
+/* ==========================================================================
+   7. SEZIONI OVALI A CAPSULA SMUSSATA & LAYOUT PRINCIPALE
+   ========================================================================== */
+.container {
+  max-width: 1400px;
+  margin: 2.5rem auto;
+  padding: 0 2.5rem;
   position: relative;
 }
 
-.sfx-btn-copy-iban {
-  background: var(--cyan-deep);
-  color: #FFF;
-  border: 1px solid var(--cyan-neon);
-  border-radius: 6px;
-  padding: 0.4rem 0.8rem;
+.oval-section {
+  background: var(--bg-glass-card);
+  backdrop-filter: blur(35px) saturate(160%);
+  -webkit-backdrop-filter: blur(35px) saturate(160%);
+  border-radius: var(--radius-oval-large);
+  padding: 4.5rem 3.5rem;
+  margin-bottom: 4.5rem;
+  box-shadow: var(--shadow-diffuse);
+  position: relative;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.oval-section:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.sec-head {
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto 3.5rem;
+}
+
+.sec-tag {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  cursor: pointer;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  transition: background 0.2s;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-.sfx-btn-copy-iban:hover {
-  background: var(--cyan-neon);
-  color: var(--bg-dark);
+.sec-tit {
+  font-family: var(--font-sync);
+  font-size: 2.3rem;
+  margin: 0.8rem 0;
+  color: var(--text-dominant);
+  line-height: 1.2;
 }
 
-@media (max-width: 1024px) {
-  .sfx-academy-grid { grid-template-columns: 1fr; }
-  .sfx-gold-card-3d { width: 100%; height: 230px; }
-  .sfx-tandem-nav-bar { flex-direction: column; align-items: stretch; }
+.sec-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
 }
-/* ========================================================================== */
-/* AGGIUNTA MACRO-DECK 04 // COMMUNITY, MEDIA UFFICIALI & DISPACCI NEWSLETTER  */
-/* ========================================================================== */
 
-/* --- GRIGLIA DICONO DI NOI (RECENSIONI VERIFICATE) --- */
-.sfx-feedback-grid {
+/* ==========================================================================
+   8. COMPONENTI DEI 5 SLOT MULTIMEDIALI (CARICABILI DA X-BOX)
+   ========================================================================== */
+.media-slots-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.8rem;
-  margin: 2.5rem 0;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.2rem;
+  margin-top: 3.2rem;
 }
 
-.sfx-feedback-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: 24px;
-  padding: 2.2rem 1.8rem;
+.media-slot-item {
+  aspect-ratio: 16/9;
+  background: rgba(74, 82, 96, 0.06);
+  border-radius: var(--radius-inner);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--metal-frame);
+  border: 1.5px dashed var(--metal-edge);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), background var(--transition-smooth), box-shadow var(--transition-smooth);
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
   position: relative;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  overflow: hidden;
 }
 
-.sfx-feedback-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--cyan-neon);
-  box-shadow: 0 20px 45px rgba(0, 240, 255, 0.15);
+.media-slot-item:hover {
+  border-color: var(--spectral-gold);
+  background: rgba(212, 175, 55, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(74, 82, 96, 0.1);
 }
 
-.sfx-feedback-quote-mark {
+.media-slot-item::after {
+  content: 'EAL6+ ASSET';
+  position: absolute;
+  bottom: 4px;
+  font-size: 0.5rem;
+  color: var(--text-light);
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   9. PULSANTI, LINK & BADGE FORENSI
+   ========================================================================== */
+.btn-gold {
+  background: var(--bg-pearl-light);
+  color: var(--text-dominant);
+  padding: 16px 36px;
   font-family: var(--font-sync);
-  font-size: 2.5rem;
-  color: var(--gold-primary);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-  opacity: 0.8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: transform var(--transition-smooth), background var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+  text-decoration: none;
+  display: inline-block;
+  border: 1.5px solid var(--metal-frame);
+  box-shadow: var(--shadow-subtle);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
 }
 
-.sfx-feedback-text {
-  font-size: 0.9rem;
-  color: #CBD5E1;
-  line-height: 1.75;
-  margin-bottom: 1.8rem;
-  font-style: italic;
+.btn-gold:hover {
+  background: var(--spectral-gold);
+  color: #000;
+  border-color: var(--spectral-gold);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
 }
 
-.sfx-feedback-author {
+.btn-gold:active {
+  transform: translateY(1px);
+}
+
+.btn-gold-solid {
+  background: var(--spectral-gold);
+  color: #000;
+  border: 1.5px solid var(--spectral-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-gold-solid:hover {
+  background: var(--spectral-gold-light);
+  border-color: var(--spectral-gold-light);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--text-muted);
+  border: 1.5px solid var(--metal-edge);
+  border-radius: var(--radius-pill);
+  padding: 16px 36px;
+  font-family: var(--font-sync);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  background: #FFF;
+  color: var(--text-dominant);
+  border-color: var(--metal-frame);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-subtle);
+}
+
+.badge-eal {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--spectral-cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--spectral-cyan);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   10. TOPBAR FORENSE & SELETTORE MULTILINGUA
+   ========================================================================== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg-pearl-translucent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.85rem 3rem;
+  margin: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-dominant);
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.topbar-left {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 1.2rem;
+  cursor: pointer;
 }
 
-.sfx-author-avatar {
-  width: 44px;
-  height: 44px;
+.status-led {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--bg-dark);
-  border: 2px solid var(--gold-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-sync);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--gold-primary);
+  background: var(--status-online);
+  box-shadow: 0 0 12px var(--status-online);
+  animation: pulseLed 1.2s infinite alternate ease-in-out;
 }
 
-.sfx-author-meta h4 {
-  font-family: var(--font-sync);
-  font-size: 0.85rem;
-  color: #FFF;
-  margin-bottom: 0.2rem;
+@keyframes pulseLed {
+  0% { opacity: 0.35; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1.1); }
 }
 
-.sfx-author-meta span {
+.lang-selector {
+  appearance: none;
+  background: var(--bg-pearl-light);
+  border: 1.5px solid var(--metal-edge);
+  border-radius: var(--radius-pill);
+  padding: 6px 18px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--cyan-neon);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-dominant);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
-/* --- CANALI SOCIAL & PRESIDI MEDIA --- */
-.sfx-media-channels-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.2rem;
-  margin: 2.5rem 0;
+.lang-selector:hover {
+  border-color: var(--spectral-gold);
+  background: #FFF;
 }
 
-.sfx-channel-tile {
-  background: rgba(11, 25, 44, 0.8);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 20px;
-  padding: 1.8rem 1.4rem;
-  text-decoration: none;
+/* ==========================================================================
+   11. HERO GOVERNANCE (6-FRAME LOOP & TRITTICO OVALE)
+   ========================================================================== */
+.hero-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
+  gap: 4.5rem;
+  min-height: 68vh;
+}
+
+.hero-text {
+  flex: 1.25;
+}
+
+.hero-title {
+  font-family: var(--font-sync);
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 2.2rem;
+  max-width: 640px;
+}
+
+.hero-visual {
+  flex: 0.75;
+}
+
+.hero-logo-loop {
   position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--bg-pearl-light);
+  box-shadow: var(--shadow-hover);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sfx-channel-tile::before {
-  content: '';
+.hero-logo-loop img {
   position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 2s ease-in-out;
 }
 
-.sfx-channel-tile:hover {
-  transform: translateY(-5px);
-  border-color: var(--cyan-neon);
-  box-shadow: 0 15px 35px rgba(0, 240, 255, 0.2);
-}
-
-.sfx-channel-tile:hover::before {
+.hero-logo-loop img.active {
   opacity: 1;
 }
 
-.sfx-channel-icon {
-  font-size: 2rem;
+.trittico-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+.trittico-box {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1.5px solid var(--metal-edge);
+  border-radius: var(--radius-oval-small);
+  padding: 2.2rem;
+  text-align: center;
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.trittico-box:hover {
+  transform: translateY(-8px);
+  border-color: var(--spectral-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.trittico-icon {
+  font-size: 2.4rem;
   margin-bottom: 0.8rem;
 }
 
-.sfx-channel-title {
+.trittico-tit {
   font-family: var(--font-sync);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #FFF;
-  letter-spacing: 1px;
-  margin-bottom: 0.3rem;
-}
-
-.sfx-channel-handle {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--gold-primary);
-}
-
-/* --- BOX DISPACCI DI PRESIDENZA (NEWSLETTER) --- */
-.sfx-newsletter-box {
-  background: linear-gradient(135deg, rgba(11, 25, 44, 0.95), rgba(9, 10, 14, 0.95));
-  border: 2px solid var(--gold-primary);
-  border-radius: 32px;
-  padding: 3.5rem 3rem;
-  margin-top: 3.5rem;
-  position: relative;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.15);
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 3rem;
-  align-items: center;
-}
-
-.sfx-newsletter-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.sfx-newsletter-field {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 12px;
-  padding: 1rem 1.2rem;
-  color: #FFF;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.sfx-newsletter-field:focus {
-  border-color: var(--cyan-neon);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-}
-
-.sfx-checkbox-wrapper {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-  font-size: 0.72rem;
-  color: #94A3B8;
-  font-family: var(--font-mono);
-  line-height: 1.5;
-}
-
-.sfx-checkbox-wrapper input[type="checkbox"] {
-  accent-color: var(--gold-primary);
-  margin-top: 0.2rem;
-}
-
-@media (max-width: 1024px) {
-  .sfx-feedback-grid { grid-template-columns: 1fr; }
-  .sfx-media-channels-grid { grid-template-columns: repeat(2, 1fr); }
-  .sfx-newsletter-box { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
-}
-/* ========================================================================== */
-/* AGGIUNTA MACRO-DECK 05 // FUNNEL SCREENING 3D, ACCORDION 50 FAQ & FOOTER   */
-/* ========================================================================== */
-
-/* --- FUNNEL SCREENING // TANDEM DECK 3 FASI --- */
-.sfx-funnel-container {
-  position: relative;
-  max-width: 960px;
-  margin: 0 auto;
-  perspective: 1600px;
-}
-
-.sfx-funnel-step-bar {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2.5rem;
-  position: relative;
-}
-
-.sfx-funnel-step-bar::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: rgba(212, 175, 55, 0.25);
-  z-index: 1;
-}
-
-.sfx-funnel-step-node {
-  position: relative;
-  z-index: 2;
-  background: var(--bg-dark);
-  border: 2px solid rgba(212, 175, 55, 0.4);
-  color: #FFF;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-sync);
-  font-size: 0.85rem;
-  font-weight: 700;
-  transition: all 0.3s ease;
-}
-
-.sfx-funnel-step-node.active {
-  border-color: var(--cyan-neon);
-  color: var(--cyan-neon);
-  box-shadow: 0 0 20px var(--cyan-neon);
-  transform: scale(1.1);
-}
-
-.sfx-funnel-step-node.completed {
-  border-color: var(--status-green);
-  background: var(--status-green);
-  color: var(--bg-dark);
-}
-
-/* Fasi del Funnel */
-.sfx-funnel-phase {
-  display: none;
-  background: #FFFFFF;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 32px;
-  padding: 3rem;
-  box-shadow: 0 25px 60px rgba(11, 25, 44, 0.08);
-  animation: sfxFadeInPhase 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.sfx-funnel-phase.active {
-  display: block;
-}
-
-@keyframes sfxFadeInPhase {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Griglia Selezione Percorsi (Fase 1) */
-.sfx-course-select-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
-  margin: 2rem 0;
-}
-
-.sfx-course-choice-card {
-  background: var(--bg-pearl);
-  border: 2px solid rgba(212, 175, 55, 0.25);
-  border-radius: 20px;
-  padding: 1.8rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.sfx-course-choice-card:hover {
-  border-color: var(--gold-primary);
-  transform: translateY(-4px);
-  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
-}
-
-.sfx-course-choice-card.selected {
-  border-color: var(--cyan-neon);
-  background: #FFFFFF;
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
-}
-
-.sfx-course-choice-card.selected::after {
-  content: '✓ SELEZIONATO';
-  position: absolute;
-  top: 1rem;
-  right: 1.2rem;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--cyan-deep);
-  font-weight: 700;
-}
-
-/* Griglia Selezione Slot Orari (Fase 2) */
-.sfx-slot-select-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
-  margin: 2rem 0;
-}
-
-.sfx-slot-choice-card {
-  background: var(--bg-pearl);
-  border: 2px solid rgba(212, 175, 55, 0.25);
-  border-radius: 18px;
-  padding: 1.8rem 1.2rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.sfx-slot-choice-card:hover {
-  border-color: var(--gold-primary);
-  transform: translateY(-3px);
-}
-
-.sfx-slot-choice-card.selected {
-  border-color: var(--cyan-neon);
-  background: #FFFFFF;
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
-}
-
-/* CINEMATICA 3D: MAZZO DI CARTE ROTANTE & DEAL SOVRANO */
-.sfx-deck-deal-stage {
-  position: relative;
-  min-height: 420px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1600px;
-}
-
-.sfx-deal-stacked-card {
-  position: absolute;
-  width: 90%;
-  max-width: 620px;
-  background: var(--bg-dark);
-  color: #FFF;
-  border: 2px solid var(--gold-primary);
-  border-radius: 28px;
-  padding: 3rem;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  transform-style: preserve-3d;
-}
-
-.sfx-deal-stacked-card.stack-back-1 {
-  transform: translateZ(-80px) rotateZ(-4deg) translateY(-15px);
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.sfx-deal-stacked-card.stack-back-2 {
-  transform: translateZ(-40px) rotateZ(3deg) translateY(-8px);
-  opacity: 0.75;
-  pointer-events: none;
-}
-
-.sfx-deal-stacked-card.dealt-sovereign {
-  transform: translateZ(20px) rotateY(0deg) scale(1);
-  opacity: 1;
-  border-color: var(--cyan-neon);
-  box-shadow: 0 0 45px rgba(0, 240, 255, 0.35), 0 35px 80px rgba(0, 0, 0, 0.8);
-  animation: sfxCardSettleBounce 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes sfxCardSettleBounce {
-  0% { transform: translateY(-40px) rotateY(180deg) scale(0.9); opacity: 0; }
-  70% { transform: translateY(8px) rotateY(0deg) scale(1.02); opacity: 1; }
-  100% { transform: translateY(0) rotateY(0deg) scale(1); opacity: 1; }
-}
-
-/* --- ACCORDION 50 FAQ FILTRABILI --- */
-.sfx-faq-container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.sfx-faq-search-wrapper {
-  position: relative;
-  margin-bottom: 2rem;
-}
-
-.sfx-faq-search-input {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 2px solid var(--gold-primary);
-  border-radius: 50px;
-  padding: 1.1rem 2rem 1.1rem 3.5rem;
-  color: #FFF;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  outline: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
-}
-
-.sfx-faq-search-input:focus {
-  border-color: var(--cyan-neon);
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
-}
-
-.sfx-faq-search-icon {
-  position: absolute;
-  left: 1.4rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.2rem;
-  color: var(--gold-primary);
-}
-
-.sfx-faq-filter-pills {
-  display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  margin-bottom: 2.5rem;
-}
-
-.sfx-faq-pill {
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #94A3B8;
-  padding: 0.5rem 1.2rem;
-  border-radius: 50px;
-  font-family: var(--font-sync);
-  font-size: 0.68rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.sfx-faq-pill:hover, .sfx-faq-pill.active {
-  background: var(--gold-primary);
-  border-color: var(--gold-primary);
-  color: var(--bg-dark);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-}
-
-.sfx-faq-accordion-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.sfx-faq-item {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: border-color 0.3s, background 0.3s;
-}
-
-.sfx-faq-item.open {
-  border-color: var(--cyan-neon);
-  background: rgba(0, 240, 255, 0.03);
-}
-
-.sfx-faq-header {
-  padding: 1.2rem 1.6rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.sfx-faq-question-text {
-  font-family: var(--font-sync);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #FFF;
-  letter-spacing: 0.5px;
-}
-
-.sfx-faq-toggle-icon {
-  font-family: var(--font-mono);
   font-size: 1.1rem;
-  color: var(--gold-primary);
-  transition: transform 0.3s ease;
-}
-
-.sfx-faq-item.open .sfx-faq-toggle-icon {
-  transform: rotate(45deg);
-  color: var(--cyan-neon);
-}
-
-.sfx-faq-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
-  padding: 0 1.6rem;
-  color: #CBD5E1;
-  font-size: 0.9rem;
-  line-height: 1.75;
-}
-
-.sfx-faq-item.open .sfx-faq-body {
-  max-height: 250px;
-  padding: 0 1.6rem 1.5rem;
-}
-
-/* --- FOOTER FORENSE MONUMENTALE EAL6+ --- */
-.sfx-footer-monumental {
-  background: var(--bg-dark);
-  border-top: 2px solid var(--gold-primary);
-  color: #FFF;
-  padding: 4.5rem 2.5rem 2.5rem;
-  position: relative;
-  z-index: 10;
-}
-
-.sfx-footer-grid {
-  max-width: 1360px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3.5rem;
-}
-
-.sfx-footer-brand h3 {
-  font-family: var(--font-sync);
-  font-size: 1.3rem;
-  color: var(--gold-primary);
-  letter-spacing: 2px;
+  color: var(--text-dominant);
   margin-bottom: 0.6rem;
 }
 
-.sfx-footer-brand p {
-  font-size: 0.85rem;
-  color: #94A3B8;
-  line-height: 1.7;
+.trittico-sub {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
-.sfx-footer-col h4 {
+/* ==========================================================================
+   12. SOTTOMENU 3D "CESSIONE DEL CENTRO" (ACADEMY & SUB-DECKS)
+   ========================================================================== */
+.view-stack {
+  position: relative;
+  perspective: 1600px;
+  min-height: 600px;
+}
+
+.view-main, .view-sub {
+  position: absolute;
+  inset: 0;
+  transition: transform var(--transition-slow), opacity var(--transition-slow);
+}
+
+.view-sub {
+  opacity: 0;
+  transform: translate3d(70px, 70px, 0) rotateZ(6deg);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.view-stack.sub-active .view-main {
+  transform: translate3d(0, -40px, -100px) scale(0.92);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.view-stack.sub-active .view-sub {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotateZ(0);
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   13. FUNNEL TANDEM DRAG & CORNER PEEL EXIT (SCREENING SEZIONE 10)
+   ========================================================================== */
+.funnel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  perspective: 1800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.glass-deck {
+  position: absolute;
+  width: 920px;
+  height: 580px;
+  background: var(--bg-glass-card);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: var(--radius-oval-large);
+  padding: 3.5rem;
+  box-shadow: var(--shadow-diffuse);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.glass-deck::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(850px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.45), transparent 45%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  mix-blend-mode: overlay;
+  z-index: 5;
+}
+
+.glass-deck:hover::before {
+  opacity: 1;
+}
+
+.state-center {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.state-waiting-right {
+  transform: translate3d(120%, 0, 0) scale(1);
+  opacity: 0;
+  z-index: 5;
+}
+
+.anim-enter-right {
+  animation: tandemEnter var(--transition-tandem) forwards;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+@keyframes tandemEnter {
+  0% { transform: translate3d(105%, 0, 0) scale(0.98); opacity: 0; }
+  40% { opacity: 1; }
+  60% { transform: translate3d(-2%, 0, 0) scale(0.99); }
+  80% { transform: translate3d(1%, 0, 0) scale(1); }
+  100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+}
+
+.anim-exit-left-corner {
+  transform-origin: bottom left;
+  animation: cornerPeelExit var(--transition-tandem) forwards;
+  z-index: 15;
+  pointer-events: none;
+}
+
+@keyframes cornerPeelExit {
+  0% { transform: translate3d(0, 0, 0) scale(1) rotateZ(0) rotateY(0); opacity: 1; }
+  20% { transform: translate3d(-30%, 0, 0) scale(0.98); }
+  45% { transform: translate3d(-60%, -10%, 0) scale(0.92) rotateZ(-6deg) rotateY(15deg); opacity: 0.9; }
+  100% { transform: translate3d(-150%, -40%, -100px) scale(0.8) rotateZ(-15deg) rotateY(35deg); opacity: 0; }
+}
+
+.sel-card {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1.5px solid var(--metal-edge);
+  padding: 1.5rem;
+  border-radius: var(--radius-inner);
+  cursor: pointer;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.sel-card:hover {
+  border-color: var(--spectral-gold);
+  transform: translateY(-3px);
+}
+
+.sel-card.selected {
+  background: #FFF;
+  border-color: var(--spectral-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.sel-tit {
   font-family: var(--font-sync);
-  font-size: 0.8rem;
-  color: var(--cyan-neon);
-  letter-spacing: 1.5px;
+  font-size: 1rem;
+  color: var(--text-dominant);
+  margin-bottom: 0.4rem;
+}
+
+.sel-desc {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   14. FORMULARI FORENSI, INPUT & VALIDAZIONE LATO CLIENT
+   ========================================================================== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 1.2rem;
 }
 
-.sfx-footer-col ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.sfx-footer-col a {
-  color: #CBD5E1;
-  text-decoration: none;
-  font-size: 0.82rem;
-  font-family: var(--font-mono);
-  transition: color 0.25s;
-}
-
-.sfx-footer-col a:hover {
-  color: var(--gold-primary);
-}
-
-.sfx-footer-hash-bar {
-  max-width: 1360px;
-  margin: 0 auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+.form-label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: #64748B;
-}
-
-.sfx-hash-badge {
-  background: rgba(0, 240, 255, 0.06);
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  color: var(--cyan-neon);
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
+  font-weight: 700;
+  color: var(--text-dominant);
+  text-transform: uppercase;
   letter-spacing: 1px;
 }
 
+.form-input {
+  padding: 15px 18px;
+  border-radius: var(--radius-input);
+  border: 1.5px solid var(--metal-edge);
+  background: var(--bg-glass-input);
+  font-family: var(--font-mont);
+  font-size: 0.92rem;
+  color: var(--text-dominant);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--spectral-cyan);
+  background: #FFF;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+.form-input::placeholder {
+  color: var(--text-light);
+  font-size: 0.88rem;
+}
+
+.form-status-box {
+  padding: 14px 18px;
+  border-radius: var(--radius-input);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+  display: none;
+}
+
+.form-status-box.success {
+  display: block;
+  background: rgba(0, 230, 118, 0.15);
+  border: 1.5px solid var(--spectral-emerald);
+  color: var(--text-dominant);
+}
+
+.form-status-box.error {
+  display: block;
+  background: rgba(255, 59, 48, 0.15);
+  border: 1.5px solid var(--status-alert);
+  color: var(--text-dominant);
+}
+
+/* ==========================================================================
+   15. ALISON CONCIERGE FLOTTANTE, RADAR CANVAS & CHAT MODALE
+   ========================================================================== */
+.alison-floater {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--bg-pearl-light);
+  border: 2px solid var(--spectral-gold);
+  box-shadow: var(--shadow-diffuse);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.alison-floater:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: var(--shadow-gold);
+}
+
+.alison-floater-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--spectral-emerald);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid #FFF;
+  box-shadow: 0 0 10px var(--spectral-emerald);
+}
+
+.alison-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-modal-overlay);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.alison-console {
+  width: 900px;
+  height: 600px;
+  background: var(--bg-pearl-light);
+  border-radius: 40px;
+  box-shadow: var(--shadow-hover);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.alison-chat-bubble {
+  max-width: 80%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid var(--metal-edge);
+  padding: 1.5rem;
+  border-radius: var(--radius-inner);
+  box-shadow: var(--shadow-subtle);
+  line-height: 1.6;
+}
+
+.alison-user-bubble {
+  align-self: flex-end;
+  max-width: 75%;
+  background: var(--text-dominant);
+  color: #FFF;
+  border: 1px solid var(--spectral-gold);
+  padding: 1.2rem 1.6rem;
+  border-radius: var(--radius-inner);
+}
+
+.faq-slide-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 400px;
+  background: rgba(255, 255, 255, 0.98);
+  border-left: 2px solid var(--spectral-gold);
+  transform: translateX(100%);
+  transition: transform var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  box-shadow: -15px 0 35px rgba(74, 82, 96, 0.15);
+}
+
+.faq-drawer-item {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid rgba(74, 82, 96, 0.12);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-dominant);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.faq-drawer-item:hover {
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--spectral-gold-deep);
+}
+
+/* ==========================================================================
+   16. POST-FOOTER TALLY BAR // ACCESSO DIRETTO SCREENING
+   ========================================================================== */
+.post-footer-bar {
+  background: var(--text-dominant);
+  padding: 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid var(--spectral-gold);
+}
+
+.btn-tally-modal {
+  background: transparent;
+  color: #FFF;
+  font-family: var(--font-sync);
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 2px solid var(--spectral-gold);
+  padding: 20px 45px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: transform var(--transition-smooth), background var(--transition-smooth), color var(--transition-smooth), box-shadow var(--transition-smooth);
+  position: relative;
+  z-index: 2;
+}
+
+.btn-tally-modal:hover {
+  background: var(--spectral-gold);
+  color: #000;
+  box-shadow: 0 0 30px var(--spectral-gold);
+  transform: scale(1.02);
+}
+
+/* ==========================================================================
+   17. X-BOX ADMINISTRATIVE CONSOLE // COMPONENTI INTEGRATI LIGHT LUXURY
+   ========================================================================== */
+.xbox-wrapper {
+  background: var(--bg-pearl-satin);
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.xbox-sidebar {
+  background: var(--bg-pearl-light);
+  border-right: 1.8px solid var(--metal-frame);
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.xbox-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-inner);
+  font-family: var(--font-sync);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+}
+
+.xbox-nav-link:hover, .xbox-nav-link.active {
+  background: #FFF;
+  color: var(--text-dominant);
+  border-color: var(--spectral-gold);
+  box-shadow: var(--shadow-subtle);
+}
+
+.xbox-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  font-size: 0.88rem;
+}
+
+.xbox-table th {
+  padding: 14px 18px;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.xbox-table tr {
+  background: #FFF;
+  box-shadow: var(--shadow-subtle);
+  transition: transform var(--transition-fast);
+}
+
+.xbox-table tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(74, 82, 96, 0.12);
+}
+
+.xbox-table td {
+  padding: 16px 18px;
+  color: var(--text-dominant);
+  border-top: 1px solid rgba(74, 82, 96, 0.08);
+  border-bottom: 1px solid rgba(74, 82, 96, 0.08);
+}
+
+.xbox-table td:first-child {
+  border-left: 1px solid rgba(74, 82, 96, 0.08);
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.xbox-table td:last-child {
+  border-right: 1px solid rgba(74, 82, 96, 0.08);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Keypad Randomizzato X-BOX */
+.keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.keypad-btn {
+  background: #FFF;
+  border: 1.5px solid var(--metal-edge);
+  color: var(--text-dominant);
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 18px 0;
+  border-radius: var(--radius-inner);
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.keypad-btn:hover {
+  background: var(--spectral-gold);
+  border-color: var(--spectral-gold);
+  color: #000;
+  transform: scale(1.05);
+}
+
+.keypad-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================================
+   18. CLASSI DI UTILITÀ, GRIGLIE & SPAZIATURE
+   ========================================================================== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mb-3 { margin-bottom: 3rem; }
+
+/* ==========================================================================
+   19. MEDIA QUERIES RESPONSIVE (13" NOTEBOOK, TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1366px) {
+  /* Adattamento Viewport 13 Pollici */
+  .container {
+    padding: 0 2rem;
+  }
+  .oval-section {
+    padding: 3.5rem 2.5rem;
+    border-radius: 54px / 40px;
+  }
+  .hero-title {
+    font-size: 3.2rem;
+  }
+  .glass-deck {
+    width: 820px;
+    height: 540px;
+    padding: 2.8rem;
+  }
+}
+
 @media (max-width: 1024px) {
-  .sfx-course-select-grid { grid-template-columns: 1fr; }
-  .sfx-slot-select-grid { grid-template-columns: 1fr; }
-  .sfx-footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .sfx-footer-hash-bar { flex-direction: column; align-items: flex-start; }
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-visual {
+    width: 60%;
+    margin-top: 2rem;
+  }
+  .trittico-grid, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .media-slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .glass-deck {
+    width: 90%;
+    height: auto;
+    min-height: 550px;
+    position: relative;
+    left: auto;
+    margin: 0 auto;
+  }
+  .funnel-wrapper {
+    height: auto;
+  }
+  .xbox-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .xbox-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0.75rem 1.5rem;
+    margin: 0;
+    border-radius: 0;
+  }
+  .oval-section {
+    padding: 2.5rem 1.5rem;
+    border-radius: 36px / 28px;
+  }
+  .hero-title {
+    font-size: 2.3rem;
+  }
+  .media-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .alison-console {
+    width: 95%;
+    height: 90vh;
+  }
+  .faq-slide-drawer {
+    width: 100%;
+  }
+  .btn-tally-modal {
+    font-size: 1.1rem;
+    padding: 16px 28px;
+  }
 }
