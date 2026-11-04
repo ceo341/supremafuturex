@@ -1,1287 +1,2177 @@
 /* ==========================================================================
-   SUPREMA FUTURE X ENTERPRISE // MONOLITHIC GLOBAL STYLESHEET
-   File: assets/css/stile-globale.css
-   Versione: 2026.5.0 - EAL6+ Forense // Production Release
-   Governance: Founder & CEO Giuliano Caratelli
-   Architettura: Pure Light Luxury & Spectral Liquid Metals (Zero Ossidiana)
-   Ottimizzazione Viewport: Display 13" Pollici Nativo + Multi-Device Responsive
+   SUPREMA FUTURE X — FOGLIO DI STILE MONOLITICO DI GOVERNANCE (PARTE 1 DI 2)
+   Design System: Light Luxury EAL6+ | Anti-Flicker Hardware Accelerated
+   Moduli: 01 Core Reset -> 09 Suprema Academy Live (Righe 1 - 1200)
    ========================================================================== */
 
-/* ==========================================================================
-   1. IMPORTAZIONE FONT & ENCODING
-   ========================================================================== */
-@charset "UTF-8";
+/* --------------------------------------------------------------------------
+   MODULO 01: CORE SYSTEM, ACCELERAZIONE GPU & RESET FORENSE
+   -------------------------------------------------------------------------- */
 
-/* ==========================================================================
-   2. TOKEN CROMATICI, VARIABILI ARCHITETTONICHE & GEOMETRICHE
-   ========================================================================== */
-:root {
-  /* Basi Piane, Cristalli e Superfici Satinate (Zero Scuri) */
-  --bg-pearl-satin: #F6F2EB;
-  --bg-pearl-light: #FAF8F5;
-  --bg-pearl-pure: #FFFFFF;
-  --bg-pearl-translucent: rgba(246, 242, 235, 0.88);
-  --bg-glass-card: rgba(250, 248, 245, 0.84);
-  --bg-glass-card-hover: rgba(255, 255, 255, 0.96);
-  --bg-glass-sub: rgba(242, 238, 230, 0.78);
-  --bg-glass-input: rgba(255, 255, 255, 0.9);
-  --bg-modal-overlay: rgba(246, 242, 235, 0.75);
-
-  /* Scocche e Telai in Metallo Profondo */
-  --metal-frame: #4A5260;
-  --metal-edge: #7A8494;
-  --metal-light: #D1D5DB;
-  --metal-dark: #2D333E;
-  --metal-reflect: #A3ABB8;
-  --metal-shadow: rgba(74, 82, 96, 0.15);
-  --metal-shadow-deep: rgba(74, 82, 96, 0.28);
-  --metal-border-subtle: rgba(74, 82, 96, 0.12);
-
-  /* Flusso Spettrale Continuo (Laser Seam Liquid Metals) */
-  --spectral-cyan: #00F0FF;
-  --spectral-aqua: #00E5C9;
-  --spectral-emerald: #00E676;
-  --spectral-gold: #D4AF37;
-  --spectral-gold-deep: #B8860B;
-  --spectral-gold-light: #F4DF8E;
-  --spectral-blue: #1E40AF;
-  --spectral-blue-deep: #0B192C;
-
-  /* Indicatori di Stato Telemetrico EAL6+ */
-  --status-online: #00E676;
-  --status-standby: #FFBF00;
-  --status-alert: #FF3B30;
-  --status-info: #00F0FF;
-
-  /* Tipografia ad Alto Contrasto */
-  --text-dominant: #0B192C;
-  --text-primary: #1E293B;
-  --text-muted: #5A6270;
-  --text-light: #7E8794;
-  --text-accent: #8C6D23;
-  --text-inverse: #FFFFFF;
-
-  /* Font Families Ufficiali */
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sync: 'Syncopate', sans-serif;
-  --font-mont: 'Montserrat', sans-serif;
-
-  /* Raggi di Curvatura Ovale Istituzionali */
-  --radius-oval-large: 64px / 48px;
-  --radius-oval-medium: 48px / 36px;
-  --radius-oval-small: 36px / 28px;
-  --radius-pill: 50px;
-  --radius-card: 24px;
-  --radius-inner: 16px;
-  --radius-input: 12px;
-
-  /* Ombreggiature Calcolate per Sfondi Chiari */
-  --shadow-diffuse: 0 25px 60px rgba(74, 82, 96, 0.12);
-  --shadow-hover: 0 35px 80px rgba(74, 82, 96, 0.20);
-  --shadow-gold: 0 20px 50px rgba(212, 175, 55, 0.25);
-  --shadow-cyan: 0 15px 35px rgba(0, 240, 255, 0.25);
-  --shadow-subtle: 0 10px 25px rgba(74, 82, 96, 0.08);
-  --shadow-inner-glow: inset 0 0 15px rgba(255, 255, 255, 0.8);
-
-  /* Curve d'Inerzia e Transizioni */
-  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
-  --transition-fast: 0.2s ease-out;
-  --transition-tandem: 0.9s cubic-bezier(0.2, 0.8, 0.25, 1);
-}
-
-/* ==========================================================================
-   3. SHIELD FORENSE DI PROTEZIONE LATO CLIENT & ANTI-STAMPA
-   ========================================================================== */
-@media print {
-  html, body {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    width: 0 !important;
-    overflow: hidden !important;
-  }
-}
-
-/* ==========================================================================
-   4. RESET, BOX-SIZING & NORMALIZZAZIONE
-   ========================================================================== */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-  background-color: var(--bg-pearl-satin);
-  text-rendering: optimizeLegibility;
-  height: 100%;
+    font-size: 16px;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    background-color: #FAFAFC;
+    color: #1A202C;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 body {
-  background-color: var(--bg-pearl-satin);
-  color: var(--text-dominant);
-  font-family: var(--font-mont);
-  overflow-x: hidden;
-  min-height: 100vh;
-  line-height: 1.6;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: #FAFAFC;
+    color: #1A202C;
+    overflow-x: hidden;
+    font-weight: 400;
 }
 
-img, svg, video {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* Protocollo Anti-Sfarfallio per Display Retina & Schermi 120Hz */
+.hardware-accelerated,
+.glass-panel,
+.presidenza-card,
+.logo-slot,
+.course-tier-card,
+.modal-screen-overlay,
+.concessione-drawer {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    will-change: transform, opacity;
 }
 
-button, input, textarea, select {
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
+/* Custom Scrollbar Oro Satinato & Platino */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F4F5F8;
+    border-left: 1px solid #E2E8F0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C5A059;
+    border-radius: 4px;
+    border: 2px solid #F4F5F8;
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #997A2E;
+}
+
+/* Selezione Testo Istituzionale */
+::selection {
+    background: rgba(197, 160, 89, 0.25);
+    color: #1A202C;
+}
+
+::-moz-selection {
+    background: rgba(197, 160, 89, 0.25);
+    color: #1A202C;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+    background: none;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition-fast);
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s ease, border-color 0.25s ease;
 }
 
-ul, ol {
-  list-style: none;
+ul,
+ol {
+    list-style: none;
 }
 
-/* ==========================================================================
-   5. MOTORE CINETICO D'AMBIENTE // DISPLAY 13" (ONDE SU/GIÙ D'ACQUAMARINA E ORO)
-   ========================================================================== */
-.ambient-mesh {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  overflow: hidden;
+/* --------------------------------------------------------------------------
+   MODULO 02: DESIGN TOKENS, COLOR SYSTEM & TIPOGRAFIA
+   -------------------------------------------------------------------------- */
+
+:root {
+    /* Palette Fondi & Piani */
+    --bg-perla: #FAFAFC;
+    --bg-perla-alt: #FDFCFA;
+    --bg-platino: #F4F5F8;
+    --bg-platino-subtle: #ECEEF2;
+    --bg-card: rgba(255, 255, 255, 0.90);
+    --bg-card-hover: rgba(255, 255, 255, 0.98);
+    --bg-glass-modal: rgba(26, 32, 44, 0.85);
+
+    /* Palette Oro Champagne Istituzionale */
+    --oro-champagne: #C5A059;
+    --oro-light: #D4AF37;
+    --oro-pure: #E5C578;
+    --oro-deep: #997A2E;
+    --oro-border: rgba(197, 160, 89, 0.35);
+    --oro-border-subtle: rgba(197, 160, 89, 0.18);
+    --oro-glow: rgba(212, 175, 55, 0.22);
+    --oro-glow-intense: rgba(212, 175, 55, 0.45);
+
+    /* Contrasti e Metadati Tipografici */
+    --text-ardesia: #1A202C;
+    --text-ardesia-deep: #0D1117;
+    --text-muted: #5A6578;
+    --text-subtle: #8C96A5;
+    --text-disabled: #A0AEC0;
+
+    /* Profili, Separatori & Metalli */
+    --border-light: #E2E8F0;
+    --border-subtle: #EDF2F7;
+    --border-dark: #CBD5E0;
+    --cromo-metal: #E5E9F0;
+
+    /* Indicatori Crittografici & Tech */
+    --ciano-tech: #00B4D8;
+    --ciano-glow: rgba(0, 180, 216, 0.25);
+    --ciano-border: rgba(0, 180, 216, 0.40);
+    --verde-eal6: #10B981;
+    --verde-eal6-glow: rgba(16, 185, 129, 0.25);
+    --verde-eal6-bg: rgba(16, 185, 129, 0.08);
+
+    /* Tipografia Direzionale */
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-serif: 'Cinzel', Georgia, "Times New Roman", serif;
+
+    /* Dinamica & Curve di Accelerazione */
+    --trans-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    --trans-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    --trans-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Ombreggiatura Monolitica Light Luxury */
+    --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.06);
+    --shadow-luxury: 0 12px 36px rgba(197, 160, 89, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-luxury-intense: 0 16px 45px rgba(197, 160, 89, 0.22), 0 6px 18px rgba(0, 0, 0, 0.06);
+    --shadow-modal: 0 25px 60px -12px rgba(26, 32, 44, 0.35);
 }
 
-/* Condotto Energetico Sinistro: Discesa Fluida (18s) */
-.ambient-mesh::before {
-  content: '';
-  position: absolute;
-  left: -120px;
-  top: -50%;
-  width: 360px;
-  height: 200%;
-  background: linear-gradient(180deg, 
-    rgba(0, 229, 201, 0.22), 
-    rgba(0, 230, 118, 0.18), 
-    rgba(212, 175, 55, 0.22), 
-    rgba(30, 64, 175, 0.18));
-  filter: blur(85px);
-  opacity: 0.85;
-  animation: waveStreamDown 18s infinite alternate ease-in-out;
+/* Tipografia Base e Trattamento Serif */
+h1, h2, h3, h4, h5, h6,
+.font-serif {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--text-ardesia);
+    text-wrap: balance;
 }
 
-/* Condotto Energetico Destro: Salita Fluida Controfase (22s) */
-.ambient-mesh::after {
-  content: '';
-  position: absolute;
-  right: -120px;
-  bottom: -50%;
-  width: 360px;
-  height: 200%;
-  background: linear-gradient(0deg, 
-    rgba(0, 240, 255, 0.22), 
-    rgba(0, 230, 118, 0.18), 
-    rgba(212, 175, 55, 0.22), 
-    rgba(30, 64, 175, 0.18));
-  filter: blur(85px);
-  opacity: 0.85;
-  animation: waveStreamUp 22s infinite alternate ease-in-out;
+/* Gradienti Tipografici */
+.text-gold-gradient {
+    background: linear-gradient(135deg, #A88438 0%, #C5A059 40%, #E5C578 70%, #997A2E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
-@keyframes waveStreamDown {
-  0% { transform: translateY(-12%) rotate(0deg); }
-  50% { transform: translateY(0%) rotate(2deg); }
-  100% { transform: translateY(12%) rotate(0deg); }
+.text-platinum-gradient {
+    background: linear-gradient(135deg, #1A202C 0%, #4A5568 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
-@keyframes waveStreamUp {
-  0% { transform: translateY(12%) rotate(0deg); }
-  50% { transform: translateY(0%) rotate(-2deg); }
-  100% { transform: translateY(-12%) rotate(0deg); }
+/* Selettori di Tag Istituzionali */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
 }
 
-/* Luce Zenitale Sfumata */
-.zenith-ray {
-  position: fixed;
-  top: 0;
-  left: 8%;
-  right: 8%;
-  height: 55vh;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(ellipse at top center, rgba(255, 255, 255, 0.95) 0%, rgba(250, 248, 245, 0.4) 45%, transparent 75%);
+.section-tag {
+    font-family: var(--font-main);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: var(--oro-champagne);
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(197, 160, 89, 0.08);
+    border: 1px solid var(--oro-border-subtle);
+    border-radius: 4px;
 }
 
-/* Texture Film Grain SVG */
-.film-grain {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
 }
 
-/* ==========================================================================
-   6. BORDATURA A FILAMENTO LASER CONTINUO & SHINE SPETTRALE
-   ========================================================================== */
-.spectral-border {
-  position: relative;
-  border: 1.8px solid var(--metal-frame);
-  background-clip: padding-box;
+.section-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--oro-champagne), transparent);
+    margin: 0 auto;
 }
 
-.spectral-border::after {
-  content: '';
-  position: absolute;
-  inset: -1.8px;
-  z-index: -1;
-  background: linear-gradient(60deg, 
-    var(--spectral-cyan), 
-    var(--spectral-emerald), 
-    var(--spectral-aqua), 
-    var(--spectral-gold), 
-    var(--spectral-blue), 
-    var(--spectral-cyan));
-  background-size: 300% 300%;
-  border-radius: inherit;
-  animation: laserPerimeterLoop 6s infinite alternate ease-in-out;
-  opacity: 0.92;
+/* --------------------------------------------------------------------------
+   MODULO 03: UI KIT LIGHT LUXURY UNIVERSALE (BOTTONI, CARDS, BADGES)
+   -------------------------------------------------------------------------- */
+
+/* Pannelli in Vetro Satinato (Glassmorphism) */
+.glass-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--oro-border);
+    box-shadow: var(--shadow-subtle);
+    border-radius: 12px;
+    transition: all var(--trans-smooth);
 }
 
-@keyframes laserPerimeterLoop {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+.glass-panel:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(197, 160, 89, 0.65);
+    box-shadow: var(--shadow-luxury);
 }
 
-/* Tipografia Spettrale Lucida con Riflesso Solare Scorrevole */
-.spectral-text {
-  background: linear-gradient(45deg, 
-    var(--text-dominant), 
-    var(--spectral-gold), 
-    var(--spectral-aqua), 
-    var(--spectral-emerald),
-    var(--spectral-blue));
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: laserPerimeterLoop 7s infinite alternate ease-in-out;
-  position: relative;
-  display: inline-block;
+.glass-panel-pure {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-subtle);
 }
 
-.spectral-text::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
-  transform: skewX(-20deg);
-  animation: shinePass 5s infinite;
+/* Pulsante Luxury Primary (Grafite Istituzionale) */
+.btn-luxury-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 2.2rem;
+    background-color: var(--text-ardesia);
+    color: #FFFFFF;
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: 1px solid rgba(197, 160, 89, 0.45);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(26, 32, 44, 0.16);
+    transition: all var(--trans-smooth);
+    text-decoration: none;
 }
 
-@keyframes shinePass {
-  0% { left: -100%; }
-  22%, 100% { left: 200%; }
+.btn-luxury-primary:hover {
+    background-color: #000000;
+    border-color: var(--oro-light);
+    box-shadow: 0 8px 24px var(--oro-glow-intense);
+    transform: translateY(-2px);
+    color: #FFFFFF;
 }
 
-/* ==========================================================================
-   7. SEZIONI OVALI A CAPSULA SMUSSATA & LAYOUT PRINCIPALE
-   ========================================================================== */
-.container {
-  max-width: 1400px;
-  margin: 2.5rem auto;
-  padding: 0 2.5rem;
-  position: relative;
+.btn-luxury-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.oval-section {
-  background: var(--bg-glass-card);
-  backdrop-filter: blur(35px) saturate(160%);
-  -webkit-backdrop-filter: blur(35px) saturate(160%);
-  border-radius: var(--radius-oval-large);
-  padding: 4.5rem 3.5rem;
-  margin-bottom: 4.5rem;
-  box-shadow: var(--shadow-diffuse);
-  position: relative;
-  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+.btn-luxury-primary:focus-visible {
+    outline: 2px solid var(--oro-light);
+    outline-offset: 3px;
 }
 
-.oval-section:hover {
-  box-shadow: var(--shadow-hover);
+/* Pulsante Luxury Gold (Champagne Gradient) */
+.btn-luxury-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 2.2rem;
+    background: linear-gradient(135deg, #C5A059 0%, #D4AF37 50%, #B8860B 100%);
+    color: #FFFFFF;
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px var(--oro-glow);
+    transition: all var(--trans-smooth);
+    text-decoration: none;
 }
 
-.sec-head {
-  text-align: center;
-  max-width: 850px;
-  margin: 0 auto 3.5rem;
+.btn-luxury-gold:hover {
+    background: linear-gradient(135deg, #D4AF37 0%, #E5C578 50%, #C5A059 100%);
+    box-shadow: 0 10px 30px var(--oro-glow-intense);
+    transform: translateY(-2px);
+    color: #FFFFFF;
 }
 
-.sec-tag {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+.btn-luxury-gold:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 12px var(--oro-glow);
 }
 
-.sec-tit {
-  font-family: var(--font-sync);
-  font-size: 2.3rem;
-  margin: 0.8rem 0;
-  color: var(--text-dominant);
-  line-height: 1.2;
+.btn-luxury-gold:focus-visible {
+    outline: 2px solid var(--text-ardesia);
+    outline-offset: 3px;
 }
 
-.sec-sub {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  line-height: 1.7;
+/* Pulsante Luxury Outline (Bordo Satinato) */
+.btn-luxury-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 2.2rem;
+    background-color: transparent;
+    color: var(--text-ardesia);
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: 1px solid var(--text-ardesia);
+    cursor: pointer;
+    position: relative;
+    transition: all var(--trans-smooth);
+    text-decoration: none;
 }
 
-/* ==========================================================================
-   8. COMPONENTI DEI 5 SLOT MULTIMEDIALI (CARICABILI DA X-BOX)
-   ========================================================================== */
-.media-slots-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.2rem;
-  margin-top: 3.2rem;
+.btn-luxury-outline:hover {
+    background-color: var(--text-ardesia);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-subtle);
 }
 
-.media-slot-item {
-  aspect-ratio: 16/9;
-  background: rgba(74, 82, 96, 0.06);
-  border-radius: var(--radius-inner);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--metal-frame);
-  border: 1.5px dashed var(--metal-edge);
-  transition: transform var(--transition-smooth), border-color var(--transition-smooth), background var(--transition-smooth), box-shadow var(--transition-smooth);
-  padding: 12px;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+.btn-luxury-outline:active {
+    transform: translateY(0);
 }
 
-.media-slot-item:hover {
-  border-color: var(--spectral-gold);
-  background: rgba(212, 175, 55, 0.08);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(74, 82, 96, 0.1);
+.btn-luxury-outline:focus-visible {
+    outline: 2px solid var(--oro-champagne);
+    outline-offset: 3px;
 }
 
-.media-slot-item::after {
-  content: 'EAL6+ ASSET';
-  position: absolute;
-  bottom: 4px;
-  font-size: 0.5rem;
-  color: var(--text-light);
-  letter-spacing: 1px;
+/* Animazione Shimmer Diagonale */
+.btn-shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(60deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+    transform: rotate(25deg) translateX(-150%);
+    animation: shimmer-glance 5.5s infinite;
+    pointer-events: none;
 }
 
-/* ==========================================================================
-   9. PULSANTI, LINK & BADGE FORENSI
-   ========================================================================== */
-.btn-gold {
-  background: var(--bg-pearl-light);
-  color: var(--text-dominant);
-  padding: 16px 36px;
-  font-family: var(--font-sync);
-  font-size: 0.82rem;
-  font-weight: 700;
-  border-radius: var(--radius-pill);
-  cursor: pointer;
-  transition: transform var(--transition-smooth), background var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
-  text-decoration: none;
-  display: inline-block;
-  border: 1.5px solid var(--metal-frame);
-  box-shadow: var(--shadow-subtle);
-  position: relative;
-  overflow: hidden;
-  text-align: center;
+@keyframes shimmer-glance {
+    0% { transform: rotate(25deg) translateX(-150%); }
+    22% { transform: rotate(25deg) translateX(150%); }
+    100% { transform: rotate(25deg) translateX(150%); }
 }
 
-.btn-gold:hover {
-  background: var(--spectral-gold);
-  color: #000;
-  border-color: var(--spectral-gold);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-gold);
+/* Indicatori e Badges Forensi */
+.eal6-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--verde-eal6-bg);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    color: #065F46;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    user-select: none;
 }
 
-.btn-gold:active {
-  transform: translateY(1px);
+.pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--verde-eal6);
+    box-shadow: 0 0 10px var(--verde-eal6);
+    animation: pulse-dot-glow 2.2s infinite;
 }
 
-.btn-gold-solid {
-  background: var(--spectral-gold);
-  color: #000;
-  border: 1.5px solid var(--spectral-gold);
-  box-shadow: var(--shadow-gold);
+@keyframes pulse-dot-glow {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 10px var(--verde-eal6);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+        box-shadow: 0 0 4px var(--verde-eal6);
+    }
 }
 
-.btn-gold-solid:hover {
-  background: var(--spectral-gold-light);
-  border-color: var(--spectral-gold-light);
+/* --------------------------------------------------------------------------
+   MODULO 04: SEC-00 // TOPBAR FORENSE & RADIO LOUNGE (EAL6+ PROTOCOL)
+   -------------------------------------------------------------------------- */
+
+#sec-00 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    z-index: 1000;
+    background: rgba(250, 250, 252, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s ease, height 0.3s ease;
 }
 
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.65);
-  color: var(--text-muted);
-  border: 1.5px solid var(--metal-edge);
-  border-radius: var(--radius-pill);
-  padding: 16px 36px;
-  font-family: var(--font-sync);
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all var(--transition-smooth);
-  display: inline-block;
-  text-align: center;
+.topbar-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
 }
 
-.btn-secondary:hover {
-  background: #FFF;
-  color: var(--text-dominant);
-  border-color: var(--metal-frame);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-subtle);
+.brand-seal {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.16em;
+    color: var(--text-ardesia);
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
-.badge-eal {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--spectral-cyan);
-  background: rgba(0, 240, 255, 0.08);
-  border: 1px solid var(--spectral-cyan);
-  padding: 6px 16px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+.brand-seal i {
+    font-size: 1.3rem;
+    color: var(--oro-champagne);
+    filter: drop-shadow(0 2px 6px var(--oro-glow));
+    transition: transform 0.3s ease;
 }
 
-/* ==========================================================================
-   10. TOPBAR FORENSE & SELETTORE MULTILINGUA
-   ========================================================================== */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--bg-pearl-translucent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 0.85rem 3rem;
-  margin: 0 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-dominant);
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
-  box-shadow: var(--shadow-subtle);
+.brand-seal:hover i {
+    transform: scale(1.08);
 }
 
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  cursor: pointer;
+/* Console Radio Lounge */
+.radio-lounge-engine {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: #FFFFFF;
+    padding: 0.5rem 1.4rem;
+    border-radius: 40px;
+    border: 1px solid var(--oro-border);
+    box-shadow: var(--shadow-subtle);
+    transition: border-color var(--trans-fast);
 }
 
-.status-led {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--status-online);
-  box-shadow: 0 0 12px var(--status-online);
-  animation: pulseLed 1.2s infinite alternate ease-in-out;
+.radio-lounge-engine:hover {
+    border-color: rgba(197, 160, 89, 0.6);
 }
 
-@keyframes pulseLed {
-  0% { opacity: 0.35; transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1.1); }
+.equalizer-wave {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 18px;
+    width: 24px;
+    flex-shrink: 0;
 }
 
-.lang-selector {
-  appearance: none;
-  background: var(--bg-pearl-light);
-  border: 1.5px solid var(--metal-edge);
-  border-radius: var(--radius-pill);
-  padding: 6px 18px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--text-dominant);
-  cursor: pointer;
-  outline: none;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+.eq-bar {
+    width: 3px;
+    background: var(--oro-champagne);
+    border-radius: 3px;
+    height: 4px;
+    animation: eq-pulse 1.2s ease-in-out infinite alternate;
+    animation-play-state: paused;
 }
 
-.lang-selector:hover {
-  border-color: var(--spectral-gold);
-  background: #FFF;
+.eq-bar:nth-child(1) { animation-delay: 0.1s; height: 8px; }
+.eq-bar:nth-child(2) { animation-delay: 0.3s; height: 16px; }
+.eq-bar:nth-child(3) { animation-delay: 0.2s; height: 10px; }
+.eq-bar:nth-child(4) { animation-delay: 0.4s; height: 14px; }
+
+@keyframes eq-pulse {
+    0% { height: 4px; }
+    100% { height: 18px; }
 }
 
-/* ==========================================================================
-   11. HERO GOVERNANCE (6-FRAME LOOP & TRITTICO OVALE)
-   ========================================================================== */
-.hero-container {
-  display: flex;
-  align-items: center;
-  gap: 4.5rem;
-  min-height: 68vh;
+.radio-marquee-box {
+    width: 220px;
+    overflow: hidden;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    position: relative;
 }
 
-.hero-text {
-  flex: 1.25;
+.radio-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.btn-radio {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.btn-radio:hover {
+    color: var(--oro-champagne);
+    background: var(--bg-platino);
+}
+
+.btn-radio-play {
+    width: 34px;
+    height: 34px;
+    background: var(--bg-perla);
+    border: 1px solid var(--oro-champagne);
+    color: var(--oro-champagne);
+}
+
+.btn-radio-play:hover {
+    background: var(--oro-champagne);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px var(--oro-glow);
+}
+
+/* Slider Volume Forense */
+#radio-volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 65px;
+    height: 4px;
+    background: var(--border-light);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+#radio-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--oro-champagne);
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+#radio-volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+}
+
+.topbar-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 05: SEC-01 // HERO GOVERNANCE & 3D LOOP CIRCOLARE 10 LOGHI
+   -------------------------------------------------------------------------- */
+
+#sec-01 {
+    padding-top: 150px;
+    padding-bottom: 90px;
+    position: relative;
+    background: radial-gradient(circle at 50% 25%, rgba(197, 160, 89, 0.09) 0%, transparent 65%);
+    text-align: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-light);
 }
 
 .hero-title {
-  font-family: var(--font-sync);
-  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
-  line-height: 1.1;
-  margin-bottom: 1.2rem;
-  font-weight: 700;
-}
-
-.hero-desc {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 2.2rem;
-  max-width: 640px;
-}
-
-.hero-visual {
-  flex: 0.75;
-}
-
-.hero-logo-loop {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--bg-pearl-light);
-  box-shadow: var(--shadow-hover);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.hero-logo-loop img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-}
-
-.hero-logo-loop img.active {
-  opacity: 1;
-}
-
-.trittico-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 3.5rem;
-}
-
-.trittico-box {
-  background: rgba(255, 255, 255, 0.65);
-  border: 1.5px solid var(--metal-edge);
-  border-radius: var(--radius-oval-small);
-  padding: 2.2rem;
-  text-align: center;
-  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
-}
-
-.trittico-box:hover {
-  transform: translateY(-8px);
-  border-color: var(--spectral-gold);
-  box-shadow: var(--shadow-gold);
-}
-
-.trittico-icon {
-  font-size: 2.4rem;
-  margin-bottom: 0.8rem;
-}
-
-.trittico-tit {
-  font-family: var(--font-sync);
-  font-size: 1.1rem;
-  color: var(--text-dominant);
-  margin-bottom: 0.6rem;
-}
-
-.trittico-sub {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-/* ==========================================================================
-   12. SOTTOMENU 3D "CESSIONE DEL CENTRO" (ACADEMY & SUB-DECKS)
-   ========================================================================== */
-.view-stack {
-  position: relative;
-  perspective: 1600px;
-  min-height: 600px;
-}
-
-.view-main, .view-sub {
-  position: absolute;
-  inset: 0;
-  transition: transform var(--transition-slow), opacity var(--transition-slow);
-}
-
-.view-sub {
-  opacity: 0;
-  transform: translate3d(70px, 70px, 0) rotateZ(6deg);
-  pointer-events: none;
-  z-index: 10;
-}
-
-.view-stack.sub-active .view-main {
-  transform: translate3d(0, -40px, -100px) scale(0.92);
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-.view-stack.sub-active .view-sub {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) rotateZ(0);
-  pointer-events: auto;
-}
-
-/* ==========================================================================
-   13. FUNNEL TANDEM DRAG & CORNER PEEL EXIT (SCREENING SEZIONE 10)
-   ========================================================================== */
-.funnel-wrapper {
-  position: relative;
-  width: 100%;
-  height: 640px;
-  perspective: 1800px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.glass-deck {
-  position: absolute;
-  width: 920px;
-  height: 580px;
-  background: var(--bg-glass-card);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border-radius: var(--radius-oval-large);
-  padding: 3.5rem;
-  box-shadow: var(--shadow-diffuse);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.glass-deck::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(850px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.45), transparent 45%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-  mix-blend-mode: overlay;
-  z-index: 5;
-}
-
-.glass-deck:hover::before {
-  opacity: 1;
-}
-
-.state-center {
-  transform: translate3d(0, 0, 0) scale(1);
-  opacity: 1;
-  z-index: 10;
-  pointer-events: auto;
-}
-
-.state-waiting-right {
-  transform: translate3d(120%, 0, 0) scale(1);
-  opacity: 0;
-  z-index: 5;
-}
-
-.anim-enter-right {
-  animation: tandemEnter var(--transition-tandem) forwards;
-  z-index: 20;
-  pointer-events: auto;
-}
-
-@keyframes tandemEnter {
-  0% { transform: translate3d(105%, 0, 0) scale(0.98); opacity: 0; }
-  40% { opacity: 1; }
-  60% { transform: translate3d(-2%, 0, 0) scale(0.99); }
-  80% { transform: translate3d(1%, 0, 0) scale(1); }
-  100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
-}
-
-.anim-exit-left-corner {
-  transform-origin: bottom left;
-  animation: cornerPeelExit var(--transition-tandem) forwards;
-  z-index: 15;
-  pointer-events: none;
-}
-
-@keyframes cornerPeelExit {
-  0% { transform: translate3d(0, 0, 0) scale(1) rotateZ(0) rotateY(0); opacity: 1; }
-  20% { transform: translate3d(-30%, 0, 0) scale(0.98); }
-  45% { transform: translate3d(-60%, -10%, 0) scale(0.92) rotateZ(-6deg) rotateY(15deg); opacity: 0.9; }
-  100% { transform: translate3d(-150%, -40%, -100px) scale(0.8) rotateZ(-15deg) rotateY(35deg); opacity: 0; }
-}
-
-.sel-card {
-  background: rgba(255, 255, 255, 0.65);
-  border: 1.5px solid var(--metal-edge);
-  padding: 1.5rem;
-  border-radius: var(--radius-inner);
-  cursor: pointer;
-  transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.sel-card:hover {
-  border-color: var(--spectral-gold);
-  transform: translateY(-3px);
-}
-
-.sel-card.selected {
-  background: #FFF;
-  border-color: var(--spectral-gold);
-  box-shadow: var(--shadow-gold);
-}
-
-.sel-tit {
-  font-family: var(--font-sync);
-  font-size: 1rem;
-  color: var(--text-dominant);
-  margin-bottom: 0.4rem;
-}
-
-.sel-desc {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-/* ==========================================================================
-   14. FORMULARI FORENSI, INPUT & VALIDAZIONE LATO CLIENT
-   ========================================================================== */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.2rem;
-}
-
-.form-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--text-dominant);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.form-input {
-  padding: 15px 18px;
-  border-radius: var(--radius-input);
-  border: 1.5px solid var(--metal-edge);
-  background: var(--bg-glass-input);
-  font-family: var(--font-mont);
-  font-size: 0.92rem;
-  color: var(--text-dominant);
-  outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
-}
-
-.form-input:focus {
-  border-color: var(--spectral-cyan);
-  background: #FFF;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-}
-
-.form-input::placeholder {
-  color: var(--text-light);
-  font-size: 0.88rem;
-}
-
-.form-status-box {
-  padding: 14px 18px;
-  border-radius: var(--radius-input);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  line-height: 1.5;
-  margin-bottom: 1.2rem;
-  display: none;
-}
-
-.form-status-box.success {
-  display: block;
-  background: rgba(0, 230, 118, 0.15);
-  border: 1.5px solid var(--spectral-emerald);
-  color: var(--text-dominant);
-}
-
-.form-status-box.error {
-  display: block;
-  background: rgba(255, 59, 48, 0.15);
-  border: 1.5px solid var(--status-alert);
-  color: var(--text-dominant);
-}
-
-/* ==========================================================================
-   15. ALISON CONCIERGE FLOTTANTE, RADAR CANVAS & CHAT MODALE
-   ========================================================================== */
-.alison-floater {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 9999;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: var(--bg-pearl-light);
-  border: 2px solid var(--spectral-gold);
-  box-shadow: var(--shadow-diffuse);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
-}
-
-.alison-floater:hover {
-  transform: scale(1.1) translateY(-3px);
-  box-shadow: var(--shadow-gold);
-}
-
-.alison-floater-badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: var(--spectral-emerald);
-  color: #000;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 12px;
-  border: 1px solid #FFF;
-  box-shadow: 0 0 10px var(--spectral-emerald);
-}
-
-.alison-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--bg-modal-overlay);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  z-index: 10000;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-.alison-console {
-  width: 900px;
-  height: 600px;
-  background: var(--bg-pearl-light);
-  border-radius: 40px;
-  box-shadow: var(--shadow-hover);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-.alison-chat-bubble {
-  max-width: 80%;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1.5px solid var(--metal-edge);
-  padding: 1.5rem;
-  border-radius: var(--radius-inner);
-  box-shadow: var(--shadow-subtle);
-  line-height: 1.6;
-}
-
-.alison-user-bubble {
-  align-self: flex-end;
-  max-width: 75%;
-  background: var(--text-dominant);
-  color: #FFF;
-  border: 1px solid var(--spectral-gold);
-  padding: 1.2rem 1.6rem;
-  border-radius: var(--radius-inner);
-}
-
-.faq-slide-drawer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 400px;
-  background: rgba(255, 255, 255, 0.98);
-  border-left: 2px solid var(--spectral-gold);
-  transform: translateX(100%);
-  transition: transform var(--transition-smooth);
-  display: flex;
-  flex-direction: column;
-  z-index: 50;
-  box-shadow: -15px 0 35px rgba(74, 82, 96, 0.15);
-}
-
-.faq-drawer-item {
-  padding: 1.2rem 1.5rem;
-  border-bottom: 1px solid rgba(74, 82, 96, 0.12);
-  cursor: pointer;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-dominant);
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.faq-drawer-item:hover {
-  background: rgba(0, 240, 255, 0.08);
-  color: var(--spectral-gold-deep);
-}
-
-/* ==========================================================================
-   16. POST-FOOTER TALLY BAR // ACCESSO DIRETTO SCREENING
-   ========================================================================== */
-.post-footer-bar {
-  background: var(--text-dominant);
-  padding: 2.5rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  border-top: 3px solid var(--spectral-gold);
-}
-
-.btn-tally-modal {
-  background: transparent;
-  color: #FFF;
-  font-family: var(--font-sync);
-  font-size: 1.5rem;
-  font-weight: 700;
-  border: 2px solid var(--spectral-gold);
-  padding: 20px 45px;
-  border-radius: var(--radius-pill);
-  cursor: pointer;
-  letter-spacing: 2px;
-  transition: transform var(--transition-smooth), background var(--transition-smooth), color var(--transition-smooth), box-shadow var(--transition-smooth);
-  position: relative;
-  z-index: 2;
-}
-
-.btn-tally-modal:hover {
-  background: var(--spectral-gold);
-  color: #000;
-  box-shadow: 0 0 30px var(--spectral-gold);
-  transform: scale(1.02);
-}
-
-/* ==========================================================================
-   17. X-BOX ADMINISTRATIVE CONSOLE // COMPONENTI INTEGRATI LIGHT LUXURY
-   ========================================================================== */
-.xbox-wrapper {
-  background: var(--bg-pearl-satin);
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-}
-
-.xbox-sidebar {
-  background: var(--bg-pearl-light);
-  border-right: 1.8px solid var(--metal-frame);
-  padding: 2.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.xbox-nav-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: var(--radius-inner);
-  font-family: var(--font-sync);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  border: 1px solid transparent;
-  transition: all var(--transition-fast);
-  margin-bottom: 0.6rem;
-  cursor: pointer;
-}
-
-.xbox-nav-link:hover, .xbox-nav-link.active {
-  background: #FFF;
-  color: var(--text-dominant);
-  border-color: var(--spectral-gold);
-  box-shadow: var(--shadow-subtle);
-}
-
-.xbox-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 8px;
-  font-size: 0.88rem;
-}
-
-.xbox-table th {
-  padding: 14px 18px;
-  text-align: left;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-
-.xbox-table tr {
-  background: #FFF;
-  box-shadow: var(--shadow-subtle);
-  transition: transform var(--transition-fast);
-}
-
-.xbox-table tr:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(74, 82, 96, 0.12);
-}
-
-.xbox-table td {
-  padding: 16px 18px;
-  color: var(--text-dominant);
-  border-top: 1px solid rgba(74, 82, 96, 0.08);
-  border-bottom: 1px solid rgba(74, 82, 96, 0.08);
-}
-
-.xbox-table td:first-child {
-  border-left: 1px solid rgba(74, 82, 96, 0.08);
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-}
-
-.xbox-table td:last-child {
-  border-right: 1px solid rgba(74, 82, 96, 0.08);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-/* Keypad Randomizzato X-BOX */
-.keypad-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 1.5rem;
-}
-
-.keypad-btn {
-  background: #FFF;
-  border: 1.5px solid var(--metal-edge);
-  color: var(--text-dominant);
-  font-family: var(--font-mono);
-  font-size: 1.3rem;
-  font-weight: 700;
-  padding: 18px 0;
-  border-radius: var(--radius-inner);
-  cursor: pointer;
-  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
-}
-
-.keypad-btn:hover {
-  background: var(--spectral-gold);
-  border-color: var(--spectral-gold);
-  color: #000;
-  transform: scale(1.05);
-}
-
-.keypad-btn:active {
-  transform: scale(0.95);
-}
-
-/* ==========================================================================
-   18. CLASSI DI UTILITÀ, GRIGLIE & SPAZIATURE
-   ========================================================================== */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.2rem;
-}
-
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-}
-
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.w-100 {
-  width: 100%;
-}
-
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
-.mt-3 { margin-top: 3rem; }
-.mb-1 { margin-bottom: 1rem; }
-.mb-2 { margin-bottom: 2rem; }
-.mb-3 { margin-bottom: 3rem; }
-
-/* ==========================================================================
-   19. MEDIA QUERIES RESPONSIVE (13" NOTEBOOK, TABLET & MOBILE)
-   ========================================================================== */
-@media (max-width: 1366px) {
-  /* Adattamento Viewport 13 Pollici */
-  .container {
-    padding: 0 2rem;
-  }
-  .oval-section {
-    padding: 3.5rem 2.5rem;
-    border-radius: 54px / 40px;
-  }
-  .hero-title {
-    font-size: 3.2rem;
-  }
-  .glass-deck {
-    width: 820px;
-    height: 540px;
-    padding: 2.8rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .hero-container {
-    flex-direction: column;
+    font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.12;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-muted);
+    max-width: 860px;
+    margin: 0 auto 2.8rem;
+    line-height: 1.75;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 4.5rem;
+}
+
+/* Carosello 3D Continuo */
+.hero-loop-viewport {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 3rem 0;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.hero-loop-track {
+    display: flex;
+    gap: 3.5rem;
+    width: max-content;
+    animation: hero-loop-slide 38s linear infinite;
+    transform: translateZ(0);
+}
+
+.hero-loop-track:hover {
+    animation-play-state: paused;
+}
+
+.logo-slot {
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid var(--border-light);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    transition: all var(--trans-smooth);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.logo-slot:hover {
+    transform: scale(1.14) translateY(-8px);
+    border-color: var(--oro-light);
+    box-shadow: 0 18px 40px var(--oro-glow-intense);
+}
+
+.logo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+@keyframes hero-loop-slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 1.75rem)); }
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 06: SEC-02 // PRESIDENZA INTEGRATA & GALLERIA LIGHTBOX 11"
+   -------------------------------------------------------------------------- */
+
+#sec-02 {
+    padding: 110px 0;
+    background-color: var(--bg-platino);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.presidenza-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 3rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+}
+
+.presidenza-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    padding: 2.75rem 2.25rem;
     text-align: center;
-  }
-  .hero-text {
+    box-shadow: var(--shadow-subtle);
+    transition: all var(--trans-smooth);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.presidenza-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-luxury);
+    border-color: var(--oro-border);
+}
+
+/* Rapporto 3:4 Bloccato Ritratto */
+.portrait-frame {
+    width: 220px;
+    height: 293px;
+    margin: 0 auto 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--oro-border);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    background-color: var(--bg-platino);
+}
+
+.portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--trans-slow);
+}
+
+.presidenza-card:hover .portrait-frame img {
+    transform: scale(1.05);
+}
+
+.presidenza-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.presidenza-role {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--oro-champagne);
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+}
+
+.presidenza-bio {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 2.2rem;
+    line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 07: SEC-03 // CHATBOT DIRECT ALISON (RADAR & CONSOLE)
+   -------------------------------------------------------------------------- */
+
+#sec-03 {
+    padding: 110px 0;
+    background: #FFFFFF;
+    position: relative;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.chatbot-wrapper {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 3.5rem;
+    align-items: center;
+}
+
+.radar-avatar-box {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radar-wave {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--ciano-tech);
+    opacity: 0;
+    animation: radar-spread 3.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    pointer-events: none;
+}
+
+.radar-wave:nth-child(1) { animation-delay: 0s; }
+.radar-wave:nth-child(2) { animation-delay: 1.2s; }
+.radar-wave:nth-child(3) { animation-delay: 2.4s; }
+
+@keyframes radar-spread {
+    0% {
+        width: 150px;
+        height: 150px;
+        opacity: 0.8;
+        transform: scale(0.9);
+    }
+    100% {
+        width: 320px;
+        height: 320px;
+        opacity: 0;
+        transform: scale(1.35);
+    }
+}
+
+.avatar-video-core {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--ciano-tech);
+    box-shadow: 0 0 35px var(--ciano-glow);
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    background-color: var(--bg-platino);
+    transition: transform var(--trans-smooth);
+}
+
+.avatar-video-core:hover {
+    transform: scale(1.05);
+}
+
+.avatar-video-core video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.triage-console {
+    background: var(--bg-perla);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-subtle);
+}
+
+.triage-status {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-ardesia);
+    margin-bottom: 1.25rem;
+}
+
+.triage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.15rem;
+    margin-top: 1.75rem;
+}
+
+.triage-btn {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    padding: 1.1rem 1.25rem;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text-ardesia);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    transition: all var(--trans-fast);
+}
+
+.triage-btn:hover {
+    border-color: var(--ciano-tech);
+    box-shadow: 0 4px 18px var(--ciano-glow);
+    transform: translateX(5px);
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 08: SEC-04 // FUNNEL SCREENING TANDEM DRAG
+   -------------------------------------------------------------------------- */
+
+.funnel-modal-window {
+    background: #FFFFFF;
+    width: 95%;
+    max-width: 940px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-modal);
+    border: 1px solid var(--oro-border);
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+}
+
+.funnel-header {
+    padding: 1.75rem 2.25rem;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-perla);
+}
+
+.funnel-progress-track {
+    width: 100%;
+    height: 5px;
+    background: var(--border-light);
+    margin-top: 1.25rem;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.funnel-progress-fill {
+    height: 100%;
+    width: 33.33%;
+    background: linear-gradient(90deg, var(--oro-champagne), var(--oro-light));
+    transition: width var(--trans-smooth);
+}
+
+.tandem-drag-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 2.75rem 2.25rem;
+    gap: 2.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tandem-drag-track::-webkit-scrollbar {
+    display: none;
+}
+
+.tandem-panel {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.screening-option-card {
+    padding: 1.4rem 1.75rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--trans-fast);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+}
+
+.screening-option-card:hover,
+.screening-option-card.selected {
+    border-color: var(--oro-champagne);
+    background: rgba(197, 160, 89, 0.05);
+    box-shadow: var(--shadow-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 09: SEC-05 // SUPREMA ACADEMY 100% LIVE
+   -------------------------------------------------------------------------- */
+
+#sec-05 {
+    padding: 110px 0;
+    background: var(--bg-platino);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.banner-panoramico-219 {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto 4rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-luxury);
+    aspect-ratio: 21 / 9;
+    background-color: var(--text-ardesia);
+}
+
+.banner-panoramico-219 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.academy-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+}
+
+.course-tier-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    padding: 2.75rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all var(--trans-smooth);
+    box-shadow: var(--shadow-subtle);
+}
+
+.course-tier-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-luxury);
+}
+
+.tier-silver {
+    border-top: 5px solid #A0AEC0;
+}
+
+.tier-gold {
+    border-top: 5px solid var(--oro-champagne);
+    border-color: var(--oro-border);
+    box-shadow: var(--shadow-luxury);
+}
+
+.tier-premium {
+    border-top: 5px solid var(--text-ardesia);
+}
+
+/* Modale Demo Aula Live */
+#modal-academy-live-demo video {
+    box-shadow: var(--shadow-medium);
+}
+/* ==========================================================================
+   SUPREMA FUTURE X — FOGLIO DI STILE MONOLITICO DI GOVERNANCE (PARTE 2 DI 2)
+   Design System: Light Luxury EAL6+ | Anti-Flicker Hardware Accelerated
+   Moduli: 10 Gold Card 3D -> 15 Responsive Avanzato (Righe 1201 - 2400)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   MODULO 10: SEC-06 // SUPREMA GOLD CARD FIDELITY (3D ENGINE & LASER)
+   -------------------------------------------------------------------------- */
+
+#sec-06 {
+    padding: 120px 0;
+    background: #FFFFFF;
+    position: relative;
+    border-bottom: 1px solid var(--border-light);
+    perspective: 1200px;
+    -webkit-perspective: 1200px;
+    overflow: hidden;
+}
+
+#sec-06::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.card-interactive-stage {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4.5rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Scatola Tridimensionale & Inclinazione Dinamica */
+.goldcard-3d-wrap {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: transform 0.15s ease-out;
+    cursor: grab;
+    position: relative;
+    user-select: none;
+}
+
+.goldcard-3d-wrap:active {
+    cursor: grabbing;
+}
+
+.goldcard-3d-wrap img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    filter: drop-shadow(0 25px 40px rgba(197, 160, 89, 0.28));
+    -webkit-filter: drop-shadow(0 25px 40px rgba(197, 160, 89, 0.28));
+    transition: filter var(--trans-smooth);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.goldcard-3d-wrap:hover img {
+    filter: drop-shadow(0 35px 55px rgba(197, 160, 89, 0.38));
+}
+
+/* Scansione Laser a Fibra Ottica */
+.laser-scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--ciano-tech) 50%, transparent 100%);
+    box-shadow: 0 0 16px var(--ciano-tech), 0 0 30px var(--ciano-tech);
+    animation: laser-sweep-vertical 3.4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 15;
+    border-radius: 1px;
+}
+
+@keyframes laser-sweep-vertical {
+    0% {
+        top: 4%;
+        opacity: 0;
+        transform: scaleX(0.85);
+    }
+    15% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    85% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    100% {
+        top: 96%;
+        opacity: 0;
+        transform: scaleX(0.85);
+    }
+}
+
+/* Microchip Crittografico & Dettagli Lamina */
+.goldcard-spec-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-perla);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    transition: all var(--trans-fast);
+}
+
+.goldcard-spec-item:hover {
+    border-color: var(--oro-champagne);
+    background: #FFFFFF;
+    box-shadow: var(--shadow-subtle);
+    transform: translateX(4px);
+}
+
+.goldcard-spec-icon {
+    font-size: 1.25rem;
+    color: var(--oro-champagne);
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.goldcard-spec-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-ardesia);
+    margin-bottom: 0.2rem;
+}
+
+.goldcard-spec-text span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 11: SEC-07 // SUPREMA MEDIA VAULT (ARCHIVIO CRITTOGRAFICO EAL6+)
+   -------------------------------------------------------------------------- */
+
+#sec-07 {
+    padding: 120px 0;
+    background-color: var(--bg-platino);
+    position: relative;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.vault-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1340px;
+    margin: 0 auto 2.5rem;
+    padding: 0 1.75rem;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+}
+
+.vault-category-tabs {
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.vault-category-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.vault-category-tabs::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+    border-radius: 2px;
+}
+
+.tab-vault {
+    padding: 0.7rem 1.4rem;
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--trans-fast);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-vault:hover {
+    background: var(--bg-perla);
+    color: var(--text-ardesia);
+    border-color: var(--oro-border);
+}
+
+.tab-vault.active {
+    background: var(--text-ardesia);
+    color: #FFFFFF;
+    border-color: var(--text-ardesia);
+    box-shadow: 0 4px 14px rgba(26, 32, 44, 0.2);
+}
+
+.tab-vault.active i {
+    color: var(--oro-light);
+}
+
+/* Ricerca Live Direzionale */
+.vault-search-box {
+    position: relative;
+    width: 300px;
+}
+
+.vault-search-box input {
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2.6rem;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    color: var(--text-ardesia);
+    background: #FFFFFF;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    outline: none;
+    transition: all var(--trans-fast);
+}
+
+.vault-search-box input::placeholder {
+    color: var(--text-disabled);
+}
+
+.vault-search-box input:focus {
+    border-color: var(--oro-champagne);
+    box-shadow: 0 0 12px var(--oro-glow);
+}
+
+.vault-search-box i {
+    position: absolute;
+    left: 0.95rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-subtle);
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+/* Griglia 500 Slot Vault */
+.vault-grid-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+    gap: 1.25rem;
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+}
+
+.vault-slot-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 1.6rem 1.15rem;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  .hero-visual {
-    width: 60%;
-    margin-top: 2rem;
-  }
-  .trittico-grid, .grid-3, .grid-4 {
-    grid-template-columns: 1fr;
-  }
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-  .media-slots-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .glass-deck {
-    width: 90%;
-    height: auto;
-    min-height: 550px;
+    justify-content: center;
+    transition: all var(--trans-smooth);
     position: relative;
-    left: auto;
-    margin: 0 auto;
-  }
-  .funnel-wrapper {
-    height: auto;
-  }
-  .xbox-wrapper {
-    grid-template-columns: 1fr;
-  }
-  .xbox-sidebar {
-    display: none;
-  }
+    min-height: 175px;
 }
 
-@media (max-width: 768px) {
-  .topbar {
-    padding: 0.75rem 1.5rem;
-    margin: 0;
-    border-radius: 0;
-  }
-  .oval-section {
-    padding: 2.5rem 1.5rem;
-    border-radius: 36px / 28px;
-  }
-  .hero-title {
-    font-size: 2.3rem;
-  }
-  .media-slots-grid {
+/* Stato Risorsa Attiva / ON */
+.vault-slot-item.active-resource {
+    border-color: rgba(197, 160, 89, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.vault-slot-item.active-resource:hover {
+    border-color: var(--oro-champagne);
+    box-shadow: var(--shadow-luxury);
+    transform: translateY(-5px);
+    background: var(--bg-card-hover);
+}
+
+.vault-slot-item.active-resource i {
+    font-size: 2rem;
+    color: var(--oro-champagne);
+    margin-bottom: 0.85rem;
+    transition: transform var(--trans-fast);
+}
+
+.vault-slot-item.active-resource:hover i {
+    transform: scale(1.1);
+}
+
+.vault-slot-code {
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--text-ardesia);
+    margin-bottom: 0.35rem;
+}
+
+.vault-slot-status-active {
+    font-size: 0.68rem;
+    color: var(--verde-eal6);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* Stato Risorsa Standby / In Vidimazione */
+.vault-slot-item.standby-resource {
+    background: rgba(250, 250, 252, 0.65);
+    border: 1px dashed var(--border-dark);
+    opacity: 0.62;
+    cursor: not-allowed;
+}
+
+.vault-slot-item.standby-resource i {
+    font-size: 1.6rem;
+    color: var(--text-disabled);
+    margin-bottom: 0.75rem;
+}
+
+.vault-slot-item.standby-resource .vault-slot-code {
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+.vault-slot-status-standby {
+    font-size: 0.65rem;
+    color: var(--text-subtle);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 12: SEC-08 & SEC-09 // PRESIDI SOCIAL & E-COMMERCE CONCESSIONE
+   -------------------------------------------------------------------------- */
+
+.social-presidi-grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
-  }
-  .alison-console {
-    width: 95%;
-    height: 90vh;
-  }
-  .faq-slide-drawer {
+    gap: 1.15rem;
+}
+
+.social-card-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 1.15rem 1.25rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--text-ardesia);
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 0.875rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    transition: all var(--trans-fast);
+}
+
+.social-card-item:hover {
+    border-color: var(--oro-champagne);
+    color: var(--oro-champagne);
+    box-shadow: var(--shadow-subtle);
+    transform: translateY(-2px);
+}
+
+.social-card-item i {
+    font-size: 1.35rem;
+    transition: transform var(--trans-fast);
+}
+
+.social-card-item:hover i {
+    transform: scale(1.15);
+}
+
+/* Cassetto Laterale (Drawer) Concessione Store */
+.drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 32, 44, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--trans-smooth);
+}
+
+.drawer-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.concessione-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
     width: 100%;
-  }
-  .btn-tally-modal {
+    max-width: 540px;
+    height: 100vh;
+    background: #FFFFFF;
+    z-index: 2001;
+    box-shadow: -12px 0 50px rgba(0, 0, 0, 0.18);
+    border-left: 2px solid var(--oro-border);
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+    padding: 3.5rem 2.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.concessione-drawer.active {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.drawer-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.drawer-title-wrap i {
+    color: var(--oro-champagne);
+    font-size: 1.35rem;
+}
+
+.drawer-title-wrap h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.btn-drawer-close {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color var(--trans-fast);
+}
+
+.btn-drawer-close:hover {
+    color: var(--oro-champagne);
+}
+
+.drawer-article-clause {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text-ardesia);
+}
+
+.drawer-article-clause:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.drawer-article-clause strong {
+    color: var(--text-ardesia);
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 13: SEC-10 A SEC-13 // TESTIMONIANZE, MODULI & FOOTER FORENSE
+   -------------------------------------------------------------------------- */
+
+#sec-10 {
+    padding: 120px 0;
+    background: #FFFFFF;
+    position: relative;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Binario Continuo a Scorrimento Orizzontale per le 40 Testimonianze */
+.testimonials-scroller {
+    display: flex;
+    gap: 1.75rem;
+    overflow-x: auto;
+    padding: 2.5rem 1.75rem;
+    scroll-snap-type: x mandatory;
+    max-width: 1440px;
+    margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.testimonials-scroller::-webkit-scrollbar {
+    height: 7px;
+}
+
+.testimonials-scroller::-webkit-scrollbar-track {
+    background: var(--bg-platino);
+    border-radius: 4px;
+}
+
+.testimonials-scroller::-webkit-scrollbar-thumb {
+    background: var(--oro-champagne);
+    border-radius: 4px;
+}
+
+.testimonial-card {
+    flex: 0 0 350px;
+    scroll-snap-align: start;
+    background: var(--bg-perla);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 2.25rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-subtle);
+    transition: all var(--trans-smooth);
+}
+
+.testimonial-card:hover {
+    border-color: var(--oro-border);
+    background: #FFFFFF;
+    box-shadow: var(--shadow-luxury);
+    transform: translateY(-4px);
+}
+
+.eal6-seal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--oro-deep);
+    background: rgba(197, 160, 89, 0.12);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--oro-border-subtle);
+}
+
+.testimonial-quote {
+    font-size: 0.875rem;
+    color: var(--text-ardesia);
+    line-height: 1.68;
+    margin-bottom: 1.75rem;
+    font-style: italic;
+}
+
+.testimonial-stars {
+    color: var(--oro-champagne);
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 2px;
+}
+
+.testimonial-author strong {
+    display: block;
+    font-size: 0.925rem;
+    color: var(--text-ardesia);
+}
+
+.testimonial-author span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+}
+
+/* Moduli di Contatto (SEC-11 Newsletter & SEC-12 Feedback) */
+#sec-11,
+#sec-12 {
+    position: relative;
+}
+
+.luxury-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-bottom: 1.4rem;
+    text-align: left;
+}
+
+.luxury-form-group label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-ardesia);
+    text-transform: uppercase;
+}
+
+.luxury-input {
+    width: 100%;
+    padding: 0.9rem 1.35rem;
+    background: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-family: var(--font-main);
+    font-size: 0.88rem;
+    color: var(--text-ardesia);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    outline: none;
+    transition: all var(--trans-fast);
+}
+
+.luxury-input:focus {
+    border-color: var(--oro-champagne);
+    box-shadow: 0 0 12px var(--oro-glow);
+}
+
+.luxury-input::placeholder {
+    color: var(--text-disabled);
+}
+
+/* SEC-13: Footer Forense Vincolante */
+#sec-13 {
+    background: #FFFFFF;
+    padding: 90px 0 45px;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.85rem;
+    position: relative;
+}
+
+.footer-legal-box {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+    gap: 3.5rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 3.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.jurisdiction-seal-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.jurisdiction-seal-wrap img {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.06));
+}
+
+.jurisdiction-text strong {
+    display: block;
     font-size: 1.1rem;
-    padding: 16px 28px;
-  }
+    letter-spacing: 0.06em;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-serif);
+}
+
+.jurisdiction-text span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: block;
+}
+
+.footer-disclaimer-text {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.footer-disclaimer-text p:first-child {
+    margin-bottom: 0.85rem;
+}
+
+.footer-bottom-bar {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.footer-bottom-links {
+    display: flex;
+    gap: 1.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.footer-bottom-links a:hover {
+    color: var(--oro-champagne);
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 14: SISTEMI MODALI AD ALTA FEDELTÀ (VIDEO MASTER & LIGHTBOX)
+   -------------------------------------------------------------------------- */
+
+.modal-screen-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-glass-modal);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s var(--trans-smooth);
+}
+
+.modal-screen-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Player Video Master Full HD */
+.video-modal-container {
+    width: 92%;
+    max-width: 1140px;
+    position: relative;
+    background: #000000;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-modal);
+}
+
+.video-modal-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000000;
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: -48px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1.85rem;
+    cursor: pointer;
+    transition: color var(--trans-fast);
+    z-index: 3005;
+}
+
+.btn-close-modal:hover {
+    color: var(--oro-light);
+}
+
+/* Lightbox Galleria 11 Pollici */
+#modal-gallery-lightbox .lightbox-stage {
+    position: relative;
+    width: 90%;
+    max-width: 1040px;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+#gallery-lightbox-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.25s ease;
+}
+
+.lightbox-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    color: #FFFFFF;
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all var(--trans-fast);
+    z-index: 10;
+}
+
+.lightbox-nav-btn:hover {
+    background: var(--oro-champagne);
+    border-color: var(--oro-light);
+    color: #FFFFFF;
+}
+
+.lightbox-nav-btn.prev {
+    left: 1.25rem;
+}
+
+.lightbox-nav-btn.next {
+    right: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   MODULO 15: RESPONSIVE AVANZATO (4 SCAGLIONI: RETINA, MACBOOK, TABLET, MOBILE)
+   -------------------------------------------------------------------------- */
+
+/* Scaglione 1: Schermi Grandi & MacBook Pro 16" (min-width: 1441px) */
+@media (min-width: 1441px) {
+    .topbar-container,
+    .hero-loop-viewport,
+    .presidenza-grid,
+    .academy-courses-grid,
+    .vault-grid-display,
+    .testimonials-scroller {
+        max-width: 1440px;
+    }
+}
+
+/* Scaglione 2: Display Ibridi & Laptop Compatti (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .chatbot-wrapper {
+        grid-template-columns: 280px 1fr;
+        gap: 2.5rem;
+    }
+
+    .card-interactive-stage {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        text-align: center;
+    }
+
+    .goldcard-3d-wrap {
+        max-width: 460px;
+    }
+
+    .footer-legal-box {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+/* Scaglione 3: Tablet & iPad Pro (max-width: 1024px) */
+@media (max-width: 1024px) {
+    #sec-00 {
+        height: 66px;
+    }
+
+    .topbar-container {
+        padding: 0 1.25rem;
+    }
+
+    .radio-marquee-box {
+        width: 160px;
+    }
+
+    #sec-01 {
+        padding-top: 130px;
+        padding-bottom: 75px;
+    }
+
+    .chatbot-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .triage-status {
+        justify-content: center;
+    }
+
+    .presidenza-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+
+    .social-presidi-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .vault-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .vault-search-box {
+        width: 100%;
+    }
+}
+
+/* Scaglione 4: Smartphone Verticali (max-width: 768px) */
+@media (max-width: 768px) {
+    #sec-00 {
+        height: 60px;
+    }
+
+    .brand-seal span {
+        font-size: 0.95rem;
+    }
+
+    .radio-marquee-box,
+    .topbar-meta,
+    #radio-volume-slider {
+        display: none !important;
+    }
+
+    .radio-lounge-engine {
+        padding: 0.35rem 0.85rem;
+        gap: 0.65rem;
+    }
+
+    #sec-01 {
+        padding-top: 105px;
+        padding-bottom: 60px;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2.2rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .btn-luxury-primary,
+    .btn-luxury-gold,
+    .btn-luxury-outline {
+        width: 100%;
+        padding: 0.85rem 1.5rem;
+    }
+
+    .logo-slot {
+        width: 105px;
+        height: 105px;
+        padding: 0.85rem;
+    }
+
+    .presidenza-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .portrait-frame {
+        width: 180px;
+        height: 240px;
+    }
+
+    .radar-avatar-box {
+        width: 220px;
+        height: 220px;
+    }
+
+    .avatar-video-core {
+        width: 130px;
+        height: 130px;
+    }
+
+    .triage-console {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .triage-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .banner-panoramico-219 {
+        aspect-ratio: 16 / 9;
+        margin-bottom: 2.5rem;
+    }
+
+    .concessione-drawer {
+        max-width: 100%;
+        padding: 2.25rem 1.5rem;
+    }
+
+    .vault-grid-display {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.85rem;
+    }
+
+    .vault-slot-item {
+        padding: 1.25rem 0.85rem;
+        min-height: 155px;
+    }
+
+    .testimonial-card {
+        flex: 0 0 290px;
+        padding: 1.75rem 1.25rem;
+    }
+
+    .jurisdiction-seal-wrap {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .footer-bottom-links {
+        flex-direction: column;
+        gap: 0.85rem;
+    }
+}
+
+/* Adattamento Speciale Schermi Ridotti (max-width: 380px) */
+@media (max-width: 380px) {
+    .vault-grid-display {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-seal span {
+        display: none;
+    }
 }
