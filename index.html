@@ -23,7 +23,7 @@
     <meta property="twitter:description" content="Governance Esecutiva, Live Academy e Concessioni Store indipendenti.">
     <meta property="twitter:image" content="media/sec-01-hero/logo-01.jpg">
 
-    <!-- Tipografia e Librerie Esterne -->
+    <!-- Tipografia e FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&display=swap" rel="stylesheet">
@@ -31,11 +31,11 @@
 
     <!-- ========================================================================== -->
     <!-- PARTE 1 DI 3: FOGLIO DI STILE NATIVO MONOLITICO LIGHT LUXURY               -->
-    <!-- Architettura Anti-Flicker, Tokens, Animazioni Cinetiche & Responsive        -->
+    <!-- Palette: Perla, Platino, Champagne Gold (Zero Nero, Zero Scuri)            -->
     <!-- ========================================================================== -->
     <style>
         /* --------------------------------------------------------------------------
-           01. CORE RESET, ACCELERAZIONE GPU & PROTOCOLLO ANTI-FLICKER
+           01. RESET GPU ANTI-FLICKER & REGOLAZIONE DISPOSITIVI 120HZ
            -------------------------------------------------------------------------- */
         *,
         *::before,
@@ -54,7 +54,7 @@
             scroll-behavior: smooth;
             background-color: #FAFAFC;
             color: #1A202C;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -71,7 +71,6 @@
             font-weight: 400;
         }
 
-        /* Anti-Flicker Hardware Acceleration per Safari Retina & Display 120Hz */
         .hardware-accelerated,
         .glass-panel,
         .presidenza-card,
@@ -90,7 +89,7 @@
             will-change: transform, opacity;
         }
 
-        /* Custom Scrollbar Oro Satinato & Platino */
+        /* Scrollbar Oro Champagne & Platino Chiaro */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -109,10 +108,9 @@
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #997A2E;
+            background: #D4AF37;
         }
 
-        /* Selezione Testo Istituzionale */
         ::selection {
             background: rgba(197, 160, 89, 0.25);
             color: #1A202C;
@@ -123,11 +121,7 @@
             color: #1A202C;
         }
 
-        img,
-        picture,
-        video,
-        canvas,
-        svg {
+        img, picture, video, canvas, svg {
             display: block;
             max-width: 100%;
             height: auto;
@@ -135,10 +129,7 @@
             -webkit-user-drag: none;
         }
 
-        input,
-        button,
-        textarea,
-        select {
+        input, button, textarea, select {
             font: inherit;
             color: inherit;
             background: none;
@@ -156,75 +147,69 @@
             transition: color 0.25s ease, border-color 0.25s ease;
         }
 
-        ul,
-        ol {
+        ul, ol {
             list-style: none;
         }
 
         /* --------------------------------------------------------------------------
-           02. DESIGN TOKENS, COLOR SYSTEM LIGHT LUXURY & TIPOGRAFIA
+           02. DESIGN TOKENS INTEGRALI «LIGHT LUXURY»
            -------------------------------------------------------------------------- */
         :root {
-            /* Superfici e Fondi Puri */
+            /* Superfici Chiare */
             --bg-perla: #FAFAFC;
-            --bg-perla-alt: #FDFCFA;
+            --bg-perla-puro: #FFFFFF;
             --bg-platino: #F4F5F8;
-            --bg-platino-subtle: #ECEEF2;
-            --bg-card: rgba(255, 255, 255, 0.90);
-            --bg-card-hover: rgba(255, 255, 255, 0.98);
-            --bg-glass-modal: rgba(26, 32, 44, 0.85);
+            --bg-platino-subtle: #EDF0F5;
+            --bg-card: rgba(255, 255, 255, 0.94);
+            --bg-card-hover: #FFFFFF;
+            --bg-glass-modal: rgba(250, 250, 252, 0.90);
 
-            /* Oro Istituzionale & Finiture Satinate */
+            /* Oro Istituzionale & Finiture */
             --oro-champagne: #C5A059;
             --oro-light: #D4AF37;
             --oro-pure: #E5C578;
             --oro-deep: #997A2E;
-            --oro-border: rgba(197, 160, 89, 0.35);
-            --oro-border-subtle: rgba(197, 160, 89, 0.18);
-            --oro-glow: rgba(212, 175, 55, 0.22);
+            --oro-border: rgba(197, 160, 89, 0.38);
+            --oro-border-subtle: rgba(197, 160, 89, 0.20);
+            --oro-glow: rgba(197, 160, 89, 0.25);
             --oro-glow-intense: rgba(212, 175, 55, 0.45);
 
-            /* Contrasti e Metadati Tipografici */
+            /* Testo (Antracite Leggibile su Fondo Bianco, Mai Usato come Sfondo Tasti) */
             --text-ardesia: #1A202C;
-            --text-ardesia-deep: #0D1117;
             --text-muted: #5A6578;
             --text-subtle: #8C96A5;
-            --text-disabled: #A0AEC0;
+            --text-gold-accent: #947128;
 
-            /* Profili, Separatori & Metalli */
+            /* Metalli Chiari & Linee */
             --border-light: #E2E8F0;
             --border-subtle: #EDF2F7;
-            --border-dark: #CBD5E0;
-            --cromo-metal: #E5E9F0;
+            --border-platino: #CBD5E1;
 
-            /* Indicatori Crittografici & Tech */
+            /* Indicatori Crittografici */
             --ciano-tech: #00B4D8;
             --ciano-glow: rgba(0, 180, 216, 0.25);
-            --ciano-border: rgba(0, 180, 216, 0.40);
+            --ciano-border: rgba(0, 180, 216, 0.45);
             --verde-eal6: #10B981;
             --verde-eal6-glow: rgba(16, 185, 129, 0.25);
             --verde-eal6-bg: rgba(16, 185, 129, 0.08);
 
-            /* Tipografia Direzionale */
+            /* Tipografia */
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --font-serif: 'Cinzel', Georgia, "Times New Roman", serif;
+            --font-serif: 'Cinzel', Georgia, serif;
 
-            /* Dinamica & Curve di Accelerazione */
+            /* Curve Dinamiche */
             --trans-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
             --trans-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             --trans-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
-            /* Ombreggiatura Monolitica Light Luxury */
-            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
-            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.06);
-            --shadow-luxury: 0 12px 36px rgba(197, 160, 89, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
-            --shadow-luxury-intense: 0 16px 45px rgba(197, 160, 89, 0.22), 0 6px 18px rgba(0, 0, 0, 0.06);
-            --shadow-modal: 0 25px 60px -12px rgba(26, 32, 44, 0.35);
+            /* Ombreggiature Calde Dorate */
+            --shadow-subtle: 0 4px 20px rgba(197, 160, 89, 0.06);
+            --shadow-medium: 0 8px 30px rgba(197, 160, 89, 0.10);
+            --shadow-luxury: 0 12px 36px rgba(197, 160, 89, 0.16), 0 4px 12px rgba(0, 0, 0, 0.03);
+            --shadow-modal: 0 25px 60px rgba(197, 160, 89, 0.22);
         }
 
-        /* Tipografia Base e Trattamento Serif */
-        h1, h2, h3, h4, h5, h6,
-        .font-serif {
+        h1, h2, h3, h4, h5, h6, .font-serif {
             font-family: var(--font-serif);
             font-weight: 700;
             letter-spacing: 0.03em;
@@ -232,7 +217,6 @@
             text-wrap: balance;
         }
 
-        /* Gradienti Tipografici Metallici */
         .text-gold-gradient {
             background: linear-gradient(135deg, #A88438 0%, #C5A059 40%, #E5C578 70%, #997A2E 100%);
             -webkit-background-clip: text;
@@ -240,14 +224,6 @@
             display: inline-block;
         }
 
-        .text-platinum-gradient {
-            background: linear-gradient(135deg, #1A202C 0%, #4A5568 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        /* Intestazioni di Sezione Istituzionali */
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
@@ -263,9 +239,9 @@
             text-transform: uppercase;
             display: inline-block;
             margin-bottom: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            background: rgba(197, 160, 89, 0.08);
-            border: 1px solid var(--oro-border-subtle);
+            padding: 0.3rem 0.85rem;
+            background: rgba(197, 160, 89, 0.10);
+            border: 1px solid var(--oro-border);
             border-radius: 4px;
         }
 
@@ -276,14 +252,14 @@
         }
 
         .section-divider {
-            width: 60px;
+            width: 70px;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--oro-champagne), transparent);
             margin: 0 auto;
         }
 
         /* --------------------------------------------------------------------------
-           03. UI KIT LIGHT LUXURY UNIVERSALE (BOTTONI, CARDS, BADGES)
+           03. UI KIT LIGHT LUXURY: BOTTONI (ZERO NERO, ZERO ANTRACITE)
            -------------------------------------------------------------------------- */
         .glass-panel {
             background: var(--bg-card);
@@ -297,25 +273,17 @@
 
         .glass-panel:hover {
             background: var(--bg-card-hover);
-            border-color: rgba(197, 160, 89, 0.65);
+            border-color: rgba(197, 160, 89, 0.75);
             box-shadow: var(--shadow-luxury);
         }
 
-        .glass-panel-pure {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-subtle);
-        }
-
-        /* Pulsante Luxury Primary (Grafite Istituzionale) */
+        /* Tasto Primario: Oro Champagne Satinato con Bagliore */
         .btn-luxury-primary {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 0.95rem 2.2rem;
-            background-color: var(--text-ardesia);
+            background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%);
             color: #FFFFFF;
             font-family: var(--font-main);
             font-size: 0.85rem;
@@ -323,48 +291,7 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             border-radius: 6px;
-            border: 1px solid rgba(197, 160, 89, 0.45);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 18px rgba(26, 32, 44, 0.16);
-            transition: all var(--trans-smooth);
-            text-decoration: none;
-        }
-
-        .btn-luxury-primary:hover {
-            background-color: #000000;
-            border-color: var(--oro-light);
-            box-shadow: 0 8px 24px var(--oro-glow-intense);
-            transform: translateY(-2px);
-            color: #FFFFFF;
-        }
-
-        .btn-luxury-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-luxury-primary:focus-visible {
-            outline: 2px solid var(--oro-light);
-            outline-offset: 3px;
-        }
-
-        /* Pulsante Luxury Gold (Champagne Gradient) */
-        .btn-luxury-gold {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.95rem 2.2rem;
-            background: linear-gradient(135deg, #C5A059 0%, #D4AF37 50%, #B8860B 100%);
-            color: #FFFFFF;
-            font-family: var(--font-main);
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.45);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -373,30 +300,56 @@
             text-decoration: none;
         }
 
-        .btn-luxury-gold:hover {
-            background: linear-gradient(135deg, #D4AF37 0%, #E5C578 50%, #C5A059 100%);
-            box-shadow: 0 10px 30px var(--oro-glow-intense);
+        .btn-luxury-primary:hover {
+            background: linear-gradient(135deg, #D4AF37 0%, #E5C578 100%);
+            border-color: #FFFFFF;
+            box-shadow: 0 10px 28px var(--oro-glow-intense);
             transform: translateY(-2px);
             color: #FFFFFF;
         }
 
-        .btn-luxury-gold:active {
+        .btn-luxury-primary:active {
             transform: translateY(0);
             box-shadow: 0 3px 12px var(--oro-glow);
         }
 
-        .btn-luxury-gold:focus-visible {
-            outline: 2px solid var(--text-ardesia);
-            outline-offset: 3px;
+        /* Tasto Gold Pieno con Shimmer */
+        .btn-luxury-gold {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.95rem 2.2rem;
+            background: linear-gradient(135deg, #C5A059 0%, #D4AF37 50%, #E5C578 100%);
+            color: #FFFFFF;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 22px var(--oro-glow);
+            transition: all var(--trans-smooth);
+            text-decoration: none;
         }
 
-        /* Pulsante Luxury Outline (Bordo Satinato) */
+        .btn-luxury-gold:hover {
+            background: linear-gradient(135deg, #D4AF37 0%, #E5C578 50%, #C5A059 100%);
+            box-shadow: 0 10px 32px var(--oro-glow-intense);
+            transform: translateY(-2px);
+            color: #FFFFFF;
+        }
+
+        /* Tasto Outline Luxury: Bianco Perla con Bordo Oro Champagne */
         .btn-luxury-outline {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 0.95rem 2.2rem;
-            background-color: transparent;
+            background-color: #FFFFFF;
             color: var(--text-ardesia);
             font-family: var(--font-main);
             font-size: 0.85rem;
@@ -404,27 +357,24 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             border-radius: 6px;
-            border: 1px solid var(--text-ardesia);
+            border: 1.5px solid var(--oro-champagne);
             cursor: pointer;
             position: relative;
             transition: all var(--trans-smooth);
             text-decoration: none;
+            box-shadow: 0 2px 10px rgba(197, 160, 89, 0.08);
         }
 
         .btn-luxury-outline:hover {
-            background-color: var(--text-ardesia);
-            color: #FFFFFF;
+            background-color: var(--bg-platino);
+            border-color: var(--oro-light);
+            color: var(--text-gold-accent);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-subtle);
+            box-shadow: var(--shadow-medium);
         }
 
         .btn-luxury-outline:active {
             transform: translateY(0);
-        }
-
-        .btn-luxury-outline:focus-visible {
-            outline: 2px solid var(--oro-champagne);
-            outline-offset: 3px;
         }
 
         /* Animazione Shimmer Diagonale */
@@ -435,7 +385,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(60deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+            background: linear-gradient(60deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
             transform: rotate(25deg) translateX(-150%);
             animation: shimmer-glance 5.5s infinite;
             pointer-events: none;
@@ -447,14 +397,14 @@
             100% { transform: rotate(25deg) translateX(150%); }
         }
 
-        /* Badge Crittografico Forense EAL6+ */
+        /* Badge Crittografico EAL6+ */
         .eal6-indicator {
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
             padding: 0.35rem 0.75rem;
             background: var(--verde-eal6-bg);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.35);
             border-radius: 20px;
             color: #065F46;
             font-size: 0.75rem;
@@ -486,7 +436,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           04. SEC-00 // TOPBAR FORENSE & RADIO LOUNGE (EAL6+ ACTIVE PROTOCOL)
+           04. SEC-00: TOPBAR FORENSE & RADIO LOUNGE (EAL6+ PROTOCOL)
            -------------------------------------------------------------------------- */
         #sec-00 {
             position: fixed;
@@ -495,7 +445,7 @@
             width: 100%;
             height: 72px;
             z-index: 1000;
-            background: rgba(250, 250, 252, 0.94);
+            background: rgba(250, 250, 252, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-light);
@@ -539,7 +489,6 @@
             transform: scale(1.08);
         }
 
-        /* Console Radio Lounge */
         .radio-lounge-engine {
             display: flex;
             align-items: center;
@@ -553,7 +502,7 @@
         }
 
         .radio-lounge-engine:hover {
-            border-color: rgba(197, 160, 89, 0.6);
+            border-color: rgba(197, 160, 89, 0.7);
         }
 
         .equalizer-wave {
@@ -653,7 +602,7 @@
             border-radius: 50%;
             background: var(--oro-champagne);
             cursor: pointer;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 4px rgba(197, 160, 89, 0.4);
             transition: transform 0.2s ease;
         }
 
@@ -672,13 +621,13 @@
         }
 
         /* --------------------------------------------------------------------------
-           05. SEC-01 // HERO GOVERNANCE & 3D LOOP CIRCOLARE 10 LOGHI
+           05. SEC-01: HERO GOVERNANCE & LOOP 3D 10 LOGHI
            -------------------------------------------------------------------------- */
         #sec-01 {
             padding-top: 150px;
             padding-bottom: 90px;
             position: relative;
-            background: radial-gradient(circle at 50% 25%, rgba(197, 160, 89, 0.09) 0%, transparent 65%);
+            background: radial-gradient(circle at 50% 25%, rgba(197, 160, 89, 0.12) 0%, transparent 65%);
             text-align: center;
             overflow: hidden;
             border-bottom: 1px solid var(--border-light);
@@ -709,7 +658,6 @@
             margin-bottom: 4.5rem;
         }
 
-        /* Carosello 3D Continuo */
         .hero-loop-viewport {
             width: 100%;
             overflow: hidden;
@@ -737,7 +685,7 @@
             border-radius: 50%;
             background: #FFFFFF;
             border: 2px solid var(--border-light);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 28px rgba(197, 160, 89, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -766,7 +714,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           06. SEC-02 // PRESIDENZA INTEGRATA & GALLERIA LIGHTBOX 11"
+           06. SEC-02: PRESIDENZA INTEGRATA (RITRATTI 3:4 & CARDS)
            -------------------------------------------------------------------------- */
         #sec-02 {
             padding: 110px 0;
@@ -803,7 +751,6 @@
             border-color: var(--oro-border);
         }
 
-        /* Proporzione 3:4 Bloccata Ritratto */
         .portrait-frame {
             width: 220px;
             height: 293px;
@@ -811,7 +758,7 @@
             border-radius: 8px;
             overflow: hidden;
             border: 2px solid var(--oro-border);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 24px rgba(197, 160, 89, 0.12);
             background-color: var(--bg-platino);
         }
 
@@ -849,7 +796,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           07. SEC-03 // CHATBOT DIRECT ALISON (RADAR & CONSOLE TRIAGE)
+           07. SEC-03: ALISON CHATBOT (RADAR CIANO & TRIAGE)
            -------------------------------------------------------------------------- */
         #sec-03 {
             padding: 110px 0;
@@ -932,7 +879,7 @@
 
         .triage-console {
             background: var(--bg-perla);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--oro-border-subtle);
             border-radius: 12px;
             padding: 2.5rem;
             box-shadow: var(--shadow-subtle);
@@ -957,7 +904,7 @@
 
         .triage-btn {
             background: #FFFFFF;
-            border: 1px solid var(--border-light);
+            border: 1.5px solid var(--border-light);
             padding: 1.1rem 1.25rem;
             border-radius: 8px;
             text-align: left;
@@ -969,16 +916,18 @@
             align-items: center;
             gap: 0.85rem;
             transition: all var(--trans-fast);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
 
         .triage-btn:hover {
             border-color: var(--ciano-tech);
             box-shadow: 0 4px 18px var(--ciano-glow);
             transform: translateX(5px);
+            color: var(--ciano-tech);
         }
 
         /* --------------------------------------------------------------------------
-           08. SEC-04 // FUNNEL SCREENING TANDEM DRAG
+           08. SEC-04: FUNNEL SCREENING TANDEM DRAG
            -------------------------------------------------------------------------- */
         .funnel-modal-window {
             background: #FFFFFF;
@@ -987,7 +936,7 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow-modal);
-            border: 1px solid var(--oro-border);
+            border: 1.5px solid var(--oro-border);
             display: flex;
             flex-direction: column;
             max-height: 85vh;
@@ -1052,12 +1001,12 @@
         .screening-option-card:hover,
         .screening-option-card.selected {
             border-color: var(--oro-champagne);
-            background: rgba(197, 160, 89, 0.05);
+            background: rgba(197, 160, 89, 0.06);
             box-shadow: var(--shadow-subtle);
         }
 
         /* --------------------------------------------------------------------------
-           09. SEC-05 // SUPREMA ACADEMY 100% LIVE
+           09. SEC-05: ACADEMY LIVE (BANNER 21:9 & TIERS)
            -------------------------------------------------------------------------- */
         #sec-05 {
             padding: 110px 0;
@@ -1071,10 +1020,10 @@
             margin: 0 auto 4rem;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--oro-border-subtle);
             box-shadow: var(--shadow-luxury);
             aspect-ratio: 21 / 9;
-            background-color: var(--text-ardesia);
+            background-color: var(--bg-platino);
         }
 
         .banner-panoramico-219 img {
@@ -1110,7 +1059,7 @@
         }
 
         .tier-silver {
-            border-top: 5px solid #A0AEC0;
+            border-top: 5px solid #CBD5E1;
         }
 
         .tier-gold {
@@ -1120,15 +1069,12 @@
         }
 
         .tier-premium {
-            border-top: 5px solid var(--text-ardesia);
-        }
-
-        #modal-academy-live-demo video {
-            box-shadow: var(--shadow-medium);
+            border-top: 5px solid var(--oro-deep);
+            background: #FFFFFF;
         }
 
         /* --------------------------------------------------------------------------
-           10. SEC-06 // SUPREMA GOLD CARD FIDELITY (3D ENGINE & LASER)
+           10. SEC-06: GOLD CARD FIDELITY (TILT 3D & LASER SWEEP)
            -------------------------------------------------------------------------- */
         #sec-06 {
             padding: 120px 0;
@@ -1147,7 +1093,7 @@
             left: 20%;
             width: 450px;
             height: 450px;
-            background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(197, 160, 89, 0.10) 0%, transparent 70%);
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 1;
@@ -1230,8 +1176,47 @@
             }
         }
 
+        .goldcard-spec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-perla);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            transition: all var(--trans-fast);
+        }
+
+        .goldcard-spec-item:hover {
+            border-color: var(--oro-champagne);
+            background: #FFFFFF;
+            box-shadow: var(--shadow-subtle);
+            transform: translateX(4px);
+        }
+
+        .goldcard-spec-icon {
+            font-size: 1.25rem;
+            color: var(--oro-champagne);
+            margin-top: 0.15rem;
+            flex-shrink: 0;
+        }
+
+        .goldcard-spec-text strong {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-ardesia);
+            margin-bottom: 0.2rem;
+        }
+
+        .goldcard-spec-text span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            display: block;
+        }
+
         /* --------------------------------------------------------------------------
-           11. SEC-07 // SUPREMA MEDIA VAULT (ARCHIVIO CRITTOGRAFICO EAL6+)
+           11. SEC-07: MEDIA VAULT (500 SLOT EAL6+ LIGHT LUXURY)
            -------------------------------------------------------------------------- */
         #sec-07 {
             padding: 120px 0;
@@ -1264,14 +1249,14 @@
         }
 
         .vault-category-tabs::-webkit-scrollbar-thumb {
-            background: var(--border-dark);
+            background: var(--oro-border);
             border-radius: 2px;
         }
 
         .tab-vault {
             padding: 0.7rem 1.4rem;
             background: #FFFFFF;
-            border: 1px solid var(--border-light);
+            border: 1.5px solid var(--border-light);
             border-radius: 6px;
             font-family: var(--font-main);
             font-size: 0.8rem;
@@ -1290,18 +1275,19 @@
         .tab-vault:hover {
             background: var(--bg-perla);
             color: var(--text-ardesia);
-            border-color: var(--oro-border);
+            border-color: var(--oro-champagne);
         }
 
+        /* Tab Attivo: Oro Champagne Satinato (Mai Scuro) */
         .tab-vault.active {
-            background: var(--text-ardesia);
+            background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%);
             color: #FFFFFF;
-            border-color: var(--text-ardesia);
-            box-shadow: 0 4px 14px rgba(26, 32, 44, 0.2);
+            border-color: var(--oro-champagne);
+            box-shadow: 0 4px 14px var(--oro-glow);
         }
 
         .tab-vault.active i {
-            color: var(--oro-light);
+            color: #FFFFFF;
         }
 
         .vault-search-box {
@@ -1312,7 +1298,7 @@
         .vault-search-box input {
             width: 100%;
             padding: 0.7rem 1rem 0.7rem 2.6rem;
-            border: 1px solid var(--border-light);
+            border: 1.5px solid var(--border-light);
             border-radius: 6px;
             font-family: var(--font-main);
             font-size: 0.85rem;
@@ -1324,7 +1310,7 @@
         }
 
         .vault-search-box input::placeholder {
-            color: var(--text-disabled);
+            color: var(--text-subtle);
         }
 
         .vault-search-box input:focus {
@@ -1337,7 +1323,7 @@
             left: 0.95rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-subtle);
+            color: var(--oro-champagne);
             font-size: 0.85rem;
             pointer-events: none;
         }
@@ -1367,15 +1353,15 @@
         }
 
         .vault-slot-item.active-resource {
-            border-color: rgba(197, 160, 89, 0.4);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border-color: rgba(197, 160, 89, 0.45);
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.08);
         }
 
         .vault-slot-item.active-resource:hover {
             border-color: var(--oro-champagne);
             box-shadow: var(--shadow-luxury);
             transform: translateY(-5px);
-            background: var(--bg-card-hover);
+            background: #FFFFFF;
         }
 
         .vault-slot-item.active-resource i {
@@ -1389,28 +1375,101 @@
             transform: scale(1.1);
         }
 
+        .vault-slot-code {
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: var(--text-ardesia);
+            margin-bottom: 0.35rem;
+        }
+
+        .vault-slot-status-active {
+            font-size: 0.68rem;
+            color: var(--verde-eal6);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
         .vault-slot-item.standby-resource {
-            background: rgba(250, 250, 252, 0.65);
-            border: 1px dashed var(--border-dark);
-            opacity: 0.62;
+            background: rgba(250, 250, 252, 0.75);
+            border: 1.5px dashed var(--border-platino);
+            opacity: 0.75;
             cursor: not-allowed;
         }
 
         .vault-slot-item.standby-resource i {
             font-size: 1.6rem;
-            color: var(--text-disabled);
+            color: var(--text-subtle);
             margin-bottom: 0.75rem;
         }
 
+        .vault-slot-item.standby-resource .vault-slot-code {
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .vault-slot-status-standby {
+            font-size: 0.65rem;
+            color: var(--text-subtle);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
         /* --------------------------------------------------------------------------
-           12. SEC-08 & SEC-09 // PRESIDI SOCIAL & E-COMMERCE CONCESSIONE
+           12. SEC-08 & SEC-09: PRESIDI DIGITALI & DRAWER STORE
            -------------------------------------------------------------------------- */
+        .social-presidi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.15rem;
+        }
+
+        .social-card-item {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.15rem 1.25rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            color: var(--text-ardesia);
+            font-family: var(--font-main);
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: all var(--trans-fast);
+        }
+
+        .social-card-item:hover {
+            border-color: var(--oro-champagne);
+            color: var(--oro-champagne);
+            box-shadow: var(--shadow-subtle);
+            transform: translateY(-2px);
+        }
+
+        .social-card-item i {
+            font-size: 1.35rem;
+            transition: transform var(--trans-fast);
+        }
+
+        .social-card-item:hover i {
+            transform: scale(1.15);
+        }
+
+        /* Backdrop & Drawer Laterale (Vetro Smerigliato Chiaro) */
         .drawer-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(26, 32, 44, 0.55);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(244, 245, 248, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 2000;
             opacity: 0;
             pointer-events: none;
@@ -1429,9 +1488,9 @@
             width: 100%;
             max-width: 540px;
             height: 100vh;
-            background: #FFFFFF;
+            background: #FAFAFC;
             z-index: 2001;
-            box-shadow: -12px 0 50px rgba(0, 0, 0, 0.18);
+            box-shadow: -15px 0 50px rgba(197, 160, 89, 0.15);
             border-left: 2px solid var(--oro-border);
             transform: translateX(100%);
             -webkit-transform: translateX(100%);
@@ -1448,8 +1507,75 @@
             -webkit-transform: translateX(0);
         }
 
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .drawer-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .drawer-title-wrap i {
+            color: var(--oro-champagne);
+            font-size: 1.35rem;
+        }
+
+        .drawer-title-wrap h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .btn-drawer-close {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all var(--trans-fast);
+        }
+
+        .btn-drawer-close:hover {
+            color: var(--oro-champagne);
+            border-color: var(--oro-champagne);
+        }
+
+        .drawer-article-clause {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: var(--text-ardesia);
+        }
+
+        .drawer-article-clause:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .drawer-article-clause strong {
+            color: var(--text-ardesia);
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+
         /* --------------------------------------------------------------------------
-           13. SEC-10 A SEC-13 // TESTIMONIANZE, MODULI & FOOTER FORENSE
+           13. SEC-10 A SEC-13: TESTIMONIANZE, MODULI & FOOTER
            -------------------------------------------------------------------------- */
         #sec-10 {
             padding: 120px 0;
@@ -1487,7 +1613,7 @@
             flex: 0 0 350px;
             scroll-snap-align: start;
             background: var(--bg-perla);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--oro-border-subtle);
             border-radius: 10px;
             padding: 2.25rem 1.75rem;
             display: flex;
@@ -1498,7 +1624,7 @@
         }
 
         .testimonial-card:hover {
-            border-color: var(--oro-border);
+            border-color: var(--oro-champagne);
             background: #FFFFFF;
             box-shadow: var(--shadow-luxury);
             transform: translateY(-4px);
@@ -1516,10 +1642,37 @@
             padding: 0.25rem 0.6rem;
             border-radius: 4px;
             margin-bottom: 1.25rem;
-            border: 1px solid var(--oro-border-subtle);
+            border: 1px solid var(--oro-border);
         }
 
-        /* Form di Contatto */
+        .testimonial-quote {
+            font-size: 0.875rem;
+            color: var(--text-ardesia);
+            line-height: 1.68;
+            margin-bottom: 1.75rem;
+            font-style: italic;
+        }
+
+        .testimonial-stars {
+            color: var(--oro-champagne);
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            gap: 2px;
+        }
+
+        .testimonial-author strong {
+            display: block;
+            font-size: 0.925rem;
+            color: var(--text-ardesia);
+        }
+
+        .testimonial-author span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+        }
+
         .luxury-form-group {
             display: flex;
             flex-direction: column;
@@ -1540,7 +1693,7 @@
             width: 100%;
             padding: 0.9rem 1.35rem;
             background: #FFFFFF;
-            border: 1px solid var(--border-light);
+            border: 1.5px solid var(--border-light);
             border-radius: 6px;
             font-family: var(--font-main);
             font-size: 0.88rem;
@@ -1556,10 +1709,9 @@
         }
 
         .luxury-input::placeholder {
-            color: var(--text-disabled);
+            color: var(--text-subtle);
         }
 
-        /* Footer Forense */
         #sec-13 {
             background: #FFFFFF;
             padding: 90px 0 45px;
@@ -1590,18 +1742,65 @@
             width: 75px;
             height: 75px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.06));
+            filter: drop-shadow(0 4px 10px rgba(197, 160, 89, 0.15));
+        }
+
+        .jurisdiction-text strong {
+            display: block;
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.35rem;
+            font-family: var(--font-serif);
+        }
+
+        .jurisdiction-text span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: block;
+        }
+
+        .footer-disclaimer-text {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .footer-disclaimer-text p:first-child {
+            margin-bottom: 0.85rem;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.75rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--oro-champagne);
         }
 
         /* --------------------------------------------------------------------------
-           14. SISTEMI MODALI AD ALTA RISOLUZIONE
+           14. MODALI LIGHT LUXURY: VETRO SMERIGLIATO CHIARO (ZERO SCURI)
            -------------------------------------------------------------------------- */
         .modal-screen-overlay {
             position: fixed;
             inset: 0;
             background: var(--bg-glass-modal);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             z-index: 3000;
             display: none;
             align-items: center;
@@ -1619,40 +1818,116 @@
             width: 92%;
             max-width: 1140px;
             position: relative;
-            background: #000000;
-            border-radius: 10px;
+            background: #F4F5F8;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--oro-champagne);
             box-shadow: var(--shadow-modal);
+            padding: 8px;
         }
 
         .video-modal-container video {
             width: 100%;
             height: auto;
             display: block;
-            background: #000000;
+            border-radius: 8px;
+            background: #FAFAFC;
         }
 
         .btn-close-modal {
             position: absolute;
-            top: -48px;
+            top: -50px;
             right: 0;
-            background: none;
-            border: none;
-            color: #FFFFFF;
-            font-size: 1.85rem;
+            background: #FFFFFF;
+            border: 1.5px solid var(--oro-champagne);
+            color: var(--oro-champagne);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: color var(--trans-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--trans-fast);
             z-index: 3005;
+            box-shadow: 0 4px 15px var(--oro-glow);
         }
 
         .btn-close-modal:hover {
-            color: var(--oro-light);
+            background: var(--oro-champagne);
+            color: #FFFFFF;
+            transform: scale(1.08);
         }
 
+        #modal-gallery-lightbox .lightbox-stage {
+            position: relative;
+            width: 90%;
+            max-width: 1040px;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFFFFF;
+            border-radius: 10px;
+            border: 2px solid var(--oro-champagne);
+            box-shadow: var(--shadow-modal);
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        #gallery-lightbox-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+            transition: opacity 0.25s ease;
+        }
+
+        .lightbox-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            color: var(--oro-champagne);
+            border: 1.5px solid var(--oro-champagne);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all var(--trans-fast);
+            z-index: 10;
+            box-shadow: 0 4px 15px var(--oro-glow);
+        }
+
+        .lightbox-nav-btn:hover {
+            background: var(--oro-champagne);
+            border-color: var(--oro-light);
+            color: #FFFFFF;
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .lightbox-nav-btn.prev { left: 1.25rem; }
+        .lightbox-nav-btn.next { right: 1.25rem; }
+
         /* --------------------------------------------------------------------------
-           15. RESPONSIVE AVANZATO (MOBILE, TABLET & MACBOOK PRO RETINA)
+           15. MEDIA QUERIES RESPONSIVE (RETINA, MACBOOK, TABLET, MOBILE)
            -------------------------------------------------------------------------- */
+        @media (min-width: 1441px) {
+            .topbar-container,
+            .hero-loop-viewport,
+            .presidenza-grid,
+            .academy-courses-grid,
+            .vault-grid-display,
+            .testimonials-scroller {
+                max-width: 1440px;
+            }
+        }
+
         @media (max-width: 1200px) {
             .chatbot-wrapper {
                 grid-template-columns: 280px 1fr;
@@ -1676,173 +1951,55 @@
         }
 
         @media (max-width: 1024px) {
-            #sec-00 {
-                height: 66px;
-            }
-
-            .topbar-container {
-                padding: 0 1.25rem;
-            }
-
-            .radio-marquee-box {
-                width: 160px;
-            }
-
-            #sec-01 {
-                padding-top: 130px;
-                padding-bottom: 75px;
-            }
-
-            .chatbot-wrapper {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .triage-status {
-                justify-content: center;
-            }
-
-            .presidenza-grid {
-                grid-template-columns: 1fr;
-                max-width: 600px;
-            }
-
-            .vault-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .vault-search-box {
-                width: 100%;
-            }
+            #sec-00 { height: 66px; }
+            .topbar-container { padding: 0 1.25rem; }
+            .radio-marquee-box { width: 160px; }
+            #sec-01 { padding-top: 130px; padding-bottom: 75px; }
+            .chatbot-wrapper { grid-template-columns: 1fr; text-align: center; }
+            .triage-status { justify-content: center; }
+            .presidenza-grid { grid-template-columns: 1fr; max-width: 600px; }
+            .social-presidi-grid { grid-template-columns: 1fr 1fr; }
+            .vault-controls { flex-direction: column; align-items: stretch; }
+            .vault-search-box { width: 100%; }
         }
 
         @media (max-width: 768px) {
-            #sec-00 {
-                height: 60px;
-            }
-
-            .brand-seal span {
-                font-size: 0.95rem;
-            }
-
-            .radio-marquee-box,
-            .topbar-meta,
-            #radio-volume-slider {
-                display: none !important;
-            }
-
-            .radio-lounge-engine {
-                padding: 0.35rem 0.85rem;
-                gap: 0.65rem;
-            }
-
-            #sec-01 {
-                padding-top: 105px;
-                padding-bottom: 60px;
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 0.95rem;
-                margin-bottom: 2.2rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                width: 100%;
-                gap: 1rem;
-            }
-
-            .btn-luxury-primary,
-            .btn-luxury-gold,
-            .btn-luxury-outline {
-                width: 100%;
-                padding: 0.85rem 1.5rem;
-            }
-
-            .logo-slot {
-                width: 105px;
-                height: 105px;
-                padding: 0.85rem;
-            }
-
-            .presidenza-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .portrait-frame {
-                width: 180px;
-                height: 240px;
-            }
-
-            .radar-avatar-box {
-                width: 220px;
-                height: 220px;
-            }
-
-            .avatar-video-core {
-                width: 130px;
-                height: 130px;
-            }
-
-            .triage-console {
-                padding: 1.75rem 1.25rem;
-            }
-
-            .triage-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .banner-panoramico-219 {
-                aspect-ratio: 16 / 9;
-                margin-bottom: 2.5rem;
-            }
-
-            .concessione-drawer {
-                max-width: 100%;
-                padding: 2.25rem 1.5rem;
-            }
-
-            .vault-grid-display {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.85rem;
-            }
-
-            .vault-slot-item {
-                padding: 1.25rem 0.85rem;
-                min-height: 155px;
-            }
-
-            .testimonial-card {
-                flex: 0 0 290px;
-                padding: 1.75rem 1.25rem;
-            }
-
-            .jurisdiction-seal-wrap {
-                flex-direction: column;
-                text-align: center;
-            }
+            #sec-00 { height: 60px; }
+            .brand-seal span { font-size: 0.95rem; }
+            .radio-marquee-box, .topbar-meta, #radio-volume-slider { display: none !important; }
+            .radio-lounge-engine { padding: 0.35rem 0.85rem; gap: 0.65rem; }
+            #sec-01 { padding-top: 105px; padding-bottom: 60px; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 0.95rem; margin-bottom: 2.2rem; }
+            .hero-actions { flex-direction: column; width: 100%; gap: 1rem; }
+            .btn-luxury-primary, .btn-luxury-gold, .btn-luxury-outline { width: 100%; padding: 0.85rem 1.5rem; }
+            .logo-slot { width: 105px; height: 105px; padding: 0.85rem; }
+            .presidenza-card { padding: 2rem 1.5rem; }
+            .portrait-frame { width: 180px; height: 240px; }
+            .radar-avatar-box { width: 220px; height: 220px; }
+            .avatar-video-core { width: 130px; height: 130px; }
+            .triage-console { padding: 1.75rem 1.25rem; }
+            .triage-grid { grid-template-columns: 1fr; }
+            .banner-panoramico-219 { aspect-ratio: 16 / 9; margin-bottom: 2.5rem; }
+            .concessione-drawer { max-width: 100%; padding: 2.25rem 1.5rem; }
+            .vault-grid-display { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+            .vault-slot-item { padding: 1.25rem 0.85rem; min-height: 155px; }
+            .testimonial-card { flex: 0 0 290px; padding: 1.75rem 1.25rem; }
+            .jurisdiction-seal-wrap { flex-direction: column; text-align: center; }
+            .footer-bottom-bar { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .footer-bottom-links { flex-direction: column; gap: 0.85rem; }
         }
 
         @media (max-width: 380px) {
-            .vault-grid-display {
-                grid-template-columns: 1fr;
-            }
-
-            .brand-seal span {
-                display: none;
-            }
+            .vault-grid-display { grid-template-columns: 1fr; }
+            .brand-seal span { display: none; }
         }
     </style>
 </head>
 <body class="hardware-accelerated">
-    <!-- ========================================================================== -->
-    <!-- PARTE 2 DI 3: STRUTTURA HTML INTEGRALE DELLE 14 SEZIONI & MODALI          -->
-    <!-- Moduli: SEC-00 -> SEC-13, 40 Testimonianze Forensi & Sistemi Modali       -->
+<!-- ========================================================================== -->
+    <!-- PARTE 2 DI 3: STRUTTURA HTML INTEGRALE (SEC-00 ➔ SEC-13) & MODALI          -->
+    <!-- Design System: Light Luxury Puro (Perla, Platino, Champagne Gold)           -->
     <!-- ========================================================================== -->
 
     <!-- Motore Audio HTML5 Nativo in Background (Invisibile) -->
@@ -1889,7 +2046,7 @@
 
                 <!-- Cursore Regolazione Volume -->
                 <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem;">
-                    <i class="fa-solid fa-volume-high" style="font-size: 0.75rem; color: var(--text-subtle);"></i>
+                    <i class="fa-solid fa-volume-high" style="font-size: 0.75rem; color: var(--oro-champagne);"></i>
                     <input type="range" id="radio-volume-slider" min="0" max="1" step="0.05" value="0.6" aria-label="Regolazione Volume Radio">
                 </div>
             </div>
@@ -1920,11 +2077,11 @@
 
             <div class="hero-actions">
                 <button type="button" class="btn-luxury-primary btn-shimmer" onclick="openFunnelModal()">
-                    <i class="fa-solid fa-id-card-clip" style="margin-right: 0.75rem; color: var(--oro-light);"></i>
+                    <i class="fa-solid fa-id-card-clip" style="margin-right: 0.75rem;"></i>
                     Inizia Screening Direzionale
                 </button>
                 <a href="#sec-07" class="btn-luxury-outline">
-                    <i class="fa-solid fa-vault" style="margin-right: 0.75rem;"></i>
+                    <i class="fa-solid fa-vault" style="margin-right: 0.75rem; color: var(--oro-champagne);"></i>
                     Accedi al Media Vault
                 </a>
             </div>
@@ -1974,7 +2131,7 @@
             <div class="presidenza-card">
                 <div>
                     <div class="portrait-frame">
-                        <img src="media/sec-02-presidenza/ceo-portrait.jpg" alt="Founder & CEO Giuliano Caratelli" onerror="this.src='https://via.placeholder.com/480x640/1A202C/D4AF37?text=CEO+Portrait'">
+                        <img src="media/sec-02-presidenza/ceo-portrait.jpg" alt="Founder & CEO Giuliano Caratelli" onerror="this.src='https://via.placeholder.com/480x640/F4F5F8/C5A059?text=CEO+Portrait'">
                     </div>
                     <h3 class="presidenza-name">Giuliano Caratelli</h3>
                     <p class="presidenza-role">Founder & Chief Executive Officer</p>
@@ -1982,8 +2139,8 @@
                         Nessun capitale ereditato, nessuna scorciatoia. Costruito mattone su mattone sul campo con disciplina, studio e notti insonni, fino alla creazione di un ecosistema esecutivo autonomo, trasparente e blindato contro ogni forma di fuffa.
                     </p>
                 </div>
-                <button type="button" class="btn-luxury-primary" style="width: 100%;" onclick="openMasterVideo('media/sec-02-presidenza/ceo-video-intro.mp4')">
-                    <i class="fa-solid fa-play" style="margin-right: 0.5rem; color: var(--oro-champagne);"></i>
+                <button type="button" class="btn-luxury-primary btn-shimmer" style="width: 100%;" onclick="openMasterVideo('media/sec-02-presidenza/ceo-video-intro.mp4')">
+                    <i class="fa-solid fa-play" style="margin-right: 0.5rem;"></i>
                     Relazione Autentica CEO
                 </button>
             </div>
@@ -1991,8 +2148,8 @@
             <!-- Scheda Supervisor: Alison Carel -->
             <div class="presidenza-card">
                 <div>
-                    <div class="portrait-frame" style="border-color: rgba(0, 180, 216, 0.4);">
-                        <img src="media/sec-02-presidenza/alison-portrait.jpg" alt="Supervisor Alison Carel" onerror="this.src='https://via.placeholder.com/480x640/1A202C/00B4D8?text=Alison+Portrait'">
+                    <div class="portrait-frame" style="border-color: rgba(0, 180, 216, 0.45);">
+                        <img src="media/sec-02-presidenza/alison-portrait.jpg" alt="Supervisor Alison Carel" onerror="this.src='https://via.placeholder.com/480x640/F4F5F8/00B4D8?text=Alison+Portrait'">
                     </div>
                     <h3 class="presidenza-name">Alison Carel</h3>
                     <p class="presidenza-role" style="color: var(--ciano-tech);">Executive Supervisor (Cod. AG-01)</p>
@@ -2000,7 +2157,7 @@
                         Supervisione algoritmica dei flussi, conformità legale e presidio degli standard EAL6+. Alison trasforma la visione del fondatore in procedure ferree, monitorando la qualità didattica e l'operatività degli store in concessione.
                     </p>
                 </div>
-                <button type="button" class="btn-luxury-primary" style="width: 100%;" onclick="openMasterVideo('media/sec-02-presidenza/alison-video-intro.mp4')">
+                <button type="button" class="btn-luxury-outline" style="width: 100%; border-color: var(--ciano-tech); color: var(--ciano-tech);" onclick="openMasterVideo('media/sec-02-presidenza/alison-video-intro.mp4')">
                     <i class="fa-solid fa-play" style="margin-right: 0.5rem; color: var(--ciano-tech);"></i>
                     Indirizzo di Governance
                 </button>
@@ -2077,7 +2234,7 @@
 
         <!-- Banner Panoramico 21:9 Anti-Deformazione -->
         <div class="banner-panoramico-219">
-            <img src="media/sec-05-academy/accademia-corsi.png" alt="Suprema Academy Corsi" onerror="this.src='https://via.placeholder.com/2560x1080/1A202C/D4AF37?text=Suprema+Academy+Live'">
+            <img src="media/sec-05-academy/accademia-corsi.png" alt="Suprema Academy Corsi" onerror="this.src='https://via.placeholder.com/2560x1080/F4F5F8/C5A059?text=Suprema+Academy+Live'">
         </div>
 
         <!-- 3 Piani Didattici con Download Diretto PDF -->
@@ -2097,12 +2254,12 @@
                     </ul>
                 </div>
                 <a href="media/sec-05-academy/pdf/programma-silver.pdf" download class="btn-luxury-outline" style="width: 100%; text-align: center;">
-                    <i class="fa-solid fa-file-pdf" style="margin-right: 0.5rem;"></i> Piano Studi Silver
+                    <i class="fa-solid fa-file-pdf" style="margin-right: 0.5rem; color: var(--oro-champagne);"></i> Piano Studi Silver
                 </a>
             </div>
 
             <!-- Corso Gold -->
-            <div class="course-tier-card tier-gold" style="box-shadow: var(--shadow-luxury); border-color: var(--oro-border);">
+            <div class="course-tier-card tier-gold">
                 <div>
                     <span style="font-size: 0.75rem; font-weight: 700; color: var(--oro-champagne); letter-spacing: 0.1em; text-transform: uppercase;">AVANZATO OPERATIVO</span>
                     <h3 style="font-size: 1.4rem; font-weight: 700; margin: 0.5rem 0 1rem;">Protocollo Gold</h3>
@@ -2123,7 +2280,7 @@
             <!-- Corso Premium Executive -->
             <div class="course-tier-card tier-premium">
                 <div>
-                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-ardesia); letter-spacing: 0.1em; text-transform: uppercase;">ALTA DIREZIONE</span>
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--oro-deep); letter-spacing: 0.1em; text-transform: uppercase;">ALTA DIREZIONE</span>
                     <h3 style="font-size: 1.4rem; font-weight: 700; margin: 0.5rem 0 1rem;">Executive Premium</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6;">
                         Percorso d'élite con il Founder Giuliano Caratelli. Audit strutturali, clausole giurisdizionali del Foro di Velletri / Roma e leadership di governo d'impresa.
@@ -2134,7 +2291,7 @@
                         <li><i class="fa-solid fa-check" style="color: var(--oro-champagne); margin-right: 0.5rem;"></i> Consegna fisica della Suprema Gold Card</li>
                     </ul>
                 </div>
-                <a href="media/sec-05-academy/pdf/programma-premium.pdf" download class="btn-luxury-primary" style="width: 100%; text-align: center;">
+                <a href="media/sec-05-academy/pdf/programma-premium.pdf" download class="btn-luxury-primary btn-shimmer" style="width: 100%; text-align: center;">
                     <i class="fa-solid fa-file-pdf" style="margin-right: 0.5rem;"></i> Piano Studi Premium
                 </a>
             </div>
@@ -2155,7 +2312,7 @@
         <div class="card-interactive-stage">
             <!-- Stage 3D Dinamico con Scansione Laser -->
             <div class="goldcard-3d-wrap" id="goldcard-3d-box" title="Muovi il cursore per ruotare la lamina in 3D">
-                <img src="media/sec-06-goldcard/suprema-gold-card.png" id="goldcard-img-element" alt="Suprema Gold Card" onerror="this.src='https://via.placeholder.com/1600x1000/C5A059/FFFFFF?text=SUPREMA+GOLD+CARD'">
+                <img src="media/sec-06-goldcard/suprema-gold-card.png" id="goldcard-img-element" alt="Suprema Gold Card" onerror="this.src='https://via.placeholder.com/1600x1000/F4F5F8/C5A059?text=SUPREMA+GOLD+CARD'">
                 <div class="laser-scan-line"></div>
             </div>
 
@@ -2185,8 +2342,8 @@
                 </div>
 
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button type="button" class="btn-luxury-primary" onclick="openMasterVideo('media/sec-06-goldcard/goldcard-video-laser.mp4')">
-                        <i class="fa-solid fa-laser" style="margin-right: 0.5rem; color: var(--oro-champagne);"></i>
+                    <button type="button" class="btn-luxury-primary btn-shimmer" onclick="openMasterVideo('media/sec-06-goldcard/goldcard-video-laser.mp4')">
+                        <i class="fa-solid fa-laser" style="margin-right: 0.5rem;"></i>
                         Incisione Laser a Fibra
                     </button>
                     <button type="button" class="btn-luxury-outline" onclick="openFunnelModal()">
@@ -2233,9 +2390,9 @@
             </div>
         </div>
 
-        <!-- Griglia Dinamica Slot Vault (Generata e popolata dal Motore JS) -->
+        <!-- Griglia Dinamica Slot Vault (Injected by JS) -->
         <div class="vault-grid-display" id="vault-grid-display">
-            <!-- I 100 slot della categoria attiva vengono iniettati qui dal Motore JS -->
+            <!-- Popolato dal motore JavaScript -->
         </div>
     </section>
 
@@ -2250,7 +2407,7 @@
                 <span class="section-tag">CANALI UFFICIALI DI COMUNICAZIONE</span>
                 <h2 style="font-size: 1.85rem; margin-bottom: 1.5rem;">Presidi Digitali</h2>
                 <div style="width: 100%; border-radius: 8px; overflow: hidden; margin-bottom: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-subtle);">
-                    <img src="media/sec-08-social/social-banner.png" alt="Canali Social Ufficiali" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/800x250/1A202C/D4AF37?text=PRESIDI+DIGITALI'">
+                    <img src="media/sec-08-social/social-banner.png" alt="Canali Social Ufficiali" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/800x250/F4F5F8/C5A059?text=PRESIDI+DIGITALI'">
                 </div>
                 <div class="social-presidi-grid">
                     <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-card-item">
@@ -2277,18 +2434,18 @@
                 <span class="section-tag">MODELLO DI BUSINESS AUTONOMO</span>
                 <h2 style="font-size: 1.85rem; margin-bottom: 1.5rem;">Concessione Store E-Commerce</h2>
                 <div style="width: 100%; border-radius: 8px; overflow: hidden; margin-bottom: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-subtle);">
-                    <img src="media/sec-09-ecommerce/ecommerce-showcase.png" alt="E-Commerce Luxury Model" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/800x450/FFFFFF/1A202C?text=ECOMMERCE+SHOWCASE'">
+                    <img src="media/sec-09-ecommerce/ecommerce-showcase.png" alt="E-Commerce Luxury Model" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/800x450/FFFFFF/C5A059?text=ECOMMERCE+SHOWCASE'">
                 </div>
                 <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.75rem;">
                     Concessione digitale diretta per la commercializzazione di beni di lusso ed eccellenze territoriali. Nessun obbligo di acquisto stock preventivo: evasione ordini, stoccaggio e packaging d'alta gamma interamente delegati alla sede centrale.
                 </p>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button type="button" class="btn-luxury-primary" onclick="openDrawerConcessione()">
-                        <i class="fa-solid fa-file-contract" style="margin-right: 0.5rem; color: var(--oro-champagne);"></i>
+                    <button type="button" class="btn-luxury-primary btn-shimmer" onclick="openDrawerConcessione()">
+                        <i class="fa-solid fa-file-contract" style="margin-right: 0.5rem;"></i>
                         Clausole Concessione
                     </button>
                     <a href="https://www.imperya.com/vetrina/style" target="_blank" rel="noopener noreferrer" class="btn-luxury-outline">
-                        Vetrina Dimostrativa <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; margin-left: 0.5rem;"></i>
+                        Vetrina Dimostrativa <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; margin-left: 0.5rem; color: var(--oro-champagne);"></i>
                     </a>
                 </div>
             </div>
@@ -2307,7 +2464,7 @@
         </div>
 
         <div style="text-align: center; margin-bottom: 2.5rem;">
-            <img src="media/sec-10-testimonials/testi-badge.png" alt="Badge Verifica EAL6+" style="width: 90px; height: 90px; margin: 0 auto 0.85rem; display: block;" onerror="this.src='https://via.placeholder.com/120/C5A059/FFFFFF?text=EAL6+Badge'">
+            <img src="media/sec-10-testimonials/testi-badge.png" alt="Badge Verifica EAL6+" style="width: 90px; height: 90px; margin: 0 auto 0.85rem; display: block;" onerror="this.src='https://via.placeholder.com/120/F4F5F8/C5A059?text=EAL6+Badge'">
             <p style="font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase;">
                 40 Recensioni Vidimate nel Registro Forense EAL6+
             </p>
@@ -3023,7 +3180,7 @@
                             Dichiaro di aver compreso lo statuto e accetto la clausola giurisdizionale del Foro di Velletri / Roma.
                         </label>
                     </div>
-                    <button type="submit" id="btn-submit-newsletter" class="btn-luxury-primary" style="width: 100%;">
+                    <button type="submit" id="btn-submit-newsletter" class="btn-luxury-primary btn-shimmer" style="width: 100%;">
                         Registra Indirizzo Cifrato
                     </button>
                 </form>
@@ -3070,7 +3227,7 @@
         <div class="footer-legal-box">
             <!-- Sigillo Territoriale e Dati Giuridici -->
             <div class="jurisdiction-seal-wrap">
-                <img src="media/sec-13-footer/sigillo-foro-velletri.png" alt="Sigillo Foro di Velletri" onerror="this.src='https://via.placeholder.com/100/1A202C/C5A059?text=SIGILLO'">
+                <img src="media/sec-13-footer/sigillo-foro-velletri.png" alt="Sigillo Foro di Velletri" onerror="this.src='https://via.placeholder.com/100/F4F5F8/C5A059?text=SIGILLO'">
                 <div class="jurisdiction-text">
                     <strong>SUPREMA FUTURE X</strong>
                     <span>
@@ -3097,13 +3254,14 @@
                 <a href="admin.html" style="color: var(--oro-champagne);">Pannello Riservato Governance</a>
             </div>
             <button type="button" class="btn-luxury-outline" style="padding: 0.55rem 1.4rem; font-size: 0.78rem;" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <i class="fa-solid fa-arrow-up" style="margin-right: 0.5rem;"></i> Torna alla Sommità
+                <i class="fa-solid fa-arrow-up" style="margin-right: 0.5rem; color: var(--oro-champagne);"></i> Torna alla Sommità
             </button>
         </div>
     </footer>
 
     <!-- ========================================================================== -->
     <!-- SISTEMI MODALI AD ALTA RISOLUZIONE & CASSETTO LATERALE (DRAWER)             -->
+    <!-- Palette: Vetro Smerigliato Chiaro e Riflessi Oro (Zero Nero)                -->
     <!-- ========================================================================== -->
 
     <!-- Modale Video Master Universale Full HD -->
@@ -3126,7 +3284,7 @@
                         <i class="fa-solid fa-shield-halved" style="color: var(--oro-champagne); font-size: 1.35rem;"></i>
                         <h3 style="font-size: 1.2rem; font-weight: 700;">Screening Direzionale di Qualificazione</h3>
                     </div>
-                    <button type="button" style="background: none; border: none; font-size: 1.35rem; cursor: pointer; color: var(--text-muted);" onclick="closeAllModals()" aria-label="Chiudi Screening"><i class="fa-solid fa-xmark"></i></button>
+                    <button type="button" class="btn-drawer-close" onclick="closeAllModals()" aria-label="Chiudi Screening"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="funnel-progress-track">
                     <div class="funnel-progress-fill" id="funnel-progress-indicator"></div>
@@ -3198,7 +3356,7 @@
     <div id="modal-gallery-lightbox" class="modal-screen-overlay" onclick="closeAllModals(event)">
         <div class="lightbox-stage" onclick="event.stopPropagation()">
             <button type="button" class="btn-close-modal" onclick="closeAllModals()" aria-label="Chiudi Galleria"><i class="fa-solid fa-xmark"></i></button>
-            <img src="media/sec-02-presidenza/gallery/gallery-01.jpg" id="gallery-lightbox-img" alt="Galleria Direzionale" onerror="this.src='https://via.placeholder.com/1920x1080/1A202C/C5A059?text=Galleria+Istituzionale'">
+            <img src="media/sec-02-presidenza/gallery/gallery-01.jpg" id="gallery-lightbox-img" alt="Galleria Direzionale" onerror="this.src='https://via.placeholder.com/1920x1080/F4F5F8/C5A059?text=Galleria+Istituzionale'">
             
             <button type="button" class="lightbox-nav-btn prev" onclick="navigateGallery(-1)" aria-label="Foto Precedente">
                 <i class="fa-solid fa-chevron-left"></i>
@@ -3214,29 +3372,29 @@
         <div class="funnel-modal-window" style="max-width: 980px;" onclick="event.stopPropagation()">
             <div class="funnel-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="font-size: 1.2rem; font-weight: 700;">Dimostrazione Aula 100% Live</h3>
-                <button type="button" style="background: none; border: none; font-size: 1.35rem; cursor: pointer; color: var(--text-muted);" onclick="closeAllModals()" aria-label="Chiudi Dimostrazione"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn-drawer-close" onclick="closeAllModals()" aria-label="Chiudi Dimostrazione"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div style="padding: 2.25rem; overflow-y: auto;">
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
                     <button type="button" class="btn-luxury-outline" style="padding: 0.65rem; font-size: 0.78rem;" onclick="playAcademyClip('media/sec-05-academy/dettagli/video-aula-01.mp4')">
-                        <i class="fa-solid fa-play" style="margin-right: 0.4rem;"></i> Clip 01: Metodo
+                        <i class="fa-solid fa-play" style="margin-right: 0.4rem; color: var(--oro-champagne);"></i> Clip 01: Metodo
                     </button>
                     <button type="button" class="btn-luxury-outline" style="padding: 0.65rem; font-size: 0.78rem;" onclick="playAcademyClip('media/sec-05-academy/dettagli/video-aula-02.mp4')">
-                        <i class="fa-solid fa-play" style="margin-right: 0.4rem;"></i> Clip 02: Interazione
+                        <i class="fa-solid fa-play" style="margin-right: 0.4rem; color: var(--oro-champagne);"></i> Clip 02: Interazione
                     </button>
                     <button type="button" class="btn-luxury-outline" style="padding: 0.65rem; font-size: 0.78rem;" onclick="playAcademyClip('media/sec-05-academy/dettagli/video-aula-03.mp4')">
-                        <i class="fa-solid fa-play" style="margin-right: 0.4rem;"></i> Clip 03: Certifica
+                        <i class="fa-solid fa-play" style="margin-right: 0.4rem; color: var(--oro-champagne);"></i> Clip 03: Certifica
                     </button>
                 </div>
-                <video id="academy-live-video" controls style="width: 100%; border-radius: 8px; margin-bottom: 2rem; background: #000000;">
+                <video id="academy-live-video" controls style="width: 100%; border-radius: 8px; margin-bottom: 2rem; background: #F4F5F8; border: 1.5px solid var(--oro-champagne);">
                     <source src="media/sec-05-academy/dettagli/video-aula-01.mp4" type="video/mp4">
                 </video>
                 <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.85rem;">
-                    <img src="media/sec-05-academy/dettagli/foto-aula-01.jpg" alt="Aula 01" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200?text=Aula+01'">
-                    <img src="media/sec-05-academy/dettagli/foto-aula-02.jpg" alt="Aula 02" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200?text=Aula+02'">
-                    <img src="media/sec-05-academy/dettagli/foto-aula-03.jpg" alt="Aula 03" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200?text=Aula+03'">
-                    <img src="media/sec-05-academy/dettagli/foto-aula-04.jpg" alt="Aula 04" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200?text=Aula+04'">
-                    <img src="media/sec-05-academy/dettagli/foto-aula-05.jpg" alt="Aula 05" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200?text=Aula+05'">
+                    <img src="media/sec-05-academy/dettagli/foto-aula-01.jpg" alt="Aula 01" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200/F4F5F8/C5A059?text=Aula+01'">
+                    <img src="media/sec-05-academy/dettagli/foto-aula-02.jpg" alt="Aula 02" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200/F4F5F8/C5A059?text=Aula+02'">
+                    <img src="media/sec-05-academy/dettagli/foto-aula-03.jpg" alt="Aula 03" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200/F4F5F8/C5A059?text=Aula+03'">
+                    <img src="media/sec-05-academy/dettagli/foto-aula-04.jpg" alt="Aula 04" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200/F4F5F8/C5A059?text=Aula+04'">
+                    <img src="media/sec-05-academy/dettagli/foto-aula-05.jpg" alt="Aula 05" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-light);" onerror="this.src='https://via.placeholder.com/300x200/F4F5F8/C5A059?text=Aula+05'">
                 </div>
             </div>
         </div>
@@ -3281,25 +3439,35 @@
         </div>
     </aside>
     <!-- ========================================================================== -->
-    <!-- PARTE 3 DI 3: MOTORE LOGICO JAVASCRIPT INTEGRALE & CHIUSURA FILE           -->
-    <!-- Audio Engine 30 Tracce, Vault 500 Slot, Tilt 3D, Funnel Drag & Form Cifrati -->
+    <!-- PARTE 3 DI 3: MOTORE LOGICO JAVASCRIPT INTEGRALE & CHIUSURA STRUTTURA      -->
+    <!-- Design System: Light Luxury Puro | EAL6+ Cryptographic Engine              -->
     <!-- ========================================================================== -->
     <script>
         /* --------------------------------------------------------------------------
            01. STATO GLOBALE ARCHITETTURALE (APP_STATE)
            -------------------------------------------------------------------------- */
         const APP_STATE = {
-            // Radio Lounge
+            // Radio Lounge EAL6+
             currentRadioTrack: 1,
             totalRadioTracks: 30,
             isRadioPlaying: false,
             radioVolume: 0.6,
+            radioTrackNames: [
+                "Aura Executive Gold", "Satin Velvet Flow", "Roma High Governance", "Champagne Platinum Beat",
+                "EAL6+ Vault Silence", "Chamber of Control", "Velletri Forum Lounge", "Golden Horizon Protocol",
+                "Imperial Marble Echo", "Executive Presence", "High Noon Governance", "Quiet Dominance",
+                "Sovereign Asset Suite", "Lounge of the Supervisor", "Caratelli Direct Vision", "Alison Deep Core",
+                "Pearl White Cadence", "Midnight Fiber Laser", "Pure Equity Rhythm", "Diplomatic Sanctuary",
+                "Audit Approved Waves", "Consilium Resonance", "Sublime Reserve 21", "Monolithic Governance",
+                "Trophy Lamina Acoustic", "Supreme Elegance IV", "Private Office Rome", "Vatican Border Chill",
+                "High Jurisdiction Suite", "Closing Protocol Finale"
+            ],
 
             // Galleria Lightbox 11"
             currentGalleryIndex: 1,
             totalGalleryImages: 6,
 
-            // Media Vault Crittografico (500 Slot Totali)
+            // Media Vault Crittografico (500 Slot Totali: 5 Categorie x 100)
             activeVaultCategory: 'foto',
             vaultCategories: {
                 'foto':  { prefix: 'f',   ext: 'jpg', icon: 'fa-image',           label: 'FOTOGRAFIA VIDIMATA' },
@@ -3357,14 +3525,17 @@
 
         function updateRadioTrackSource(shouldAutoplay = true) {
             if (!masterAudio) return;
-            const trackStr = APP_STATE.currentRadioTrack.toString().padStart(2, '0');
+            const trackNum = APP_STATE.currentRadioTrack;
+            const trackStr = trackNum.toString().padStart(2, '0');
+            const trackTitle = APP_STATE.radioTrackNames[trackNum - 1] || "Traccia Direzionale";
+            
             masterAudio.src = `media/audio-radio/track-${trackStr}.mp3`;
 
             if (radioTrackDisplay) {
-                radioTrackDisplay.textContent = `Riproduzione: Traccia Direzionale ${trackStr} // Suprema Radio Lounge EAL6+`;
+                radioTrackDisplay.textContent = `[${trackStr}/30] ${trackTitle} // Suprema Lounge EAL6+`;
             }
 
-            localStorage.setItem('sfx_radio_track', APP_STATE.currentRadioTrack.toString());
+            localStorage.setItem('sfx_radio_track', trackNum.toString());
 
             if (shouldAutoplay) {
                 masterAudio.play().then(() => {
@@ -3380,9 +3551,10 @@
             if (playing) {
                 if (radioPlayIcon) radioPlayIcon.className = 'fa-solid fa-pause';
                 if (btnRadioToggle) {
-                    btnRadioToggle.style.background = 'var(--oro-champagne)';
+                    btnRadioToggle.style.background = 'linear-gradient(135deg, #C5A059 0%, #D4AF37 100%)';
                     btnRadioToggle.style.color = '#FFFFFF';
                     btnRadioToggle.style.borderColor = 'var(--oro-light)';
+                    btnRadioToggle.style.boxShadow = '0 4px 14px var(--oro-glow)';
                 }
                 eqBars.forEach(bar => bar.style.animationPlayState = 'running');
             } else {
@@ -3391,6 +3563,7 @@
                     btnRadioToggle.style.background = 'var(--bg-perla)';
                     btnRadioToggle.style.color = 'var(--oro-champagne)';
                     btnRadioToggle.style.borderColor = 'var(--oro-champagne)';
+                    btnRadioToggle.style.boxShadow = 'none';
                 }
                 eqBars.forEach(bar => bar.style.animationPlayState = 'paused');
             }
@@ -3466,7 +3639,7 @@
         updateRomaClock();
 
         /* --------------------------------------------------------------------------
-           04. PLAYER VIDEO MASTER FULL HD & SILENZIAMENTO AUDIO
+           04. PLAYER VIDEO MASTER FULL HD & MUTUA ESCLUSIONE AUDIO
            -------------------------------------------------------------------------- */
         const modalMasterVideo = document.getElementById('modal-master-video');
         const masterVideoElement = document.getElementById('master-video-element');
@@ -3482,13 +3655,13 @@
                 masterVideoElement.currentTime = 0;
                 modalMasterVideo.classList.add('active');
                 masterVideoElement.play().catch(err => {
-                    console.warn('Riproduzione video manuale richiesta:', err);
+                    console.warn('Interazione utente richiesta per autoplay video:', err);
                 });
             }
         }
 
         /* --------------------------------------------------------------------------
-           05. GESTIONE CHIUSURA MODALI & ASCOLTATORI DA TASTIERA
+           05. GESTIONE CHIUSURA MODALI & KEYBOARD LISTENER
            -------------------------------------------------------------------------- */
         function closeAllModals(e) {
             if (e && e.target && e.target.closest('.video-modal-container, .funnel-modal-window, .lightbox-stage')) {
@@ -3508,6 +3681,8 @@
             if (academyVideo) {
                 academyVideo.pause();
             }
+
+            document.body.style.overflow = '';
         }
 
         document.addEventListener('keydown', (e) => {
@@ -3538,13 +3713,14 @@
             updateGalleryImage();
             if (modalGalleryLightbox) {
                 modalGalleryLightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         }
 
         function updateGalleryImage() {
             if (!galleryLightboxImg) return;
             const idxStr = APP_STATE.currentGalleryIndex.toString().padStart(2, '0');
-            galleryLightboxImg.style.opacity = '0.3';
+            galleryLightboxImg.style.opacity = '0.2';
             setTimeout(() => {
                 galleryLightboxImg.src = `media/sec-02-presidenza/gallery/gallery-${idxStr}.jpg`;
                 galleryLightboxImg.style.opacity = '1';
@@ -3560,7 +3736,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           07. CHATBOT ALISON & INSTRADAMENTO FLUIDO (SEC-03)
+           07. CHATBOT ALISON & INSTRADAMENTO TRIAGE (SEC-03)
            -------------------------------------------------------------------------- */
         function scrollToSection(sectionId) {
             const sec = document.getElementById(sectionId);
@@ -3576,7 +3752,6 @@
             }
         }
 
-        // Effetto digitazione progressiva messaggio supervisor
         function initTypewriterEffect() {
             const typewriterEl = document.getElementById('chatbot-typewriter');
             if (!typewriterEl) return;
@@ -3588,7 +3763,7 @@
                 if (charIndex < textToType.length) {
                     typewriterEl.textContent += textToType.charAt(charIndex);
                     charIndex++;
-                    setTimeout(typeNextChar, 24);
+                    setTimeout(typeNextChar, 22);
                 }
             }
             setTimeout(typeNextChar, 400);
@@ -3604,6 +3779,7 @@
         function openFunnelModal() {
             if (modalFunnel) {
                 modalFunnel.classList.add('active');
+                document.body.style.overflow = 'hidden';
                 if (funnelDragTrack) funnelDragTrack.scrollLeft = 0;
                 if (funnelProgressIndicator) funnelProgressIndicator.style.width = '33.33%';
             }
@@ -3648,7 +3824,6 @@
             if (step === 1) APP_STATE.screeningSelections.step1 = title;
             if (step === 2) APP_STATE.screeningSelections.step2 = title;
 
-            // Auto-scroll dolce al pannello successivo
             if (funnelDragTrack) {
                 const panelWidth = funnelDragTrack.clientWidth;
                 funnelDragTrack.scrollBy({ left: panelWidth, behavior: 'smooth' });
@@ -3673,13 +3848,15 @@
 
             setTimeout(() => {
                 submitBtn.innerHTML = '<i class="fa-solid fa-shield-check"></i> Candidatura Vidimata con Successo';
-                submitBtn.style.background = 'var(--verde-eal6)';
+                submitBtn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+                submitBtn.style.borderColor = 'var(--verde-eal6)';
 
                 setTimeout(() => {
                     closeAllModals();
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalText;
                     submitBtn.style.background = '';
+                    submitBtn.style.borderColor = '';
                     contactInput.value = '';
                 }, 2200);
             }, 1600);
@@ -3694,6 +3871,7 @@
         function openAcademyLiveModal() {
             if (modalAcademyLive) {
                 modalAcademyLive.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         }
 
@@ -3706,7 +3884,7 @@
                 academyLiveVideo.src = videoSrc;
                 academyLiveVideo.currentTime = 0;
                 academyLiveVideo.play().catch(err => {
-                    console.warn('Avvio clip manuale:', err);
+                    console.warn('Avvio clip manuale richiesto:', err);
                 });
             }
         }
@@ -3716,7 +3894,7 @@
            -------------------------------------------------------------------------- */
         const cardBox = document.getElementById('goldcard-3d-box');
         if (cardBox) {
-            // Risposta dinamica al cursore (Desktop)
+            // Risposta interattiva del cursore (Desktop)
             cardBox.addEventListener('mousemove', (e) => {
                 const rect = cardBox.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -3733,7 +3911,7 @@
                 cardBox.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
             });
 
-            // Giroscopio (Smartphone / Tablet)
+            // Supporto Giroscopio per Smartphone & Tablet
             if (window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', (event) => {
                     if (event.gamma !== null && event.beta !== null) {
@@ -3746,7 +3924,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           11. SUPREMA MEDIA VAULT GENERATOR & LIVE SEARCH (SEC-07)
+           11. SUPREMA MEDIA VAULT GENERATOR & LIVE SEARCH (SEC-07: 500 SLOT)
            -------------------------------------------------------------------------- */
         const vaultGridDisplay = document.getElementById('vault-grid-display');
         const vaultSearchInput = document.getElementById('vault-search-input');
@@ -3783,7 +3961,6 @@
                 const fileName = `${cat.prefix}-${slotNum}.${cat.ext}`;
                 const filePath = `media/sec-07-vault/${APP_STATE.activeVaultCategory}/${fileName}`;
 
-                // Filtro di ricerca per nome o numero progressivo
                 if (searchTerm && !fileName.toLowerCase().includes(searchTerm.toLowerCase()) && !slotNum.includes(searchTerm)) {
                     continue;
                 }
@@ -3791,7 +3968,7 @@
                 matchedCount++;
 
                 if (i <= APP_STATE.activeSlotsPerCategory) {
-                    // Slot Vidimato & Attivo (ON)
+                    // Slot Vidimato & Attivo (ON) - Light Luxury
                     htmlBuffer += `
                         <div class="vault-slot-item active-resource">
                             <i class="fa-solid ${cat.icon}"></i>
@@ -3805,7 +3982,7 @@
                         </div>
                     `;
                 } else {
-                    // Slot Standby / In Attesa di Vidimazione (STANDBY)
+                    // Slot Standby / In Attesa di Vidimazione - Platino e Oro
                     htmlBuffer += `
                         <div class="vault-slot-item standby-resource" title="Risorsa in fase di vidimazione forense">
                             <i class="fa-solid fa-lock"></i>
@@ -3819,8 +3996,8 @@
             if (matchedCount === 0) {
                 htmlBuffer = `
                     <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
-                        <i class="fa-solid fa-file-circle-xmark" style="font-size: 2.5rem; color: var(--text-disabled); margin-bottom: 1rem; display: block;"></i>
-                        <strong>Nessuna risorsa trovata per "${searchTerm}"</strong>
+                        <i class="fa-solid fa-file-circle-xmark" style="font-size: 2.5rem; color: var(--oro-border); margin-bottom: 1rem; display: block;"></i>
+                        <strong style="color: var(--text-ardesia);">Nessuna risorsa trovata per "${searchTerm}"</strong>
                         <p style="font-size: 0.82rem; margin-top: 0.5rem;">Verificare la sigla slot o reimpostare i filtri di categoria.</p>
                     </div>
                 `;
@@ -3870,14 +4047,16 @@
 
             setTimeout(() => {
                 submitBtn.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Registrato nel Registro Forense';
-                submitBtn.style.background = 'var(--verde-eal6)';
+                submitBtn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
                 submitBtn.style.color = '#FFFFFF';
+                submitBtn.style.borderColor = 'var(--verde-eal6)';
 
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalContent;
                     submitBtn.style.background = '';
                     submitBtn.style.color = '';
+                    submitBtn.style.borderColor = '';
                     event.target.reset();
                 }, 3000);
             }, 1500);
@@ -3891,7 +4070,7 @@
             renderVaultSlots();
             initTypewriterEffect();
 
-            // Equalizzatore fermo all'avvio in attesa del primo click utente
+            // Equalizzatore visivo in pausa fino all'avvio audio dell'utente
             eqBars.forEach(bar => {
                 bar.style.animationPlayState = 'paused';
             });
