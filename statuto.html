@@ -1,359 +1,499 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Statuto Costitutivo & Codice Etico // Suprema Future X Enterprise 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/stile-globale.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Statuto Ufficiale, Codice Etico & Clausole di Governance | Suprema Future X</title>
+    <meta name="description" content="Statuto Ufficiale, Norme Deontologiche e Clausola Giurisdizionale Esclusiva del Foro di Velletri / Roma dell'infrastruttura istituzionale Suprema Future X.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#FAFAFC">
 
-  <style>
-    /* ==========================================================================
-       SPECIFICHE VISIVE LIGHT LUXURY // PAGINA STATUTO FORENSE
-       ========================================================================== */
-    body {
-      background-color: var(--bg-pearl-satin);
-      color: var(--text-dominant);
-      font-family: var(--font-mont);
-      line-height: 1.8;
-      overflow-x: hidden;
-    }
+    <!-- Tipografia e Icone -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .statuto-container {
-      max-width: 1100px;
-      margin: 3rem auto 6rem;
-      padding: 0 2rem;
-    }
+    <style>
+        :root {
+            --bg-perla: #FAFAFC;
+            --bg-platino: #F4F5F8;
+            --bg-card: #FFFFFF;
+            --oro-champagne: #C5A059;
+            --oro-light: #D4AF37;
+            --oro-deep: #997A2E;
+            --oro-border: rgba(197, 160, 89, 0.35);
+            --oro-glow: rgba(212, 175, 55, 0.15);
+            --text-ardesia: #1A202C;
+            --text-muted: #5A6578;
+            --border-light: #E2E8F0;
+            --verde-eal6: #10B981;
+            --font-main: 'Inter', sans-serif;
+            --font-serif: 'Cinzel', serif;
+            --trans-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-    .statuto-header-box {
-      background: var(--bg-glass-card);
-      backdrop-filter: blur(35px) saturate(160%);
-      -webkit-backdrop-filter: blur(35px) saturate(160%);
-      border-radius: var(--radius-oval-large);
-      padding: 4.5rem 3.5rem;
-      text-align: center;
-      margin-bottom: 3.5rem;
-      box-shadow: var(--shadow-diffuse);
-    }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .statuto-body-card {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border-radius: var(--radius-oval-medium);
-      padding: 4rem 3.5rem;
-      box-shadow: var(--shadow-diffuse);
-      margin-bottom: 3rem;
-    }
+        html {
+            font-size: 16px;
+            background-color: var(--bg-perla);
+            color: var(--text-ardesia);
+            font-family: var(--font-main);
+            scroll-behavior: smooth;
+        }
 
-    .articolo-item {
-      padding: 2.5rem 0;
-      border-bottom: 1px solid rgba(74, 82, 96, 0.12);
-    }
+        body {
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-    .articolo-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
+        h1, h2, h3, h4, .font-serif {
+            font-family: var(--font-serif);
+            letter-spacing: 0.03em;
+            color: var(--text-ardesia);
+        }
 
-    .art-badge {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--spectral-gold-deep);
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid var(--spectral-gold);
-      padding: 4px 14px;
-      border-radius: 50px;
-      display: inline-block;
-      margin-bottom: 0.8rem;
-      letter-spacing: 1.5px;
-    }
+        .text-gold {
+            background: linear-gradient(135deg, #A88438 0%, #C5A059 40%, #E5C578 70%, #997A2E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
 
-    .art-title {
-      font-family: var(--font-sync);
-      font-size: 1.25rem;
-      color: var(--text-dominant);
-      margin-bottom: 1rem;
-      letter-spacing: 0.5px;
-    }
+        /* Topbar Navigazione */
+        .statuto-topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(250, 250, 252, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
 
-    .art-content {
-      font-size: 0.96rem;
-      color: var(--text-muted);
-      line-height: 1.85;
-      text-align: justify;
-    }
+        .topbar-content {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .art-content strong {
-      color: var(--text-dominant);
-    }
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-ardesia);
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.1em;
+        }
 
-    .sigillo-forense {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 3rem 2rem;
-      background: rgba(246, 242, 235, 0.6);
-      border: 1.5px solid var(--spectral-gold);
-      border-radius: var(--radius-card);
-      margin-top: 3.5rem;
-    }
+        .btn-return-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            border: 1px solid var(--text-ardesia);
+            color: var(--text-ardesia);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s var(--trans-smooth);
+        }
 
-    .sigillo-emblema {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+        .btn-return-home:hover {
+            background: var(--text-ardesia);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
 
-    .timbro-testo {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
+        /* Contenitore Principale */
+        .statuto-wrapper {
+            max-width: 960px;
+            margin: 120px auto 80px;
+            padding: 0 1.5rem;
+        }
 
-    .back-home-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-dominant);
-      padding: 10px 20px;
-      border-radius: 50px;
-      border: 1.5px solid var(--metal-edge);
-      background: #FFF;
-      transition: all var(--transition-fast);
-      margin-bottom: 2rem;
-    }
+        .doc-header-card {
+            background: #FFFFFF;
+            border: 1px solid var(--oro-border);
+            border-radius: 12px;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            margin-bottom: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .back-home-btn:hover {
-      border-color: var(--spectral-gold);
-      background: var(--spectral-gold);
-      color: #000;
-      transform: translateX(-4px);
-    }
-  </style>
+        .doc-header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--oro-champagne), var(--oro-light), var(--oro-deep));
+        }
+
+        .doc-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--oro-champagne);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .doc-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 1.25rem;
+            line-height: 1.2;
+        }
+
+        .doc-metadata {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.75rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Articoli dello Statuto */
+        .statuto-article {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 2.25rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: border-color 0.3s ease;
+        }
+
+        .statuto-article:hover {
+            border-color: var(--oro-border);
+        }
+
+        .article-num {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: var(--oro-champagne);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-title {
+            font-size: 1.35rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .article-body p {
+            margin-bottom: 1rem;
+            font-size: 0.925rem;
+            color: var(--text-ardesia);
+            text-align: justify;
+        }
+
+        .article-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-box-warning {
+            background: rgba(197, 160, 89, 0.08);
+            border-left: 4px solid var(--oro-champagne);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.25rem 0;
+            font-size: 0.875rem;
+            color: var(--text-ardesia);
+        }
+
+        .highlight-box-eal6 {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid var(--verde-eal6);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.25rem 0;
+            font-size: 0.875rem;
+            color: #065F46;
+        }
+
+        /* Sezione Firme e Vidimazione */
+        .signatures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3.5rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--border-light);
+        }
+
+        .signature-block {
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .signature-seal {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--oro-champagne);
+            color: var(--oro-champagne);
+            font-size: 1.75rem;
+        }
+
+        .signature-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .signature-role {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--oro-champagne);
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        .statuto-footer {
+            background: #FFFFFF;
+            border-top: 1px solid var(--border-light);
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .doc-header-card { padding: 2.5rem 1.5rem; }
+            .statuto-article { padding: 1.75rem 1.25rem; }
+            .article-body p { text-align: left; }
+            .doc-metadata { flex-direction: column; gap: 0.75rem; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Motore d'Ambiente 13 Pollici (Onde Acquamarina / Oro) -->
-  <div class="ambient-mesh"></div>
-  <div class="zenith-ray"></div>
-  <div class="film-grain"></div>
-
-  <!-- Topbar di Navigazione Forense -->
-  <header class="topbar spectral-border">
-    <div class="topbar-left" onclick="window.location.href='index.html'">
-      <div class="status-led"></div>
-      <span>NODO CENTRALE: ROMA // REGISTRO STATUTARIO UFFICIALE EAL6+</span>
-    </div>
-    <div style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700;">
-      ANNO OPERATIVO 2026
-    </div>
-  </header>
-
-  <main class="statuto-container">
-    
-    <a href="index.html" class="back-home-btn">◄ TORNA ALLA PIATTAFORMA ISTITUZIONALE</a>
-
-    <!-- Intestazione Formale Statuto -->
-    <div class="statuto-header-box spectral-border">
-      <div class="badge-eal" style="margin-bottom:1.2rem;">DEPOSITO GIURIDICO CERTIFICATO</div>
-      <h1 class="sec-tit spectral-text" style="font-size: clamp(2rem, 3.5vw, 3rem);">STATUTO COSTITUTIVO</h1>
-      <h2 class="sec-tag spectral-text" style="font-size:1.1rem; margin-bottom:1.5rem;">E CODICE ETICO FORENSE 2026</h2>
-      <p class="sec-sub" style="max-width:780px; margin:0 auto;">
-        Disciplina fondamentale, standard didattici in videoconferenza diretta, tutela delle concessioni e-commerce e determinazione inderogabile della competenza giurisdizionale.
-      </p>
-    </div>
-
-    <!-- Corpus dei 14 Articoli Normativi -->
-    <div class="statuto-body-card spectral-border">
-
-      <!-- Articolo 1 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 01</span>
-        <h3 class="art-title">COSTITUZIONE, DENOMINAZIONE E SEDE</h3>
-        <p class="art-content">
-          È costituito l'ecosistema d'alta formazione esecutiva e commercio digitale denominato <strong>"Suprema Future X Enterprise"</strong> (di seguito, per brevità, "SFX"). L'infrastruttura stabilisce il proprio presidio operativo didattico e logistico presso il Centro Direzionale di <strong>Colleferro (Roma)</strong> e il presidio istituzionale e di rappresentanza della Presidenza presso <strong>Roma Centro</strong>. Ogni transazione, comunicazione e processo rispetta i più stringenti protocolli di sicurezza e tutela dell'identità digitale.
-        </p>
-      </article>
-
-      <!-- Articolo 2 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 02</span>
-        <h3 class="art-title">GOVERNANCE ESECUTIVA E PRESIDENZA</h3>
-        <p class="art-content">
-          La direzione strategica, statutaria ed esecutiva è presieduta in via esclusiva e monocratica dal <strong>Founder & CEO Giuliano Caratelli</strong>. È fatto assoluto divieto di rappresentanza organica o decisionale a soggetti terzi non formalmente investiti da delega diretta. La Presidenza mantiene la supervisione inappellabile sull'ammissione dei corsisti, sull'assegnazione delle concessioni e sul controllo del merito formativo.
-        </p>
-      </article>
-
-      <!-- Articolo 3 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 03</span>
-        <h3 class="art-title">SUPREMA ACADEMY // DIDATTICA 100% DAL VIVO</h3>
-        <p class="art-content">
-          In deroga espressa ai modelli didattici passivi, <strong>l'Academy di Suprema Future X eroga la propria formazione al 100% dal vivo in videoconferenza diretta interattiva</strong>. È sancito il divieto statutario di somministrare videocorsi pre-registrati o contenuti asincroni spacciati per tutoraggio. Ogni percorso (Silver Tier 60 giorni, Executive Master 90 giorni, Premium VIP 120 giorni) prevede la presenza attiva dei docenti e sessioni di verifica diretta con il Founder & CEO.
-        </p>
-      </article>
-
-      <!-- Articolo 4 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 04</span>
-        <h3 class="art-title">CONCESSIONI DIGITALI A ZERO MAGAZZINO</h3>
-        <p class="art-content">
-          Il modello commerciale d'impresa digitale conferito agli allievi e ai titolari abilitati si fonda sul regime della <strong>Concessione E-Commerce Autonoma a Zero Magazzino</strong>. Il concessionario è sollevato da qualsiasi obbligo di stoccaggio, acquisto preventivo delle scorte merci o onere di imballaggio. L'infrastruttura logistica centrale provvede in via automatizzata alla preparazione e spedizione espressa al consumatore finale.
-        </p>
-      </article>
-
-      <!-- Articolo 5 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 05</span>
-        <h3 class="art-title">PROTOCOLLO DI SELEZIONE E SCREENING CONOSCITIVO</h3>
-        <p class="art-content">
-          L'ammissione ai percorsi d'alta formazione e l'assegnazione delle concessioni store avvengono a numero programmato previa compilazione del Funnel di Screening. Nessun candidato può accedere ai servizi senza aver superato il <strong>colloquio individuale di 60 minuti via Google Meet condotto personalmente dal Founder & CEO Giuliano Caratelli</strong>, volto a verificare attitudine, serietà e allineamento al Codice Etico.
-        </p>
-      </article>
-
-      <!-- Articolo 6 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 06</span>
-        <h3 class="art-title">CERTIFICAZIONE DI MERITO: SUPREMA GOLD CARD</h3>
-        <p class="art-content">
-          Agli allievi che raggiungono la soglia statutaria di <strong>+800 Punti Status</strong> viene conferita la <strong>Suprema Gold Card Metallica</strong> incisa con raggio laser e dotata di chip NFC crittografato. I Punti Status, cumulabili attraverso l'avanzamento accademico e i traguardi dello store digitale, regolano l'accesso al catalogo premi esclusivo strutturato sui 5 scaglioni ufficiali (2.000, 3.000, 4.500, 6.000 e 7.500 Punti).
-        </p>
-      </article>
-
-      <!-- Articolo 7 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 07</span>
-        <h3 class="art-title">INFRASTRUTTURA DIGITALE E SICUREZZA FORENSE EAL6+</h3>
-        <p class="art-content">
-          L'ecosistema opera secondo standard di sicurezza <strong>EAL6+</strong> (Evaluation Assurance Level 6 Augmented). Tutti i dati anagrafici, i dossier di screening e le chiavi applicative risiedono in registri crittografati con isolamento Zero-Trust. È severamente vietata la memorizzazione di credenziali amministrative in chiaro sul frontend o su server non certificati.
-        </p>
-      </article>
-
-      <!-- Articolo 8 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 08</span>
-        <h3 class="art-title">ASSOLUTA INDIPENDENZA DA NETWORK MARKETING TERZI</h3>
-        <p class="art-content">
-          Suprema Future X Enterprise costituisce un polo aziendale e didattico totalmente autonomo. <strong>È fatto divieto assoluto di associare, menzionare o applicare modelli riconducibili a network marketing multi-livello o società terze di intermediazione</strong>. L'ecosistema tutela l'indipendenza imprenditoriale di ciascun titolare di Concessione E-Commerce senza vincoli di affiliazione esterna.
-        </p>
-      </article>
-
-      <!-- Articolo 9 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 09</span>
-        <h3 class="art-title">TUTELA DELLA PROPRIETÀ INTELLETTUALE</h3>
-        <p class="art-content">
-          Tutti i marchi, i codici sorgente, i materiali didattici, le architetture AI (Flotta degli Agenti da AG-01 ad AG-15) e i flussi di automazione costituiscono patrimonio industriale riservato di Suprema Future X Enterprise. Qualsiasi tentativo di copia, diffusione non autorizzata, reverse-engineering o registrazione speculativa comporterà l'immediata esclusione dal circuito e l'azione legale per risarcimento danni.
-        </p>
-      </article>
-
-      <!-- Articolo 10 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 10</span>
-        <h3 class="art-title">OBBLIGHI DEGLI ALLIEVI E DEI CONCESSIONARI</h3>
-        <p class="art-content">
-          Gli allievi e i concessionari si impegnano a operare nel pieno rispetto delle normative commerciali vigenti, della riservatezza delle comunicazioni interne e del decoro istituzionale del brand. La violazione degli accordi di riservatezza o l'inadempienza rispetto alle sessioni live comporta la revoca immediata dello Status acquisito e la disattivazione dei nodi di vendita.
-        </p>
-      </article>
-
-      <!-- Articolo 11 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 11</span>
-        <h3 class="art-title">ARCHIVIO DOCUMENTALE MEDIA VAULT 400</h3>
-        <p class="art-content">
-          La consultazione di attestati, dispense e documentazione riservata avviene esclusivamente tramite il protocollo <strong>Media Vault 400</strong> con token di download temporizzati a 120 minuti generati dalla console X-BOX. È vietato conservare o trasmettere file al di fuori dei canali crittografati istituzionali.
-        </p>
-      </article>
-
-      <!-- Articolo 12 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 12</span>
-        <h3 class="art-title">CANALI UFFICIALI E COMUNICAZIONI QUALIFICATE</h3>
-        <p class="art-content">
-          Hanno valore di notifica formale esclusivamente le comunicazioni trasmesse tramite l'indirizzo di posta elettronica certificata della Presidenza (<strong>presidenza@supremafuturex.it</strong>) o attraverso il canale broadcast Telegram ufficiale verificato (<strong>@SupremaFutureX_Official</strong>) e il numero WhatsApp della Presidenza (+39 347 442 9091).
-        </p>
-      </article>
-
-      <!-- Articolo 13 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 13</span>
-        <h3 class="art-title">COMPETENZA GIURISDIZIONALE ESCLUSIVA // FORO DI VELLETRI / ROMA</h3>
-        <p class="art-content">
-          Per qualsiasi controversia interpretativa, esecutiva, contrattuale o risarcitoria derivante dal presente Statuto, dall'adesione ai percorsi dell'Academy o dall'esercizio delle Concessioni E-Commerce, <strong>è stabilita in via inderogabile ed esclusiva la competenza territoriale dell'Autorità Giudiziaria del Foro di Velletri / Roma</strong>, con espressa rinuncia di qualsiasi altro foro generale o facoltativo.
-        </p>
-      </article>
-
-      <!-- Articolo 14 -->
-      <article class="articolo-item">
-        <span class="art-badge">ARTICOLO 14</span>
-        <h3 class="art-title">EFFICACIA STATUTARIA, DEPOSITO E AGGIORNAMENTI</h3>
-        <p class="art-content">
-          Il presente Statuto entra in vigore con efficacia immediata dalla data di deposito informatico presso il registro forense centrale. Qualsiasi emendamento, integrazione o aggiornamento operativo può essere deliberato unicamente dalla Presidenza del Founder & CEO Giuliano Caratelli e reso esecutivo tramite notifica telemetrica sul nodo di rete.
-        </p>
-      </article>
-
-      <!-- Sigillo di Chiusura Forense -->
-      <div class="sigillo-forense">
-        <div class="sigillo-emblema">⚖️</div>
-        <div class="spectral-text" style="font-family:var(--font-sync); font-size:1.1rem; font-weight:700; margin-bottom:0.5rem;">
-          SUPREMA FUTURE X ENTERPRISE
+    <!-- Topbar Istituzionale -->
+    <nav class="statuto-topbar">
+        <div class="topbar-content">
+            <a href="index.html" class="brand-link">
+                <i class="fa-solid fa-shield-halved" style="color: var(--oro-champagne);"></i>
+                <span>SUPREMA FUTURE X</span>
+            </a>
+            <a href="index.html" class="btn-return-home">
+                <i class="fa-solid fa-arrow-left"></i> Torna alla Landing
+            </a>
         </div>
-        <p class="timbro-testo">
-          ATTO ISTITUZIONALE DEPOSITATO // REGISTRO FORENSE PROTOCOLLO EAL6+<br>
-          DIREZIONE GENERALE: FOUNDER & CEO GIULIANO CARATELLI<br>
-          INTEGRITÀ CRITTOGRAFICA ASSOLUTA // FORO ESCLUSIVO DI VELLETRI / ROMA
-        </p>
-      </div>
+    </nav>
 
-    </div>
+    <!-- Contenuto Principale Statuto -->
+    <main class="statuto-wrapper">
 
-  </main>
+        <!-- Testata Documentale -->
+        <header class="doc-header-card">
+            <span class="doc-tag">ATTO REGOLAMENTARE DI GOVERNANCE FORENSE</span>
+            <h1 class="doc-title">Statuto Ufficiale & <span class="text-gold">Codice Etico</span></h1>
+            <p style="color: var(--text-muted); max-width: 760px; margin: 0 auto; font-size: 0.95rem;">
+                Norme vincolanti di adesione, clausole contrattuali di concessione store, tutela della didattica live e protocollo giurisdizionale di conformità.
+            </p>
+            <div class="doc-metadata">
+                <div class="meta-pill"><i class="fa-solid fa-gavel text-gold"></i> Foro Esclusivo: Velletri / Roma</div>
+                <div class="meta-pill"><i class="fa-solid fa-shield-check" style="color: var(--verde-eal6);"></i> Standard di Sicurezza: EAL6+ Active</div>
+                <div class="meta-pill"><i class="fa-solid fa-calendar-check text-gold"></i> Revisione Istituzionale Ufficiale</div>
+            </div>
+        </header>
 
-  <!-- Footer Istituzionale Forense -->
-  <footer style="background: var(--metal-frame); color: #FFF; padding: 4rem 0 2rem; border-top: 2px solid var(--spectral-gold);">
-    <div class="container grid-3" style="margin-bottom:2rem;">
-      <div>
-        <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.4rem; margin-bottom:1rem;">SUPREMA FUTURE X</h2>
-        <p style="font-size:0.85rem; color:var(--metal-light); line-height:1.7;">Governance e Alta Formazione Esecutiva 2026.<br>Founder & CEO Giuliano Caratelli.</p>
-      </div>
-      <div>
-        <h4 style="font-family:var(--font-mono); font-size:0.8rem; color:var(--spectral-cyan); margin-bottom:1rem;">SEDI E PRESIDI</h4>
-        <ul style="list-style:none; font-size:0.8rem; color:var(--metal-light); line-height:2;">
-          <li>Sede Operativa: Colleferro (RM)</li>
-          <li>Ufficio Presidenza: Roma Centro</li>
-          <li>Foro Competente: Velletri / Roma</li>
-        </ul>
-      </div>
-      <div>
-        <h4 style="font-family:var(--font-mono); font-size:0.8rem; color:var(--spectral-cyan); margin-bottom:1rem;">CANALI RISERVATI</h4>
-        <ul style="list-style:none; font-size:0.8rem; color:var(--metal-light); line-height:2;">
-          <li>WA: +39 347 442 9091</li>
-          <li>Telegram: @SupremaFutureX_Official</li>
-          <li>Email: presidenza@supremafuturex.it</li>
-        </ul>
-      </div>
-    </div>
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center; font-family: var(--font-mono); font-size: 0.7rem; color: var(--metal-light);">
-      © 2026 SUPREMA FUTURE X ENTERPRISE // STATUTO FORENSE DEPOSITATO E PROTETTO.
-    </div>
-  </footer>
+        <!-- Articolo 1 -->
+        <article class="statuto-article">
+            <span class="article-num">Articolo 1</span>
+            <h2 class="article-title">Denominazione, Sede e Scopi Istituzionali</h2>
+            <div class="article-body">
+                <p>
+                    L'infrastruttura di governo aziendale opera sotto la denominazione esclusiva <strong>Suprema Future X</strong>, presieduta e diretta dal Founder e Amministratore Giuliano Caratelli, coadiuvato dalla Supervisione Esecutiva (AG-01) di Alison Carel.
+                </p>
+                <p>
+                    Scopo fondamentale dell'infrastruttura è l'erogazione di alta formazione manageriale attraverso la <em>Suprema Academy</em>, la concessione di licenze d'uso commerciali per negozi digitali indipendenti a zero magazzino, e la custodia forense degli asset documentali tramite il registro crittografico <em>Media Vault</em>.
+                </p>
+            </div>
+        </article>
 
-  <script>
-    // Blocco Ispezione Forense Lato Client (Anti-F12 e Tasto Destro)
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toUpperCase() === 'U')) {
-        e.preventDefault();
-      }
-    });
-  </script>
+        <!-- Articolo 2 -->
+        <article class="statuto-article">
+            <span class="article-num">Articolo 2</span>
+            <h2 class="article-title">Clausola Giurisdizionale Esclusiva e Foro Competente</h2>
+            <div class="article-body">
+                <p>
+                    Per qualunque controversia, istanza, interpretazione o azione esecutiva discendente dalla navigazione, dall'utilizzo della piattaforma, dai percorsi didattici erogati o dall'attivazione dei contratti di concessione e-commerce, le parti riconoscono e accettano in via pattizia, espressa e inderogabile la competenza territoriale esclusiva del:
+                </p>
+                <div class="highlight-box-warning">
+                    <strong>FORO COMPETENTE ESCLUSIVO: TRIBUNALE DI VELLETRI / ROMA</strong><br>
+                    È esclusa qualsivoglia deroga a favore di qualsiasi altro foro generale o speciale concorrente, sia esso nazionale che internazionale. L'accesso a qualsiasi servizio di Suprema Future X costituisce accettazione espressa della presente clausola ai sensi degli artt. 1341 e 1342 c.c.
+                </div>
+            </div>
+        </article>
+
+        <!-- Articolo 3 -->
+        <article class="statuto-article">
+            <span class="article-num">Articolo 3</span>
+            <h2 class="article-title">Divieto Tassativo ed Esclusione Schemi Piramidali e MLM</h2>
+            <div class="article-body">
+                <p>
+                    Suprema Future X non è, non adotta e respinge categoricamente qualsiasi forma di Network Marketing, Multi-Level Marketing (MLM), vendita piramidale, schema Ponzi o modello di reclutamento basato sul conferimento di quote da parte di nuovi aderenti.
+                </p>
+                <div class="highlight-box-warning">
+                    <strong>DISPOSIZIONE DEONTOLOGICA VINCOLANTE:</strong><br>
+                    È tassativamente proibito a chiunque operi in concessione o partecipi ai corsi didattici presentare l'ecosistema come opportunità di guadagno passivo, schema di arricchimento rapido o catena di affiliazione. Le entrate dei concessionari derivano esclusivamente dalla vendita reale di beni tangibili di lusso e dalla prestazione di servizi vidimati.
+                </div>
+                <p>
+                    L'infrastruttura vieta altresì espressamente la distribuzione e la promozione di preparati farmaceutici, integratori o prodotti sanitari non autorizzati, focalizzandosi in via esclusiva su beni d'eccellenza e didattica esecutiva.
+                </p>
+            </div>
+        </article>
+
+        <!-- Articolo 4 -->
+        <article class="statuto-article">
+            <span class="article-num">Articolo 4</span>
+            <h2 class="article-title">Modello Esecutivo delle Concessioni Store Indipendenti</h2>
+            <div class="article-body">
+                <p>
+                    Le licenze per store e-commerce concesse da Suprema Future X operano sul principio del <strong>Modello a Concessione Indipendente a Zero Magazzino</strong>:
+                </p>
+                <p>
+                    1. <strong>Custodia e Proprietà Merci:</strong> Lo stoccaggio, l'imballaggio di lusso (*Luxury Packaging*) e le spedizioni con corriere espresso tracciato rimangono a totale carico della sede logistica centrale, esonerando il concessionario da oneri di magazzino, invenduto o rischi di deperimento merce.
+                </p>
+                <p>
+                    2. <strong>Autonomia del Concessionario:</strong> Ogni operatore titolare di concessione opera in piena indipendenza fiscale e gestionale, senza vincoli di subordinazione lavorativa né subordinazione a gerarchie di rete.
+                </p>
+                <p>
+                    3. <strong>Liquidazione Trasparente:</strong> La marginalità commerciale spettante sul venduto viene vidimata e liquidata secondo contratti chiari con fatturazione a norma di legge.
+                </p>
+            </div>
+        </article>
+
+        <!-- Articolo 5 -->
+        <article class="statuto-article">
+            <span class="article-num">Articolo 5</span>
+            <h2 class="article-title">Didattica Suprema Academy 100% Live in Presa Diretta</h2>
+            <div class="article-body">
+                <p>
+                    I corsi dell'Academy (Silver, Gold ed Executive Premium) vengono erogati con docenza esclusiva in tempo reale ("100% Live"). È categoricamente escluso l'impiego di corsi preregistrati spacciati per sessioni interattive.
+                </p>
+                <p>
+                    Ogni discente ha diritto all'interazione audio e video con i docenti d'aula e con il Founder Giuliano Caratelli durante le sessioni stabilite. La consegna del certificato formale e della Suprema Gold Card numerata in acciaio è subordinata all'effettiva presenza e al superamento delle prove di verifica.
+                </p>
+            </div>
+        </article>
+
+        <!-- Articolo 6 -->
+        <article class="statuto-article">
+            <span class="article-num">Articolo 6</span>
+            <h2 class="article-title">Protocollo di Protezione Crittografica e Sicurezza Dati EAL6+</h2>
+            <div class="article-body">
+                <p>
+                    Tutti i dati archiviati nel <em>Media Vault</em> (foto, video, tavole didattiche, accordi e circolari), nonché i canali di trasmissione del modulo screening e della segreteria presidenziale, sono conformi agli standard di verifica crittografica avanzata EAL6+.
+                </p>
+                <div class="highlight-box-eal6">
+                    <strong>INTEGRITÀ CRITTOGRAFICA D'ARCHIVIO:</strong><br>
+                    Nessun documento viene reso pubblico nel Media Vault senza previa vidimazione formale del comitato direttivo. Gli slot in stato di "Standby" rimangono cifrati fino al completamento dell'iter di verifica giuridica.
+                </div>
+            </div>
+        </article>
+
+        <!-- Articolo 7 -->
+        <article class="statuto-article">
+            <span class="article-num">Articolo 7</span>
+            <h2 class="article-title">Clausola Risolutiva Espressa per Condotte Sleali ("Anti-Fuffa")</h2>
+            <div class="article-body">
+                <p>
+                    Suprema Future X tutela rigorosamente la propria reputazione istituzionale contro le condotte tipiche dei cd. "fuffa guru" (millantata ricchezza, ostentazione di noleggi di lusso, promesse di libertà finanziaria automatica).
+                </p>
+                <p>
+                    Qualsiasi concessionario o allievo che adotti toni ingannevoli, che utilizzi il marchio Suprema Future X per promuovere schemi illeciti o che violi le norme di rispetto formale verso terzi subirà la revoca immediata e unilaterale della licenza o l'espulsione dall'Academy con disattivazione del chip crittografico della propria Gold Card, fatto salvo il risarcimento del danno all'immagine presso il Foro di Velletri / Roma.
+                </p>
+            </div>
+        </article>
+
+        <!-- Vidimazione Presidenziale -->
+        <section class="signatures-grid">
+            <div class="signature-block">
+                <div class="signature-seal">
+                    <i class="fa-solid fa-stamp"></i>
+                </div>
+                <h3 class="signature-name">Giuliano Caratelli</h3>
+                <p class="signature-role">Founder & Chief Executive Officer</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">Firma Esecutiva Vidimata</p>
+            </div>
+
+            <div class="signature-block">
+                <div class="signature-seal" style="border-color: var(--verde-eal6); color: var(--verde-eal6);">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="signature-name">Alison Carel</h3>
+                <p class="signature-role">Supervisor (Cod. AG-01)</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">Protocollo di Conformità EAL6+</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer dello Statuto -->
+    <footer class="statuto-footer">
+        <div style="max-width: 960px; margin: 0 auto; padding: 0 1.5rem;">
+            <p style="margin-bottom: 0.5rem;">
+                <strong>SUPREMA FUTURE X</strong> &copy; Registro Ufficiale di Governance. Tutti i diritti riservati.
+            </p>
+            <p style="font-size: 0.75rem;">
+                Clausola Giurisdizionale Territoriale Esclusiva: Foro Giudiziario di Velletri / Roma.
+            </p>
+        </div>
+    </footer>
+
 </body>
 </html>
