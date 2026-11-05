@@ -122,19 +122,20 @@
       max-width: 1400px;
       margin: 45px auto;
       border-radius: 28px;
-      padding: 3.5px; /* Pista ottica per il fascio perimetrale */
+      padding: 3.5px;
       z-index: 2;
       perspective: 1200px;
       transform: translateZ(0);
-      contain: layout style;
+      contain: paint layout style;
       box-shadow: 0 20px 50px rgba(11, 25, 44, 0.08), 0 0 35px rgba(212, 175, 55, 0.15);
+      overflow: hidden !important; /* BLOCCA L'INVASIONE DELLO SCHERMO */
     }
 
-    /* Il fascio di luce continuo a 8 colori che scorre per tutti i bordi della sezione avanti e indietro */
+    /* Il fascio resta limitato al solo bordo */
     .sfx-stage-shell::before {
       content: "";
       position: absolute;
-      inset: -120%;
+      inset: -50%;
       background: conic-gradient(
         from 0deg,
         var(--c1-gold),
@@ -149,9 +150,9 @@
       );
       animation: edgeConicSweep 7s linear infinite;
       z-index: 0;
-      will-change: transform;
+      opacity: 0.85;
+      pointer-events: none;
     }
-
     @keyframes edgeConicSweep {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
