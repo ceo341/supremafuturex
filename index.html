@@ -1,438 +1,1106 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suprema Future X - Hero Cinetica & Barra Inferiore</title>
-  
-  <!-- Font Space Grotesk & Plus Jakarta Sans -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>SUPREMA FUTURE X // Light Luxury Enterprise Hub</title>
+
+  <!-- Tipografia Istituzionale -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            display: ['"Space Grotesk"', 'sans-serif'],
-          },
-          colors: {
-            suprema: {
-              gold: '#D4AF37',
-              goldLight: '#F3E5AB',
-              cyan: '#00D2FF',
-              emerald: '#00E676',
-              bgLight: '#FDF9F2',
-              bgDim: '#F7F3EC',
-              card: '#FFFFFF',
-              navy: '#0B192C'
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Reset & Fondale Luxury Chiaro */
-    body {
-      background-color: #FDF9F2;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(0, 210, 255, 0.06) 0px, transparent 50%),
-        radial-gradient(at 50% 50%, rgba(0, 230, 118, 0.05) 0px, transparent 60%);
-      color: #0B192C;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2.5rem 1rem;
+    /* ==========================================================================
+       1. REGISTRO VARIABILI MASTER & GLI 8 COLORI SPETTRALI LUMINOSI
+       ========================================================================== */
+    :root {
+      /* GLI 8 COLORI DI BASE */
+      --c1-gold: #D4AF37;        /* 1. Oro Imperiale */
+      --c2-solar: #FFD700;       /* 2. Oro Solare Chiaro */
+      --c3-cyan: #00D2FF;        /* 3. Ciano Elettrico */
+      --c4-emerald: #00E676;     /* 4. Smeraldo Neon */
+      --c5-aqua: #00E5C9;        /* 5. Aqua Marina Spettrale */
+      --c6-navy: #0B192C;        /* 6. Blu Notte Titanio */
+      --c7-amethyst: #8A2BE2;    /* 7. Porpora Ametista */
+      --c8-platinum: #FFFFFF;    /* 8. Platino Cristallino / Perla */
+
+      /* FONDALI E VETRI SATINATI */
+      --bg-canvas: #FDF9F2;
+      --glass-panel: rgba(255, 255, 255, 0.78);
+      --glass-blur: blur(28px);
+      --shadow-deep: 0 25px 60px rgba(11, 25, 44, 0.12);
+      --shadow-glow: 0 0 35px rgba(212, 175, 55, 0.35);
+
+      /* FONT STACK */
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
-    /* --- MOTORI CINETICI E FASCI DI LUCE ASTRATTI (SENZA TAGLI NETTI) --- */
-    
-    /* 1. Rotazione Conica Continua Ping-Pong */
-    @keyframes conic-pingpong {
+    /* ==========================================================================
+       2. RESET & SFUMATURE LUMINOSE FLUIDE CHE ATTRAVERSANO LA PAGINA
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-canvas);
+      color: var(--c6-navy);
+      font-family: var(--font-body);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--bg-canvas);
+    }
+
+    /* Onde di luce spettrale a 8 colori che attraversano la pagina in profondità */
+    .spectral-drifting-mesh {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+      background: radial-gradient(circle at 20% 30%, var(--c1-gold) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 20%, var(--c3-cyan) 0%, transparent 42%),
+                  radial-gradient(circle at 50% 50%, var(--c4-emerald) 0%, transparent 45%),
+                  radial-gradient(circle at 20% 80%, var(--c7-amethyst) 0%, transparent 38%),
+                  radial-gradient(circle at 85% 75%, var(--c2-solar) 0%, transparent 40%),
+                  radial-gradient(circle at 50% 90%, var(--c5-aqua) 0%, transparent 44%);
+      filter: blur(85px);
+      animation: spectralShift 24s ease-in-out infinite alternate;
+    }
+
+    @keyframes spectralShift {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      50% { transform: translate(-6%, 4%) rotate(180deg) scale(1.08); }
+      100% { transform: translate(4%, -6%) rotate(360deg) scale(1); }
+    }
+
+    /* Grana satinata perimetrale */
+    .film-grain {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* ==========================================================================
+       3. CORNICE VOLUMETRICA A 8 COLORI CON FASCIO DI LUCE LUNGO I BORDI
+       ========================================================================== */
+    .sfx-stage-shell {
+      position: relative;
+      width: 96%;
+      max-width: 1380px;
+      margin: 40px auto;
+      border-radius: 28px;
+      padding: 3px; /* Spazio per la pista luminosa */
+      background: transparent;
+      box-shadow: var(--shadow-deep), 0 0 45px rgba(212, 175, 55, 0.15);
+      z-index: 1;
+      overflow: hidden;
+      perspective: 1200px;
+    }
+
+    /* Fascio di luce spettrale a 8 colori che scorre per tutti i bordi avanti e indietro */
+    .sfx-stage-shell::before {
+      content: "";
+      position: absolute;
+      inset: -150%;
+      background: conic-gradient(
+        from 0deg,
+        var(--c1-gold),
+        var(--c2-solar),
+        var(--c3-cyan),
+        var(--c4-emerald),
+        var(--c5-aqua),
+        var(--c7-amethyst),
+        var(--c6-navy),
+        var(--c8-platinum),
+        var(--c1-gold)
+      );
+      animation: edgeBeamRun 8s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes edgeBeamRun {
       0% { transform: rotate(0deg); }
-      50% { transform: rotate(180deg); }
       100% { transform: rotate(360deg); }
     }
 
-    /* 2. Anello di Luce Antiorario (Controfase) */
-    @keyframes conic-reverse {
-      0% { transform: rotate(360deg); }
-      100% { transform: rotate(0deg); }
+    /* Corpo interno in Cristallo Traslucido (Profondità 3D) */
+    .sfx-stage-inner {
+      position: relative;
+      background: var(--glass-panel);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-radius: 26px;
+      padding: 45px 30px;
+      z-index: 1;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: inset 0 2px 20px rgba(255, 255, 255, 0.9), inset 0 -2px 20px rgba(212, 175, 55, 0.12);
     }
 
-    /* 3. Respiro Profondità Radiale */
-    @keyframes aura-breath {
-      0%, 100% { transform: scale(1); opacity: 0.75; }
-      50% { transform: scale(1.04); opacity: 1; }
+    /* ==========================================================================
+       4. SEZIONE 00: QUADRO HERO, PORTALI MEZZALUNA E OVALE A DOPPIA GHIERA
+       ========================================================================== */
+    #sec-00 {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Contenitore Portali Mezzaluna Concavi Laterali */
-    .portal-wing-left {
+    /* Portali Laterali a Mezzaluna (Ali Cinetica) */
+    .portal-wing-left, .portal-wing-right {
       position: absolute;
-      left: -50px;
       top: 50%;
       transform: translateY(-50%);
-      width: 140px;
-      height: 380px;
-      border-radius: 0 190px 190px 0;
-      border: 2px solid rgba(212, 175, 55, 0.45);
-      border-left: none;
-      background: radial-gradient(circle at 100% 50%, rgba(0, 210, 255, 0.15), rgba(212, 175, 55, 0.05) 70%, transparent);
-      box-shadow: 0 0 35px rgba(0, 210, 255, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.2);
+      width: 130px;
+      height: 420px;
       pointer-events: none;
-      z-index: 5;
+      z-index: 2;
+    }
+
+    .portal-wing-left {
+      left: -20px;
+      border-radius: 0 210px 210px 0;
+      border: 2px solid rgba(212, 175, 55, 0.65);
+      border-left: none;
+      background: radial-gradient(circle at 100% 50%, rgba(0, 210, 255, 0.22), rgba(212, 175, 55, 0.1) 70%, transparent);
+      box-shadow: 0 0 40px rgba(0, 210, 255, 0.35), inset 0 0 25px rgba(212, 175, 55, 0.3);
+      animation: wingBreathLeft 6s ease-in-out infinite alternate;
     }
 
     .portal-wing-right {
-      position: absolute;
-      right: -50px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 140px;
-      height: 380px;
-      border-radius: 190px 0 0 190px;
-      border: 2px solid rgba(212, 175, 55, 0.45);
+      right: -20px;
+      border-radius: 210px 0 0 210px;
+      border: 2px solid rgba(212, 175, 55, 0.65);
       border-right: none;
-      background: radial-gradient(circle at 0% 50%, rgba(0, 230, 118, 0.15), rgba(212, 175, 55, 0.05) 70%, transparent);
-      box-shadow: 0 0 35px rgba(0, 230, 118, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.2);
-      pointer-events: none;
-      z-index: 5;
+      background: radial-gradient(circle at 0% 50%, rgba(0, 230, 118, 0.22), rgba(212, 175, 55, 0.1) 70%, transparent);
+      box-shadow: 0 0 40px rgba(0, 230, 118, 0.35), inset 0 0 25px rgba(212, 175, 55, 0.3);
+      animation: wingBreathRight 6s ease-in-out infinite alternate;
     }
 
-    /* Scocca Ovale con Motore Cinetico a Doppia Ghiera */
+    @keyframes wingBreathLeft {
+      0% { transform: translateY(-50%) translateX(0); opacity: 0.7; }
+      100% { transform: translateY(-50%) translateX(10px); opacity: 1; }
+    }
+    @keyframes wingBreathRight {
+      0% { transform: translateY(-50%) translateX(0); opacity: 0.7; }
+      100% { transform: translateY(-50%) translateX(-10px); opacity: 1; }
+    }
+
+    /* TITOLI MONUMENTALI HERO */
+    .hero-title-main {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--c1-gold) 0%, var(--c2-solar) 25%, var(--c4-emerald) 50%, var(--c3-cyan) 75%, var(--c7-amethyst) 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleGradientPingPong 7s ease-in-out infinite alternate;
+      filter: drop-shadow(0 2px 14px rgba(212, 175, 55, 0.3));
+    }
+
+    @keyframes titleGradientPingPong {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .hero-subtitle-motto {
+      font-family: var(--font-display);
+      font-size: clamp(0.85rem, 2vw, 1.25rem);
+      font-weight: 800;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--c6-navy);
+      opacity: 0.9;
+      margin-bottom: 35px;
+    }
+
+    /* CHASSIS OVALE CENTRALE CINETICO */
     .hero-oval-chassis {
       position: relative;
-      width: 100%;
-      max-width: 580px;
-      height: 330px;
-      border-radius: 50% / 50%;
+      width: clamp(290px, 48vw, 560px);
+      height: clamp(290px, 48vw, 560px);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto;
+      margin: 10px auto 45px auto;
+      animation: floatIdle 5s ease-in-out infinite alternate;
     }
 
-    /* Ghiera Esterna Oraria */
+    @keyframes floatIdle {
+      0% { transform: translateY(-6px); }
+      100% { transform: translateY(6px); }
+    }
+
+    /* GHIERA ESTERNA: 8 COLORI ORARIO (14s) */
     .conic-glow-outer {
       position: absolute;
       inset: -14px;
-      border-radius: 50% / 50%;
+      border-radius: 50%;
       background: conic-gradient(
         from 0deg,
-        rgba(212, 175, 55, 0.8),
-        rgba(0, 230, 118, 0.7),
-        rgba(0, 210, 255, 0.8),
-        rgba(212, 175, 55, 0.8)
+        var(--c1-gold),
+        var(--c2-solar),
+        var(--c3-cyan),
+        var(--c4-emerald),
+        var(--c5-aqua),
+        var(--c7-amethyst),
+        var(--c1-gold)
       );
-      animation: conic-pingpong 14s ease-in-out infinite alternate;
-      filter: blur(12px);
+      animation: spinClockwise 14s linear infinite;
+      filter: blur(14px);
       opacity: 0.85;
       z-index: 1;
     }
 
-    /* Ghiera Interna Antioraria (Controfase) */
+    /* GHIERA INTERNA: CONTROFASE ANTIORARIO (10s) */
     .conic-glow-inner {
       position: absolute;
-      inset: -5px;
-      border-radius: 50% / 50%;
+      inset: -6px;
+      border-radius: 50%;
       background: conic-gradient(
         from 180deg,
-        rgba(0, 210, 255, 0.85),
-        rgba(212, 175, 55, 0.9),
-        rgba(0, 230, 118, 0.8),
-        rgba(0, 210, 255, 0.85)
+        var(--c3-cyan),
+        var(--c1-gold),
+        var(--c4-emerald),
+        var(--c7-amethyst),
+        var(--c5-aqua),
+        var(--c3-cyan)
       );
-      animation: conic-reverse 10s linear infinite;
-      filter: blur(5px);
+      animation: spinCounterClockwise 10s linear infinite;
+      filter: blur(6px);
+      opacity: 0.95;
       z-index: 2;
     }
 
-    /* Bordo Metallico Sagomato in Oro Presidenziale */
+    @keyframes spinClockwise {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes spinCounterClockwise {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* BORDO SAGOMATO IN ORO PRESIDENZIALE */
     .oval-gold-border {
       position: absolute;
       inset: -3px;
-      border-radius: 50% / 50%;
-      border: 3.5px solid #D4AF37;
-      box-shadow: 
-        0 0 25px rgba(212, 175, 55, 0.45),
-        inset 0 0 15px rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      border: 3.5px solid var(--c1-gold);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.35);
       z-index: 3;
       pointer-events: none;
     }
 
-    /* Vano Interno Ovale: Sfondo Bianco Cristallino (Limpido, Nessun Filtro su Foto) */
+    /* VANO BIANCO CRISTALLINO (FOTO ADATTATE SENZA DISTORSIONI) */
     .oval-white-vault {
       position: absolute;
-      inset: 0px;
-      border-radius: 50% / 50%;
-      background: #FFFFFF;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--c8-platinum);
       overflow: hidden;
       z-index: 4;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.04);
-    }
-
-    /* Badge & Pulsanti a Capsula Stile Luxury */
-    .capsule-btn {
-      background: #FFFFFF;
-      border: 1.5px solid rgba(212, 175, 55, 0.45);
-      border-radius: 9999px;
-      padding: 0.65rem 1.25rem;
-      font-weight: 600;
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-      color: #0B192C;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.12);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset 0 3px 18px rgba(0, 0, 0, 0.08);
       cursor: pointer;
     }
 
-    .capsule-btn:hover {
-      border-color: #D4AF37;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.22);
-    }
-
-    /* Dropdown interattivo al click/hover */
-    .capsule-group {
-      position: relative;
-    }
-    .capsule-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%) translateY(6px);
-      min-width: 220px;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-      border: 1.5px solid rgba(212, 175, 55, 0.35);
-      border-radius: 1rem;
-      padding: 0.5rem;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.2s ease-out;
-      z-index: 50;
-    }
-    .capsule-group:hover .capsule-dropdown,
-    .capsule-group:focus-within .capsule-dropdown {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* Animazione Fade Sottile tra i Loghi/Foto in Loop */
-    .loop-slide {
+    .hero-loop-slide {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 25%;
+      border-radius: 50%;
       opacity: 0;
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: scale(1.04);
+      transition: opacity 0.8s ease-in-out, transform 0.8s ease-out;
     }
-    .loop-slide.active {
+
+    .hero-loop-slide.active {
       opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ==========================================================================
+       5. BARRA DI STATO A NASTRO & LE 7 CAPSULE CON SOTTOMENU INTERATTIVI
+       ========================================================================== */
+    .ribbon-capsule-bar {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 25px;
+      z-index: 50;
+    }
+
+    .capsule-group {
+      position: relative;
+    }
+
+    .capsule-btn {
+      background: var(--c8-platinum);
+      border: 1.5px solid rgba(212, 175, 55, 0.55);
+      border-radius: 9999px;
+      padding: 0.65rem 1.25rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.76rem;
+      letter-spacing: 0.05em;
+      color: var(--c6-navy);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.15);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .capsule-btn:hover, .capsule-group.active .capsule-btn {
+      border-color: var(--c1-gold);
+      background: #FFFDF8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Sottomenu Flottanti delle Capsule */
+    .capsule-dropdown {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      min-width: 280px;
+      max-height: 420px;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(24px);
+      border: 1.5px solid var(--c1-gold);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 18px 45px rgba(11, 25, 44, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 100;
+      text-align: left;
+    }
+
+    .capsule-group:hover .capsule-dropdown,
+    .capsule-group:focus-within .capsule-dropdown,
+    .capsule-group.active .capsule-dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-heading {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--c1-gold);
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      margin-bottom: 6px;
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 8px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--c6-navy);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--c1-gold);
+      transform: translateX(4px);
+    }
+
+    /* WIDGET RADIO CONTROLLI INLINE NEL SOTTOMENU */
+    .radio-player-box {
+      padding: 10px;
+      background: rgba(253, 249, 242, 0.8);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .radio-btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .radio-action-btn {
+      padding: 5px 10px;
+      font-size: 0.70rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid var(--c1-gold);
+      background: #FFFFFF;
+      color: var(--c6-navy);
+      cursor: pointer;
+    }
+
+    .radio-action-btn.active {
+      background: var(--c1-gold);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       6. SEZIONI STANDARD 01 A 11: MISURE IDENTICHE E SPAZIO RISERVATO
+       ========================================================================== */
+    .sfx-standard-stage {
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .stage-placeholder-tag {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--c1-gold);
+      opacity: 0.45;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border: 1px dashed rgba(212, 175, 55, 0.4);
+      border-radius: 12px;
+    }
+
+    /* ==========================================================================
+       7. SEZIONE 12: FOOTER ISTITUZIONALE
+       ========================================================================== */
+    #sec-12 {
+      padding: 50px 30px 40px 30px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--c1-gold);
+      margin-bottom: 10px;
+    }
+
+    .footer-details {
+      font-size: 0.86rem;
+      line-height: 1.8;
+      color: var(--c6-navy);
+      opacity: 0.85;
+      max-width: 860px;
+      margin: 0 auto 25px auto;
+    }
+
+    .footer-legal-copy {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(11, 25, 44, 0.6);
+      border-top: 1px solid rgba(212, 175, 55, 0.25);
+      padding-top: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .portal-wing-left, .portal-wing-right { display: none; }
+      .sfx-stage-shell { width: 98%; margin: 20px auto; }
+      .sfx-stage-inner { padding: 30px 15px; }
+      .sfx-standard-stage { min-height: 520px; }
     }
   </style>
 </head>
-<body>
+<body id="sfx-body-root">
 
-  <!-- ========================================== -->
-  <!-- SEZIONE 00: QUADRO HERO CINETICO OVALE    -->
-  <!-- ========================================== -->
-  <section class="relative w-full max-w-5xl mx-auto px-4 py-8 flex flex-col items-center">
-    
-    <!-- Bagliore Radiale Astratto di Sfondo (Nessun Taglio) -->
-    <div class="absolute -top-10 w-[550px] h-[350px] bg-gradient-to-r from-suprema-gold/20 via-suprema-cyan/15 to-suprema-emerald/15 rounded-full pointer-events-none"
-         style="animation: aura-breath 8s ease-in-out infinite; filter: blur(55px); z-index: 0;"></div>
+  <!-- Micro-Turbolenza Cartacea Frattale -->
+  <div class="film-grain" aria-hidden="true"></div>
 
-    <!-- Portali Laterali Morbidi (Mezzaluna) -->
-    <div class="portal-wing-left hidden md:block"></div>
-    <div class="portal-wing-right hidden md:block"></div>
+  <!-- Sfumatura a 8 Colori che attraversa la pagina in profondità -->
+  <div class="spectral-drifting-mesh" aria-hidden="true"></div>
 
-    <!-- Indicatore Alison AG-01 Radar Top Right -->
-    <div class="w-full flex justify-between items-center mb-6 z-10">
-      <div class="flex items-center gap-2 text-[10px] md:text-xs font-mono font-semibold text-emerald-800 tracking-wider">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-        <span class="w-2 h-2 rounded-full bg-emerald-500 -ml-3.5 mr-1"></span>
-        SISTEMA DI CONTROLLO DIREZIONALE // OPERATIVO
-      </div>
+  <!-- ========================================================================
+       SEZIONE 00: INIZIO // QUADRO HERO CINETICO OVALE & BARRA INFERIORE
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-00">
+    <div class="sfx-stage-inner">
 
-      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-suprema-gold/40 bg-white/90 shadow-sm backdrop-blur">
-        <div class="relative w-4 h-4 flex items-center justify-center">
-          <div class="w-3.5 h-3.5 rounded-full bg-cyan-400 animate-ping opacity-60"></div>
-          <div class="w-2 h-2 rounded-full bg-emerald-500 absolute"></div>
+      <!-- Portali Concavi a Mezzaluna (Ali Cinetica) -->
+      <div class="portal-wing-left" aria-hidden="true"></div>
+      <div class="portal-wing-right" aria-hidden="true"></div>
+
+      <!-- Titolo Principale e Motto Istituzionale -->
+      <h1 class="hero-title-main">SUPREMA FUTURE X</h1>
+      <h2 class="hero-subtitle-motto">INSIEME GUIDIAMO IL TUO DOMANI</h2>
+
+      <!-- Chassis Ovale Centrale Cinetico a Doppia Ghiera (Loop 10 Foto) -->
+      <div class="hero-oval-chassis" id="heroChassisTrigger" title="Monogramma Ufficiale SFX // Triplo Click per X-BOX">
+        <!-- 1. Ghiera Esterna 8 Colori (Orario) -->
+        <div class="conic-glow-outer" aria-hidden="true"></div>
+        <!-- 2. Ghiera Interna Controfase (Antiorario) -->
+        <div class="conic-glow-inner" aria-hidden="true"></div>
+        <!-- 3. Bordo Oro Presidenziale -->
+        <div class="oval-gold-border" aria-hidden="true"></div>
+
+        <!-- 4. Vano Bianco: 10 Immagini Perfettamente Sagomate all'Ovale -->
+        <div class="oval-white-vault">
+          <img class="hero-loop-slide active" id="slide-01" src="media/sec-01-hero/logo-01.jpg" alt="Logo 01 SFX" onerror="this.src='media/sec-01-hero/logo-01.png'">
+          <img class="hero-loop-slide" id="slide-02" src="media/sec-01-hero/logo-02.jpg" alt="Logo 02 SFX" onerror="this.src='media/sec-01-hero/logo-02.png'">
+          <img class="hero-loop-slide" id="slide-03" src="media/sec-01-hero/logo-03.jpg" alt="Logo 03 SFX" onerror="this.src='media/sec-01-hero/logo-03.png'">
+          <img class="hero-loop-slide" id="slide-04" src="media/sec-01-hero/logo-04.jpg" alt="Logo 04 SFX" onerror="this.src='media/sec-01-hero/logo-04.png'">
+          <img class="hero-loop-slide" id="slide-05" src="media/sec-01-hero/logo-05.jpg" alt="Logo 05 SFX" onerror="this.src='media/sec-01-hero/logo-05.png'">
+          <img class="hero-loop-slide" id="slide-06" src="media/sec-01-hero/logo-06.jpg" alt="Logo 06 SFX" onerror="this.src='media/sec-01-hero/logo-06.png'">
+          <img class="hero-loop-slide" id="slide-07" src="media/sec-01-hero/logo-07.jpg" alt="Logo 07 SFX" onerror="this.src='media/sec-01-hero/logo-07.png'">
+          <img class="hero-loop-slide" id="slide-08" src="media/sec-01-hero/logo-08.jpg" alt="Logo 08 SFX" onerror="this.src='media/sec-01-hero/logo-08.png'">
+          <img class="hero-loop-slide" id="slide-09" src="media/sec-01-hero/logo-09.jpg" alt="Logo 09 SFX" onerror="this.src='media/sec-01-hero/logo-09.png'">
+          <img class="hero-loop-slide" id="slide-10" src="media/sec-01-hero/logo-10.jpg" alt="Logo 10 SFX" onerror="this.src='media/sec-01-hero/logo-10.png'">
         </div>
-        <span class="text-[11px] font-mono font-bold tracking-tight text-slate-800">Alison AG-01</span>
-        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">ATTIVA</span>
       </div>
+
+      <!-- Barra di Stato a Nastro con le 7 Capsule e Sottomenu Completi -->
+      <nav class="ribbon-capsule-bar" aria-label="Navigazione Primaria Suprema">
+        
+        <!-- CAPSULA 1: SUPREMA MENU (TUTTE LE 13 SEZIONI & CORSI COLLEGATI) -->
+        <div class="capsule-group">
+          <button type="button" class="capsule-btn">
+            <span>☰</span> <strong>SUPREMA MENU</strong> ▾
+          </button>
+          <div class="capsule-dropdown">
+            <div class="dropdown-heading">Architettura & 13 Sezioni</div>
+            <a href="#sec-00" class="dropdown-item">SEC-00 // Hero Cinetica Master</a>
+            <a href="#sec-01" class="dropdown-item">SEC-01 // Presidenza & Governance CDA</a>
+            <a href="#sec-02" class="dropdown-item">SEC-02 // Alison AG-01 Triage Forense</a>
+            <a href="#sec-03" class="dropdown-item">SEC-03 // Funnel Candidature Tandem</a>
+            <a href="#sec-04" class="dropdown-item">SEC-04 // Academy: Governance & Leadership</a>
+            <a href="#sec-05" class="dropdown-item">SEC-05 // Academy: Finanza Strategica</a>
+            <a href="#sec-06" class="dropdown-item">SEC-06 // Academy: Flotta Neurale 15 Agenti</a>
+            <a href="#sec-07" class="dropdown-item">SEC-07 // Academy: Concessioni Territoriali</a>
+            <a href="#sec-08" class="dropdown-item">SEC-08 // Academy: Sicurezza Forense EAL6+</a>
+            <a href="#sec-09" class="dropdown-item">SEC-09 // Suprema Gold Card 3D Tilt</a>
+            <a href="#sec-10" class="dropdown-item">SEC-10 // Media Vault Notarile (500 Slot)</a>
+            <a href="#sec-11" class="dropdown-item">SEC-11 // Certificazione & Form Asincrono</a>
+            <a href="#sec-12" class="dropdown-item">SEC-12 // Post-Footer & Tally Live</a>
+            <div class="dropdown-heading">Direzione Esecutiva</div>
+            <a href="#conferenza-ceo" class="dropdown-item" onclick="sfxOpenCeoConference()">🏛️ Conferenza Diretta con il CEO</a>
+          </div>
+        </div>
+
+        <!-- CAPSULA 2: ALISON CHATBOT (FAQ, VOCALE E CONTATTO) -->
+        <div class="capsule-group">
+          <button type="button" class="capsule-btn">
+            <span>💬</span> <span>ALISON CHATBOT</span> ▾
+          </button>
+          <div class="capsule-dropdown">
+            <div class="dropdown-heading">Supervisione Neurale AG-01</div>
+            <a href="#faq" class="dropdown-item" onclick="alert('Accesso al Registro FAQ Forensi EAL6+')">❓ FAQ Notarili & Statutarie</a>
+            <a href="#vocale" class="dropdown-item" onclick="alert('Inizializzazione Assistente Vocale HD Alison AG-01...')">🎙️ Assistente Vocale HD Live</a>
+            <a href="#contatto" class="dropdown-item" onclick="window.location.href='https://wa.me/393474429091'">📲 Linea di Contatto WhatsApp Diretta</a>
+          </div>
+        </div>
+
+        <!-- CAPSULA 3: SUPREMA TRADUTTORE (LE 11 LINGUE RICHIESTE) -->
+        <div class="capsule-group">
+          <button type="button" class="capsule-btn">
+            <span>🌍</span> <span>SUPREMA TRADUTTORE</span> ▾
+          </button>
+          <div class="capsule-dropdown">
+            <div class="dropdown-heading">Seleziona Lingua di Sistema</div>
+            <span class="dropdown-item" onclick="sfxChangeLang('IT')">🇮🇹 Italiano (IT)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('EN')">🇬🇧 English (EN)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('ES')">🇪🇸 Español (ES)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('FR')">🇫🇷 Français (FR)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('DE')">🇩🇪 Deutsch (DE)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('PT')">🇵🇹 Português (PT)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('RU')">🇷🇺 Русский (RU)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('AR')">🇦🇪 العربية (AR - RTL)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('ZH')">🇨🇳 中文 (ZH)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('JA')">🇯🇵 日本語 (JA)</span>
+            <span class="dropdown-item" onclick="sfxChangeLang('NL')">🇳🇱 Nederlands (NL)</span>
+          </div>
+        </div>
+
+        <!-- CAPSULA 4: CHI SIAMO (CODICE ETICO, REGOLAMENTO, 3 STORIE) -->
+        <div class="capsule-group">
+          <button type="button" class="capsule-btn">
+            <span>📖</span> <span>CHI SIAMO</span> ▾
+          </button>
+          <div class="capsule-dropdown">
+            <div class="dropdown-heading">Fondamenti & Trasparenza</div>
+            <a href="#codice-etico" class="dropdown-item" onclick="alert('Apertura Protocollo Deontologico e Codice Etico...')">⚖️ Codice Etico & Giurisdizione</a>
+            <a href="#regolamento" class="dropdown-item" onclick="alert('Consultazione Regolamento Statutario Notarile...')">📜 Regolamento Statutario CDA</a>
+            <div class="dropdown-heading">Memoria & Leadership</div>
+            <a href="#storia-suprema" class="dropdown-item">🏛️ 1. Storia di Suprema Future X</a>
+            <a href="#storia-ceo" class="dropdown-item">👔 2. Profilo del CEO Giuliano Caratelli</a>
+            <a href="#storia-alison" class="dropdown-item">⚡ 3. Genesi di Alison AG-01</a>
+          </div>
+        </div>
+
+        <!-- CAPSULA 5: SUPREMA RADIO (30 TRACK SLOTS, AVVIO IN MUTO & CONTROLLI) -->
+        <div class="capsule-group">
+          <button type="button" class="capsule-btn">
+            <span>📻</span> <span>SUPREMA RADIO</span> ▾
+          </button>
+          <div class="capsule-dropdown" style="min-width: 320px;">
+            <div class="dropdown-heading">Player Radio Relax Lounge</div>
+            <div class="radio-player-box">
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--c1-gold);" id="radioCurrentTrackDisplay">
+                TRACCIA 01 // RELAX LOUNGE
+              </div>
+              <div class="radio-btn-row">
+                <button type="button" class="radio-action-btn" onclick="sfxRadioPrev()">◀ Prev</button>
+                <button type="button" class="radio-action-btn" id="radioPlayBtn" onclick="sfxRadioTogglePlay()">▶ Play</button>
+                <button type="button" class="radio-action-btn" onclick="sfxRadioStop()">◼ Stop</button>
+                <button type="button" class="radio-action-btn active" id="radioMuteBtn" onclick="sfxRadioToggleMute()">🔇 Muto: ON</button>
+                <button type="button" class="radio-action-btn" onclick="sfxRadioNext()">Next ▶</button>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
+                <span style="font-size: 0.65rem; font-family: var(--font-mono);">VOL</span>
+                <input type="range" id="radioVolumeBar" min="0" max="1" step="0.05" value="0.70" oninput="sfxRadioSetVolume(this.value)" style="width: 100%; cursor: pointer;">
+              </div>
+            </div>
+            <div class="dropdown-heading">Archivio 30 Brani (GitHub: media/audio-radio/)</div>
+            <div style="max-height: 160px; overflow-y: auto;">
+              <!-- 30 Slot Brani -->
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(1)">🎵 Track 01 // Relax Lounge (Default)</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(2)">🎵 Track 02 // Deep Atmospheric</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(3)">🎵 Track 03 // 432Hz Harmonic Code</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(4)">🎵 Track 04 // Sovereign Flow</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(5)">🎵 Track 05 // Titanium Chill</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(6)">🎵 Track 06 // Roma Centro Midnight</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(7)">🎵 Track 07 // EAL6+ Safe Frequency</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(8)">🎵 Track 08 // Neural Pulse</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(9)">🎵 Track 09 // Golden Horizon</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(10)">🎵 Track 10 // Future Governance</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(11)">🎵 Track 11 // Colleferro Vault Waves</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(12)">🎵 Track 12 // Executive Sunset</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(13)">🎵 Track 13 // High Altitude Lounge</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(14)">🎵 Track 14 // Digital Solitude</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(15)">🎵 Track 15 // Ambient Spectrum 15</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(16)">🎵 Track 16 // Ambient Spectrum 16</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(17)">🎵 Track 17 // Ambient Spectrum 17</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(18)">🎵 Track 18 // Ambient Spectrum 18</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(19)">🎵 Track 19 // Ambient Spectrum 19</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(20)">🎵 Track 20 // Ambient Spectrum 20</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(21)">🎵 Track 21 // Ambient Spectrum 21</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(22)">🎵 Track 22 // Ambient Spectrum 22</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(23)">🎵 Track 23 // Ambient Spectrum 23</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(24)">🎵 Track 24 // Ambient Spectrum 24</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(25)">🎵 Track 25 // Ambient Spectrum 25</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(26)">🎵 Track 26 // Ambient Spectrum 26</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(27)">🎵 Track 27 // Ambient Spectrum 27</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(28)">🎵 Track 28 // Ambient Spectrum 28</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(29)">🎵 Track 29 // Ambient Spectrum 29</span>
+              <span class="dropdown-item" onclick="sfxRadioSelectTrack(30)">🎵 Track 30 // Ambient Spectrum 30</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CAPSULA 6: TELEMETRIA LIVE (CONTATORE VISITATORI E NAVIGAZIONE) -->
+        <div class="capsule-group">
+          <button type="button" class="capsule-btn">
+            <span>⚙️</span> <span>TELEMETRIA: <strong id="liveVisitorCounter" style="color: var(--c4-emerald);">4.892</strong></span> ▾
+          </button>
+          <div class="capsule-dropdown">
+            <div class="dropdown-heading">Telemetria Real-Time EAL6+</div>
+            <div class="dropdown-item">Nodi Attivi: <strong style="color: var(--c4-emerald);">Roma / Milano / Francoforte</strong></div>
+            <div class="dropdown-item">Throughput: <strong>6.120 pkg/s</strong></div>
+            <div class="dropdown-item">Sessioni Simultanee: <strong id="telemetrySessions">1.412</strong></div>
+            <div class="dropdown-item">Integrità Crittografica: <strong>100% SHA-256</strong></div>
+          </div>
+        </div>
+
+        <!-- CAPSULA 7: CONFERENZA COL CEO (TRIGGER DIRETTO) -->
+        <button type="button" class="capsule-btn" style="background: linear-gradient(90deg, #FFFFFF, #FFFDF0); border-color: var(--c1-gold);" onclick="sfxOpenCeoConference()">
+          <span>🏛️</span> <strong style="color: var(--c1-gold);">CONFERENZA COL CEO</strong>
+        </button>
+
+      </nav>
+
     </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 00: FINE
+       ======================================================================== -->
 
-    <!-- Titolo Principale Supremo -->
-    <div class="text-center z-10 mb-6">
-      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-        <span class="text-[#D4AF37] drop-shadow-sm">SUPREMA</span>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#00E676] to-[#00D2FF]"> FUTURE </span>
-        <span class="text-[#0B192C]">X</span>
-      </h1>
-      <p class="mt-2 text-xs md:text-sm font-bold tracking-[0.25em] text-[#0B192C]/80 uppercase">
-        INSIEME GUIDIAMO IL TUO DOMANI
-      </p>
+
+  <!-- ========================================================================
+       SEZIONE 01: INIZIO (PRESIDENZA & GOVERNANCE CDA - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-01">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 01 // SPAZIO RISERVATO: PRESIDENZA & GOVERNANCE CDA</div>
     </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 01: FINE
+       ======================================================================== -->
 
-    <!-- Chassis Ovale Centrale con Motore Cinetico a Doppia Ghiera -->
-    <div class="hero-oval-chassis relative mb-10 shadow-2xl">
-      <!-- 1. Ghiera Cinetica Esterna -->
-      <div class="conic-glow-outer"></div>
-      <!-- 2. Ghiera Cinetica Interna a Controfase -->
-      <div class="conic-glow-inner"></div>
-      <!-- 3. Cornice Oro Presidenziale -->
-      <div class="oval-gold-border"></div>
 
-      <!-- 4. Vano Interno: Foto e Loghi Limpidi (Zero Fasci Coprenti all'interno) -->
-      <div class="oval-white-vault">
-        <img class="loop-slide active" id="slide-0" src="ceo-2placeholder.png" alt="CEO Giuliano Caratelli e Alison AG-01">
-        <img class="loop-slide" id="slide-1" src="logo-07.png" alt="Suprema Future X Podio Esecutivo">
-        <img class="loop-slide" id="slide-2" src="logo-04.png" alt="Emblema Suprema Future X">
-        <img class="loop-slide" id="slide-3" src="bg-sfx.jpg" alt="Medaglione SF Titanium">
-      </div>
+  <!-- ========================================================================
+       SEZIONE 02: INIZIO (ALISON AG-01 TRIAGE FORENSE - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-02">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 02 // SPAZIO RISERVATO: ALISON AG-01 TRIAGE FORENSE</div>
     </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 02: FINE
+       ======================================================================== -->
 
-    <!-- ========================================== -->
-    <!-- BARRA INFERIORE DELLE CAPSULE CON SOTTOMENU-->
-    <!-- ========================================== -->
-    <div class="w-full flex flex-wrap justify-center items-center gap-3 z-20">
+
+  <!-- ========================================================================
+       SEZIONE 03: INIZIO (FUNNEL CANDIDATURE TANDEM - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-03">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 03 // SPAZIO RISERVATO: FUNNEL CANDIDATURE TANDEM</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 03: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 04: INIZIO (ACADEMY: GOVERNANCE & LEADERSHIP - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-04">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 04 // SPAZIO RISERVATO: ACADEMY - GOVERNANCE & LEADERSHIP</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 04: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 05: INIZIO (ACADEMY: FINANZA STRATEGICA - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-05">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 05 // SPAZIO RISERVATO: ACADEMY - FINANZA STRATEGICA</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 05: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 06: INIZIO (ACADEMY: ARCHITETTURA NEURALE 15 AGENTI - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-06">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 06 // SPAZIO RISERVATO: ACADEMY - FLOTTA NEURALE 15 AGENTI</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 06: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 07: INIZIO (ACADEMY: CONCESSIONI TERRITORIALI E-COMMERCE - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-07">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 07 // SPAZIO RISERVATO: ACADEMY - CONCESSIONI TERRITORIALI E-COMMERCE</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 07: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 08: INIZIO (ACADEMY: SICUREZZA FORENSE EAL6+ - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-08">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 08 // SPAZIO RISERVATO: ACADEMY - SICUREZZA FORENSE EAL6+</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 08: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 09: INIZIO (SUPREMA GOLD CARD 3D TILT ENGINE - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-09">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 09 // SPAZIO RISERVATO: SUPREMA GOLD CARD 3D TILT ENGINE</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 09: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 10: INIZIO (MEDIA VAULT CRITTOGRAFICO 500 SLOT - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-10">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 10 // SPAZIO RISERVATO: MEDIA VAULT CRITTOGRAFICO (500 SLOT)</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 10: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 11: INIZIO (CERTIFICAZIONE EAL6+ & FORM CONTATTI - SPAZIO RISERVATO)
+       ======================================================================== -->
+  <div class="sfx-stage-shell" id="sec-11">
+    <div class="sfx-stage-inner sfx-standard-stage">
+      <div class="stage-placeholder-tag">SEZIONE 11 // SPAZIO RISERVATO: CERTIFICAZIONE EAL6+ & FORM DI CONTATTO</div>
+    </div>
+  </div>
+  <!-- ========================================================================
+       SEZIONE 11: FINE
+       ======================================================================== -->
+
+
+  <!-- ========================================================================
+       SEZIONE 12: INIZIO // POST-FOOTER ISTITUZIONALE & TALLY CONFERENZA LIVE
+       ======================================================================== -->
+  <footer class="sfx-stage-shell" id="sec-12">
+    <div class="sfx-stage-inner">
+      <div class="footer-brand">SUPREMA FUTURE X ENTERPRISE</div>
       
-      <!-- 1. SUPREMA MENU -->
-      <div class="capsule-group">
-        <button class="capsule-btn">
-          <svg class="w-3.5 h-3.5 text-suprema-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-          </svg>
-          <span>SUPREMA MENU</span>
-          <svg class="w-2.5 h-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="capsule-dropdown">
-          <a href="#governance" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">Architettura di Vertice</a>
-          <a href="#eal6" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">Protocollo EAL6+ Validated</a>
-          <a href="#card" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">Gold Sovereign Card</a>
-          <a href="#roma" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">Presidio Roma Centro</a>
-        </div>
-      </div>
+      <p class="footer-details">
+        Governance: Founder &amp; Chief Executive Officer <strong>Giuliano Caratelli</strong><br>
+        Sede Istituzionale e Statutaria: <strong>Colleferro (Roma), Italia</strong> // Presidenza Operativa: <strong>Via della Scrofa, Roma Centro</strong><br>
+        Canale Diretto Presidenziale WhatsApp: <strong>+39 347 4429091</strong> // PEC &amp; Delibere: <strong>presidenza@supremafuturex.it</strong>
+      </p>
 
-      <!-- 2. ALISON CHATBOT -->
-      <div class="capsule-group">
-        <button class="capsule-btn">
-          <svg class="w-3.5 h-3.5 text-cyan-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a.75.75 0 01-.872-.942l.745-2.736A7.478 7.478 0 013 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"></path>
-          </svg>
-          <span>ALISON CHATBOT</span>
-          <svg class="w-2.5 h-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="capsule-dropdown">
-          <a href="#alison-core" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-cyan-50 hover:text-cyan-800 transition">Alison Core AG-01</a>
-          <a href="#triage" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-cyan-50 hover:text-cyan-800 transition">Triage Neurale (9.2ms)</a>
-          <a href="#telegram" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-cyan-50 hover:text-cyan-800 transition">Canale Cifrato Telegram</a>
-        </div>
+      <div class="footer-legal-copy">
+        © 2026 Suprema Future X Enterprise. Tutti i diritti riservati. Protocollo EAL6+ Certified.<br>
+        Clausola compromissoria e giurisdizione territoriale esclusiva del Foro di Colleferro (Roma).
       </div>
-
-      <!-- 3. SUPREMA TRADUTTORE -->
-      <div class="capsule-group">
-        <button class="capsule-btn">
-          <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802"></path>
-          </svg>
-          <span>SUPREMA TRADUTTORE</span>
-          <svg class="w-2.5 h-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="capsule-dropdown">
-          <a href="#logos-trans" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-emerald-50 hover:text-emerald-800 transition">Logos Trans HD (AG-05)</a>
-          <a href="#multilang" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-emerald-50 hover:text-emerald-800 transition">Traduzione Forense Multilingua</a>
-        </div>
-      </div>
-
-      <!-- 4. CHI SIAMO (3 STORIE) -->
-      <div class="capsule-group">
-        <button class="capsule-btn">
-          <svg class="w-3.5 h-3.5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.333A48.608 48.608 0 0012 9.75c-2.551 0-5.056.2-7.5.583V21"></path>
-          </svg>
-          <span>CHI SIAMO (3 STORIE)</span>
-          <svg class="w-2.5 h-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="capsule-dropdown">
-          <a href="#storia-roma" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">01. Palazzo Storico Roma Centro</a>
-          <a href="#storia-ceo" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">02. Leadership Giuliano Caratelli</a>
-          <a href="#storia-ginevra" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">03. Presidio Fiscale Ginevra 16%</a>
-        </div>
-      </div>
-
-      <!-- 5. SUPREMA RADIO -->
-      <div class="capsule-group">
-        <button class="capsule-btn">
-          <svg class="w-3.5 h-3.5 text-suprema-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.08-1.64.232-2.426.234-.847 1.058-1.354 1.938-1.354h2.24z"></path>
-          </svg>
-          <span>SUPREMA RADIO</span>
-          <svg class="w-2.5 h-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="capsule-dropdown">
-          <a href="#lounge" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">Lounge Session Deep Future</a>
-          <a href="#432hz" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-amber-50 hover:text-amber-800 transition">Protocollo EAL6+ Frequenze 432 Hz</a>
-        </div>
-      </div>
-
-      <!-- 6. TELEMETRIA LIVE 48 -->
-      <div class="capsule-group">
-        <button class="capsule-btn">
-          <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"></path>
-          </svg>
-          <span>TELEMETRIA LIVE 48</span>
-          <svg class="w-2.5 h-2.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="capsule-dropdown">
-          <a href="#radar" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-emerald-50 hover:text-emerald-800 transition">Radar Neurale 360°</a>
-          <a href="#vektor" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-emerald-50 hover:text-emerald-800 transition">Flusso Vektor Telemetry 4.928 pkg/s</a>
-          <a href="#audit" class="block px-3 py-2 text-xs font-semibold rounded-lg hover:bg-emerald-50 hover:text-emerald-800 transition">Audit Notarile SHA-256</a>
-        </div>
-      </div>
-
     </div>
-  </section>
+  </footer>
+  <!-- ========================================================================
+       SEZIONE 12: FINE
+       ======================================================================== -->
 
-  <!-- Script di Rotazione Automatica Morbida per le Immagini nel Vano Ovale -->
+
+  <!-- ========================================================================
+       MOTORE JAVASCRIPT MASTER: CAROSELLO 10 FOTO, AUDIO IN MUTO, TELEMETRIA & TRIPLE-CLICK
+       ======================================================================== -->
   <script>
-    (function initHeroLoop() {
-      const slides = document.querySelectorAll('.loop-slide');
+    'use strict';
+
+    /* ------------------------------------------------------------------------
+       1. CAROSELLO LOGO: 10 FOTO IN LOOP SULL'OVALE
+       ------------------------------------------------------------------------ */
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-loop-slide');
+
+    function sfxStartLogoLoop() {
       if (!slides.length) return;
-      let currentIndex = 0;
-
       setInterval(() => {
-        slides[currentIndex].classList.remove('active');
-        currentIndex = (currentIndex + 1) % slides.length;
-        slides[currentIndex].classList.add('active');
-      }, 4500);
-    })();
-  </script>
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 3200);
+    }
 
+    /* ------------------------------------------------------------------------
+       2. SUPREMA AUDIO LOUNGE: PARTENZA IN MUTO & 30 TRACCE GITHUB
+       ------------------------------------------------------------------------ */
+    const radioAudio = new Audio();
+    radioAudio.preload = 'none';
+    radioAudio.muted = true; // DEVE INIZIARE DA MUTO
+    radioAudio.volume = 0.70;
+    let radioTrackIndex = 1;
+    let isRadioPlaying = false;
+
+    function sfxRadioLoadTrack(index) {
+      radioTrackIndex = index;
+      const numStr = String(index).padStart(2, '0');
+      // Mappatura percorsi GitHub media/audio-radio/
+      radioAudio.src = `media/audio-radio/track-${numStr}.mp3`;
+      const display = document.getElementById('radioCurrentTrackDisplay');
+      if (display) {
+        display.textContent = `TRACCIA ${numStr} // RELAX LOUNGE`;
+      }
+    }
+
+    function sfxRadioTogglePlay() {
+      const btn = document.getElementById('radioPlayBtn');
+      if (isRadioPlaying) {
+        radioAudio.pause();
+        isRadioPlaying = false;
+        if (btn) btn.textContent = '▶ Play';
+      } else {
+        radioAudio.play().then(() => {
+          isRadioPlaying = true;
+          if (btn) btn.textContent = '⏸ Pausa';
+        }).catch(err => {
+          console.warn('Avvio audio regolato dalle policy del browser:', err);
+        });
+      }
+    }
+
+    function sfxRadioStop() {
+      radioAudio.pause();
+      radioAudio.currentTime = 0;
+      isRadioPlaying = false;
+      const btn = document.getElementById('radioPlayBtn');
+      if (btn) btn.textContent = '▶ Play';
+    }
+
+    function sfxRadioToggleMute() {
+      const btn = document.getElementById('radioMuteBtn');
+      radioAudio.muted = !radioAudio.muted;
+      if (radioAudio.muted) {
+        btn.classList.add('active');
+        btn.textContent = '🔇 Muto: ON';
+      } else {
+        btn.classList.remove('active');
+        btn.textContent = '🔊 Muto: OFF';
+      }
+    }
+
+    function sfxRadioPrev() {
+      radioTrackIndex = radioTrackIndex > 1 ? radioTrackIndex - 1 : 30;
+      sfxRadioLoadTrack(radioTrackIndex);
+      if (isRadioPlaying) radioAudio.play();
+    }
+
+    function sfxRadioNext() {
+      radioTrackIndex = radioTrackIndex < 30 ? radioTrackIndex + 1 : 1;
+      sfxRadioLoadTrack(radioTrackIndex);
+      if (isRadioPlaying) radioAudio.play();
+    }
+
+    function sfxRadioSelectTrack(idx) {
+      sfxRadioLoadTrack(idx);
+      if (isRadioPlaying) radioAudio.play();
+    }
+
+    function sfxRadioSetVolume(val) {
+      radioAudio.volume = parseFloat(val);
+      if (radioAudio.muted && parseFloat(val) > 0) {
+        sfxRadioToggleMute();
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       3. TELEMETRIA LIVE (INCREMENTO CONTINUO VISITATORI)
+       ------------------------------------------------------------------------ */
+    let visitorCount = 4892;
+    function sfxStartTelemetry() {
+      const counterEl = document.getElementById('liveVisitorCounter');
+      const sessEl = document.getElementById('telemetrySessions');
+      setInterval(() => {
+        visitorCount += Math.floor(Math.random() * 3) + 1;
+        if (counterEl) counterEl.textContent = visitorCount.toLocaleString('it-IT');
+        if (sessEl) sessEl.textContent = Math.floor(visitorCount * 0.28).toLocaleString('it-IT');
+      }, 3500);
+    }
+
+    /* ------------------------------------------------------------------------
+       4. CONFERENZA COL CEO & INNESTO SEGRETO TRIPLO CLICK PER X-BOX
+       ------------------------------------------------------------------------ */
+    function sfxOpenCeoConference() {
+      alert("Connessione riservata in corso con il Consiglio di Presidenza...\nInoltro credenziali verso Google Meet (Founder & CEO Giuliano Caratelli).");
+      window.open('https://meet.google.com/new', '_blank');
+    }
+
+    let clickCounter = 0;
+    let clickTimer = null;
+    const chassis = document.getElementById('heroChassisTrigger');
+    if (chassis) {
+      chassis.addEventListener('click', () => {
+        clickCounter++;
+        if (clickTimer) clearTimeout(clickTimer);
+        clickTimer = setTimeout(() => { clickCounter = 0; }, 800);
+
+        if (clickCounter >= 3) {
+          clickCounter = 0;
+          clearTimeout(clickTimer);
+          document.body.style.filter = 'brightness(1.5)';
+          setTimeout(() => {
+            document.body.style.filter = 'none';
+            window.location.href = 'admin.html';
+          }, 300);
+        }
+      });
+    }
+
+    /* ------------------------------------------------------------------------
+       5. CAMBIO LINGUA SISTEMA (CON SUPPORTO ARABO RTL)
+       ------------------------------------------------------------------------ */
+    function sfxChangeLang(code) {
+      const html = document.documentElement;
+      if (code === 'AR') {
+        html.setAttribute('dir', 'rtl');
+        html.setAttribute('lang', 'ar');
+      } else {
+        html.setAttribute('dir', 'ltr');
+        html.setAttribute('lang', code.toLowerCase());
+      }
+      alert(`Lingua di sistema impostata su: [${code}]`);
+    }
+
+    /* Bootstrap Applicativo */
+    document.addEventListener('DOMContentLoaded', () => {
+      sfxStartLogoLoop();
+      sfxRadioLoadTrack(1);
+      sfxStartTelemetry();
+    });
+  </script>
 </body>
 </html>
