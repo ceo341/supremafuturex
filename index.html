@@ -6,178 +6,119 @@
     <title>Suprema Future X - Governance & Presidenza</title>
     <style>
         /* ==========================================================================
-           1. REGISTRO CROMATICO LIGHT LUXURY E VARIABILI GLOBALI
+           1. IMPOSTAZIONI GLOBALI E SFONDO IBRIDO
            ========================================================================== */
-        :root {
-            --bg-perla: #F6F2EB;
-            --ciano-neon: #00F0FF;
-            --verde-smeraldo: #00E676;
-            --oro-caldo: #FFD700;
-            --oro-spazzolato: #D4AF37;
-            --oro-lucido: #E5C158;
-            --blu-notte: #0B192C;
-            --vetro-satinato: rgba(246, 242, 235, 0.82);
-            --bordo-vetro: rgba(212, 175, 55, 0.5);
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             user-select: none;
         }
 
         body, html {
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-perla);
             overflow: hidden;
+            /* L'IMMAGINE DEL RENDER 3D VA INSERITA QUI SOTTO COME SFONDO */
+            background-image: url('sfondo-render.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Spettro Dinamico Passante (Cross-Viewport Spectral Sweep) */
-        .spectral-wash {
-            position: absolute;
-            top: 0; left: 0; width: 200%; height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 10%, 
-                rgba(0, 240, 255, 0.12) 30%, 
-                rgba(0, 230, 118, 0.08) 50%, 
-                rgba(255, 215, 0, 0.1) 70%, 
-                transparent 90%);
-            animation: pingPongSweep 8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
-            z-index: 1; pointer-events: none;
-        }
-
-        /* Canvas per Fasci Volumetrici in movimento */
-        #laser-canvas {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 2; pointer-events: none;
+        /* Effetto Glassmorphism (Vetro Satinato) per l'interfaccia appoggiata sopra */
+        .glass-panel {
+            background: rgba(246, 242, 235, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         /* ==========================================================================
-           2. GEOMETRIA: PORTALI A MEZZALUNA
-           ========================================================================== */
-        .crescent-portal {
-            position: absolute;
-            top: 50%; transform: translateY(-50%);
-            width: 400px; height: 85vh;
-            border-radius: 50%;
-            z-index: 3; pointer-events: none;
-            animation: breathingPulse 3s infinite alternate ease-in-out;
-        }
-
-        .crescent-portal.left {
-            left: -250px;
-            border-right: 22px solid var(--oro-lucido);
-            box-shadow: inset -25px 0 45px rgba(0, 240, 255, 0.5), 20px 0 50px rgba(0, 240, 255, 0.2);
-        }
-
-        .crescent-portal.right {
-            right: -250px;
-            border-left: 22px solid var(--oro-lucido);
-            box-shadow: inset 25px 0 45px rgba(0, 240, 255, 0.5), -20px 0 50px rgba(0, 240, 255, 0.2);
-        }
-
-        /* ==========================================================================
-           3. TOP BAR E ALISON BADGE
+           2. TOP BAR E ALISON BADGE
            ========================================================================== */
         .top-bar {
-            width: 96%; height: 50px; margin-top: 15px;
-            background: var(--vetro-satinato); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-            border: 1px solid var(--bordo-vetro); border-radius: 25px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 25px; z-index: 20; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 95%;
+            height: 50px;
+            margin-top: 2vh;
+            border-radius: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            z-index: 20;
         }
 
         .status-node {
             display: flex; align-items: center; gap: 12px;
-            font-size: 0.85rem; font-weight: 800; color: var(--blu-notte); letter-spacing: 0.5px;
+            font-size: 0.85rem; font-weight: 800; color: #0B192C; letter-spacing: 0.5px;
         }
 
         .led {
             width: 12px; height: 12px; border-radius: 50%;
-            background: var(--verde-smeraldo);
-            box-shadow: 0 0 12px var(--verde-smeraldo), 0 0 20px var(--verde-smeraldo);
-            animation: breathingPulse 1.5s infinite alternate;
+            background: #00E676;
+            box-shadow: 0 0 12px #00E676, 0 0 20px #00E676;
+            animation: pulse 1.5s infinite alternate;
         }
 
-        .clock { font-size: 0.95rem; font-weight: 800; color: var(--blu-notte); letter-spacing: 1px; }
+        .clock { font-size: 0.95rem; font-weight: 800; color: #0B192C; }
 
         .alison-badge {
-            position: absolute; top: 75px; right: 2%;
-            background: var(--vetro-satinato); backdrop-filter: blur(16px);
-            border: 2px solid var(--oro-spazzolato); border-radius: 25px;
-            padding: 10px 20px; display: flex; align-items: center; gap: 12px;
-            font-weight: 900; color: var(--blu-notte); font-size: 0.85rem;
-            animation: floatingIdle 4.5s infinite alternate ease-in-out;
-            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.2); z-index: 20; cursor: pointer;
+            position: absolute; top: 9vh; right: 2.5%;
+            border-radius: 25px; padding: 10px 20px;
+            display: flex; align-items: center; gap: 12px;
+            font-weight: 900; color: #0B192C; font-size: 0.85rem;
+            animation: floating 4s infinite alternate ease-in-out;
+            z-index: 20; cursor: pointer;
         }
 
         .alison-avatar {
             width: 36px; height: 36px; border-radius: 50%; background: #FFF;
-            border: 2px solid var(--oro-caldo); display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+            border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
         }
 
         /* ==========================================================================
-           4. HERO: TITOLI E ANIMAZIONI PING-PONG
+           3. TESTATA ANIMATA (PING-PONG) E FULCRO CENTRALE
            ========================================================================== */
-        .hero { position: relative; text-align: center; margin-top: 10px; z-index: 10; width: 100%; }
+        .hero { text-align: center; margin-top: 2vh; z-index: 10; width: 100%; }
 
         .title {
-            font-size: 5.2rem; font-weight: 900; letter-spacing: 5px; text-transform: uppercase;
-            background: linear-gradient(90deg, #E2C275, #38C8D8, #E2C275);
+            font-size: 5vw; font-weight: 900; letter-spacing: 5px; text-transform: uppercase;
+            background: linear-gradient(90deg, #E2C275, #00F0FF, #E2C275);
             background-size: 200% 100%;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 12px rgba(0, 240, 255, 0.25));
-            animation: pingPongGradient 4s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+            filter: drop-shadow(0 4px 12px rgba(0, 240, 255, 0.4));
+            animation: pingPong 4s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
             margin-bottom: -5px;
         }
 
-        .subtitle {
-            font-size: 1.3rem; font-weight: 800; color: var(--blu-notte);
-            letter-spacing: 3px; text-transform: uppercase;
-        }
+        .subtitle { font-size: 1.2vw; font-weight: 800; color: #0B192C; letter-spacing: 3px; text-transform: uppercase; }
 
-        /* ==========================================================================
-           5. FULCRO: OVALE GIGANTE E LOOP FOTOGRAFICO
-           ========================================================================== */
+        /* Contenitore invisibile per allineare il carosello sopra il logo del render */
         .central-stage {
-            flex-grow: 1; width: 100%; display: flex; justify-content: center; align-items: center;
-            z-index: 5; position: relative;
+            flex-grow: 1; display: flex; justify-content: center; align-items: center;
+            width: 100%; z-index: 5;
         }
 
-        .bezel-chassis {
+        .carousel-container {
             position: relative;
-            width: 65vw; max-width: 900px; height: 45vh; min-height: 400px; /* Logo grande e spazioso */
-            border-radius: 50%; border: 12px solid var(--oro-spazzolato);
-            background: radial-gradient(circle, #FFFFFF 0%, #E8F5F5 100%);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), inset 0 0 40px rgba(0, 240, 255, 0.15);
+            width: 45vw; max-width: 600px; 
+            aspect-ratio: 16 / 9; /* Proporzione ovale/rettangolare */
+            border-radius: 50%; /* Adatta al render */
             display: flex; justify-content: center; align-items: center;
-            animation: floatingIdle 3.8s infinite alternate ease-in-out;
-            overflow: hidden;
-        }
-
-        /* Bezel Orbit Laser */
-        .bezel-chassis::after {
-            content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border-radius: 50%; border: 4px solid transparent;
-            background: conic-gradient(from 0deg, transparent 75%, var(--ciano-neon) 90%, transparent 100%) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out; mask-composite: exclude;
-            animation: orbitRotation 4s infinite linear;
-            z-index: 10; pointer-events: none;
+            animation: floating 3.5s infinite alternate ease-in-out;
         }
 
         .sfx-monogram {
-            font-size: 9rem; font-weight: 900; font-style: italic; color: var(--oro-lucido);
-            text-shadow: 0 0 40px var(--ciano-neon); z-index: 5;
+            font-size: 8vw; font-weight: 900; font-style: italic; color: #E5C158;
+            text-shadow: 0 0 40px #00F0FF; z-index: 5;
             transition: opacity 0.8s ease, transform 0.8s ease; letter-spacing: -5px;
         }
 
@@ -187,39 +128,30 @@
         }
 
         /* ==========================================================================
-           6. BOTTOM BAR (TUTTA LARGHEZZA) E MENU HAMBURGER A 10 SECONDI
+           4. BARRA INFERIORE E MENU HAMBURGER (10 SECONDI)
            ========================================================================== */
-        .bottom-nav { width: 98%; position: relative; margin-bottom: 25px; z-index: 20; }
+        .bottom-nav { width: 95%; position: relative; margin-bottom: 3vh; z-index: 20; }
 
         .capsule-bar {
-            width: 100%; height: 75px;
-            background: var(--vetro-satinato); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 40px; border: 2px solid var(--bordo-vetro);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 12px; box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+            width: 100%; height: 75px; border-radius: 40px;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 12px;
         }
 
         .capsule-btn {
             flex: 1; margin: 0 6px; height: 50px; border-radius: 25px;
-            background: linear-gradient(180deg, #FFFFFF, #F8F5F0);
-            border: 1.5px solid var(--oro-spazzolato);
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(246,242,235,0.9));
+            border: 1.5px solid #D4AF37;
             display: flex; justify-content: center; align-items: center; gap: 8px;
-            font-weight: 800; font-size: 0.95rem; color: var(--blu-notte); white-space: nowrap;
+            font-weight: 800; font-size: 0.9vw; color: #0B192C; white-space: nowrap;
             cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .capsule-btn:hover {
-            transform: translateY(-4px); border-color: var(--ciano-neon);
-            box-shadow: 0 8px 20px rgba(0, 240, 255, 0.3); color: #000;
-        }
+        .capsule-btn:hover { transform: translateY(-4px); border-color: #00F0FF; box-shadow: 0 8px 20px rgba(0, 240, 255, 0.4); }
 
-        /* Dropdown 10 Secondi */
         .hamburger-dropdown {
             position: absolute; bottom: calc(100% + 15px); left: 15px; width: 340px;
-            background: rgba(246, 242, 235, 0.96); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 2px solid var(--oro-spazzolato); border-radius: 20px; padding: 18px;
+            border-radius: 20px; padding: 18px;
             display: flex; flex-direction: column; gap: 12px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2), 0 0 30px rgba(0, 240, 255, 0.2);
             opacity: 0; pointer-events: none; transform: translateY(20px);
             transition: all 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95); z-index: 100;
         }
@@ -228,74 +160,58 @@
 
         .menu-header {
             display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.8rem; font-weight: 800; color: #887B64;
+            font-size: 0.8rem; font-weight: 800; color: #0B192C;
             border-bottom: 1px solid rgba(212, 175, 55, 0.4); padding-bottom: 8px;
         }
         
         .countdown-text { color: #E65100; font-weight: 900; }
 
         .menu-item {
-            padding: 14px 18px; border-radius: 12px; background: #FFFFFF;
-            border: 1px solid rgba(212, 175, 55, 0.5); font-weight: 800; color: var(--blu-notte);
+            padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(212, 175, 55, 0.5); font-weight: 800; color: #0B192C;
             display: flex; justify-content: space-between; cursor: pointer; transition: 0.2s;
         }
-        .menu-item:hover {
-            background: linear-gradient(90deg, #FFFFFF, #E0F7FA);
-            border-color: var(--ciano-neon); transform: translateX(5px);
-        }
+        .menu-item:hover { background: #E0F7FA; border-color: #00F0FF; transform: translateX(5px); }
 
-        /* ==========================================================================
-           7. DEFINIZIONE ANIMAZIONI (KEYFRAMES)
-           ========================================================================== */
-        @keyframes pingPongSweep { 0% { transform: translateX(-5%); } 100% { transform: translateX(5%); } }
-        @keyframes pingPongGradient { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-        @keyframes breathingPulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
-        @keyframes floatingIdle { 0% { transform: translateY(-5px); } 100% { transform: translateY(5px); } }
-        @keyframes orbitRotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Animazioni base */
+        @keyframes pingPong { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        @keyframes pulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+        @keyframes floating { 0% { transform: translateY(-5px); } 100% { transform: translateY(5px); } }
     </style>
 </head>
 <body>
 
-    <!-- Sfondo Animato Volumetrico -->
-    <div class="spectral-wash"></div>
-    <canvas id="laser-canvas"></canvas>
-
-    <!-- Deflettori a Mezzaluna -->
-    <div class="crescent-portal left"></div>
-    <div class="crescent-portal right"></div>
-
-    <!-- Barra di Stato Top -->
-    <header class="top-bar">
-        <div class="status-node">
-            <div class="led"></div> NODO DI TRASMISSIONE: ROMA CENTRO // PROTOCOLLO EAL6+ CERTIFICATO
-        </div>
-        <div class="clock" id="live-clock">--:--:--</div>
+    <!-- Top Bar -->
+    <header class="top-bar glass-panel">
+        <div class="status-node"><div class="led"></div> NODO DI TRASMISSIONE: ROMA CENTRO // PROTOCOLLO EAL6+ CERTIFICATO</div>
+        <div class="clock" id="live-clock">--:--:-- CET</div>
     </header>
 
     <!-- Alison Badge -->
-    <aside class="alison-badge">
+    <aside class="alison-badge glass-panel">
         <div class="alison-avatar">👩‍🚀</div>
         <div style="line-height: 1.1;">Alison<br>AG-01</div>
     </aside>
 
-    <!-- Header Hero -->
+    <!-- Titoli Animati -->
     <section class="hero">
         <h1 class="title">SUPREMA FUTURE X</h1>
         <h2 class="subtitle">INSIEME GUIDIAMO IL TUO DOMANI</h2>
     </section>
 
-    <!-- Ovale Centrale: SFX -> Carosello Foto -->
+    <!-- Contenitore Trasparente Carosello (Allineato sul render) -->
     <main class="central-stage">
-        <div class="bezel-chassis">
+        <div class="carousel-container">
             <div class="sfx-monogram" id="sfx-logo">SFX</div>
+            <!-- Pesca le foto dalla cartella media di GitHub -->
             <img src="" class="carousel-image" id="carousel-img" alt="Governance Image">
         </div>
     </main>
 
-    <!-- Barra Inferiore e Hamburger Menu -->
+    <!-- Bottom Bar e Menu 10s -->
     <nav class="bottom-nav">
-        <!-- Modale Dropdown -->
-        <div class="hamburger-dropdown" id="dropdown-menu">
+        <!-- Dropdown -->
+        <div class="hamburger-dropdown glass-panel" id="dropdown-menu">
             <div class="menu-header">
                 <span>NAVIGAZIONE PORTALE</span>
                 <span class="countdown-text" id="timer-label">CHIUSURA: 10s</span>
@@ -305,75 +221,21 @@
             <div class="menu-item" onclick="routeTo('#protocolli')">🔐 Protocolli Sicurezza <span>→</span></div>
         </div>
 
-        <!-- Capsula Bar -->
-        <div class="capsule-bar">
-            <button class="capsule-btn" id="btn-menu" style="font-size: 1rem;">☰ SUPREMA MENU</button>
+        <div class="capsule-bar glass-panel">
+            <button class="capsule-btn" id="btn-menu" style="font-size: 1.1vw;">☰ SUPREMA MENU</button>
             <button class="capsule-btn" onclick="routeTo('#chatbot')">💬 ALISON CHATBOT</button>
             <button class="capsule-btn" onclick="routeTo('#traduttore')">🌍 SUPREMA TRADUTTORE</button>
             <button class="capsule-btn" onclick="routeTo('#storie')">📖 CHI SIAMO (3 STORIE)</button>
             <button class="capsule-btn" onclick="routeTo('#radio')">📻 SUPREMA RADIO</button>
-            <button class="capsule-btn" onclick="routeTo('#telemetria')">⚙️ TELEMETRIA LIVE 48</button>
+            <button class="capsule-btn" onclick="routeTo('#telemetria')">⚙️ TELEMETRIA LIVE</button>
         </div>
     </nav>
 
-    <!-- ==========================================================================
-         8. LOGICA JAVASCRIPT MOTORE GRAFICO E INTERAZIONI
-         ========================================================================== -->
     <script>
-        // --- 1. OROLOGIO LIVE ---
-        function updateTime() {
-            document.getElementById('live-clock').textContent = new Date().toLocaleTimeString('it-IT') + ' CET';
-        }
-        setInterval(updateTime, 1000); updateTime();
+        // 1. Orologio
+        setInterval(() => { document.getElementById('live-clock').textContent = new Date().toLocaleTimeString('it-IT') + ' CET'; }, 1000);
 
-        // --- 2. MOTORE CANVAS: RAGGI LASER VOLUMETRICI ---
-        const canvas = document.getElementById('laser-canvas');
-        const ctx = canvas.getContext('2d');
-        let cw, ch;
-
-        function resizeCanvas() { cw = canvas.width = window.innerWidth; ch = canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resizeCanvas); resizeCanvas();
-
-        const beams = [];
-        for (let i = 0; i < 40; i++) {
-            beams.push({
-                y: (Math.random() * 0.6 + 0.2) * window.innerHeight, // concentrati al centro
-                length: window.innerWidth * (0.3 + Math.random() * 0.4),
-                speed: 0.01 + Math.random() * 0.03,
-                width: 2 + Math.random() * 4,
-                phase: Math.random() * Math.PI * 2,
-                color: i % 2 === 0 ? '0, 240, 255' : '0, 230, 118', // Ciano e Smeraldo
-                fromLeft: i % 2 === 0
-            });
-        }
-
-        function drawLasers() {
-            ctx.clearRect(0, 0, cw, ch);
-            beams.forEach(b => {
-                b.phase += b.speed;
-                const activePulse = Math.sin(b.phase) * 0.5 + 0.5; // Oscillazione morbida
-                
-                const startX = b.fromLeft ? 0 : cw;
-                const endX = b.fromLeft ? b.length : cw - b.length;
-                
-                const grad = ctx.createLinearGradient(startX, b.y, endX, b.y);
-                grad.addColorStop(0, `rgba(${b.color}, ${activePulse * 0.8})`);
-                grad.addColorStop(1, `rgba(${b.color}, 0)`);
-
-                ctx.beginPath();
-                ctx.moveTo(startX, b.y);
-                ctx.lineTo(endX, b.y);
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = b.width * (0.5 + activePulse);
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = `rgb(${b.color})`;
-                ctx.stroke();
-            });
-            requestAnimationFrame(drawLasers);
-        }
-        drawLasers();
-
-        // --- 3. GESTIONE LOGO CENTRALE (SFX -> FOTO 01-10 GITHUB) ---
+        // 2. Logica Carosello GitHub (SFX -> 10 Foto)
         const sfxLogo = document.getElementById('sfx-logo');
         const carouselImg = document.getElementById('carousel-img');
         let currentPhotoIndex = 1;
@@ -382,29 +244,26 @@
         setTimeout(() => {
             sfxLogo.style.opacity = '0';
             sfxLogo.style.transform = 'scale(0.8)';
-            
             setTimeout(() => {
                 sfxLogo.style.display = 'none';
                 carouselImg.style.display = 'block';
                 runImageCarousel();
-                // Esegue il loop scambiando foto ogni 3.2 secondi
-                setInterval(runImageCarousel, 3200); 
-            }, 800); // Tempo della transizione CSS
+                setInterval(runImageCarousel, 3200); // Cambio ogni 3.2s
+            }, 800);
         }, 3000);
 
         function runImageCarousel() {
-            // Genera numerazione formattata (01, 02... 10)
+            // Percorso esatto GitHub: media/logo-01.jpg
             const numStr = currentPhotoIndex.toString().padStart(2, '0');
             carouselImg.src = `media/logo-${numStr}.jpg`;
             
-            // Effetto fade in
             carouselImg.style.opacity = '0';
             setTimeout(() => { carouselImg.style.opacity = '1'; }, 50);
 
             currentPhotoIndex = (currentPhotoIndex >= 10) ? 1 : currentPhotoIndex + 1;
         }
 
-        // --- 4. MENU HAMBURGER (TIMER 10 SECONDI E ROUTING) ---
+        // 3. Logica Menu Hamburger a 10s
         const btnMenu = document.getElementById('btn-menu');
         const dropdownMenu = document.getElementById('dropdown-menu');
         const timerLabel = document.getElementById('timer-label');
@@ -434,14 +293,10 @@
             dropdownMenu.classList.contains('active') ? chiudiMenu() : apriMenu();
         });
 
-        // Chiudi menu cliccando fuori
         document.addEventListener('click', (e) => {
-            if (!dropdownMenu.contains(e.target) && e.target !== btnMenu) {
-                chiudiMenu();
-            }
+            if (!dropdownMenu.contains(e.target) && e.target !== btnMenu) chiudiMenu();
         });
 
-        // Funzione di routing su click
         function routeTo(hashPath) {
             chiudiMenu();
             window.location.hash = hashPath;
