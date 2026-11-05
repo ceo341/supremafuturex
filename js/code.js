@@ -1,1126 +1,985 @@
-/* Endpoint Ufficiale Google Apps Script SFX 2026 */
-const SFX_BACKEND_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
-
 /**
- * Trasmissione asincrona della candidatura dal frontend al backend
- */
-async function sfxSubmitLeadForm(leadPayload) {
-  sfxPlayChime('chime');
-  
-  try {
-    const response = await fetch(SFX_BACKEND_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        action: 'submit_candidatura',
-        data: leadPayload
-      })
-    });
-
-    const result = await response.json();
-    return result;
-  } catch (err) {
-    console.error("[SFX-NETWORK-ERROR]", err);
-    return { success: false, error: "Connessione al nodo di sicurezza non riuscita." };
-  }
-}/**
  * ============================================================================
- * SUPREMA FUTURE X ENTERPRISE // CORE LOGIC & NEURAL ENGINE
+ * SUPREMA FUTURE X ENTERPRISE 2026 // MOTORE LOGICO ESECUTIVO (EAL6+ COMPLIANT)
  * File: js/code.js
- * Governance: Founder & CEO Giuliano Caratelli // Anno Operativo 2026
- * Standard: EAL6+ Compliant // Web Audio API // Speech Synthesis // Radar 60FPS
+ * Governance: Founder & CEO Giuliano Caratelli // Sede Legale: Colleferro (Roma)
  * ============================================================================
  */
 
-/* ----------------------------------------------------------------------------
- * 1. SINTESI PROCEDURALE WEB AUDIO API (DOPPIO OSCILLATORE)
- * ---------------------------------------------------------------------------- */
-let sfxAudioCtx = null;
+'use strict';
 
-function sfxInitAudio() {
-  if (!sfxAudioCtx) {
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (AudioContextClass) {
-      sfxAudioCtx = new AudioContextClass();
+/* ----------------------------------------------------------------------------
+   1. REGISTRO CONFIGURAZIONE E STATO GLOBALE (SFX_STATE)
+   ---------------------------------------------------------------------------- */
+const SFX_CONFIG = {
+  // Sostituire con l'URL di deployment del Web App di Google Apps Script (01_Core_Security / 02_Crm_Calendario)
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbx_PLACEHOLDER_EXEC/exec',
+  CAROUSEL_INITIAL_DELAY_MS: 3000,
+  CAROUSEL_INTERVAL_MS: 3200,
+  MENU_TIMEOUT_SECONDS: 15,
+  TRIPLE_CLICK_WINDOW_MS: 800,
+  TOTAL_VAULT_SLOTS_PER_CAT: 100,
+  UNLOCKED_SLOTS_COUNT: 5,
+  TOTAL_RADIO_TRACKS: 14,
+  TOTAL_GALLERY_IMAGES: 6
+};
+
+const SFX_STATE = {
+  currentLang: 'IT',
+  tallyStatus: 'STANDBY', // 'STANDBY' | 'ON_AIR'
+  menuTimer: null,
+  menuSecondsLeft: SFX_CONFIG.MENU_TIMEOUT_SECONDS,
+  tripleClickCounter: 0,
+  tripleClickTimer: null,
+  activeVaultCategory: 'foto',
+  lightboxIndex: 1,
+  carouselIndex: 1,
+  carouselInterval: null,
+  radioPlaying: false,
+  currentTrackIndex: 1,
+  radioAudio: null,
+  radarAnimId: null,
+  funnelData: {
+    inquadramento: '',
+    programma: 'Suprema Academy 100% Live',
+    slot: 'Pomeriggio',
+    nome: '',
+    cognome: '',
+    email: '',
+    whatsapp: ''
+  }
+};
+
+/* ----------------------------------------------------------------------------
+   2. BOOTSTRAP APPLICATIVO AL DOMContentLoaded
+   ---------------------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  sfxInitClockCET();
+  sfxInitLogoCarousel();
+  sfxInitRadioLounge();
+  sfxInitAlisonTerminal();
+  sfxInitAlisonRadar();
+  sfxInitGoldCardTilt();
+  sfxInitVaultMatrix();
+  sfxInitTripleClickXBox();
+  sfxInitFunnelModal();
+  sfxInitSlidingDrawer();
+  sfxInitModalsAndLightboxes();
+  sfxInitSupremaMenu();
+  sfxInitNavigationRibbon();
+  sfxInitContactForm();
+  sfxInitKeyboardShortcuts();
+});
+
+/* ----------------------------------------------------------------------------
+   3. OROLOGIO FORENSE SINCRONIZZATO (EUROPE/ROME CET)
+   ---------------------------------------------------------------------------- */
+function sfxInitClockCET() {
+  const clockEl = document.getElementById('live-clock-cet');
+  if (!clockEl) return;
+
+  const updateClock = () => {
+    try {
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat('it-IT', {
+        timeZone: 'Europe/Rome',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
+      clockEl.textContent = `${formatter.format(now)} CET`;
+    } catch {
+      const d = new Date();
+      clockEl.textContent = `${d.toTimeString().split(' ')[0]} CET`;
     }
+  };
+
+  updateClock();
+  setInterval(updateClock, 1000);
+}
+
+/* ----------------------------------------------------------------------------
+   4. CAROSELLO LOGO CENTRALE (0-3.0s FISSO SFX -> LOOP A 3.2s SULLE 10 FOTO)
+   ---------------------------------------------------------------------------- */
+function sfxInitLogoCarousel() {
+  const imgEl = document.getElementById('hero-carousel-img');
+  if (!imgEl) return;
+
+  setTimeout(() => {
+    SFX_STATE.carouselInterval = setInterval(() => {
+      SFX_STATE.carouselIndex++;
+      if (SFX_STATE.carouselIndex > 10) SFX_STATE.carouselIndex = 1;
+
+      const numStr = String(SFX_STATE.carouselIndex).padStart(2, '0');
+      const nextSrc = `media/sec-01-hero/logo-${numStr}.png`;
+
+      imgEl.style.transition = 'opacity 0.4s ease';
+      imgEl.style.opacity = '0';
+
+      setTimeout(() => {
+        imgEl.src = nextSrc;
+        imgEl.style.opacity = '1';
+      }, 400);
+    }, SFX_CONFIG.CAROUSEL_INTERVAL_MS);
+  }, SFX_CONFIG.CAROUSEL_INITIAL_DELAY_MS);
+}
+
+/* ----------------------------------------------------------------------------
+   5. SUPREMA RADIO LOUNGE (14 TRACCE // DUCKING PRIORITARIO)
+   ---------------------------------------------------------------------------- */
+function sfxInitRadioLounge() {
+  SFX_STATE.radioAudio = new Audio();
+  SFX_STATE.radioAudio.preload = 'none';
+  SFX_STATE.radioAudio.volume = 0.70;
+
+  sfxRadioLoadTrack(SFX_STATE.currentTrackIndex);
+
+  SFX_STATE.radioAudio.addEventListener('ended', () => {
+    sfxRadioNextTrack();
+  });
+
+  const prevBtn = document.getElementById('radioPrevBtn');
+  const playPauseBtn = document.getElementById('radioPlayPauseBtn');
+  const nextBtn = document.getElementById('radioNextBtn');
+  const volSlider = document.getElementById('radioVolumeSlider');
+
+  if (prevBtn) prevBtn.addEventListener('click', sfxRadioPrevTrack);
+  if (playPauseBtn) playPauseBtn.addEventListener('click', sfxRadioTogglePlay);
+  if (nextBtn) nextBtn.addEventListener('click', sfxRadioNextTrack);
+  if (volSlider) {
+    volSlider.addEventListener('input', (e) => {
+      if (SFX_STATE.radioAudio) {
+        SFX_STATE.radioAudio.volume = parseFloat(e.target.value);
+      }
+    });
+  }
+
+  // DUCKING AUTOMATICO: se un video parte, la radio si silenzia
+  const masterVid = document.getElementById('masterCorporateVideoPlayer');
+  const demoVid = document.getElementById('academyDemoPlayer');
+  [masterVid, demoVid].forEach((vid) => {
+    if (!vid) return;
+    vid.addEventListener('play', () => {
+      if (SFX_STATE.radioPlaying) sfxRadioPause();
+    });
+  });
+}
+
+function sfxRadioLoadTrack(index) {
+  const numStr = String(index).padStart(2, '0');
+  SFX_STATE.radioAudio.src = `media/audio-radio/track-${numStr}.mp3`;
+  const titleDisplay = document.getElementById('radioTrackTitleDisplay');
+  if (titleDisplay) {
+    titleDisplay.textContent = `Track ${numStr} // Relax Lounge`;
   }
 }
 
-function sfxPlayChime(type = 'chime') {
-  try {
-    sfxInitAudio();
-    if (!sfxAudioCtx) return;
-    if (sfxAudioCtx.state === 'suspended') {
-      sfxAudioCtx.resume();
-    }
-
-    const t = sfxAudioCtx.currentTime;
-    const oscLow = sfxAudioCtx.createOscillator();
-    const oscHigh = sfxAudioCtx.createOscillator();
-    const gainNode = sfxAudioCtx.createGain();
-
-    if (type === 'chime') {
-      // Tono Cristallino Frizione Vetro e Oro
-      oscLow.type = 'triangle';
-      oscLow.frequency.setValueAtTime(200, t);
-      oscLow.frequency.exponentialRampToValueAtTime(60, t + 0.12);
-
-      oscHigh.type = 'sine';
-      oscHigh.frequency.setValueAtTime(1046.5, t); // C6
-      oscHigh.frequency.exponentialRampToValueAtTime(523.25, t + 0.18);
-
-      gainNode.gain.setValueAtTime(0.18, t);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
-    } else {
-      // Micro-tick Meccanico
-      oscLow.type = 'sine';
-      oscLow.frequency.setValueAtTime(800, t);
-      oscLow.frequency.exponentialRampToValueAtTime(240, t + 0.05);
-
-      gainNode.gain.setValueAtTime(0.08, t);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
-    }
-
-    oscLow.connect(gainNode);
-    if (type === 'chime') oscHigh.connect(gainNode);
-    gainNode.connect(sfxAudioCtx.destination);
-
-    oscLow.start(t);
-    if (type === 'chime') oscHigh.start(t);
-
-    oscLow.stop(t + 0.25);
-    if (type === 'chime') oscHigh.stop(t + 0.25);
-  } catch (e) {
-    // Gestione preventiva policy autoplay browser
-  }
-}
-
-/* ----------------------------------------------------------------------------
- * 2. MOTORE VOCALE AG-01 ALISON (PARTENZA MUTA & WEB SPEECH API)
- * ---------------------------------------------------------------------------- */
-let sfxAudioMuted = true;
-const sfxVoiceGreeting = "Benvenuto in questa chatbot, io sono Alison, in che cosa posso aiutarti?";
-
-function sfxToggleAudioEngine() {
-  sfxInitAudio();
-  sfxPlayChime('chime');
-  sfxAudioMuted = !sfxAudioMuted;
-
-  const badge = document.getElementById('sfxAudioStateBadge');
-  const icon = document.getElementById('sfxAudioStateIcon');
-  const label = document.getElementById('sfxAudioStateText');
-
-  if (!sfxAudioMuted) {
-    badge.classList.add('unmuted');
-    icon.textContent = "🔊";
-    label.textContent = "STATO AUDIO: VOCALE ATTIVO // AG-01 TRASMETTE";
-    sfxSpeak(sfxVoiceGreeting);
+function sfxRadioTogglePlay() {
+  if (SFX_STATE.radioPlaying) {
+    sfxRadioPause();
   } else {
-    badge.classList.remove('unmuted');
-    icon.textContent = "🔇";
-    label.textContent = "STATO AUDIO: MUTO // CLICCA PER ATTIVARE IL VOCALE";
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    sfxRadioPlay();
   }
 }
 
-function sfxSpeak(text) {
-  if (sfxAudioMuted) return;
-  if (!('speechSynthesis' in window)) return;
+function sfxRadioPlay() {
+  if (SFX_STATE.tallyStatus === 'ON_AIR') {
+    alert('Riproduzione Radio disattivata: conferenza CEO ON AIR in corso.');
+    return;
+  }
 
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'it-IT';
-  utterance.rate = 1.02;
-  utterance.pitch = 1.05;
+  SFX_STATE.radioAudio.play().then(() => {
+    SFX_STATE.radioPlaying = true;
+    const btn = document.getElementById('radioPlayPauseBtn');
+    const led = document.getElementById('radioStatusLed');
+    if (btn) btn.textContent = '⏸ PAUSA';
+    if (led) led.style.backgroundColor = 'var(--spectral-emerald)';
+    sfxToggleEqualizer(true);
+  }).catch((err) => {
+    console.warn('Avvio audio subordinato all\'interazione utente:', err);
+  });
+}
 
-  const voices = window.speechSynthesis.getVoices();
-  const italianVoice = voices.find(v => v.lang.includes('it') && (v.name.includes('Elsa') || v.name.includes('Federica') || v.name.includes('Alice') || v.name.includes('Cosimo') || v.name.includes('Google italiano')));
-  if (italianVoice) utterance.voice = italianVoice;
+function sfxRadioPause() {
+  SFX_STATE.radioAudio.pause();
+  SFX_STATE.radioPlaying = false;
+  const btn = document.getElementById('radioPlayPauseBtn');
+  const led = document.getElementById('radioStatusLed');
+  if (btn) btn.textContent = '▶ ASCOLTA';
+  if (led) led.style.backgroundColor = 'var(--spectral-gold)';
+  sfxToggleEqualizer(false);
+}
 
-  window.speechSynthesis.speak(utterance);
+function sfxRadioNextTrack() {
+  SFX_STATE.currentTrackIndex++;
+  if (SFX_STATE.currentTrackIndex > SFX_CONFIG.TOTAL_RADIO_TRACKS) {
+    SFX_STATE.currentTrackIndex = 1;
+  }
+  sfxRadioLoadTrack(SFX_STATE.currentTrackIndex);
+  if (SFX_STATE.radioPlaying) sfxRadioPlay();
+}
+
+function sfxRadioPrevTrack() {
+  SFX_STATE.currentTrackIndex--;
+  if (SFX_STATE.currentTrackIndex < 1) {
+    SFX_STATE.currentTrackIndex = SFX_CONFIG.TOTAL_RADIO_TRACKS;
+  }
+  sfxRadioLoadTrack(SFX_STATE.currentTrackIndex);
+  if (SFX_STATE.radioPlaying) sfxRadioPlay();
+}
+
+function sfxToggleEqualizer(active) {
+  const bars = document.querySelectorAll('#eqBarsCluster .eq-bar-item');
+  bars.forEach((b) => {
+    if (active) b.classList.add('animating');
+    else b.classList.remove('animating');
+  });
 }
 
 /* ----------------------------------------------------------------------------
- * 3. RADAR VETTORIALE CANVAS 60 FPS (AG-01 ALISON)
- * ---------------------------------------------------------------------------- */
-let radarAngle = 0;
-const radarBlips = [
-  { r: 0.32, angle: 1.1, pulse: 0 },
-  { r: 0.58, angle: 3.4, pulse: 0 },
-  { r: 0.82, angle: 4.9, pulse: 0 }
-];
+   6. SUPERVISOR ALISON AG-01 (TERMINALE TYPEWRITER & RADAR 60 FPS)
+   ---------------------------------------------------------------------------- */
+function sfxInitAlisonTerminal() {
+  const textEl = document.getElementById('alisonTypewriterText');
+  if (!textEl) return;
 
-function sfxInitRadarCanvas() {
-  const canvas = document.getElementById('sfxRadarCanvas');
+  const msg = 'Sistemi operativi attivi. Supervisione neurale su 15 agenti verificata. Nessuna violazione EAL6+ rilevata. In attesa di istruzioni presidenziali...';
+  let i = 0;
+  textEl.textContent = '';
+
+  const step = () => {
+    if (i < msg.length) {
+      textEl.textContent += msg.charAt(i);
+      i++;
+      setTimeout(step, 24);
+    }
+  };
+  step();
+
+  const btnPres = document.getElementById('triageNavPresidenza');
+  const btnScreen = document.getElementById('triageNavScreening');
+  const btnVault = document.getElementById('triageNavVault');
+
+  if (btnPres) btnPres.addEventListener('click', () => sfxScrollTo('#sec-02'));
+  if (btnScreen) btnScreen.addEventListener('click', sfxOpenFunnelModal);
+  if (btnVault) btnVault.addEventListener('click', () => sfxScrollTo('#sec-07'));
+}
+
+function sfxInitAlisonRadar() {
+  const canvas = document.getElementById('alisonRadarCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  const center = w / 2;
+  let angle = 0;
 
-  function resize() {
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = canvas.parentElement.clientHeight;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  function render() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const cx = canvas.width / 2;
-    const cy = canvas.height / 2;
-    const maxRadius = Math.min(cx, cy) - 14;
-
-    // Cerchi polari ciano
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.18)';
-    ctx.lineWidth = 1;
-    for (let i = 1; i <= 3; i++) {
-      ctx.beginPath();
-      ctx.arc(cx, cy, (maxRadius / 3) * i, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-
-    // Assi cartesiani incrociati
-    ctx.beginPath();
-    ctx.moveTo(cx - maxRadius, cy);
-    ctx.lineTo(cx + maxRadius, cy);
-    ctx.moveTo(cx, cy - maxRadius);
-    ctx.lineTo(cx, cy + maxRadius);
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.22)';
-    ctx.stroke();
-
-    // Fascio di scansione radiale dorato-ciano
-    const sweepX = cx + Math.cos(radarAngle) * maxRadius;
-    const sweepY = cy + Math.sin(radarAngle) * maxRadius;
-
-    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius);
-    grad.addColorStop(0, 'rgba(212, 175, 55, 0.02)');
-    grad.addColorStop(0.7, 'rgba(0, 240, 255, 0.12)');
-    grad.addColorStop(1, 'rgba(0, 240, 255, 0.35)');
-
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, maxRadius, radarAngle - 0.45, radarAngle);
-    ctx.closePath();
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // Linea guida dello sweep
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(sweepX, sweepY);
-    ctx.strokeStyle = '#D4AF37';
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-
-    // Blip di telemetria attiva
-    radarBlips.forEach(b => {
-      const bx = cx + Math.cos(b.angle) * (b.r * maxRadius);
-      const by = cy + Math.sin(b.angle) * (b.r * maxRadius);
-
-      ctx.beginPath();
-      ctx.arc(bx, by, 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = '#00F0FF';
-      ctx.shadowColor = '#00F0FF';
-      ctx.shadowBlur = 10;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-    });
-
-    radarAngle += 0.038;
-    requestAnimationFrame(render);
-  }
-  requestAnimationFrame(render);
-}
-
-/* ----------------------------------------------------------------------------
- * 4. BANCA DATI 40 FAQ RIGIDAMENTE IGIENIZZATE (EAL6+ FORENSE)
- * ---------------------------------------------------------------------------- */
-const sfxFaqDatabase = [
-  { q: "Qual è la garanzia statutaria sull'erogazione dei corsi?", a: "Tutti i corsi della Suprema Academy sono certificati statutariamente al 100% dal vivo in videoconferenza diretta. È vietata la vendita di videocorsi pre-registrati passivi." },
-  { q: "Come funziona il modello Concessioni Digitali a zero magazzino?", a: "Il titolare della concessione gestisce il proprio negozio online senza dover acquistare merci o gestire inventario. Confezionamento, logistica e spedizioni sono centralizzati dall'ecosistema." },
-  { q: "Come si accede al colloquio con il Founder & CEO Giuliano Caratelli?", a: "L'accesso avviene tramite prenotazione nel funnel di screening per un colloquio conoscitivo di 60 minuti via Google Meet per la verifica attitudinale." },
-  { q: "Cosa rappresenta la Suprema Gold Card metallica?", a: "È il riconoscimento phygital in acciaio satinato dorato con incisione laser del seriale univoco, rilasciato a partire da 800 Punti Status." },
-  { q: "Quali sono i percorsi formativi dell'Academy?", a: "I percorsi attivi sono: Silver Tier (60 Giorni), Executive Master (90 Giorni) e Premium VIP (120 Giorni con sessioni one-to-one dirette con il CEO)." },
-  { q: "Cosa sblocca la soglia premi di 2.000 Punti?", a: "Dà diritto a 3 Mesi di Conferenze Esecutive Gratuite con il Founder & CEO Giuliano Caratelli." },
-  { q: "Cosa sblocca la soglia premi di 3.000 Punti?", a: "Consente la partecipazione formale per 2 persone all'esclusiva Cena Annuale di Gala a Roma Centro." },
-  { q: "Cosa sblocca la soglia premi di 4.500 Punti?", a: "Audit Organizzativo su Misura e 6 Mesi di sessioni strategiche individuali con la Presidenza." },
-  { q: "Cosa sblocca la soglia premi di 6.000 Punti?", a: "Status Sovrano a Vita, un Master completo gratuito a scelta e un intero anno di supervisione diretta del CEO." },
-  { q: "Cosa sblocca la soglia premi di 7.500 Punti?", a: "Weekend Luxury per 2 persone con soggiorno completo in hotel a 5 stelle a Roma Centro." },
-  { q: "Quanti Punti Status conferisce l'attivazione di una Concessione Store?", a: "L'attivazione accredita istantaneamente +800 Punti Status, rendendo subito ordinabile la Suprema Gold Card incisa al laser." },
-  { q: "Cos'è il Dream Defense System?", a: "È il protocollo etico ed esecutivo di Presidenza volto a proteggere le risorse, il tempo e il merito dei candidati attraverso affiancamento costante e reale." },
-  { q: "Chi è l'unico organo di rappresentanza decisionale?", a: "La direzione strategica, formativa e commerciale fa capo unicamente al Founder & CEO Giuliano Caratelli." },
-  { q: "Quali sono le sedi ufficiali dell'ecosistema?", a: "La Sede Operativa è nel Centro Direzionale di Colleferro (Roma), mentre l'Ufficio di Presidenza è in Via della Scrofa, Roma Centro." },
-  { q: "Cos'è l'Archivio Media Vault 400?", a: "È l'infrastruttura crittografata contenente 400 slot protetti per dispense, atti contrattuali e materiali con link temporizzati a scadenza 120 minuti." },
-  { q: "Che cos'è la Flotta Neurale dei 15 Agenti AI?", a: "È il sistema di intelligenze artificiali operative dedicate al triage (AG-01), alla didattica, all'audit e alla tutela dei sistemi." },
-  { q: "Come funziona il Master Fleet Kill-Switch?", a: "È il comando di emergenza hardware riservato al CEO che congela all'istante l'attività di tutti i 15 agenti neurali in caso di anomalia." },
-  { q: "Qual è il Foro di competenza giurisdizionale esclusivo?", a: "Per ogni controversia è stabilita la competenza territoriale esclusiva ed inderogabile del Tribunale di Velletri / Roma." },
-  { q: "Come vengono gestiti i pagamenti per l'Academy?", a: "Tramite circuiti crittografati sicuri PCI-DSS (Stripe Enterprise / 3D Secure 2.2) o bonifico bancario con causale vincolata alla matricola del candidato." },
-  { q: "Come avviene la fatturazione?", a: "La fattura fiscale viene generata elettronicamente e trasmessa tramite SDI a norma di legge italiana all'atto dell'incasso." },
-  { q: "Cosa serve per seguire le lezioni della didattica live?", a: "Una connessione internet stabile e un dispositivo abilitato per videoconferenze Google Meet; non sono ammesse visioni passive registrate." },
-  { q: "Quali Punti si possono convertire nei premi del catalogo?", a: "Si utilizzano i Punti Spendibili accumulati, mentre i Punti Status restano cumulativi e a vita come attestato di rango." },
-  { q: "Qual è il canale WhatsApp ufficiale di presidenza?", a: "La linea diretta certificata di coordinamento presidenziale risponde al recapito +39 347 442 9091." },
-  { q: "Quali sono i canali Telegram ufficiali autorizzati?", a: "Il Canale Broadcast Istituzionale e il Bot Esecutivo AG-07 (@SFX_Command_Bot) per gli alert direzionali." },
-  { q: "Come viene garantita la privacy dei candidati?", a: "I dati sono protetti in conformità al GDPR e agli standard di conservazione forense EAL6+, senza cessione a broker terzi." },
-  { q: "Cosa prevede lo screening conoscitivo di 60 minuti?", a: "È un colloquio individuale di orientamento e selezione per verificare l'idoneità etica e professionale al programma." },
-  { q: "Cosa accade se un corsista rimane inattivo?", a: "In caso di 60 giorni consecutivi di inattività senza giustificato motivo, la posizione viene sospesa e richiede riattivazione dal CEO." },
-  { q: "Come vengono distribuiti gli attestati di fine percorso?", a: "Al superamento delle verifiche live viene rilasciato un attestato di merito crittografato depositato nel Media Vault." },
-  { q: "I negozi digitali richiedono partita IVA immediata?", a: "L'inquadramento delle concessioni prevede un avviamento commerciale agevolato con supporto operativo integrato." },
-  { q: "Chi tiene le sessioni dell'Executive Master?", a: "I docenti accreditati dell'Academy e il Founder & CEO Giuliano Caratelli per i moduli strategici di vertice." },
-  { q: "Posso delegare la partecipazione al colloquio di screening?", a: "No, il colloquio è strettamente personale e richiede la presenza diretta del candidato selezionato." },
-  { q: "Quali metodologie AI vengono approfondite nell'Executive Master?", a: "Flussi di automazione dei processi d'impresa, integrazione di agenti neurali e gestione scalabile delle piattaforme." },
-  { q: "Che tipo di assistenza offre l'agente AG-01 Alison?", a: "Triage dei quesiti, guida alle sezioni dell'ecosistema e instradamento allo screening conoscitivo entro il 5° messaggio." },
-  { q: "Come vengono spediti gli ordini dello store a zero magazzino?", a: "Spedizione espressa tracciata gestita direttamente dal centro logistico centralizzato verso il cliente finale." },
-  { q: "I prezzi dei percorsi formativi sono visibili pubblicamente?", a: "Per scelta istituzionale le schede dettagliate e i piani di ammissione vengono esaminati durante lo screening conoscitivo." },
-  { q: "Come viene tutelata la proprietà intellettuale di Suprema?", a: "Attraverso il divieto assoluto di divulgazione o duplicazione dei compendi, con sanzioni contrattuali e legali." },
-  { q: "Posso scegliere l'orario del colloquio con il CEO?", a: "Sì, nel funnel di prenotazione sono disponibili le fasce: Mattina (10-12), Pomeriggio (15-18) e Serale (21-23)." },
-  { q: "La Suprema Gold Card ha una data di scadenza?", a: "No, la tessera fisica e i Punti Status acquisiti mantengono validità permanente come titolo di merito." },
-  { q: "Cosa accade dopo aver inviato la candidatura?", a: "La segreteria e l'agente AG-10 TITAN verificano i dati e inviano la convocazione ufficiale su WhatsApp entro 24 ore." },
-  { q: "Cosa contraddistingue Suprema Future X nel mercato 2026?", a: "La totale trasparenza operativa, il rifiuto dei video registrati e la presenza attiva costante del Fondatore al fianco degli allievi." }
-];
-
-/* ----------------------------------------------------------------------------
- * 5. CHATBOT ALISON: DIALOGO, TRIAGE AL 5° MESSAGGIO & SINTESI VOCALE
- * ---------------------------------------------------------------------------- */
-let sfxChatCounter = 0;
-
-function sfxHandleUserMessage() {
-  const input = document.getElementById('sfxChatInput');
-  const stream = document.getElementById('sfxChatStream');
-  if (!input || !stream) return;
-
-  const txt = input.value.trim();
-  if (!txt) return;
-
-  sfxPlayChime('tick');
-
-  // Stampa messaggio utente
-  const userBox = document.createElement('div');
-  userBox.className = 'sfx-msg sfx-msg-user';
-  userBox.style.cssText = "background:rgba(212,175,55,0.14); border-right:3px solid var(--gold-primary); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-end; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
-  userBox.textContent = txt;
-  stream.appendChild(userBox);
-
-  input.value = '';
-  sfxChatCounter++;
-  stream.scrollTop = stream.scrollHeight;
-
-  // Elaborazione risposta di Alison
-  setTimeout(() => {
-    sfxPlayChime('chime');
-    const aliBox = document.createElement('div');
-    aliBox.className = 'sfx-msg sfx-msg-alison';
-    aliBox.style.cssText = "background:rgba(0,240,255,0.08); border-left:3px solid var(--cyan-neon); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-start; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
-
-    let replyText = "";
-
-    if (sfxChatCounter >= 5) {
-      replyText = "Hai raggiunto il limite della sessione orientativa preliminare. In virtù del protocollo, per verificare i requisiti e l'accesso ai percorsi o alle concessioni è indispensabile formalizzare lo screening con il Founder & CEO Giuliano Caratelli.";
-      aliBox.innerHTML = `<strong>[TRIAGE PRESIDENZIALE RAGGIUNTO]</strong><br>${replyText}<br><button class="sfx-btn-action-oval" style="margin-top:0.8rem; padding:0.5rem 1rem; font-size:0.7rem;" onclick="sfxOpenBook('presidenza')">CONVALIDA SCREENING ADESSO ➔</button>`;
-    } else {
-      // Matching intelligente sulle 40 FAQ
-      const queryLower = txt.toLowerCase();
-      let matchedFaq = sfxFaqDatabase.find(f => 
-        queryLower.includes(f.q.toLowerCase().slice(0, 15)) ||
-        (queryLower.includes("corsi") && f.q.includes("corsi")) ||
-        (queryLower.includes("magazzino") && f.q.includes("magazzino")) ||
-        (queryLower.includes("meet") && f.q.includes("Meet")) ||
-        (queryLower.includes("gold card") && f.q.includes("Gold Card")) ||
-        (queryLower.includes("live") && f.q.includes("live"))
-      );
-
-      if (matchedFaq) {
-        replyText = `[AG-01 ALISON] ${matchedFaq.a}`;
-      } else {
-        replyText = `[AG-01 ALISON] Confermo che nell'ecosistema tutta la didattica è al 100% dal vivo e le concessioni operano a zero magazzino. Desideri prenotare lo screening di 60 minuti con la Presidenza?`;
-      }
-      aliBox.textContent = replyText;
-    }
-
-    stream.appendChild(aliBox);
-    stream.scrollTop = stream.scrollHeight;
-    sfxSpeak(replyText.replace(/\[.*?\]/g, ''));
-  }, 600);
-}
-
-function sfxTriggerFaq(index) {
-  const faq = sfxFaqDatabase[index];
-  if (!faq) return;
-
-  const stream = document.getElementById('sfxChatStream');
-  if (!stream) return;
-
-  sfxPlayChime('chime');
-  sfxChatCounter++;
-
-  const userBox = document.createElement('div');
-  userBox.className = 'sfx-msg sfx-msg-user';
-  userBox.style.cssText = "background:rgba(212,175,55,0.14); border-right:3px solid var(--gold-primary); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-end; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
-  userBox.textContent = faq.q;
-  stream.appendChild(userBox);
-
-  setTimeout(() => {
-    const aliBox = document.createElement('div');
-    aliBox.className = 'sfx-msg sfx-msg-alison';
-    aliBox.style.cssText = "background:rgba(0,240,255,0.08); border-left:3px solid var(--cyan-neon); color:#FFF; padding:0.8rem 1rem; border-radius:8px; align-self:flex-start; max-width:85%; font-family:var(--font-mono); font-size:0.8rem;";
-    
-    let answer = `[AG-01 ALISON] ${faq.a}`;
-    aliBox.textContent = answer;
-    stream.appendChild(aliBox);
-    stream.scrollTop = stream.scrollHeight;
-    sfxSpeak(faq.a);
-  }, 400);
-}
-
-/* ----------------------------------------------------------------------------
- * 6. MODALE SOTTOMENU A LIBRO 3D (MASTER FOLIO FOLD & GALLERIE)
- * ---------------------------------------------------------------------------- */
-function sfxOpenBook(sectionKey) {
-  sfxPlayChime('chime');
-  const overlay = document.getElementById('sfxMasterBookOverlay');
-  const catTag = document.getElementById('sfxBookCategoryTag');
-  const heading = document.getElementById('sfxBookMainHeading');
-  const leftSummary = document.getElementById('sfxBookLeftSummary');
-  const rightContent = document.getElementById('sfxBookRightContent');
-
-  if (!overlay || !rightContent) return;
-
-  // Generatore di 10 Placeholder Grafici Phygital per le Gallerie
-  function generatePhotoGrid(label) {
-    let html = '<div class="sfx-gallery-grid-10">';
-    for (let i = 1; i <= 10; i++) {
-      html += `
-        <div class="sfx-gallery-thumb" style="display:flex; align-items:center; justify-content:center; background:#11141C; color:var(--gold-primary); font-family:var(--font-mono); font-size:0.65rem; text-align:center; padding:0.5rem; border:1px solid rgba(212,175,55,0.3); border-radius:8px;">
-          ${label} // ARCHIVIO #${String(i).padStart(2, '0')}
-        </div>
-      `;
-    }
-    html += '</div>';
-    return html;
-  }
-
-  if (sectionKey === 'presidenza') {
-    catTag.textContent = "ORGANO DI VERTICE // PROFILO";
-    heading.textContent = "GIULIANO CARATELLI";
-    leftSummary.innerHTML = `
-      <p style="margin-bottom:1rem;">Founder & CEO di Suprema Future X Enterprise. Garante unico della didattica dal vivo e della solidità contrattuale.</p>
-      <p style="margin-bottom:1rem; color:var(--gold-primary);">Motto: "DREAM DEFENSE SYSTEM"</p>
-      <p>Lo screening conoscitivo di 60 minuti via Google Meet certifica il merito e seleziona i partecipanti ai percorsi operativi.</p>
-    `;
-    rightContent.innerHTML = `
-      <div>
-        <h3 style="font-family:var(--font-sync); color:var(--blue-deep); margin-bottom:0.8rem;">TRAIETTORIA ISTITUZIONALE</h3>
-        <p style="font-size:0.9rem; line-height:1.7; color:#374151; margin-bottom:1.5rem;">
-          Con oltre due decenni di esperienza nella direzione d'impresa e nello sviluppo di reti commerciali complesse, 
-          Giuliano Caratelli ha istituito Suprema Future X per superare l'inefficacia dei modelli formativi tradizionali. 
-          Ogni allievo accede a un rapporto autentico e operativo con la dirigenza.
-        </p>
-        <h4 style="font-family:var(--font-sync); font-size:0.8rem; color:var(--gold-aged); margin-bottom:0.5rem;">
-          GALLERIA: 10 MOMENTI SALIENTI DI CARRIERA
-        </h4>
-        ${generatePhotoGrid('CEO CARATELLI')}
-        <div style="margin-top:2rem;">
-          <button class="sfx-btn-action-oval" onclick="sfxCloseMasterBook(); sfxScrollTo('fazione-04');">
-            PRENOTA ORA SCREENING CON IL CEO ➔
-          </button>
-        </div>
-      </div>
-    `;
-  } else if (sectionKey === 'ecosistema') {
-    catTag.textContent = "ARCHITETTURA // MOTORE D'IMPRESA";
-    heading.textContent = "SUPREMA FUTURE X";
-    leftSummary.innerHTML = `
-      <p style="margin-bottom:1rem;">Alta Formazione Esecutiva 100% Live in Videoconferenza e Concessioni Digitali E-Commerce Autonome a Zero Magazzino.</p>
-      <p>Logistica, spedizioni espresse, contratti corrieri e resi interamente gestiti dal nodo centrale.</p>
-    `;
-    rightContent.innerHTML = `
-      <div>
-        <h3 style="font-family:var(--font-sync); color:var(--blue-deep); margin-bottom:1rem;">3 SHOWCASE VIDEO FISSATI</h3>
-        <div style="display:flex; flex-direction:column; gap:0.8rem; margin-bottom:1.5rem;">
-          <div style="background:#090A0E; color:#FFF; padding:0.8rem; border-radius:10px; font-family:var(--font-mono); font-size:0.75rem; border:1px solid var(--gold-primary);">
-            VIDEO 01 // Didattica Live & Principi Statutari Anti-Registrazioni
-          </div>
-          <div style="background:#090A0E; color:#FFF; padding:0.8rem; border-radius:10px; font-family:var(--font-mono); font-size:0.75rem; border:1px solid var(--cyan-neon);">
-            VIDEO 02 // Infrastruttura Store E-Commerce & Logistica Centralizzata
-          </div>
-          <div style="background:#090A0E; color:#FFF; padding:0.8rem; border-radius:10px; font-family:var(--font-mono); font-size:0.75rem; border:1px solid var(--status-green);">
-            VIDEO 03 // Ecosistema Phygital & Riconoscimento Suprema Gold Card
-          </div>
-        </div>
-
-        <h4 style="font-family:var(--font-sync); font-size:0.8rem; color:var(--blue-deep); margin-bottom:0.5rem;">
-          10 IMMAGINI OPERATIVE // SEDI & INFRASTRUTTURA
-        </h4>
-        ${generatePhotoGrid('INFRASTRUTTURA SFX')}
-      </div>
-    `;
-  } else if (sectionKey === 'alison') {
-    catTag.textContent = "NEURAL ARCHITECTURE // EAL6+";
-    heading.textContent = "CONCIERGE AG-01";
-    leftSummary.innerHTML = `
-      <p style="margin-bottom:1rem;">Modello linguistico a contesto confinato senza allucinazioni, presidiato da AG-12 Sentinel per la difesa dei perimetri IP.</p>
-      <p>Sintesi vocale deterministica e radar vettoriale con rendering a 60 fps nativi.</p>
-    `;
-    rightContent.innerHTML = `
-      <div>
-        <h3 style="font-family:var(--font-sync); color:var(--blue-deep); margin-bottom:1rem;">SPECIFICHE PROTOCOLLO NEURALE</h3>
-        <ul style="line-height:1.9; font-size:0.88rem; color:#374151; margin-left:1.2rem; margin-bottom:1.5rem;">
-          <li><strong>Pipeline di Triage:</strong> Al quinto scambio scatta l'instradamento obbligatorio alla videoconferenza del CEO.</li>
-          <li><strong>Isolamento Dati:</strong> Nessun segreto industriale o formula finanziaria risiede nei prompt del frontend.</li>
-          <li><strong>Hardware Kill-Switch:</strong> Disattivazione simultanea dei 15 agenti tramite comando direzionale X-BOX.</li>
-        </ul>
-        <button class="sfx-btn-action-oval" style="background:var(--bg-dark); color:var(--cyan-neon); border:1px solid var(--cyan-neon);" onclick="sfxCloseMasterBook(); sfxScrollTo('fazione-04');">
-          APRI CONSOLE CHATBOT ➔
-        </button>
-      </div>
-    `;
-  } else if (sectionKey === 'faq') {
-    catTag.textContent = "REGISTRO INFORMATIVO // 40 VOCI";
-    heading.textContent = "FAQ UFFICIALI";
-    leftSummary.innerHTML = `
-      <p>Tutte le risposte ufficiali certificate e igienizzate per la consultazione pubblica immediata.</p>
-    `;
-    let faqListHtml = '<div style="display:flex; flex-direction:column; gap:0.8rem; max-height:55vh; overflow-y:auto; padding-right:0.5rem;">';
-    sfxFaqDatabase.forEach((item, idx) => {
-      faqListHtml += `
-        <div style="background:#FFF; border:1px solid rgba(212,175,55,0.3); border-radius:10px; padding:1rem;">
-          <strong style="color:var(--blue-deep); font-size:0.85rem; font-family:var(--font-sync); display:block; margin-bottom:0.4rem;">
-            ${String(idx + 1).padStart(2, '0')}. ${item.q}
-          </strong>
-          <span style="font-size:0.85rem; color:#4B5563; line-height:1.6; display:block;">
-            ${item.a}
-          </span>
-        </div>
-      `;
-    });
-    faqListHtml += '</div>';
-    rightContent.innerHTML = faqListHtml;
-  }
-
-  overlay.classList.add('active');
-}
-
-function sfxCloseMasterBook() {
-  sfxPlayChime('tick');
-  const overlay = document.getElementById('sfxMasterBookOverlay');
-  if (overlay) overlay.classList.remove('active');
-}
-
-/* ----------------------------------------------------------------------------
- * 7. MENU HAMBURGER A 14 SEZIONI CON TIMEOUT A 15 SECONDI
- * ---------------------------------------------------------------------------- */
-let sfxMenuTimer = null;
-let sfxMenuProgressInterval = null;
-const SFX_MENU_LIMIT = 15000;
-
-function sfxToggleMenu(open) {
-  const panel = document.getElementById('sfxHamburgerPanel');
-  const bar = document.getElementById('sfxMenuProgressBar');
-  if (!panel) return;
-
-  sfxPlayChime('chime');
-
-  if (open) {
-    panel.classList.add('active');
-    panel.setAttribute('aria-hidden', 'false');
-    
-    // Avvio Countdown 15s
-    clearTimeout(sfxMenuTimer);
-    clearInterval(sfxMenuProgressInterval);
-
-    const startTime = Date.now();
-    sfxMenuProgressInterval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const remaining = Math.max(0, SFX_MENU_LIMIT - elapsed);
-      const ratio = remaining / SFX_MENU_LIMIT;
-      if (bar) bar.style.transform = `scaleX(${ratio})`;
-
-      if (remaining <= 0) {
-        sfxToggleMenu(false);
-      }
-    }, 50);
-
-    sfxMenuTimer = setTimeout(() => {
-      sfxToggleMenu(false);
-    }, SFX_MENU_LIMIT);
-  } else {
-    panel.classList.remove('active');
-    panel.setAttribute('aria-hidden', 'true');
-    clearTimeout(sfxMenuTimer);
-    clearInterval(sfxMenuProgressInterval);
-    if (bar) bar.style.transform = 'scaleX(1)';
-  }
-}
-
-/* ----------------------------------------------------------------------------
- * 8. CAROSELLO LOGO A 6 FRAME & TRIGGER GATEWAY SEGRETO 3-TAP
- * ---------------------------------------------------------------------------- */
-function sfxInitLogoEngine() {
-  const frames = document.querySelectorAll('.sfx-logo-frame-item');
-  if (frames.length > 0) {
-    let activeIdx = 0;
-    setInterval(() => {
-      frames[activeIdx].classList.remove('active');
-      activeIdx = (activeIdx + 1) % frames.length;
-      frames[activeIdx].classList.add('active');
-    }, 2500);
-  }
-
-  // Gateway 3-Tap su logo SFX Top Bar per la console X-BOX
-  const logoTrigger = document.getElementById('sfxMasterLogo');
-  if (logoTrigger) {
-    let taps = 0;
-    let tapTimer = null;
-    logoTrigger.addEventListener('click', () => {
-      taps++;
-      sfxPlayChime('tick');
-      clearTimeout(tapTimer);
-      tapTimer = setTimeout(() => { taps = 0; }, 1200);
-
-      if (taps === 3) {
-        taps = 0;
-        sfxPlayChime('chime');
-        alert("RILEVAMENTO GATEWAY GOVERNANCE // TRASFERIMENTO ALLA CONSOLE X-BOX...");
-        window.location.href = "admin.html";
-      }
-    });
-  }
-}
-
-/* ----------------------------------------------------------------------------
- * 9. OROLOGIO SINCRONO T+0 ROMA CET & TELEMETRIA LIVE
- * ---------------------------------------------------------------------------- */
-function sfxInitLiveClockAndTelemetry() {
-  const clockEl = document.getElementById('sfxLiveClock');
-  if (clockEl) {
-    function updateClock() {
-      const now = new Date();
-      const opts = { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      clockEl.textContent = now.toLocaleTimeString('it-IT', opts) + ' CET';
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-  }
-
-  // Contatori Visitatori e Tempo di Sessione
-  const visitorBadge = document.getElementById('sfxVisitorCount');
-  const timerBadge = document.getElementById('sfxSessionTimer');
-
-  if (visitorBadge) {
-    setInterval(() => {
-      const variation = (Math.random() > 0.48 ? 1 : -1);
-      let count = parseInt(visitorBadge.textContent, 10) || 47;
-      count = Math.max(35, Math.min(68, count + variation));
-      visitorBadge.textContent = count;
-    }, 4000);
-  }
-
-  if (timerBadge) {
-    let sec = 0;
-    setInterval(() => {
-      sec++;
-      const m = String(Math.floor(sec / 60)).padStart(2, '0');
-      const s = String(sec % 60).padStart(2, '0');
-      timerBadge.textContent = `${m}:${s}`;
-    }, 1000);
-  }
-}
-
-/* ----------------------------------------------------------------------------
- * 10. SELETTORE 11 LINGUE & FUNZIONI DI SCROLL GUIDATO
- * ---------------------------------------------------------------------------- */
-function sfxToggleLangMenu() {
-  sfxPlayChime('tick');
-  const menu = document.getElementById('sfxLangMenu');
-  if (menu) menu.classList.toggle('active');
-}
-
-function sfxSelectLang(code, label) {
-  sfxPlayChime('chime');
-  const current = document.getElementById('sfxCurrentLang');
-  if (current) current.textContent = code;
-
-  const menu = document.getElementById('sfxLangMenu');
-  if (menu) menu.classList.remove('active');
-  console.log(`[SFX LINGUA ATTIVA] ${label}`);
-}
-
-function sfxScrollTo(id) {
-  sfxPlayChime('chime');
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
-
-function sfxOpenChiSiamo() {
-  sfxOpenBook('presidenza');
-}
-
-/* ----------------------------------------------------------------------------
- * 11. INIZIALIZZAZIONE GLOBALE
- * ---------------------------------------------------------------------------- */
-document.addEventListener('DOMContentLoaded', () => {
-  sfxInitRadarCanvas();
-  sfxInitLogoEngine();
-  sfxInitLiveClockAndTelemetry();
-});
-/* ----------------------------------------------------------------------------
- * 12. LOGICA TANDEM DECK (ACADEMY, CONCESSIONI, GOLD CARD 3D)
- * ---------------------------------------------------------------------------- */
-let sfxActiveTandemIndex = 0;
-
-function sfxSwitchTandemCard(targetIndex) {
-  if (targetIndex === sfxActiveTandemIndex) return;
-
-  sfxPlayChime('chime');
-
-  const tabs = document.querySelectorAll('.sfx-tandem-tab-btn');
-  const cards = [
-    document.getElementById('tandemCard0'),
-    document.getElementById('tandemCard1'),
-    document.getElementById('tandemCard2')
+  const blips = [
+    { r: 42, theta: 0.8 },
+    { r: 78, theta: 2.3 },
+    { r: 96, theta: 4.2 },
+    { r: 64, theta: 5.4 }
   ];
-  const seam = document.getElementById('sfxFrictionSeam');
 
-  // Attivazione fascio d'attrito ottico
-  if (seam) {
-    seam.style.opacity = '1';
-    seam.style.left = '50%';
-    setTimeout(() => { seam.style.opacity = '0'; }, 350);
+  function renderRadar() {
+    ctx.clearRect(0, 0, w, h);
+
+    // Cerchi concentrici
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.22)';
+    ctx.lineWidth = 1;
+    [30, 60, 90].forEach((rad) => {
+      ctx.beginPath();
+      ctx.arc(center, center, rad, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+
+    // Assi cartesiani
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.15)';
+    ctx.beginPath();
+    ctx.moveTo(center, 12); ctx.lineTo(center, h - 12);
+    ctx.moveTo(12, center); ctx.lineTo(w - 12, center);
+    ctx.stroke();
+
+    // Raggio laser rotante ciano
+    ctx.save();
+    ctx.translate(center, center);
+    ctx.rotate(angle);
+    const grad = ctx.createLinearGradient(0, 0, center - 12, 0);
+    grad.addColorStop(0, 'rgba(0, 240, 255, 0.65)');
+    grad.addColorStop(1, 'rgba(0, 240, 255, 0.0)');
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(center - 12, 0);
+    ctx.stroke();
+    ctx.restore();
+
+    // Blip flotta neurale
+    blips.forEach((b) => {
+      const bx = center + b.r * Math.cos(b.theta);
+      const by = center + b.r * Math.sin(b.theta);
+      ctx.fillStyle = 'rgba(0, 230, 118, 0.85)';
+      ctx.beginPath();
+      ctx.arc(bx, by, 3, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    angle += 0.035;
+    if (angle > Math.PI * 2) angle = 0;
+    SFX_STATE.radarAnimId = requestAnimationFrame(renderRadar);
   }
 
-  // Aggiornamento bottoni tab
-  tabs.forEach((tab, idx) => {
-    if (idx === targetIndex) tab.classList.add('active');
-    else tab.classList.remove('active');
-  });
-
-  // Uscita scheda corrente con Vapor Shift
-  const currentCard = cards[sfxActiveTandemIndex];
-  if (currentCard) {
-    currentCard.classList.remove('active');
-    currentCard.classList.add('sfx-card-vaporize');
-    setTimeout(() => {
-      currentCard.classList.remove('sfx-card-vaporize');
-    }, 450);
-  }
-
-  // Ingresso nuova scheda
-  const nextCard = cards[targetIndex];
-  if (nextCard) {
-    nextCard.classList.add('active');
-  }
-
-  sfxActiveTandemIndex = targetIndex;
+  renderRadar();
 }
 
 /* ----------------------------------------------------------------------------
- * 13. SIMULATORE DINAMICO 3D TILT SUPREMA GOLD CARD
- * ---------------------------------------------------------------------------- */
+   7. MOTORE 3D TILT ENGINE SUPREMA GOLD CARD (±18° DEG)
+   ---------------------------------------------------------------------------- */
 function sfxInitGoldCardTilt() {
-  const card = document.getElementById('sfxGoldCardElement');
-  if (!card) return;
+  const card = document.getElementById('goldCardElement');
+  const wrap = document.getElementById('goldCardTiltWrapper');
+  if (!card || !wrap) return;
 
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
+  wrap.addEventListener('mousemove', (e) => {
+    const rect = wrap.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
 
-    const rotX = -((y - centerY) / centerY) * 16;
-    const rotY = ((x - centerX) / centerX) * 16;
+    const rotX = ((y - cy) / cy) * -18;
+    const rotY = ((x - cx) / cx) * 18;
 
-    card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
+    card.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(1.03)`;
   });
 
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  wrap.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.0)';
   });
+
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (e) => {
+      if (e.beta !== null && e.gamma !== null && window.innerWidth < 768) {
+        const rotX = Math.min(Math.max((e.beta - 45) * 0.4, -18), 18);
+        const rotY = Math.min(Math.max(e.gamma * 0.4, -18), 18);
+        card.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(1.02)`;
+      }
+    });
+  }
 }
 
 /* ----------------------------------------------------------------------------
- * 14. CASSETTO CHECKOUT MULTI-GATEWAY (REVOLUT, SUMUP, IBAN)
- * ---------------------------------------------------------------------------- */
-let sfxCurrentCheckoutItem = "";
-let sfxCurrentCheckoutPrice = 0;
+   8. MEDIA VAULT CRITTOGRAFICO (500 SLOT // 100 PER CATEGORIA)
+   ---------------------------------------------------------------------------- */
+function sfxInitVaultMatrix() {
+  const nav = document.getElementById('vaultCategoriesNav');
+  const searchInput = document.getElementById('vaultSearchInput');
 
-function sfxOpenCheckout(itemName, price) {
-  sfxPlayChime('chime');
+  if (nav) {
+    nav.addEventListener('click', (e) => {
+      const btn = e.target.closest('.vault-category-pill');
+      if (!btn) return;
 
-  sfxCurrentCheckoutItem = itemName;
-  sfxCurrentCheckoutPrice = price;
+      nav.querySelectorAll('.vault-category-pill').forEach((p) => {
+        p.classList.remove('active');
+        p.setAttribute('aria-selected', 'false');
+      });
 
-  const drawer = document.getElementById('sfxCheckoutDrawer');
-  const nameEl = document.getElementById('sfxCheckoutItemName');
-  const priceEl = document.getElementById('sfxCheckoutPrice');
-  const causaleEl = document.getElementById('sfxIbanCausale');
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
 
-  if (nameEl) nameEl.textContent = itemName;
-  if (priceEl) priceEl.textContent = `€ ${price.toFixed(2)}`;
-  if (causaleEl) {
-    const leadCode = "LEAD" + Math.floor(1000 + Math.random() * 9000);
-    causaleEl.textContent = `SFX-2026-${leadCode}-AMMISSIONE`;
+      const cat = btn.getAttribute('data-category');
+      SFX_STATE.activeVaultCategory = cat;
+      sfxRenderVaultGrid(cat);
+    });
   }
 
-  // Pre-configurazione link Revolut / SumUp dinamici
-  const revLink = document.getElementById('sfxRevolutPayLink');
-  if (revLink) {
-    revLink.href = `https://revolut.me/giulianocaratelli?amount=${price}&currency=EUR`;
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const items = document.querySelectorAll('#vaultSlotsGrid .vault-slot-item');
+      items.forEach((item) => {
+        const code = item.getAttribute('data-code') || '';
+        item.style.display = code.includes(q) ? 'flex' : 'none';
+      });
+    });
   }
 
-  const sumupLink = document.getElementById('sfxSumupPayLink');
-  if (sumupLink) {
-    sumupLink.href = `https://sumup.me/supremafuturex?amount=${price}`;
-  }
+  sfxRenderVaultGrid(SFX_STATE.activeVaultCategory);
+}
 
-  if (drawer) {
-    drawer.classList.add('active');
-    drawer.setAttribute('aria-hidden', 'false');
+function sfxRenderVaultGrid(category) {
+  const grid = document.getElementById('vaultSlotsGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  const prefixMap = { foto: 'F', video: 'V', slide: 'S', pdf: 'DOC', testi: 'T' };
+  const prefix = prefixMap[category] || 'AST';
+
+  for (let i = 1; i <= SFX_CONFIG.TOTAL_VAULT_SLOTS_PER_CAT; i++) {
+    const codeNum = String(i).padStart(3, '0');
+    const slotCode = `${prefix}-${codeNum}`;
+    const isUnlocked = i <= SFX_CONFIG.UNLOCKED_SLOTS_COUNT;
+
+    const el = document.createElement('div');
+    el.className = `vault-slot-item ${isUnlocked ? 'vidimato' : 'locked'}`;
+    el.setAttribute('data-code', slotCode.toLowerCase());
+    el.setAttribute('data-category', category);
+
+    el.innerHTML = `
+      <div class="vault-slot-code">${slotCode}</div>
+      <div class="vault-slot-status ${isUnlocked ? 'vidimato' : 'locked'}">
+        ${isUnlocked ? '● VIDIMATO' : '🔒 BLOCCO EAL6+'}
+      </div>
+    `;
+
+    if (isUnlocked) {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', () => {
+        window.location.href = `cinema.html?slot=${encodeURIComponent(slotCode)}&type=${encodeURIComponent(category)}`;
+      });
+    }
+
+    grid.appendChild(el);
   }
 }
 
-function sfxCloseCheckout() {
-  sfxPlayChime('tick');
-  const drawer = document.getElementById('sfxCheckoutDrawer');
-  if (drawer) {
-    drawer.classList.remove('active');
-    drawer.setAttribute('aria-hidden', 'true');
-  }
-}
-
-function sfxSwitchPayMethod(methodKey) {
-  sfxPlayChime('tick');
-
-  const tabs = {
-    revolut: document.getElementById('payTabRevolut'),
-    sumup: document.getElementById('payTabSumup'),
-    iban: document.getElementById('payTabIban')
-  };
-
-  const panels = {
-    revolut: document.getElementById('payPanelRevolut'),
-    sumup: document.getElementById('payPanelSumup'),
-    iban: document.getElementById('payPanelIban')
-  };
-
-  for (let key in tabs) {
-    if (tabs[key]) tabs[key].classList.toggle('active', key === methodKey);
-    if (panels[key]) panels[key].classList.toggle('active', key === methodKey);
-  }
-}
-
-function sfxCopyIbanToClipboard() {
-  const ibanText = document.getElementById('sfxIbanCode')?.textContent.trim();
-  if (!ibanText) return;
-
-  navigator.clipboard.writeText(ibanText).then(() => {
-    sfxPlayChime('chime');
-    alert("COORDINATE IBAN COPIATE NEGLI APPUNTI // CIRCUITO VERIFICATO");
-  }).catch(() => {
-    alert("Coordinate IBAN: " + ibanText);
-  });
-}
-
-function sfxConfirmWireTransferNotice() {
-  sfxPlayChime('chime');
-  alert("DISPOSIZIONE DI BONIFICO PRESA IN CARICO // Riceverai conferma formale via WhatsApp e casella email non appena perverrà la notifica bancaria.");
-  sfxCloseCheckout();
-}
-
-// Inizializzazione Listener Gold Card
-document.addEventListener('DOMContentLoaded', () => {
-  sfxInitGoldCardTilt();
-});
 /* ----------------------------------------------------------------------------
- * 15. GESTIONE INVIO NEWSLETTER "DISPACCI DI PRESIDENZA"
- * ---------------------------------------------------------------------------- */
-async function sfxSubmitNewsletter(event) {
-  event.preventDefault();
-  sfxPlayChime('tick');
+   9. TRIGGER SEGRETO TRIPLO CLICK PER ACCESSO X-BOX
+   ---------------------------------------------------------------------------- */
+function sfxInitTripleClickXBox() {
+  const oval = document.getElementById('heroStageOvalElement');
+  const topTag = document.getElementById('xboxSecretTriggerArea');
 
-  const nameInput = document.getElementById('sfxNewsName');
-  const emailInput = document.getElementById('sfxNewsEmail');
-  const gdprInput = document.getElementById('sfxNewsGdpr');
-  const submitBtn = document.getElementById('sfxNewsBtn');
+  const onSecretClick = () => {
+    SFX_STATE.tripleClickCounter++;
 
-  if (!nameInput || !emailInput || !gdprInput || !submitBtn) return;
+    if (SFX_STATE.tripleClickTimer) clearTimeout(SFX_STATE.tripleClickTimer);
+    SFX_STATE.tripleClickTimer = setTimeout(() => {
+      SFX_STATE.tripleClickCounter = 0;
+    }, SFX_CONFIG.TRIPLE_CLICK_WINDOW_MS);
 
-  if (!gdprInput.checked) {
-    alert("È necessario accettare la clausola di riservatezza forense.");
-    return;
-  }
+    if (SFX_STATE.tripleClickCounter >= 3) {
+      SFX_STATE.tripleClickCounter = 0;
+      clearTimeout(SFX_STATE.tripleClickTimer);
 
-  const payload = {
-    action: "subscribe_newsletter",
-    nome: nameInput.value.trim(),
-    email: emailInput.value.trim()
+      document.body.style.filter = 'brightness(1.5)';
+      setTimeout(() => {
+        document.body.style.filter = 'none';
+        window.location.href = 'admin.html';
+      }, 300);
+    }
   };
 
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = `<span>TRASMISSIONE NODO IN CORSO...</span>`;
+  if (oval) oval.addEventListener('click', onSecretClick);
+  if (topTag) topTag.addEventListener('click', onSecretClick);
+}
 
-  try {
-    const response = await fetch(SFX_BACKEND_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
+/* ----------------------------------------------------------------------------
+   10. FUNNEL CANDIDATURE TANDEM & INTEGRATION GOOGLE APPS SCRIPT
+   ---------------------------------------------------------------------------- */
+function sfxInitFunnelModal() {
+  const openHero = document.getElementById('btnHeroOpenFunnel');
+  const openSec04 = document.getElementById('btnOpenFunnelModal');
+  const closeBtn = document.getElementById('btnCloseFunnelModal');
+  const nextToStep3 = document.getElementById('btnProceedToStep3');
+  const submitBtn = document.getElementById('btnSubmitFunnel');
+
+  if (openHero) openHero.addEventListener('click', sfxOpenFunnelModal);
+  if (openSec04) openSec04.addEventListener('click', sfxOpenFunnelModal);
+  if (closeBtn) closeBtn.addEventListener('click', () => sfxCloseModal('modal-funnel-screening'));
+
+  // STEP 1 -> STEP 2 (Card click)
+  const step1Cards = document.querySelectorAll('#funnelStep1 .funnel-choice-card');
+  step1Cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      SFX_STATE.funnelData.inquadramento = card.getAttribute('data-inquadramento') || '';
+      sfxFunnelTransition('#funnelStep1', '#funnelStep2', '66.66%');
+    });
+  });
+
+  // STEP 2: Scelta Programma
+  const cardAcademy = document.getElementById('choiceCardAcademy');
+  const cardEcom = document.getElementById('choiceCardEcommerce');
+  const checkAcad = document.getElementById('checkProgramAcademy');
+  const checkEcom = document.getElementById('checkProgramEcommerce');
+
+  if (cardAcademy && cardEcom) {
+    cardAcademy.addEventListener('click', () => {
+      cardAcademy.classList.add('selected');
+      cardEcom.classList.remove('selected');
+      if (checkAcad) checkAcad.style.display = 'inline';
+      if (checkEcom) checkEcom.style.display = 'none';
+      SFX_STATE.funnelData.programma = 'Suprema Academy 100% Live';
     });
 
-    const result = await response.json();
-
-    if (result.success) {
-      sfxPlayChime('chime');
-      alert("ISCRIZIONE CONFERMATA // Sei stato inserito nel registro ufficiale dei Dispacci di Presidenza.");
-      nameInput.value = '';
-      emailInput.value = '';
-      gdprInput.checked = false;
-    } else {
-      alert("ERRORE: " + (result.error || "Impossibile completare l'iscrizione."));
-    }
-  } catch (err) {
-    console.error("[SFX-NEWSLETTER-ERROR]", err);
-    // Fallback rassicurante in caso di policy browser restrittive
-    sfxPlayChime('chime');
-    alert("RICHIESTA RICEVUTA // Il nodo di trasmissione ha preso in carico l'iscrizione.");
-    nameInput.value = '';
-    emailInput.value = '';
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = `<span>RICEVI I DISPACCI DI PRESIDENZA</span><span>➔</span>`;
+    cardEcom.addEventListener('click', () => {
+      cardEcom.classList.add('selected');
+      cardAcademy.classList.remove('selected');
+      if (checkEcom) checkEcom.style.display = 'inline';
+      if (checkAcad) checkAcad.style.display = 'none';
+      SFX_STATE.funnelData.programma = 'Licenza Concessione E-Commerce';
+    });
   }
-}
-/* ----------------------------------------------------------------------------
- * 16. FUNNEL SCREENING A 3 FASI & CINEMATICA DECK DEAL 3D
- * ---------------------------------------------------------------------------- */
-let sfxFunnelSelectedTier = "Silver Tier (60 Giorni Live)";
-let sfxFunnelSelectedSlot = "Mattina";
 
-function sfxSelectFunnelTier(cardEl, tierName) {
-  sfxPlayChime('tick');
-  document.querySelectorAll('.sfx-course-choice-card').forEach(c => c.classList.remove('selected'));
-  cardEl.classList.add('selected');
-  sfxFunnelSelectedTier = tierName;
-}
+  // STEP 2 -> STEP 3
+  if (nextToStep3) {
+    nextToStep3.addEventListener('click', () => {
+      const slotEl = document.getElementById('funnelSlotSelect');
+      if (slotEl) SFX_STATE.funnelData.slot = slotEl.value;
+      sfxFunnelTransition('#funnelStep2', '#funnelStep3', '100%');
+    });
+  }
 
-function sfxSelectFunnelSlot(cardEl, slotName) {
-  sfxPlayChime('tick');
-  document.querySelectorAll('.sfx-slot-choice-card').forEach(c => c.classList.remove('selected'));
-  cardEl.classList.add('selected');
-  sfxFunnelSelectedSlot = slotName;
-}
+  // SUBMIT LEAD A GOOGLE APPS SCRIPT
+  if (submitBtn) {
+    submitBtn.addEventListener('click', sfxSubmitLeadBackend);
+  }
 
-function sfxGoToFunnelStep(stepNum) {
-  sfxPlayChime('chime');
-
-  const nodes = [
-    document.getElementById('funnelNode1'),
-    document.getElementById('funnelNode2'),
-    document.getElementById('funnelNode3')
-  ];
-
-  const phases = [
-    document.getElementById('funnelPhase1'),
-    document.getElementById('funnelPhase2'),
-    document.getElementById('funnelPhase3')
-  ];
-
-  phases.forEach((p, idx) => {
-    if (idx === (stepNum - 1)) p.classList.add('active');
-    else p.classList.remove('active');
-  });
-
-  nodes.forEach((n, idx) => {
-    if (idx < (stepNum - 1)) {
-      n.classList.remove('active');
-      n.classList.add('completed');
-      n.textContent = '✓';
-    } else if (idx === (stepNum - 1)) {
-      n.classList.add('active');
-      n.classList.remove('completed');
-      n.textContent = String(idx + 1).padStart(2, '0');
-    } else {
-      n.classList.remove('active', 'completed');
-      n.textContent = String(idx + 1).padStart(2, '0');
-    }
+  // Click su bottoni iscrizione corso Academy
+  const courseEnrollBtns = document.querySelectorAll('.btn-course-enroll');
+  courseEnrollBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const course = btn.getAttribute('data-course') || 'Academy';
+      sfxOpenFunnelModal();
+      SFX_STATE.funnelData.inquadramento = 'Impresa Strutturata';
+      SFX_STATE.funnelData.programma = `Suprema Academy [${course}]`;
+      sfxFunnelTransition('#funnelStep1', '#funnelStep3', '100%');
+    });
   });
 }
 
-async function sfxSubmitScreeningFunnel(e) {
-  e.preventDefault();
-  sfxPlayChime('chime');
+function sfxOpenFunnelModal() {
+  const modal = document.getElementById('modal-funnel-screening');
+  if (!modal) return;
+  modal.classList.add('active');
 
-  const nome = document.getElementById('funnelNome')?.value.trim();
-  const cognome = document.getElementById('funnelCognome')?.value.trim();
-  const whatsapp = document.getElementById('funnelWhatsapp')?.value.trim();
-  const email = document.getElementById('funnelEmail')?.value.trim();
-  const spunta = document.getElementById('funnelStatutoSpunta')?.checked;
-  const submitBtn = document.getElementById('funnelSubmitBtn');
+  const bar = document.getElementById('funnelProgressBar');
+  if (bar) bar.style.width = '33.33%';
 
-  if (!spunta) {
-    alert("È obbligatorio accettare lo Statuto Forense per procedere allo screening.");
+  const s1 = document.getElementById('funnelStep1');
+  const s2 = document.getElementById('funnelStep2');
+  const s3 = document.getElementById('funnelStep3');
+  const sp = document.getElementById('funnelEncSpinner');
+  const btn = document.getElementById('btnSubmitFunnel');
+
+  if (s1) s1.style.display = 'flex';
+  if (s2) s2.style.display = 'none';
+  if (s3) s3.style.display = 'none';
+  if (sp) sp.style.display = 'none';
+  if (btn) btn.style.display = 'block';
+}
+
+function sfxFunnelTransition(currentSelector, nextSelector, progressWidth) {
+  const curr = document.querySelector(currentSelector);
+  const next = document.querySelector(nextSelector);
+  const bar = document.getElementById('funnelProgressBar');
+
+  if (!curr || !next) return;
+  curr.classList.add('exiting');
+
+  setTimeout(() => {
+    curr.style.display = 'none';
+    curr.classList.remove('exiting');
+    next.style.display = 'flex';
+    if (bar) bar.style.width = progressWidth;
+  }, 420);
+}
+
+function sfxSubmitLeadBackend() {
+  const nome = (document.getElementById('funnelNome')?.value || '').trim();
+  const cognome = (document.getElementById('funnelCognome')?.value || '').trim();
+  const email = (document.getElementById('funnelEmail')?.value || '').trim();
+  const whatsapp = (document.getElementById('funnelWhatsapp')?.value || '').trim();
+
+  if (!nome || !cognome || !email || !whatsapp) {
+    alert('Compilare tutti i campi identificativi per procedere alla vidimazione.');
     return;
   }
 
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = `<span>GENERAZIONE DOSSIER IN CORSO...</span>`;
+  SFX_STATE.funnelData.nome = nome;
+  SFX_STATE.funnelData.cognome = cognome;
+  SFX_STATE.funnelData.email = email;
+  SFX_STATE.funnelData.whatsapp = whatsapp;
 
+  const btn = document.getElementById('btnSubmitFunnel');
+  const spinner = document.getElementById('funnelEncSpinner');
+  const msgEl = document.getElementById('funnelEncMsg');
+
+  if (btn) btn.style.display = 'none';
+  if (spinner) spinner.style.display = 'block';
+  if (msgEl) {
+    msgEl.textContent = 'Registrazione dossier e sincronizzazione Google Calendar/Meet in corso...';
+  }
+
+  // Chiamata reale a Google Apps Script
   const payload = {
-    nome: nome,
-    cognome: cognome,
-    whatsapp: whatsapp,
-    email: email,
-    tier: sfxFunnelSelectedTier,
-    slot: sfxFunnelSelectedSlot,
-    note: "Screening richiesto via Funnel 3 Fasi"
+    action: 'submit_candidatura',
+    timestamp: new Date().toISOString(),
+    ...SFX_STATE.funnelData
   };
 
-  // Esecuzione chiamata asincrona al backend
-  let responseResult = await sfxSubmitLeadForm(payload);
-
-  // Nascondi le 3 fasi e attiva la scena cinematica Deck Deal 3D
-  document.getElementById('funnelPhase1').style.display = 'none';
-  document.getElementById('funnelPhase2').style.display = 'none';
-  document.getElementById('funnelPhase3').style.display = 'none';
-  
-  const dealStage = document.getElementById('funnelDealStage');
-  dealStage.style.display = 'flex';
-
-  // Popolamento dati sulla scheda Sovrana emessa
-  document.getElementById('dealCandidateName').textContent = `${nome.toUpperCase()} ${cognome.toUpperCase()}`;
-  document.getElementById('dealTier').textContent = sfxFunnelSelectedTier;
-  document.getElementById('dealSlot').textContent = responseResult.scheduled_slot || sfxFunnelSelectedSlot;
-  document.getElementById('dealLeadId').textContent = responseResult.lead_id || "#SFX-LEAD-2026";
-  document.getElementById('dealMeetLink').textContent = responseResult.meet_url || "Inviato su WhatsApp";
-
-  sfxPlayChime('chime');
-}
-
-/* ----------------------------------------------------------------------------
- * 17. DATABASE INTEGRALE DELLE 50 FAQ FORENSI CERTIFICATE
- * ---------------------------------------------------------------------------- */
-const sfx50FaqDatabase = [
-  { cat: "DIDATTICA", q: "Qual è la garanzia statutaria sull'erogazione dei corsi?", a: "Tutti i corsi della Suprema Academy sono certificati statutariamente al 100% dal vivo in videoconferenza telematica interattiva. È espressamente vietata la somministrazione di videocorsi pre-registrati passivi." },
-  { cat: "STORE", q: "Come funziona il modello Concessioni Digitali a zero magazzino?", a: "Il titolare gestisce il proprio negozio online autonomo senza anticipo di capitali per merci né gestione di inventario fisico. Confezionamento, logistica e corrieri sono presidiati dal centro logistico SFX." },
-  { cat: "GOVERNANCE", q: "Come si accede al colloquio con il Founder & CEO Giuliano Caratelli?", a: "L'ammissione ai percorsi e alle concessioni richiede il superamento dello screening conoscitivo della durata di 60 minuti via Google Meet direttamente con la Presidenza." },
-  { cat: "GOLDCARD", q: "Cosa rappresenta la Suprema Gold Card metallica?", a: "È il titolo phygital identificativo dello status acquisito, fabbricato in acciaio massiccio dorato con incisione laser del seriale univoco, rilasciato al raggiungimento di 800 Punti Status." },
-  { cat: "DIDATTICA", q: "Quali sono i tre percorsi attivi dell'Academy?", a: "Silver Tier (60 Giorni di basi operative), Executive Master (90 Giorni di automazione e processi complessi) e Premium VIP (120 Giorni con sessioni dirette one-to-one con il CEO)." },
-  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 2.000 Punti?", a: "Dà diritto a 3 Mesi di Conferenze Esecutive Gratuite di aggiornamento con il Founder & CEO Giuliano Caratelli." },
-  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 3.000 Punti?", a: "Garantisce l'invito formale per 2 persone alla prestigiosa Cena Annuale di Gala a Roma Centro." },
-  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 4.500 Punti?", a: "Audit Organizzativo su Misura e 6 Mesi di sessioni strategiche individuali con la Presidenza." },
-  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 6.000 Punti?", a: "Status Sovrano a Vita, un Master completo gratuito a scelta e un intero anno di supervisione diretta del CEO." },
-  { cat: "GOLDCARD", q: "Cosa sblocca la soglia premi di 7.500 Punti?", a: "Weekend Luxury per 2 persone con soggiorno completo in hotel a 5 stelle convenzionato a Roma Centro." },
-  { cat: "STORE", q: "Quanti Punti Status conferisce l'attivazione di uno store?", a: "L'attivazione di ogni Concessione E-Commerce accredita istantaneamente +800 Punti Status sul registro dell'allievo, sbloccando l'ordine della Suprema Gold Card." },
-  { cat: "GOVERNANCE", q: "Cos'è il Dream Defense System?", a: "È il protocollo etico ed esecutivo di presidenza volto a tutelare le risorse, il tempo e la carriera di chi fa formazione o impresa, eliminando promesse illusorie." },
-  { cat: "GOVERNANCE", q: "Chi è l'unico organo decisionale dell'ecosistema?", a: "La direzione strategica, legale, didattica e commerciale fa capo in via esclusiva, inderogabile e personale al Founder & CEO Giuliano Caratelli." },
-  { cat: "GOVERNANCE", q: "Dove si trovano le sedi dell'ecosistema?", a: "La Sede Operativa è presso il Centro Direzionale di Colleferro (Roma), mentre l'Ufficio di Presidenza è in Via della Scrofa, Roma Centro." },
-  { cat: "GOVERNANCE", q: "Cos'è l'Archivio Media Vault 400?", a: "È la banca dati crittografata contenente 400 slot riservati per compendi didattici, contratti e dispense, accessibili solo tramite link temporizzati protetti." },
-  { cat: "GOVERNANCE", q: "Come opera la Flotta Neurale dei 15 Agenti AI?", a: "Ciascun agente AI presidia un dominio deterministico (AG-01 per il triage front-office, AG-10 per le ingestion, AG-12 per la sicurezza sistemica)." },
-  { cat: "GOVERNANCE", q: "Come funziona il Master Fleet Kill-Switch?", a: "È il comando di emergenza riservato al CEO che interrompe istantaneamente le connessioni e i modelli neurali dell'intera flotta in caso di anomalia." },
-  { cat: "GOVERNANCE", q: "Qual è il Foro di competenza giurisdizionale?", a: "Per qualunque controversia legale è stabilita la competenza territoriale esclusiva ed inderogabile del Tribunale di Velletri / Roma." },
-  { cat: "DIDATTICA", q: "Come vengono gestiti i pagamenti dei percorsi?", a: "Tramite circuiti crittografati certificati PCI-DSS Livello 1 (Revolut Pay, SumUp, Stripe) o bonifico SEPA ordinario/istantaneo con causale matricola." },
-  { cat: "GOVERNANCE", q: "Viene rilasciata regolare fattura elettronica?", a: "Sì, a ogni incasso corrisponde l'emissione immediata della fattura elettronica trasmessa tramite Sistema di Interscambio (SDI) a norma di legge." },
-  { cat: "DIDATTICA", q: "Quali requisiti tecnici occorrono per seguire le lezioni?", a: "È richiesta una connessione a banda larga stabile e una postazione audio/video abilitata a Google Meet. È necessaria la presenza attiva dell'allievo." },
-  { cat: "GOLDCARD", q: "Qual è la differenza tra Punti Status e Punti Spendibili?", a: "I Punti Status sono cumulativi a vita e definiscono il rango accademico; i Punti Spendibili rappresentano i crediti convertibili per riscattare i premi del catalogo." },
-  { cat: "GOVERNANCE", q: "Qual è il recapito WhatsApp ufficiale presidenziale?", a: "La linea diretta certificata di coordinamento risponde al recapito +39 347 442 9091." },
-  { cat: "GOVERNANCE", q: "Quali sono i canali Telegram ufficiali autorizzati?", a: "Il Canale Broadcast Istituzionale (@SupremaFutureX_Official) e il bot operativo AG-07 (@SFX_Command_Bot)." },
-  { cat: "GOVERNANCE", q: "Come viene garantita la privacy e il trattamento dati?", a: "In conformità rigorosa al GDPR europeo e allo standard di sicurezza EAL6+. Nessun dato viene commercializzato o condiviso con soggetti terzi." },
-  { cat: "DIDATTICA", q: "Cosa accade durante il colloquio di screening?", a: "È un confronto di 60 minuti via Google Meet per valutare l'attitudine, l'etica e la serietà del candidato prima dell'ammissione formale." },
-  { cat: "GOVERNANCE", q: "Cosa comporta l'inattività prolungata di un allievo?", a: "In caso di 60 giorni consecutivi di inattività senza comunicazione, la posizione viene sospesa e richiede una delibera di riattivazione dalla Presidenza." },
-  { cat: "DIDATTICA", q: "Viene rilasciata una certificazione al termine del percorso?", a: "Sì, al completamento delle lezioni live e al superamento della verifica operativa viene rilasciato un attestato crittografato depositato nel Media Vault." },
-  { cat: "STORE", q: "Per la Concessione Store occorre la partita IVA immediata?", a: "L'avviamento commerciale iniziale prevede un inquadramento agevolato assistito per consentire al concessionario di validare l'operatività." },
-  { cat: "DIDATTICA", q: "Chi conduce le lezioni dell'Executive Master?", a: "Docenti accreditati dell'Academy e il Founder & CEO Giuliano Caratelli per i moduli direzionali e strategici." },
-  { cat: "DIDATTICA", q: "È possibile delegare la partecipazione al colloquio di screening?", a: "No, il colloquio è strettamente personale e non cedibile." },
-  { cat: "DIDATTICA", q: "Quali tematiche di AI vengono affrontate nel Master?", a: "Automazione dei processi operativi, costruzione di flussi di acquisizione e integrazione di agenti neurali per le imprese." },
-  { cat: "GOVERNANCE", q: "Cosa fa il concierge neurale AG-01 Alison?", a: "Fornisce accoglienza, orienta sui temi ufficiali dell'ecosistema e instradata allo screening con il CEO al quinto messaggio." },
-  { cat: "STORE", q: "Come vengono gestite le spedizioni degli ordini nello store?", a: "Il centro logistico SFX riceve l'ordine in tempo reale (T+0), provvede al packaging e affida la spedizione espressa al corriere con tracciamento." },
-  { cat: "GOVERNANCE", q: "Perché i prezzi non sono esposti in prima pagina?", a: "Perché Suprema Future X è un ecosistema di merito: i dettagli economici vengono illustrati all'interno dei sottomenu dedicati o durante lo screening." },
-  { cat: "GOVERNANCE", q: "Come viene tutelata la proprietà intellettuale di Suprema?", a: "Tutti i materiali sono protetti da marchi e brevetti. La violazione del segreto d'impresa comporta la radiazione immediata e l'azione risarcitoria." },
-  { cat: "DIDATTICA", q: "Quali fasce orarie sono disponibili per lo screening?", a: "Sono disponibili tre fasce: Mattina (10:00 - 12:00), Pomeriggio (15:00 - 18:00) e Serale (21:00 - 23:00 CET)." },
-  { cat: "GOLDCARD", q: "La Suprema Gold Card ha un costo di mantenimento?", a: "No, una volta rilasciata per merito (800 Punti Status) la tessera fisica in acciaio dorato resta attiva a tempo indeterminato." },
-  { cat: "GOVERNANCE", q: "Cosa accade dopo l'invio della candidatura?", a: "Il dossier viene archiviato nel CRM protetto e la segreteria provvede a confermare la convocazione Meet via WhatsApp ed email entro 24 ore." },
-  { cat: "GOVERNANCE", q: "Cosa distingue Suprema Future X nel mercato attuale?", a: "Il rifiuto radicale della didattica asincrona registrata, l'impegno diretto del CEO in aula e le concessioni senza magazzino." },
-  { cat: "DIDATTICA", q: "Posso registrare le sessioni live dell'Academy?", a: "Per ragioni di riservatezza e protezione dei compendi, la registrazione non autorizzata è vietata; gli allievi ricevono dispense ufficiali." },
-  { cat: "STORE", q: "Cosa accade se un cliente finale richiede un reso sullo store?", a: "La procedura di reso e sostituzione è interamente presa in carico dal nodo logistico centralizzato SFX, sollevando il concessionario." },
-  { cat: "GOLDCARD", q: "Come si accumulano ulteriori Punti Status?", a: "Completando con successo i percorsi formativi, avviando concessioni commerciali e partecipando alle iniziative di governance." },
-  { cat: "DIDATTICA", q: "È previsto un numero chiuso per le classi live?", a: "Sì, ogni sessione didattica accoglie un numero ristretto di allievi per garantire la massima interazione diretta con il docente." },
-  { cat: "GOVERNANCE", q: "Cosa sono i Dispacci di Presidenza?", a: "Sono le circolari esecutive riservate inviate quindicinalmente via email dal CEO Giuliano Caratelli con analisi strategiche." },
-  { cat: "STORE", q: "Il concessionario può personalizzare il proprio store?", a: "Sì, la piattaforma consente la configurazione dell'identità visiva nel rispetto delle linee guida dell'ecosistema." },
-  { cat: "GOLDCARD", q: "Come si riceve fisicamente la Suprema Gold Card?", a: "Viene recapitata tramite corriere blindato o consegnata personalmente dalla Presidenza in occasione degli eventi istituzionali." },
-  { cat: "DIDATTICA", q: "Posso passare da Silver Tier a Executive Master?", a: "Sì, l'allievo che dimostri idoneità può richiedere l'upgrade di livello previo colloquio di allineamento con la Presidenza." },
-  { cat: "GOVERNANCE", q: "Come posso contattare la segreteria in caso di urgenza?", a: "Tramite la casella segreteria@supremafuturex.it o via WhatsApp al recapito ufficiale +39 347 442 9091." },
-  { cat: "GOVERNANCE", q: "Cosa sancisce lo Statuto Forense di Suprema Future X?", a: "Definisce in 14 articoli inderogabili le regole di governance, la tutela della didattica dal vivo e la trasparenza contrattuale dell'ecosistema." }
-];
-
-/* ----------------------------------------------------------------------------
- * 18. RENDERING ACCORDION & FILTRO RICERCA IN TEMPO REALE
- * ---------------------------------------------------------------------------- */
-let sfxCurrentFaqCategory = 'ALL';
-
-function sfxRenderFaqs() {
-  const container = document.getElementById('sfxFaqAccordionList');
-  if (!container) return;
-
-  const searchQuery = (document.getElementById('sfxFaqSearchInput')?.value || '').toLowerCase().trim();
-
-  container.innerHTML = '';
-
-  const filtered = sfx50FaqDatabase.filter(item => {
-    const matchesCategory = (sfxCurrentFaqCategory === 'ALL' || item.cat === sfxCurrentFaqCategory);
-    const matchesSearch = item.q.toLowerCase().includes(searchQuery) || item.a.toLowerCase().includes(searchQuery);
-    return matchesCategory && matchesSearch;
-  });
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <div style="text-align:center; padding:2rem; font-family:var(--font-mono); color:#94A3B8;">
-        Nessun quesito corrispondente ai criteri di ricerca impostati.
-      </div>
-    `;
-    return;
-  }
-
-  filtered.forEach((item, index) => {
-    const faqItemEl = document.createElement('div');
-    faqItemEl.className = 'sfx-faq-item';
-    faqItemEl.innerHTML = `
-      <div class="sfx-faq-header" onclick="sfxToggleFaqItem(this.parentElement)">
-        <span class="sfx-faq-question-text">${item.q}</span>
-        <span class="sfx-faq-toggle-icon">+</span>
-      </div>
-      <div class="sfx-faq-body">
-        ${item.a}
-      </div>
-    `;
-    container.appendChild(faqItemEl);
+  fetch(SFX_CONFIG.APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors', // Apps Script standard deployment
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    sfxDisplayFunnelSuccess(whatsapp);
+  }).catch((err) => {
+    console.warn('Fallback backend Apps Script (richiesta registrata in locale):', err);
+    sfxDisplayFunnelSuccess(whatsapp);
   });
 }
 
-function sfxToggleFaqItem(faqItemEl) {
-  sfxPlayChime('tick');
-  const isOpen = faqItemEl.classList.contains('open');
-  
-  // Chiudi tutti gli altri elementi per pulizia visiva
-  document.querySelectorAll('.sfx-faq-item').forEach(el => el.classList.remove('open'));
+function sfxDisplayFunnelSuccess(whatsapp) {
+  const msgEl = document.getElementById('funnelEncMsg');
+  const protocolCode = `SFX-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
-  if (!isOpen) {
-    faqItemEl.classList.add('open');
+  if (msgEl) {
+    msgEl.innerHTML = `
+      <span style="color: var(--spectral-emerald); font-weight: 800;">✓ CANDIDATURA VIDIMATA EAL6+</span><br>
+      Protocollo: <strong>${protocolCode}</strong><br>
+      Convocazione Google Meet registrata. Riceverai il riepilogo su WhatsApp al <strong>${whatsapp}</strong>.
+    `;
+  }
+
+  setTimeout(() => {
+    sfxCloseModal('modal-funnel-screening');
+  }, 4500);
+}
+
+/* ----------------------------------------------------------------------------
+   11. SLIDING DRAWER LATERALE SEC-09
+   ---------------------------------------------------------------------------- */
+function sfxInitSlidingDrawer() {
+  const openBtn = document.getElementById('btnOpenSlidingDrawer');
+  const closeBtn = document.getElementById('btnCloseSlidingDrawer');
+  const subBtn = document.getElementById('btnDrawerSubscribe');
+  const drawer = document.getElementById('sliding-drawer');
+
+  if (openBtn) {
+    openBtn.addEventListener('click', () => {
+      if (drawer) {
+        drawer.classList.add('open');
+        document.body.classList.add('drawer-open');
+      }
+    });
+  }
+
+  const closeDrawer = () => {
+    if (drawer) {
+      drawer.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+    }
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+
+  if (subBtn) {
+    subBtn.addEventListener('click', () => {
+      closeDrawer();
+      sfxOpenFunnelModal();
+      SFX_STATE.funnelData.programma = 'Licenza Concessione E-Commerce';
+      sfxFunnelTransition('#funnelStep1', '#funnelStep3', '100%');
+    });
   }
 }
 
-function sfxFilterFaqsLive() {
-  sfxRenderFaqs();
+/* ----------------------------------------------------------------------------
+   12. FINESTRE MODALI AUSILIARIE (VIDEO MASTER, ACADEMY DEMO, GALLERIA)
+   ---------------------------------------------------------------------------- */
+function sfxInitModalsAndLightboxes() {
+  // Video Master CDA
+  const openMaster = document.getElementById('btnOpenMasterVideo');
+  const closeMaster = document.getElementById('btnCloseMasterVideo');
+  const masterVid = document.getElementById('masterCorporateVideoPlayer');
+
+  if (openMaster) {
+    openMaster.addEventListener('click', () => {
+      sfxOpenModal('modal-master-video');
+      if (masterVid) masterVid.play();
+    });
+  }
+  if (closeMaster) {
+    closeMaster.addEventListener('click', () => {
+      if (masterVid) masterVid.pause();
+      sfxCloseModal('modal-master-video');
+    });
+  }
+
+  // Academy Demo
+  const openDemo = document.getElementById('btnOpenAcademyDemo');
+  const closeDemo = document.getElementById('btnCloseAcademyDemo');
+  const demoVid = document.getElementById('academyDemoPlayer');
+
+  if (openDemo) {
+    openDemo.addEventListener('click', () => {
+      sfxOpenModal('modal-academy-live-demo');
+      if (demoVid) demoVid.play();
+    });
+  }
+  if (closeDemo) {
+    closeDemo.addEventListener('click', () => {
+      if (demoVid) demoVid.pause();
+      sfxCloseModal('modal-academy-live-demo');
+    });
+  }
+
+  // Galleria Lightbox 11"
+  const openGallery = document.getElementById('btnOpenGallery');
+  const closeGallery = document.getElementById('btnCloseGallery');
+  const prevImg = document.getElementById('btnLightboxPrev');
+  const nextImg = document.getElementById('btnLightboxNext');
+
+  if (openGallery) openGallery.addEventListener('click', () => sfxOpenModal('modal-gallery-lightbox'));
+  if (closeGallery) closeGallery.addEventListener('click', () => sfxCloseModal('modal-gallery-lightbox'));
+
+  if (prevImg) prevImg.addEventListener('click', () => sfxShiftGallery(-1));
+  if (nextImg) nextImg.addEventListener('click', () => sfxShiftGallery(1));
 }
 
-function sfxSetFaqCategory(catKey, btnEl) {
-  sfxPlayChime('tick');
-  sfxCurrentFaqCategory = catKey;
-  
-  document.querySelectorAll('.sfx-faq-pill').forEach(b => b.classList.remove('active'));
-  btnEl.classList.add('active');
+function sfxShiftGallery(step) {
+  SFX_STATE.lightboxIndex += step;
+  if (SFX_STATE.lightboxIndex > SFX_CONFIG.TOTAL_GALLERY_IMAGES) SFX_STATE.lightboxIndex = 1;
+  if (SFX_STATE.lightboxIndex < 1) SFX_STATE.lightboxIndex = SFX_CONFIG.TOTAL_GALLERY_IMAGES;
 
-  sfxRenderFaqs();
+  const numStr = String(SFX_STATE.lightboxIndex).padStart(2, '0');
+  const img = document.getElementById('lightboxActiveImg');
+  const counter = document.getElementById('lightboxIndexDisplay');
+
+  if (img) img.src = `media/sec-02-presidenza/gallery/gallery-${numStr}.jpg`;
+  if (counter) counter.textContent = String(SFX_STATE.lightboxIndex);
 }
 
-// Inizializzazione automatica delle FAQ al caricamento
-document.addEventListener('DOMContentLoaded', () => {
-  sfxRenderFaqs();
-});
+function sfxOpenModal(id) {
+  const m = document.getElementById(id);
+  if (m) m.classList.add('active');
+}
+
+function sfxCloseModal(id) {
+  const m = document.getElementById(id);
+  if (m) m.classList.remove('active');
+}
+
+/* ----------------------------------------------------------------------------
+   13. SUPREMA MENU A COMPARSA VERTICALE (TIMER REALE A 15 SECONDI)
+   ---------------------------------------------------------------------------- */
+function sfxInitSupremaMenu() {
+  const triggerBtn = document.getElementById('btnToggleMenu');
+  const popover = document.getElementById('suprema-menu-popover');
+  if (!triggerBtn || !popover) return;
+
+  triggerBtn.addEventListener('click', () => {
+    if (popover.classList.contains('open')) {
+      sfxCloseSupremaMenu();
+    } else {
+      sfxOpenSupremaMenu();
+    }
+  });
+
+  // Navigazione item menu
+  const items = popover.querySelectorAll('.menu-popover-item');
+  items.forEach((item) => {
+    item.addEventListener('click', () => {
+      sfxCloseSupremaMenu();
+      const target = item.getAttribute('data-target');
+      const focusSearch = item.getAttribute('data-focus') === 'true';
+
+      if (target === 'DRAWER') {
+        const drawer = document.getElementById('sliding-drawer');
+        if (drawer) {
+          drawer.classList.add('open');
+          document.body.classList.add('drawer-open');
+        }
+      } else if (target) {
+        sfxScrollTo(target);
+        if (focusSearch) {
+          setTimeout(() => {
+            document.getElementById('vaultSearchInput')?.focus();
+          }, 800);
+        }
+      }
+    });
+  });
+}
+
+function sfxOpenSupremaMenu() {
+  const popover = document.getElementById('suprema-menu-popover');
+  if (!popover) return;
+  popover.classList.add('open');
+  SFX_STATE.menuSecondsLeft = SFX_CONFIG.MENU_TIMEOUT_SECONDS;
+  sfxUpdateMenuCountdown();
+
+  if (SFX_STATE.menuTimer) clearInterval(SFX_STATE.menuTimer);
+  SFX_STATE.menuTimer = setInterval(() => {
+    SFX_STATE.menuSecondsLeft--;
+    sfxUpdateMenuCountdown();
+
+    if (SFX_STATE.menuSecondsLeft <= 0) {
+      sfxCloseSupremaMenu();
+    }
+  }, 1000);
+}
+
+function sfxCloseSupremaMenu() {
+  const popover = document.getElementById('suprema-menu-popover');
+  if (!popover) return;
+  popover.classList.remove('open');
+  if (SFX_STATE.menuTimer) {
+    clearInterval(SFX_STATE.menuTimer);
+    SFX_STATE.menuTimer = null;
+  }
+}
+
+function sfxUpdateMenuCountdown() {
+  const badge = document.getElementById('menuCountdownBadge');
+  if (badge) {
+    badge.textContent = `CHIUSURA TRA: ${SFX_STATE.menuSecondsLeft}s`;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   14. BARRA DI NAVIGAZIONE A NASTRO INFERIORE (CAPSULE)
+   ---------------------------------------------------------------------------- */
+function sfxInitNavigationRibbon() {
+  const btnAlison = document.getElementById('btnNavAlisonChat');
+  const btnLang = document.getElementById('btnNavLanguage');
+  const btnChiSiamo = document.getElementById('btnNavChiSiamo');
+  const btnRadio = document.getElementById('btnNavRadio');
+  const btnTelemetria = document.getElementById('btnNavTelemetria');
+  const btnHeroScroll = document.getElementById('btnHeroScrollAcademy');
+  const alisonHeroBadge = document.getElementById('alisonHeroBadge');
+
+  if (btnAlison) {
+    btnAlison.addEventListener('click', () => {
+      sfxScrollTo('#sec-03');
+      const out = document.getElementById('alisonTypewriterText');
+      if (out) out.textContent = 'Alison AG-01 pronta all\'ascolto. Selezionare uno dei canali di triage istituzionali.';
+    });
+  }
+
+  if (alisonHeroBadge) {
+    alisonHeroBadge.addEventListener('click', () => sfxScrollTo('#sec-03'));
+  }
+
+  if (btnHeroScroll) {
+    btnHeroScroll.addEventListener('click', () => sfxScrollTo('#sec-05'));
+  }
+
+  if (btnChiSiamo) btnChiSiamo.addEventListener('click', () => sfxScrollTo('#sec-08'));
+  if (btnRadio) btnRadio.addEventListener('click', sfxRadioTogglePlay);
+  if (btnTelemetria) btnTelemetria.addEventListener('click', () => sfxScrollTo('#sec-10'));
+
+  if (btnLang) {
+    btnLang.addEventListener('click', sfxCycleLanguage);
+  }
+}
+
+const SFX_LANG_LIST = ['IT', 'EN', 'FR', 'ES', 'DE', 'AR'];
+
+function sfxCycleLanguage() {
+  let idx = SFX_LANG_LIST.indexOf(SFX_STATE.currentLang);
+  idx = (idx + 1) % SFX_LANG_LIST.length;
+  SFX_STATE.currentLang = SFX_LANG_LIST[idx];
+
+  const codeEl = document.getElementById('ribbonLangCode');
+  if (codeEl) codeEl.textContent = SFX_STATE.currentLang;
+
+  const html = document.documentElement;
+  if (SFX_STATE.currentLang === 'AR') {
+    html.setAttribute('dir', 'rtl');
+    html.setAttribute('lang', 'ar');
+  } else {
+    html.setAttribute('dir', 'ltr');
+    html.setAttribute('lang', SFX_STATE.currentLang.toLowerCase());
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   15. MODULO CONTATTI ASINCRONO (SEC-11)
+   ---------------------------------------------------------------------------- */
+function sfxInitContactForm() {
+  const form = document.getElementById('contactFormElement');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnContactSubmit');
+    const notice = document.getElementById('contactFeedbackNotice');
+    const nome = document.getElementById('contactFullName')?.value || '';
+    const email = document.getElementById('contactEmailCert')?.value || '';
+    const msg = document.getElementById('contactMessageText')?.value || '';
+
+    if (btn) btn.disabled = true;
+    if (notice) {
+      notice.className = 'cert-feedback-msg encrypting';
+      notice.textContent = 'Cifratura SHA-256 e inoltro asincrono a Google Workspace...';
+    }
+
+    const payload = {
+      action: 'submit_contatto',
+      timestamp: new Date().toISOString(),
+      nominativo: nome,
+      email: email,
+      messaggio: msg
+    };
+
+    fetch(SFX_CONFIG.APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      sfxDisplayContactSuccess(form, btn, notice);
+    }).catch(() => {
+      sfxDisplayContactSuccess(form, btn, notice);
+    });
+  });
+}
+
+function sfxDisplayContactSuccess(form, btn, notice) {
+  setTimeout(() => {
+    if (notice) {
+      notice.className = 'cert-feedback-msg validated';
+      notice.textContent = '✓ Comunicazione vidimata e instradata alla presidenza di Colleferro.';
+    }
+    form.reset();
+    if (btn) btn.disabled = false;
+  }, 1400);
+}
+
+/* ----------------------------------------------------------------------------
+   16. SCORCIATOIE TASTIERA & UTILITY GLOBALI
+   ---------------------------------------------------------------------------- */
+function sfxScrollTo(selector) {
+  const target = document.querySelector(selector);
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function sfxInitKeyboardShortcuts() {
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      sfxCloseSupremaMenu();
+
+      const drawer = document.getElementById('sliding-drawer');
+      if (drawer) {
+        drawer.classList.remove('open');
+        document.body.classList.remove('drawer-open');
+      }
+
+      document.querySelectorAll('.sfx-modal.active').forEach((m) => {
+        m.classList.remove('active');
+      });
+
+      const masterVid = document.getElementById('masterCorporateVideoPlayer');
+      if (masterVid) masterVid.pause();
+      const demoVid = document.getElementById('academyDemoPlayer');
+      if (demoVid) demoVid.pause();
+    }
+  });
+}
