@@ -3,360 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suprema Future X - Light Luxury UI</title>
+    <title>Suprema Future X - Light Luxury Engine</title>
     <style>
-        /* 1. REGISTRO CROMATICO E VARIABILI */
+        /* ==========================================================================
+           1. REGISTRO CROMATICO COMPLETO (LIGHT LUXURY)
+           ========================================================================== */
         :root {
             --perla-satinato: #F6F2EB;
-            --ciano-neon: #00F0FF;
+            --ciano-elettrico: #00F0FF;
             --verde-smeraldo: #00E676;
             --oro-solare: #FFD700;
             --oro-spazzolato: #D4AF37;
+            --oro-elettrodeposto: #E5C158;
             --blu-notte: #0B192C;
-            --vetro-satinato: rgba(255, 255, 255, 0.75);
+            --acqua-luminescente: #38C8D8;
+            --vetro-satinato: rgba(246, 242, 235, 0.85);
         }
 
         * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            box-sizing: border-box; margin: 0; padding: 0;
             font-family: 'Segoe UI', system-ui, sans-serif;
+            user-select: none;
         }
 
-        body {
+        body, html {
+            width: 100vw; height: 100vh;
             background-color: var(--perla-satinato);
-            width: 100vw;
-            height: 100vh;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: space-between;
         }
 
-        /* 2. FASCI SPETTRALI E PORTALI A MEZZALUNA */
-        .portal {
+        /* Spettro Dinamico Passante (Cross-Viewport Spectral Sweep) */
+        .spectral-sweep-bg {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 150px;
-            height: 60vh;
-            border-radius: 50%;
-            border: 5px solid var(--oro-spazzolato);
-            box-shadow: inset 0 0 30px var(--ciano-neon), 0 0 30px var(--ciano-neon);
-            z-index: 1;
-        }
-        .portal.left { left: -100px; border-left: none; }
-        .portal.right { right: -100px; border-right: none; }
-
-        .laser-beam {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            height: 200px;
+            top: 0; left: 0; width: 200%; height: 100%;
             background: linear-gradient(90deg, 
-                rgba(0,240,255,0.4) 0%, 
-                rgba(0,230,118,0.1) 50%, 
-                rgba(0,240,255,0.4) 100%);
-            z-index: 0;
-            animation: spectral-sweep 4s infinite alternate ease-in-out;
-            pointer-events: none;
+                transparent 0%, 
+                rgba(0, 240, 255, 0.15) 30%, 
+                rgba(0, 230, 118, 0.1) 50%, 
+                rgba(255, 215, 0, 0.15) 70%, 
+                transparent 100%);
+            animation: alternateSweep 8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+            z-index: 1; pointer-events: none;
         }
 
-        /* 3. TESTATA E TITOLI (Onda Cromatica a Pendolo) */
-        .header {
+        /* ==========================================================================
+           2. GEOMETRIA ARCHITETTONICA E FASCI
+           ========================================================================== */
+        /* Ali a Mezzaluna (Crescent Arc Portals) - Più larghe! */
+        .crescent-portal {
             position: absolute;
-            top: 10%;
-            text-align: center;
-            z-index: 10;
+            top: 50%; transform: translateY(-50%);
+            width: 450px; height: 85vh;
+            border-radius: 50%;
+            z-index: 2; pointer-events: none;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
+            animation: breathingPulse 2.8s infinite alternate ease-in-out;
         }
-        
-        .title {
-            font-size: 4rem;
-            font-weight: 900;
-            letter-spacing: 2px;
+        .crescent-portal.left {
+            left: -280px;
+            border-right: 25px solid var(--oro-elettrodeposto);
+            box-shadow: inset -30px 0 50px rgba(0, 240, 255, 0.6);
+        }
+        .crescent-portal.right {
+            right: -280px;
+            border-left: 25px solid var(--oro-elettrodeposto);
+            box-shadow: inset 30px 0 50px rgba(0, 240, 255, 0.6);
+        }
+
+        /* Raggi Conici Spettrali (Volumetric Beams) */
+        .volumetric-beam {
+            position: absolute; top: 30%; width: 100vw; height: 40vh;
+            background: linear-gradient(90deg, 
+                rgba(0, 240, 255, 0.6) 0%, rgba(255,255,255,0.9) 10%, transparent 40%, 
+                transparent 60%, rgba(255,255,255,0.9) 90%, rgba(0, 230, 118, 0.6) 100%);
+            mix-blend-mode: screen; z-index: 1; pointer-events: none;
+            animation: alternateSweep 6s infinite alternate ease-in-out;
+            opacity: 0.7;
+        }
+
+        /* ==========================================================================
+           3. TESTATA: TITOLO GRANDE E SOTTOTITOLO PICCOLO
+           ========================================================================== */
+        .hero-section {
+            position: relative; z-index: 10;
+            text-align: center; margin-top: 15px;
+            width: 100%;
+        }
+
+        /* Ping-Pong Gradient Shimmer */
+        .main-title {
+            font-size: 5.5rem; font-weight: 900; letter-spacing: 4px;
             background: linear-gradient(90deg, #E2C275, #38C8D8, #E2C275);
             background-size: 200% 100%;
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: ping-pong-gradient 3s infinite alternate ease-in-out;
-            text-transform: uppercase;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(0, 240, 255, 0.3));
+            animation: pingPongGradient 4s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+            text-transform: uppercase; margin-bottom: -5px;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--blu-notte);
-            margin-top: 5px;
-            letter-spacing: 1px;
+        .sub-title {
+            font-size: 1.1rem; font-weight: 800; letter-spacing: 2px;
+            color: var(--blu-notte); text-transform: uppercase;
         }
 
-        /* 4. SCOCCA OVALE CENTRALE (Levitazione Idrodinamica) */
-        .oval-bezel {
+        /* ==========================================================================
+           4. SCOCCA OVALE CENTRALE (GIGANTE) E LOOP GITHUB
+           ========================================================================== */
+        .central-stage {
+            position: relative; z-index: 5;
+            width: 100%; display: flex; justify-content: center; align-items: center;
+            flex-grow: 1;
+        }
+
+        /* Floating Idle Levitation */
+        .oval-bezel-chassis {
             position: relative;
-            width: 450px;
-            height: 250px;
-            border-radius: 50%; /* Geometria ovale perfetta */
-            border: 6px solid var(--oro-spazzolato);
-            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(226,247,246,0.6) 100%);
-            box-shadow: 
-                0 0 40px rgba(0, 240, 255, 0.4), 
-                inset 0 0 30px rgba(0, 230, 118, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 5;
-            animation: floating-idle 3.5s infinite alternate ease-in-out;
+            width: 65vw; max-width: 850px; height: 420px; /* Molto più grande e spazioso */
+            border-radius: 50%;
+            border: 10px solid var(--oro-spazzolato);
+            background: radial-gradient(circle, #FFFFFF 0%, #E2F7F6 100%);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1), 0 0 60px rgba(0, 240, 255, 0.3);
+            display: flex; justify-content: center; align-items: center;
+            animation: floatingIdleLevitation 3.5s infinite alternate ease-in-out;
             overflow: hidden;
         }
 
-        /* Testo iniziale e Immagini loop */
-        .sfx-text {
-            font-size: 5rem;
-            font-weight: 900;
-            color: var(--oro-spazzolato);
-            text-shadow: 0 0 20px var(--ciano-neon);
+        /* Bezel Laser Orbit Sweep (Anello interno luminoso che gira) */
+        .oval-bezel-chassis::before {
+            content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 70%, var(--ciano-elettrico) 85%, var(--verde-smeraldo) 100%);
+            animation: orbitSweep 5s infinite linear;
+            z-index: 1; opacity: 0.4;
+        }
+
+        .sfx-monogram {
+            font-size: 8rem; font-weight: 900; font-style: italic; color: var(--oro-elettrodeposto);
+            text-shadow: 0 0 30px var(--ciano-elettrico); z-index: 5;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .github-carousel {
+            position: absolute; width: 100%; height: 100%; object-fit: cover;
+            border-radius: 50%; z-index: 4; opacity: 0;
             transition: opacity 0.8s ease;
         }
 
-        .carousel-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-            display: none;
+        /* ==========================================================================
+           5. TOP E BOTTOM BAR (TUTTA LARGHEZZA) E MODULO ALISON
+           ========================================================================== */
+        .top-status-bar {
+            position: absolute; top: 15px; width: 96%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 30px; border-radius: 30px;
+            background: var(--vetro-satinato); backdrop-filter: blur(18px);
+            border: 1px solid var(--oro-spazzolato); z-index: 20;
+        }
+        .top-text { font-size: 0.8rem; font-weight: 800; color: var(--blu-notte); display: flex; align-items: center; gap: 10px; }
+        .led { width: 12px; height: 12px; border-radius: 50%; background: var(--verde-smeraldo); box-shadow: 0 0 10px var(--verde-smeraldo); }
+
+        .alison-badge {
+            position: absolute; top: 70px; right: 2%;
+            background: var(--vetro-satinato); backdrop-filter: blur(18px);
+            border: 2px solid var(--oro-spazzolato); border-radius: 30px;
+            padding: 10px 20px; display: flex; align-items: center; gap: 10px;
+            font-weight: 900; color: var(--blu-notte); font-size: 0.8rem;
+            animation: floatingIdleLevitation 4s infinite alternate ease-in-out;
+            box-shadow: 0 10px 20px rgba(0,240,255,0.2); z-index: 20;
         }
 
-        /* 5. BARRA DI STATO INFERIORE (Glassmorphism) */
-        .status-bar {
-            position: absolute;
-            bottom: 8%;
-            width: 80%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--vetro-satinato);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 15px 30px;
-            border-radius: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            z-index: 10;
+        .bottom-ribbon {
+            width: 98%; margin-bottom: 20px; z-index: 20; position: relative;
+        }
+        
+        .capsule-container {
+            width: 100%; height: 75px; /* Barra dritta a tutta larghezza */
+            background: var(--vetro-satinato); backdrop-filter: blur(18px);
+            border-radius: 40px; border: 2px solid rgba(212, 175, 55, 0.5);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .capsule {
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: 1px solid var(--oro-spazzolato);
-            background: rgba(255,255,255,0.6);
-            color: var(--blu-notte);
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
+            flex: 1; margin: 0 5px; height: 50px;
+            border-radius: 25px; border: 1px solid var(--oro-spazzolato);
+            background: linear-gradient(180deg, #FFFFFF, #F6F2EB);
+            display: flex; justify-content: center; align-items: center;
+            font-weight: 800; font-size: 0.9rem; color: var(--blu-notte);
+            cursor: pointer; transition: all 0.3s ease; position: relative;
         }
+        .capsule:hover { transform: translateY(-3px); box-shadow: 0 5px 15px var(--ciano-elettrico); border-color: var(--ciano-elettrico); }
 
-        .capsule:hover {
-            box-shadow: 0 0 15px var(--ciano-neon);
-            transform: scale(1.05);
-        }
-
-        /* Badge Alison Fluttuante */
-        .alison-badge {
-            position: absolute;
-            right: 5%;
-            top: 20%;
-            background: var(--vetro-satinato);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--oro-spazzolato);
-            border-radius: 30px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: bold;
-            color: var(--blu-notte);
-            animation: floating-idle 4s infinite alternate ease-in-out;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-        }
-
-        /* Hamburger Menu Dropdown */
-        .dropdown {
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 0;
-            background: var(--vetro-satinato);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--oro-spazzolato);
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(20px);
+        /* Menu Hamburger Scomparsa (Staggered slide & glow) */
+        .hamburger-menu {
+            position: absolute; bottom: 90px; left: 15px; width: 300px;
+            background: var(--vetro-satinato); backdrop-filter: blur(18px);
+            border: 2px solid var(--oro-spazzolato); border-radius: 20px;
+            padding: 15px; display: flex; flex-direction: column; gap: 10px;
+            opacity: 0; pointer-events: none; transform: translateY(20px);
             transition: all 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
-
-        .dropdown.active {
-            opacity: 1;
-            pointer-events: all;
-            transform: translateY(0);
+        .hamburger-menu.active { opacity: 1; pointer-events: all; transform: translateY(0); }
+        .timer-warning { font-size: 0.75rem; font-weight: 900; color: #D32F2F; text-align: right; margin-bottom: 5px; }
+        .menu-item {
+            padding: 12px 15px; border-radius: 10px; background: #FFF; border: 1px solid var(--oro-spazzolato);
+            font-weight: 800; color: var(--blu-notte); cursor: pointer; transition: 0.3s;
         }
+        .menu-item:hover { background: var(--acqua-luminescente); color: #FFF; transform: translateX(5px); }
 
-        .dropdown-item {
-            padding: 10px 20px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.5);
-            font-weight: bold;
-            color: var(--blu-notte);
-            cursor: pointer;
-        }
-        .dropdown-item:hover { background: rgba(0, 240, 255, 0.2); }
-
-        /* ANIMAZIONI CHIAVE (Ping-Pong e Oscillazioni) */
-        @keyframes ping-pong-gradient {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        @keyframes floating-idle {
-            0% { transform: translateY(-4px); }
-            100% { transform: translateY(4px); }
-        }
-
-        @keyframes spectral-sweep {
-            0% { background-position: -200% 0; opacity: 0.5; filter: hue-rotate(0deg); }
-            100% { background-position: 200% 0; opacity: 1; filter: hue-rotate(45deg); }
-        }
+        /* ==========================================================================
+           6. ANIMAZIONI CSS (NOMENCLATURA RICHIESTA)
+           ========================================================================== */
+        @keyframes alternateSweep { 0% { transform: translateX(-5%); } 100% { transform: translateX(5%); } }
+        @keyframes breathingPulse { 0% { opacity: 0.7; } 100% { opacity: 1; } }
+        @keyframes pingPongGradient { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        @keyframes floatingIdleLevitation { 0% { transform: translateY(-4px); } 100% { transform: translateY(4px); } }
+        @keyframes orbitSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <!-- Fasci di luce passanti e portali -->
-    <div class="laser-beam"></div>
-    <div class="portal left"></div>
-    <div class="portal right"></div>
+    <!-- Sfondi animati -->
+    <div class="spectral-sweep-bg"></div>
+    <div class="volumetric-beam"></div>
 
-    <!-- Modulo Alison -->
+    <!-- Ali a Mezzaluna (Deflettori fisici giganti) -->
+    <div class="crescent-portal left"></div>
+    <div class="crescent-portal right"></div>
+
+    <!-- Barra di stato Top -->
+    <div class="top-status-bar">
+        <div class="top-text"><div class="led"></div> NODO DI TRASMISSIONE: ROMA CENTRO // PROTOCOLLO EAL6+ CERTIFICATO</div>
+        <div class="top-text" id="clock">09:48:16 CET</div>
+    </div>
+
+    <!-- Badge Alison Flottante -->
     <div class="alison-badge">
         <span style="font-size: 1.5rem;">👩‍🚀</span>
-        Alison<br>AG-01
+        <div>Alison<br>AG-01</div>
     </div>
 
-    <!-- Testata -->
-    <div class="header">
-        <h1 class="title">Suprema Future X</h1>
-        <div class="subtitle">INSIEME GUIDIAMO IL TUO DOMANI</div>
-    </div>
+    <!-- Testata: Titolo gigante e Sottotitolo -->
+    <header class="hero-section">
+        <h1 class="main-title">SUPREMA FUTURE X</h1>
+        <h2 class="sub-title">INSIEME GUIDIAMO IL TUO DOMANI</h2>
+    </header>
 
-    <!-- Ovale Centrale -->
-    <div class="oval-bezel" id="central-logo">
-        <div class="sfx-text" id="sfx-text">SFX</div>
-        <img src="" alt="Loop Foto" class="carousel-img" id="carousel-img">
-    </div>
-
-    <!-- Barra di Stato -->
-    <div class="status-bar">
-        <div style="position: relative;">
-            <div class="capsule" id="btn-menu">≡ SUPREMA MENU</div>
-            <!-- Menu a tendina 10 secondi -->
-            <div class="dropdown" id="dropdown-menu">
-                <div class="dropdown-item">Governance</div>
-                <div class="dropdown-item">Presidenza</div>
-                <div class="dropdown-item">Opzioni Sistema</div>
-            </div>
+    <!-- Ovale Centrale Gigante & GitHub Loop -->
+    <main class="central-stage">
+        <div class="oval-bezel-chassis">
+            <div class="sfx-monogram" id="sfx-logo">SFX</div>
+            <img src="" class="github-carousel" id="carousel">
         </div>
-        <div class="capsule">💬 ALISON CHATBOT</div>
-        <div class="capsule">🌍 SUPREMA TRADUTTORE</div>
-        <div class="capsule">📖 CHI SIAMO</div>
-        <div class="capsule">📻 SUPREMA RADIO</div>
-        <div class="capsule">⚙️ TELEMETRIA LIVE</div>
-    </div>
+    </main>
 
+    <!-- Barra di Stato a Nastro (Tutta larghezza) -->
+    <nav class="bottom-ribbon">
+        <!-- Menu Hamburger a Scomparsa (10s Timer) -->
+        <div class="hamburger-menu" id="hamburger">
+            <div class="timer-warning" id="timer-text">CHIUSURA AUTO: 10s</div>
+            <div class="menu-item" onclick="forceRoute('governance')">🏛️ Governance e Presidenza</div>
+            <div class="menu-item" onclick="forceRoute('telemetria')">⚙️ Telemetria Spettrale</div>
+            <div class="menu-item" onclick="forceRoute('sicurezza')">🔐 Sicurezza EAL6+</div>
+        </div>
+
+        <div class="capsule-container">
+            <div class="capsule" id="btn-hamburger">☰ SUPREMA MENU</div>
+            <div class="capsule">💬 ALISON CHATBOT</div>
+            <div class="capsule">🌍 SUPREMA TRADUTTORE</div>
+            <div class="capsule">📖 CHI SIAMO (3 STORIE)</div>
+            <div class="capsule">📻 SUPREMA RADIO</div>
+            <div class="capsule">⚙️ TELEMETRIA LIVE 48</div>
+        </div>
+    </nav>
+
+    <!-- ==========================================================================
+         7. JAVASCRIPT: LOGICA LOOP 3 SECONDI E TIMER HAMBURGER 10S
+         ========================================================================== -->
     <script>
-        /* LOGICA 1: LOOP FOTOGRAFICO CENTRALE (Dopo 3 secondi inizia il carosello) */
-        const sfxText = document.getElementById('sfx-text');
-        const carouselImg = document.getElementById('carousel-img');
-        let currentImageIndex = 1;
-        let isCarouselRunning = false;
+        // Orologio
+        setInterval(() => {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString('it-IT') + ' CET';
+        }, 1000);
 
-        // Inizializza il timer di 3 secondi per la scritta fissa
+        // Fase 1 e 2: Loop Fotografico GitHub (3 secondi SFX, poi carosello logo-01 a 10)
+        const sfxLogo = document.getElementById('sfx-logo');
+        const carousel = document.getElementById('carousel');
+        let imgIndex = 1;
+
         setTimeout(() => {
-            // Dissolvenza in uscita della scritta SFX
-            sfxText.style.opacity = '0';
+            // Dissolvenza incrociata in uscita
+            sfxLogo.style.opacity = '0';
+            sfxLogo.style.transform = 'scale(0.8)';
             
             setTimeout(() => {
-                sfxText.style.display = 'none';
-                carouselImg.style.display = 'block';
-                // Mostra la prima immagine
-                updateCarouselImage();
-                // Avvia il loop infinito (cambio ogni 3 secondi)
-                setInterval(updateCarouselImage, 3000);
-            }, 800); // attende la fine dell'opacità CSS
-        }, 3000);
+                sfxLogo.style.display = 'none';
+                playGitHubCarousel(); // Avvia il loop
+                setInterval(playGitHubCarousel, 3200); // Cambio ogni 3.2 secondi
+            }, 800);
+        }, 3000); // 3 secondi precisi di visualizzazione iniziale
 
-        function updateCarouselImage() {
-            // Genera stringa formattata (01, 02... 10)
-            let numString = currentImageIndex.toString().padStart(2, '0');
-            // Associa il percorso esatto richiesto
-            carouselImg.src = `media/logo-${numString}.jpg`;
+        function playGitHubCarousel() {
+            let num = imgIndex.toString().padStart(2, '0');
+            carousel.src = `media/logo-${num}.jpg`;
             
-            // Effetto dissolvenza in ingresso incrociato
-            carouselImg.style.opacity = '0';
-            setTimeout(() => { carouselImg.style.opacity = '1'; }, 50);
+            carousel.style.opacity = '0';
+            setTimeout(() => { carousel.style.opacity = '1'; }, 100);
 
-            // Incrementa per il prossimo giro
-            currentImageIndex++;
-            if(currentImageIndex > 10) currentImageIndex = 1;
+            imgIndex++;
+            if (imgIndex > 10) imgIndex = 1;
         }
 
-        /* LOGICA 2: MENU HAMBURGER CON TIMER 10 SECONDI E PING-PONG */
-        const btnMenu = document.getElementById('btn-menu');
-        const dropdown = document.getElementById('dropdown-menu');
-        let menuTimeoutId;
-
-        function openMenu() {
-            dropdown.classList.add('active');
-            resetMenuTimer();
-        }
+        // Logica Menu Hamburger 10 Secondi
+        const btnHamburger = document.getElementById('btn-hamburger');
+        const hamburgerMenu = document.getElementById('hamburger');
+        const timerText = document.getElementById('timer-text');
+        let countdownTimer;
+        let secondsLeft = 10;
 
         function closeMenu() {
-            dropdown.classList.remove('active');
-            clearTimeout(menuTimeoutId);
+            hamburgerMenu.classList.remove('active');
+            clearInterval(countdownTimer);
         }
 
-        function resetMenuTimer() {
-            clearTimeout(menuTimeoutId);
-            // Autochiusura esatta a 10 secondi
-            menuTimeoutId = setTimeout(() => {
-                closeMenu();
-            }, 10000);
+        function openMenu() {
+            hamburgerMenu.classList.add('active');
+            secondsLeft = 10;
+            timerText.innerText = `CHIUSURA AUTO: ${secondsLeft}s`;
+            
+            clearInterval(countdownTimer);
+            countdownTimer = setInterval(() => {
+                secondsLeft--;
+                timerText.innerText = `CHIUSURA AUTO: ${secondsLeft}s`;
+                if (secondsLeft <= 0) closeMenu();
+            }, 1000);
         }
 
-        btnMenu.addEventListener('click', () => {
-            if (dropdown.classList.contains('active')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
+        btnHamburger.addEventListener('click', () => {
+            hamburgerMenu.classList.contains('active') ? closeMenu() : openMenu();
         });
 
-        // Se l'utente clicca una voce del sottomenu, chiude subito e cancella il timer
-        const menuItems = document.querySelectorAll('.dropdown-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                closeMenu();
-                // Qui andrebbe inserito il link effettivo, es: window.location.href = '...';
-            });
-        });
+        // Routing diretto su selezione
+        function forceRoute(destination) {
+            closeMenu();
+            // Effettua il reindirizzamento
+            window.location.hash = destination;
+        }
     </script>
 </body>
 </html>
