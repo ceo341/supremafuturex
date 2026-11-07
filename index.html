@@ -21,7 +21,6 @@
        1. REGISTRO MASTER: PALETTE GLI 8 COLORI DI BASE & SISTEMA OTTICO 3D
        ========================================================================== */
     :root {
-      /* GLI 8 COLORI LUMINOSI BASE */
       --c1-gold: #D4AF37;        /* 1. Oro Imperiale */
       --c2-solar: #FFD700;       /* 2. Oro Solare Speculare */
       --c3-cyan: #00D2FF;        /* 3. Ciano Elettrico */
@@ -31,23 +30,20 @@
       --c7-amethyst: #8A2BE2;    /* 7. Porpora Ametista */
       --c8-platinum: #FFFFFF;    /* 8. Platino Cristallino / Bianco Perla */
 
-      /* PIANI VOLUMETRICI E CRISTALLI SATINATI */
       --bg-canvas: #FDF9F2;
       --glass-panel: rgba(255, 255, 255, 0.82);
       --glass-panel-sub: rgba(253, 249, 242, 0.72);
       --glass-blur: blur(24px);
 
-      /* TIPOGRAFIA FORENSE */
       --font-body: 'Plus Jakarta Sans', sans-serif;
       --font-display: 'Space Grotesk', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
-      /* GESTIONE DELLA STABILITA & RENDERING HARDWARE (ZERO SFARFALLIO) */
       --transition-smooth: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* ==========================================================================
-       2. RESET ANTISFARFALLIO & FONDALE DINAMICO A SCORRIMENTO PERPETUO
+       2. RESET ANTISFARFALLIO & FONDALE DINAMICO GPU
        ========================================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -70,7 +66,6 @@
       min-height: 100vh;
       overflow-x: hidden;
       background-color: var(--bg-canvas);
-      contain: paint layout style;
     }
 
     /* Grana Cartacea Frattale Universale EAL6+ */
@@ -85,7 +80,7 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Sfumatura 8 Colori che attraversa l'intera pagina senza interruzione */
+    /* Sfumatura 8 Colori con Accelerazione Hardware GPU */
     .spectral-ambient-drifter {
       position: fixed;
       inset: -40%;
@@ -103,7 +98,8 @@
       filter: blur(80px);
       animation: ambientDriftPingPong 20s ease-in-out infinite alternate;
       will-change: transform;
-      transform: translateZ(0);
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
     }
 
     @keyframes ambientDriftPingPong {
@@ -113,7 +109,7 @@
     }
 
     /* ==========================================================================
-       3. ARCHITETTURA DI PROFONDITA 3D & FASCIO PERIMETRALE
+       3. ARCHITETTURA DI PROFONDITA 3D E CENTRATURA SCHERMATA
        ========================================================================== */
     .sfx-stage-shell {
       position: relative;
@@ -124,8 +120,7 @@
       padding: 3.5px;
       z-index: 2;
       perspective: 1200px;
-      transform: translateZ(0);
-      contain: paint layout style;
+      transform: translate3d(0, 0, 0);
       box-shadow: 0 20px 50px rgba(11, 25, 44, 0.08), 0 0 35px rgba(212, 175, 55, 0.15);
       overflow: hidden !important;
     }
@@ -196,7 +191,7 @@
     }
 
     /* ==========================================================================
-       4. TITOLO 3D "SUPREMA FUTURE X" CON FASCIO CONTINUO & SBALZO
+       4. TITOLO 3D "SUPREMA FUTURE X"
        ========================================================================== */
     .hero-title-wrap {
       position: relative;
@@ -269,7 +264,7 @@
     }
 
     /* ==========================================================================
-       5. CHASSIS OVALE CENTRALE (DOPPIA GHIERA & LOOP 10 FOTO)
+       5. CHASSIS OVALE CENTRALE CINETICO
        ========================================================================== */
     .hero-oval-chassis {
       position: relative;
@@ -362,6 +357,19 @@
       box-shadow: inset 0 3px 20px rgba(0, 0, 0, 0.08);
     }
 
+    .sfx-monogram-overlay {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -2px;
+      color: var(--c1-gold);
+      text-shadow: 0 0 25px var(--c3-cyan);
+      z-index: 10;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
     .hero-loop-slide {
       position: absolute;
       inset: 0;
@@ -409,7 +417,7 @@
     }
 
     /* ==========================================================================
-       6. BARRA DI STATO A NASTRO INFERIORE CON ANIMAZIONE DI LUCE PERPETUA
+       6. BARRA DI STATO A NASTRO INFERIORE
        ========================================================================== */
     .ribbon-capsule-bar {
       position: relative;
@@ -569,8 +577,7 @@
     }
 
     /* ==========================================================================
-       7. STRUTTURA A 3 COLONNE IN TUTTE LE 11 SEZIONI (SEC-01 A SEC-11)
-       [SX: Video Upload // CENTRO: Testo // DX: Foto 16:9 Upload]
+       7. STRUTTURA A 3 COLONNE (SEC-01 A SEC-11)
        ========================================================================== */
     .stage-triad-grid {
       position: relative;
@@ -757,7 +764,7 @@
     }
 
     /* ==========================================================================
-       8. MODALI GLOBALI (GALLERIA 12 SLOT, FAQ ALISON, CONFERENZA CEO)
+       8. MODALI GLOBALI (GALLERIA, FAQ E REGISTRAZIONE CEO)
        ========================================================================== */
     .sfx-modal-backdrop {
       position: fixed;
@@ -827,7 +834,6 @@
       box-shadow: 0 4px 12px rgba(11, 25, 44, 0.06);
     }
 
-    /* Floating Badge Alison */
     .alison-floating-badge {
       position: fixed;
       bottom: 25px;
@@ -864,7 +870,7 @@
       100% { transform: scale(1.2); opacity: 1; }
     }
 
-    /* Post-Footer & Lavora con Noi */
+    /* FOOTER & LAVORA CON NOI */
     #sec-12 {
       padding: 50px 35px 35px 35px;
       text-align: center;
@@ -901,6 +907,7 @@
       gap: 8px;
       box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
       transition: var(--transition-smooth);
+      cursor: pointer;
     }
 
     .channel-pill-btn:hover {
@@ -942,12 +949,15 @@
       border-color: var(--c3-cyan);
     }
 
+    /* RESPONSIVITÀ PER SMARTPHONE E CENTRATURA */
     @media (max-width: 1024px) {
       .stage-triad-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+        justify-items: center;
       }
       .slot-media-card {
+        width: 100%;
         max-width: 440px;
         margin: 0 auto;
       }
@@ -957,15 +967,19 @@
       .lavora-input-grid {
         grid-template-columns: 1fr;
       }
+      .ribbon-capsule-bar {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+      }
     }
   </style>
 </head>
 <body id="sfx-body-root">
 
-  <!-- Micro-Turbolenza Cartacea Frattale Universale -->
   <div class="film-grain" aria-hidden="true"></div>
-
-  <!-- Sfumatura a 8 Colori che attraversa l'intera pagina -->
   <div class="spectral-ambient-drifter" aria-hidden="true"></div>
 
   <!-- Icona Flottante Alison Chatbot (Sempre visibile a schermo) -->
@@ -982,23 +996,24 @@
   <header class="sfx-stage-shell" id="sec-00">
     <div class="sfx-stage-inner" style="text-align: center;">
 
-      <!-- Portali Concavi a Mezzaluna (Ali Laterali) -->
       <div class="portal-wing-left" aria-hidden="true"></div>
       <div class="portal-wing-right" aria-hidden="true"></div>
 
-      <!-- TITOLO MONUMENTALE 3D E MOTTO ISTITUZIONALE -->
       <div class="hero-title-wrap">
         <h1 class="hero-title-3d">SUPREMA FUTURE X</h1>
       </div>
       <h2 class="hero-subtitle-motto">INSIEME GUIDIAMO IL TUO DOMANI</h2>
 
-      <!-- CHASSIS OVALE CINETICO A DOPPIA GHIERA (LOOP 10 FOTO GITHUB) -->
       <div class="hero-oval-chassis" id="heroChassisTrigger" title="Monogramma Ufficiale SFX // Triplo Click per Console X-BOX">
         <div class="conic-glow-outer" aria-hidden="true"></div>
         <div class="conic-glow-inner" aria-hidden="true"></div>
         <div class="oval-gold-border" aria-hidden="true"></div>
 
         <div class="oval-white-vault">
+          <!-- Monogramma SFX (3 secondi di visualizzazione, poi fade-out) -->
+          <div class="sfx-monogram-overlay" id="sfx-fade-out">SFX</div>
+          
+          <!-- Carosello 10 Loghi in Loop Continuo -->
           <img class="hero-loop-slide active" id="hero-img-01" src="media/sec-01-hero/logo-01.jpg" alt="Logo SFX 01" onerror="this.src='media/sec-01-hero/logo-01.png'">
           <img class="hero-loop-slide" id="hero-img-02" src="media/sec-01-hero/logo-02.jpg" alt="Logo SFX 02" onerror="this.src='media/sec-01-hero/logo-02.png'">
           <img class="hero-loop-slide" id="hero-img-03" src="media/sec-01-hero/logo-03.jpg" alt="Logo SFX 03" onerror="this.src='media/sec-01-hero/logo-03.png'">
@@ -1012,12 +1027,10 @@
         </div>
       </div>
 
-      <!-- ====================================================================
-           BARRA DI STATO A NASTRO CON LE VOCI RICHIESTE & SOTTOMENU OPERATIVI
-           ==================================================================== -->
+      <!-- BARRA DI STATO A NASTRO INFERIORE -->
       <nav class="ribbon-capsule-bar" aria-label="Barra Direzionale Suprema">
 
-        <!-- 1. SUPREMA MENU -->
+        <!-- 1. SUPREMA MENU (12 VOCI) -->
         <div class="capsule-group">
           <button type="button" class="capsule-btn" onclick="sfxToggleDropdown(this)">
             <span>☰</span> <strong>SUPREMA MENU</strong> ▾
@@ -1039,7 +1052,7 @@
           </div>
         </div>
 
-        <!-- 2. ALISON CHATBOT -->
+        <!-- 2. ALISON CHATBOT (FAQ FORENSI) -->
         <div class="capsule-group">
           <button type="button" class="capsule-btn" onclick="sfxToggleDropdown(this)">
             <span>💬</span> <span>ALISON CHATBOT</span> ▾
@@ -1051,7 +1064,7 @@
           </div>
         </div>
 
-        <!-- 3. SUPREMA TRADUTTORE -->
+        <!-- 3. SUPREMA TRADUTTORE (9 LINGUE) -->
         <div class="capsule-group">
           <button type="button" class="capsule-btn" onclick="sfxToggleDropdown(this)">
             <span>🌍</span> <span>SUPREMA TRADUTTORE</span> ▾
@@ -1070,7 +1083,7 @@
           </div>
         </div>
 
-        <!-- 4. CHI SIAMO -->
+        <!-- 4. CHI SIAMO (5 VOCI) -->
         <div class="capsule-group">
           <button type="button" class="capsule-btn" onclick="sfxToggleDropdown(this)">
             <span>📖</span> <span>CHI SIAMO</span> ▾
@@ -1085,7 +1098,7 @@
           </div>
         </div>
 
-        <!-- 5. SUPREMA RADIO -->
+        <!-- 5. SUPREMA RADIO (30 TRACCE CON CONTROLLI COMPLETI) -->
         <div class="capsule-group">
           <button type="button" class="capsule-btn" onclick="sfxToggleDropdown(this)">
             <span>📻</span> <span>SUPREMA RADIO</span> ▾
@@ -1144,7 +1157,7 @@
           </div>
         </div>
 
-        <!-- 6. TELEMETRIA -->
+        <!-- 6. TELEMETRIA (INCREMENTO LIVE) -->
         <div class="capsule-group">
           <button type="button" class="capsule-btn">
             <span>⚙️</span> <span>TELEMETRIA: <strong id="telemetryCounter" style="color: var(--c4-emerald);">5.284</strong></span> ▾
@@ -1157,7 +1170,7 @@
           </div>
         </div>
 
-        <!-- 7. CONFERENZA CON IL CEO -->
+        <!-- 7. CONFERENZA CON IL CEO (APRE DIRETTAMENTE LA MODALE) -->
         <button type="button" class="capsule-btn" style="background: linear-gradient(90deg, #FFFFFF, #FFFDF2); border-color: var(--c1-gold);" onclick="sfxOpenCeoConference()">
           <span>🏛️</span> <strong style="color: var(--c1-gold);">CONFERENZA CON IL CEO</strong>
         </button>
@@ -1169,8 +1182,6 @@
   <!-- ========================================================================
        SEZIONE 00: FINE
        ======================================================================== -->
-
-
   <!-- ========================================================================
        SEZIONE 01: INIZIO (PRESIDENZA SUPREMA FUTUREX)
        ======================================================================== -->
@@ -1185,7 +1196,7 @@
           <input type="file" id="upload-video-01" class="slot-upload-input" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-01')">
         </div>
 
-        <!-- CENTRO: Spazio Testo di Presentazione -->
+        <!-- CENTRO: Spazio Testo di Presentazione Istituzionale -->
         <div class="stage-center-content">
           <span class="stage-section-tag">SEC-01 // ORGANO STATUTARIO</span>
           <h3 class="stage-section-title">Presidenza Suprema FutureX</h3>
@@ -1671,7 +1682,7 @@
         Recapito Telefonico &amp; Master WhatsApp: <strong>+39 347 4429091</strong>
       </p>
 
-      <!-- Canali Ufficiali & Alias di Posta Direzionale -->
+      <!-- Canali Ufficiali & Modale CEO -->
       <div class="footer-channels-block">
         <a href="https://t.me/supremafuturex" target="_blank" rel="noopener noreferrer" class="channel-pill-btn">
           ✈️ Canale Ufficiale Telegram
@@ -1701,8 +1712,6 @@
   <!-- ========================================================================
        SEZIONE 12: FINE
        ======================================================================== -->
-
-
   <!-- ========================================================================
        MODALE MULTIMEDIALE 12 SLOT (8 FOTO 16:9 + 4 VIDEO 16:9)
        ======================================================================== -->
@@ -1755,60 +1764,94 @@
       </div>
     </div>
   </div>
-  
+
+
   <!-- ========================================================================
-       MODALE FORM CONFERENZA CEO (CON I CAMPI OBBLIGATORI ED OPZIONALI)
+       MODALE CONFERENZA CEO // SCHEDA REGISTRAZIONE COMPLETA
        ======================================================================== -->
   <div class="sfx-modal-backdrop" id="modal-conferenza-ceo">
     <div class="sfx-modal-window" style="max-width: 580px;">
       <div class="sfx-modal-header">
-        <h4 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--c6-navy);">Richiesta Conferenza CEO</h4>
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--c1-gold); font-weight: 800; letter-spacing: 0.10em;">PROTOCOLLO PRESIDENZIALE</span>
+          <h4 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--c6-navy); margin-top: 2px;">Scheda Registrazione // Conferenza CEO</h4>
+        </div>
         <button type="button" class="sfx-modal-close" onclick="sfxCloseModal('modal-conferenza-ceo')">✕</button>
       </div>
       <form onsubmit="sfxSubmitCeoForm(event)" style="display: flex; flex-direction: column; gap: 14px;">
-        <input type="text" id="ceoFormName" class="lavora-text-input" placeholder="Nome / Ragione Sociale (Obbligatorio)" required>
-        <input type="email" id="ceoFormEmail" class="lavora-text-input" placeholder="Email Istituzionale (Obbligatorio)" required>
+        <div>
+          <label for="ceoFormName" style="display: block; font-family: var(--font-mono); font-size: 0.70rem; font-weight: 700; color: var(--c6-navy); margin-bottom: 4px;">NOME / RAGIONE SOCIALE *</label>
+          <input type="text" id="ceoFormName" class="lavora-text-input" placeholder="Es. Dott. Mario Rossi / Holding SpA" required>
+        </div>
+
+        <div>
+          <label for="ceoFormEmail" style="display: block; font-family: var(--font-mono); font-size: 0.70rem; font-weight: 700; color: var(--c6-navy); margin-bottom: 4px;">EMAIL ISTITUZIONALE *</label>
+          <input type="email" id="ceoFormEmail" class="lavora-text-input" placeholder="nome@azienda.it" required>
+        </div>
         
-        <hr style="border: none; border-top: 1px solid rgba(212, 175, 55, 0.3); margin: 6px 0;">
-        <p style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--c1-gold); text-transform: uppercase;">Dati Opzionali di Referenza</p>
+        <hr style="border: none; border-top: 1px solid rgba(212, 175, 55, 0.3); margin: 4px 0;">
+        <span style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--c1-gold); font-weight: 800; text-transform: uppercase;">Dati Opzionali di Referenza &amp; Provenienza</span>
         
-        <input type="text" id="ceoFormSource" class="lavora-text-input" placeholder="Come ci hai conosciuto? (Opzionale)">
-        <input type="text" id="ceoFormRefName" class="lavora-text-input" placeholder="Nome referente (Opzionale)">
-        <input type="text" id="ceoFormIntroducer" class="lavora-text-input" placeholder="Presentato da (Opzionale)">
+        <div>
+          <label for="ceoFormSource" style="display: block; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; color: rgba(11, 25, 44, 0.7); margin-bottom: 4px;">Come ci hai conosciuto? (Opzionale)</label>
+          <input type="text" id="ceoFormSource" class="lavora-text-input" placeholder="Es. Canale Telegram, Network Direzionale, Evento">
+        </div>
+
+        <div>
+          <label for="ceoFormRefName" style="display: block; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; color: rgba(11, 25, 44, 0.7); margin-bottom: 4px;">Nome referente (Opzionale)</label>
+          <input type="text" id="ceoFormRefName" class="lavora-text-input" placeholder="Nome e cognome del contatto interno">
+        </div>
+
+        <div>
+          <label for="ceoFormIntroducer" style="display: block; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; color: rgba(11, 25, 44, 0.7); margin-bottom: 4px;">Presentato da (Opzionale)</label>
+          <input type="text" id="ceoFormIntroducer" class="lavora-text-input" placeholder="Partner o advisor che ha introdotto la candidatura">
+        </div>
         
-        <button type="submit" class="btn-discover-main" style="margin-top: 10px; width: 100%;">Invia Richiesta al Tally ➔</button>
+        <button type="submit" class="btn-discover-main" style="margin-top: 8px; width: 100%;">Invia Richiesta al Tally ➔</button>
       </form>
     </div>
   </div>
 
 
   <!-- ========================================================================
-       MOTORE JAVASCRIPT MASTER ESECUTIVO (STABILITA ROCK-SOLID, ZERO CRASH)
+       MOTORE JAVASCRIPT MASTER ESECUTIVO (ZERO SCATTI, ACCELERAZIONE GPU)
        ======================================================================== -->
   <script>
     'use strict';
 
     /* ------------------------------------------------------------------------
-       1. CAROSELLO LOGO 10 FOTO GITHUB (media/sec-01-hero/logo-01 a 10)
+       1. MOTORE CINETICO LOGO: 3 SECONDI SFX -> LOOP CONTINUO 10 FOTO
        ------------------------------------------------------------------------ */
     let currentHeroSlide = 0;
     const heroSlides = document.querySelectorAll('.hero-loop-slide');
+    const sfxOverlay = document.getElementById('sfx-fade-out');
 
     function sfxInitHeroLoop() {
-      if (!heroSlides.length) return;
-      setInterval(() => {
-        heroSlides[currentHeroSlide].classList.remove('active');
-        currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
-        heroSlides[currentHeroSlide].classList.add('active');
-      }, 3200);
+      setTimeout(() => {
+        if (sfxOverlay) {
+          sfxOverlay.style.opacity = '0';
+          sfxOverlay.style.transform = 'scale(0.85)';
+          setTimeout(() => {
+            sfxOverlay.style.display = 'none';
+            if (heroSlides.length > 0) {
+              heroSlides[0].classList.add('active');
+              setInterval(() => {
+                heroSlides[currentHeroSlide].classList.remove('active');
+                currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+                heroSlides[currentHeroSlide].classList.add('active');
+              }, 3200);
+            }
+          }, 800);
+        }
+      }, 3000);
     }
 
     /* ------------------------------------------------------------------------
-       2. SUPREMA RADIO: 30 BRANI, PARTENZA IN MUTO, ZERO CRASH BUFFER
+       2. SUPREMA RADIO: 30 BRANI, PARTENZA IN MUTO & CICLO CONTINUO
        ------------------------------------------------------------------------ */
     const sfxRadio = new Audio();
     sfxRadio.preload = 'none';
-    sfxRadio.muted = true; // AVVIO RIGOROSAMENTE IN MUTO
+    sfxRadio.muted = true;
     sfxRadio.volume = 0.70;
     let currentRadioTrack = 1;
     let isRadioPlaying = false;
@@ -1816,7 +1859,6 @@
     function sfxRadioLoad(trackIndex) {
       currentRadioTrack = trackIndex;
       const numStr = String(trackIndex).padStart(2, '0');
-      // PERCORSO CORRETTO E SICURO PER GITHUB PAGES (SENZA SLASH INIZIALE)
       sfxRadio.src = `media/audio-radio/track-${numStr}.mp3`;
       const title = document.getElementById('radioTrackTitle');
       if (title) title.textContent = `TRACCIA ${numStr} // RELAX LOUNGE`;
@@ -1829,13 +1871,13 @@
         isRadioPlaying = false;
         if (btn) btn.textContent = '▶ Play';
       } else {
-        if(!sfxRadio.src || sfxRadio.src.includes(window.location.pathname)) {
-             sfxRadioLoad(currentRadioTrack);
+        if (!sfxRadio.src || sfxRadio.src.includes(window.location.pathname)) {
+          sfxRadioLoad(currentRadioTrack);
         }
         sfxRadio.play().then(() => {
           isRadioPlaying = true;
           if (btn) btn.textContent = '⏸ Pausa';
-        }).catch(e => console.warn('Riproduzione regolata dal browser:', e));
+        }).catch(e => console.warn('Riproduzione regolata dalle policy del browser:', e));
       }
     }
 
@@ -1881,6 +1923,7 @@
       if (sfxRadio.muted && parseFloat(val) > 0) sfxRadioMuteToggle();
     }
     
+    // LISTENER LOOP CONTINUO DELLA RADIO (AUTO-AVANZAMENTO TRACCE)
     sfxRadio.addEventListener('ended', sfxRadioNext);
 
     /* ------------------------------------------------------------------------
@@ -1898,27 +1941,30 @@
     }
 
     /* ------------------------------------------------------------------------
-       4. CONFERENZA CEO & TRIPLO CLICK PER X-BOX
+       4. CONFERENZA CEO // MODALE DI REGISTRAZIONE & GESTIONE INVIO
        ------------------------------------------------------------------------ */
     function sfxOpenCeoConference() {
-       const modal = document.getElementById('modal-conferenza-ceo');
-       if(modal) {
-           document.querySelectorAll('.capsule-group.open').forEach(g => g.classList.remove('open'));
-           modal.classList.add('active');
-       } else {
-           alert("Inizializzazione sala riservata Google Meet con il Founder & CEO Giuliano Caratelli...");
-           window.open('https://meet.google.com/new', '_blank');
-       }
+      const modal = document.getElementById('modal-conferenza-ceo');
+      if (modal) {
+        document.querySelectorAll('.capsule-group.open').forEach(g => g.classList.remove('open'));
+        modal.classList.add('active');
+      }
     }
     
     function sfxSubmitCeoForm(e) {
-        e.preventDefault();
-        const nome = document.getElementById('ceoFormName')?.value || '';
-        alert(`✓ Richiesta Tally inviata!\nCandidato: ${nome}\nIl modulo è stato inoltrato alla segreteria presidenziale.`);
-        sfxCloseModal('modal-conferenza-ceo');
-        e.target.reset();
+      e.preventDefault();
+      const nome = document.getElementById('ceoFormName')?.value || '';
+      const email = document.getElementById('ceoFormEmail')?.value || '';
+      const source = document.getElementById('ceoFormSource')?.value || 'Non specificato';
+      const ref = document.getElementById('ceoFormRefName')?.value || 'Nessuno';
+      const intro = document.getElementById('ceoFormIntroducer')?.value || 'Nessuno';
+
+      alert(`✓ Registrazione Conferenza CEO inoltrata!\n\nCandidato: ${nome}\nEmail: ${email}\nFonte: ${source}\nReferente: ${ref}\nPresentato da: ${intro}\n\nNotifica acquisita dai sistemi di Presidenza (Tally).`);
+      sfxCloseModal('modal-conferenza-ceo');
+      e.target.reset();
     }
 
+    /* TRIPLO CLICK CONSOLE X-BOX SULL'OVALE */
     let clickCount = 0;
     let clickTimer = null;
     const ovalChassis = document.getElementById('heroChassisTrigger');
@@ -1940,7 +1986,7 @@
     }
 
     /* ------------------------------------------------------------------------
-       5. GESTIONE UPLOAD MULTIMEDIALI NELLE SEZIONI (SX VIDEO LOCKED & DX FOTO)
+       5. GESTIONE UPLOAD MULTIMEDIALI NELLE 11 SEZIONI
        ------------------------------------------------------------------------ */
     function sfxTriggerUpload(inputId) {
       const input = document.getElementById(inputId);
@@ -1998,7 +2044,6 @@
       if (!wasOpen) wrap.classList.add('open');
     }
 
-    // Chiusura al click esterno per prevenire crash e blocchi
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.capsule-group')) {
         document.querySelectorAll('.capsule-group.open').forEach(g => g.classList.remove('open'));
@@ -2031,7 +2076,7 @@
     }
 
     /* ------------------------------------------------------------------------
-       7. INVIO DOSSIER CANDIDATURA "LAVORA CON NOI" ALLA SEGRETERIA SUPREMA
+       7. INVIO DOSSIER CANDIDATURA "LAVORA CON NOI" ALLA SEGRETERIA
        ------------------------------------------------------------------------ */
     function sfxSubmitLavoraConNoi(e) {
       e.preventDefault();
@@ -2044,17 +2089,18 @@
       e.target.reset();
     }
 
-    // Binding Floating Badge Alison
+    // Badge Alison Global Listener
     document.getElementById('alisonGlobalTrigger')?.addEventListener('click', () => {
       sfxOpenFaqModal('faq');
     });
 
-    /* Bootstrap Applicativo */
+    /* Avvio Globale */
     document.addEventListener('DOMContentLoaded', () => {
       sfxInitHeroLoop();
+      sfxRadioLoad(1);
       sfxInitTelemetry();
     });
   </script>
 </body>
 </html>
-```[cite: 7]
+  
