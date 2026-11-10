@@ -1,1260 +1,2387 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>SUPREMA FUTURE X // X-BOX CONSOLE EAL6+ [PRESIDENZA ESECUTIVA]</title>
-  
+  <title>X-BOX CONSOLE // SUPREMA FUTURE X ENTERPRISE</title>
+
+  <!-- Metadati di Sicurezza Forense EAL6+ -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="theme-color" content="#0B192C">
+  <meta name="author" content="Giuliano Caratelli">
+
+  <!-- Font Istituzionali EAL6+ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Iconografia Ufficiale FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Foglio Stili Globale e PWA Manifest -->
   <link rel="stylesheet" href="stile-globale.css">
+  <link rel="manifest" href="manifest.json">
 
   <style>
+    /* ==========================================================================
+       1. VARIABILI DI SISTEMA & TEMA X-BOX CONSOLE (COCKPIT HYBRID LIGHT/DARK)
+       ========================================================================== */
     :root {
-      --xbox-bg: var(--bg-pearl-satin);
-      --xbox-panel: #FFFFFF;
-      --xbox-border: var(--border-gold);
-      --xbox-sidebar: var(--bg-pearl-light);
+      --bg-pearl-satin: #F6F2EB;
+      --bg-pearl-pure: #FAF8F5;
+      --bg-surface: #EFECE4;
+      --bg-cockpit-dark: #08101D;
+      --bg-cockpit-card: #0D1B2E;
+      --bg-cockpit-card-hover: #13243C;
+      --spectral-gold: #D4AF37;
+      --spectral-gold-deep: #B8860B;
+      --spectral-gold-glow: rgba(212, 175, 55, 0.45);
+      --gold-border-subtle: rgba(212, 175, 55, 0.25);
+      --gold-border-strong: rgba(212, 175, 55, 0.85);
+      --text-dominant: #0B192C;
+      --text-muted: #5A6270;
+      --text-cockpit-light: #F6F2EB;
+      --text-cockpit-dim: #8A99AD;
+      --status-online: #00E676;
+      --status-alert: #D32F2F;
+      --status-standby: #FFB300;
+      --font-main: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Cinzel', Georgia, serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-oval: 9999px;
+      --shadow-cockpit: 0 16px 40px rgba(0, 0, 0, 0.35);
+      --shadow-gold: 0 0 25px rgba(212, 175, 55, 0.25);
     }
 
-    body {
-      background-color: var(--xbox-bg);
-      color: var(--text-dominant);
-      font-family: var(--font-main);
-      min-height: 100vh;
-      overflow-x: hidden;
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
-      user-select: none;
-      -webkit-user-select: none;
+      padding: 0;
     }
 
-    /* GATEWAY LOCKSCREEN ANTI-KEYLOGGER */
-    .lockscreen-modal {
-      position: fixed; inset: 0; z-index: 10000;
-      background: var(--bg-pearl-satin);
-      display: flex; justify-content: center; align-items: center;
-      padding: 1.5rem;
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-cockpit-dark);
+      color: var(--text-cockpit-light);
+      font-family: var(--font-main);
+      overflow-x: hidden;
+      font-size: 14px;
+      line-height: 1.5;
     }
-    .lockscreen-box {
-      width: 100%; max-width: 480px;
-      background: #FFFFFF;
+
+    /* Scrollbar Forense Personalizzata */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060B14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold-border-subtle);
+      border-radius: var(--radius-xs);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--spectral-gold);
+    }
+
+    /* ==========================================================================
+       2. LOCKSCREEN CRITTOGRAFICO 2FA (STAGE 1: PASSWORD + STAGE 2: FISHER-YATES)
+       ========================================================================== */
+    #sfx-xbox-lockscreen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #0F1E33 0%, #060B14 100%);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+    }
+
+    .lockbox-vault {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(13, 27, 46, 0.95);
+      border: 2px solid var(--spectral-gold);
+      border-radius: var(--radius-lg);
+      padding: 40px 35px;
+      box-shadow: var(--shadow-cockpit), var(--shadow-gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lockbox-vault::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--spectral-gold), transparent);
+      animation: sweepGlow 3s infinite linear;
+    }
+
+    @keyframes sweepGlow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .badge-eal6 {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: var(--radius-oval);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--spectral-gold);
+      color: var(--spectral-gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    /* Tastierino Numerico Randomizzato Fisher-Yates */
+    .pin-display-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 25px 0 20px;
+    }
+
+    .pin-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--spectral-gold);
+      background: transparent;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .pin-dot.filled {
+      background: var(--spectral-gold);
+      box-shadow: 0 0 12px var(--spectral-gold);
+      transform: scale(1.15);
+    }
+
+    .keypad-grid-scrambled {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .keypad-btn {
+      aspect-ratio: 1;
+      max-height: 64px;
+      background: var(--bg-cockpit-card);
+      border: 1.5px solid var(--gold-border-subtle);
       border-radius: var(--radius-md);
-      padding: 3rem 2.2rem;
-      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
-      text-align: center;
-      border: 2px solid var(--gold-primary);
+      color: var(--text-cockpit-light);
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     }
-    .pin-display-dots {
-      display: flex; justify-content: center; gap: 12px; margin: 1.8rem 0;
+
+    .keypad-btn:hover {
+      background: var(--bg-cockpit-card-hover);
+      border-color: var(--spectral-gold);
+      color: var(--spectral-gold);
+      transform: translateY(-2px);
     }
-    .p-dot {
-      width: 15px; height: 15px; border-radius: 50%;
-      border: 2px solid var(--border-gold); background: transparent;
+
+    .keypad-btn:active {
+      transform: scale(0.94);
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    .keypad-btn.action-btn {
+      font-size: 0.95rem;
+      border-color: rgba(211, 47, 47, 0.4);
+      color: var(--status-alert);
+    }
+
+    /* ==========================================================================
+       3. STRUTTURA COCKPIT X-BOX PRINCIPALE (GRID LAYOUT)
+       ========================================================================== */
+    #sfx-xbox-cockpit {
+      display: none; /* Attivato via JS dopo validazione 2FA */
+      min-height: 100vh;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: 74px 1fr;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+    }
+
+    /* Header Superiore di Stato & Kill-Switch */
+    .xbox-header {
+      grid-area: header;
+      background: rgba(8, 16, 29, 0.96);
+      border-bottom: 1.5px solid var(--gold-border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      backdrop-filter: blur(12px);
+    }
+
+    .header-cluster-status {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .node-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-xs);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-cockpit-dim);
+    }
+
+    .node-pill strong {
+      color: var(--text-cockpit-light);
+    }
+
+    .kill-switch-trigger-wrap {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .btn-killswitch {
+      padding: 8px 18px;
+      background: rgba(211, 47, 47, 0.15);
+      border: 1.5px solid var(--status-alert);
+      border-radius: var(--radius-oval);
+      color: var(--status-alert);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-killswitch:hover {
+      background: var(--status-alert);
+      color: #FFFFFF;
+      box-shadow: 0 0 20px rgba(211, 47, 47, 0.6);
+    }
+
+    /* Sidebar di Comando a 6 Schede */
+    .xbox-sidebar {
+      grid-area: sidebar;
+      background: #060B14;
+      border-right: 1.5px solid var(--gold-border-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 25px 18px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--gold-border-subtle);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .sidebar-nav-btn {
+      width: 100%;
+      padding: 12px 16px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      color: var(--text-cockpit-dim);
+      font-family: var(--font-main);
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       transition: all 0.2s ease;
     }
-    .p-dot.active {
-      background: var(--gold-primary); border-color: var(--gold-deep);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); transform: scale(1.2);
-    }
-    .keypad-matrix {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 1.2rem;
-    }
-    .kp-btn {
-      background: #FFFFFF; border: 1.5px solid var(--border-gold);
-      color: var(--text-dark); font-family: var(--font-mono);
-      font-size: 1.35rem; font-weight: 700; padding: 15px 0;
-      border-radius: var(--radius-sm); cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.04); transition: all 0.15s ease;
-    }
-    .kp-btn:hover {
-      background: var(--gold-primary); border-color: var(--gold-deep);
-      color: #FFFFFF; transform: scale(1.05); box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
-    }
-    .kp-btn:active { transform: scale(0.96); }
-    .kp-btn.action-clear { font-family: var(--font-main); font-size: 0.75rem; background: rgba(74, 82, 96, 0.08); }
-    .kp-btn.action-del { font-family: var(--font-mono); font-size: 1.1rem; background: rgba(74, 82, 96, 0.08); }
 
-    /* STRUTTURA LAYOUT X-BOX */
-    .xbox-viewport {
-      display: grid; grid-template-columns: 280px 1fr; min-height: 100vh;
+    .sidebar-nav-btn i {
+      font-size: 1.1rem;
+      width: 22px;
+      color: var(--text-cockpit-dim);
+      transition: color 0.2s ease;
     }
-    .xbox-nav {
-      background: var(--xbox-sidebar); border-right: 1.5px solid var(--border-gold);
-      padding: 2rem 1.2rem; display: flex; flex-direction: column; justify-content: space-between;
-      position: sticky; top: 0; height: 100vh; overflow-y: auto;
-    }
-    .xbox-brand-header {
-      padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-gold); margin-bottom: 1.8rem;
-    }
-    .nav-list { display: flex; flex-direction: column; gap: 0.4rem; }
-    .nav-item-btn {
-      display: flex; align-items: center; gap: 10px; padding: 12px 16px;
-      border-radius: var(--radius-sm); font-family: var(--font-main);
-      font-size: 0.78rem; font-weight: 700; color: var(--text-muted);
-      border: 1.5px solid transparent; background: transparent; cursor: pointer;
-      transition: all 0.2s ease; text-align: left; width: 100%;
-    }
-    .nav-item-btn:hover, .nav-item-btn.active {
-      background: #FFFFFF; color: var(--text-dominant); border-color: var(--gold-primary);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
-    }
-    .xbox-content {
-      padding: 2.5rem 3rem; overflow-y: auto;
-    }
-    .tab-view { display: none; }
-    .tab-view.active { display: block; animation: tabFadeIn 0.3s ease-out; }
 
-    /* COMPONENTI DASHBOARD */
-    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; margin-bottom: 2.2rem; }
-    .kpi-card {
-      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
-      padding: 1.6rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: 0.25s ease;
+    .sidebar-nav-btn:hover {
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--text-cockpit-light);
+      border-color: var(--gold-border-subtle);
     }
-    .kpi-card:hover { border-color: var(--gold-primary); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2); }
-    .kpi-val { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--gold-deep); margin: 0.4rem 0; }
-    .kpi-lbl { font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
 
-    /* TABELLE X-BOX */
-    .data-table-wrapper {
-      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
-      overflow-x: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 2.2rem;
+    .sidebar-nav-btn:hover i {
+      color: var(--spectral-gold);
     }
-    .xbox-data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
+
+    .sidebar-nav-btn.active {
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.18), rgba(212, 175, 55, 0.04));
+      border: 1px solid var(--spectral-gold);
+      color: var(--spectral-gold);
+    }
+
+    .sidebar-nav-btn.active i {
+      color: var(--spectral-gold);
+    }
+
+    /* Area Principale di Lavoro */
+    .xbox-main {
+      grid-area: main;
+      padding: 35px 30px 60px;
+      background: var(--bg-cockpit-dark);
+      overflow-y: auto;
+    }
+
+    .tab-section {
+      display: none;
+      animation: fadeInTab 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    @keyframes fadeInTab {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       4. COMPONENTI UI RIUSABILI: CARD, KPI, TABELLE FORENSI & MODALI
+       ========================================================================== */
+    .card-deck {
+      background: var(--bg-cockpit-card);
+      border: 1.5px solid var(--gold-border-subtle);
+      border-radius: var(--radius-md);
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-row-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .kpi-stat-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--gold-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      position: relative;
+    }
+
+    .kpi-stat-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--text-cockpit-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .kpi-stat-number {
+      font-family: var(--font-mono);
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--text-cockpit-light);
+    }
+
+    /* Tabelle Dati Dark Forensi */
+    .data-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--gold-border-subtle);
+      border-radius: var(--radius-sm);
+      background: #091322;
+    }
+
+    .xbox-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.84rem;
+    }
+
     .xbox-data-table th {
-      background: var(--bg-surface); padding: 14px 18px; font-family: var(--font-mono);
-      font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 1.5px solid var(--border-gold);
+      background: #0C1A2E;
+      color: var(--spectral-gold);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 16px;
+      border-bottom: 1.5px solid var(--gold-border-subtle);
     }
+
     .xbox-data-table td {
-      padding: 16px 18px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); color: var(--text-dominant);
-    }
-    .xbox-data-table tr:hover { background: rgba(212, 175, 55, 0.05); }
-
-    /* BADGE STATO */
-    .status-badge {
-      font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 4px 10px;
-      border-radius: var(--radius-oval); text-transform: uppercase; letter-spacing: 0.5px; display: inline-block;
-    }
-    .status-badge.nuovo { background: rgba(0, 242, 254, 0.15); color: #008b9c; border: 1px solid var(--cyan-neural); }
-    .status-badge.convocato { background: rgba(212, 175, 55, 0.15); color: var(--gold-deep); border: 1px solid var(--gold-primary); }
-    .status-badge.ammesso { background: rgba(16, 185, 129, 0.15); color: #065F46; border: 1px solid var(--emerald-accent); }
-    .status-badge.rigettato { background: rgba(239, 68, 68, 0.15); color: #991b1b; border: 1px solid var(--status-alert); }
-
-    /* CMS SECTION ACCORDION & SLOTS */
-    .cms-section-card {
-      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
-      padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-    }
-    .cms-sec-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.4rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 1rem;
-    }
-    .cms-slots-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 1.2rem;
-    }
-    .cms-slot-box {
-      border: 1.5px dashed var(--border-gold); border-radius: 10px; padding: 12px;
-      background: var(--bg-surface); font-family: var(--font-mono); font-size: 0.72rem;
-    }
-    .cms-slot-box input {
-      width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-gold);
-      margin-top: 6px; font-size: 0.75rem; background: #FFF; outline: none;
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-cockpit-light);
     }
 
-    /* MODALI DETTAGLIO */
-    .modal-overlay-xbox {
-      position: fixed; inset: 0; background: rgba(11, 25, 44, 0.85);
-      backdrop-filter: blur(10px); z-index: 10001; display: none;
-      justify-content: center; align-items: center; padding: 2rem;
-    }
-    .modal-box-xbox {
-      background: #FFFFFF; border: 2px solid var(--gold-primary); border-radius: var(--radius-md);
-      width: 100%; max-width: 820px; max-height: 90vh; overflow-y: auto; padding: 2.5rem;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative;
+    .xbox-data-table tr:hover {
+      background: rgba(212, 175, 55, 0.04);
     }
 
-    /* TELEMETRIA AGENTI GRID */
-    .agent-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.2rem; margin-top: 1.5rem;
+    /* Flotta Agenti Grid */
+    .fleet-agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
     }
-    .agent-card {
-      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
-      padding: 1.4rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: all 0.2s ease;
-    }
-    .agent-card:hover {
-      border-color: var(--gold-primary); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
-    }
-    .agent-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;
-    }
-    .form-group { margin-bottom: 1.2rem; }
-    .form-label {
-      display: block; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
-      color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.4rem;
-    }
-    .form-input {
-      width: 100%; padding: 11px 14px; border: 1.5px solid var(--border-gold);
-      border-radius: var(--radius-xs); font-family: var(--font-main); font-size: 0.85rem;
-      background: #FFFFFF; outline: none; transition: border-color 0.2s ease;
-    }
-    .form-input:focus { border-color: var(--gold-primary); }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
 
-    @media(max-width: 1024px) {
-      .xbox-viewport { grid-template-columns: 1fr; }
-      .xbox-nav { height: auto; position: relative; }
-      .kpi-row { grid-template-columns: 1fr 1fr; }
-      .cms-slots-grid { grid-template-columns: 1fr 1fr; }
-      .grid-2 { grid-template-columns: 1fr; }
+    .agent-pod-card {
+      background: var(--bg-cockpit-card);
+      border: 1.5px solid var(--gold-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .agent-pod-card:hover {
+      border-color: var(--spectral-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Matrice Media Vault 500 Slot */
+    .vault-grid-matrix {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding: 10px;
+      background: #060B14;
+      border: 1px solid var(--gold-border-subtle);
+      border-radius: var(--radius-sm);
+    }
+
+    .vault-slot-cell {
+      background: var(--bg-cockpit-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-xs);
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .vault-slot-cell:hover {
+      border-color: var(--spectral-gold);
+      background: var(--bg-cockpit-card-hover);
+    }
+
+    .vault-slot-cell.locked {
+      opacity: 0.65;
+      border-style: dashed;
+    }
+
+    .vault-slot-cell.unlocked {
+      border-color: var(--spectral-gold);
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    /* Pulsanti Istituzionali X-BOX */
+    .btn-gold-xbox {
+      padding: 9px 20px;
+      background: linear-gradient(135deg, var(--spectral-gold), var(--spectral-gold-deep));
+      border: 1px solid #8C6D23;
+      border-radius: var(--radius-xs);
+      color: #060B14;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-gold-xbox:hover {
+      box-shadow: 0 0 16px var(--spectral-gold-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-xbox {
+      padding: 8px 18px;
+      background: transparent;
+      border: 1px solid var(--gold-border-subtle);
+      border-radius: var(--radius-xs);
+      color: var(--text-cockpit-light);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-outline-xbox:hover {
+      border-color: var(--spectral-gold);
+      color: var(--spectral-gold);
+      background: rgba(212, 175, 55, 0.05);
     }
   </style>
 </head>
-<body>
+<body id="sfx-xbox-root">
 
-  <!-- 1. GATEWAY LOCKSCREEN ANTI-KEYLOGGER -->
-  <div class="lockscreen-modal" id="xbox-lockscreen">
-    <div class="lockscreen-box">
-      <div class="badge-forensic active" style="margin-bottom:1rem;">
-        <i class="fa-solid fa-shield-halved"></i> SICUREZZA EAL6+ ATTIVA
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- ==================== FINE PARTE 1 DI 5 ==================== -->
+  <!-- ========================================================================
+       LOCKSCREEN PRESIDENZIALE 2FA (STAGE 1: PASSWORD // STAGE 2: PIN SCRAMBLED)
+       ======================================================================== -->
+  <div id="sfx-xbox-lockscreen">
+    <div class="lockbox-vault">
+      
+      <!-- STAGE 1: INSERIMENTO MASTER PASSWORD -->
+      <div id="lockscreenStage1">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <span class="badge-eal6">
+            <i class="fa-solid fa-shield-halved"></i> EAL6+ CERTIFIED PRESIDENCY VAULT
+          </span>
+          <h1 style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--text-cockpit-light); letter-spacing: 0.05em; margin: 10px 0 5px;">
+            X-BOX CONSOLE
+          </h1>
+          <p style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--spectral-gold); letter-spacing: 0.1em; text-transform: uppercase;">
+            Autenticazione Sovrana // Nodo Centrale Roma
+          </p>
+        </div>
+
+        <form id="formStage1Password" onsubmit="sfxSubmitStage1(event)" autocomplete="off">
+          <div style="margin-bottom: 20px;">
+            <label for="inputMasterPassword" style="display: block; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 8px;">
+              Master Password Presidenziale (Fase 1 di 2):
+            </label>
+            <div style="position: relative;">
+              <input 
+                type="password" 
+                id="inputMasterPassword" 
+                name="master_password_sfx"
+                required 
+                placeholder="Digitare credenziale master..." 
+                style="width: 100%; padding: 14px 45px 14px 16px; background: #060B14; border: 1.5px solid var(--gold-border-subtle); border-radius: var(--radius-sm); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.92rem; outline: none; transition: border-color 0.2s ease;"
+                onfocus="this.style.borderColor='var(--spectral-gold)'"
+                onblur="this.style.borderColor='var(--gold-border-subtle)'"
+              >
+              <button 
+                type="button" 
+                onclick="sfxTogglePasswordVisibility('inputMasterPassword', this)" 
+                style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-cockpit-dim); cursor: pointer; font-size: 1rem;"
+                aria-label="Mostra/Nascondi password"
+              >
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+            <div id="stage1ErrorMessage" style="display: none; margin-top: 10px; font-family: var(--font-mono); font-size: 0.74rem; color: var(--status-alert); line-height: 1.5;">
+              <i class="fa-solid fa-triangle-exclamation"></i> Credenziale master non conforme ai registri crittografici.
+            </div>
+          </div>
+
+          <button type="submit" id="btnSubmitStage1" class="btn-gold-xbox" style="width: 100%; padding: 14px; font-size: 0.84rem; justify-content: center;">
+            <i class="fa-solid fa-key"></i> Verifica Credenziale &amp; Sblocca PIN ➔
+          </button>
+        </form>
+
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center;">
+          <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+            PROTOCOLLO FORENSE COLLEFERRO (ROMA) // FORO: VELLETRI / ROMA
+          </span>
+        </div>
       </div>
-      <h2 style="font-family:var(--font-display); font-size:1.6rem; margin-bottom:0.4rem; color:var(--text-dark);">
-        X-BOX GATEWAY
-      </h2>
-      <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-bottom:1.5rem;">
-        PRESIDENZA ESECUTIVA GIULIANO CARATELLI // NODO ROMA
+
+      <!-- STAGE 2: TASTIERINO NUMERICO SCRAMBLED FISHER-YATES -->
+      <div id="lockscreenStage2" style="display: none;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <span class="badge-eal6" style="border-color: var(--status-online); color: var(--status-online);">
+            <i class="fa-solid fa-circle-check"></i> FASE 1 VIDIMATA // ACCREDITO PIN
+          </span>
+          <h2 style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; color: var(--text-cockpit-light); margin: 6px 0 4px;">
+            Tastierino Crittografico
+          </h2>
+          <p style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim);">
+            Layout Randomizzato Anti-Spionaggio (Algoritmo Fisher-Yates)
+          </p>
+        </div>
+
+        <!-- Indicatori 6 Cifre PIN -->
+        <div class="pin-display-wrapper" id="pinDisplayContainer">
+          <div class="pin-dot" id="dotPin0"></div>
+          <div class="pin-dot" id="dotPin1"></div>
+          <div class="pin-dot" id="dotPin2"></div>
+          <div class="pin-dot" id="dotPin3"></div>
+          <div class="pin-dot" id="dotPin4"></div>
+          <div class="pin-dot" id="dotPin5"></div>
+        </div>
+
+        <!-- Matrice Tasti Scrambled -->
+        <div class="keypad-grid-scrambled" id="scrambledKeypadMatrix">
+          <!-- Popolato dinamicamente da sfxRenderScrambledKeypad() in JS -->
+        </div>
+
+        <div id="stage2ErrorMessage" style="display: none; margin-top: 15px; text-align: center; font-family: var(--font-mono); font-size: 0.74rem; color: var(--status-alert);">
+          <i class="fa-solid fa-triangle-exclamation"></i> PIN non valido. Riorganizzazione vettoriale tastierino.
+        </div>
+
+        <div style="margin-top: 25px; display: flex; justify-content: space-between; align-items: center;">
+          <button type="button" onclick="sfxResetToStage1()" class="btn-outline-xbox" style="font-size: 0.70rem; padding: 6px 14px;">
+            <i class="fa-solid fa-arrow-left"></i> Annulla
+          </button>
+          <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--spectral-gold);">
+            AUTO-CLEAR: 30s
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       X-BOX COCKPIT OPERATIVO (ATTIVATO DOPO SUPERAMENTO 2FA)
+       ======================================================================== -->
+  <div id="sfx-xbox-cockpit">
+
+    <!-- ==================== HEADER SUPERIORE COCKPIT ==================== -->
+    <header class="xbox-header">
+      
+      <!-- Sezione Sinistra: Stato Nodi Cluster & Orologio CET -->
+      <div class="header-cluster-status">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--status-online); box-shadow: 0 0 10px var(--status-online);"></div>
+          <span style="font-weight: 800; color: var(--text-cockpit-light); letter-spacing: 0.05em;">X-BOX CONSOLE MASTER</span>
+        </div>
+
+        <div class="node-pill">
+          <span>ROMA MASTER:</span>
+          <strong id="headerPingRoma">6 ms</strong>
+        </div>
+
+        <div class="node-pill">
+          <span>MILANO DR:</span>
+          <strong id="headerPingMilano">14 ms</strong>
+        </div>
+
+        <div class="node-pill">
+          <span>FRANCOFORTE RELAY:</span>
+          <strong id="headerPingFrankfurt">31 ms</strong>
+        </div>
+
+        <div class="node-pill" style="border-color: var(--gold-border-strong); background: rgba(212, 175, 55, 0.08);">
+          <i class="fa-regular fa-clock" style="color: var(--spectral-gold);"></i>
+          <span id="xboxCockpitClock" style="color: var(--spectral-gold); font-weight: 800;">--:--:-- CET</span>
+        </div>
+      </div>
+
+      <!-- Sezione Destra: Profilo Esecutivo & Presidio Kill-Switch -->
+      <div class="kill-switch-trigger-wrap">
+        <div style="text-align: right; margin-right: 15px;">
+          <div style="font-family: var(--font-display); font-size: 0.88rem; font-weight: 800; color: var(--text-cockpit-light);">
+            Giuliano Caratelli
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--spectral-gold); font-weight: 700;">
+            FOUNDER &amp; CHIEF EXECUTIVE OFFICER
+          </div>
+        </div>
+
+        <!-- Pulsante Innesco Kill-Switch -->
+        <button type="button" class="btn-killswitch" id="btnHeaderKillSwitch" onclick="sfxOpenKillSwitchModal()">
+          <i class="fa-solid fa-power-off"></i> KILL-SWITCH EAL6+
+        </button>
+      </div>
+
+    </header>
+
+    <!-- ==================== SIDEBAR SINISTRA (6 SCHEDE DI COMANDO) ==================== -->
+    <aside class="xbox-sidebar">
+      
+      <div>
+        <!-- Brand Istituzionale Sidebar -->
+        <div class="sidebar-brand">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <div style="width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--spectral-gold); display: flex; align-items: center; justify-content: center; background: rgba(212, 175, 55, 0.1);">
+              <i class="fa-solid fa-crown" style="color: var(--spectral-gold); font-size: 1.1rem;"></i>
+            </div>
+            <div>
+              <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">
+                SUPREMA X
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.64rem; color: var(--spectral-gold); font-weight: 800;">
+                GOVERNANCE OS 2026
+              </div>
+            </div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-cockpit-dim); line-height: 1.4;">
+            Hub Logistico &amp; Dir.: Colleferro (RM)<br>
+            Foro Esclusivo: Velletri / Roma
+          </div>
+        </div>
+
+        <!-- Navigazione a 6 Schede di Vertice -->
+        <nav>
+          <ul class="sidebar-nav-list">
+            <li>
+              <button type="button" class="sidebar-nav-btn active" data-tab="tab-core-security" onclick="sfxSwitchTab('tab-core-security', this)">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>01. Core Security &amp; Logs</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="sidebar-nav-btn" data-tab="tab-crm-leads" onclick="sfxSwitchTab('tab-crm-leads', this)">
+                <i class="fa-solid fa-users-gear"></i>
+                <span>02. CRM Leads &amp; Meet</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="sidebar-nav-btn" data-tab="tab-gold-card" onclick="sfxSwitchTab('tab-gold-card', this)">
+                <i class="fa-solid fa-id-card-clip"></i>
+                <span>03. Gold Card &amp; PTS</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="sidebar-nav-btn" data-tab="tab-fleet-agents" onclick="sfxSwitchTab('tab-fleet-agents', this)">
+                <i class="fa-solid fa-network-wired"></i>
+                <span>04. Flotta 15 Agenti</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="sidebar-nav-btn" data-tab="tab-media-vault" onclick="sfxSwitchTab('tab-media-vault', this)">
+                <i class="fa-solid fa-vault"></i>
+                <span>05. Media Vault 500</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="sidebar-nav-btn" data-tab="tab-platform-cms" onclick="sfxSwitchTab('tab-platform-cms', this)">
+                <i class="fa-solid fa-sliders"></i>
+                <span>06. Matrice CMS &amp; Gov</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Footer Sidebar: Telemetria Sessione & Uscita -->
+      <div style="border-top: 1px solid var(--gold-border-subtle); padding-top: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+            SESSIONE ATTIVA:
+          </span>
+          <span id="sessionTimerBadge" style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--status-online);">
+            08:00:00
+          </span>
+        </div>
+
+        <button type="button" onclick="sfxLogoutXboxSession()" class="btn-outline-xbox" style="width: 100%; justify-content: center; font-size: 0.72rem;">
+          <i class="fa-solid fa-lock"></i> Blocca Console X-BOX
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ==================== AREA PRINCIPALE DI LAVORO (MAIN VIEW) ==================== -->
+    <main class="xbox-main" id="xboxMainWorkArea">
+
+  <!-- ==================== FINE PARTE 2 DI 5 ==================== -->
+      <!-- ====================================================================
+           SCHEDA 01: CORE SECURITY & AUDIT FORENSE EAL6+
+           ==================================================================== -->
+      <section id="tab-core-security" class="tab-section active">
+        
+        <!-- Intestazione Scheda -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <span class="badge-eal6">
+              <i class="fa-solid fa-shield-halved"></i> LIVELLO DI SICUREZZA EAL6+ // NODO ROMA
+            </span>
+            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em; margin-top: 5px;">
+              Presidio Crittografico &amp; Sicurezza Sovrana
+            </h2>
+            <p style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+              Sede di Governo: Colleferro (Roma) // Foro Inderogabile: Velletri / Roma
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button type="button" class="btn-outline-xbox" onclick="sfxRefreshSecurityTelemetry()">
+              <i class="fa-solid fa-arrows-rotate"></i> Aggiorna Telemetria
+            </button>
+            <button type="button" class="btn-gold-xbox" onclick="sfxExportSecurityAuditCSV()">
+              <i class="fa-solid fa-file-shield"></i> Esporta Registro SHA-256
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Grid Sicurezza -->
+        <div class="kpi-row-grid">
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">STATO KILL-SWITCH SOVRANO</span>
+            <div class="kpi-stat-number" id="kpiKillSwitchState" style="color: var(--status-online); font-size: 1.5rem;">
+              DISARMED
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Infrastruttura Fully Operativa
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">MOTORE CIFRATURA SHA-256</span>
+            <div class="kpi-stat-number" style="color: var(--spectral-gold);">
+              ATTIVO
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              SubtleCrypto + Bitwise Fallback
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">SESSIONI EAL6+ AUTORIZZATE</span>
+            <div class="kpi-stat-number" id="kpiActiveSessionsCount">
+              1
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-online);">
+              Token Master Giuliano Caratelli
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">TENTATIVI BLINDATI RESPINTI</span>
+            <div class="kpi-stat-number" id="kpiBreachAttempts">
+              0
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-online);">
+              Integrità Registro 100.0%
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Deck: Pannello di Emergenza Kill-Switch & Presidio Fiduciario -->
+        <div class="card-deck" style="border-left: 4px solid var(--status-alert);">
+          <div class="card-deck-header">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-triangle-exclamation" style="color: var(--status-alert);"></i>
+                PANNELLO CONTROLLO DI EMERGENZA // KILL-SWITCH ARBITER (AG-14)
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                L'attivazione del Kill-Switch interrompe istantaneamente tutte le API REST di Google Apps Script, revoca ogni token attivo e congela il Media Vault.
+              </p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button type="button" class="btn-killswitch" onclick="sfxOpenKillSwitchModal()">
+                <i class="fa-solid fa-radiation"></i> GESTISCI KILL-SWITCH
+              </button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; font-family: var(--font-mono); font-size: 0.76rem;">
+            <div style="padding: 12px; background: rgba(0,0,0,0.3); border-radius: var(--radius-xs); border: 1px solid rgba(255,255,255,0.06);">
+              <span style="color: var(--text-cockpit-dim); display: block; margin-bottom: 4px;">END-POINT APPS SCRIPT COLLEGATO:</span>
+              <span style="color: var(--spectral-gold); word-break: break-all;" id="securityEndpointDisplay">
+                AKfycbwCumol9CGlR631PVQBM8Lycft80QyGn1qkLv.../exec
+              </span>
+            </div>
+            <div style="padding: 12px; background: rgba(0,0,0,0.3); border-radius: var(--radius-xs); border: 1px solid rgba(255,255,255,0.06);">
+              <span style="color: var(--text-cockpit-dim); display: block; margin-bottom: 4px;">DOMICILIAZIONE GIURISDIZIONALE:</span>
+              <span style="color: #FFFFFF; font-weight: 700;">
+                Tribunale di Velletri / Roma (Art. 2 Statuto)
+              </span>
+            </div>
+            <div style="padding: 12px; background: rgba(0,0,0,0.3); border-radius: var(--radius-xs); border: 1px solid rgba(255,255,255,0.06);">
+              <span style="color: var(--text-cockpit-dim); display: block; margin-bottom: 4px;">PROTOCOLLO FORENSE DI EMERGENZA:</span>
+              <span style="color: var(--status-online); font-weight: 700;">
+                TRIPLO NODO ATTIVO (ROMA-MILANO-FRANKFURT)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Deck: Registro Log Forensi Immutabili (SHA-256) -->
+        <div class="card-deck">
+          <div class="card-deck-header">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF;">
+                <i class="fa-solid fa-fingerprint" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+                REGISTRO DI AUDIT IMMUTABILE SHA-256 (EAL6+ FORENSIC TRAIL)
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                Tracciamento notarile di ogni operazione di accesso, convocazione Meet e variazione Gold Card.
+              </p>
+            </div>
+
+            <!-- Filtro Rapido Log -->
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input 
+                type="text" 
+                id="filterAuditLogsInput" 
+                placeholder="Filtra per hash, agente o evento..." 
+                oninput="sfxFilterAuditLogsTable(this.value)"
+                style="padding: 7px 14px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.74rem; outline: none; width: 260px;"
+              >
+              <button type="button" class="btn-outline-xbox" onclick="sfxClearAuditTableFilter()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="xbox-data-table" id="auditLogsTable">
+              <thead>
+                <tr>
+                  <th style="width: 150px;">TIMESTAMP [CET]</th>
+                  <th style="width: 100px;">SEVERITÀ</th>
+                  <th style="width: 130px;">AGENTE / ORIGINE</th>
+                  <th>AZIONE REGISTRATA</th>
+                  <th style="width: 220px;">HASH SHA-256 FORENSE</th>
+                  <th style="width: 90px; text-align: center;">ESITO</th>
+                </tr>
+              </thead>
+              <tbody id="auditLogsTableBody">
+                <!-- Record Iniziali Seed Forensi -->
+                <tr>
+                  <td style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim);">2026-11-10 18:17:04</td>
+                  <td><span class="badge-eal6" style="padding: 2px 8px; font-size: 0.65rem; border-color: var(--status-online); color: var(--status-online);">INFO</span></td>
+                  <td style="font-family: var(--font-mono); font-weight: 700;">AG-01 ALISON</td>
+                  <td>Autenticazione 2FA Master Vidimata per Founder Giuliano Caratelli</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--spectral-gold);">7b84a92c...e41f80d1</td>
+                  <td style="text-align: center;"><i class="fa-solid fa-circle-check" style="color: var(--status-online);"></i></td>
+                </tr>
+                <tr>
+                  <td style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim);">2026-11-10 18:15:30</td>
+                  <td><span class="badge-eal6" style="padding: 2px 8px; font-size: 0.65rem; border-color: var(--spectral-gold); color: var(--spectral-gold);">NOTICE</span></td>
+                  <td style="font-family: var(--font-mono); font-weight: 700;">AG-04 CHRONOS</td>
+                  <td>Sincronizzazione Slot Google Meet con Google Calendar API (60m)</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--spectral-gold);">e902b48d...17a35c94</td>
+                  <td style="text-align: center;"><i class="fa-solid fa-circle-check" style="color: var(--status-online);"></i></td>
+                </tr>
+                <tr>
+                  <td style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim);">2026-11-10 18:12:55</td>
+                  <td><span class="badge-eal6" style="padding: 2px 8px; font-size: 0.65rem; border-color: var(--status-online); color: var(--status-online);">SYSTEM</span></td>
+                  <td style="font-family: var(--font-mono); font-weight: 700;">AG-02 CIPHER</td>
+                  <td>Inizializzazione Schema Tabelle Persistenti su Foglio Master Core</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--spectral-gold);">c41b899a...6720fef2</td>
+                  <td style="text-align: center;"><i class="fa-solid fa-circle-check" style="color: var(--status-online);"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           SCHEDA 02: CRM LEADS & CONVOCAZIONI GOOGLE MEET (60M)
+           ==================================================================== -->
+      <section id="tab-crm-leads" class="tab-section">
+        
+        <!-- Intestazione Scheda -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <span class="badge-eal6">
+              <i class="fa-solid fa-users-gear"></i> GESTIONE RELAZIONI &amp; SCREENING DIREZIONALE
+            </span>
+            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em; margin-top: 5px;">
+              Dossier Candidature &amp; Accrediti Meet
+            </h2>
+            <p style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+              Screening Conoscitivo 60m Tandem Funnel // Verifica Assoluto Divieto MLM (Art. 3)
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn-outline-xbox" onclick="sfxFetchLeadsFromAppsScript()">
+              <i class="fa-solid fa-rotate"></i> Sincronizza da Google Apps Script
+            </button>
+            <button type="button" class="btn-gold-xbox" onclick="sfxOpenNewLeadModal()">
+              <i class="fa-solid fa-user-plus"></i> Inserisci Dossier Manuale
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Grid CRM -->
+        <div class="kpi-row-grid">
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">DOSSIER TOTALI ACQUISITI</span>
+            <div class="kpi-stat-number" id="kpiTotalLeads">
+              14
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Screening EAL6+ Registrati
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">VIDIMATI E CONVOCATI MEET</span>
+            <div class="kpi-stat-number" id="kpiVerifiedLeads" style="color: var(--status-online);">
+              9
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-online);">
+              Stanza Meet Riservata Concessa
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">IN LAVORAZIONE / RE-AUDIT</span>
+            <div class="kpi-stat-number" id="kpiPendingLeads" style="color: var(--status-standby);">
+              4
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Verifica Compliance in Corso
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">ISTANZE RESPINTE (ART. 3)</span>
+            <div class="kpi-stat-number" id="kpiRejectedLeads" style="color: var(--status-alert);">
+              1
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-alert);">
+              Tentativo Infiltrazione MLM Bloccato
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Deck: Tabella Principale Candidature -->
+        <div class="card-deck">
+          <div class="card-deck-header" style="flex-wrap: wrap; gap: 15px;">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF;">
+                <i class="fa-solid fa-address-book" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+                REGISTRO OPERATIVO CANDIDATURE (TANDEM SCREENING)
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                Gestione stati, dispatch WhatsApp certificato e link diretto Google Meet presidenziale.
+              </p>
+            </div>
+
+            <!-- Toolbar Ricerca e Filtro per Stato -->
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+              <input 
+                type="text" 
+                id="searchLeadsInput" 
+                placeholder="Cerca candidato, email o protocollo..." 
+                oninput="sfxFilterLeadsTable()"
+                style="padding: 7px 14px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.74rem; outline: none; width: 240px;"
+              >
+
+              <select 
+                id="filterLeadStatusSelect" 
+                onchange="sfxFilterLeadsTable()"
+                style="padding: 7px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: var(--spectral-gold); font-family: var(--font-mono); font-size: 0.74rem; outline: none;"
+              >
+                <option value="ALL">TUTTI GLI STATI</option>
+                <option value="VIDIMATO EAL6+">VIDIMATO EAL6+</option>
+                <option value="IN LAVORAZIONE">IN LAVORAZIONE</option>
+                <option value="IN ATTESA RIASSEGNAZIONE">IN ATTESA RIASSEGNAZIONE</option>
+                <option value="RESPINTO">RESPINTO (ART. 3 MLM)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="data-table-container">
+            <table class="xbox-data-table" id="crmLeadsTable">
+              <thead>
+                <tr>
+                  <th style="width: 140px;">PROTOCOLLO</th>
+                  <th>CANDIDATO &amp; AZIENDA</th>
+                  <th>PROFILO</th>
+                  <th>PROGRAMMA ACADEMY</th>
+                  <th style="width: 160px;">SLOT MEET (60M)</th>
+                  <th style="width: 150px;">STATO DOSSIER</th>
+                  <th style="width: 170px; text-align: right;">DISPATCH AZIONI</th>
+                </tr>
+              </thead>
+              <tbody id="crmLeadsTableBody">
+                <!-- Esempi di Record Seed Operativi -->
+                <tr data-lead-id="#SFX-2026-7842">
+                  <td style="font-family: var(--font-mono); font-weight: 800; color: var(--spectral-gold);">#SFX-2026-7842</td>
+                  <td>
+                    <div style="font-weight: 700; color: #FFFFFF;">Dott. Claudio De Angelis</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">De Angelis Consulting Srl // Roma Est</div>
+                  </td>
+                  <td><span class="badge-eal6" style="padding: 2px 8px; font-size: 0.65rem;">IMPRESA STRUTTURATA</span></td>
+                  <td style="font-size: 0.78rem;">Concessione Store E-Commerce Hub Colleferro</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-light);">
+                    16 Nov 2026<br><span style="color: var(--spectral-gold);">11:00 - 12:00 CET</span>
+                  </td>
+                  <td>
+                    <select onchange="sfxUpdateLeadStatusInline('#SFX-2026-7842', this.value)" style="background: #060B14; border: 1px solid var(--status-online); border-radius: var(--radius-xs); color: var(--status-online); font-family: var(--font-mono); font-size: 0.70rem; padding: 4px 6px;">
+                      <option value="VIDIMATO EAL6+" selected>VIDIMATO EAL6+</option>
+                      <option value="IN LAVORAZIONE">IN LAVORAZIONE</option>
+                      <option value="RESPINTO">RESPINTO</option>
+                    </select>
+                  </td>
+                  <td style="text-align: right;">
+                    <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                      <button type="button" class="btn-outline-xbox" onclick="sfxOpenLeadWhatsApp('#SFX-2026-7842', '+39 347 4429091', 'Claudio De Angelis')" title="Invia Notifica WhatsApp" style="padding: 5px 10px;">
+                        <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
+                      </button>
+                      <button type="button" class="btn-outline-xbox" onclick="sfxOpenMeetLink('https://meet.google.com/sfx-presidenza-ceo')" title="Avvia Google Meet" style="padding: 5px 10px;">
+                        <i class="fa-solid fa-video" style="color: var(--spectral-gold);"></i>
+                      </button>
+                      <button type="button" class="btn-outline-xbox" onclick="sfxViewLeadDetails('#SFX-2026-7842')" title="Vedi Dossier Completo" style="padding: 5px 10px;">
+                        <i class="fa-solid fa-folder-open"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-lead-id="#SFX-2026-5190">
+                  <td style="font-family: var(--font-mono); font-weight: 800; color: var(--spectral-gold);">#SFX-2026-5190</td>
+                  <td>
+                    <div style="font-weight: 700; color: #FFFFFF;">Avv. Maria Chiara Valente</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">Studio Legale Valente &amp; Partners // Milano</div>
+                  </td>
+                  <td><span class="badge-eal6" style="padding: 2px 8px; font-size: 0.65rem;">PROFESSIONISTA INDIPENDENTE</span></td>
+                  <td style="font-size: 0.78rem;">Executive Master di Direzione Strategica</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-light);">
+                    18 Nov 2026<br><span style="color: var(--spectral-gold);">15:00 - 16:00 CET</span>
+                  </td>
+                  <td>
+                    <select onchange="sfxUpdateLeadStatusInline('#SFX-2026-5190', this.value)" style="background: #060B14; border: 1px solid var(--status-standby); border-radius: var(--radius-xs); color: var(--status-standby); font-family: var(--font-mono); font-size: 0.70rem; padding: 4px 6px;">
+                      <option value="VIDIMATO EAL6+">VIDIMATO EAL6+</option>
+                      <option value="IN LAVORAZIONE" selected>IN LAVORAZIONE</option>
+                      <option value="RESPINTO">RESPINTO</option>
+                    </select>
+                  </td>
+                  <td style="text-align: right;">
+                    <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                      <button type="button" class="btn-outline-xbox" onclick="sfxOpenLeadWhatsApp('#SFX-2026-5190', '+39 347 4429091', 'Maria Chiara Valente')" style="padding: 5px 10px;">
+                        <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
+                      </button>
+                      <button type="button" class="btn-outline-xbox" onclick="sfxOpenMeetLink('https://meet.google.com/sfx-presidenza-ceo')" style="padding: 5px 10px;">
+                        <i class="fa-solid fa-video" style="color: var(--spectral-gold);"></i>
+                      </button>
+                      <button type="button" class="btn-outline-xbox" onclick="sfxViewLeadDetails('#SFX-2026-5190')" style="padding: 5px 10px;">
+                        <i class="fa-solid fa-folder-open"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           SCHEDA 03: SUPREMA GOLD CARD METALLICA & REGISTRO PUNTI STATUS (ART. 5)
+           ==================================================================== -->
+      <section id="tab-gold-card" class="tab-section">
+        
+        <!-- Intestazione Scheda -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <span class="badge-eal6">
+              <i class="fa-solid fa-id-card-clip"></i> DISCIPLINARE DI MERITO NOTARILE (ART. 5 STATUTO)
+            </span>
+            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em; margin-top: 5px;">
+              Registro Tessere Metalliche &amp; Punti Status (PTS)
+            </h2>
+            <p style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+              Lastre in Acciaio Inox Dorato con Microchip Crittografico NFC FIDO2 Anticopia
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn-outline-xbox" onclick="sfxFetchGoldCardsFromAppsScript()">
+              <i class="fa-solid fa-rotate"></i> Aggiorna Registro Card
+            </button>
+            <button type="button" class="btn-gold-xbox" onclick="sfxOpenIssueCardModal()">
+              <i class="fa-solid fa-hammer"></i> Forgia Nuova Gold Card (+800 PTS)
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Grid Gold Card -->
+        <div class="kpi-row-grid">
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">LASTRE METALLICHE EMESSE</span>
+            <div class="kpi-stat-number" id="kpiTotalGoldCards">
+              7
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Microchip NFC FIDO2 Attivi
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">PUNTI STATUS (PTS) EROGATI</span>
+            <div class="kpi-stat-number" id="kpiTotalPointsAssigned" style="color: var(--spectral-gold);">
+              26.850
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--spectral-gold);">
+              Cumulativi Non Cedibili a Terzi
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">TITOLARI A SOGLIA 5 (7.500)</span>
+            <div class="kpi-stat-number" style="color: var(--status-online);">
+              2
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-online);">
+              Weekend Luxury Roma Centro Confermato
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">LASTRE IN FORGIATURA</span>
+            <div class="kpi-stat-number" style="color: var(--status-standby);">
+              1
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Laboratorio di Precisione Colleferro
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Deck: Scala Statutaria Scaglioni di Merito (Art. 5) -->
+        <div class="card-deck">
+          <div class="card-deck-header">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF;">
+                <i class="fa-solid fa-stairs" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+                SCALA DEI 5 LIVELLI DI MERITO (STATUTO SOCIALE EAL6+)
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                Benefici inderogabili attribuiti automaticamente al superamento dei punteggi nel registro di vertice.
+              </p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-family: var(--font-mono);">
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); padding: 14px;">
+              <span style="font-size: 0.68rem; color: var(--spectral-gold); font-weight: 800; display: block;">SOGLIA 1 // 800 PTS</span>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF; margin: 6px 0;">FORGIATURA LASTRA</div>
+              <p style="font-size: 0.68rem; color: var(--text-cockpit-dim); line-height: 1.4;">
+                Consegna fisica tessera in acciaio dorato satinato con incisione laser e chip FIDO2.
+              </p>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); padding: 14px;">
+              <span style="font-size: 0.68rem; color: var(--spectral-gold); font-weight: 800; display: block;">SOGLIA 2 // 2.000 PTS</span>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF; margin: 6px 0;">SESSIONE RISERVATA</div>
+              <p style="font-size: 0.68rem; color: var(--text-cockpit-dim); line-height: 1.4;">
+                Convocazione One-to-One periodica di allineamento operativo con la Presidenza.
+              </p>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); padding: 14px;">
+              <span style="font-size: 0.68rem; color: var(--spectral-gold); font-weight: 800; display: block;">SOGLIA 3 // 3.000 PTS</span>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF; margin: 6px 0;">TAVOLO PLENARIA</div>
+              <p style="font-size: 0.68rem; color: var(--text-cockpit-dim); line-height: 1.4;">
+                Invito con tavolo d'onore riservato per due persone all'Assemblea Plenaria di Vertice a Roma Centro.
+              </p>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); padding: 14px;">
+              <span style="font-size: 0.68rem; color: var(--spectral-gold); font-weight: 800; display: block;">SOGLIA 4 // 4.500 PTS</span>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF; margin: 6px 0;">AUDIT DIREZIONE</div>
+              <p style="font-size: 0.68rem; color: var(--text-cockpit-dim); line-height: 1.4;">
+                Audit societario personalizzato, analisi fiscale e pianificazione patrimoniale avanzata.
+              </p>
+            </div>
+
+            <div style="background: rgba(212, 175, 55, 0.08); border: 1.5px solid var(--spectral-gold); border-radius: var(--radius-xs); padding: 14px;">
+              <span style="font-size: 0.68rem; color: var(--spectral-gold); font-weight: 800; display: block;">SOGLIA 5 // 7.500 PTS</span>
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--spectral-gold); margin: 6px 0;">WEEKEND VERTICE ROMA</div>
+              <p style="font-size: 0.68rem; color: #FFFFFF; line-height: 1.4;">
+                Soggiorno Luxury di vertice a Roma Centro per 2 persone con partecipazione straordinaria alle delibere del CDA.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Deck: Registro Ufficiale Titolari Gold Card -->
+        <div class="card-deck">
+          <div class="card-deck-header">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF;">
+                <i class="fa-solid fa-list-check" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+                REGISTRO ANAGRAFICO TITOLARI &amp; CHIP NFC FIDO2
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                Assegnazione transazionale di Punti Status (PTS) e modifica stato spedizione lastra fisica.
+              </p>
+            </div>
+
+            <button type="button" class="btn-outline-xbox" onclick="sfxOpenPointsTransactionModal()">
+              <i class="fa-solid fa-plus-minus"></i> Accredita / Detrai Punti PTS
+            </button>
+          </div>
+
+          <div class="data-table-container">
+            <table class="xbox-data-table" id="goldCardRegistryTable">
+              <thead>
+                <tr>
+                  <th style="width: 140px;">MATRICOLA CHIP</th>
+                  <th>TITOLARE DELLA CARD</th>
+                  <th>EMAIL ISTITUZIONALE</th>
+                  <th style="width: 130px; text-align: right;">PUNTI TOTALI</th>
+                  <th style="width: 220px;">SOGLIA ATTUALE RAGGIUNTA</th>
+                  <th style="width: 150px;">STATO LASTRA FISICA</th>
+                  <th style="width: 100px; text-align: center;">AZIONI</th>
+                </tr>
+              </thead>
+              <tbody id="goldCardRegistryTableBody">
+                <!-- Record Seed Titolari -->
+                <tr>
+                  <td style="font-family: var(--font-mono); font-weight: 800; color: var(--spectral-gold);">MK.2026-8801</td>
+                  <td style="font-weight: 800; color: #FFFFFF;">Giuliano Caratelli</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.74rem;">presidenza@supremafuturex.com</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.92rem; font-weight: 800; color: var(--spectral-gold); text-align: right;">10.000 PTS</td>
+                  <td><span class="badge-eal6" style="border-color: var(--spectral-gold); color: var(--spectral-gold); padding: 2px 8px; font-size: 0.65rem;">SOGLIA 5 // WEEKEND VERTICE ROMA</span></td>
+                  <td><span style="color: var(--status-online); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;">CONSEGNATA E ATTIVA</span></td>
+                  <td style="text-align: center;">
+                    <button type="button" class="btn-outline-xbox" onclick="sfxInspectCardHistory('MK.2026-8801')" title="Visualizza Log Chip NFC" style="padding: 4px 8px;">
+                      <i class="fa-solid fa-microchip"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="font-family: var(--font-mono); font-weight: 800; color: var(--spectral-gold);">MK.2026-8845</td>
+                  <td style="font-weight: 800; color: #FFFFFF;">Dott. Claudio De Angelis</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.74rem;">c.deangelis@enterprise.it</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.92rem; font-weight: 800; color: var(--spectral-gold); text-align: right;">2.050 PTS</td>
+                  <td><span class="badge-eal6" style="border-color: var(--status-online); color: var(--status-online); padding: 2px 8px; font-size: 0.65rem;">SOGLIA 2 // SESSIONE RISERVATA</span></td>
+                  <td><span style="color: var(--status-online); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;">IN SPEDIZIONE ASSICURATA</span></td>
+                  <td style="text-align: center;">
+                    <button type="button" class="btn-outline-xbox" onclick="sfxInspectCardHistory('MK.2026-8845')" title="Visualizza Log Chip NFC" style="padding: 4px 8px;">
+                      <i class="fa-solid fa-microchip"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==================== FINE PARTE 3 DI 5 ==================== -->
+      <!-- ====================================================================
+           SCHEDA 04: FLOTTA DEI 15 AGENTI LOGICI (HEARTBEAT & TELEMETRIA)
+           ==================================================================== -->
+      <section id="tab-fleet-agents" class="tab-section">
+        
+        <!-- Intestazione Scheda -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <span class="badge-eal6">
+              <i class="fa-solid fa-network-wired"></i> ARCHITETTURA DISTRIBUITA // 15 AGENTI SOVRANI
+            </span>
+            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em; margin-top: 5px;">
+              Cockpit Flotta Agenti &amp; Orchestrazione Task
+            </h2>
+            <p style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+              Supervisione Live Presieduta da Alison AG-01 // Heartbeat Rate: 180s Timeout
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn-outline-xbox" onclick="sfxPingAllFleetAgents()">
+              <i class="fa-solid fa-tower-broadcast"></i> Ping Sincrono Flotta
+            </button>
+            <button type="button" class="btn-gold-xbox" onclick="sfxRunFleetAuditNow()">
+              <i class="fa-solid fa-stethoscope"></i> Esegui Audit Resilienza
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Grid Flotta -->
+        <div class="kpi-row-grid">
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">AGENTI ATTIVI (ONLINE)</span>
+            <div class="kpi-stat-number" id="kpiFleetOnlineCount" style="color: var(--status-online);">
+              15 / 15
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-online);">
+              Cluster EAL6+ Fully Operativo
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">LATENZA NODALE MEDIA</span>
+            <div class="kpi-stat-number" id="kpiFleetAvgLatency" style="color: var(--spectral-gold);">
+              14.2 ms
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Triangolo Roma - Milano - Francoforte
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">COMPITI ESEGUITI OGGI</span>
+            <div class="kpi-stat-number" id="kpiFleetTasksToday">
+              1.482
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Validazioni SHA-256 e Watchdog
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">SUPERVISORE FIDUCIARIO</span>
+            <div class="kpi-stat-number" style="font-size: 1.35rem; color: #FFFFFF;">
+              ALISON AG-01
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--spectral-gold);">
+              Presidio Forense Colleferro (RM)
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Deck: Griglia dei 15 Agenti Autonomi -->
+        <div class="card-deck">
+          <div class="card-deck-header" style="flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF;">
+                <i class="fa-solid fa-cubes-stacked" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+                REGISTRO DI TELEMETRIA INDIVIDUALE DEI 15 AGENTI
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                Stato di esecuzione, latenza di risposta, ultimo heartbeat registrato e trigger di dispatch manuale.
+              </p>
+            </div>
+
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim);">
+              TIMEOUT GUARD: <strong style="color: var(--status-online);">180 SECONDI</strong>
+            </div>
+          </div>
+
+          <div class="fleet-agents-grid" id="fleetAgentsCardsGrid">
+            
+            <!-- AG-01: ALISON -->
+            <div class="agent-pod-card" id="agentCard-AG-01" style="border-color: var(--spectral-gold);">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-01 // PRESIDENCY</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">ALISON</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Autonomous Executive Supervisor &amp; Chatbot Fiduciario. Presidio statutario del portale.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-01">9 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-01">412</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-01', 'SUPERVISORY_CYCLE')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-play"></i> Lancia Ciclo Audit
+              </button>
+            </div>
+
+            <!-- AG-02: CIPHER -->
+            <div class="agent-pod-card" id="agentCard-AG-02">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-02 // CORE_SECURITY</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">CIPHER</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Cryptographic SHA-256 Engine &amp; Rilascio Token Sessione EAL6+ Master.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-02">5 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-02">580</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-02', 'REGEN_ENTROPY')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-rotate"></i> Rigenera Entropia
+              </button>
+            </div>
+
+            <!-- AG-03: FUNNEL -->
+            <div class="agent-pod-card" id="agentCard-AG-03">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-03 // CRM_INGEST</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">FUNNEL</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Tandem Screening Qualifier &amp; Ingest asincrono del modulo Candidatura.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-03">12 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-03">89</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-03', 'CLEAN_INTAKE')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-filter"></i> Purifica Intake Queue
+              </button>
+            </div>
+
+            <!-- AG-04: CHRONOS -->
+            <div class="agent-pod-card" id="agentCard-AG-04">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-04 // CALENDAR</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">CHRONOS</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Calendar Anti-Collision Engine &amp; Schedulazione stanze Google Meet (60m).
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-04">18 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-04">74</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-04', 'SYNC_CALENDAR')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-regular fa-calendar-check"></i> Sincronizza Calendario
+              </button>
+            </div>
+
+            <!-- AG-05: HERMES -->
+            <div class="agent-pod-card" id="agentCard-AG-05">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-05 // COMMS</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">HERMES</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                WhatsApp Official Gateway (+39 347 4429091) &amp; Dispacciamento Email Meet.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-05">14 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-05">92</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-05', 'TEST_DISPATCH')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-brands fa-whatsapp"></i> Test Canale WA
+              </button>
+            </div>
+
+            <!-- AG-06: AURUM -->
+            <div class="agent-pod-card" id="agentCard-AG-06">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-06 // GOLDCARD</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">AURUM</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Gold Card Ledger &amp; Validazione Hardware Crittografica NFC FIDO2.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-06">8 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-06">34</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-06', 'RECHECK_PTS')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-coins"></i> Riconcilia PTS
+              </button>
+            </div>
+
+            <!-- AG-07: VAULT -->
+            <div class="agent-pod-card" id="agentCard-AG-07">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-07 // STORAGE</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">VAULT</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Media Vault 500-Slot Sentry &amp; Gestione chiavi sblocco blindate 06-500.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-07">11 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-07">115</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-07', 'SEAL_SLOTS')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-lock"></i> Sigilla Slot Aperti
+              </button>
+            </div>
+
+            <!-- AG-08: FORENSIC -->
+            <div class="agent-pod-card" id="agentCard-AG-08">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-08 // AUDIT</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">FORENSIC</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                EAL6+ Audit Trail &amp; Scrittura immutabile dei record su registro notarile.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-08">7 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-08">240</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-08', 'CHAIN_CHECK')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-link"></i> Verifica Catena SHA
+              </button>
+            </div>
+
+            <!-- AG-09: JUSTICE -->
+            <div class="agent-pod-card" id="agentCard-AG-09">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-09 // LEGAL</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">JUSTICE</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Compliance Deontologica &amp; Watchdog Art. 3 Divieto Assoluto MLM / Piramidi.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-09">10 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-09">16</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-09', 'SCAN_DEONTOLOGY')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-ban"></i> Scansione Anti-MLM
+              </button>
+            </div>
+
+            <!-- AG-10: NODEPULSE -->
+            <div class="agent-pod-card" id="agentCard-AG-10">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-10 // TELEMETRY</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">NODEPULSE</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Monitoraggio Latenze e Battito Cardiaco Cluster Roma-Milano-Francoforte.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-10">6 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-10">1.280</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-10', 'PING_CLUSTER')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-wave-square"></i> Ping Trilatere
+              </button>
+            </div>
+
+            <!-- AG-11: POLYGLOT -->
+            <div class="agent-pod-card" id="agentCard-AG-11">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-11 // LOCALIZATION</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">POLYGLOT</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Motore Traduzione Dinamica a 6 Lingue con Layout Invertito RTL Arabo.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-11">13 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-11">51</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-11', 'RELOAD_I18N')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-language"></i> Sincronizza Dizionari
+              </button>
+            </div>
+
+            <!-- AG-12: DUCKER -->
+            <div class="agent-pod-card" id="agentCard-AG-12">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-12 // MEDIA</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">DUCKER</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Radio Lounge Controller (14 Tracce) &amp; Ducking Forzato Volume a 0.0.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-12">15 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-12">28</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-12', 'FORCE_MUTE')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-volume-xmark"></i> Mute Ducking Check
+              </button>
+            </div>
+
+            <!-- AG-13: MIRROR -->
+            <div class="agent-pod-card" id="agentCard-AG-13">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-13 // BACKUP</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">MIRROR</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Snapshot Redundancy &amp; Allineamento Archivi Cold Storage Francoforte.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-13">31 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-13">12</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-13', 'CREATE_SNAPSHOT')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-hard-drive"></i> Genera Snapshot
+              </button>
+            </div>
+
+            <!-- AG-14: SENTINEL -->
+            <div class="agent-pod-card" id="agentCard-AG-14" style="border-color: rgba(211, 47, 47, 0.4);">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--status-alert); font-weight: 800;">AG-14 // INCIDENT_RESP</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">SENTINEL</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ARMED</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Kill-Switch Arbiter &amp; Interruzione d'Emergenza Sovrana Hardware/API.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-14">4 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-14">3</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-14', 'SENTINEL_SELFTEST')" style="width: 100%; justify-content: center; font-size: 0.68rem; border-color: var(--status-alert); color: var(--status-alert);">
+                <i class="fa-solid fa-shield-virus"></i> Self-Test Sentinel
+              </button>
+            </div>
+
+            <!-- AG-15: NOTARY -->
+            <div class="agent-pod-card" id="agentCard-AG-15">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--spectral-gold); font-weight: 800;">AG-15 // GOVERNANCE</span>
+                  <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">NOTARY</div>
+                </div>
+                <span class="badge-eal6" style="padding: 2px 8px; font-size: 0.62rem; border-color: var(--status-online); color: var(--status-online);">ONLINE</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-cockpit-dim); line-height: 1.4; margin-bottom: 12px; min-height: 32px;">
+                Statuto &amp; Vidimazione Atti Giudiziari Foro Esclusivo Velletri / Roma.
+              </p>
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px; margin-bottom: 12px;">
+                <div>LATENZA: <strong style="color: var(--status-online);" id="lat-AG-15">11 ms</strong></div>
+                <div>TASK ESEGUITI: <strong style="color: #FFFFFF;" id="task-AG-15">68</strong></div>
+              </div>
+              <button type="button" class="btn-outline-xbox" onclick="sfxTriggerAgentTask('AG-15', 'VALIDATE_STATUTE')" style="width: 100%; justify-content: center; font-size: 0.68rem;">
+                <i class="fa-solid fa-stamp"></i> Vidima Statuto
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           SCHEDA 05: CASSAFORTE DIGITALE MEDIA VAULT (500 SLOT CRITTOGRAFATI)
+           ==================================================================== -->
+      <section id="tab-media-vault" class="tab-section">
+        
+        <!-- Intestazione Scheda -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <span class="badge-eal6">
+              <i class="fa-solid fa-vault"></i> CUSTODIA FORENSE // MATRICE 500 SLOT BLINDATI
+            </span>
+            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em; margin-top: 5px;">
+              Cassaforte Documentale Media Vault
+            </h2>
+            <p style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+              Slot 01-05: Consultazione Pubblica // Slot 06-500: Cifratura EAL6+ con Sblocco Master
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn-outline-xbox" onclick="sfxLockAllVaultSlots()">
+              <i class="fa-solid fa-shield-cat"></i> Blocca Tutti gli Slot Blindati
+            </button>
+            <button type="button" class="btn-gold-xbox" onclick="sfxOpenDepositAssetModal()">
+              <i class="fa-solid fa-file-circle-plus"></i> Deposita Nuovo Asset nel Vault
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Grid Vault -->
+        <div class="kpi-row-grid">
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">CAPIENZA TOTALE CASSAFORTE</span>
+            <div class="kpi-stat-number">
+              500
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Slot Disponibili a Registro
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">DOCUMENTI NOTARILI DEPOSITATI</span>
+            <div class="kpi-stat-number" id="kpiVaultDepositedCount" style="color: var(--spectral-gold);">
+              18
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Vidimati con HASH SHA-256
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">SLOT BLINDATI EAL6+ ATTIVI</span>
+            <div class="kpi-stat-number" style="color: var(--status-online);">
+              495
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-online);">
+              Accesso Esclusivo Presidenza
+            </span>
+          </div>
+
+          <div class="kpi-stat-box">
+            <span class="kpi-stat-title">SLOT PUBBLICI ACCESSIBILI</span>
+            <div class="kpi-stat-number" style="color: var(--text-cockpit-light);">
+              5
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim);">
+              Statuto, Atti &amp; Capitolati Base
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Deck: Matrice Interattiva dei 500 Slot -->
+        <div class="card-deck">
+          <div class="card-deck-header" style="flex-wrap: wrap; gap: 15px;">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF;">
+                <i class="fa-solid fa-table-cells" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+                MATRICE VISIVA 500 SLOT (ISPEZIONE E SBLOCCO CRITTOGRAFICO)
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                Filtra gli slot per categoria o clicca su uno slot per visionare l'impronta forense e l'URI blindato.
+              </p>
+            </div>
+
+            <!-- Toolbar Filtri Categorie Vault -->
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <button type="button" class="btn-outline-xbox active" id="btnVaultCatALL" onclick="sfxFilterVaultMatrixByCategory('ALL', this)">
+                TUTTI
+              </button>
+              <button type="button" class="btn-outline-xbox" id="btnVaultCatGOV" onclick="sfxFilterVaultMatrixByCategory('GOVERNANCE', this)">
+                GOVERNANCE
+              </button>
+              <button type="button" class="btn-outline-xbox" id="btnVaultCatCDA" onclick="sfxFilterVaultMatrixByCategory('CDA', this)">
+                CDA &amp; VERBALI
+              </button>
+              <button type="button" class="btn-outline-xbox" id="btnVaultCatSTORE" onclick="sfxFilterVaultMatrixByCategory('STORE', this)">
+                STORE &amp; LOGISTICA
+              </button>
+              <button type="button" class="btn-outline-xbox" id="btnVaultCatACADEMY" onclick="sfxFilterVaultMatrixByCategory('ACADEMY', this)">
+                ACADEMY LIVE
+              </button>
+              <button type="button" class="btn-outline-xbox" id="btnVaultCatFORENSIC" onclick="sfxFilterVaultMatrixByCategory('FORENSIC', this)">
+                FORENSE EAL6+
+              </button>
+            </div>
+          </div>
+
+          <!-- Contenitore Griglia 500 Slot (Popolato da JS) -->
+          <div class="vault-grid-matrix" id="xboxVaultGridContainer">
+            <!-- Verrà generato dinamicamente con i 500 slot da sfxRenderVaultMatrix() -->
+          </div>
+
+          <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim);">
+            <div style="display: flex; gap: 18px; align-items: center;">
+              <span><i class="fa-solid fa-lock-open" style="color: var(--status-online);"></i> Slot 01-05: Pubblici</span>
+              <span><i class="fa-solid fa-lock" style="color: var(--spectral-gold);"></i> Slot 06-500: Blindati EAL6+</span>
+              <span><i class="fa-solid fa-database" style="color: var(--status-standby);"></i> Nodo: Colleferro (RM)</span>
+            </div>
+            <div>
+              <span>REGISTRO PROTOCOLLO SHA-256 NOTARILE</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           SCHEDA 06: MATRICE CMS PIATTAFORMA & GOVERNANCE SITO
+           ==================================================================== -->
+      <section id="tab-platform-cms" class="tab-section">
+        
+        <!-- Intestazione Scheda -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+          <div>
+            <span class="badge-eal6">
+              <i class="fa-solid fa-sliders"></i> CONTROLLO CMS DI VERTICE // ECOSYSTEM RUNTIME
+            </span>
+            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em; margin-top: 5px;">
+              Parametri di Piattaforma &amp; Matrice CMS
+            </h2>
+            <p style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+              Configurazione globale runtime: recapiti ufficiali, endpoint API e clausole inderogabili
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button type="button" class="btn-gold-xbox" onclick="sfxSavePlatformCmsSettings()">
+              <i class="fa-solid fa-floppy-disk"></i> Salva e Sincronizza Runtime
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Deck: Modulo Modifica Parametri Piattaforma -->
+        <div class="card-deck">
+          <div class="card-deck-header">
+            <div>
+              <h3 style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #FFFFFF;">
+                <i class="fa-solid fa-gears" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+                PARAMETRI GLOBALI DI GOVERNANCE &amp; RECAPITI
+              </h3>
+              <p style="font-family: var(--font-main); font-size: 0.78rem; color: var(--text-cockpit-dim); margin-top: 4px;">
+                I valori salvati aggiornano l'esecuzione asincrona delle pagine e i canali di dispatching.
+              </p>
+            </div>
+          </div>
+
+          <form id="formPlatformCmsConfig" onsubmit="event.preventDefault(); sfxSavePlatformCmsSettings();">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+              
+              <div>
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+                  Nome Ufficiale Ecosistema:
+                </label>
+                <input 
+                  type="text" 
+                  id="cmsInputSystemName" 
+                  value="Suprema Future X Enterprise" 
+                  style="width: 100%; padding: 10px 14px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.82rem; outline: none;"
+                >
+              </div>
+
+              <div>
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+                  Founder &amp; Chief Executive Officer:
+                </label>
+                <input 
+                  type="text" 
+                  id="cmsInputFounderCeo" 
+                  value="Giuliano Caratelli" 
+                  style="width: 100%; padding: 10px 14px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.82rem; outline: none;"
+                >
+              </div>
+
+              <div>
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+                  Sede Legale ed Operativa / Hub Merci:
+                </label>
+                <input 
+                  type="text" 
+                  id="cmsInputHq" 
+                  value="Centro Direzionale Colleferro (Roma), Italia" 
+                  style="width: 100%; padding: 10px 14px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.82rem; outline: none;"
+                >
+              </div>
+
+              <div>
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+                  Foro Esclusivo Competente (Art. 2):
+                </label>
+                <input 
+                  type="text" 
+                  id="cmsInputJurisdiction" 
+                  value="Tribunale Ordinario di Velletri / Roma" 
+                  readonly
+                  style="width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--gold-border-strong); border-radius: var(--radius-xs); color: var(--spectral-gold); font-family: var(--font-mono); font-size: 0.82rem; outline: none; cursor: not-allowed;"
+                >
+              </div>
+
+              <div>
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+                  Canale WhatsApp Ufficiale Direzione:
+                </label>
+                <input 
+                  type="text" 
+                  id="cmsInputWhatsApp" 
+                  value="+39 347 4429091" 
+                  style="width: 100%; padding: 10px 14px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #25D366; font-family: var(--font-mono); font-size: 0.82rem; outline: none;"
+                >
+              </div>
+
+              <div>
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+                  Stanza Master Google Meet (60m):
+                </label>
+                <input 
+                  type="text" 
+                  id="cmsInputMeetUrl" 
+                  value="https://meet.google.com/sfx-presidenza-ceo" 
+                  style="width: 100%; padding: 10px 14px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.82rem; outline: none;"
+                >
+              </div>
+
+            </div>
+
+            <!-- Endpoint Backend Apps Script -->
+            <div style="margin-top: 20px;">
+              <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+                Endpoint Google Apps Script (Web App Exec URL):
+              </label>
+              <input 
+                type="text" 
+                id="cmsInputGasEndpoint" 
+                value="https://script.google.com/macros/s/AKfycbwCumol9CGlR631PVQBM8Lycft80QyGn1qkLv_WDcvKjk1Wzo1s3iyycO_ynrpldV2ZZg/exec" 
+                style="width: 100%; padding: 10px 14px; background: #060B14; border: 1.5px solid var(--spectral-gold); border-radius: var(--radius-xs); color: var(--spectral-gold); font-family: var(--font-mono); font-size: 0.80rem; outline: none;"
+              >
+            </div>
+          </form>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div> <!-- Fine #sfx-xbox-cockpit -->
+
+  <!-- ========================================================================
+       MODALI ESECUTIVI DI SISTEMA (KILL-SWITCH, NUOVO LEAD, FORGIATURA, DETTAGLIO)
+       ======================================================================== -->
+
+  <!-- 1. MODALE CRITICO: KILL-SWITCH SOVRANO ARMED/DISARMED -->
+  <div id="modalKillSwitchConfirm" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); z-index: 200000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(15px);">
+    <div style="max-width: 500px; width: 100%; background: #0A121E; border: 2.5px solid var(--status-alert); border-radius: var(--radius-md); padding: 35px 30px; box-shadow: 0 0 50px rgba(211, 47, 47, 0.5); text-align: center;">
+      <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: var(--status-alert); margin-bottom: 15px;"></i>
+      
+      <h3 style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: #FFFFFF; margin-bottom: 10px;">
+        PROTOCOLLO DI ARRESTO EMERGENZA
+      </h3>
+
+      <p style="font-family: var(--font-main); font-size: 0.85rem; color: var(--text-cockpit-dim); line-height: 1.6; margin-bottom: 20px;">
+        Stai per commutare lo stato del <strong>Kill-Switch Sovrano</strong>.<br>
+        L'armamento del blocco congela le chiamate REST, revoca le sessioni e rende inaccessibile il Media Vault.
       </p>
 
-      <!-- Indicatori PIN a 10 cifre -->
-      <div class="pin-display-dots">
-        <div class="p-dot" id="dot-0"></div>
-        <div class="p-dot" id="dot-1"></div>
-        <div class="p-dot" id="dot-2"></div>
-        <div class="p-dot" id="dot-3"></div>
-        <div class="p-dot" id="dot-4"></div>
-        <div class="p-dot" id="dot-5"></div>
-        <div class="p-dot" id="dot-6"></div>
-        <div class="p-dot" id="dot-7"></div>
-        <div class="p-dot" id="dot-8"></div>
-        <div class="p-dot" id="dot-9"></div>
+      <div style="margin-bottom: 20px; text-align: left;">
+        <label for="inputKillSwitchMasterPass" style="display: block; font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+          Conferma Master Password Presidenziale:
+        </label>
+        <input 
+          type="password" 
+          id="inputKillSwitchMasterPass" 
+          placeholder="Digitare password per autorizzare..." 
+          style="width: 100%; padding: 12px; background: #060B14; border: 1.5px solid var(--status-alert); border-radius: var(--radius-xs); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.88rem; outline: none;"
+        >
       </div>
 
-      <div id="login-feedback" style="font-family:var(--font-mono); font-size:0.75rem; min-height:1.2rem; margin-bottom:1rem; color:var(--status-alert);"></div>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button type="button" class="btn-outline-xbox" onclick="sfxCloseModal('modalKillSwitchConfirm')" style="flex: 1; justify-content: center;">
+          Annulla Operazione
+        </button>
+        <button type="button" class="btn-killswitch" onclick="sfxExecuteKillSwitchToggle()" style="flex: 1; justify-content: center; padding: 12px;">
+          <i class="fa-solid fa-power-off"></i> COMMUTA KILL-SWITCH
+        </button>
+      </div>
+    </div>
+  </div>
 
-      <!-- Tastierino Virtuale Randomizzato -->
-      <div class="keypad-matrix" id="virtual-keypad"></div>
+  <!-- 2. MODALE: INSERIMENTO NUOVO DOSSIER CANDIDATO / LEAD -->
+  <div id="modalNewLeadManual" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: 200000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px);">
+    <div style="max-width: 620px; width: 100%; background: #0D1B2E; border: 2px solid var(--spectral-gold); border-radius: var(--radius-md); padding: 30px; box-shadow: var(--shadow-gold);">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--gold-border-subtle); padding-bottom: 12px;">
+        <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: #FFFFFF;">
+          <i class="fa-solid fa-user-plus" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+          Inserimento Dossier Candidato
+        </h3>
+        <button type="button" onclick="sfxCloseModal('modalNewLeadManual')" style="background: transparent; border: none; color: var(--text-cockpit-dim); font-size: 1.2rem; cursor: pointer;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
 
-      <div style="margin-top:1.5rem;">
-        <a href="index.html" class="btn-outline" style="font-size:0.72rem; padding:8px 16px;">
-          <i class="fa-solid fa-arrow-left"></i> Rientra alla Landing
+      <form id="formManualNewLead" onsubmit="event.preventDefault(); sfxSubmitManualLeadForm();">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div>
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Nome:</label>
+            <input type="text" id="manualLeadNome" required placeholder="Mario" style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFF; font-family: var(--font-mono); font-size: 0.80rem; outline: none;">
+          </div>
+          <div>
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Cognome:</label>
+            <input type="text" id="manualLeadCognome" required placeholder="Rossi" style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFF; font-family: var(--font-mono); font-size: 0.80rem; outline: none;">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div>
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">WhatsApp:</label>
+            <input type="text" id="manualLeadWa" required placeholder="+39 347 ..." style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #25D366; font-family: var(--font-mono); font-size: 0.80rem; outline: none;">
+          </div>
+          <div>
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Email:</label>
+            <input type="email" id="manualLeadEmail" required placeholder="m.rossi@enterprise.it" style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFF; font-family: var(--font-mono); font-size: 0.80rem; outline: none;">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div>
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Profilo:</label>
+            <select id="manualLeadProfilo" style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: var(--spectral-gold); font-family: var(--font-mono); font-size: 0.80rem; outline: none;">
+              <option value="Professionista Indipendente">Professionista Indipendente</option>
+              <option value="Impresa Strutturata">Impresa Strutturata</option>
+              <option value="Aspirante Concessionario">Aspirante Concessionario Store</option>
+            </select>
+          </div>
+          <div>
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Fascia Convocazione:</label>
+            <input type="text" id="manualLeadSlot" value="10:00 - 11:00 CET" style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFF; font-family: var(--font-mono); font-size: 0.80rem; outline: none;">
+          </div>
+        </div>
+
+        <div style="margin-top: 25px; display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn-outline-xbox" onclick="sfxCloseModal('modalNewLeadManual')">
+            Annulla
+          </button>
+          <button type="submit" class="btn-gold-xbox">
+            <i class="fa-solid fa-stamp"></i> Vidima ed Emetti Protocollo
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. MODALE: TRANSAZIONE PUNTI STATUS (PTS) GOLD CARD -->
+  <div id="modalPointsTransaction" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: 200000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px);">
+    <div style="max-width: 520px; width: 100%; background: #0D1B2E; border: 2px solid var(--spectral-gold); border-radius: var(--radius-md); padding: 30px; box-shadow: var(--shadow-gold);">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--gold-border-subtle); padding-bottom: 12px;">
+        <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: #FFFFFF;">
+          <i class="fa-solid fa-coins" style="color: var(--spectral-gold); margin-right: 8px;"></i>
+          Accredito Punti Status (PTS)
+        </h3>
+        <button type="button" onclick="sfxCloseModal('modalPointsTransaction')" style="background: transparent; border: none; color: var(--text-cockpit-dim); font-size: 1.2rem; cursor: pointer;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="formPointsTransact" onsubmit="event.preventDefault(); sfxExecutePointsTransaction();">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Matricola Gold Card:</label>
+          <input type="text" id="ptsInputMatricola" required placeholder="MK.2026-..." style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: var(--spectral-gold); font-family: var(--font-mono); font-size: 0.82rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Variazione Punti (+ o -):</label>
+          <input type="number" id="ptsInputDelta" required placeholder="es. 800 oppure -200" style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFF; font-family: var(--font-mono); font-size: 0.82rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 4px;">Motivazione / Delibera Statutaria:</label>
+          <input type="text" id="ptsInputCausale" required placeholder="Emissione Concessione Store Hub Colleferro" style="width: 100%; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFF; font-family: var(--font-mono); font-size: 0.82rem; outline: none;">
+        </div>
+
+        <div style="margin-top: 25px; display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn-outline-xbox" onclick="sfxCloseModal('modalPointsTransaction')">
+            Annulla
+          </button>
+          <button type="submit" class="btn-gold-xbox">
+            <i class="fa-solid fa-check"></i> Esegui Transazione
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. MODALE: DETTAGLIO & SBLOCCO ASSET MEDIA VAULT -->
+  <div id="modalVaultAssetDetail" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); z-index: 200000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(12px);">
+    <div style="max-width: 580px; width: 100%; background: #0D1B2E; border: 2px solid var(--spectral-gold); border-radius: var(--radius-md); padding: 30px; box-shadow: var(--shadow-gold);">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--gold-border-subtle); padding-bottom: 12px;">
+        <div>
+          <span class="badge-eal6" id="vaultDetailBadge">SLOT #00</span>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-top: 4px;" id="vaultDetailTitle">
+            Dettaglio Asset
+          </h3>
+        </div>
+        <button type="button" onclick="sfxCloseModal('modalVaultAssetDetail')" style="background: transparent; border: none; color: var(--text-cockpit-dim); font-size: 1.2rem; cursor: pointer;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div style="font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.8; color: var(--text-cockpit-dim); background: #060B14; padding: 16px; border-radius: var(--radius-xs); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 20px;">
+        <div>CATEGORIA: <strong style="color: var(--spectral-gold);" id="vaultDetailCategory">--</strong></div>
+        <div>SICUREZZA: <strong style="color: #FFFFFF;" id="vaultDetailSecurity">--</strong></div>
+        <div>DATA DEPOSITO: <span id="vaultDetailDate">--</span></div>
+        <div style="word-break: break-all; margin-top: 6px;">
+          IMPRONTA SHA-256:<br>
+          <code style="color: var(--spectral-gold);" id="vaultDetailHash">--</code>
+        </div>
+        <div style="margin-top: 6px; word-break: break-all;">
+          DESTINAZIONE URI:<br>
+          <span style="color: #FFFFFF;" id="vaultDetailUri">--</span>
+        </div>
+      </div>
+
+      <div id="vaultUnlockAuthBox" style="display: none; margin-bottom: 20px; border-top: 1px solid var(--gold-border-subtle); padding-top: 15px;">
+        <label for="vaultUnlockMasterPassInput" style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cockpit-dim); text-transform: uppercase; margin-bottom: 6px;">
+          Slot Blindato EAL6+. Inserisci Password Master per sbloccare:
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input 
+            type="password" 
+            id="vaultUnlockMasterPassInput" 
+            placeholder="Master password..." 
+            style="flex: 1; padding: 8px 12px; background: #060B14; border: 1px solid var(--gold-border-subtle); border-radius: var(--radius-xs); color: #FFF; font-family: var(--font-mono); font-size: 0.82rem; outline: none;"
+          >
+          <button type="button" class="btn-gold-xbox" onclick="sfxConfirmUnlockVaultSlot()">
+            Sblocca
+          </button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" class="btn-outline-xbox" onclick="sfxCloseModal('modalVaultAssetDetail')">
+          Chiudi Finestra
+        </button>
+        <a id="btnVaultDownloadResource" href="#" target="_blank" class="btn-gold-xbox" style="display: none; text-decoration: none;">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Accedi all'Atto
         </a>
       </div>
     </div>
   </div>
 
-  <!-- 2. CONSOLE OPERATIVA X-BOX -->
-  <div class="xbox-viewport" id="xbox-dashboard" style="display:none;">
-    
-    <!-- SIDEBAR NAVIGAZIONE X-BOX -->
-    <aside class="xbox-nav">
-      <div>
-        <div class="xbox-brand-header">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <div class="led-indicator"></div>
-            <span style="font-family:var(--font-display); font-size:1.1rem; font-weight:800; color:var(--gold-deep);">X-BOX 2026</span>
-          </div>
-          <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); margin-top:6px;">
-            GOVERNANCE DI VERTICE // EAL6+
-          </div>
-        </div>
-
-        <nav class="nav-list">
-          <button class="nav-item-btn active" onclick="switchXboxTab('tab-dashboard')">
-            <i class="fa-solid fa-chart-line"></i> 1. DASHBOARD KPI
-          </button>
-          <button class="nav-item-btn" onclick="switchXboxTab('tab-crm')">
-            <i class="fa-solid fa-users"></i> 2. SCREENING &amp; LEAD CRM
-          </button>
-          <button class="nav-item-btn" onclick="switchXboxTab('tab-meet')">
-            <i class="fa-solid fa-video"></i> 3. SCHEDULATORE MEET (60m)
-          </button>
-          <button class="nav-item-btn" onclick="switchXboxTab('tab-cms')">
-            <i class="fa-solid fa-sliders"></i> 4. CMS 14 SEZIONI &amp; 70 SLOT
-          </button>
-          <button class="nav-item-btn" onclick="switchXboxTab('tab-flotta')">
-            <i class="fa-solid fa-robot"></i> 5. FLOTTA NEURALE (15 AGENTI)
-          </button>
-          <button class="nav-item-btn" onclick="switchXboxTab('tab-vault')">
-            <i class="fa-solid fa-vault"></i> 6. MEDIA VAULT 400 (TOKEN)
-          </button>
-          <button class="nav-item-btn" onclick="switchXboxTab('tab-goldcard')">
-            <i class="fa-solid fa-credit-card"></i> 7. SUPREMA GOLD CARD LEDGER
-          </button>
-          <button class="nav-item-btn" onclick="switchXboxTab('tab-audit')">
-            <i class="fa-solid fa-shield-halved"></i> 8. AUDIT LOG FORENSE EAL6+
-          </button>
-        </nav>
-      </div>
-
-      <div>
-        <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); margin-bottom:1rem; padding:12px; background:#FFFFFF; border-radius:8px; border:1px solid var(--border-gold);">
-          OPERATORE: <strong>GIULIANO CARATELLI</strong><br>
-          STATO: <span style="color:var(--status-online); font-weight:700;">ONLINE (ROMA)</span><br>
-          SESSIONE: <span id="session-countdown">12:00:00</span>
-        </div>
-        <button class="btn-gold" style="width:100%; padding:10px; font-size:0.75rem;" onclick="logoutXbox()">
-          <i class="fa-solid fa-lock"></i> BLOCCA CONSOLE
-        </button>
-      </div>
-    </aside>
-
-    <!-- MAIN VIEWPORT -->
-    <main class="xbox-content">
-      
-      <!-- TOP BAR STATUS -->
-      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:1.5rem; border-bottom:1px solid var(--border-gold); margin-bottom:2rem;">
-        <div>
-          <span class="badge-forensic active" style="font-size:0.65rem;">PANNELLO DI GOVERNANCE DIRETTA</span>
-          <h1 style="font-family:var(--font-display); font-size:1.7rem; margin:0.4rem 0 0;" id="tab-headline-title">DASHBOARD KPI ESECUTIVA</h1>
-        </div>
-        <div style="display:flex; gap:0.8rem; align-items:center;">
-          <a href="index.html" target="_blank" class="btn-outline" style="padding:8px 16px; font-size:0.75rem;">VISUALIZZA SITO ➔</a>
-          <button class="btn-gold" style="padding:8px 18px; font-size:0.75rem;" onclick="syncWithGoogleBackend()">SINCRONIZZA NODO ⟳</button>
-        </div>
-      </div>
-
-      <!-- TAB 1: DASHBOARD KPI -->
-      <div class="tab-view active" id="tab-dashboard">
-        <div class="kpi-row">
-          <div class="kpi-card">
-            <span class="kpi-lbl">CANDIDATURE TOTALI</span>
-            <div class="kpi-val" id="kpi-leads-count">148</div>
-            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--status-online);">+12 nell'ultima settimana</span>
-          </div>
-          <div class="kpi-card">
-            <span class="kpi-lbl">COLLOQUI MEET FISSATI</span>
-            <div class="kpi-val" id="kpi-meet-count">36</div>
-            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--gold-deep);">Prossimo: Oggi ore 15:00</span>
-          </div>
-          <div class="kpi-card">
-            <span class="kpi-lbl">CONCESSIONI ATTIVE</span>
-            <div class="kpi-val" id="kpi-store-count">42</div>
-            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-accent);">Logistica centralizzata OK</span>
-          </div>
-          <div class="kpi-card">
-            <span class="kpi-lbl">LATENZA MEDIA CLUSTER</span>
-            <div class="kpi-val" id="kpi-ping-val">4.2 ms</div>
-            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--status-online);">15/15 Agenti Operativi</span>
-          </div>
-        </div>
-
-        <div class="grid-2" style="margin-bottom:2rem;">
-          <div class="cms-section-card">
-            <h3 style="font-family:var(--font-display); font-size:1.15rem; margin-bottom:0.6rem; color:var(--text-dominant);">ACCESSO DIRETTO SCREENING RECENTI</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.2rem;">Candidature pervenute nelle ultime 24 ore in attesa di vidimazione presidenziale.</p>
-            <div id="quick-leads-preview">
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(212,175,55,0.15);">
-                <div><strong>Marco Bianchi</strong> <span style="font-size:0.8rem; color:#666;">(Executive Master 90g)</span></div>
-                <button class="btn-gold" style="padding:4px 12px; font-size:0.7rem;" onclick="openLeadModal('SFX-LD-8841')">ESAMINA</button>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(212,175,55,0.15);">
-                <div><strong>Elena Moretti</strong> <span style="font-size:0.8rem; color:#666;">(Concessione E-Commerce)</span></div>
-                <button class="btn-gold" style="padding:4px 12px; font-size:0.7rem;" onclick="openLeadModal('SFX-LD-8840')">ESAMINA</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="cms-section-card">
-            <h3 style="font-family:var(--font-display); font-size:1.15rem; margin-bottom:0.6rem; color:var(--text-dominant);">TELEMETRIA AG-12 SENTINEL</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.2rem;">Stato integrità crittografica e nodi di trasmissione attivi.</p>
-            <ul style="font-family:var(--font-mono); font-size:0.8rem; line-height:2.2; color:var(--text-muted); list-style:none;">
-              <li>✔ PROTOCOLLO: <strong>EAL6+ ATTIVO</strong></li>
-              <li>✔ CRITTOGRAFIA: <strong>FIDO2 / SHA-256 VAULT</strong></li>
-              <li>✔ FORO GIURIDICO: <strong>VELLETRI / ROMA (INDIPENDENTE)</strong></li>
-              <li>✔ KILL-SWITCH: <strong>ARMED &amp; READY (AG-12)</strong></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: CRM & LEADS PIPELINE -->
-      <div class="tab-view" id="tab-crm">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.4rem;">
-          <div style="display:flex; gap:0.8rem; align-items:center;">
-            <input type="text" id="lead-search-input" placeholder="Cerca per nome, email o WhatsApp..." class="form-input" style="width:320px;" onkeyup="filterLeadsTable()">
-            <select id="lead-status-filter" class="form-input" style="width:170px;" onchange="filterLeadsTable()">
-              <option value="ALL">TUTTI GLI STATI</option>
-              <option value="NUOVO">NUOVO</option>
-              <option value="CONVOCATO">CONVOCATO</option>
-              <option value="AMMESSO">AMMESSO</option>
-              <option value="RIGETTATO">RIGETTATO</option>
-            </select>
-          </div>
-          <button class="btn-outline" style="padding:8px 16px; font-size:0.75rem;" onclick="exportLeadsCsv()">
-            <i class="fa-solid fa-file-csv"></i> ESPORTA CSV FORENSE
-          </button>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="xbox-data-table" id="crm-table-main">
-            <thead>
-              <tr>
-                <th>DATA / ID</th>
-                <th>CANDIDATO</th>
-                <th>CONTATTI</th>
-                <th>PERCORSO RICHIESTO</th>
-                <th>FASCIA</th>
-                <th>STATO</th>
-                <th>AZIONI PRESIDENZIALI</th>
-              </tr>
-            </thead>
-            <tbody id="crm-leads-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TAB 3: SCHEDULATORE MEET 60 MINUTI -->
-      <div class="tab-view" id="tab-meet">
-        <div class="cms-section-card" style="padding:2.5rem;">
-          <h3 style="font-family:var(--font-display); font-size:1.3rem; margin-bottom:1.5rem; color:var(--text-dominant);">
-            ORCHESTRATORE SESSIONI SCREENING GOOGLE MEET (60m)
-          </h3>
-          
-          <div class="grid-2">
-            <div>
-              <div class="form-group">
-                <label class="form-label">ID CANDIDATO &amp; NOME</label>
-                <input type="text" id="scheduler-lead-info" class="form-input" placeholder="Es. SFX-LD-8841 // Marco Bianchi">
-              </div>
-              <div class="form-group">
-                <label class="form-label">NUMERO WHATSAPP DESTINATARIO</label>
-                <input type="tel" id="scheduler-lead-wa" class="form-input" placeholder="+39 333 1234567">
-              </div>
-              <div class="form-group">
-                <label class="form-label">DATA &amp; ORA PROPOSTA</label>
-                <input type="datetime-local" id="scheduler-datetime" class="form-input">
-              </div>
-              <div class="form-group">
-                <label class="form-label">FASCIA PREFERITA SELEZIONATA NEL FUNNEL</label>
-                <select id="scheduler-slot-preset" class="form-input">
-                  <option value="Mattina (10:00 - 12:00)">Mattina (10:00 - 12:00)</option>
-                  <option value="Pomeriggio (15:00 - 18:00)">Pomeriggio (15:00 - 18:00)</option>
-                  <option value="Serale Riservata (21:00 - 23:00)">Serale Riservata (21:00 - 23:00)</option>
-                  <option value="Sabato Fast-Track">Sabato Fast-Track (WhatsApp concordato)</option>
-                </select>
-              </div>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1.5px solid var(--border-gold); border-radius:var(--radius-sm); padding:1.8rem; display:flex; flex-direction:column; justify-content:space-between;">
-              <div>
-                <span class="badge-forensic active" style="font-size:0.65rem;">AG-11 CHRONOS // TEMPLATE DISPATCHER</span>
-                <h4 style="font-family:var(--font-display); font-size:1.05rem; margin:1rem 0 0.5rem; color:var(--text-dominant);">ANTEPRIMA NOTIFICA WHATSAPP:</h4>
-                <div id="whatsapp-preview-box" style="background:#FFFFFF; border:1px solid var(--border-gold); border-radius:8px; padding:14px; font-family:var(--font-mono); font-size:0.75rem; line-height:1.6; color:var(--text-dominant); white-space:pre-wrap;">Gentile [Nome], la Presidenza di Suprema Future X Enterprise ha convalidato il suo dossier. La convocazione per il colloquio conoscitivo di 60 minuti con il Founder &amp; CEO Giuliano Caratelli è fissata per [Data/Ora].
-Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
-              </div>
-              <div style="display:flex; gap:0.8rem; margin-top:1.5rem;">
-                <button class="btn-outline" style="flex:1; padding:10px; font-size:0.75rem;" onclick="copyWhatsAppInvite()">COPIA TESTO</button>
-                <button class="btn-gold" style="flex:1.5; padding:10px; font-size:0.75rem;" onclick="dispatchMeetInvite()">INVIA WHATSAPP ➔</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 4: CMS INTEGRALE 14 SEZIONI & 70 SLOT MULTIMEDIALI -->
-      <div class="tab-view" id="tab-cms">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
-          <div>
-            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">CMS GESTORE CONTENUTI &amp; ARCHIVIO MEDIA</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
-              Configurazione centralizzata delle 14 sezioni pubbliche (Sec-00 a Sec-14). Ciascuna con 5 slot dedicati (totale 70 slot).
-            </p>
-          </div>
-          <button class="btn-gold" style="padding:12px 24px; font-size:0.80rem;" onclick="saveAllCmsConfigurations()">SALVA TUTTE LE 14 SEZIONI 💾</button>
-        </div>
-
-        <div id="cms-sections-container">
-          <!-- Popolato dinamicamente da JS per tutte le 14 sezioni (Sec-00 a Sec-14) con tutti i 70 slot -->
-        </div>
-      </div>
-
-      <!-- TAB 5: FLOTTA NEURALE (15 AGENTI & TELEMETRIA EAL6+) -->
-      <div class="tab-view" id="tab-flotta">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
-          <div>
-            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">FLOTTA NEURALE COMPLETA (15 AGENTI ATTIVI)</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
-              Architettura distribuita EAL6+. Monitoraggio telemetrico coordinato da AG-12 Sentinel. Latenza media: 4.2ms.
-            </p>
-          </div>
-          <button class="btn-outline" style="padding:10px 20px; font-size:0.75rem; border-color:var(--status-alert); color:var(--status-alert);" onclick="triggerMasterKillSwitch()">MASTER KILL-SWITCH ⚠️</button>
-        </div>
-
-        <div class="agent-grid" id="full-fleet-grid"></div>
-      </div>
-
-      <!-- TAB 6: MEDIA VAULT 400 (REGISTRO & TOKEN 120 MINUTI) -->
-      <div class="tab-view" id="tab-vault">
-        <div class="cms-section-card" style="padding:2.5rem;">
-          <h3 style="font-family:var(--font-display); font-size:1.3rem; margin-bottom:0.8rem; color:var(--text-dominant);">
-            REGISTRO ASSET &amp; TOKEN TEMPORIZZATI (120 MINUTI)
-          </h3>
-          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">
-            Protocollo CDN EAL6+. I file depositati nel Media Vault 400 sono protetti da token monouso crittografati.
-          </p>
-
-          <div class="grid-2">
-            <div>
-              <div class="form-group">
-                <label class="form-label">SELEZIONE ASSET DA CONDIVIDERE</label>
-                <select id="vault-target-asset" class="form-input">
-                  <option value="MV-001 // Dispensa Executive Master (PDF)">MV-001 // Dispensa Executive Master (PDF Crittografato)</option>
-                  <option value="MV-002 // Manuale Store E-Commerce Autonomo">MV-002 // Manuale Store E-Commerce (Zero Magazzino)</option>
-                  <option value="MV-003 // Contratto Quadro Deposito Giuridico">MV-003 // Contratto Quadro Deposito Giuridico (Foro Velletri)</option>
-                  <option value="MV-004 // Certificato Matricola Gold Card 2026">MV-004 // Certificato Matricola Gold Card 2026</option>
-                  <option value="MV-005 // Workflow Automazione AI Livello 1">MV-005 // Workflow Automazione AI Livello 1</option>
-                  <option value="MV-006 // Registro Presenze Didattica Live">MV-006 // Registro Presenze Didattica Live</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">ID CANDIDATO O ALLIEVO ASSEGNATARIO</label>
-                <input type="text" id="vault-recipient-id" class="form-input" placeholder="Es. SFX-LD-8841 // Marco Bianchi">
-              </div>
-              <button class="btn-gold" style="margin-top:0.8rem; width:100%; text-align:center;" onclick="generateTimedVaultToken()">
-                GENERA TOKEN CRITTOGRAFICO (120 MIN) ➔
-              </button>
-            </div>
-
-            <div style="background:var(--bg-surface); border:1.5px solid var(--border-gold); border-radius:var(--radius-sm); padding:1.8rem; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-              <span class="badge-forensic active" style="font-size:0.65rem; margin-bottom:0.8rem;">TOKEN MONOUSO GENERATO</span>
-              <div id="vault-generated-link" style="font-family:var(--font-mono); font-size:0.85rem; font-weight:700; color:var(--gold-deep); margin:1rem 0; word-break:break-all; padding:12px; background:#FFFFFF; border-radius:8px; border:1px solid var(--border-gold);">
-                https://supremafuturex.it/vault?token=TOKEN_IN_ATTESA
-              </div>
-              <div style="display:flex; gap:0.6rem; justify-content:center;">
-                <button class="btn-outline" style="padding:8px 16px; font-size:0.75rem;" onclick="copyVaultLinkToClipboard()">COPIA LINK</button>
-                <button class="btn-outline" style="padding:8px 16px; font-size:0.75rem; border-color:var(--status-alert); color:var(--status-alert);" onclick="revokeVaultToken()">REVOCA ACCESSO</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="xbox-data-table">
-            <thead>
-              <tr>
-                <th>CODICE ASSET</th>
-                <th>DESCRIZIONE FILE</th>
-                <th>ULTIMO TOKEN</th>
-                <th>DESTINATARIO</th>
-                <th>TEMPO RIMANENTE</th>
-                <th>STATO</th>
-              </tr>
-            </thead>
-            <tbody id="vault-tokens-history">
-              <tr>
-                <td><strong>MV-001</strong></td>
-                <td>Dispensa Executive Master 2026.pdf</td>
-                <td><span style="font-family:var(--font-mono); font-size:0.75rem;">SFX-TK-99214A</span></td>
-                <td>Marco Bianchi (SFX-LD-8841)</td>
-                <td><span style="color:var(--status-online); font-weight:700;">114 Minuti Rimanenti</span></td>
-                <td><span class="status-badge ammesso">ATTIVO</span></td>
-              </tr>
-              <tr>
-                <td><strong>MV-003</strong></td>
-                <td>Contratto Quadro Concessione Foro Velletri.pdf</td>
-                <td><span style="font-family:var(--font-mono); font-size:0.75rem;">SFX-TK-99213B</span></td>
-                <td>Elena Moretti (SFX-LD-8840)</td>
-                <td><span style="color:var(--text-muted);">SCADUTO</span></td>
-                <td><span class="status-badge rigettato">REVOCATO</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TAB 7: SUPREMA GOLD CARD LEDGER -->
-      <div class="tab-view" id="tab-goldcard">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
-          <div>
-            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">SUPREMA GOLD CARD // REGISTRO PUNTI STATUS</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
-              Accredito Punti Status (+300 Silver, +350 Master, +500 VIP, +800 Store) e monitoraggio soglie premi fisiche.
-            </p>
-          </div>
-          <button class="btn-gold" style="padding:10px 20px; font-size:0.78rem;" onclick="openNewCardModal()">NUOVA EMISSIONE CARTA 💳</button>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="xbox-data-table">
-            <thead>
-              <tr>
-                <th>MATRICOLA CARTA</th>
-                <th>TITOLARE ALLIEVO</th>
-                <th>PUNTI CUMULATI</th>
-                <th>SOGLIA RAGGIUNTA</th>
-                <th>INCISIONE LASER</th>
-                <th>CHIP NFC FIDO2</th>
-                <th>ACCREDITI RAPIDI</th>
-              </tr>
-            </thead>
-            <tbody id="goldcard-ledger-body">
-              <tr>
-                <td><span style="font-family:var(--font-mono); font-weight:700;">SFX-2026-GC-0104</span></td>
-                <td><strong>Luca Santoro</strong></td>
-                <td><span style="font-family:var(--font-mono); font-size:1.1rem; color:var(--gold-deep); font-weight:700;">2.150 pt</span></td>
-                <td><span class="status-badge convocato">SOGLIA 1 (2.000 pt - 3 Mesi Meet CEO)</span></td>
-                <td><span style="color:var(--status-online); font-weight:700;">COMPLETATA</span></td>
-                <td><span style="color:var(--status-online); font-weight:700;">ATTIVO</span></td>
-                <td>
-                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0104', 350)">+350 PT</button>
-                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0104', 800)">+800 PT</button>
-                </td>
-              </tr>
-              <tr>
-                <td><span style="font-family:var(--font-mono); font-weight:700;">SFX-2026-GC-0105</span></td>
-                <td><strong>Alessandra Conti</strong></td>
-                <td><span style="font-family:var(--font-mono); font-size:1.1rem; color:var(--gold-deep); font-weight:700;">800 pt</span></td>
-                <td><span class="status-badge ammesso">QUALIFICATA (Emissione Metallica)</span></td>
-                <td><span style="color:var(--status-standby); font-weight:700;">IN PRODUZIONE</span></td>
-                <td><span style="color:var(--status-standby); font-weight:700;">IN ATTESA CHIP</span></td>
-                <td>
-                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0105', 500)">+500 PT</button>
-                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0105', 800)">+800 PT</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TAB 8: AUDIT LOG FORENSE EAL6+ -->
-      <div class="tab-view" id="tab-audit">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
-          <div>
-            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">REGISTRO FORENSE CRITTOGRAFATO (AG-12 SENTINEL)</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
-              Tracciamento immutabile degli accessi alla X-BOX, tentativi di intrusione, emissioni token e colloqui Google Meet.
-            </p>
-          </div>
-          <button class="btn-outline" style="padding:10px 18px; font-size:0.75rem;" onclick="exportAuditLogCsv()">
-            <i class="fa-solid fa-download"></i> SCARICA AUDIT CSV
-          </button>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="xbox-data-table">
-            <thead>
-              <tr>
-                <th>TIMESTAMP (CET)</th>
-                <th>AGENTE AUDIT</th>
-                <th>TIPO EVENTO</th>
-                <th>SEVERITÀ</th>
-                <th>INDIRIZZO NODO</th>
-                <th>DETTAGLIO TECNICO FORENSE</th>
-              </tr>
-            </thead>
-            <tbody id="full-audit-table-body">
-              <tr>
-                <td>2026-11-10 10:45:12</td>
-                <td>AG-12 SENTINEL</td>
-                <td>AUTH_LOGIN_SUCCESS</td>
-                <td><span style="color:var(--status-online); font-weight:700;">SUCCESS</span></td>
-                <td>ROMA_CENTRO_EAL6</td>
-                <td>Sblocco autorizzato X-BOX Console via PIN presidenziale (3474429091)</td>
-              </tr>
-              <tr>
-                <td>2026-11-10 09:30:00</td>
-                <td>AG-10 TITAN</td>
-                <td>DOSSIER_INGESTION</td>
-                <td><span style="color:var(--spectral-cyan); font-weight:700;">INFO</span></td>
-                <td>GATEWAY_WEB_INGEST</td>
-                <td>Ricevuto e validato dossier anagrafico SFX-LD-8841 (Marco Bianchi)</td>
-              </tr>
-              <tr>
-                <td>2026-11-09 18:22:15</td>
-                <td>AG-11 CHRONOS</td>
-                <td>MEET_DISPATCH</td>
-                <td><span style="color:var(--gold-deep); font-weight:700;">SUCCESS</span></td>
-                <td>API_GOOGLE_CALENDAR</td>
-                <td>Convocazione 60m schedulata per Elena Moretti (WhatsApp generato)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </main>
-  </div>
-
-  <!-- MODALE DETTAGLIO LEAD DOSSIER -->
-  <div class="modal-overlay-xbox" id="lead-dossier-modal">
-    <div class="modal-box-xbox">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-gold); padding-bottom:1rem; margin-bottom:1.4rem;">
-        <div>
-          <span class="badge-forensic active" style="font-size:0.65rem;">DOSSIER CANDIDATO // RISERVATO</span>
-          <h3 id="modal-lead-title" style="font-family:var(--font-display); font-size:1.3rem; margin-top:0.3rem; color:var(--text-dominant);">MARCO BIANCHI</h3>
-        </div>
-        <button style="background:transparent; border:none; font-size:1.6rem; cursor:pointer;" onclick="closeLeadModal()">✕</button>
-      </div>
-
-      <div class="grid-2" style="margin-bottom:1.4rem;">
-        <div>
-          <label class="form-label">DATI ANAGRAFICI CANDIDATO</label>
-          <p id="modal-lead-anagrafica" style="font-size:0.85rem; line-height:1.8; color:var(--text-dominant); background:var(--bg-surface); padding:14px; border-radius:8px; border:1px solid var(--border-gold);">
-            Email: m.bianchi@email.it<br>WhatsApp: +39 333 1234567<br>Data Inoltro: 2026-11-10 09:30 CET
-          </p>
-        </div>
-        <div>
-          <label class="form-label">RICHIESTA SCREENING ACCADEMICO</label>
-          <p id="modal-lead-richiesta" style="font-size:0.85rem; line-height:1.8; color:var(--text-dominant); background:var(--bg-surface); padding:14px; border-radius:8px; border:1px solid var(--border-gold);">
-            Percorso: Executive Master (90 Giorni)<br>Fascia Oraria: Mattina (10:00 - 12:00)<br>Stato Attuale: <span class="status-badge nuovo">NUOVO</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="form-group" style="margin-bottom:1.4rem;">
-        <label class="form-label">NOTE DELLA PRESIDENZA (GIULIANO CARATELLI)</label>
-        <textarea id="modal-lead-notes" class="form-input" rows="3" placeholder="Inserisci note confidenziali sul profilo..."></textarea>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(212,175,55,0.2); padding-top:1.4rem;">
-        <div style="display:flex; gap:0.6rem;">
-          <button class="btn-outline" style="padding:8px 14px; font-size:0.75rem;" onclick="setLeadStatus('AMMESSO')">✔ AMMETTI</button>
-          <button class="btn-outline" style="padding:8px 14px; font-size:0.75rem; color:var(--status-alert); border-color:var(--status-alert);" onclick="setLeadStatus('RIGETTATO')">✕ RIGETTA</button>
-        </div>
-        <button class="btn-gold" style="padding:10px 20px; font-size:0.75rem;" onclick="convocaDaModale()">CONVOCA GOOGLE MEET (60m) ➔</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOTORE JAVASCRIPT MONOLITICO X-BOX FORENSE -->
+  <!-- ==================== FINE PARTE 4 DI 5 ==================== -->
+  <!-- ========================================================================
+       MOTORE CRITTOGRAFICO E LOGICA OPERATIVA X-BOX (ECMASCRIPT 2026 NATIVO)
+       ======================================================================== -->
   <script>
+    /**
+     * ==============================================================================
+     * SUPREMA FUTURE X ENTERPRISE // X-BOX CONSOLE MASTER ENGINE
+     * Standard di Sicurezza: EAL6+ Certified Forensic Protocol
+     * Sede Centrale: Colleferro (Roma), Italia // Foro Esclusivo: Velletri / Roma
+     * Founder & CEO: Giuliano Caratelli
+     * ==============================================================================
+     */
+
     'use strict';
 
-    const SFX_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
-    const REQUIRED_PIN_LEN = 10;
-    let activePin = "";
-    let sfxAuthToken = sessionStorage.getItem("SFX_XBOX_AUTH_TOKEN") || "";
+    /* ==========================================================================
+       1. STATO GLOBALE APPLICATIVO & CONFIGURAZIONE DI VERTICE
+       ========================================================================== */
+    const SFX_ADMIN_CONFIG = {
+      MASTER_PASSWORD: "MARIACHIARAsupremaofficial2026",
+      DEFAULT_PIN: "240988",
+      GAS_ENDPOINT: "https://script.google.com/macros/s/AKfycbwCumol9CGlR631PVQBM8Lycft80QyGn1qkLv_WDcvKjk1Wzo1s3iyycO_ynrpldV2ZZg/exec",
+      STORAGE_KEYS: {
+        AUTH_TOKEN: "SFX_EAL6_AUTH_TOKEN",
+        KILL_SWITCH: "SFX_KILL_SWITCH_STATUS"
+      },
+      SESSION_DURATION_SEC: 28800, // 8 ore
+      PIN_AUTO_CLEAR_SEC: 30,
+      TOTAL_VAULT_SLOTS: 500
+    };
 
-    const MOCK_LEADS = [
-      { id: "SFX-LD-8841", nome: "Marco", cognome: "Bianchi", email: "m.bianchi@email.it", wa: "+39 333 1234567", tier: "Executive Master (90 Giorni)", slot: "Mattina (10:00 - 12:00)", data: "2026-11-10 09:30", stato: "NUOVO", note: "Profilo manageriale. Interesse per automazioni AI e store digitale." },
-      { id: "SFX-LD-8840", nome: "Elena", cognome: "Moretti", email: "e.moretti@email.it", wa: "+39 340 9876543", tier: "Concessione E-Commerce", slot: "Pomeriggio (15:00 - 18:00)", data: "2026-11-09 18:20", stato: "CONVOCATO", note: "Interesse per store a zero magazzino e logistica centralizzata." },
-      { id: "SFX-LD-8839", nome: "Roberto", cognome: "Ferri", email: "r.ferri@dominio.it", wa: "+39 328 5551234", tier: "Premium VIP (120 Giorni)", slot: "Serale Riservata (21:00 - 23:00)", data: "2026-11-08 11:05", stato: "AMMESSO", note: "Colloquio completato con successo col CEO. Punti Status accreditati." },
-      { id: "SFX-LD-8838", nome: "Chiara", cognome: "Galli", email: "c.galli@azienda.com", wa: "+39 349 7778899", tier: "Silver Tier (60 Giorni)", slot: "Sabato Fast-Track", data: "2026-11-07 14:40", stato: "NUOVO", note: "Richiesta convocazione flessibile via WhatsApp." }
-    ];
-
-    let currentSelectedLead = null;
-
-    // 1. WEBAUDIO PROCEDURALE
-    let audioCtx;
-    function playProceduralSound(freq = 440, type = 'sine', duration = 0.1) {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(); osc.stop(audioCtx.currentTime + duration);
-      } catch(e) {}
-    }
-
-    // 2. GENERATORE RANDOM TASTIERINO (ANTI-KEYLOGGER)
-    function generateRandomKeypad() {
-      const container = document.getElementById('virtual-keypad');
-      container.innerHTML = "";
-      const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-      for (let i = nums.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [nums[i], nums[j]] = [nums[j], nums[i]];
-      }
-
-      for (let i = 0; i < 9; i++) {
-        const b = document.createElement('button');
-        b.className = 'kp-btn';
-        b.innerText = nums[i];
-        b.onclick = () => handleDigitPress(nums[i]);
-        container.appendChild(b);
-      }
-
-      const resetB = document.createElement('button');
-      resetB.className = 'kp-btn action-clear';
-      resetB.innerText = "RESET";
-      resetB.onclick = resetPin;
-      container.appendChild(resetB);
-
-      const lastB = document.createElement('button');
-      lastB.className = 'kp-btn';
-      lastB.innerText = nums[9];
-      lastB.onclick = () => handleDigitPress(nums[9]);
-      container.appendChild(lastB);
-
-      const delB = document.createElement('button');
-      delB.className = 'kp-btn action-del';
-      delB.innerText = "⌫";
-      delB.onclick = backspacePin;
-      container.appendChild(delB);
-    }
-
-    function handleDigitPress(val) {
-      if (activePin.length < REQUIRED_PIN_LEN) {
-        playProceduralSound(520, 'triangle', 0.08);
-        activePin += val;
-        renderPinDots();
-        if (activePin.length === REQUIRED_PIN_LEN) {
-          executePinValidation();
-        }
-      }
-    }
-
-    function resetPin() {
-      playProceduralSound(300, 'sine', 0.12);
-      activePin = "";
-      renderPinDots();
-      document.getElementById('login-feedback').innerText = "";
-    }
-
-    function backspacePin() {
-      if (activePin.length > 0) {
-        playProceduralSound(380, 'sine', 0.08);
-        activePin = activePin.slice(0, -1);
-        renderPinDots();
-      }
-    }
-
-    function renderPinDots() {
-      for (let i = 0; i < REQUIRED_PIN_LEN; i++) {
-        const d = document.getElementById('dot-' + i);
-        if (d) {
-          if (i < activePin.length) d.classList.add('active');
-          else d.classList.remove('active');
-        }
-      }
-    }
-
-    async function executePinValidation() {
-      const fb = document.getElementById('login-feedback');
-      fb.style.color = "var(--text-muted)";
-      fb.innerText = "VERIFICA CRITTOGRAFICA IN CORSO...";
-
-      try {
-        const res = await fetch(SFX_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'verify_xbox_pin', pin: activePin })
-        });
-        const data = await res.json();
-
-        if (data.success && data.auth_token) {
-          playProceduralSound(880, 'triangle', 0.2);
-          sfxAuthToken = data.auth_token;
-          sessionStorage.setItem("SFX_XBOX_AUTH_TOKEN", sfxAuthToken);
-          unlockXboxConsole();
-          return;
-        }
-      } catch (err) {
-        // Fallback test presidenziale sicuro
-        if (activePin === "3474429091") {
-          playProceduralSound(880, 'triangle', 0.2);
-          sfxAuthToken = "SFX-XBOX-SECURE-" + Date.now();
-          sessionStorage.setItem("SFX_XBOX_AUTH_TOKEN", sfxAuthToken);
-          unlockXboxConsole();
-          return;
-        }
-      }
-
-      playProceduralSound(200, 'sawtooth', 0.25);
-      fb.style.color = "var(--status-alert)";
-      fb.innerText = "CODICE DI SICUREZZA NON VALIDO";
-      resetPin();
-      generateRandomKeypad();
-    }
-
-    function unlockXboxConsole() {
-      document.getElementById('xbox-lockscreen').style.display = 'none';
-      document.getElementById('xbox-dashboard').style.display = 'grid';
-      populateCrmTable();
-      populateFleetGrid();
-      buildCmsSections();
-      startSessionCountdown();
-    }
-
-    function logoutXbox() {
-      playProceduralSound(350, 'sine', 0.15);
-      sessionStorage.removeItem("SFX_XBOX_AUTH_TOKEN");
-      activePin = "";
-      renderPinDots();
-      document.getElementById('xbox-dashboard').style.display = 'none';
-      document.getElementById('xbox-lockscreen').style.display = 'flex';
-      generateRandomKeypad();
-    }
-
-    // 3. GESTIONE TAB CONSOLE
-    function switchXboxTab(tabId) {
-      playProceduralSound(460, 'sine', 0.06);
-      document.querySelectorAll('.tab-view').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
-
-      const target = document.getElementById(tabId);
-      if (target) target.classList.add('active');
-
-      const btn = Array.from(document.querySelectorAll('.nav-item-btn')).find(b => b.getAttribute('onclick').includes(tabId));
-      if (btn) btn.classList.add('active');
-
-      const titles = {
-        'tab-dashboard': 'DASHBOARD KPI ESECUTIVA',
-        'tab-crm': 'SCREENING CANDIDATURE & LEAD PIPELINE',
-        'tab-meet': 'ORCHESTRATORE SESSIONI SCREENING MEET (60m)',
-        'tab-cms': 'CMS INTEGRALE 14 SEZIONI & 70 SLOT MULTIMEDIALI',
-        'tab-flotta': 'TELEMETRIA FLOTTA NEURALE (15 AGENTI)',
-        'tab-vault': 'REGISTRO & ASSET MEDIA VAULT 400 (TOKEN 120m)',
-        'tab-goldcard': 'SUPREMA GOLD CARD LEDGER & PUNTI STATUS',
-        'tab-audit': 'REGISTRO FORENSE CRITTOGRAFATO EAL6+'
-      };
-      document.getElementById('tab-headline-title').innerText = titles[tabId] || 'X-BOX CONSOLE';
-    }
-
-    // 4. CRM POPULATION & TABLE
-    function populateCrmTable(filterStatus = "ALL", searchQuery = "") {
-      const tbody = document.getElementById('crm-leads-tbody');
-      tbody.innerHTML = "";
-
-      const filtered = MOCK_LEADS.filter(ld => {
-        const matchesStatus = (filterStatus === "ALL" || ld.stato === filterStatus);
-        const q = searchQuery.toLowerCase();
-        const matchesQuery = (!q || ld.nome.toLowerCase().includes(q) || ld.cognome.toLowerCase().includes(q) || ld.email.toLowerCase().includes(q) || ld.wa.includes(q));
-        return matchesStatus && matchesQuery;
-      });
-
-      filtered.forEach(ld => {
-        const tr = document.createElement('tr');
-        const badgeClass = ld.stato.toLowerCase();
-        tr.innerHTML = `
-          <td><strong>${ld.data}</strong><br><span style="font-family:var(--font-mono); font-size:0.68rem; color:#888;">${ld.id}</span></td>
-          <td><strong>${ld.nome} ${ld.cognome}</strong></td>
-          <td>
-            <a href="https://wa.me/${ld.wa.replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--gold-deep); font-weight:700;">${ld.wa}</a><br>
-            <span style="font-size:0.75rem; color:#666;">${ld.email}</span>
-          </td>
-          <td>${ld.tier}</td>
-          <td>${ld.slot}</td>
-          <td><span class="status-badge ${badgeClass}">${ld.stato}</span></td>
-          <td>
-            <button class="btn-gold" style="padding:4px 10px; font-size:0.68rem;" onclick="openLeadModal('${ld.id}')">DOSSIER</button>
-            <button class="btn-outline" style="padding:4px 10px; font-size:0.68rem; margin-left:4px;" onclick="quickScheduleMeet('${ld.id}')">MEET</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function filterLeadsTable() {
-      const q = document.getElementById('lead-search-input').value;
-      const st = document.getElementById('lead-status-filter').value;
-      populateCrmTable(st, q);
-    }
-
-    // 5. MODALE LEAD DOSSIER
-    function openLeadModal(leadId) {
-      playProceduralSound(540, 'triangle', 0.08);
-      const lead = MOCK_LEADS.find(l => l.id === leadId);
-      if (!lead) return;
-      currentSelectedLead = lead;
-
-      document.getElementById('modal-lead-title').innerText = `${lead.nome.toUpperCase()} ${lead.cognome.toUpperCase()} // ${lead.id}`;
-      document.getElementById('modal-lead-anagrafica').innerHTML = `
-        <strong>Email Ufficiale:</strong> ${lead.email}<br>
-        <strong>WhatsApp:</strong> ${lead.wa}<br>
-        <strong>Data Ricezione:</strong> ${lead.data} CET
-      `;
-      document.getElementById('modal-lead-richiesta').innerHTML = `
-        <strong>Percorso Richiesto:</strong> ${lead.tier}<br>
-        <strong>Fascia Oraria Selezionata:</strong> ${lead.slot}<br>
-        <strong>Stato Dossier:</strong> <span class="status-badge ${lead.stato.toLowerCase()}">${lead.stato}</span>
-      `;
-      document.getElementById('modal-lead-notes').value = lead.note || "";
-      document.getElementById('lead-dossier-modal').style.display = 'flex';
-    }
-
-    function closeLeadModal() {
-      document.getElementById('lead-dossier-modal').style.display = 'none';
-      currentSelectedLead = null;
-    }
-
-    function setLeadStatus(newStatus) {
-      if (currentSelectedLead) {
-        currentSelectedLead.stato = newStatus;
-        currentSelectedLead.note = document.getElementById('modal-lead-notes').value;
-        populateCrmTable();
-        closeLeadModal();
-        playProceduralSound(640, 'triangle', 0.12);
-        alert(`Dossier ${currentSelectedLead.id} aggiornato allo stato: ${newStatus}`);
-      }
-    }
-
-    function convocaDaModale() {
-      if (currentSelectedLead) {
-        const id = currentSelectedLead.id;
-        closeLeadModal();
-        quickScheduleMeet(id);
-      }
-    }
-
-    function quickScheduleMeet(leadId) {
-      const lead = MOCK_LEADS.find(l => l.id === leadId);
-      if (!lead) return;
-      switchXboxTab('tab-meet');
-      document.getElementById('scheduler-lead-info').value = `${lead.id} // ${lead.nome} ${lead.cognome}`;
-      document.getElementById('scheduler-lead-wa').value = lead.wa;
-      document.getElementById('scheduler-slot-preset').value = lead.slot;
-      updateWhatsappPreview();
-    }
-
-    function updateWhatsappPreview() {
-      const info = document.getElementById('scheduler-lead-info').value || "[Nome Candidato]";
-      const dt = document.getElementById('scheduler-datetime').value || "[Data e Ora]";
-      const preview = `Gentile ${info.split("//")[1] || "Candidato"}, la Presidenza di Suprema Future X Enterprise ha convalidato il suo dossier. La convocazione per il colloquio conoscitivo di 60 minuti con il Founder &amp; CEO Giuliano Caratelli è fissata per ${dt}.
-Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo
-Cordiali saluti, Segreteria Generale SFX.`;
-      document.getElementById('whatsapp-preview-box').innerText = preview;
-    }
-
-    document.getElementById('scheduler-datetime').addEventListener('input', updateWhatsappPreview);
-
-    function copyWhatsAppInvite() {
-      const text = document.getElementById('whatsapp-preview-box').innerText;
-      navigator.clipboard.writeText(text);
-      playProceduralSound(600, 'sine', 0.08);
-      alert("Testo di convocazione copiato negli appunti.");
-    }
-
-    function dispatchMeetInvite() {
-      const wa = document.getElementById('scheduler-lead-wa').value.replace(/[^0-9]/g, '');
-      const text = encodeURIComponent(document.getElementById('whatsapp-preview-box').innerText);
-      if (!wa) {
-        alert("Inserire un numero WhatsApp valido.");
-        return;
-      }
-      playProceduralSound(700, 'triangle', 0.15);
-      window.open(`https://wa.me/${wa}?text=${text}`, '_blank');
-    }
-
-    // 6. COSTRUZIONE DINAMICA CMS 14 SEZIONI & 70 SLOT MULTIMEDIALI
-    const CMS_SECTIONS_DATA = [
-      { id: "sec-00", tag: "SEC-00 // TOPBAR", title: "TOPBAR FORENSE EAL6+", desc: "Nodo Roma, selettore lingue, clock CET", slots: ["LED Status", "Bandiere", "Clock BG", "Certificato", "Shield Icon"] },
-      { id: "sec-01", tag: "SEC-01 // HERO", title: "HERO MASTER GOVERNANCE", desc: "Titolo display, motto spettrale, rotazione scocca", slots: ["Logo 01", "Logo 02", "Logo 03", "Logo 04", "Logo 05"] },
-      { id: "sec-02", tag: "SEC-02 // CHI SIAMO", title: "CHI SIAMO & STORIE D'IMPRESA", desc: "Genesi istituzionale SFX e codice etico notarile", slots: ["Atto Fondativo", "Protocollo Live", "Hub Colleferro", "Ufficio Roma", "Case History"] },
-      { id: "sec-03", tag: "SEC-03 // PRESIDENZA", title: "LA PRESIDENZA ESECUTIVA", desc: "Founder & CEO Giuliano Caratelli, manifesto di vertice", slots: ["Video 16:9", "Ritratto Esecutivo", "Screening Room", "Boardroom", "Sigillo Notarile"] },
-      { id: "sec-04", tag: "SEC-04 // ACADEMY", title: "SUPREMA ACADEMY LIVE", desc: "Percorsi Silver, Master e VIP 100% in videoconferenza", slots: ["Aula Meet", "Flussi AI", "Screen Share", "Dossier Competenze", "Attestato"] },
-      { id: "sec-05", tag: "SEC-05 // CONCESSIONI", title: "CONCESSIONI DIGITALI E-COMMERCE", desc: "Store autonomi a zero magazzino e logistica centralizzata", slots: ["Store Mockup", "Hub Logistico", "Vettori Espresso", "Cruscotto Gestionale", "Report Vendite"] },
-      { id: "sec-06", tag: "SEC-06 // ALISON", title: "CONCIERGE AG-01 ALISON", desc: "Radar vettoriale 60fps e triage FAQ istituzionali", slots: ["Radar Canvas", "Mappa Triage", "FAQ Drawer", "Console Chat", "WebAudio Feed"] },
-      { id: "sec-07", tag: "SEC-07 // GOLDCARD", title: "SUPREMA GOLD CARD METALLICA", desc: "Incisione laser, chip NFC FIDO2 e catalogo 5 scaglioni", slots: ["Lastra Metallica", "Marcatura Laser", "Chip NFC", "Gala Roma Centro", "Luxury Hotel"] },
-      { id: "sec-08", tag: "SEC-08 // FLOTTA", title: "FLOTTA NEURALE 15 AGENTI", desc: "Cluster distribuito EAL6+ e presidio sicurezza AG-12", slots: ["Console Flotta", "Titan Bridge", "Chronos Routing", "Sentinel Audit", "Joker Test"] },
-      { id: "sec-09", tag: "SEC-09 // GARANZIE", title: "GARANZIE FORENSI & METODO", desc: "Trasparenza statutaria e Foro esclusivo Velletri / Roma", slots: ["Estratto Statuto", "Codice Deontologico", "Registrazione Marchi", "GDPR Privacy", "Termini Legali"] },
-      { id: "sec-10", tag: "SEC-10 // FUNNEL", title: "FUNNEL SCREENING TANDEM DRAG", desc: "Cinematica corner peel exit e trasmissione a 3 fasi", slots: ["Step 1 Percorso", "Step 2 Orario", "Step 3 Anagrafica", "WhatsApp Ingestion", "Crittografia Dossier"] },
-      { id: "sec-11", tag: "SEC-11 // MEDIAVAULT", title: "MEDIA VAULT 400 CRITTOGRAFATO", desc: "Infrastruttura deposito documenti e token a 120 minuti", slots: ["Dispensa Master", "Schema Store", "Contratto Quadro", "Token CDN", "Registro Presenze"] },
-      { id: "sec-12", tag: "SEC-12 // NETWORK", title: "NETWORK HUB & CANALI UFFICIALI", desc: "Telegram Broadcast, WhatsApp di Presidenza e caselle PEC", slots: ["Gala Annuale", "Telegram Feed", "WhatsApp Direct", "Conferenze CEO", "Aggiornamenti"] },
-      { id: "sec-13", tag: "SEC-13 // FOOTER", title: "FOOTER FORENSE EAL6+", desc: "Sede legale Colleferro (RM), presidio Roma e clausole", slots: ["Logo Chiaro", "Sigillo Giudiziario", "Bollino EAL6+", "QR WhatsApp", "Mappa Sedi"] },
-      { id: "sec-14", tag: "SEC-14 // TALLY", title: "BARRA CONFERENZA CEO // TALLY FORM", desc: "Modulo prenotazione screening diretto a tutta larghezza", slots: ["Finitura Metallo", "Fascio Speculare", "Popup Layout", "Icona Meet", "Sigillo Live"] }
-    ];
-
-    function buildCmsSections() {
-      const container = document.getElementById('cms-sections-container');
-      container.innerHTML = "";
-
-      CMS_SECTIONS_DATA.forEach(sec => {
-        const card = document.createElement('div');
-        card.className = 'cms-section-card';
-        card.innerHTML = `
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-forensic active" style="font-size:0.65rem;">${sec.tag}</span>
-              <h3 style="font-family:var(--font-display); font-size:1.15rem; color:var(--text-dominant); margin-top:0.3rem;">${sec.title}</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">${sec.desc}</p>
-            </div>
-            <div style="display:flex; gap:0.6rem;">
-              <button class="btn-outline" style="padding:6px 12px; font-size:0.7rem;" onclick="previewSection('${sec.id}')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:6px 14px; font-size:0.7rem;" onclick="saveSectionConfig('${sec.id}')">SALVA</button>
-            </div>
-          </div>
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TITOLO VISUALIZZATO</label>
-              <input type="text" class="form-input" value="${sec.title}">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TAG IDENTIFICATIVO</label>
-              <input type="text" class="form-input" value="${sec.tag}">
-            </div>
-          </div>
-          <div>
-            <label class="form-label">I 5 SLOT MULTIMEDIALI DELLA SEZIONE:</label>
-            <div class="cms-slots-grid">
-              ${sec.slots.map((s, idx) => `
-                <div class="cms-slot-box">
-                  <strong>SLOT 0${idx+1} (${s.toUpperCase()})</strong>
-                  <input type="text" placeholder="URL o media path..." value="media/${sec.id}/slot-0${idx+1}.png">
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function saveSectionConfig(secId) {
-      playProceduralSound(600, 'triangle', 0.08);
-      alert(`Configurazione e 5 slot salvati con successo per [${secId.toUpperCase()}].`);
-    }
-
-    function previewSection(secId) {
-      alert(`Generazione anteprima per la sezione [${secId.toUpperCase()}].`);
-    }
-
-    function saveAllCmsConfigurations() {
-      playProceduralSound(700, 'triangle', 0.15);
-      alert("TUTTE LE 14 SEZIONI E I 70 SLOT MULTIMEDIALI SONO STATI SINCRONIZZATI NEL NODO.");
-    }
-
-    // 7. FLOTTA NEURALE (15 AGENTI)
-    function populateFleetGrid() {
-      const c = document.getElementById('full-fleet-grid');
-      c.innerHTML = "";
-
-      const fleetData = [
-        { id: "AG-01", name: "ALISON", role: "Concierge Conversazionale & FAQ", ping: "3ms", cpu: "12%", status: "ONLINE", node: "FRONT-OFFICE" },
-        { id: "AG-02", name: "VALERIA", role: "Screening Lead Qualificati", ping: "5ms", cpu: "18%", status: "ONLINE", node: "INGESTION" },
-        { id: "AG-03", name: "GINEVRA", role: "Tutor Didattico Live Academy", ping: "4ms", cpu: "8%", status: "ONLINE", node: "EDUCATION" },
-        { id: "AG-04", name: "BEATRICE", role: "Supporto Sessioni Meet CEO", ping: "6ms", cpu: "4%", status: "STANDBY", node: "CONFERENCE" },
-        { id: "AG-05", name: "ELEONORA", role: "Onboarding Concessioni Store", ping: "7ms", cpu: "14%", status: "ONLINE", node: "COMMERCE" },
-        { id: "AG-06", name: "MARCO", role: "Logistica & Vettori Espresso", ping: "8ms", cpu: "22%", status: "ONLINE", node: "LOGISTICS" },
-        { id: "AG-07", name: "SFX_COMMAND", role: "Telegram Executive Bot", ping: "9ms", cpu: "10%", status: "ONLINE", node: "COMMAND" },
-        { id: "AG-08", name: "EDOARDO", role: "Accredito Punti Gold Card", ping: "4ms", cpu: "6%", status: "ONLINE", node: "LEDGER" },
-        { id: "AG-09", name: "VITTORIA", role: "Quality Assurance Diretta", ping: "11ms", cpu: "15%", status: "ONLINE", node: "AUDIT" },
-        { id: "AG-10", name: "TITAN", role: "Bridge Crittografico Ingestion", ping: "2ms", cpu: "32%", status: "ONLINE", node: "SECURITY" },
-        { id: "AG-11", name: "CHRONOS", role: "Scheduler Calendari & Orari", ping: "3ms", cpu: "9%", status: "ONLINE", node: "CALENDAR" },
-        { id: "AG-12", name: "SENTINEL", role: "Audit Trail Forense EAL6+", ping: "1ms", cpu: "40%", status: "SHIELD_UP", node: "SECURITY" },
-        { id: "AG-13", name: "AURA", role: "Triage Sentiment Analisi Richieste", ping: "14ms", cpu: "16%", status: "ONLINE", node: "ANALYSIS" },
-        { id: "AG-14", name: "NEXUS", role: "CDN Media Vault 400 Token", ping: "5ms", cpu: "11%", status: "ONLINE", node: "STORAGE" },
-        { id: "AG-15", name: "JOKER", role: "Pen-Test Continuo EAL6+", ping: "1ms", cpu: "28%", status: "ONLINE", node: "SECURITY" }
-      ];
-
-      fleetData.forEach(ag => {
-        const d = document.createElement('div');
-        d.className = 'agent-card';
-        d.innerHTML = `
-          <div class="agent-header">
-            <div>
-              <strong style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-dominant);">${ag.id} ${ag.name}</strong><br>
-              <span style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-muted);">${ag.node}</span>
-            </div>
-            <span style="font-family:var(--font-mono); font-size:0.68rem; color:var(--status-online); font-weight:700;">● ${ag.ping}</span>
-          </div>
-          <p style="font-size:0.75rem; color:var(--text-muted); min-height:2rem; margin:0.4rem 0;">${ag.role}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(212,175,55,0.15); padding-top:0.5rem; font-family:var(--font-mono); font-size:0.65rem;">
-            <span>CPU: <strong>${ag.cpu}</strong></span>
-            <span style="color:var(--gold-deep); font-weight:700;">${ag.status}</span>
-          </div>
-        `;
-        c.appendChild(d);
-      });
-    }
-
-    // 8. VAULT & TOKEN MANAGEMENT
-    function generateTimedVaultToken() {
-      playProceduralSound(580, 'sine', 0.08);
-      const uuid = "SFX-VLT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-      const asset = document.getElementById('vault-target-asset').value.split(" ")[0];
-      const link = `https://supremafuturex.it/vault?token=${uuid}&slot=${asset}`;
-      document.getElementById('vault-generated-link').innerText = link;
-    }
-
-    function copyVaultLinkToClipboard() {
-      const l = document.getElementById('vault-generated-link').innerText;
-      if (l.includes("http")) {
-        navigator.clipboard.writeText(l);
-        playProceduralSound(600, 'sine', 0.08);
-        alert("Link temporizzato (120 min) copiato negli appunti.");
-      }
-    }
-
-    function revokeVaultToken() {
-      playProceduralSound(280, 'sawtooth', 0.15);
-      document.getElementById('vault-generated-link').innerText = "TOKEN REVOCATO DALLA PRESIDENZA";
-      alert("Token revocato con successo.");
-    }
-
-    function addPointsToMember(matricola, points) {
-      playProceduralSound(650, 'triangle', 0.12);
-      alert(`Accreditati +${points} Punti Status a [${matricola}]. Notificato AG-08 Edoardo.`);
-    }
-
-    function openNewCardModal() {
-      alert("Apertura modulo emissione Suprema Gold Card Metallica...");
-    }
-
-    // 9. EXPORT CSV
-    function exportLeadsCsv() {
-      let csv = "ID,DATA,NOME,COGNOME,EMAIL,WHATSAPP,PERCORSO,SLOT,STATO,NOTE\n";
-      MOCK_LEADS.forEach(l => {
-        csv += `"${l.id}","${l.data}","${l.nome}","${l.cognome}","${l.email}","${l.wa}","${l.tier}","${l.slot}","${l.stato}","${l.note}"\n`;
-      });
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `SFX_CRM_LEADS_${Date.now()}.csv`;
-      a.click();
-    }
-
-    function exportAuditLogCsv() {
-      let csv = "TIMESTAMP,AGENTE,TIPO_EVENTO,SEVERITA,NODO,DETTAGLIO\n";
-      csv += `"2026-11-10 10:45:12","AG-12 SENTINEL","AUTH_LOGIN_SUCCESS","SUCCESS","ROMA_CENTRO_EAL6","Sblocco autorizzato via PIN"\n`;
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `SFX_AUDIT_TRAIL_${Date.now()}.csv`;
-      a.click();
-    }
-
-    function syncWithGoogleBackend() {
-      playProceduralSound(500, 'triangle', 0.1);
-      alert("Sincronizzazione completata con Google Apps Script cluster.");
-    }
-
-    function triggerMasterKillSwitch() {
-      if (confirm("ATTENZIONE: Attivare il Master Kill-Switch di sicurezza forense? Tutte le sessioni esterne verranno isolate.")) {
-        alert("KILL-SWITCH ATTIVATO. Cluster isolato da Giuliano Caratelli.");
-      }
-    }
-
-    // 10. SESSION TIMER (12 ORE)
-    let sessionSeconds = 43200;
-    function startSessionCountdown() {
-      setInterval(() => {
-        if (sessionSeconds > 0) {
-          sessionSeconds--;
-          const h = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');
-          const m = String(Math.floor((sessionSeconds % 3600) / 60)).padStart(2, '0');
-          const s = String(sessionSeconds % 60).padStart(2, '0');
-          const el = document.getElementById('session-countdown');
-          if (el) el.innerText = `${h}:${m}:${s}`;
-        } else {
-          logoutXbox();
-        }
-      }, 1000);
-    }
-
-    // 11. INIZIALIZZAZIONE ALL'AVVIO
-    window.addEventListener('DOMContentLoaded', () => {
-      generateRandomKeypad();
-      if (sfxAuthToken) {
-        unlockXboxConsole();
-      }
-    });
-  </script>
-</body>
-</html>
+    const sfxState = {
+      sessionToken: null,
+      challengeToken: null,
+      enteredPin: "",
+      pinTimer: null,
+      pinCountdown: SFX_ADMIN_CONFIG.PIN_AUTO_CLEAR_SEC,
+      sessionTimer: null,
+      sessionRemainingSec: SFX_ADMIN_CONFIG.SESSION_DURATION_SEC,
+      killSwitchArmed: false,
+      currentInspectedSlot: null,
+      leads: [
+        {
+          id: "#SFX-2026-7842",
+          nome: "Claudio",
+          cognome: "De Angelis",
+          azienda: "De Angelis Consulting Srl",
+          citta: "Roma Est",
+          wa: "+39 347 4429091",
+          email: "c.deangelis@enterprise.it",
+          profilo: "Impresa Strutturata",
+          programma: "Concessione Store E-Commerce Hub Colleferro",
+          dataMeet: "16 Nov 2026",
+          slotMeet: "11:00 - 12:00 CET",
+          stato: "VIDIMATO EAL6+",
+          hash: "7b84a92ce41f80d19a28bfe76412ab3001f92e472a15cbef71629d8a34b21901"
+        },
+        {
+          id: "#SFX-2026-5190",
+          nome: "Maria Chiara",
+          cognome: "Valente",
+          azienda: "Studio Legale Valente & Partners",
+          citta: "Milano",
+          wa: "+39 347 4429091",
+          email: "m.valente@lexroma.it",
+          profilo: "Professionista Indipendente",
+          programma: "Executive Master di Direzione Strategica",
+          dataMeet: "18 Nov 2026",
+          slotMeet: "15:00 - 16:00 CET",
+          stato: "IN LAVORAZIONE",
+          hash: "e902b48d17a35c94bb21a970
