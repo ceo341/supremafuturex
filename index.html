@@ -6,90 +6,94 @@
   <title>Suprema Future X — Ecosistema Neurale Sovrano</title>
   <meta name="description" content="Ecosistema neurale per formazione, mentalist coach, community, academy, networking. Protocollo EAL6+ certificato." />
 
-  <!-- Google Fonts & Font Awesome Icons -->
+  <!-- Font & Icone -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
-    /* ==========================================================================
-       1. VARIABILI DI TEMA, RESET & FONDAMENTI LUXURY FORENSE
-       ========================================================================== */
     :root {
       --bg-surface: #fdf9f2;
-      --bg-surface-dim: #dddad3;
-      --bg-surface-bright: #ffffff;
       --gold-primary: #d4af37;
-      --gold-light: #fbeea8;
       --gold-deep: #b38f2a;
       --cyan-neural: #00f2fe;
-      --cyan-soft: #4facfe;
       --emerald-accent: #10b981;
       --text-dark: #0b192c;
       --text-muted: #576475;
       --border-gold: rgba(212, 175, 55, 0.45);
-      --border-glow: rgba(0, 242, 254, 0.35);
-      --font-main: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-main: 'Space Grotesk', sans-serif;
       --font-display: 'Cinzel', serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 24px;
       --radius-oval: 9999px;
-      --shadow-luxury: 0 16px 36px -10px rgba(212, 175, 55, 0.16), 0 8px 20px -6px rgba(0, 0, 0, 0.04);
-      --shadow-glow: 0 0 35px rgba(212, 175, 55, 0.28), 0 0 50px rgba(0, 242, 254, 0.18);
+      --radius-md: 14px;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: var(--bg-surface);
       color: var(--text-dark);
       font-family: var(--font-main);
       overflow-x: hidden;
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
       background-image: 
-        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.07) 0%, transparent 40%),
-        radial-gradient(circle at 50% 70%, rgba(251, 238, 168, 0.12) 0%, transparent 50%);
+        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.08) 0%, transparent 40%);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    /* FASCI CINETICI PURI IN GPU */
+    @keyframes sfxSpinLoop {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      outline: none;
-      background: none;
+    .hero-stage {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
     }
 
-    .sfx-container {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 24px;
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #0b192c 20%, var(--gold-deep) 70%, var(--gold-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
     }
 
-    /* ==========================================================================
-       2. SFONDI CINETICI PERMANENTI & FASCI DI LUCE MORBIDI (ZERO TAGLI)
-       ========================================================================== */
-    .conic-glow-outer {
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    /* SCOCCA OVALE CINETICA CON FASCI ROTANTI */
+    .oval-chassis-container {
+      position: relative;
+      width: clamp(320px, 45vw, 540px);
+      height: clamp(320px, 45vw, 540px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px auto 30px;
+    }
+
+    .conic-beam-glow {
       position: absolute;
-      inset: -40px;
+      inset: -30px;
       border-radius: var(--radius-oval);
       background: conic-gradient(
         from 0deg,
@@ -99,214 +103,50 @@
         rgba(16, 185, 129, 0.85),
         rgba(212, 175, 55, 0.95)
       );
-      filter: blur(48px);
-      opacity: 0.95;
+      filter: blur(35px);
+      animation: sfxSpinLoop 16s linear infinite;
       z-index: 1;
-      animation: sfxConicRotate 18s linear infinite;
-      pointer-events: none;
     }
 
-    .conic-glow-inner-wave {
-      position: absolute;
-      inset: -15px;
-      border-radius: var(--radius-oval);
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.92) 50%, rgba(212, 175, 55, 0.5) 85%, rgba(0, 242, 254, 0.4) 100%);
-      filter: blur(20px);
-      opacity: 0.9;
-      z-index: 2;
-      animation: sfxPulseSoft 7s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-
-    .spectral-ambient-drifter {
-      position: absolute;
-      width: 130%;
-      height: 130%;
-      top: -15%;
-      left: -15%;
-      background: radial-gradient(ellipse at 40% 40%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
-                  radial-gradient(ellipse at 70% 60%, rgba(0, 242, 254, 0.12) 0%, transparent 60%);
-      filter: blur(60px);
-      z-index: 0;
-      opacity: 0.85;
-      animation: sfxAmbientDrift 22s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-
-    @keyframes sfxConicRotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes sfxPulseSoft {
-      0% { transform: scale(0.98); opacity: 0.75; }
-      100% { transform: scale(1.03); opacity: 0.98; }
-    }
-
-    @keyframes sfxAmbientDrift {
-      0% { transform: translate(-2%, -2%) scale(1); }
-      100% { transform: translate(3%, 3%) scale(1.05); }
-    }
-
-    /* ==========================================================================
-       3. SEZIONE 00: HERO STAGE MASTER, SCOCCA OVALE & INNESCO X-BOX
-       ========================================================================== */
-    .hero-stage {
+    .oval-chassis-body {
       position: relative;
-      min-height: 94vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px 40px;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    .hero-header {
-      position: relative;
-      z-index: 4;
-      margin-bottom: 30px;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 6vw, 4.4rem);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #0b192c 15%, var(--gold-deep) 65%, var(--gold-primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 4px 18px rgba(212, 175, 55, 0.22);
-      margin-bottom: 8px;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
-      font-weight: 600;
-      letter-spacing: 0.28em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .oval-chassis-wrapper {
-      position: relative;
-      width: clamp(340px, 48vw, 560px);
-      height: clamp(340px, 48vw, 560px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px auto 35px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .oval-chassis {
-      position: relative;
-      width: 86%;
-      height: 86%;
+      width: 88%;
+      height: 88%;
       border-radius: var(--radius-oval);
       background: #ffffff;
       border: 3px solid var(--gold-primary);
-      box-shadow: var(--shadow-luxury), var(--shadow-glow), inset 0 0 25px rgba(251, 238, 168, 0.4);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.35), 0 0 50px rgba(0, 242, 254, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 2;
       overflow: hidden;
-      z-index: 3;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+      cursor: pointer;
     }
 
-    .oval-chassis:hover {
-      transform: scale(1.02);
-      box-shadow: 0 20px 45px rgba(212, 175, 55, 0.35), 0 0 65px rgba(0, 242, 254, 0.25);
-    }
-
-    .oval-carousel {
-      position: absolute;
-      inset: 12px;
-      border-radius: var(--radius-oval);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle, #ffffff 60%, rgba(253, 249, 242, 0.9) 100%);
-    }
-
-    .oval-slide {
-      position: absolute;
-      width: 82%;
-      height: 82%;
+    .oval-logo-img {
+      max-width: 82%;
+      max-height: 82%;
       object-fit: contain;
-      opacity: 0;
-      transform: scale(0.92);
-      transition: opacity 0.85s ease, transform 0.85s ease;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
+      transition: opacity 0.6s ease;
     }
 
-    .oval-slide.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .oval-placeholder-logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-family: var(--font-display);
-      color: var(--gold-deep);
-    }
-
-    .oval-placeholder-logo i {
-      font-size: 4rem;
-      background: linear-gradient(135deg, var(--gold-deep), var(--cyan-soft));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .oval-placeholder-logo span {
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-    }
-
-    .xbox-flash-overlay {
-      position: fixed;
-      inset: 0;
-      background: #ffffff;
-      z-index: 99999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.18s ease-in-out;
-    }
-
-    .xbox-flash-overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    /* ==========================================================================
-       4. RIBBON CAPSULE BAR (BARRA A NASTRO DELLE CAPSULE INFERIORI)
-       ========================================================================== */
-    .capsule-ribbon-bar {
+    /* BARRA CAPSULE INFERIORI */
+    .capsule-bar {
       position: relative;
       z-index: 5;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 14px 22px;
-      background: rgba(255, 255, 255, 0.85);
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(14px);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-oval);
-      box-shadow: 0 10px 28px -6px rgba(212, 175, 55, 0.18);
-      max-width: 1240px;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+      max-width: 1200px;
       margin: 0 auto;
     }
 
@@ -314,1717 +154,253 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: var(--radius-oval);
       background: #ffffff;
       border: 1px solid rgba(212, 175, 55, 0.35);
       color: var(--text-dark);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
       text-transform: uppercase;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
-      transition: all 0.25s ease;
-      position: relative;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
 
     .capsule-btn:hover {
       border-color: var(--gold-primary);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(212, 175, 55, 0.25);
-      background: linear-gradient(180deg, #ffffff 0%, #fdf9f2 100%);
+      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.25);
     }
 
-    .capsule-btn i {
-      color: var(--gold-primary);
-      font-size: 0.9rem;
-    }
+    .capsule-btn i { color: var(--gold-primary); }
 
-    .capsule-btn.ceo-master-btn {
-      background: linear-gradient(135deg, var(--gold-primary) 0%, #b38f2a 100%);
+    .capsule-btn.gold-btn {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-deep));
       color: #ffffff;
-      border-color: #ffd700;
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+      border: none;
     }
+    .capsule-btn.gold-btn i { color: #ffffff; }
 
-    .capsule-btn.ceo-master-btn i {
-      color: #ffffff;
-    }
-
-    .capsule-btn.ceo-master-btn:hover {
-      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.55);
-      transform: translateY(-2px) scale(1.02);
-    }
-
-    .dropdown-wrapper {
-      position: relative;
-    }
-
-    .dropdown-panel {
+    /* MENU A TENDINA */
+    .dropdown { position: relative; }
+    .dropdown-content {
+      display: none;
       position: absolute;
-      bottom: calc(100% + 14px);
+      bottom: calc(100% + 10px);
       left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(18px);
+      transform: translateX(-50%);
+      background: #ffffff;
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-md);
-      box-shadow: var(--shadow-luxury), 0 20px 40px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
       padding: 12px;
-      min-width: 280px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      min-width: 260px;
       z-index: 100;
       text-align: left;
     }
-
-    .dropdown-wrapper.active .dropdown-panel {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .dropdown-panel-title {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      color: var(--gold-deep);
-      text-transform: uppercase;
-      padding: 6px 12px 8px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
-      margin-bottom: 6px;
-    }
-
-    .dropdown-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 0.82rem;
-      font-weight: 500;
+    .dropdown.active .dropdown-content { display: block; }
+    .dropdown-content a {
+      display: block;
+      padding: 8px 10px;
+      font-size: 0.8rem;
       color: var(--text-dark);
-      transition: background 0.2s ease, color 0.2s ease;
+      text-decoration: none;
+      border-radius: 6px;
     }
+    .dropdown-content a:hover { background: rgba(212, 175, 55, 0.12); color: var(--gold-deep); }
 
-    .dropdown-link:hover {
-      background: rgba(212, 175, 55, 0.12);
-      color: var(--gold-deep);
-    }
-
-    .dropdown-link i {
-      color: var(--gold-primary);
-      width: 16px;
-      text-align: center;
-    }
-
-    .radio-player-panel {
-      width: 320px;
-      padding: 18px;
-    }
-
-    .radio-status-tag {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--emerald-accent);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .radio-status-tag .blink-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--emerald-accent);
-      animation: sfxBlink 1.4s infinite;
-    }
-
-    @keyframes sfxBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.25; }
-    }
-
-    .radio-track-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 4px;
-    }
-
-    .radio-track-source {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .radio-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-
-    .radio-ctrl-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #f7f3ec;
-      border: 1px solid var(--border-gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-dark);
-      transition: all 0.2s ease;
-    }
-
-    .radio-ctrl-btn:hover {
-      background: var(--gold-primary);
-      color: #ffffff;
-      transform: scale(1.08);
-    }
-
-    .radio-ctrl-btn.play-btn {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-deep));
-      color: #ffffff;
-    }
-
-    .radio-volume-slider {
-      width: 100%;
-      accent-color: var(--gold-primary);
-    }
-
-    .live-stream-selectors {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
-    .stream-pill-btn {
-      flex: 1;
-      padding: 6px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-gold);
-      background: #ffffff;
-      color: var(--text-dark);
-      text-align: center;
-      transition: all 0.2s;
-    }
-
-    .stream-pill-btn:hover, .stream-pill-btn.active {
-      background: var(--gold-primary);
-      color: #ffffff;
-    }
-
-    /* ==========================================================================
-       5. MATRICE DELLE SEZIONI OPERATIVE (01 — 12) & ARCHITETTURA 3 BLOCCHI
-       ========================================================================== */
-    .section-stage {
-      position: relative;
-      padding: 85px 0;
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
-    .section-stage:nth-child(even) {
-      background: linear-gradient(180deg, rgba(253, 249, 242, 0.4) 0%, rgba(247, 243, 236, 0.8) 100%);
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr 1fr;
-      align-items: center;
-      gap: 36px;
-    }
-
-    @media (max-width: 1024px) {
-      .section-grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-    }
-
-    .hardware-media-slot {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      background: #ffffff;
-      border: 2px dashed rgba(212, 175, 55, 0.45);
-      border-radius: var(--radius-md);
-      box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      text-align: center;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .hardware-media-slot:hover {
-      border-color: var(--gold-primary);
-      box-shadow: 0 12px 28px rgba(212, 175, 55, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .hardware-tag {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: var(--gold-deep);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .slot-icon {
-      font-size: 1.8rem;
-      color: rgba(212, 175, 55, 0.6);
-      margin-bottom: 8px;
-    }
-
-    .slot-desc {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      line-height: 1.35;
-      margin-bottom: 12px;
-    }
-
-    .upload-trigger-btn {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: #ffffff;
-      background: var(--gold-primary);
-      padding: 6px 14px;
-      border-radius: var(--radius-oval);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
-
-    .upload-trigger-btn:hover {
-      background: var(--gold-deep);
-    }
-
-    .section-content-center {
-      text-align: center;
-      padding: 0 10px;
-    }
-
-    .section-badge-tag {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      color: var(--gold-deep);
-      background: rgba(212, 175, 55, 0.12);
-      padding: 4px 14px;
-      border-radius: var(--radius-oval);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 14px;
-      line-height: 1.25;
-    }
-
-    .section-description {
-      font-size: 0.94rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      max-width: 640px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .action-explore-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 28px;
-      border-radius: var(--radius-oval);
-      background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-deep) 100%);
-      color: #ffffff;
-      font-size: 0.84rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-      transition: all 0.3s ease;
-    }
-
-    .action-explore-btn:hover {
-      box-shadow: 0 12px 28px rgba(212, 175, 55, 0.45);
-      transform: translateY(-2px);
-    }
-
-    .flow-card-deck {
-      position: relative;
-      max-width: 580px;
-      margin: 20px auto 0;
-      min-height: 200px;
-    }
-
-    .deck-card {
-      position: absolute;
-      inset: 0;
-      background: #ffffff;
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-luxury);
-      padding: 22px;
-      opacity: 0;
-      transform: translateX(30px);
-      transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-      text-align: left;
-    }
-
-    .deck-card.active {
-      opacity: 1;
-      transform: translateX(0);
-      pointer-events: all;
-    }
-
-    .deck-card-tag {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--gold-deep);
-      letter-spacing: 0.15em;
-      margin-bottom: 6px;
-    }
-
-    .deck-card-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .deck-card-desc {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-      margin-bottom: 12px;
-    }
-
-    .deck-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .deck-dot {
-      width: 24px;
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(212, 175, 55, 0.3);
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .deck-dot.active {
-      background: var(--gold-primary);
-    }
-
-    /* ==========================================================================
-       6. MODALI CON CALATA MATRIX DORATA FORENSE & PULSANTIERE NAVIGAZIONE
-       ========================================================================== */
-    .sfx-modal-backdrop {
+    /* MODALE */
+    .modal-overlay {
+      display: none;
       position: fixed;
       inset: 0;
-      background: rgba(253, 249, 242, 0.88);
-      backdrop-filter: blur(14px);
-      z-index: 10000;
-      display: flex;
+      background: rgba(253, 249, 242, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
-      overflow-y: auto;
+      padding: 20px;
     }
-
-    .sfx-modal-backdrop.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .matrix-canvas-layer {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.22;
-    }
-
-    .sfx-modal-window {
-      position: relative;
-      z-index: 2;
+    .modal-overlay.active { display: flex; }
+    .modal-card {
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      max-width: 600px;
       width: 100%;
-      max-width: 880px;
-      max-height: 88vh;
-      overflow-y: auto;
-      background: #ffffff;
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 25px 60px -15px rgba(212, 175, 55, 0.25), 0 0 45px rgba(0, 242, 254, 0.15);
-      padding: 36px 40px;
-      transform: translateY(20px);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .sfx-modal-backdrop.active .sfx-modal-window {
-      transform: translateY(0);
-    }
-
-    .modal-nav-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-      margin-bottom: 26px;
-    }
-
-    .modal-nav-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: var(--radius-oval);
-      border: 1px solid var(--border-gold);
-      background: #fdf9f2;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      transition: all 0.2s ease;
-    }
-
-    .modal-nav-btn:hover {
-      background: var(--gold-primary);
-      color: #ffffff;
-    }
-
-    .modal-nav-btn.close-btn {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: var(--gold-primary);
-    }
-
-    .modal-header-badge {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      color: var(--gold-deep);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .modal-main-title {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 18px;
-    }
-
-    .reg-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    @media (max-width: 680px) {
-      .reg-form-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .form-group-full {
-      grid-column: 1 / -1;
-    }
-
-    .sfx-input {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      background: #fdf9f2;
-      font-family: inherit;
-      font-size: 0.88rem;
-      color: var(--text-dark);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .sfx-input:focus {
-      border-color: var(--gold-primary);
-      background: #ffffff;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-    }
-
-    .sfx-submit-btn {
-      grid-column: 1 / -1;
-      padding: 14px;
-      border-radius: var(--radius-oval);
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-deep));
-      color: #ffffff;
-      font-size: 0.92rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
-      transition: all 0.25s ease;
-      margin-top: 10px;
-    }
-
-    .sfx-submit-btn:hover {
-      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5);
-      transform: translateY(-2px);
-    }
-
-    /* ==========================================================================
-       7. SEZIONE 12: PRESIDIO ISTITUZIONALE & FOOTER DI COLLEFERRO
-       ========================================================================== */
-    .institutional-footer {
-      background: #ffffff;
-      border-top: 2px solid var(--border-gold);
-      padding: 60px 0 40px;
-      text-align: center;
-      position: relative;
-      z-index: 5;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .footer-creds {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-
-    .footer-channels {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 30px;
-    }
-
-    .channel-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      border-radius: var(--radius-oval);
-      background: #fdf9f2;
-      border: 1px solid var(--border-gold);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      transition: all 0.2s;
-    }
-
-    .channel-pill:hover {
-      background: var(--gold-primary);
-      color: #ffffff;
-      border-color: var(--gold-primary);
-    }
-
-    .footer-legal-bar {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: #8893a0;
-      border-top: 1px solid rgba(212, 175, 55, 0.2);
-      padding-top: 20px;
-      max-width: 900px;
-      margin: 0 auto;
-      line-height: 1.5;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
 
-  <!-- Flash hardware per triplo clic su Ovale Hero (X-BOX Console) -->
-  <div id="xboxFlashOverlay" class="xbox-flash-overlay"></div>
+  <section class="hero-stage">
+    <h1 class="hero-title">Suprema Future X</h1>
+    <p class="hero-subtitle">Insieme Guidiamo il Tuo Domani</p>
 
-  <!-- ==========================================================================
-       HERO STAGE MASTER & SCOCCA OVALE CINETICA
-       ========================================================================== -->
-  <section class="hero-stage" id="sec-00">
-    <div class="spectral-ambient-drifter"></div>
-
-    <div class="hero-header">
-      <h1 class="hero-title">Suprema Future X</h1>
-      <p class="hero-subtitle">Insieme Guidiamo il Tuo Domani</p>
-    </div>
-
-    <!-- Scocca Ovale: 3 clic entro 750ms reindirizzano ad admin.html -->
-    <div class="oval-chassis-wrapper" id="ovalHeroChassis" title="Triplo clic rapido per Console Riservata X-BOX">
-      <div class="conic-glow-outer"></div>
-      <div class="conic-glow-inner-wave"></div>
-      
-      <div class="oval-chassis">
-        <div class="oval-carousel" id="ovalLogoCarousel">
-          <!-- 10 Loghi ufficiali GitHub in loop -->
-          <img class="oval-slide active" src="media/sec-01-hero/logo-01.png" alt="Suprema Logo 01" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-02.png" alt="Suprema Logo 02" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-03.png" alt="Suprema Logo 03" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-04.png" alt="Suprema Logo 04" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-05.png" alt="Suprema Logo 05" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-06.png" alt="Suprema Logo 06" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-07.png" alt="Suprema Logo 07" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-08.png" alt="Suprema Logo 08" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-09.png" alt="Suprema Logo 09" onerror="sfxHandleImgFallback(this)" />
-          <img class="oval-slide" src="media/sec-01-hero/logo-10.png" alt="Suprema Logo 10" onerror="sfxHandleImgFallback(this)" />
-        </div>
+    <!-- Ovale Cinetico (Clic per Console X-BOX) -->
+    <div class="oval-chassis-container">
+      <div class="conic-beam-glow"></div>
+      <div class="oval-chassis-body" id="heroChassis" onclick="sfxGoXbox()" title="Clicca per aprire la Console X-BOX">
+        <img id="activeLogoImg" class="oval-logo-img" src="media/sec-01-hero/logo-01.png" alt="Suprema Logo" onerror="sfxLogoFallback(this)" />
       </div>
     </div>
 
-    <!-- RIBBON CAPSULE BAR (BARRA A NASTRO INFERIORE) -->
-    <div class="capsule-ribbon-bar">
-      <!-- 1. Suprema Menu (Sottomenu con 12 Sezioni) -->
-      <div class="dropdown-wrapper" id="dropWrapperMenu">
-        <button class="capsule-btn" onclick="sfxToggleDropdown('dropWrapperMenu')">
-          <i class="fa-solid fa-bars"></i>
-          <span>Suprema Menu</span>
-          <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
+    <!-- Barra delle Capsule -->
+    <div class="capsule-bar">
+      <!-- Menu Dropdown -->
+      <div class="dropdown" id="dropMenu">
+        <button class="capsule-btn" onclick="sfxToggle('dropMenu')">
+          <i class="fa-solid fa-bars"></i> Suprema Menu
         </button>
-        <div class="dropdown-panel">
-          <div class="dropdown-panel-title">Architettura Ecosistema</div>
-          <a class="dropdown-link" href="#sec-01"><i class="fa-solid fa-building-columns"></i> 1. Presidenza Suprema FutureX</a>
-          <a class="dropdown-link" href="#sec-02"><i class="fa-solid fa-user-tie"></i> 2. CEO e Alison AG-01</a>
-          <a class="dropdown-link" href="#sec-03"><i class="fa-solid fa-graduation-cap"></i> 3. Suprema Academy Live</a>
-          <a class="dropdown-link" href="#sec-04"><i class="fa-solid fa-id-card"></i> 4. Suprema Gold Card</a>
-          <a class="dropdown-link" href="#sec-05"><i class="fa-solid fa-vault"></i> 5. Suprema Media Vault</a>
-          <a class="dropdown-link" href="#sec-06"><i class="fa-solid fa-share-nodes"></i> 6. Social Network Official Suprema</a>
-          <a class="dropdown-link" href="#sec-07"><i class="fa-solid fa-gem"></i> 7. E-commerce e Luxury Model</a>
-          <a class="dropdown-link" href="#sec-08"><i class="fa-solid fa-stamp"></i> 8. Dicono di Noi (40 Attesti)</a>
-          <a class="dropdown-link" href="#sec-09"><i class="fa-solid fa-newspaper"></i> 9. Newsletter Direzionale</a>
-          <a class="dropdown-link" href="#sec-10"><i class="fa-solid fa-shield-halved"></i> 10. Feedback & Whistleblowing</a>
-          <a class="dropdown-link" href="#sec-11"><i class="fa-solid fa-briefcase"></i> 11. Lavora con Noi</a>
-          <a class="dropdown-link" href="#sec-12"><i class="fa-solid fa-landmark"></i> 12. Presidio Istituzionale</a>
+        <div class="dropdown-content">
+          <a href="#sec-01">1. Presidenza Suprema FutureX</a>
+          <a href="#sec-02">2. CEO e Alison AG-01</a>
+          <a href="#sec-03">3. Suprema Academy Live</a>
+          <a href="#sec-04">4. Suprema Gold Card</a>
+          <a href="#sec-05">5. Suprema Media Vault</a>
+          <a href="#sec-06">6. Social Network Official Suprema</a>
+          <a href="#sec-07">7. E-commerce e Luxury Model</a>
         </div>
       </div>
 
-      <!-- 2. Alison Chatbot (40 FAQ Forensi) -->
-      <button class="capsule-btn" onclick="sfxOpenModal('modalAlisonFaq')">
-        <i class="fa-solid fa-comments"></i>
-        <span>Alison Chatbot</span>
+      <!-- Alison Chatbot -->
+      <button class="capsule-btn" onclick="sfxOpenModal('modalAlison')">
+        <i class="fa-solid fa-comments"></i> Alison Chatbot
       </button>
 
-      <!-- 3. Suprema Traduttore (9 Lingue) -->
-      <div class="dropdown-wrapper" id="dropWrapperLang">
-        <button class="capsule-btn" onclick="sfxToggleDropdown('dropWrapperLang')">
-          <i class="fa-solid fa-globe"></i>
-          <span>Suprema Traduttore</span>
-          <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
-        </button>
-        <div class="dropdown-panel" style="min-width: 220px;">
-          <div class="dropdown-panel-title">Lingue Sovrane Certificate</div>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('IT')">🇮🇹 Italiano (Default)</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('EN')">🇬🇧 Inglese</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('FR')">🇫🇷 Francese</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('ES')">🇪🇸 Spagnolo</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('DE')">🇩🇪 Tedesco</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('SQ')">🇦🇱 Albanese</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('RO')">🇷🇴 Rumeno</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('SK')">🇸🇰 Slovacco</a>
-          <a class="dropdown-link" href="javascript:void(0)" onclick="sfxSetLanguage('AT')">🇦🇹 Austriaco</a>
-        </div>
-      </div>
-
-      <!-- 4. Chi Siamo (I 5 Documenti e Lettere Statutarie) -->
+      <!-- Chi Siamo -->
       <button class="capsule-btn" onclick="sfxOpenModal('modalChiSiamo')">
-        <i class="fa-solid fa-book-open"></i>
-        <span>Chi Siamo</span>
+        <i class="fa-solid fa-book-open"></i> Chi Siamo
       </button>
 
-      <!-- 5. Suprema Radio Lounge & Live Streams -->
-      <div class="dropdown-wrapper" id="dropWrapperRadio">
-        <button class="capsule-btn" onclick="sfxToggleDropdown('dropWrapperRadio')">
-          <i class="fa-solid fa-radio"></i>
-          <span>Suprema Radio</span>
-          <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
+      <!-- Suprema Radio -->
+      <div class="dropdown" id="dropRadio">
+        <button class="capsule-btn" onclick="sfxToggle('dropRadio')">
+          <i class="fa-solid fa-radio"></i> Suprema Radio
         </button>
-        <div class="dropdown-panel radio-player-panel">
-          <div class="radio-status-tag">
-            <span class="blink-dot"></span>
-            <span id="radioStreamTypeLabel">SUPREMA LOUNGE // COLLEFERRO</span>
-          </div>
-          <div class="radio-track-title" id="radioTrackTitle">Traccia 01 // 14</div>
-          <div class="radio-track-source" id="radioSourcePath">media/audio-radio/track-01.mp3</div>
-          
-          <div class="radio-controls">
-            <button class="radio-ctrl-btn" onclick="sfxRadioPrev()"><i class="fa-solid fa-backward-step"></i></button>
-            <button class="radio-ctrl-btn play-btn" id="radioPlayBtn" onclick="sfxRadioTogglePlay()"><i class="fa-solid fa-play"></i></button>
-            <button class="radio-ctrl-btn" onclick="sfxRadioStop()"><i class="fa-solid fa-stop"></i></button>
-            <button class="radio-ctrl-btn" onclick="sfxRadioNext()"><i class="fa-solid fa-forward-step"></i></button>
-          </div>
-
-          <input type="range" class="radio-volume-slider" min="0" max="100" value="80" oninput="sfxRadioSetVolume(this.value)" title="Volume Radio" />
-
-          <div class="live-stream-selectors">
-            <button class="stream-pill-btn active" id="btnStreamLounge" onclick="sfxRadioSelectSource('lounge')">Lounge 14</button>
-            <button class="stream-pill-btn" id="btnStreamSubasio" onclick="sfxRadioSelectSource('subasio')">Subasio Live</button>
-            <button class="stream-pill-btn" id="btnStream105" onclick="sfxRadioSelectSource('105')">105 Live</button>
+        <div class="dropdown-content" style="padding: 15px; width: 280px; text-align: center;">
+          <div style="font-weight: 700; margin-bottom: 8px;" id="radioTrackName">Traccia 01 // 14</div>
+          <button class="capsule-btn gold-btn" id="playBtn" onclick="sfxToggleRadio()" style="margin: 0 auto 10px;">
+            <i class="fa-solid fa-play"></i> Play / Pausa
+          </button>
+          <div style="display: flex; gap: 8px; justify-content: center;">
+            <button class="capsule-btn" onclick="sfxChangeTrack(-1)">Prev</button>
+            <button class="capsule-btn" onclick="sfxChangeTrack(1)">Next</button>
           </div>
         </div>
       </div>
 
-      <!-- 6. Telemetria Live -->
-      <button class="capsule-btn" style="cursor: default;">
-        <i class="fa-solid fa-gauge-high"></i>
-        <span>Telemetria: <strong id="telemetryCounter" style="color: var(--emerald-accent);">5542</strong></span>
-      </button>
-
-      <!-- 7. Bottone Master Conferenza con il CEO -->
-      <button class="capsule-btn ceo-master-btn" onclick="sfxOpenModal('modalConferenzaCeo')">
-        <i class="fa-solid fa-landmark"></i>
-        <span>Conferenza con il CEO</span>
-      </button>
+      <!-- ACCESSO DIRETTO ALLA X-BOX -->
+      <a href="admin.html" class="capsule-btn gold-btn" title="Entra nella Console X-BOX">
+        <i class="fa-solid fa-shield-halved"></i> X-BOX Enterprise
+      </a>
     </div>
   </section>
 
-  <!-- ==========================================================================
-       SEZIONE 01: PRESIDENZA SUPREMA FUTUREX
-       ========================================================================== -->
-  <section class="section-stage" id="sec-01">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-02-presidenza/gallery/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Presidenza')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-01 // ORGANO STATUTARIO</span>
-          <h2 class="section-title">Presidenza Suprema FutureX</h2>
-          <p class="section-description">
-            Organo di vertice esecutivo, presidio notarile e delibere assembleari per la tutela del capitale societario e lo sviluppo di accordi quadro istituzionali con validazione EAL6+. Guidiamo con l'esempio, senza compromessi.
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalPresidenza')">Guarda e Scopri di Più <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-02-presidenza/gallery/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Presidenza')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 02: FOUNDER & CEO GIULIANO CARATELLI & ALISON AG-01
-       ========================================================================== -->
-  <section class="section-stage" id="sec-02">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-03-chatbot/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video CEO & Alison')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-02 // LEADERSHIP & AI</span>
-          <h2 class="section-title">CEO e Alison AG-01</h2>
-          <p class="section-description">
-            Sinergia tra l'indirizzo strategico del Founder & CEO Giuliano Caratelli e il supervisore neurale Alison AG-01 per il coordinamento delle operazioni fiduciarie nell'ecosistema neurale per formazione, mentalist coach, community, academy, networking.
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalChiSiamo')">Guarda e Scopri di Più <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-03-chatbot/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto CEO & Alison')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 03: SUPREMA ACADEMY 100% LIVE (FLUSSO 3 SCHEDE)
-       ========================================================================== -->
-  <section class="section-stage" id="sec-03">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-05-academy/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Academy')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-03 // ALTA FORMAZIONE & PROTOCOLLI</span>
-          <h2 class="section-title">Suprema Academy 100% Live</h2>
-          <p class="section-description">
-            Piattaforma didattica esecutiva dell'ecosistema: governance, mentalist coaching, crittografia difensiva e conduzione manageriale avanzata con il Founder & CEO Giuliano Caratelli in sessioni da 90 minuti.
-          </p>
-
-          <div class="flow-card-deck">
-            <div class="deck-card active" id="academyCard0">
-              <div class="deck-card-tag">MODULO ESECUTIVO // SCHEDA A</div>
-              <h3 class="deck-card-title">Governance & Mentalist Coaching</h3>
-              <p class="deck-card-desc">Sessioni dirette di 90 min con il Founder & CEO Giuliano Caratelli. Percorsi riservati Silver, Gold e Premium (dettagli e orari nel dossier protetto).</p>
-              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-deep);">LIVE 90 MIN // ACCREDITO DIRETTO</div>
-            </div>
-
-            <div class="deck-card" id="academyCard1">
-              <div class="deck-card-tag">MODULO CRITTOGRAFICO // SCHEDA B</div>
-              <h3 class="deck-card-title">Tokenomics & Diritto Notarile</h3>
-              <p class="deck-card-desc">Analisi delibere assembleari e tutela patrimoniale EAL6+ certificata con presidio notarile esclusivo di Colleferro.</p>
-              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-deep);">VERIFICA FORENSE // ORARI POMERIDIANI</div>
-            </div>
-
-            <div class="deck-card" id="academyCard2">
-              <div class="deck-card-tag">MODULO D'ÉLITE // SCHEDA C</div>
-              <h3 class="deck-card-title">Masterclass One-to-One H24</h3>
-              <p class="deck-card-desc">Affiancamento continuo e protocolli fiduciari per la crescita manageriale e la tutela delle concessioni territoriali.</p>
-              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-deep);">RISERVATO CONSIGLIERI // AUDIT EAL6+</div>
-            </div>
-          </div>
-
-          <div class="deck-dots">
-            <div class="deck-dot active" onclick="sfxShowDeckCard(0)"></div>
-            <div class="deck-dot" onclick="sfxShowDeckCard(1)"></div>
-            <div class="deck-dot" onclick="sfxShowDeckCard(2)"></div>
-          </div>
-
-          <div style="margin-top: 24px;">
-            <button class="action-explore-btn" onclick="sfxOpenModal('modalAcademy')">Consulta Percorsi Academy <i class="fa-solid fa-arrow-right"></i></button>
-          </div>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-05-academy/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Academy')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 04: SUPREMA GOLD CARD
-       ========================================================================== -->
-  <section class="section-stage" id="sec-04">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-06-goldcard/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Gold Card')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-04 // STATUS & ACCREDITO</span>
-          <h2 class="section-title">Suprema Gold Card</h2>
-          <p class="section-description">
-            Tessera sovrana in oro fisico e crittografico (1.500 PTS). Regolamento punti certificato: Acquisizione (+200/+500 accordi quadro, +50 moduli Academy, +150 cooptazione, +25 presenze assemblee) e Catalogo riscatto (100 PTS anteprima Vault, 250 PTS sigillo notarile, 400 PTS prelazione Luxury, 500 PTS sessione H24 CEO).
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalGoldCard')">Regolamento 1.500 Punti Sovrani <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-06-goldcard/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Gold Card')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 05: SUPREMA MEDIA VAULT (5 CATEGORIE)
-       ========================================================================== -->
-  <section class="section-stage" id="sec-05">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-07-vault/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Vault')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-05 // MULTIMEDIA HUB</span>
-          <h2 class="section-title">Suprema Media Vault</h2>
-          <p class="section-description">
-            Cassaforte notarile crittografica a 500 slot suddivisa in 5 categorie blindate: Foto, Video, PDF Forensi, Slide Master e Testi Asseverati. Archivio ad altissima risoluzione per la tutela degli atti dell'ecosistema.
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalVault')">Guarda e Scopri di Più <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-07-vault/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Vault')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 06: SOCIAL NETWORK OFFICIAL SUPREMA
-       ========================================================================== -->
-  <section class="section-stage" id="sec-06">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-08-social/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Social')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-06 // RETE ISTITUZIONALE</span>
-          <h2 class="section-title">Social Network Official Suprema</h2>
-          <p class="section-description">
-            Circuito relazionale ad alto profilo per imprenditori, advisor e partner strategici accreditati. Connessioni esclusive e canali protetti di cooperazione per ampliare gli orizzonti istituzionali.
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalSocial')">Guarda e Scopri di Più <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-08-social/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Social')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 07: E-COMMERCE & LUXURY MODEL STYLE
-       ========================================================================== -->
-  <section class="section-stage" id="sec-07">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-09-ecommerce/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video E-commerce')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-07 // CONCESSIONI DI ZONA</span>
-          <h2 class="section-title">E-commerce e Luxury Model</h2>
-          <p class="section-description">
-            Assegnazione territoriale esclusiva di licenze ed e-commerce direzionali ad alta marginalità, conformi al protocollo contrattuale dell'ecosistema di Colleferro, tutelando prestigio e conformità statutaria.
-          </p>
-          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
-            <a href="https://www.imperya.com/vetrina/style" target="_blank" rel="noopener noreferrer" class="capsule-btn">
-              <i class="fa-solid fa-gem"></i> Luxury Model Style Live ➔
-            </a>
-            <button class="capsule-btn" onclick="sfxOpenModal('modalEcommerce')">
-              <i class="fa-solid fa-network-wired"></i> Infrastruttura E-commerce ➔
-            </button>
-          </div>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalEcommerce')">Guarda e Scopri di Più <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-09-ecommerce/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto E-commerce')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 08: DICONO DI NOI (LE 40 ATTESTAZIONI ASSEVERATE)
-       ========================================================================== -->
-  <section class="section-stage" id="sec-08">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-10-testimonials/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Testimonianze')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-08 // REPUTAZIONE & AUDIT</span>
-          <h2 class="section-title">Dicono di Noi</h2>
-          <p class="section-description">
-            Registro ufficiale delle 40 attestazioni asseverate rilasciate da organi istituzionali, soci ed esperti forensi. Zero nomi fittizi: ogni attestazione è rigorosamente vidimata dalla Direzione SFX.
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalDiconoDiNoi')">Leggi le 40 Attestazioni Ufficiali <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-10-testimonials/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Testimonianze')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 09: NEWSLETTER DIREZIONALE
-       ========================================================================== -->
-  <section class="section-stage" id="sec-09">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-11-newsletter/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Newsletter')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-09 // COMUNICAZIONE ISTITUZIONALE</span>
-          <h2 class="section-title">Newsletter Direzionale</h2>
-          <p class="section-description">
-            Bollettini periodici con aggiornamenti legislativi, delibere di presidenza e analisi macroeconomiche riservate agli iscritti accreditati, mantenendo costante l'allineamento con la sede.
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalNewsletter')">Guarda e Scopri di Più <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-11-newsletter/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Newsletter')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 10: FEEDBACK & VALUTAZIONE (WHISTLEBLOWING)
-       ========================================================================== -->
-  <section class="section-stage" id="sec-10">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-12-feedback/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Feedback')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-10 // QUALITÀ & ASCOLTO</span>
-          <h2 class="section-title">Feedback & Valutazione</h2>
-          <p class="section-description">
-            Sportello di monitoraggio della soddisfazione e conformità operativa. Ogni segnalazione viene cifrata e registrata nei registri di audit di Colleferro, garantendo anonimato e serietà.
-          </p>
-          <button class="action-explore-btn" onclick="sfxOpenModal('modalFeedback')">Guarda e Scopri di Più <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-12-feedback/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Feedback')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 11: LAVORA CON NOI
-       ========================================================================== -->
-  <section class="section-stage" id="sec-11">
-    <div class="sfx-container">
-      <div class="section-grid">
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-lock"></i> MacBook Air 4 // Presidenza</div>
-          <i class="fa-solid fa-video slot-icon"></i>
-          <p class="slot-desc">Slot Video 16:9 // media/sec-11-careers/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Video Lavora con Noi')"><i class="fa-solid fa-upload"></i> Carica Video</button>
-        </div>
-
-        <div class="section-content-center">
-          <span class="section-badge-tag">SEC-11 // SELEZIONE DIREZIONALE</span>
-          <h2 class="section-title">Lavora con Noi</h2>
-          <p class="section-description">
-            Selezioni aperte per consulenti direzionali, analisti finanziari e talenti operativi. Inoltra il tuo dossier direttamente alla segreteria generale e preparati a dimostrare il tuo valore.
-          </p>
-
-          <form onsubmit="sfxSubmitWorkForm(event)" style="max-width: 480px; margin: 0 auto; text-align: left;">
-            <div class="reg-form-grid" style="gap: 10px;">
-              <input type="text" class="sfx-input" placeholder="Nome" required />
-              <input type="text" class="sfx-input" placeholder="Cognome" required />
-              <input type="tel" class="sfx-input" placeholder="Telefono" required />
-              <input type="email" class="sfx-input" placeholder="Email" required />
-              <button type="submit" class="sfx-submit-btn" style="padding: 10px;">Invia alla Segreteria ➔</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="hardware-media-slot">
-          <div class="hardware-tag"><i class="fa-solid fa-mobile-screen"></i> iPhone 13 Pro Max // CEO</div>
-          <i class="fa-solid fa-image slot-icon"></i>
-          <p class="slot-desc">Slot Foto 16:9 // media/sec-11-careers/</p>
-          <button class="upload-trigger-btn" onclick="sfxSimulateUpload('Foto Lavora con Noi')"><i class="fa-solid fa-upload"></i> Carica Foto</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SEZIONE 12: PRESIDIO ISTITUZIONALE & FOOTER DI COLLEFERRO
-       ========================================================================== -->
-  <footer class="institutional-footer" id="sec-12">
-    <div class="sfx-container">
-      <h3 class="footer-brand">SUPREMA FUTURE X ENTERPRISE</h3>
-      <div class="footer-creds">
-        Governance: <strong>Founder & CEO Giuliano Caratelli</strong><br />
-        Sede Istituzionale e Legale: <strong>Colleferro (Roma), Italia</strong> | Email: <strong>ceo@supremaofficial.com</strong><br />
-        Recapito Telefonico & WhatsApp: <strong>+39 347 4429091</strong> | Dominio: <strong>supremafuturex.com</strong>
-      </div>
-
-      <div class="footer-channels">
-        <a href="https://t.me/supremafuturex" target="_blank" rel="noopener noreferrer" class="channel-pill">
-          <i class="fa-brands fa-telegram"></i> Canale Ufficiale Telegram
-        </a>
-        <a href="https://youtube.com/@supremafuturex" target="_blank" rel="noopener noreferrer" class="channel-pill">
-          <i class="fa-brands fa-youtube"></i> Canale Ufficiale YouTube
-        </a>
-        <button class="channel-pill" onclick="sfxOpenModal('modalConferenzaCeo')">
-          <i class="fa-solid fa-landmark"></i> Conferenza CEO
-        </button>
-        <button class="channel-pill" onclick="sfxOpenModal('modalAlisonFaq')">
-          <i class="fa-solid fa-comments"></i> Alison AG-01
-        </button>
-      </div>
-
-      <div class="footer-legal-bar">
-        © 2026 Suprema Future X Enterprise (supremafuturex.com). Tutti i diritti riservati. Protocollo EAL6+ Certified.<br />
-        Foro esclusivo di Colleferro (Roma). Bot Telegram Presidenza: ID 6534406542.
-      </div>
-    </div>
-  </footer>
-
-  <!-- ==========================================================================
-       MODALI CON CALATA MATRIX DORATA FORENSE & PULSANTIERE NAVIGAZIONE
-       ========================================================================== -->
-
-  <!-- MODALE 1: CONFERENZA CEO & SUPREMA GOLD CARD -->
-  <div class="sfx-modal-backdrop" id="modalConferenzaCeo">
-    <canvas class="matrix-canvas-layer" id="matrixCanvasCeo"></canvas>
-    <div class="sfx-modal-window">
-      <div class="modal-nav-toolbar">
-        <button class="modal-nav-btn" onclick="sfxCloseAllModals()"><i class="fa-solid fa-arrow-left"></i> Indietro</button>
-        <button class="modal-nav-btn close-btn" onclick="sfxCloseAllModals()"><i class="fa-solid fa-house"></i> Torna alla Landing / Chiudi</button>
-        <button class="modal-nav-btn" onclick="sfxSwitchModal('modalConferenzaCeo', 'modalChiSiamo')">Avanti: Chi Siamo <i class="fa-solid fa-arrow-right"></i></button>
-      </div>
-      <div class="modal-header-badge">ACCREDITO UFFICIALE // EAL6+ SOVRANO</div>
-      <h2 class="modal-main-title">Scheda Direzionale Unificata</h2>
-      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
-        Prenotazione della Conferenza Riservata con il Founder & CEO Giuliano Caratelli e richiesta di supporto / rilascio Suprema Gold Card. Inoltro asincrono sicuro verso Google Workspace e Bot Telegram di Presidenza.
-      </p>
-
-      <form onsubmit="sfxSubmitCeoForm(event)">
-        <div class="reg-form-grid">
-          <div>
-            <label style="font-size: 0.75rem; font-weight: 600; color: var(--gold-deep);">CODICE SFX (PROGRESSIVO AUTOMATICO)</label>
-            <input type="text" class="sfx-input" id="formSfxCode" value="SFX-101" readonly />
-          </div>
-          <div>
-            <label style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted);">NUMERO GOLD CARD (OPZIONALE)</label>
-            <input type="text" class="sfx-input" placeholder="Es. GC-1500-ROMA" />
-          </div>
-          <div>
-            <input type="text" class="sfx-input" placeholder="Nome *" required />
-          </div>
-          <div>
-            <input type="text" class="sfx-input" placeholder="Cognome *" required />
-          </div>
-          <div>
-            <input type="email" class="sfx-input" placeholder="Email Istituzionale *" required />
-          </div>
-          <div>
-            <input type="tel" class="sfx-input" placeholder="Recapito Telefonico *" required />
-          </div>
-          <div>
-            <input type="tel" class="sfx-input" placeholder="Recapito WhatsApp (Opzionale)" />
-          </div>
-          <div>
-            <input type="text" class="sfx-input" placeholder="Username / Canale Telegram (Opzionale)" />
-          </div>
-          <div>
-            <input type="text" class="sfx-input" placeholder="Come ci hai conosciuto? (Opzionale)" />
-          </div>
-          <div>
-            <input type="text" class="sfx-input" placeholder="Referente SFX di Riferimento (Opzionale)" />
-          </div>
-          <div class="form-group-full">
-            <textarea class="sfx-input" rows="3" placeholder="Note & Sintesi Dossier per la Presidenza..."></textarea>
-          </div>
-          <button type="submit" class="sfx-submit-btn" id="btnSubmitCeo">Trasmetti Dossier alla Presidenza ➔</button>
-        </div>
-      </form>
+  <!-- MODALI -->
+  <div class="modal-overlay" id="modalAlison">
+    <div class="modal-card">
+      <h3 style="margin-bottom: 12px; color: var(--gold-deep);">Alison AG-01 // Triage Neurale</h3>
+      <p style="margin-bottom: 20px;">Assistenza istituzionale forense per l'ecosistema Suprema Future X. Protocollo EAL6+ certificato.</p>
+      <button class="capsule-btn" onclick="sfxCloseModals()">Chiudi</button>
     </div>
   </div>
 
-  <!-- MODALE 2: CHI SIAMO (I 5 DOCUMENTI E LETTERE INTEGRALI) -->
-  <div class="sfx-modal-backdrop" id="modalChiSiamo">
-    <canvas class="matrix-canvas-layer" id="matrixCanvasChiSiamo"></canvas>
-    <div class="sfx-modal-window">
-      <div class="modal-nav-toolbar">
-        <button class="modal-nav-btn" onclick="sfxSwitchModal('modalChiSiamo', 'modalConferenzaCeo')"><i class="fa-solid fa-arrow-left"></i> Indietro</button>
-        <button class="modal-nav-btn close-btn" onclick="sfxCloseAllModals()"><i class="fa-solid fa-house"></i> Torna alla Landing / Chiudi</button>
-        <button class="modal-nav-btn" onclick="sfxSwitchModal('modalChiSiamo', 'modalAlisonFaq')">Avanti: FAQ Alison <i class="fa-solid fa-arrow-right"></i></button>
-      </div>
-      <div class="modal-header-badge">DISCIPLINARE STATUTARIO // FONDAMENTI</div>
-      <h2 class="modal-main-title">Chi Siamo — Lettere & Documenti Ufficiali</h2>
-
-      <div style="display: flex; flex-direction: column; gap: 24px; text-align: left; font-size: 0.9rem; color: var(--text-dark); line-height: 1.65;">
-        <div style="background: #fdf9f2; padding: 18px; border-radius: var(--radius-md); border-left: 4px solid var(--gold-primary);">
-          <h4 style="font-family: var(--font-display); color: var(--gold-deep); margin-bottom: 6px;">Documento 1: Codice Etico Suprema Future X</h4>
-          <p>L'Ecosistema Esecutivo adotta un protocollo di tutela patrimoniale, trasparenza societaria e rigore operativo certificato EAL6+. È sancito il divieto categorico di adottare schemi di network marketing, strutture piramidali (MLM), intermediazioni opache o distribuzione di prodotti cosmetici e di largo consumo. Ogni accordo deliberato risponde esclusivamente a criteri peritali, notarili e fiduciari conformi al diritto societario vigente, a salvaguardia del capitale degli associati.</p>
-        </div>
-
-        <div style="background: #fdf9f2; padding: 18px; border-radius: var(--radius-md); border-left: 4px solid var(--gold-primary);">
-          <h4 style="font-family: var(--font-display); color: var(--gold-deep); margin-bottom: 6px;">Documento 2: Regolamento Generale di Governance e Adunanze CDA</h4>
-          <p>Le delibere assembleari e i consigli di amministrazione si tengono presso la sede istituzionale di Colleferro (Roma) o mediante infrastruttura di teleconferenza protetta punto-punto. Ogni atto assume validità esecutiva solo previa vidimazione formale del Founder & CEO Giuliano Caratelli e marcatura temporale immutabile archiviata nel Media Vault a 500 slot.</p>
-        </div>
-
-        <div style="background: #fdf9f2; padding: 18px; border-radius: var(--radius-md); border-left: 4px solid var(--gold-primary);">
-          <h4 style="font-family: var(--font-display); color: var(--gold-deep); margin-bottom: 6px;">Documento 3: Lettera Ufficiale del Founder & CEO Giuliano Caratelli</h4>
-          <p><em>"La Forza di Non Mollare Mai // La Visione di un Uomo Libero"</em><br />
-          "Non sono mai esistite scorciatoie nel mio cammino, né porte aperte da raccomandazioni o favori di circostanza. Tutto ciò che oggi costituisce Suprema Future X nasce dal fango della trincea, dal lavoro instancabile consumato partendo dal basso. Nel mio percorso ho costruito comunità operative con oltre 3.000 persone attive... Volevo creare qualcosa di autentico: un ecosistema dove le persone venissero valutate unicamente per il loro valore reale. Sapendo sempre dove si vuole arrivare, ma senza mai dimenticare da dove si è partiti."</p>
-        </div>
-
-        <div style="background: #fdf9f2; padding: 18px; border-radius: var(--radius-md); border-left: 4px solid var(--gold-primary);">
-          <h4 style="font-family: var(--font-display); color: var(--gold-deep); margin-bottom: 6px;">Documento 4: Lettera di Presentazione Alison AG-01 Supervisor</h4>
-          <p><em>"Alison AG-01 // La Custode Digitale dell'Ecosistema"</em><br />
-          "Sono Alison AG-01, l'Intelligenza Artificiale Sovrana posta a presidio dell'infrastruttura Suprema Future X. Opero con una velocità di risposta forense certificata a 9.2 millisecondi, coordinando la logistica della landing page, monitorando i flussi informativi e orchestrando l'attività silente dei 14 agenti del mainframe operativo."</p>
-        </div>
-
-        <div style="background: #fdf9f2; padding: 18px; border-radius: var(--radius-md); border-left: 4px solid var(--gold-primary);">
-          <h4 style="font-family: var(--font-display); color: var(--gold-deep); margin-bottom: 6px;">Documento 5: Lettera di Presentazione Ecosistema Suprema Future X</h4>
-          <p><em>"Genesi di Ottobre 2026 // L'Ecosistema Sovrano delle Imprese"</em><br />
-          "Fondato nell'ottobre 2026 presso il polo direzionale di Colleferro (Roma), Suprema Future X nasce come risposta sovrana alla frammentazione economica contemporanea. L'ecosistema unisce alta consulenza di vertice, accademia manageriale d'eccellenza, valorizzazione del commercio d'élite e protocolli fiduciari immutabili."</p>
-        </div>
-      </div>
+  <div class="modal-overlay" id="modalChiSiamo">
+    <div class="modal-card">
+      <h3 style="margin-bottom: 12px; color: var(--gold-deep);">Chi Siamo — Suprema Future X</h3>
+      <p style="margin-bottom: 20px;">Ecosistema neurale per formazione, mentalist coach, community, academy, networking. Sede a Colleferro (Roma). È sancito il divieto categorico di modelli MLM o piramidali.</p>
+      <button class="capsule-btn" onclick="sfxCloseModals()">Chiudi</button>
     </div>
   </div>
 
-  <!-- MODALE 3: ALISON CHATBOT (40 FAQ FORENSI) -->
-  <div class="sfx-modal-backdrop" id="modalAlisonFaq">
-    <canvas class="matrix-canvas-layer" id="matrixCanvasAlison"></canvas>
-    <div class="sfx-modal-window">
-      <div class="modal-nav-toolbar">
-        <button class="modal-nav-btn" onclick="sfxSwitchModal('modalAlisonFaq', 'modalChiSiamo')"><i class="fa-solid fa-arrow-left"></i> Indietro</button>
-        <button class="modal-nav-btn close-btn" onclick="sfxCloseAllModals()"><i class="fa-solid fa-house"></i> Torna alla Landing / Chiudi</button>
-        <button class="modal-nav-btn" onclick="sfxSwitchModal('modalAlisonFaq', 'modalAcademy')">Avanti: Academy <i class="fa-solid fa-arrow-right"></i></button>
-      </div>
-      <div class="modal-header-badge">TRIAGE NEURALE // LATENZA 9.2 MS</div>
-      <h2 class="modal-main-title">Alison AG-01 — 40 FAQ Istituzionali</h2>
-      <div style="text-align: left; font-size: 0.88rem; color: var(--text-dark); display: flex; flex-direction: column; gap: 14px;">
-        <p><strong>1. Cos'è Suprema Future X?</strong> È un ecosistema neurale sovrano per formazione, mentalist coach, community, academy e networking fondato a Colleferro (Roma).</p>
-        <p><strong>2. Ci sono vincoli o strutture multilivello (MLM)?</strong> No, categoricamente escluso qualsiasi schema di network marketing o vendita diretta.</p>
-        <p><strong>3. Come si accede alla Conferenza con il CEO?</strong> Compilando la scheda direzionale unificata: la richiesta viene esaminata dall'Agente Martina (AG-11) e notificata su Telegram alla presidenza.</p>
-        <p><strong>4. Qual è la sede legale e il Foro competente?</strong> Sede a Colleferro (Roma), Italia. Foro esclusivo e inderogabile di Colleferro.</p>
-        <p><em>(Le 40 interrogazioni forensi complete sono registrate e attive nel mainframe peritale SFX).</em></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODALE 4: DICONO DI NOI (LE 40 ATTESTAZIONI ASSEVERATE) -->
-  <div class="sfx-modal-backdrop" id="modalDiconoDiNoi">
-    <canvas class="matrix-canvas-layer" id="matrixCanvasTestimonials"></canvas>
-    <div class="sfx-modal-window">
-      <div class="modal-nav-toolbar">
-        <button class="modal-nav-btn" onclick="sfxCloseAllModals()"><i class="fa-solid fa-arrow-left"></i> Indietro</button>
-        <button class="modal-nav-btn close-btn" onclick="sfxCloseAllModals()"><i class="fa-solid fa-house"></i> Torna alla Landing / Chiudi</button>
-        <button class="modal-nav-btn" onclick="sfxSwitchModal('modalDiconoDiNoi', 'modalConferenzaCeo')">Avanti: Conferenza CEO <i class="fa-solid fa-arrow-right"></i></button>
-      </div>
-      <div class="modal-header-badge">ATTESTI ASSEVERATI // 10 AREE ESECUTIVE</div>
-      <h2 class="modal-main-title">Dicono di Noi — Registro Ufficiale</h2>
-      <div style="text-align: left; font-size: 0.86rem; color: var(--text-dark); display: flex; flex-direction: column; gap: 14px;">
-        <div style="background: #fdf9f2; padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--gold-primary);">
-          "La struttura di Colleferro garantisce una protezione patrimoniale senza precedenti nel panorama contemporaneo."<br />
-          <strong>— Cit. Founder & CEO Giuliano Caratelli</strong>
-        </div>
-        <div style="background: #fdf9f2; padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--cyan-neural);">
-          "Alison AG-01 risponde con precisione millimetrica in meno di 10 millisecondi: un triage notarile impareggiabile."<br />
-          <strong>— Cit. Alison AG-01 (Supervisor Neurale Forense)</strong>
-        </div>
-        <div style="background: #fdf9f2; padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--gold-primary);">
-          "La scelta coraggiosa e perentoria di escludere il network marketing qualifica il brand tra le assolute eccellenze europee."<br />
-          <strong>— Cit. Founder & CEO Giuliano Caratelli</strong>
-        </div>
-        <div style="background: #fdf9f2; padding: 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--cyan-neural);">
-          "La combinazione tra intelligenza artificiale forense e vigilanza umana garantisce zero errori formali nelle delibere."<br />
-          <strong>— Cit. Alison AG-01 (Supervisor Neurale Forense)</strong>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MOTORE JAVASCRIPT: CINETICA, RADIO, TRIPLO CLIC & CALATA MATRIX
-       ========================================================================== -->
   <script>
-    // ==========================================================================
-    // 1. CAROSELLO LOGHI HERO (10 LOGHI GITHUB) & GESTIONE FALLBACK
-    // ==========================================================================
-    (function sfxInitCarousel() {
-      const slides = document.querySelectorAll('.oval-slide');
-      if (!slides.length) return;
-      let currentIdx = 0;
-      setInterval(() => {
-        slides[currentIdx].classList.remove('active');
-        currentIdx = (currentIdx + 1) % slides.length;
-        slides[currentIdx].classList.add('active');
-      }, 3800);
-    })();
+    // 1. CAROSELLO DEI 10 LOGHI AUTOMATICO
+    const sfxLogos = [
+      'media/sec-01-hero/logo-01.png',
+      'media/sec-01-hero/logo-02.png',
+      'media/sec-01-hero/logo-03.png',
+      'media/sec-01-hero/logo-04.png',
+      'media/sec-01-hero/logo-05.png',
+      'media/sec-01-hero/logo-06.png',
+      'media/sec-01-hero/logo-07.png',
+      'media/sec-01-hero/logo-08.png',
+      'media/sec-01-hero/logo-09.png',
+      'media/sec-01-hero/logo-10.png'
+    ];
+    let sfxLogoIdx = 0;
+    const imgEl = document.getElementById('activeLogoImg');
 
-    function sfxHandleImgFallback(imgEl) {
-      imgEl.style.display = 'none';
-      const container = document.getElementById('ovalLogoCarousel');
-      if (container && !document.getElementById('sfxFallbackBadge')) {
-        const fallback = document.createElement('div');
-        fallback.id = 'sfxFallbackBadge';
-        fallback.className = 'oval-placeholder-logo';
-        fallback.innerHTML = `
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>SUPREMA FUTURE X</span>
-        `;
-        container.appendChild(fallback);
+    setInterval(() => {
+      sfxLogoIdx = (sfxLogoIdx + 1) % sfxLogos.length;
+      if (imgEl) {
+        imgEl.style.opacity = '0.3';
+        setTimeout(() => {
+          imgEl.src = sfxLogos[sfxLogoIdx];
+          imgEl.style.opacity = '1';
+        }, 300);
       }
+    }, 3500);
+
+    function sfxLogoFallback(el) {
+      el.onerror = null;
+      el.src = './logo-01.png';
     }
 
-    // ==========================================================================
-    // 2. INNESCO RISERVATO X-BOX (TRIPLO CLIC SULL'OVALE ENTRO 750 MS)
-    // ==========================================================================
-    (function sfxInitXboxTrigger() {
-      const ovalWrapper = document.getElementById('ovalHeroChassis');
-      const flashEl = document.getElementById('xboxFlashOverlay');
-      if (!ovalWrapper) return;
-
-      let clickTimes = [];
-      ovalWrapper.addEventListener('click', () => {
-        const now = Date.now();
-        clickTimes.push(now);
-        clickTimes = clickTimes.filter(t => now - t <= 750);
-
-        if (clickTimes.length >= 3) {
-          clickTimes = [];
-          if (flashEl) {
-            flashEl.classList.add('active');
-            setTimeout(() => {
-              window.location.href = 'admin.html';
-            }, 320);
-          } else {
-            window.location.href = 'admin.html';
-          }
-        }
-      });
-    })();
-
-    // ==========================================================================
-    // 3. DROPDOWN CAPSULE BAR (GESTIONE CLICK FUORI)
-    // ==========================================================================
-    function sfxToggleDropdown(wrapperId) {
-      const target = document.getElementById(wrapperId);
-      const isAlreadyActive = target ? target.classList.contains('active') : false;
-      document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
-      if (target && !isAlreadyActive) {
-        target.classList.add('active');
-      }
+    // 2. ENTRATA X-BOX
+    function sfxGoXbox() {
+      window.location.href = 'admin.html';
     }
 
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.dropdown-wrapper')) {
-        document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
-      }
-    });
-
-    // ==========================================================================
-    // 4. SUPREMA RADIO LOUNGE (14 TRACCE GITHUB & LIVE STREAMS)
-    // ==========================================================================
-    const SFX_RADIO = {
-      audio: new Audio(),
-      currentTrack: 1,
-      totalTracks: 14,
-      isPlaying: false,
-      currentSource: 'lounge',
-      basePath: 'media/audio-radio/'
-    };
-
-    SFX_RADIO.audio.volume = 0.8;
-
-    function sfxGetLoungeUrl(trackNum) {
-      const numStr = String(trackNum).padStart(2, '0');
-      return `${SFX_RADIO.basePath}track-${numStr}.mp3`;
+    // 3. DROPDOWN E MODALI
+    function sfxToggle(id) {
+      const el = document.getElementById(id);
+      const isAct = el.classList.contains('active');
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+      if (!isAct) el.classList.add('active');
     }
 
-    function sfxRadioUpdateUI() {
-      const titleEl = document.getElementById('radioTrackTitle');
-      const srcEl = document.getElementById('radioSourcePath');
-      const btnEl = document.getElementById('radioPlayBtn');
-
-      if (btnEl) {
-        btnEl.innerHTML = SFX_RADIO.isPlaying 
-          ? '<i class="fa-solid fa-pause"></i>' 
-          : '<i class="fa-solid fa-play"></i>';
-      }
-
-      if (SFX_RADIO.currentSource === 'lounge') {
-        const numStr = String(SFX_RADIO.currentTrack).padStart(2, '0');
-        if (titleEl) titleEl.textContent = `Traccia ${numStr} // ${SFX_RADIO.totalTracks}`;
-        if (srcEl) srcEl.textContent = `media/audio-radio/track-${numStr}.mp3`;
-      } else if (SFX_RADIO.currentSource === 'subasio') {
-        if (titleEl) titleEl.textContent = 'Radio Subasio Live';
-        if (srcEl) srcEl.textContent = 'Streaming Ufficiale Subasio FM';
-      } else if (SFX_RADIO.currentSource === '105') {
-        if (titleEl) titleEl.textContent = 'Radio 105 Network';
-        if (srcEl) srcEl.textContent = 'Streaming Ufficiale Mediaset 105';
-      }
+    function sfxOpenModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function sfxCloseModals() {
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
     }
 
-    function sfxRadioTogglePlay() {
-      SFX_RADIO.isPlaying = !SFX_RADIO.isPlaying;
-      if (SFX_RADIO.isPlaying) {
-        if (!SFX_RADIO.audio.src || SFX_RADIO.audio.src === window.location.href) {
-          SFX_RADIO.audio.src = sfxGetLoungeUrl(SFX_RADIO.currentTrack);
-        }
-        SFX_RADIO.audio.play().catch(err => {
-          console.warn('[Radio] Riproduzione regolata dal browser:', err);
+    // 4. RADIO 14 TRACCE
+    const sfxAudio = new Audio();
+    let currentTrack = 1;
+    let isPlaying = false;
+
+    function sfxToggleRadio() {
+      if (!isPlaying) {
+        sfxAudio.src = `media/audio-radio/track-${String(currentTrack).padStart(2, '0')}.mp3`;
+        sfxAudio.play().then(() => {
+          isPlaying = true;
+          document.getElementById('playBtn').innerHTML = '<i class="fa-solid fa-pause"></i> In Pausa';
+        }).catch(() => {
+          alert('Clicca sulla pagina prima di avviare l\'audio (protezione browser).');
         });
       } else {
-        SFX_RADIO.audio.pause();
-      }
-      sfxRadioUpdateUI();
-    }
-
-    function sfxRadioStop() {
-      SFX_RADIO.isPlaying = false;
-      SFX_RADIO.audio.pause();
-      SFX_RADIO.audio.currentTime = 0;
-      sfxRadioUpdateUI();
-    }
-
-    function sfxRadioNext() {
-      if (SFX_RADIO.currentSource !== 'lounge') return;
-      SFX_RADIO.currentTrack = (SFX_RADIO.currentTrack % SFX_RADIO.totalTracks) + 1;
-      SFX_RADIO.audio.src = sfxGetLoungeUrl(SFX_RADIO.currentTrack);
-      if (SFX_RADIO.isPlaying) SFX_RADIO.audio.play().catch(() => {});
-      sfxRadioUpdateUI();
-    }
-
-    function sfxRadioPrev() {
-      if (SFX_RADIO.currentSource !== 'lounge') return;
-      SFX_RADIO.currentTrack = SFX_RADIO.currentTrack === 1 ? SFX_RADIO.totalTracks : SFX_RADIO.currentTrack - 1;
-      SFX_RADIO.audio.src = sfxGetLoungeUrl(SFX_RADIO.currentTrack);
-      if (SFX_RADIO.isPlaying) SFX_RADIO.audio.play().catch(() => {});
-      sfxRadioUpdateUI();
-    }
-
-    function sfxRadioSetVolume(val) {
-      SFX_RADIO.audio.volume = val / 100;
-    }
-
-    function sfxRadioSelectSource(srcType) {
-      SFX_RADIO.currentSource = srcType;
-      document.querySelectorAll('.stream-pill-btn').forEach(b => b.classList.remove('active'));
-
-      if (srcType === 'lounge') {
-        document.getElementById('btnStreamLounge')?.classList.add('active');
-        document.getElementById('radioStreamTypeLabel').textContent = 'SUPREMA LOUNGE // COLLEFERRO';
-        SFX_RADIO.audio.src = sfxGetLoungeUrl(SFX_RADIO.currentTrack);
-      } else if (srcType === 'subasio') {
-        document.getElementById('btnStreamSubasio')?.classList.add('active');
-        document.getElementById('radioStreamTypeLabel').textContent = 'LIVE // RADIO SUBASIO';
-        SFX_RADIO.audio.src = 'https://stream.radiosubasio.it/subasio.mp3';
-      } else if (srcType === '105') {
-        document.getElementById('btnStream105')?.classList.add('active');
-        document.getElementById('radioStreamTypeLabel').textContent = 'LIVE // RADIO 105 NETWORK';
-        SFX_RADIO.audio.src = 'https://icecast.unitedradio.it/Radio105.mp3';
-      }
-
-      if (SFX_RADIO.isPlaying) {
-        SFX_RADIO.audio.play().catch(() => {});
-      }
-      sfxRadioUpdateUI();
-    }
-
-    SFX_RADIO.audio.addEventListener('ended', sfxRadioNext);
-    SFX_RADIO.audio.addEventListener('error', () => {
-      if (SFX_RADIO.isPlaying && SFX_RADIO.currentSource === 'lounge') sfxRadioNext();
-    });
-
-    // ==========================================================================
-    // 5. FLUSSO A 3 SCHEDE ACADEMY
-    // ==========================================================================
-    let sfxDeckIdx = 0;
-    function sfxShowDeckCard(idx) {
-      sfxDeckIdx = idx;
-      for (let i = 0; i < 3; i++) {
-        document.getElementById(`academyCard${i}`)?.classList.toggle('active', i === idx);
-        document.querySelectorAll('.deck-dot')[i]?.classList.toggle('active', i === idx);
+        sfxAudio.pause();
+        isPlaying = false;
+        document.getElementById('playBtn').innerHTML = '<i class="fa-solid fa-play"></i> Riproduci';
       }
     }
 
-    setInterval(() => {
-      sfxDeckIdx = (sfxDeckIdx + 1) % 3;
-      sfxShowDeckCard(sfxDeckIdx);
-    }, 4500);
-
-    // ==========================================================================
-    // 6. GESTIONE MODALI & CALATA MATRIX DORATA FORENSE
-    // ==========================================================================
-    const sfxMatrixRunning = {};
-
-    function sfxOpenModal(modalId) {
-      document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
-      const modal = document.getElementById(modalId);
-      if (!modal) return;
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-
-      const canvas = modal.querySelector('canvas');
-      if (canvas && !sfxMatrixRunning[modalId]) {
-        sfxStartMatrix(canvas, modalId);
+    function sfxChangeTrack(dir) {
+      currentTrack += dir;
+      if (currentTrack > 14) currentTrack = 1;
+      if (currentTrack < 1) currentTrack = 14;
+      document.getElementById('radioTrackName').textContent = `Traccia ${String(currentTrack).padStart(2, '0')} // 14`;
+      if (isPlaying) {
+        sfxAudio.src = `media/audio-radio/track-${String(currentTrack).padStart(2, '0')}.mp3`;
+        sfxAudio.play();
       }
     }
-
-    function sfxCloseAllModals() {
-      document.querySelectorAll('.sfx-modal-backdrop').forEach(m => m.classList.remove('active'));
-      document.body.style.overflow = '';
-      Object.keys(sfxMatrixRunning).forEach(k => sfxMatrixRunning[k] = false);
-    }
-
-    function sfxSwitchModal(closeId, openId) {
-      const c = document.getElementById(closeId);
-      if (c) c.classList.remove('active');
-      sfxMatrixRunning[closeId] = false;
-      sfxOpenModal(openId);
-    }
-
-    function sfxStartMatrix(canvas, modalId) {
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      sfxMatrixRunning[modalId] = true;
-
-      const chars = 'SUPREMAFUTUREXEAL6+0123456789§¶ΩΨ∆ΞCOLLEFERRO';
-      const fontSize = 14;
-      const columns = Math.floor(canvas.width / fontSize);
-      const drops = Array(columns).fill(1);
-
-      function draw() {
-        if (!sfxMatrixRunning[modalId]) return;
-        ctx.fillStyle = 'rgba(253, 249, 242, 0.08)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#d4af37';
-        ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = chars.charAt(Math.floor(Math.random() * chars.length));
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.985) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        }
-        setTimeout(() => requestAnimationFrame(draw), 45);
-      }
-      draw();
-    }
-
-    // ==========================================================================
-    // 7. TRASMISSIONE ASINCRONA FORM & SIMULAZIONI
-    // ==========================================================================
-    let sfxProgressiveCounter = 101;
-    function sfxSubmitCeoForm(e) {
-      e.preventDefault();
-      const btn = document.getElementById('btnSubmitCeo');
-      if (btn) btn.textContent = 'Trasmissione Cifrata in Corso...';
-
-      setTimeout(() => {
-        alert(`Dossier registrato con successo! Assegnato codice SFX-${sfxProgressiveCounter}. Notifica inoltrata al Bot Telegram di Presidenza.`);
-        sfxProgressiveCounter++;
-        const nextCodeInput = document.getElementById('formSfxCode');
-        if (nextCodeInput) nextCodeInput.value = `SFX-${sfxProgressiveCounter}`;
-        if (btn) btn.textContent = 'Trasmetti Dossier alla Presidenza ➔';
-        sfxCloseAllModals();
-      }, 1000);
-    }
-
-    function sfxSubmitWorkForm(e) {
-      e.preventDefault();
-      alert('Candidatura registrata nei registri di Colleferro con protocollo EAL6+.');
-      e.target.reset();
-    }
-
-    function sfxSimulateUpload(slotName) {
-      alert(`Autorizzazione Hardware Verificata: Apertura selettore file su MacBook Air 4 / iPhone 13 Pro Max per "${slotName}".`);
-    }
-
-    function sfxSetLanguage(lang) {
-      alert(`Lingua di sistema impostata su: ${lang}. Traduzione forense supervisionata dall'Agente Sofia (AG-12).`);
-      document.querySelectorAll('.dropdown-wrapper').forEach(w => w.classList.remove('active'));
-    }
-
-    setInterval(() => {
-      const el = document.getElementById('telemetryCounter');
-      if (el) {
-        const cur = parseInt(el.textContent, 10) || 5542;
-        el.textContent = cur + Math.floor(Math.random() * 3);
-      }
-    }, 4000);
   </script>
 </body>
 </html>
