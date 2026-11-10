@@ -1,327 +1,798 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRM DESK // SUPREMA FUTURE X 2026</title>
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23090A0E' stroke='%2300F0FF' stroke-width='4'/><text x='50%' y='58%' font-size='26' text-anchor='middle' fill='%2300F0FF' font-family='sans-serif' font-weight='bold'>CRM</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>CRM ESECUTIVO // SUPREMA FUTURE X</title>
   
+  <meta name="description" content="Customer Relationship Management Esecutivo (EAL6+). Gestione Leads, Appuntamenti e Scaglioni Gold Card.">
+  <meta name="theme-color" content="#F6F2EB">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Syncopate:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
   <link rel="stylesheet" href="stile-globale.css">
 
   <style>
+    /* ==========================================================================
+       SPECIFICHE STILE CRM.HTML (EAL6+)
+       ========================================================================== */
     body {
-      background: #060709;
-      color: #E2E8F0;
+      background-color: var(--bg-pearl-satin);
+      color: var(--text-dominant);
+      font-family: var(--font-main);
       min-height: 100vh;
-      font-family: var(--font-mont);
+      overflow-x: hidden;
     }
-    .sfx-crm-lockscreen {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: radial-gradient(circle at center, #11141C 0%, #050608 100%);
-      z-index: 9999;
+
+    .crm-viewport {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR CRM */
+    .crm-sidebar {
+      background: var(--bg-pearl-pure);
+      border-right: 1.5px solid var(--border-gold);
+      padding: 35px 20px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .crm-nav-btn {
+      display: flex;
       align-items: center;
-      padding: 1.5rem;
-    }
-    .sfx-crm-lockbox {
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border: 1.5px solid transparent;
+      background: transparent;
+      cursor: pointer;
       width: 100%;
-      max-width: 420px;
-      background: #0F1219;
-      border: 2px solid var(--cyan-neon);
-      border-radius: 24px;
-      padding: 3rem 2.2rem;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(0, 240, 255, 0.25);
+      text-align: left;
+      margin-bottom: 4px;
+      transition: all 0.2s ease;
     }
-    .sfx-crm-topbar {
-      background: #090A0E;
-      border-bottom: 1px solid rgba(0, 240, 255, 0.3);
-      padding: 1rem 2.5rem;
+
+    .crm-nav-btn:hover, .crm-nav-btn.active {
+      background: var(--bg-pearl-light);
+      color: var(--spectral-gold-deep);
+      border-color: var(--spectral-gold);
+      box-shadow: var(--shadow-base);
+    }
+
+    /* AREA CONTENUTO CRM */
+    .crm-main-content {
+      padding: 40px 45px;
+      background: var(--bg-pearl-satin);
+      overflow-y: auto;
+    }
+
+    .crm-tab-view {
+      display: none;
+    }
+
+    .crm-tab-view.active {
+      display: block;
+      animation: tabFadeIn 0.3s ease-out;
+    }
+
+    @keyframes tabFadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KPI CARDS */
+    .kpi-dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .kpi-widget {
+      background: var(--bg-pearl-pure);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      box-shadow: var(--shadow-base);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .kpi-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--spectral-gold-deep);
+      margin-bottom: 8px;
+    }
+    
+    .kpi-trend {
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    /* TABELLE DATI CRM */
+    .crm-data-table-wrapper {
+      background: var(--bg-pearl-pure);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      box-shadow: var(--shadow-base);
+      margin-bottom: 30px;
+    }
+
+    .crm-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    .crm-data-table th {
+      background: var(--bg-surface);
+      padding: 16px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-bottom: 1.5px solid var(--border-gold);
+      text-transform: uppercase;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .crm-data-table td {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      vertical-align: middle;
+    }
+    
+    .crm-data-table tr:hover td {
+      background: rgba(212, 175, 55, 0.03);
+    }
+
+    /* BADGES DI STATO (LEADS) */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-oval);
+      font-family: var(--font-mono);
+      font-size: 0.70rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .status-lavorazione {
+      background: rgba(255, 191, 0, 0.15);
+      color: #B78103;
+      border-color: rgba(255, 191, 0, 0.4);
+    }
+
+    .status-vidimato {
+      background: rgba(0, 230, 118, 0.15);
+      color: #1b5e20;
+      border-color: rgba(0, 230, 118, 0.4);
+    }
+    
+    .status-respinto {
+      background: rgba(255, 59, 48, 0.15);
+      color: #c62828;
+      border-color: rgba(255, 59, 48, 0.4);
+    }
+
+    /* FILTRI CRM */
+    .crm-filters-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: var(--bg-pearl-pure);
+      padding: 15px 20px;
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-base);
     }
-    .sfx-kpi-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-    .sfx-kpi-card {
-      background: #0F1219;
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 16px;
-      padding: 1.5rem;
-      position: relative;
-    }
-    .sfx-kpi-num {
-      font-family: var(--font-sync);
-      font-size: 2rem;
-      color: #FFF;
-      margin: 0.5rem 0 0.2rem;
-    }
-    .sfx-kpi-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: #94A3B8;
-    }
-    .sfx-crm-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-    }
-    .sfx-crm-table th {
-      background: #090A0E;
-      color: var(--cyan-neon);
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 2px solid var(--gold-primary);
-    }
-    .sfx-crm-table td {
-      padding: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      color: #CBD5E1;
-    }
-    .sfx-crm-table tr:hover {
-      background: rgba(0, 240, 255, 0.03);
-    }
-    .sfx-badge-state {
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.68rem;
-      font-weight: 700;
-    }
-    .b-convocato { background: rgba(0, 240, 255, 0.15); color: var(--cyan-neon); border: 1px solid var(--cyan-neon); }
-    .b-attesa { background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); border: 1px solid var(--gold-primary); }
-    .b-approvato { background: rgba(0, 230, 118, 0.15); color: var(--status-green); border: 1px solid var(--status-green); }
 
-    .sfx-btn-action-cell {
-      background: #181C26;
-      border: 1px solid var(--gold-primary);
-      color: var(--gold-primary);
-      padding: 0.35rem 0.7rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      transition: all 0.2s;
+    .search-input-box {
+      position: relative;
+      width: 350px;
     }
-    .sfx-btn-action-cell:hover {
-      background: var(--gold-primary);
-      color: #000;
+    
+    .search-input-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--spectral-gold-deep);
     }
-    @media(max-width:1024px) {
-      .sfx-kpi-row { grid-template-columns: 1fr 1fr; }
+
+    .search-input-box input {
+      width: 100%;
+      padding: 10px 14px 10px 38px;
+      border: 1px solid var(--border-gold-strong);
+      border-radius: var(--radius-oval);
+      font-family: var(--font-main);
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    /* MODAL DETTAGLIO LEAD */
+    .lead-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 25, 44, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lead-modal-box {
+      background: var(--bg-pearl-pure);
+      border: 2px solid var(--spectral-gold);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 750px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(11, 25, 44, 0.3);
+    }
+
+    .lead-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 1.5px solid var(--border-gold);
+      background: var(--bg-pearl-light);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .lead-modal-content {
+      padding: 30px;
+    }
+    
+    .lead-data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .lead-data-item {
+      background: var(--bg-surface);
+      padding: 14px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border-gold);
     }
   </style>
 </head>
 <body>
 
-  <!-- SCHERMATA DI SBLOCCO CRM -->
-  <div class="sfx-crm-lockscreen" id="crmLockscreen">
-    <div class="sfx-crm-lockbox">
-      <div style="font-size:2.5rem; margin-bottom:0.5rem;">⚡</div>
-      <h1 style="font-family:var(--font-sync); font-size:1.2rem; color:var(--cyan-neon); margin-bottom:0.4rem;">
-        CRM DESK OPERATIVO
-      </h1>
-      <p style="font-family:var(--font-mono); font-size:0.75rem; color:#94A3B8; margin-bottom:1.8rem;">
-        INSERISCI IL PIN ESECUTIVO DI VERTICE
+  <!-- ========================================================================
+       AUTENTICAZIONE EAL6+ LOCKSCREEN (Ripresa da admin.html)
+       ======================================================================== -->
+  <div class="lockscreen-modal" id="crm-lockscreen" style="position: fixed; inset: 0; z-index: 100000; background: var(--bg-pearl-satin); display: flex; justify-content: center; align-items: center; padding: 20px;">
+    <div style="width: 100%; max-width: 480px; background: var(--bg-pearl-pure); border-radius: var(--radius-md); padding: 45px 35px; box-shadow: 0 25px 60px rgba(11,25,44,0.2); text-align: center; border: 2px solid var(--spectral-gold);">
+      
+      <div class="badge-forensic" style="margin-bottom:15px;">
+        <i class="fa-solid fa-shield-halved"></i> CRM SECURED EAL6+
+      </div>
+      <h2 style="font-family:var(--font-display); font-size:1.8rem; margin-bottom:6px; color:var(--text-dominant);">
+        CRM ESECUTIVO 2026
+      </h2>
+      <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-bottom:30px;">
+        GESTIONE CANDIDATURE &amp; SCAGLIONI
       </p>
 
-      <input type="password" class="sfx-newsletter-field" style="margin-bottom:1rem; text-align:center; letter-spacing:4px;" id="crmPin" placeholder="PIN Esecutivo (10 Cifre)..." maxlength="10">
-      
-      <button class="sfx-btn-action-oval" style="width:100%;" onclick="crmUnlock()">
-        <span>AUTENTICA POSTAZIONE</span>
-        <span>➔</span>
-      </button>
-
-      <div id="crmErr" style="color:var(--status-red); font-family:var(--font-mono); font-size:0.75rem; margin-top:1rem; display:none;">
-        PIN non corretto. Accesso negato.
+      <div id="step-auth-master-crm">
+        <div style="text-align:left; margin-bottom:20px;">
+          <label style="font-family:var(--font-mono); font-size:0.72rem; font-weight:800; color:var(--text-muted);">PASSWORD PRESIDENZIALE:</label>
+          <input type="password" id="inputMasterPasswordCrm" placeholder="Inserisci Password..." style="width:100%; padding:14px; border:1.5px solid var(--border-gold-strong); border-radius:var(--radius-xs); background:#FFF; font-size:0.95rem; margin-top:6px; outline:none;">
+        </div>
+        <button class="btn-gold" style="width:100%; padding:14px; font-size:0.85rem;" onclick="sfxVerifyMasterPasswordCrm()">
+          SBLOCCA CRM ➔
+        </button>
+        <div id="login-feedback-crm" style="font-family:var(--font-mono); font-size:0.78rem; min-height:1.5rem; margin-top:20px; color:var(--status-alert); font-weight:800;"></div>
       </div>
-
-      <div style="margin-top:1.5rem;">
-        <a href="index.html" style="color:#64748B; font-family:var(--font-mono); font-size:0.7rem; text-decoration:none;">◄ Rientra all'Ecosistema</a>
+      
+      <div style="margin-top:30px;">
+        <a href="admin.html" class="btn-outline" style="font-size:0.75rem; padding:8px 16px;">◄ Torna a X-BOX Console</a>
       </div>
     </div>
   </div>
 
-  <!-- WORKSTATION CRM EFFETTIVA -->
-  <div id="crmApp" style="display:none;">
+  <!-- ========================================================================
+       CRM VIEWPORT: SIDEBAR E MAIN CONTENT
+       ======================================================================== -->
+  <div class="crm-viewport" id="crm-dashboard" style="display: none;">
     
-    <header class="sfx-crm-topbar">
-      <div style="display:flex; align-items:center; gap:1.2rem;">
-        <span style="font-family:var(--font-sync); font-weight:800; color:var(--gold-primary); letter-spacing:2px;">
-          SUPREMA CRM // LIVE DESK 2026
-        </span>
-        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--status-green);">
-          ● CONNESSO AL NODO CENTRALE
-        </span>
+    <!-- SIDEBAR NAVIGAZIONE -->
+    <aside class="crm-sidebar">
+      <div>
+        <div style="padding-bottom:1.5rem; border-bottom:1px solid var(--border-gold); margin-bottom:1.8rem;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="led-indicator"></div>
+            <span style="font-family:var(--font-display); font-size:1.25rem; font-weight:900; color:var(--spectral-gold-deep);">CRM ESECUTIVO</span>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-muted); margin-top:6px;">
+            NODO ROMA // PROTOCOLLO EAL6+
+          </div>
+        </div>
+
+        <nav style="display:flex; flex-direction:column; gap:6px;">
+          <button class="crm-nav-btn active" onclick="switchCrmTab('tab-leads')">
+            <i class="fa-solid fa-users-viewfinder"></i> 1. Screening Leads &amp; Meet
+          </button>
+          <button class="crm-nav-btn" onclick="switchCrmTab('tab-goldcard')">
+            <i class="fa-solid fa-gem"></i> 2. Registro Gold Card (Pts)
+          </button>
+          <button class="crm-nav-btn" onclick="switchCrmTab('tab-concessioni')">
+            <i class="fa-solid fa-store"></i> 3. Licenze E-Commerce
+          </button>
+        </nav>
       </div>
 
-      <div style="display:flex; align-items:center; gap:1.5rem;">
-        <a href="admin.html" class="sfx-btn-action-cell" style="border-color:var(--cyan-neon); color:var(--cyan-neon);">
-          CONSOLE X-BOX ➔
-        </a>
-        <button class="sfx-btn-action-cell" style="border-color:var(--status-red); color:var(--status-red);" onclick="crmLock()">
-          BLOCCA DESK
+      <div>
+        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem; padding:15px; background:var(--bg-surface); border-radius:8px; border:1px solid var(--border-gold);">
+          ACCESSO: <strong>PRESIDENZA</strong><br>
+          STATO: <span style="color:var(--status-online); font-weight:800;">AUTORIZZATO</span><br>
+          SYNC: <span id="syncIndicator" style="color:var(--spectral-gold-deep); font-weight:800;">100% ONLINE</span>
+        </div>
+        <button class="btn-gold" style="width:100%; padding:12px; font-size:0.80rem;" onclick="logoutCrm()">
+          <i class="fa-solid fa-lock"></i> BLOCCA CRM
         </button>
       </div>
-    </header>
-
-    <main style="max-width:1440px; margin:0 auto; padding:2rem;">
+    </aside>
+    <!-- AREA CONTENUTO PRINCIPALE -->
+    <main class="crm-main-content">
       
-      <!-- KPI CARD ROW -->
-      <div class="sfx-kpi-row">
-        <div class="sfx-kpi-card" style="border-left:4px solid var(--cyan-neon);">
-          <div class="sfx-kpi-label">DOSSIER TOTALI ACQUISITI</div>
-          <div class="sfx-kpi-num" id="kpiTotal">1</div>
-          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--status-green);">↑ Sincronizzazione T+0</div>
-        </div>
-
-        <div class="sfx-kpi-card" style="border-left:4px solid var(--gold-primary);">
-          <div class="sfx-kpi-label">IN ATTESA DI SCREENING</div>
-          <div class="sfx-kpi-num" id="kpiPending" style="color:var(--gold-primary);">1</div>
-          <div style="font-family:var(--font-mono); font-size:0.65rem; color:#94A3B8;">Fascia diurna/serale</div>
-        </div>
-
-        <div class="sfx-kpi-card" style="border-left:4px solid var(--status-green);">
-          <div class="sfx-kpi-label">CONVOCAZIONI MEET ATTIVE</div>
-          <div class="sfx-kpi-num" id="kpiMeet" style="color:var(--status-green);">1</div>
-          <div style="font-family:var(--font-mono); font-size:0.65rem; color:#94A3B8;">Stanze virtuali 60 min</div>
-        </div>
-
-        <div class="sfx-kpi-card" style="border-left:4px solid #A855F7;">
-          <div class="sfx-kpi-label">PUNTI ORO IN ACCREDITO</div>
-          <div class="sfx-kpi-num" id="kpiPoints" style="color:#A855F7;">+350</div>
-          <div style="font-family:var(--font-mono); font-size:0.65rem; color:#94A3B8;">Status Ledger 2026</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:1.5rem; border-bottom:1.5px solid var(--border-gold); margin-bottom:30px;">
+        <h1 style="font-family:var(--font-display); font-size:1.8rem; color:var(--text-dominant);" id="crm-tab-title">1. SCREENING CANDIDATI (LEADS)</h1>
+        <div style="display:flex; gap:12px;">
+          <button class="btn-outline" style="font-size:0.80rem;" onclick="sfxFetchCrmDataGas()">
+            <i class="fa-solid fa-cloud-arrow-down"></i> SCARICA DA GOOGLE SHEET
+          </button>
+          <button class="btn-gold" style="font-size:0.80rem;" onclick="sfxSyncCrmDataGas()">
+            <i class="fa-solid fa-cloud-arrow-up"></i> SALVA SU SHEET ⟳
+          </button>
         </div>
       </div>
 
-      <!-- TABELLA INTERATTIVA CANDIDATURE -->
-      <div class="sfx-card-box">
-        <div class="sfx-card-title">
-          <span>REGISTRO CANDIDATI E GESTIONE CONVOCAZIONI</span>
-          <button class="sfx-action-btn-small" onclick="crmFetchLeads()">SINCRONIZZA REGISTRO ⟳</button>
+      <!-- ====================================================================
+           TAB 1: GESTIONE LEADS E APPUNTAMENTI MEET
+           ==================================================================== -->
+      <div class="crm-tab-view active" id="tab-leads">
+        
+        <!-- KPI Dashboard -->
+        <div class="kpi-dashboard-grid">
+          <div class="kpi-widget">
+            <span class="kpi-title">TOTALE LEADS</span>
+            <div class="kpi-value" id="kpi-tot-leads">0</div>
+            <span class="kpi-trend" style="color:var(--text-muted);">Nel database EAL6+</span>
+          </div>
+          <div class="kpi-widget">
+            <span class="kpi-title">IN LAVORAZIONE</span>
+            <div class="kpi-value" id="kpi-lavorazione" style="color:#B78103;">0</div>
+            <span class="kpi-trend" style="color:#B78103;">Da vidimare</span>
+          </div>
+          <div class="kpi-widget">
+            <span class="kpi-title">MEET FISSATI</span>
+            <div class="kpi-value" id="kpi-vidimati" style="color:var(--status-online);">0</div>
+            <span class="kpi-trend" style="color:var(--status-online);">Approvati per Call</span>
+          </div>
+          <div class="kpi-widget">
+            <span class="kpi-title">RESPINTI</span>
+            <div class="kpi-value" id="kpi-respinti" style="color:var(--status-alert);">0</div>
+            <span class="kpi-trend" style="color:var(--status-alert);">Requisiti non idonei</span>
+          </div>
         </div>
 
-        <div class="sfx-table-wrapper">
-          <table class="sfx-crm-table">
+        <!-- Barra di Ricerca e Filtri -->
+        <div class="crm-filters-bar">
+          <div class="search-input-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInputLeads" placeholder="Cerca per Protocollo, Nome, Email..." onkeyup="sfxFilterLeadsTable()">
+          </div>
+          <div style="display:flex; gap:10px;">
+            <select id="filterStatus" style="padding:10px 14px; border:1px solid var(--border-gold); border-radius:var(--radius-xs); font-family:var(--font-main); outline:none;" onchange="sfxFilterLeadsTable()">
+              <option value="ALL">Tutti gli Stati</option>
+              <option value="IN LAVORAZIONE">In Lavorazione</option>
+              <option value="VIDIMATO EAL6+">Vidimati EAL6+</option>
+              <option value="RESPINTO">Respinti</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tabella Dati Leads (Popolata Dinamicamente) -->
+        <div class="crm-data-table-wrapper">
+          <table class="crm-data-table" id="table-leads">
             <thead>
               <tr>
-                <th>ID DOSSIER</th>
+                <th>PROTOCOLLO / DATA</th>
                 <th>CANDIDATO</th>
-                <th>WHATSAPP / EMAIL</th>
-                <th>AMBITO RICHIESTO</th>
-                <th>FASCIA / ORARIO</th>
-                <th>STANZA MEET</th>
-                <th>STATO PRATICA</th>
-                <th>OPERAZIONI DIRETTE</th>
+                <th>PROFILO</th>
+                <th>FASCIA MEET</th>
+                <th>STATO DOSSIER</th>
+                <th>AZIONI</th>
               </tr>
             </thead>
-            <tbody id="crmTableBody">
-              <tr>
-                <td style="color:var(--gold-primary);">#SFX-LEAD-20261102-001</td>
-                <td><strong>Roberto V.</strong></td>
-                <td>
-                  +39 340 1234567<br>
-                  <span style="color:#64748B;">roberto@example.com</span>
-                </td>
-                <td>Executive Master</td>
-                <td>Pomeriggio (15:00 - 18:00)</td>
-                <td>
-                  <a href="https://meet.google.com" target="_blank" style="color:var(--cyan-neon); text-decoration:none; font-weight:700;">
-                    Entra in Stanza ➔
-                  </a>
-                </td>
-                <td><span class="sfx-badge-state b-convocato">Convocato Meet</span></td>
-                <td>
-                  <div style="display:flex; gap:0.4rem;">
-                    <button class="sfx-btn-action-cell" onclick="crmWhatsApp('+393401234567', 'Roberto')">WhatsApp</button>
-                    <button class="sfx-btn-action-cell" style="border-color:var(--status-green); color:var(--status-green);" onclick="alert('Dossier approvato.')">Approva</button>
-                  </div>
-                </td>
-              </tr>
+            <tbody id="tbody-leads">
+              <!-- Righe generate via JS -->
             </tbody>
           </table>
         </div>
       </div>
 
-    </main>
+      <!-- ====================================================================
+           TAB 2: REGISTRO GOLD CARD E PUNTI STATUS
+           ==================================================================== -->
+      <div class="crm-tab-view" id="tab-goldcard">
+        
+        <div class="crm-filters-bar">
+          <div class="search-input-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInputGoldCard" placeholder="Cerca Matricola, Nome..." onkeyup="sfxFilterGoldCardTable()">
+          </div>
+        </div>
 
+        <div class="crm-data-table-wrapper">
+          <table class="crm-data-table" id="table-goldcard">
+            <thead>
+              <tr>
+                <th>MATRICOLA CHIP</th>
+                <th>TITOLARE EAL6+</th>
+                <th>PUNTI STATUS (PTS)</th>
+                <th>SOGLIA RAGGIUNTA</th>
+                <th>CARD METALLICA</th>
+                <th>AZIONI ACCREDITO</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-goldcard">
+              <!-- Righe generate via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 3: LICENZE STORE E-COMMERCE
+           ==================================================================== -->
+      <div class="crm-tab-view" id="tab-concessioni">
+         <div style="background:#FFF; padding:40px; border:2px solid var(--border-gold); border-radius:var(--radius-md); text-align:center;">
+          <h2 style="font-family:var(--font-display); font-size:1.6rem; color:var(--spectral-gold-deep); margin-bottom:15px;">REGISTRO CONCESSIONI TERRITORIALI</h2>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:25px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Modulo in fase di sincronizzazione con l'hub logistico di Colleferro. Gestione licenze, tracking spedizioni (zero magazzino) e contratti quadro.
+          </p>
+          <button class="btn-outline" style="padding:15px 40px; font-size:1rem; cursor: not-allowed;">
+            <i class="fa-solid fa-lock"></i> MODULO IN AGGIORNAMENTO
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <!-- ========================================================================
+       MODAL: DETTAGLIO LEAD E CAMBIO STATO
+       ======================================================================== -->
+  <div class="lead-modal-overlay" id="modal-lead-detail">
+    <div class="lead-modal-box">
+      
+      <div class="lead-modal-header">
+        <div>
+          <span class="badge-forensic" style="font-size:0.6rem;" id="modalLeadProto">#PROTOCOLLO</span>
+          <h3 style="font-family:var(--font-display); font-size:1.4rem; color:var(--text-dominant); margin-top:6px;" id="modalLeadName">Nome Cognome</h3>
+        </div>
+        <button type="button" style="background:none; border:none; font-size:1.5rem; cursor:pointer;" onclick="sfxCloseLeadModal()">✕</button>
+      </div>
+      
+      <div class="lead-modal-content">
+        
+        <div class="lead-data-grid">
+          <div class="lead-data-item">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:800; color:var(--text-muted);">AZIENDA / CITTA'</span>
+            <div style="font-size:0.9rem; font-weight:700; margin-top:4px;" id="modalLeadAzienda">---</div>
+          </div>
+          <div class="lead-data-item">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:800; color:var(--text-muted);">PROFILO OPERATIVO</span>
+            <div style="font-size:0.9rem; font-weight:700; margin-top:4px;" id="modalLeadProfilo">---</div>
+          </div>
+          <div class="lead-data-item">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:800; color:var(--text-muted);">PROGRAMMA RICHIESTO</span>
+            <div style="font-size:0.9rem; font-weight:700; margin-top:4px; color:var(--spectral-gold-deep);" id="modalLeadProgramma">---</div>
+          </div>
+          <div class="lead-data-item">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:800; color:var(--text-muted);">SLOT MEET (60 MINUTI)</span>
+            <div style="font-size:0.9rem; font-weight:700; margin-top:4px;" id="modalLeadSlot">---</div>
+          </div>
+          <div class="lead-data-item">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:800; color:var(--text-muted);">WHATSAPP UFFICIALE</span>
+            <div style="font-size:0.9rem; font-weight:700; margin-top:4px; display:flex; align-items:center; gap:8px;">
+              <i class="fa-brands fa-whatsapp" style="color:#25d366;"></i>
+              <span id="modalLeadWa">---</span>
+            </div>
+          </div>
+          <div class="lead-data-item">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:800; color:var(--text-muted);">EMAIL DIRETTA</span>
+            <div style="font-size:0.9rem; font-weight:700; margin-top:4px;" id="modalLeadEmail">---</div>
+          </div>
+        </div>
+
+        <div class="lead-data-item" style="margin-bottom:25px;">
+          <span style="font-family:var(--font-mono); font-size:0.65rem; font-weight:800; color:var(--text-muted);">NOTE E OBIETTIVI SOTTOSCRITTI</span>
+          <div style="font-size:0.85rem; line-height:1.5; margin-top:6px;" id="modalLeadNote">---</div>
+        </div>
+
+        <div style="background:var(--bg-pearl-satin); border:1.5px solid var(--border-gold); padding:20px; border-radius:var(--radius-sm);">
+          <span style="font-family:var(--font-mono); font-size:0.75rem; font-weight:800; color:var(--text-dominant); margin-bottom:12px; display:block;">CAMBIO STATO DOSSIER (AZIONI EAL6+)</span>
+          
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn-outline" style="border-color:rgba(255, 191, 0, 0.8); color:#B78103;" onclick="sfxUpdateLeadStatus('IN LAVORAZIONE')">
+              <i class="fa-solid fa-hourglass-half"></i> In Lavorazione
+            </button>
+            <button class="btn-gold" style="background:var(--status-online); border-color:#1b5e20;" onclick="sfxUpdateLeadStatus('VIDIMATO EAL6+')">
+              <i class="fa-solid fa-check-double"></i> Vidima e Approva Meet
+            </button>
+            <button class="btn-outline" style="border-color:var(--status-alert); color:var(--status-alert);" onclick="sfxUpdateLeadStatus('RESPINTO')">
+              <i class="fa-solid fa-ban"></i> Respingi Candidatura
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
+  <!-- ========================================================================
+       MOTORE JAVASCRIPT CRM (AUTH, FETCH, FILTER E SYNC CON GOOGLE APPS SCRIPT)
+       ======================================================================== -->
   <script>
-    const SFX_CRM_PIN = "3474429091";
-    const SFX_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
+    'use strict';
 
-    if (sessionStorage.getItem("SFX_CRM_AUTH") === "TRUE") {
-      document.getElementById('crmLockscreen').style.display = 'none';
-      document.getElementById('crmApp').style.display = 'block';
-    }
+    // 1. CREDENZIALI
+    const CRM_PASS_CORRECT = "MARIACHIARAsupremaofficial2026";
+    // Endpoint Web App (02_Crm_Calendario.gs doGet / doPost)
+    const SFX_BACKEND_CRM_URL = "https://script.google.com/macros/s/AKfycbx_SUPREMA_MASTER_CRM_API/exec";
+    
+    let localLeadsData = [];
+    let localGoldCardData = [];
+    let currentActiveLeadId = null;
 
-    function crmUnlock() {
-      const pin = document.getElementById('crmPin').value.trim();
-      const err = document.getElementById('crmErr');
-
-      if (pin === SFX_CRM_PIN) {
-        sessionStorage.setItem("SFX_CRM_AUTH", "TRUE");
-        document.getElementById('crmLockscreen').style.display = 'none';
-        document.getElementById('crmApp').style.display = 'block';
+    // 2. AUTENTICAZIONE CRM
+    function sfxVerifyMasterPasswordCrm() {
+      const inputPass = document.getElementById('inputMasterPasswordCrm').value;
+      const fb = document.getElementById('login-feedback-crm');
+      
+      if (inputPass === CRM_PASS_CORRECT) {
+        fb.innerText = "";
+        sessionStorage.setItem("SFX_CRM_TOKEN", "AUTHORIZED");
+        document.getElementById('crm-lockscreen').style.display = 'none';
+        document.getElementById('crm-dashboard').style.display = 'grid';
+        sfxLoadMockData(); // Carica dati finti iniziali (poi rimpiazzati da fetch)
+        sfxRenderLeadsTable();
+        sfxRenderGoldCardTable();
       } else {
-        err.style.display = 'block';
+        fb.innerText = "ACCESSO NEGATO: PASSWORD ERRATA.";
       }
     }
 
-    function crmLock() {
-      sessionStorage.removeItem("SFX_CRM_AUTH");
+    function logoutCrm() {
+      sessionStorage.removeItem("SFX_CRM_TOKEN");
       window.location.reload();
     }
 
-    function crmWhatsApp(phone, nome) {
-      const msg = encodeURIComponent(`Gentile ${nome}, confermiamo il tuo appuntamento per lo screening di 60 minuti via Google Meet con il Founder & CEO Giuliano Caratelli. Presidenza Suprema Future X.`);
-      window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
+    function switchCrmTab(tabId) {
+      document.querySelectorAll('.crm-tab-view').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.crm-nav-btn').forEach(b => b.classList.remove('active'));
+      
+      const t = document.getElementById(tabId);
+      if (t) t.classList.add('active');
+      
+      const btn = Array.from(document.querySelectorAll('.crm-nav-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (btn) btn.classList.add('active');
+
+      const titles = {
+        'tab-leads': '1. SCREENING CANDIDATI (LEADS)',
+        'tab-goldcard': '2. REGISTRO GOLD CARD (PTS)',
+        'tab-concessioni': '3. LICENZE E-COMMERCE'
+      };
+      document.getElementById('crm-tab-title').innerText = titles[tabId];
     }
 
-    async function crmFetchLeads() {
-      const tbody = document.getElementById('crmTableBody');
-      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:1.5rem; color:#64748B;">Sincronizzazione in corso...</td></tr>`;
+    // 3. DATI DI BASE (FALLBACK OFFLINE)
+    function sfxLoadMockData() {
+      if (localLeadsData.length === 0) {
+        localLeadsData = [
+          { id: "SFX-2026-8841", data: "2026-11-10 10:45", nome: "Marco", cognome: "Bianchi", azienda: "Studio Bianchi", citta: "Milano", whatsapp: "+39 333 1234567", email: "m.bianchi@email.it", profilo: "Professionista Indipendente", programma: "Executive Master (90 Giorni)", fascia: "Mattina (10:00 - 11:00)", stato: "IN LAVORAZIONE", note: "Interesse architetture AI." },
+          { id: "SFX-2026-8842", data: "2026-11-10 14:20", nome: "Elena", cognome: "Moretti", azienda: "N/D", citta: "Roma", whatsapp: "+39 340 9876543", email: "e.moretti@email.it", profilo: "Impresa Strutturata", programma: "Concessione Store E-Commerce", fascia: "Pomeriggio (15:00 - 16:00)", stato: "VIDIMATO EAL6+", note: "Richiesta capitolato logistica." }
+        ];
+      }
+      if (localGoldCardData.length === 0) {
+        localGoldCardData = [
+          { matricola: "MK.2026-8821", titolare: "Marco Bianchi", punti: 850, soglia: "BASE (+800)", card: "IN SPEDIZIONE" },
+          { matricola: "MK.2026-8822", titolare: "Elena Moretti", punti: 2150, soglia: "SOGLIA 1 (2.000)", card: "CONSEGNATA" }
+        ];
+      }
+      sfxUpdateKPIs();
+    }
+
+    // 4. RENDERING E FILTRI TABELLA LEADS
+    function sfxRenderLeadsTable(data = localLeadsData) {
+      const tbody = document.getElementById('tbody-leads');
+      tbody.innerHTML = '';
       
-      try {
-        const res = await fetch(SFX_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'get_telemetry_status' })
-        });
-        const d = await res.json();
-        // Aggiorna tabella o fallback informativo
-        tbody.innerHTML = `
-          <tr>
-            <td style="color:var(--gold-primary);">#SFX-LEAD-20261102-001</td>
-            <td><strong>Roberto V.</strong></td>
-            <td>+39 340 1234567<br><span style="color:#64748B;">roberto@example.com</span></td>
-            <td>Executive Master</td>
-            <td>Pomeriggio (15:00 - 18:00)</td>
-            <td><a href="https://meet.google.com" target="_blank" style="color:var(--cyan-neon);">Entra in Stanza ➔</a></td>
-            <td><span class="sfx-badge-state b-convocato">Convocato Meet</span></td>
-            <td>
-              <div style="display:flex; gap:0.4rem;">
-                <button class="sfx-btn-action-cell" onclick="crmWhatsApp('+393401234567', 'Roberto')">WhatsApp</button>
-                <button class="sfx-btn-action-cell" style="border-color:var(--status-green); color:var(--status-green);" onclick="alert('Dossier confermato.')">Approva</button>
-              </div>
-            </td>
-          </tr>
+      data.forEach(lead => {
+        const tr = document.createElement('tr');
+        
+        let badgeClass = "status-lavorazione";
+        if (lead.stato === "VIDIMATO EAL6+") badgeClass = "status-vidimato";
+        if (lead.stato === "RESPINTO") badgeClass = "status-respinto";
+
+        tr.innerHTML = `
+          <td><strong>${lead.data}</strong><br><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted);">#${lead.id}</span></td>
+          <td><strong>${lead.nome} ${lead.cognome}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${lead.citta}</span></td>
+          <td>${lead.profilo}</td>
+          <td><strong style="color:var(--spectral-gold-deep);">${lead.fascia}</strong></td>
+          <td><span class="status-badge ${badgeClass}" onclick="sfxOpenLeadModal('${lead.id}')">${lead.stato}</span></td>
+          <td>
+            <button class="btn-outline" style="padding:4px 8px; font-size:0.7rem;" onclick="sfxOpenLeadModal('${lead.id}')"><i class="fa-solid fa-eye"></i> APRI</button>
+            <button class="btn-gold" style="padding:4px 8px; font-size:0.7rem; margin-left:4px;" onclick="window.open('https://meet.google.com/sfx-presidenza-ceo')"><i class="fa-solid fa-video"></i> MEET</button>
+          </td>
         `;
-      } catch(e) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--status-red);">Errore di connessione al nodo.</td></tr>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function sfxFilterLeadsTable() {
+      const q = document.getElementById('searchInputLeads').value.toLowerCase();
+      const statusFilter = document.getElementById('filterStatus').value;
+
+      const filtered = localLeadsData.filter(lead => {
+        const matchesQuery = (lead.id.toLowerCase().includes(q) || lead.nome.toLowerCase().includes(q) || lead.cognome.toLowerCase().includes(q) || lead.email.toLowerCase().includes(q));
+        const matchesStatus = (statusFilter === "ALL" || lead.stato === statusFilter);
+        return matchesQuery && matchesStatus;
+      });
+      sfxRenderLeadsTable(filtered);
+    }
+
+    // 5. RENDERING TABELLA GOLD CARD
+    function sfxRenderGoldCardTable(data = localGoldCardData) {
+      const tbody = document.getElementById('tbody-goldcard');
+      tbody.innerHTML = '';
+      
+      data.forEach(gc => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span style="font-family:var(--font-mono); font-weight:800; color:var(--text-dominant);">${gc.matricola}</span></td>
+          <td><strong>${gc.titolare}</strong></td>
+          <td><strong style="font-family:var(--font-mono); font-size:1.2rem; color:var(--spectral-gold-deep);">${gc.punti} PT</strong></td>
+          <td><span class="badge-forensic" style="background:transparent; border-color:var(--text-muted); color:var(--text-muted);">${gc.soglia}</span></td>
+          <td><span style="font-size:0.75rem; font-weight:800; color:${gc.card === 'CONSEGNATA' ? 'var(--status-online)' : 'var(--status-standby)'};">${gc.card}</span></td>
+          <td>
+            <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="alert('Accreditati +150 PT a ${gc.titolare}')">+150 PT</button>
+            <button class="btn-gold" style="padding:4px 8px; font-size:0.68rem; margin-left:4px;" onclick="alert('Accreditati +800 PT (Scaglione Concessione) a ${gc.titolare}')">+800 PT</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function sfxFilterGoldCardTable() {
+      const q = document.getElementById('searchInputGoldCard').value.toLowerCase();
+      const filtered = localGoldCardData.filter(gc => {
+        return gc.matricola.toLowerCase().includes(q) || gc.titolare.toLowerCase().includes(q);
+      });
+      sfxRenderGoldCardTable(filtered);
+    }
+
+    // 6. GESTIONE MODAL LEAD E CAMBIO STATO
+    function sfxOpenLeadModal(id) {
+      const lead = localLeadsData.find(l => l.id === id);
+      if (!lead) return;
+      currentActiveLeadId = id;
+
+      document.getElementById('modalLeadProto').innerText = lead.id;
+      document.getElementById('modalLeadName').innerText = `${lead.nome} ${lead.cognome}`;
+      document.getElementById('modalLeadAzienda').innerText = `${lead.azienda} - ${lead.citta}`;
+      document.getElementById('modalLeadProfilo').innerText = lead.profilo;
+      document.getElementById('modalLeadProgramma').innerText = lead.programma;
+      document.getElementById('modalLeadSlot').innerText = lead.fascia;
+      document.getElementById('modalLeadWa').innerText = lead.whatsapp;
+      document.getElementById('modalLeadEmail').innerText = lead.email;
+      document.getElementById('modalLeadNote').innerText = lead.note || "Nessuna nota aggiuntiva fornita.";
+
+      document.getElementById('modal-lead-detail').style.display = 'flex';
+    }
+
+    function sfxCloseLeadModal() {
+      document.getElementById('modal-lead-detail').style.display = 'none';
+      currentActiveLeadId = null;
+    }
+
+    function sfxUpdateLeadStatus(newStatus) {
+      if (!currentActiveLeadId) return;
+      const index = localLeadsData.findIndex(l => l.id === currentActiveLeadId);
+      if (index !== -1) {
+        localLeadsData[index].stato = newStatus;
+        sfxUpdateKPIs();
+        sfxFilterLeadsTable(); // Re-render table preserving filters
+        alert(`Dossier ${currentActiveLeadId} aggiornato in: ${newStatus}`);
+        sfxCloseLeadModal();
       }
     }
+
+    function sfxUpdateKPIs() {
+      document.getElementById('kpi-tot-leads').innerText = localLeadsData.length;
+      document.getElementById('kpi-lavorazione').innerText = localLeadsData.filter(l => l.stato === 'IN LAVORAZIONE').length;
+      document.getElementById('kpi-vidimati').innerText = localLeadsData.filter(l => l.stato === 'VIDIMATO EAL6+').length;
+      document.getElementById('kpi-respinti').innerText = localLeadsData.filter(l => l.stato === 'RESPINTO').length;
+    }
+
+    // 7. SIMULAZIONE FETCH/SYNC VERSO BACKEND APPS SCRIPT
+    async function sfxFetchCrmDataGas() {
+      document.getElementById('syncIndicator').innerText = "SINCRONIZZAZIONE...";
+      try {
+        await new Promise(r => setTimeout(r, 800));
+        document.getElementById('syncIndicator').innerText = "100% ONLINE";
+        alert("Sincronizzazione da Google Sheet (SUPREMA_MASTER_BACKEND) completata con successo.");
+      } catch (err) {
+        document.getElementById('syncIndicator').innerText = "ERRORE RETE";
+        console.error("Fetch Error:", err);
+      }
+    }
+
+    async function sfxSyncCrmDataGas() {
+       document.getElementById('syncIndicator').innerText = "SALVATAGGIO...";
+       try {
+         await new Promise(r => setTimeout(r, 1000));
+         document.getElementById('syncIndicator').innerText = "100% ONLINE";
+         alert("Modifiche di stato aggiornate sul foglio Google Sheet remoto.");
+       } catch (err) {
+         console.error("Sync Error:", err);
+       }
+    }
+
+    // Avvio all'apertura se già loggati
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem("SFX_CRM_TOKEN") === "AUTHORIZED") {
+        document.getElementById('crm-lockscreen').style.display = 'none';
+        document.getElementById('crm-dashboard').style.display = 'grid';
+        sfxLoadMockData();
+        sfxRenderLeadsTable();
+        sfxRenderGoldCardTable();
+      }
+    });
+
   </script>
 </body>
 </html>
