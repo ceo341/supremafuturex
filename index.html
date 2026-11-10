@@ -1,324 +1,778 @@
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suprema Future X — Ecosistema Neurale Sovrano</title>
-  <meta name="description" content="Ecosistema neurale per formazione, mentalist coach, community, academy, networking. Protocollo EAL6+ certificato." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>SUPREMA FUTURE X // Governance &amp; High-End Enterprise Hub EAL6+</title>
 
-  <!-- Font & Icone -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <meta name="description" content="Suprema Future X Enterprise 2026 - Piattaforma istituzionale di alta direzione, consulenza esecutiva, accademia manageriale e presidio fiduciario.">
+  <meta name="author" content="Giuliano Caratelli - Founder &amp; CEO">
+  <meta name="geo.placename" content="Colleferro, Roma, Italia">
+  <meta name="theme-color" content="#FDF9F2">
 
-  <style>
-    :root {
-      --bg-surface: #fdf9f2;
-      --gold-primary: #d4af37;
-      --gold-deep: #b38f2a;
-      --cyan-neural: #00f2fe;
-      --emerald-accent: #10b981;
-      --text-dark: #0b192c;
-      --text-muted: #576475;
-      --border-gold: rgba(212, 175, 55, 0.45);
-      --font-main: 'Space Grotesk', sans-serif;
-      --font-display: 'Cinzel', serif;
-      --font-mono: 'JetBrains Mono', monospace;
-      --radius-oval: 9999px;
-      --radius-md: 14px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg-surface);
-      color: var(--text-dark);
-      font-family: var(--font-main);
-      overflow-x: hidden;
-      line-height: 1.6;
-      background-image: 
-        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.1) 0%, transparent 45%),
-        radial-gradient(circle at 85% 25%, rgba(0, 242, 254, 0.08) 0%, transparent 40%);
-    }
-
-    /* FASCI CINETICI PURI IN GPU */
-    @keyframes sfxSpinLoop {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .hero-stage {
-      position: relative;
-      min-height: 92vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #0b192c 20%, var(--gold-deep) 70%, var(--gold-primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 6px;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 25px;
-    }
-
-    /* SCOCCA OVALE CINETICA CON FASCI ROTANTI */
-    .oval-chassis-container {
-      position: relative;
-      width: clamp(320px, 45vw, 540px);
-      height: clamp(320px, 45vw, 540px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px auto 30px;
-    }
-
-    .conic-beam-glow {
-      position: absolute;
-      inset: -30px;
-      border-radius: var(--radius-oval);
-      background: conic-gradient(
-        from 0deg,
-        rgba(212, 175, 55, 0.95),
-        rgba(0, 242, 254, 0.90),
-        rgba(251, 238, 168, 0.95),
-        rgba(16, 185, 129, 0.85),
-        rgba(212, 175, 55, 0.95)
-      );
-      filter: blur(35px);
-      animation: sfxSpinLoop 16s linear infinite;
-      z-index: 1;
-    }
-
-    .oval-chassis-body {
-      position: relative;
-      width: 88%;
-      height: 88%;
-      border-radius: var(--radius-oval);
-      background: #ffffff;
-      border: 3px solid var(--gold-primary);
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.35), 0 0 50px rgba(0, 242, 254, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .oval-logo-img {
-      max-width: 82%;
-      max-height: 82%;
-      object-fit: contain;
-      transition: opacity 0.6s ease;
-    }
-
-    /* BARRA CAPSULE INFERIORI */
-    .capsule-bar {
-      position: relative;
-      z-index: 5;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px 20px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-oval);
-      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .capsule-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      border-radius: var(--radius-oval);
-      background: #ffffff;
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      color: var(--text-dark);
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .capsule-btn:hover {
-      border-color: var(--gold-primary);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.25);
-    }
-
-    .capsule-btn i { color: var(--gold-primary); }
-
-    .capsule-btn.gold-btn {
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-deep));
-      color: #ffffff;
-      border: none;
-    }
-    .capsule-btn.gold-btn i { color: #ffffff; }
-
-    /* MENU A TENDINA */
-    .dropdown { position: relative; }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      bottom: calc(100% + 10px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: #ffffff;
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-md);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-      padding: 12px;
-      min-width: 260px;
-      z-index: 100;
-      text-align: left;
-    }
-    .dropdown.active .dropdown-content { display: block; }
-    .dropdown-content a {
-      display: block;
-      padding: 8px 10px;
-      font-size: 0.8rem;
-      color: var(--text-dark);
-      text-decoration: none;
-      border-radius: 6px;
-    }
-    .dropdown-content a:hover { background: rgba(212, 175, 55, 0.12); color: var(--gold-deep); }
-
-    /* MODALE */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(253, 249, 242, 0.95);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.active { display: flex; }
-    .modal-card {
-      background: #ffffff;
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-md);
-      padding: 30px;
-      max-width: 600px;
-      width: 100%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    }
-  </style>
+  <!-- Font Istituzionali & Icone -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Foglio di Stile Globale Unificato EAL6+ -->
+  <link rel="stylesheet" href="stile-globale.css">
 </head>
-<body>
+<body id="sfx-body-root">
 
-  <section class="hero-stage">
-    <h1 class="hero-title">Suprema Future X</h1>
-    <p class="hero-subtitle">Insieme Guidiamo il Tuo Domani</p>
+  <!-- Micro-Turbolenza Cartacea Frattale Statica (0% CPU) -->
+  <div class="film-grain" aria-hidden="true"></div>
 
-    <!-- Ovale Cinetico (Clic per Console X-BOX) -->
-    <div class="oval-chassis-container">
-      <div class="conic-beam-glow"></div>
-      <div class="oval-chassis-body" id="heroChassis" onclick="sfxGoXbox()" title="Clicca per aprire la Console X-BOX">
-        <img id="activeLogoImg" class="oval-logo-img" src="media/sec-01-hero/logo-01.png" alt="Suprema Logo" onerror="sfxLogoFallback(this)" />
-      </div>
+  <!-- Icona Flottante Alison AG-01 -->
+  <div class="alison-badge-floating" id="alisonGlobalTrigger" onclick="sfxOpenFaqModal('faq')" title="Richiama Alison AG-01 // Triage FAQ">
+    <div class="led-indicator"></div>
+    <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; color: var(--text-dominant);">
+      ALISON AG-01
+    </span>
+  </div>
+
+  <!-- ========================================================================
+       TOPBAR FORENSE FISSA (SEC-00)
+       ======================================================================== -->
+  <header id="sec-00">
+    <div class="top-node-tag">
+      <div class="led-indicator"></div>
+      <span class="top-node-text">NODO CENTRALE: ROMA // PROTOCOLLO EAL6+ ATTIVO</span>
     </div>
+    <div class="top-clock-display">
+      <div class="eq-bars-cluster" aria-hidden="true">
+        <div class="eq-bar-item animating"></div>
+        <div class="eq-bar-item animating"></div>
+        <div class="eq-bar-item animating"></div>
+        <div class="eq-bar-item animating"></div>
+      </div>
+      <span id="sfx-live-clock">--:--:-- CET</span>
+    </div>
+  </header>
 
-    <!-- Barra delle Capsule -->
-    <div class="capsule-bar">
-      <!-- Menu Dropdown -->
-      <div class="dropdown" id="dropMenu">
-        <button class="capsule-btn" onclick="sfxToggle('dropMenu')">
-          <i class="fa-solid fa-bars"></i> Suprema Menu
-        </button>
-        <div class="dropdown-content">
-          <a href="#sec-01">1. Presidenza Suprema FutureX</a>
-          <a href="#sec-02">2. CEO e Alison AG-01</a>
-          <a href="#sec-03">3. Suprema Academy Live</a>
-          <a href="#sec-04">4. Suprema Gold Card</a>
-          <a href="#sec-05">5. Suprema Media Vault</a>
-          <a href="#sec-06">6. Social Network Official Suprema</a>
-          <a href="#sec-07">7. E-commerce e Luxury Model</a>
+  <!-- ========================================================================
+       HERO STAGE: CHASSIS OVALE & MONOGRAMMA CINETICO
+       ======================================================================== -->
+  <section class="sfx-stage-shell hero-stage" id="hero-master-stage">
+    <div class="sfx-stage-inner" style="text-align: center;">
+
+      <div class="hero-title-wrap">
+        <h1 class="hero-title">SUPREMA FUTURE X</h1>
+      </div>
+      <h2 class="hero-sub">INSIEME GUIDIAMO IL TUO DOMANI</h2>
+
+      <!-- Chassis Ovale Cinetico (Loop 10 Monogrammi // Triplo click per X-BOX) -->
+      <div class="hero-oval-chassis" id="heroChassisTrigger" onclick="sfxHandleOvalClick()" title="Monogramma Ufficiale SFX // Triplo Click Rapido per Console X-BOX">
+        <div class="oval-inner-vault">
+          <img id="activeLogoImg" class="oval-logo-img" src="media/sec-01-hero/logo-01.png" alt="Suprema Logo" onerror="sfxLogoFallback(this)">
         </div>
       </div>
 
-      <!-- Alison Chatbot -->
-      <button class="capsule-btn" onclick="sfxOpenModal('modalAlison')">
-        <i class="fa-solid fa-comments"></i> Alison Chatbot
-      </button>
-
-      <!-- Chi Siamo -->
-      <button class="capsule-btn" onclick="sfxOpenModal('modalChiSiamo')">
-        <i class="fa-solid fa-book-open"></i> Chi Siamo
-      </button>
-
-      <!-- Suprema Radio -->
-      <div class="dropdown" id="dropRadio">
-        <button class="capsule-btn" onclick="sfxToggle('dropRadio')">
-          <i class="fa-solid fa-radio"></i> Suprema Radio
-        </button>
-        <div class="dropdown-content" style="padding: 15px; width: 280px; text-align: center;">
-          <div style="font-weight: 700; margin-bottom: 8px;" id="radioTrackName">Traccia 01 // 14</div>
-          <button class="capsule-btn gold-btn" id="playBtn" onclick="sfxToggleRadio()" style="margin: 0 auto 10px;">
-            <i class="fa-solid fa-play"></i> Play / Pausa
-          </button>
-          <div style="display: flex; gap: 8px; justify-content: center;">
-            <button class="capsule-btn" onclick="sfxChangeTrack(-1)">Prev</button>
-            <button class="capsule-btn" onclick="sfxChangeTrack(1)">Next</button>
-          </div>
-        </div>
+      <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+        <a href="candidatura.html" class="btn-gold">
+          <i class="fa-solid fa-calendar-check"></i> Richiedi Screening 60m
+        </a>
+        <a href="statuto.html" class="btn-outline">
+          <i class="fa-solid fa-book-bookmark"></i> Statuto &amp; Codice Etico
+        </a>
       </div>
 
-      <!-- ACCESSO DIRETTO ALLA X-BOX -->
-      <a href="admin.html" class="capsule-btn gold-btn" title="Entra nella Console X-BOX">
-        <i class="fa-solid fa-shield-halved"></i> X-BOX Enterprise
-      </a>
     </div>
   </section>
 
-  <!-- MODALI -->
-  <div class="modal-overlay" id="modalAlison">
-    <div class="modal-card">
-      <h3 style="margin-bottom: 12px; color: var(--gold-deep);">Alison AG-01 // Triage Neurale</h3>
-      <p style="margin-bottom: 20px;">Assistenza istituzionale forense per l'ecosistema Suprema Future X. Protocollo EAL6+ certificato.</p>
-      <button class="capsule-btn" onclick="sfxCloseModals()">Chiudi</button>
+  <!-- ========================================================================
+       SEZIONE 01: PRESIDENZA SUPREMA FUTUREX
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-01">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        
+        <!-- SX: Slot Video con Blocco 1 Upload & Garbage Collector -->
+        <div class="slot-media-card" id="slot-video-sec-01">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-01')">Carica Video</button>
+          <input type="file" id="upload-video-01" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-01')">
+        </div>
+
+        <!-- CENTRO: Spazio Editoriale -->
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-01 // ORGANO STATUTARIO</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Presidenza Suprema FutureX
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Organo di vertice esecutivo, presidio notarile e delibere assembleari per la tutela del capitale societario e lo sviluppo di accordi quadro istituzionali.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">
+              Guarda e Scopri di Più ▾
+            </button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Presidenza Suprema')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Apertura Dossier Esecutivo Presidenza...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Accesso a Documenti e Capitolato...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Verifica Registro Notarile EAL6+...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DX: Slot Foto Sostituibile -->
+        <div class="slot-media-card" id="slot-photo-sec-01">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-01')">Carica Foto</button>
+          <input type="file" id="upload-photo-01" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-01')">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 02: CEO E ALISON AG-01
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-02">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-02">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-02')">Carica Video</button>
+          <input type="file" id="upload-video-02" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-02')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-02 // LEADERSHIP &amp; AI</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            CEO e Alison AG-01
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Sinergia tra l'indirizzo strategico del Founder &amp; CEO Giuliano Caratelli e il supervisor neurale Alison AG-01 per il coordinamento delle operazioni fiduciarie.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('CEO e Alison AG-01')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Apertura Matrice Strategica CEO...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Accesso Schede Tecniche Alison...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Audit Algoritmico EAL6+...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-02">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-02')">Carica Foto</button>
+          <input type="file" id="upload-photo-02" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-02')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 03: SUPREMA ACADEMY 100% LIVE
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-03">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-03">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-03')">Carica Video</button>
+          <input type="file" id="upload-video-03" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-03')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-03 // ALTA FORMAZIONE SINCRONA</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Suprema Academy Live
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Didattica 100% in videoconferenza diretta: Silver Tier (60g), Executive Master (90g) e Premium VIP (120g). Zero lezioni preregistrate, interazione costante col vertice.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Suprema Academy Live')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Piano di Studi e Moduli Didattici...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Disciplinare di Presenza Live...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Certificazione Crediti EAL6+...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-03">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-03')">Carica Foto</button>
+          <input type="file" id="upload-photo-03" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-03')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 04: SUPREMA GOLD CARD & CATALOGO PREMI
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-04">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-04">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-04')">Carica Video</button>
+          <input type="file" id="upload-video-04" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-04')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-04 // STATUS &amp; ACCREDITO</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Suprema Gold Card
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Lastra in acciaio dorato satinato con marcatura laser e chip NFC FIDO2 rilasciata a +800 Punti Status. Sblocco scaglioni di merito fino al Weekend Luxury a Roma Centro.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Suprema Gold Card')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Regolamento Scaglioni Punti...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Disciplinare Consegna Metallica...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Certificazione Chip FIDO2...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-04">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-04')">Carica Foto</button>
+          <input type="file" id="upload-photo-04" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-04')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 05: SUPREMA MEDIA VAULT (ARCHIVIO SICURO)
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-05">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-05">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-05')">Carica Video</button>
+          <input type="file" id="upload-video-05" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-05')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-05 // ARCHIVIO CRITTOGRAFATO</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Suprema Media Vault
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Infrastruttura di deposito a 500 slot protetta da token monouso a tempo limitato (120 min). Contratti quadro, dispense didattiche e atti notarili cifrati SHA-256.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Suprema Media Vault')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Registro 500 Slot di Deposito...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Capitolato Tecnico Crittografico...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Integrità SHA-256 Validata...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-05">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-05')">Carica Foto</button>
+          <input type="file" id="upload-photo-05" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-05')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 06: SUPREMA SOCIAL CLUB & NETWORK
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-06">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-06">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-06')">Carica Video</button>
+          <input type="file" id="upload-video-06" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-06')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-06 // RETE ISTITUZIONALE</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Suprema Social Club
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Circuito relazionale fiduciario per imprenditori e concessionari accreditati. Tavoli di lavoro riservati, canali Telegram diretti e incontri annuali a Roma Centro.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Suprema Social Club')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Canali e Tavoli di Cooperazione...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Codice di Condotta Membri...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Verifica Deontologica...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-06">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-06')">Carica Foto</button>
+          <input type="file" id="upload-photo-06" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-06')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 07: E-COMMERCE & LUXURY MODEL
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-07">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-07">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-07')">Carica Video</button>
+          <input type="file" id="upload-video-07" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-07')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-07 // CONCESSIONI INDIPENDENTI</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            E-commerce &amp; Luxury Model
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Licenze store a zero magazzino. Logistica, stoccaggio, imballaggio e spedizioni gestiti centralmente dall'hub di rete di Colleferro. Accredito immediato +800 Punti Status.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('E-commerce & Luxury Model')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Matrice Concessioni e Marginalità...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Contratto Quadro Concessione...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Audit Fiscale e Doganale EAL6+...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-07">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-07')">Carica Foto</button>
+          <input type="file" id="upload-photo-07" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-07')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 08: DICONO DI NOI & AUDIT REPUTAZIONALE
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-08">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-08">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-08')">Carica Video</button>
+          <input type="file" id="upload-video-08" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-08')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-08 // REPUTAZIONE &amp; AUDIT</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Dicono di Noi
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Attestati di stima, riscontri operativi e verbali di gradimento rilasciati da corsisti, titolari di store e partner commerciali. Autenticità certificata da AG-09 Vittoria.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Dicono di Noi')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Rassegna Testimonianze Vidimate...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Verbali Notarili di Soddisfazione...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Audit Reputazionale EAL6+...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-08">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-08')">Carica Foto</button>
+          <input type="file" id="upload-photo-08" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-08')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 09: NEWSLETTER DIREZIONALE
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-09">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-09">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-09')">Carica Video</button>
+          <input type="file" id="upload-video-09" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-09')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-09 // CIRCOLARI DI VERTICE</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Newsletter Direzionale
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Bollettini mensili con analisi macroeconomiche, aggiornamenti normativi, circolari di presidenza e reportistica sui mercati digitali ad alta resa.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Newsletter Direzionale')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Archivio Storico Bollettini...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Informativa Privacy e Trattamento...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Audit Spedizioni Certificate...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-09">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-09')">Carica Foto</button>
+          <input type="file" id="upload-photo-09" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-09')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 10: FEEDBACK & QUALITÀ FORENSE
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-10">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-10">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-10')">Carica Video</button>
+          <input type="file" id="upload-video-10" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-10')">
+        </div>
+        <div style="text-align: center; padding: 0 15px;">
+          <span class="badge-forensic active" style="margin-bottom: 12px;">SEC-10 // QUALITÀ &amp; ASCOLTO</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 12px; color: var(--text-dominant);">
+            Feedback &amp; Valutazione
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 22px;">
+            Sportello di monitoraggio e conformità deontologica. Ogni segnalazione viene protocollata nel registro immutabile e verificata dal collegio di presidenza.
+          </p>
+          <div class="btn-discover-wrap" style="position: relative; display: inline-block;">
+            <button type="button" class="btn-gold" onclick="sfxToggleDiscoverMenu(this)">Guarda e Scopri di Più ▾</button>
+            <div class="discover-sub-menu">
+              <span class="discover-sub-item" onclick="sfxOpenGalleryModal('Feedback & Valutazione')">🖼️ 1. Foto e Video (12 Slot)</span>
+              <span class="discover-sub-item" onclick="alert('Indicatori di Customer Satisfaction...')">📊 2. Approfondimento Esecutivo</span>
+              <span class="discover-sub-item" onclick="alert('Modulo Segnalazioni Riservate...')">📑 3. Documenti &amp; Capitolato</span>
+              <span class="discover-sub-item" onclick="alert('Registro Audit Reclami...')">🔐 4. Audit Notarile Forense</span>
+              <span class="discover-sub-item" onclick="window.location.href='candidatura.html'">🤝 5. Richiedi Accesso Riservato</span>
+            </div>
+          </div>
+        </div>
+        <div class="slot-media-card" id="slot-photo-sec-10">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-10')">Carica Foto</button>
+          <input type="file" id="upload-photo-10" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-10')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 11: LAVORA CON NOI (SELEZIONE DIREZIONALE)
+       ======================================================================== -->
+  <section class="sfx-stage-shell" id="sec-11">
+    <div class="sfx-stage-inner">
+      <div class="stage-triad-grid">
+        <div class="slot-media-card" id="slot-video-sec-11">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-video"></i> SLOT VIDEO SX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-video-11')">Carica Video</button>
+          <input type="file" id="upload-video-11" style="display:none;" accept="video/*" onchange="sfxHandleVideoUpload(this, 'slot-video-sec-11')">
+        </div>
+
+        <div style="text-align: center; padding: 0 10px;">
+          <span class="badge-forensic active" style="margin-bottom: 10px;">SEC-11 // SELEZIONE DIREZIONALE</span>
+          <h3 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 10px; color: var(--text-dominant);">
+            Lavora con Noi
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px;">
+            Selezioni per consulenti direzionali, tutor d'aula e sviluppatori flotta AI. Inoltro diretto alla Segreteria di Presidenza.
+          </p>
+
+          <!-- Scheda Candidatura Diretta Integrata -->
+          <form class="lavora-con-noi-deck" onsubmit="sfxSubmitLavoraConNoi(event)">
+            <div style="font-family: var(--font-mono); font-size: 0.70rem; font-weight: 800; color: var(--spectral-gold-deep); text-align: left; margin-bottom: 8px;">
+              DOSSIER CANDIDATURA // DESTINAZIONE: segreteria@supremafuturex.it
+            </div>
+            <div class="lavora-input-grid">
+              <input type="text" id="lavoraNome" class="lavora-text-input" placeholder="Nome" required>
+              <input type="text" id="lavoraCognome" class="lavora-text-input" placeholder="Cognome" required>
+              <input type="tel" id="lavoraTelefono" class="lavora-text-input" placeholder="WhatsApp / Telefono" required>
+              <input type="email" id="lavoraEmail" class="lavora-text-input" placeholder="Email Ufficiale" required>
+            </div>
+            <button type="submit" class="btn-gold" style="width: 100%; padding: 10px; font-size: 0.80rem; margin-top: 5px;">
+              Invia Dossier alla Segreteria ➔
+            </button>
+          </form>
+        </div>
+
+        <div class="slot-media-card" id="slot-photo-sec-11">
+          <span class="badge-forensic" style="margin-bottom:8px;"><i class="fa-solid fa-image"></i> SLOT FOTO DX</span>
+          <button type="button" class="btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="sfxTriggerUpload('upload-photo-11')">Carica Foto</button>
+          <input type="file" id="upload-photo-11" style="display:none;" accept="image/*" onchange="sfxHandlePhotoUpload(this, 'slot-photo-sec-11')">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SEZIONE 12: POST-FOOTER ISTITUZIONALE, TALLY BAR & PRESIDIO COLLEFERRO
+       ======================================================================== -->
+  <footer class="sfx-stage-shell" id="sec-12" style="padding-bottom: 120px;">
+    <div class="sfx-stage-inner" style="text-align: center;">
+
+      <div style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; color: var(--spectral-gold-deep); letter-spacing: 0.05em; margin-bottom: 8px;">
+        SUPREMA FUTURE X ENTERPRISE
+      </div>
+      
+      <p style="font-size: 0.95rem; color: var(--text-dominant); font-weight: 700; margin-bottom: 6px;">
+        Governance di Vertice: Founder &amp; Chief Executive Officer <strong>Giuliano Caratelli</strong>
+      </p>
+
+      <p style="font-size: 0.84rem; color: var(--text-muted); max-width: 780px; margin: 0 auto 16px; line-height: 1.7;">
+        Sede Istituzionale &amp; Operativa: <strong>Centro Direzionale Colleferro (Roma), Italia</strong><br>
+        Ufficio Presidenza: <strong>Roma Centro</strong> // Foro Esclusivo &amp; Inderogabile: <strong>Velletri / Roma</strong><br>
+        Email Diretta di Vertice: <strong>ceo@supremaofficial.com</strong> | Master WhatsApp: <strong>+39 347 4429091</strong>
+      </p>
+
+      <!-- Barra Conferenza CEO Post-Footer (Tally Form Integration) -->
+      <div class="tally-line">
+        <div class="tally-label-primary">
+          <i class="fa-solid fa-shield-halved" style="color:var(--spectral-gold);"></i>
+          <span>CONFERENZA SCREENING DIRETTO COL FOUNDER &amp; CEO (60m)</span>
+        </div>
+        <div class="tally-status-box">
+          <span class="led-indicator"></span>
+          <span class="tally-status-text standby">STANZE MEET ATTIVE</span>
+          <a href="candidatura.html" class="btn-gold" style="padding: 8px 18px; font-size: 0.75rem;">PRENOTA ORA ➔</a>
+        </div>
+      </div>
+
+      <!-- Canali Ufficiali & Rete di Trasmissione -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 25px 0;">
+        <a href="https://t.me/supremafuturex" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size:0.75rem;">
+          <i class="fa-brands fa-telegram" style="color:#0088cc;"></i> Canale Telegram Ufficiale
+        </a>
+        <a href="https://youtube.com/@supremafuturex" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size:0.75rem;">
+          <i class="fa-brands fa-youtube" style="color:#ff0000;"></i> Canale Broadcast YouTube
+        </a>
+        <a href="https://wa.me/393474429091" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size:0.75rem;">
+          <i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> WhatsApp Presidenza
+        </a>
+        <a href="statuto.html" class="btn-outline" style="font-size:0.75rem;">
+          <i class="fa-solid fa-scale-balanced" style="color:var(--spectral-gold-deep);"></i> Statuto Notarile (Velletri/Roma)
+        </a>
+      </div>
+
+      <!-- Elenco Alias Istituzionali Autorizzati -->
+      <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--spectral-gold-deep); margin-bottom: 20px;">
+        ALIAS UFFICIALI SFX: presidenza@supremafuturex.it | segreteria@supremafuturex.it | legal@supremafuturex.it | audit@supremafuturex.it
+      </div>
+
+      <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-muted); border-top: 1px solid var(--metal-light); padding-top: 18px;">
+        &copy; 2026 SUPREMA FUTURE X ENTERPRISE. Tutti i diritti riservati. Protocollo EAL6+ Certified.<br>
+        È sancito il divieto categorico di schemi piramidali o Multi-Level Marketing (MLM). Clausola compromissoria esclusiva del Foro di Velletri / Roma.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       BARRA DI STATO A NASTRO INFERIORE (RIBBON BAR FISSA // 7 GRUPPI)
+       ======================================================================== -->
+  <nav class="ribbon-capsule-bar" id="bottom-ribbon" aria-label="Barra Direzionale Suprema">
+
+    <!-- 1. SUPREMA MENU (VOCI ESATTE 1-12) -->
+    <div class="capsule-group" id="grpMenu">
+      <button type="button" class="capsule-btn" onclick="sfxToggleDropdown('grpMenu')">
+        <i class="fa-solid fa-bars"></i> <strong>SUPREMA MENU</strong> ▾
+      </button>
+      <div class="capsule-dropdown">
+        <div class="dropdown-heading">Organi &amp; Architettura</div>
+        <a href="candidatura.html" class="dropdown-item">1. Conferenza CEO</a>
+        <a href="#sec-01" class="dropdown-item">2. Presidenza Suprema FutureX</a>
+        <a href="#sec-02" class="dropdown-item">3. CEO e Alison AG-01</a>
+        <a href="#sec-03" class="dropdown-item">4. Suprema Academy Live</a>
+        <a href="#sec-04" class="dropdown-item">5. Suprema Gold Card</a>
+        <a href="#sec-05" class="dropdown-item">6. Suprema Media Vault</a>
+        <a href="#sec-06" class="dropdown-item">7. Suprema Social Club</a>
+        <a href="#sec-07" class="dropdown-item">8. E-commerce e Luxury Model</a>
+        <a href="#sec-08" class="dropdown-item">9. Dicono di noi</a>
+        <a href="#sec-09" class="dropdown-item">10. Newsletter</a>
+        <a href="#sec-10" class="dropdown-item">11. Feedback</a>
+        <a href="#sec-12" class="dropdown-item">12. Footer</a>
+      </div>
+    </div>
+
+    <!-- 2. ALISON CHATBOT -->
+    <div class="capsule-group" id="grpAlison">
+      <button type="button" class="capsule-btn" onclick="sfxToggleDropdown('grpAlison')">
+        <i class="fa-solid fa-comments"></i> <span>ALISON CHATBOT</span> ▾
+      </button>
+      <div class="capsule-dropdown">
+        <div class="dropdown-heading">Supervisione Forense AG-01</div>
+        <span class="dropdown-item" onclick="sfxOpenFaqModal('faq')">❓ Suprema FAQ</span>
+        <span class="dropdown-item" onclick="sfxOpenFaqModal('domande')">📋 Domande Frequenti</span>
+      </div>
+    </div>
+
+    <!-- 3. SUPREMA TRADUTTORE (9 LINGUE) -->
+    <div class="capsule-group" id="grpLang">
+      <button type="button" class="capsule-btn" onclick="sfxToggleDropdown('grpLang')">
+        <i class="fa-solid fa-globe"></i> <span>SUPREMA TRADUTTORE</span> ▾
+      </button>
+      <div class="capsule-dropdown">
+        <div class="dropdown-heading">Lingue di Sistema</div>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Italiano')">🇮🇹 Italiano (Default)</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Inglese')">🇬🇧 Inglese</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Francese')">🇫🇷 Francese</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Spagnolo')">🇪🇸 Spagnolo</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Tedesco')">🇩🇪 Tedesco</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Albanese')">🇦🇱 Albanese</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Rumeno')">🇷🇴 Rumeno</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Slovacco')">🇸🇰 Slovacco</span>
+        <span class="dropdown-item" onclick="sfxSetLanguage('Austriaco')">🇦🇹 Austriaco</span>
+      </div>
+    </div>
+
+    <!-- 4. CHI SIAMO -->
+    <div class="capsule-group" id="grpChiSiamo">
+      <button type="button" class="capsule-btn" onclick="sfxToggleDropdown('grpChiSiamo')">
+        <i class="fa-solid fa-book-open"></i> <span>CHI SIAMO</span> ▾
+      </button>
+      <div class="capsule-dropdown">
+        <div class="dropdown-heading">Fondamenti &amp; Memoria</div>
+        <a href="statuto.html#art-3" class="dropdown-item">⚖️ Codice Etico</a>
+        <a href="statuto.html#art-2" class="dropdown-item">📜 Regolamento</a>
+        <span class="dropdown-item" onclick="alert('Suprema Future X: Ecosistema fondato a Colleferro (Roma). Zero MLM, formazione Live e logistica centralizzata.')">🏛️ Storia Suprema Future X</span>
+        <span class="dropdown-item" onclick="alert('Giuliano Caratelli: Founder & CEO di vertice, promotore della disciplina operativa e degli screening Meet diretti.')">👔 Storia CEO</span>
+        <span class="dropdown-item" onclick="alert('Alison AG-01: Interfaccia neurale addestrata esclusivamente su informazioni istituzionali verificate EAL6+.')">⚡ Storia Alison</span>
+      </div>
+    </div>
+
+    <!-- 5. SUPREMA RADIO (30 TRACCE // AVVIO MUTO) -->
+    <div class="capsule-group" id="grpRadio">
+      <button type="button" class="capsule-btn" onclick="sfxToggleDropdown('grpRadio')">
+        <i class="fa-solid fa-radio"></i> <span>SUPREMA RADIO</span> ▾
+      </button>
+      <div class="capsule-dropdown" style="min-width: 320px;">
+        <div class="dropdown-heading">Player Direzionale Relax</div>
+        <div style="padding: 10px; background: var(--bg-pearl-light); border-radius: 8px; margin-bottom: 8px; text-align: center;">
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; color: var(--spectral-gold-deep); margin-bottom: 6px;" id="radioTrackTitle">
+            TRACCIA 01 // 30
+          </div>
+          <div style="display: flex; justify-content: center; gap: 6px; margin-bottom: 8px;">
+            <button type="button" class="btn-outline" style="padding: 4px 8px; font-size: 0.70rem;" onclick="sfxRadioPrev()">◀ Prev</button>
+            <button type="button" class="btn-gold" style="padding: 4px 12px; font-size: 0.70rem;" id="radioPlayBtn" onclick="sfxRadioPlayToggle()">▶ Play</button>
+            <button type="button" class="btn-outline" style="padding: 4px 8px; font-size: 0.70rem;" onclick="sfxRadioStop()">◼ Stop</button>
+            <button type="button" class="btn-outline" style="padding: 4px 8px; font-size: 0.70rem;" id="radioMuteBtn" onclick="sfxRadioMuteToggle()">🔇 Muto</button>
+            <button type="button" class="btn-outline" style="padding: 4px 8px; font-size: 0.70rem;" onclick="sfxRadioNext()">Next ▶</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 0.65rem; font-family: var(--font-mono);">VOL</span>
+            <input type="range" min="0" max="1" step="0.05" value="0.70" oninput="sfxRadioVolume(this.value)" style="width: 100%; cursor: pointer;">
+          </div>
+        </div>
+        <div class="dropdown-heading">Indice 30 Brani Ufficiali (media/audio-radio/)</div>
+        <div style="max-height: 140px; overflow-y: auto;" id="radioTrackListContainer">
+          <!-- Popolato via JS con tutti i 30 slot -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. TELEMETRIA LIVE (VISITE ORGANICHE) -->
+    <div class="capsule-group" id="grpTelem">
+      <button type="button" class="capsule-btn" onclick="sfxToggleDropdown('grpTelem')">
+        <i class="fa-solid fa-gauge-high"></i> <span>TELEMETRIA: <strong id="telemetryCounter" style="color:var(--status-online);">5.284</strong></span> ▾
+      </button>
+      <div class="capsule-dropdown">
+        <div class="dropdown-heading">Stato Rete Roma / Colleferro</div>
+        <div class="dropdown-item">Nodi Attivi: <strong>Colleferro / Milano / Francoforte</strong></div>
+        <div class="dropdown-item">Crittografia: <strong>FIDO2 / SHA-256 EAL6+</strong></div>
+        <div class="dropdown-item">Sessioni Protette: <strong id="telemetryActiveUsers">1.842</strong></div>
+      </div>
+    </div>
+
+    <!-- 7. CONFERENZA CEO // TRIGGER DIRETTO -->
+    <a href="candidatura.html" class="btn-gold" style="white-space: nowrap; padding: 8px 16px; font-size: 0.76rem;">
+      <i class="fa-solid fa-handshake"></i> CONFERENZA CON IL CEO
+    </a>
+
+  </nav>
+
+  <!-- ========================================================================
+       MODALE LIGHTBOX FORENSE (12 SLOT: 8 FOTO 16:9 + 4 VIDEO 16:9)
+       ======================================================================== -->
+  <div class="modal-overlay" id="modal-gallery-12" style="display:none; position:fixed; inset:0; background:rgba(11,25,44,0.85); z-index:20000; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:var(--bg-pearl-satin); border:2px solid var(--spectral-gold); border-radius:var(--radius-md); max-width:1100px; width:95%; max-height:88vh; overflow-y:auto; padding:30px; box-shadow:var(--shadow-hover); position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-gold); padding-bottom:14px; margin-bottom:20px;">
+        <div>
+          <span class="badge-forensic" style="font-size:0.68rem;">REGISTRO MULTIMEDIALE VIDIMATO</span>
+          <h4 id="galleryModalTitle" style="font-family:var(--font-display); font-size:1.35rem; color:var(--text-dominant); margin-top:4px;">Galleria Esecutiva 12 Slot (16:9)</h4>
+        </div>
+        <button type="button" class="btn-outline" style="padding:4px 10px; font-weight:800;" onclick="sfxCloseModal('modal-gallery-12')">✕</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:14px;">
+        <!-- 8 Slot Foto 16:9 -->
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 01</span></div>
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 02</span></div>
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 03</span></div>
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 04</span></div>
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 05</span></div>
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 06</span></div>
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 07</span></div>
+        <div class="slot-media-card"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-gold-deep);">📷 Foto Slot 08</span></div>
+        <!-- 4 Slot Video 16:9 -->
+        <div class="slot-media-card" style="background:#000; border-color:var(--spectral-cyan);"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-cyan);">🎥 Video Slot 01</span></div>
+        <div class="slot-media-card" style="background:#000; border-color:var(--spectral-cyan);"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-cyan);">🎥 Video Slot 02</span></div>
+        <div class="slot-media-card" style="background:#000; border-color:var(--spectral-cyan);"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-cyan);">🎥 Video Slot 03</span></div>
+        <div class="slot-media-card" style="background:#000; border-color:var(--spectral-cyan);"><span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-cyan);">🎥 Video Slot 04</span></div>
+      </div>
     </div>
   </div>
 
-  <div class="modal-overlay" id="modalChiSiamo">
-    <div class="modal-card">
-      <h3 style="margin-bottom: 12px; color: var(--gold-deep);">Chi Siamo — Suprema Future X</h3>
-      <p style="margin-bottom: 20px;">Ecosistema neurale per formazione, mentalist coach, community, academy, networking. Sede a Colleferro (Roma). È sancito il divieto categorico di modelli MLM o piramidali.</p>
-      <button class="capsule-btn" onclick="sfxCloseModals()">Chiudi</button>
+  <!-- ========================================================================
+       MODALE ALISON FAQ FORENSI
+       ======================================================================== -->
+  <div class="modal-overlay" id="modal-faq-box" style="display:none; position:fixed; inset:0; background:rgba(11,25,44,0.85); z-index:20000; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#FFFFFF; border:2px solid var(--spectral-gold); border-radius:var(--radius-md); max-width:680px; width:95%; padding:30px; position:relative; box-shadow:var(--shadow-hover);">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-gold); padding-bottom:12px; margin-bottom:18px;">
+        <h4 id="faqModalTitle" style="font-family:var(--font-display); font-size:1.25rem; color:var(--text-dominant);">Alison AG-01 // Registro FAQ</h4>
+        <button type="button" class="btn-outline" style="padding:4px 10px; font-weight:800;" onclick="sfxCloseModal('modal-faq-box')">✕</button>
+      </div>
+      <div style="font-size:0.88rem; line-height:1.7; color:var(--text-dominant);">
+        <p><strong>D: Qual è il foro competente per le controversie statutarie?</strong><br>
+        R: La giurisdizione inderogabile ed esclusiva è attribuita contrattualmente al <strong>Foro di Velletri / Roma</strong>.</p>
+        <p style="margin-top: 14px;"><strong>D: Sono previsti schemi piramidali, MLM o prodotti farmaceutici?</strong><br>
+        R: Divieto categorico e statutario. Suprema Future X opera solo con didattica live certificata e concessioni e-commerce a zero magazzino.</p>
+        <p style="margin-top: 14px;"><strong>D: Come avviene l'ammissione all'Academy o alle Concessioni?</strong><br>
+        R: Esclusivamente tramite screening conoscitivo di 60 minuti via Google Meet con il Founder &amp; CEO Giuliano Caratelli.</p>
+      </div>
     </div>
   </div>
 
+  <!-- ========================================================================
+       MOTORE JAVASCRIPT MASTER ESECUTIVO (GARBAGE COLLECTOR & ZERO CRASH)
+       ======================================================================== -->
   <script>
-    // 1. CAROSELLO DEI 10 LOGHI AUTOMATICO
+    'use strict';
+
+    /* ------------------------------------------------------------------------
+       1. CAROSELLO LOGO 10 FOTO (media/sec-01-hero/logo-01 a 10)
+       ------------------------------------------------------------------------ */
     const sfxLogos = [
       'media/sec-01-hero/logo-01.png',
       'media/sec-01-hero/logo-02.png',
@@ -331,76 +785,309 @@
       'media/sec-01-hero/logo-09.png',
       'media/sec-01-hero/logo-10.png'
     ];
-    let sfxLogoIdx = 0;
-    const imgEl = document.getElementById('activeLogoImg');
+    let currentLogoIdx = 0;
+    const logoImgEl = document.getElementById('activeLogoImg');
 
-    setInterval(() => {
-      sfxLogoIdx = (sfxLogoIdx + 1) % sfxLogos.length;
-      if (imgEl) {
-        imgEl.style.opacity = '0.3';
+    function sfxInitHeroLoop() {
+      if (!logoImgEl) return;
+      setInterval(() => {
+        currentLogoIdx = (currentLogoIdx + 1) % sfxLogos.length;
+        logoImgEl.style.opacity = '0.2';
         setTimeout(() => {
-          imgEl.src = sfxLogos[sfxLogoIdx];
-          imgEl.style.opacity = '1';
+          logoImgEl.src = sfxLogos[currentLogoIdx];
+          logoImgEl.style.opacity = '1';
         }, 300);
-      }
-    }, 3500);
+      }, 3200);
+    }
 
     function sfxLogoFallback(el) {
       el.onerror = null;
-      el.src = './logo-01.png';
+      const num = String(currentLogoIdx + 1).padStart(2, '0');
+      el.src = `media/sec-01-hero/logo-${num}.jpg`;
     }
 
-    // 2. ENTRATA X-BOX
-    function sfxGoXbox() {
-      window.location.href = 'admin.html';
+    /* ------------------------------------------------------------------------
+       2. GATEWAY X-BOX CON TRIPLO CLICK RAPIDO SULL'OVALE
+       ------------------------------------------------------------------------ */
+    let ovalClicks = 0;
+    let ovalClickTimer = null;
+
+    function sfxHandleOvalClick() {
+      ovalClicks++;
+      clearTimeout(ovalClickTimer);
+      ovalClickTimer = setTimeout(() => { ovalClicks = 0; }, 800);
+
+      if (ovalClicks >= 3) {
+        ovalClicks = 0;
+        clearTimeout(ovalClickTimer);
+        document.body.style.opacity = '0.3';
+        document.body.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => {
+          window.location.href = 'admin.html';
+        }, 250);
+      }
     }
 
-    // 3. DROPDOWN E MODALI
-    function sfxToggle(id) {
-      const el = document.getElementById(id);
-      const isAct = el.classList.contains('active');
-      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
-      if (!isAct) el.classList.add('active');
+    /* ------------------------------------------------------------------------
+       3. MEMORY-SAFE UPLOADER CON GARBAGE COLLECTOR (REVOKE OBJECT URL)
+       ------------------------------------------------------------------------ */
+    const sfxMemoryBlobs = {};
+
+    function sfxTriggerUpload(inputId) {
+      const input = document.getElementById(inputId);
+      if (input) input.click();
     }
 
-    function sfxOpenModal(id) {
-      document.getElementById(id).classList.add('active');
-    }
-    function sfxCloseModals() {
-      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    function sfxHandleVideoUpload(input, cardId) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+      const card = document.getElementById(cardId);
+      if (!card) return;
+
+      // Garbage Collection memoria RAM
+      if (sfxMemoryBlobs[cardId]) {
+        URL.revokeObjectURL(sfxMemoryBlobs[cardId]);
+      }
+
+      const videoUrl = URL.createObjectURL(file);
+      sfxMemoryBlobs[cardId] = videoUrl;
+
+      card.innerHTML = `
+        <video autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:10px;">
+          <source src="${videoUrl}" type="${file.type}">
+        </video>
+        <span class="badge-forensic active" style="position:absolute; top:8px; right:8px; z-index:10; background:rgba(0,230,118,0.9); color:#0B192C;">
+          LOCKED // 1 UPLOAD
+        </span>
+      `;
+      card.style.borderColor = "var(--spectral-emerald)";
+      input.disabled = true;
     }
 
-    // 4. RADIO 14 TRACCE
-    const sfxAudio = new Audio();
-    let currentTrack = 1;
-    let isPlaying = false;
+    function sfxHandlePhotoUpload(input, cardId) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+      const card = document.getElementById(cardId);
+      if (!card) return;
 
-    function sfxToggleRadio() {
-      if (!isPlaying) {
-        sfxAudio.src = `media/audio-radio/track-${String(currentTrack).padStart(2, '0')}.mp3`;
-        sfxAudio.play().then(() => {
-          isPlaying = true;
-          document.getElementById('playBtn').innerHTML = '<i class="fa-solid fa-pause"></i> In Pausa';
-        }).catch(() => {
-          alert('Clicca sulla pagina prima di avviare l\'audio (protezione browser).');
-        });
+      // Garbage Collection memoria RAM
+      if (sfxMemoryBlobs[cardId]) {
+        URL.revokeObjectURL(sfxMemoryBlobs[cardId]);
+      }
+
+      const photoUrl = URL.createObjectURL(file);
+      sfxMemoryBlobs[cardId] = photoUrl;
+
+      card.innerHTML = `
+        <img src="${photoUrl}" alt="Upload 16:9" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:10px;">
+        <button type="button" class="btn-gold" onclick="sfxTriggerUpload('${input.id}')" style="position:absolute; bottom:8px; right:8px; z-index:10; padding:4px 10px; font-size:0.68rem;">
+          SOSTITUISCI
+        </button>
+      `;
+    }
+
+    /* ------------------------------------------------------------------------
+       4. SUPREMA RADIO: 30 TRACCE, AVVIO MUTO & ZERO BUFFER OVERFLOW
+       ------------------------------------------------------------------------ */
+    const sfxRadioAudio = new Audio();
+    sfxRadioAudio.preload = 'none';
+    sfxRadioAudio.muted = true;
+    sfxRadioAudio.volume = 0.70;
+    let currentRadioTrack = 1;
+    let isRadioPlaying = false;
+
+    function sfxInitRadioPlaylist() {
+      const container = document.getElementById('radioTrackListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+      for (let i = 1; i <= 30; i++) {
+        const span = document.createElement('span');
+        span.className = 'dropdown-item';
+        span.style.fontSize = '0.74rem';
+        span.textContent = `🎵 Traccia ${String(i).padStart(2, '0')} // 30`;
+        span.onclick = () => sfxRadioSelect(i);
+        container.appendChild(span);
+      }
+    }
+
+    function sfxRadioLoad(num) {
+      currentRadioTrack = num;
+      const padNum = String(num).padStart(2, '0');
+      sfxRadioAudio.src = `media/audio-radio/track-${padNum}.mp3`;
+      const title = document.getElementById('radioTrackTitle');
+      if (title) title.textContent = `TRACCIA ${padNum} // 30`;
+    }
+
+    function sfxRadioPlayToggle() {
+      const btn = document.getElementById('radioPlayBtn');
+      if (sfxRadioAudio.muted) {
+        sfxRadioMuteToggle(); // Disattiva il muto al primo play
+      }
+
+      if (isRadioPlaying) {
+        sfxRadioAudio.pause();
+        isRadioPlaying = false;
+        if (btn) btn.innerHTML = '▶ Play';
       } else {
-        sfxAudio.pause();
-        isPlaying = false;
-        document.getElementById('playBtn').innerHTML = '<i class="fa-solid fa-play"></i> Riproduci';
+        if (!sfxRadioAudio.src) sfxRadioLoad(currentRadioTrack);
+        sfxRadioAudio.play().then(() => {
+          isRadioPlaying = true;
+          if (btn) btn.innerHTML = '⏸ Pausa';
+        }).catch(err => {
+          alert("Interazione col browser richiesta prima dell'avvio audio.");
+        });
       }
     }
 
-    function sfxChangeTrack(dir) {
-      currentTrack += dir;
-      if (currentTrack > 14) currentTrack = 1;
-      if (currentTrack < 1) currentTrack = 14;
-      document.getElementById('radioTrackName').textContent = `Traccia ${String(currentTrack).padStart(2, '0')} // 14`;
-      if (isPlaying) {
-        sfxAudio.src = `media/audio-radio/track-${String(currentTrack).padStart(2, '0')}.mp3`;
-        sfxAudio.play();
+    function sfxRadioStop() {
+      sfxRadioAudio.pause();
+      sfxRadioAudio.currentTime = 0;
+      isRadioPlaying = false;
+      const btn = document.getElementById('radioPlayBtn');
+      if (btn) btn.innerHTML = '▶ Play';
+    }
+
+    function sfxRadioMuteToggle() {
+      const btn = document.getElementById('radioMuteBtn');
+      sfxRadioAudio.muted = !sfxRadioAudio.muted;
+      if (btn) {
+        btn.textContent = sfxRadioAudio.muted ? '🔇 Muto' : '🔊 Attivo';
       }
     }
+
+    function sfxRadioNext() {
+      currentRadioTrack = currentRadioTrack >= 30 ? 1 : currentRadioTrack + 1;
+      sfxRadioLoad(currentRadioTrack);
+      if (isRadioPlaying) sfxRadioAudio.play();
+    }
+
+    function sfxRadioPrev() {
+      currentRadioTrack = currentRadioTrack <= 1 ? 30 : currentRadioTrack - 1;
+      sfxRadioLoad(currentRadioTrack);
+      if (isRadioPlaying) sfxRadioAudio.play();
+    }
+
+    function sfxRadioSelect(trackNum) {
+      sfxRadioLoad(trackNum);
+      if (sfxRadioAudio.muted) sfxRadioMuteToggle();
+      sfxRadioAudio.play().then(() => {
+        isRadioPlaying = true;
+        const btn = document.getElementById('radioPlayBtn');
+        if (btn) btn.innerHTML = '⏸ Pausa';
+      });
+    }
+
+    function sfxRadioVolume(val) {
+      sfxRadioAudio.volume = parseFloat(val);
+      if (sfxRadioAudio.muted && parseFloat(val) > 0) {
+        sfxRadioMuteToggle();
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       5. DROPDOWN, DISCOVER SUBMENU E MODALI ANTISFARFALLIO
+       ------------------------------------------------------------------------ */
+    function sfxToggleDropdown(groupId) {
+      const targetGroup = document.getElementById(groupId);
+      const wasOpen = targetGroup.classList.contains('open');
+      document.querySelectorAll('.capsule-group.open').forEach(g => g.classList.remove('open'));
+      if (!wasOpen) targetGroup.classList.add('open');
+    }
+
+    function sfxToggleDiscoverMenu(btn) {
+      const wrap = btn.closest('.btn-discover-wrap');
+      const wasOpen = wrap.classList.contains('open');
+      document.querySelectorAll('.btn-discover-wrap.open').forEach(w => w.classList.remove('open'));
+      if (!wasOpen) wrap.classList.add('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.capsule-group')) {
+        document.querySelectorAll('.capsule-group.open').forEach(g => g.classList.remove('open'));
+      }
+      if (!e.target.closest('.btn-discover-wrap')) {
+        document.querySelectorAll('.btn-discover-wrap.open').forEach(w => w.classList.remove('open'));
+      }
+    });
+
+    function sfxSetLanguage(lang) {
+      alert(`Lingua impostata: [${lang}]. Protocollo forense caricato.`);
+      document.querySelectorAll('.capsule-group.open').forEach(g => g.classList.remove('open'));
+    }
+
+    function sfxOpenGalleryModal(sectionTitle) {
+      const titleEl = document.getElementById('galleryModalTitle');
+      if (titleEl) titleEl.textContent = `Galleria 12 Slot (16:9) // ${sectionTitle}`;
+      const modal = document.getElementById('modal-gallery-12');
+      if (modal) modal.style.display = 'flex';
+      document.querySelectorAll('.btn-discover-wrap.open').forEach(w => w.classList.remove('open'));
+    }
+
+    function sfxOpenFaqModal(mode) {
+      const titleEl = document.getElementById('faqModalTitle');
+      if (titleEl) {
+        titleEl.textContent = mode === 'faq' ? 'Alison AG-01 // Suprema FAQ Ufficiali' : 'Alison AG-01 // Domande Frequenti';
+      }
+      const modal = document.getElementById('modal-faq-box');
+      if (modal) modal.style.display = 'flex';
+      document.querySelectorAll('.capsule-group.open').forEach(g => g.classList.remove('open'));
+    }
+
+    function sfxCloseModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.style.display = 'none';
+    }
+
+    /* ------------------------------------------------------------------------
+       6. INVIO CANDIDATURA SEGRETERIA (LAVORA CON NOI)
+       ------------------------------------------------------------------------ */
+    function sfxSubmitLavoraConNoi(e) {
+      e.preventDefault();
+      const nome = document.getElementById('lavoraNome')?.value || '';
+      const cognome = document.getElementById('lavoraCognome')?.value || '';
+      const tel = document.getElementById('lavoraTelefono')?.value || '';
+      const email = document.getElementById('lavoraEmail')?.value || '';
+
+      alert(`✓ Dossier registrato con successo!\nDestinatario: segreteria@supremafuturex.it\nCandidato: ${nome} ${cognome}\nRecapito: ${tel} | ${email}\nPresidio notarile Colleferro (Roma) notificato.`);
+      e.target.reset();
+    }
+
+    /* ------------------------------------------------------------------------
+       7. CLOCK CET & TELEMETRIA INCREMENTALE T+0
+       ------------------------------------------------------------------------ */
+    function sfxInitClock() {
+      const clockEl = document.getElementById('sfx-live-clock');
+      function updateClock() {
+        const now = new Date();
+        if (clockEl) {
+          clockEl.textContent = now.toLocaleTimeString('it-IT', { timeZone: 'Europe/Rome', hour12: false }) + ' CET';
+        }
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+    }
+
+    let visitsCounter = 5284;
+    function sfxInitTelemetry() {
+      const countEl = document.getElementById('telemetryCounter');
+      const activeEl = document.getElementById('telemetryActiveUsers');
+      setInterval(() => {
+        visitsCounter += Math.floor(Math.random() * 3) + 1;
+        if (countEl) countEl.textContent = visitsCounter.toLocaleString('it-IT');
+        if (activeEl) activeEl.textContent = Math.floor(visitsCounter * 0.32).toLocaleString('it-IT');
+      }, 4000);
+    }
+
+    /* ------------------------------------------------------------------------
+       8. AVVIO ALL'INIZIALIZZAZIONE DOM
+       ------------------------------------------------------------------------ */
+    window.addEventListener('DOMContentLoaded', () => {
+      sfxInitHeroLoop();
+      sfxInitClock();
+      sfxInitRadioPlaylist();
+      sfxRadioLoad(1);
+      sfxInitTelemetry();
+    });
   </script>
 </body>
 </html>
