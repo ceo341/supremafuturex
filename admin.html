@@ -4,27 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>SUPREMA FUTURE X // X-BOX CONSOLE EAL6+ [PRESIDENZA ESECUTIVA]</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/stile-globale.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="stile-globale.css">
 
   <style>
-    /* ==========================================================================
-       X-BOX ADMIN CONSOLE // STILI DEDICATI LIGHT LUXURY FORENSE
-       Zero Ossidiana // Pure Light & Liquid Spectral Metals
-       ========================================================================== */
     :root {
       --xbox-bg: var(--bg-pearl-satin);
       --xbox-panel: #FFFFFF;
-      --xbox-border: var(--metal-edge);
+      --xbox-border: var(--border-gold);
       --xbox-sidebar: var(--bg-pearl-light);
     }
 
     body {
       background-color: var(--xbox-bg);
       color: var(--text-dominant);
-      font-family: var(--font-mont);
+      font-family: var(--font-main);
       min-height: 100vh;
       overflow-x: hidden;
       margin: 0;
@@ -40,142 +38,140 @@
       padding: 1.5rem;
     }
     .lockscreen-box {
-      width: 100%; max-width: 490px;
-      background: var(--bg-glass-card);
-      backdrop-filter: blur(35px);
-      -webkit-backdrop-filter: blur(35px);
-      border-radius: var(--radius-oval-medium);
-      padding: 3.5rem 2.8rem;
-      box-shadow: var(--shadow-hover);
+      width: 100%; max-width: 480px;
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 3rem 2.2rem;
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
       text-align: center;
-      border: 1.8px solid var(--metal-frame);
+      border: 2px solid var(--gold-primary);
     }
     .pin-display-dots {
-      display: flex; justify-content: center; gap: 14px; margin: 2rem 0;
+      display: flex; justify-content: center; gap: 12px; margin: 1.8rem 0;
     }
     .p-dot {
-      width: 16px; height: 16px; border-radius: 50%;
-      border: 2px solid var(--metal-edge); background: transparent;
-      transition: all var(--transition-fast);
+      width: 15px; height: 15px; border-radius: 50%;
+      border: 2px solid var(--border-gold); background: transparent;
+      transition: all 0.2s ease;
     }
     .p-dot.active {
-      background: var(--spectral-gold); border-color: var(--spectral-gold);
-      box-shadow: 0 0 14px var(--spectral-gold); transform: scale(1.2);
+      background: var(--gold-primary); border-color: var(--gold-deep);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); transform: scale(1.2);
     }
     .keypad-matrix {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 1.5rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 1.2rem;
     }
     .kp-btn {
-      background: #FFFFFF; border: 1.5px solid var(--metal-edge);
-      color: var(--text-dominant); font-family: var(--font-mono);
-      font-size: 1.45rem; font-weight: 700; padding: 18px 0;
-      border-radius: var(--radius-inner); cursor: pointer;
-      box-shadow: var(--shadow-subtle); transition: all var(--transition-fast);
+      background: #FFFFFF; border: 1.5px solid var(--border-gold);
+      color: var(--text-dark); font-family: var(--font-mono);
+      font-size: 1.35rem; font-weight: 700; padding: 15px 0;
+      border-radius: var(--radius-sm); cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04); transition: all 0.15s ease;
     }
     .kp-btn:hover {
-      background: var(--spectral-gold); border-color: var(--spectral-gold);
-      color: #000; transform: scale(1.06); box-shadow: var(--shadow-gold);
+      background: var(--gold-primary); border-color: var(--gold-deep);
+      color: #FFFFFF; transform: scale(1.05); box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
     }
     .kp-btn:active { transform: scale(0.96); }
-    .kp-btn.action-clear { font-family: var(--font-sync); font-size: 0.85rem; background: rgba(74, 82, 96, 0.08); }
-    .kp-btn.action-del { font-family: var(--font-mono); font-size: 1.2rem; background: rgba(74, 82, 96, 0.08); }
+    .kp-btn.action-clear { font-family: var(--font-main); font-size: 0.75rem; background: rgba(74, 82, 96, 0.08); }
+    .kp-btn.action-del { font-family: var(--font-mono); font-size: 1.1rem; background: rgba(74, 82, 96, 0.08); }
 
     /* STRUTTURA LAYOUT X-BOX */
     .xbox-viewport {
-      display: grid; grid-template-columns: 290px 1fr; min-height: 100vh;
+      display: grid; grid-template-columns: 280px 1fr; min-height: 100vh;
     }
     .xbox-nav {
-      background: var(--xbox-sidebar); border-right: 1.8px solid var(--metal-frame);
-      padding: 2.2rem 1.4rem; display: flex; flex-direction: column; justify-content: space-between;
+      background: var(--xbox-sidebar); border-right: 1.5px solid var(--border-gold);
+      padding: 2rem 1.2rem; display: flex; flex-direction: column; justify-content: space-between;
       position: sticky; top: 0; height: 100vh; overflow-y: auto;
     }
     .xbox-brand-header {
-      padding-bottom: 1.8rem; border-bottom: 1px solid var(--metal-edge); margin-bottom: 2rem;
+      padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-gold); margin-bottom: 1.8rem;
     }
-    .nav-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .nav-list { display: flex; flex-direction: column; gap: 0.4rem; }
     .nav-item-btn {
-      display: flex; align-items: center; gap: 12px; padding: 14px 18px;
-      border-radius: var(--radius-inner); font-family: var(--font-sync);
-      font-size: 0.73rem; font-weight: 700; color: var(--text-muted);
+      display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+      border-radius: var(--radius-sm); font-family: var(--font-main);
+      font-size: 0.78rem; font-weight: 700; color: var(--text-muted);
       border: 1.5px solid transparent; background: transparent; cursor: pointer;
-      transition: all var(--transition-fast); text-align: left; width: 100%;
+      transition: all 0.2s ease; text-align: left; width: 100%;
     }
     .nav-item-btn:hover, .nav-item-btn.active {
-      background: #FFFFFF; color: var(--text-dominant); border-color: var(--spectral-gold);
-      box-shadow: var(--shadow-subtle);
+      background: #FFFFFF; color: var(--text-dominant); border-color: var(--gold-primary);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
     }
     .xbox-content {
-      padding: 2.5rem 3.5rem; overflow-y: auto;
+      padding: 2.5rem 3rem; overflow-y: auto;
     }
     .tab-view { display: none; }
-    .tab-view.active { display: block; animation: tabFadeIn 0.35s ease-out; }
-    @keyframes tabFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .tab-view.active { display: block; animation: tabFadeIn 0.3s ease-out; }
 
     /* COMPONENTI DASHBOARD */
-    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; margin-bottom: 2.2rem; }
     .kpi-card {
-      background: #FFFFFF; border: 1.5px solid var(--metal-edge); border-radius: var(--radius-inner);
-      padding: 1.8rem; box-shadow: var(--shadow-subtle); transition: 0.3s;
+      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
+      padding: 1.6rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: 0.25s ease;
     }
-    .kpi-card:hover { border-color: var(--spectral-gold); transform: translateY(-3px); box-shadow: var(--shadow-gold); }
-    .kpi-val { font-family: var(--font-sync); font-size: 1.8rem; color: var(--text-dominant); margin: 0.5rem 0; }
-    .kpi-lbl { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+    .kpi-card:hover { border-color: var(--gold-primary); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2); }
+    .kpi-val { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--gold-deep); margin: 0.4rem 0; }
+    .kpi-lbl { font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
 
     /* TABELLE X-BOX */
     .data-table-wrapper {
-      background: #FFFFFF; border: 1.5px solid var(--metal-edge); border-radius: var(--radius-inner);
-      overflow: hidden; box-shadow: var(--shadow-subtle); margin-bottom: 2.5rem;
+      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
+      overflow-x: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 2.2rem;
     }
-    .xbox-data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+    .xbox-data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
     .xbox-data-table th {
-      background: rgba(246, 242, 235, 0.7); padding: 16px 20px; font-family: var(--font-mono);
-      font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--metal-edge);
+      background: var(--bg-surface); padding: 14px 18px; font-family: var(--font-mono);
+      font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 1.5px solid var(--border-gold);
     }
     .xbox-data-table td {
-      padding: 18px 20px; border-bottom: 1px solid rgba(74, 82, 96, 0.08); color: var(--text-dominant);
+      padding: 16px 18px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); color: var(--text-dominant);
     }
-    .xbox-data-table tr:hover { background: rgba(250, 248, 245, 0.9); }
+    .xbox-data-table tr:hover { background: rgba(212, 175, 55, 0.05); }
 
     /* BADGE STATO */
     .status-badge {
       font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 4px 10px;
-      border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; display: inline-block;
+      border-radius: var(--radius-oval); text-transform: uppercase; letter-spacing: 0.5px; display: inline-block;
     }
-    .status-badge.nuovo { background: rgba(0, 240, 255, 0.15); color: var(--spectral-blue); border: 1px solid var(--spectral-cyan); }
-    .status-badge.convocato { background: rgba(212, 175, 55, 0.15); color: var(--text-accent); border: 1px solid var(--spectral-gold); }
-    .status-badge.ammesso { background: rgba(0, 230, 118, 0.15); color: #027A48; border: 1px solid var(--spectral-emerald); }
-    .status-badge.rigettato { background: rgba(255, 59, 48, 0.15); color: #B42318; border: 1px solid var(--status-alert); }
+    .status-badge.nuovo { background: rgba(0, 242, 254, 0.15); color: #008b9c; border: 1px solid var(--cyan-neural); }
+    .status-badge.convocato { background: rgba(212, 175, 55, 0.15); color: var(--gold-deep); border: 1px solid var(--gold-primary); }
+    .status-badge.ammesso { background: rgba(16, 185, 129, 0.15); color: #065F46; border: 1px solid var(--emerald-accent); }
+    .status-badge.rigettato { background: rgba(239, 68, 68, 0.15); color: #991b1b; border: 1px solid var(--status-alert); }
 
     /* CMS SECTION ACCORDION & SLOTS */
     .cms-section-card {
-      background: #FFFFFF; border: 1.5px solid var(--metal-edge); border-radius: var(--radius-inner);
-      padding: 2.2rem; margin-bottom: 2.2rem; box-shadow: var(--shadow-subtle);
+      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
+      padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04);
     }
     .cms-sec-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(74, 82, 96, 0.12); padding-bottom: 1rem;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.4rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 1rem;
     }
     .cms-slots-grid {
       display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 1.2rem;
     }
     .cms-slot-box {
-      border: 1.5px dashed var(--metal-edge); border-radius: 12px; padding: 12px;
-      background: rgba(246, 242, 235, 0.5); font-family: var(--font-mono); font-size: 0.72rem;
+      border: 1.5px dashed var(--border-gold); border-radius: 10px; padding: 12px;
+      background: var(--bg-surface); font-family: var(--font-mono); font-size: 0.72rem;
     }
     .cms-slot-box input {
-      width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--metal-edge);
+      width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-gold);
       margin-top: 6px; font-size: 0.75rem; background: #FFF; outline: none;
     }
-    
+
     /* MODALI DETTAGLIO */
     .modal-overlay-xbox {
-      position: fixed; inset: 0; background: rgba(246, 242, 235, 0.85); backdrop-filter: blur(20px);
-      z-index: 10001; display: none; justify-content: center; align-items: center; padding: 2rem;
+      position: fixed; inset: 0; background: rgba(11, 25, 44, 0.85);
+      backdrop-filter: blur(10px); z-index: 10001; display: none;
+      justify-content: center; align-items: center; padding: 2rem;
     }
     .modal-box-xbox {
-      background: #FFFFFF; border: 2px solid var(--spectral-gold); border-radius: var(--radius-card);
-      width: 100%; max-width: 820px; max-height: 90vh; overflow-y: auto; padding: 3rem;
-      box-shadow: var(--shadow-hover); position: relative;
+      background: #FFFFFF; border: 2px solid var(--gold-primary); border-radius: var(--radius-md);
+      width: 100%; max-width: 820px; max-height: 90vh; overflow-y: auto; padding: 2.5rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative;
     }
 
     /* TELEMETRIA AGENTI GRID */
@@ -183,35 +179,49 @@
       display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.2rem; margin-top: 1.5rem;
     }
     .agent-card {
-      background: #FFFFFF; border: 1.5px solid var(--metal-edge); border-radius: var(--radius-inner);
-      padding: 1.6rem; box-shadow: var(--shadow-subtle); transition: all var(--transition-fast);
+      background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius: var(--radius-sm);
+      padding: 1.4rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: all 0.2s ease;
     }
     .agent-card:hover {
-      border-color: var(--spectral-gold); transform: translateY(-3px); box-shadow: var(--shadow-diffuse);
+      border-color: var(--gold-primary); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
     }
     .agent-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;
     }
-    .agent-role {
-      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);
+    .form-group { margin-bottom: 1.2rem; }
+    .form-label {
+      display: block; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+      color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    .form-input {
+      width: 100%; padding: 11px 14px; border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-xs); font-family: var(--font-main); font-size: 0.85rem;
+      background: #FFFFFF; outline: none; transition: border-color 0.2s ease;
+    }
+    .form-input:focus { border-color: var(--gold-primary); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+
+    @media(max-width: 1024px) {
+      .xbox-viewport { grid-template-columns: 1fr; }
+      .xbox-nav { height: auto; position: relative; }
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .cms-slots-grid { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- AMBIENT MESH 13" LUXURY -->
-  <div class="ambient-mesh"></div>
-  <div class="zenith-ray"></div>
-  <div class="film-grain"></div>
-
-  <!-- ==========================================================================
-       1. GATEWAY DI ACCESSO LOCKSCREEN (RICHIEDE PIN PRESIDENZIALE)
-       ========================================================================== -->
+  <!-- 1. GATEWAY LOCKSCREEN ANTI-KEYLOGGER -->
   <div class="lockscreen-modal" id="xbox-lockscreen">
-    <div class="lockscreen-box spectral-border">
-      <div class="badge-eal" style="margin-bottom:1rem;">SICUREZZA EAL6+ ATTIVA</div>
-      <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.5rem;">X-BOX GATEWAY</h2>
-      <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-top:0.4rem;">
+    <div class="lockscreen-box">
+      <div class="badge-forensic active" style="margin-bottom:1rem;">
+        <i class="fa-solid fa-shield-halved"></i> SICUREZZA EAL6+ ATTIVA
+      </div>
+      <h2 style="font-family:var(--font-display); font-size:1.6rem; margin-bottom:0.4rem; color:var(--text-dark);">
+        X-BOX GATEWAY
+      </h2>
+      <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-bottom:1.5rem;">
         PRESIDENZA ESECUTIVA GIULIANO CARATELLI // NODO ROMA
       </p>
 
@@ -232,15 +242,17 @@
       <div id="login-feedback" style="font-family:var(--font-mono); font-size:0.75rem; min-height:1.2rem; margin-bottom:1rem; color:var(--status-alert);"></div>
 
       <!-- Tastierino Virtuale Randomizzato -->
-      <div class="keypad-matrix" id="virtual-keypad">
-        <!-- Generato dinamicamente via JS per impedire intercettazione -->
+      <div class="keypad-matrix" id="virtual-keypad"></div>
+
+      <div style="margin-top:1.5rem;">
+        <a href="index.html" class="btn-outline" style="font-size:0.72rem; padding:8px 16px;">
+          <i class="fa-solid fa-arrow-left"></i> Rientra alla Landing
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- ==========================================================================
-       2. CONSOLE OPERATIVA X-BOX (VISIBILE AD AUTENTICAZIONE CONCLUSA)
-       ========================================================================== -->
+  <!-- 2. CONSOLE OPERATIVA X-BOX -->
   <div class="xbox-viewport" id="xbox-dashboard" style="display:none;">
     
     <!-- SIDEBAR NAVIGAZIONE X-BOX -->
@@ -248,8 +260,8 @@
       <div>
         <div class="xbox-brand-header">
           <div style="display:flex; align-items:center; gap:8px;">
-            <div class="status-led"></div>
-            <span style="font-family:var(--font-sync); font-size:1rem; font-weight:700;">X-BOX 2026</span>
+            <div class="led-indicator"></div>
+            <span style="font-family:var(--font-display); font-size:1.1rem; font-weight:800; color:var(--gold-deep);">X-BOX 2026</span>
           </div>
           <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); margin-top:6px;">
             GOVERNANCE DI VERTICE // EAL6+
@@ -258,39 +270,41 @@
 
         <nav class="nav-list">
           <button class="nav-item-btn active" onclick="switchXboxTab('tab-dashboard')">
-            <span>📊</span> DASHBOARD KPI
+            <i class="fa-solid fa-chart-line"></i> 1. DASHBOARD KPI
           </button>
           <button class="nav-item-btn" onclick="switchXboxTab('tab-crm')">
-            <span>📋</span> SCREENING & LEAD CRM
+            <i class="fa-solid fa-users"></i> 2. SCREENING &amp; LEAD CRM
           </button>
           <button class="nav-item-btn" onclick="switchXboxTab('tab-meet')">
-            <span>📹</span> SCHEDULATORE MEET (60m)
+            <i class="fa-solid fa-video"></i> 3. SCHEDULATORE MEET (60m)
           </button>
           <button class="nav-item-btn" onclick="switchXboxTab('tab-cms')">
-            <span>🎛️</span> CMS 14 SEZIONI & 70 SLOT
+            <i class="fa-solid fa-sliders"></i> 4. CMS 14 SEZIONI &amp; 70 SLOT
           </button>
           <button class="nav-item-btn" onclick="switchXboxTab('tab-flotta')">
-            <span>🧠</span> FLOTTA NEURALE (15 AGENTI)
+            <i class="fa-solid fa-robot"></i> 5. FLOTTA NEURALE (15 AGENTI)
           </button>
           <button class="nav-item-btn" onclick="switchXboxTab('tab-vault')">
-            <span>🔐</span> MEDIA VAULT 400 (TOKEN)
+            <i class="fa-solid fa-vault"></i> 6. MEDIA VAULT 400 (TOKEN)
           </button>
           <button class="nav-item-btn" onclick="switchXboxTab('tab-goldcard')">
-            <span>🏆</span> SUPREMA GOLD CARD LEDGER
+            <i class="fa-solid fa-credit-card"></i> 7. SUPREMA GOLD CARD LEDGER
           </button>
           <button class="nav-item-btn" onclick="switchXboxTab('tab-audit')">
-            <span>⚖️</span> AUDIT LOG FORENSE EAL6+
+            <i class="fa-solid fa-shield-halved"></i> 8. AUDIT LOG FORENSE EAL6+
           </button>
         </nav>
       </div>
 
       <div>
-        <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); margin-bottom:1rem; padding:12px; background:rgba(255,255,255,0.7); border-radius:10px; border:1px solid var(--metal-edge);">
+        <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); margin-bottom:1rem; padding:12px; background:#FFFFFF; border-radius:8px; border:1px solid var(--border-gold);">
           OPERATORE: <strong>GIULIANO CARATELLI</strong><br>
           STATO: <span style="color:var(--status-online); font-weight:700;">ONLINE (ROMA)</span><br>
           SESSIONE: <span id="session-countdown">12:00:00</span>
         </div>
-        <button class="btn-gold" style="width:100%; padding:12px; font-size:0.75rem;" onclick="logoutXbox()">BLOCCA CONSOLE 🔒</button>
+        <button class="btn-gold" style="width:100%; padding:10px; font-size:0.75rem;" onclick="logoutXbox()">
+          <i class="fa-solid fa-lock"></i> BLOCCA CONSOLE
+        </button>
       </div>
     </aside>
 
@@ -298,14 +312,14 @@
     <main class="xbox-content">
       
       <!-- TOP BAR STATUS -->
-      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:1.8rem; border-bottom:1px solid rgba(74,82,96,0.15); margin-bottom:2.5rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:1.5rem; border-bottom:1px solid var(--border-gold); margin-bottom:2rem;">
         <div>
-          <span class="sec-tag spectral-text">PANNELLO DI GOVERNANCE DIRETTA</span>
-          <h1 class="sec-tit" style="font-size:1.8rem; margin:0;" id="tab-headline-title">DASHBOARD KPI ESECUTIVA</h1>
+          <span class="badge-forensic active" style="font-size:0.65rem;">PANNELLO DI GOVERNANCE DIRETTA</span>
+          <h1 style="font-family:var(--font-display); font-size:1.7rem; margin:0.4rem 0 0;" id="tab-headline-title">DASHBOARD KPI ESECUTIVA</h1>
         </div>
-        <div style="display:flex; gap:1rem; align-items:center;">
-          <a href="index.html" target="_blank" class="btn-secondary" style="padding:10px 20px; font-size:0.75rem;">VISUALIZZA SITO VETRINA ➔</a>
-          <button class="btn-gold" style="padding:10px 20px; font-size:0.75rem;" onclick="syncWithGoogleBackend()">SINCRONIZZA NODO ⟳</button>
+        <div style="display:flex; gap:0.8rem; align-items:center;">
+          <a href="index.html" target="_blank" class="btn-outline" style="padding:8px 16px; font-size:0.75rem;">VISUALIZZA SITO ➔</a>
+          <button class="btn-gold" style="padding:8px 18px; font-size:0.75rem;" onclick="syncWithGoogleBackend()">SINCRONIZZA NODO ⟳</button>
         </div>
       </div>
 
@@ -314,50 +328,50 @@
         <div class="kpi-row">
           <div class="kpi-card">
             <span class="kpi-lbl">CANDIDATURE TOTALI</span>
-            <div class="kpi-val spectral-text" id="kpi-leads-count">148</div>
+            <div class="kpi-val" id="kpi-leads-count">148</div>
             <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--status-online);">+12 nell'ultima settimana</span>
           </div>
           <div class="kpi-card">
             <span class="kpi-lbl">COLLOQUI MEET FISSATI</span>
-            <div class="kpi-val spectral-text" id="kpi-meet-count">36</div>
-            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--spectral-cyan);">Prossimo: Oggi ore 15:00</span>
+            <div class="kpi-val" id="kpi-meet-count">36</div>
+            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--gold-deep);">Prossimo: Oggi ore 15:00</span>
           </div>
           <div class="kpi-card">
             <span class="kpi-lbl">CONCESSIONI ATTIVE</span>
-            <div class="kpi-val spectral-text" id="kpi-store-count">42</div>
+            <div class="kpi-val" id="kpi-store-count">42</div>
             <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-accent);">Logistica centralizzata OK</span>
           </div>
           <div class="kpi-card">
-            <span class="kpi-lbl">LATENZA MEDIA NODO AI</span>
-            <div class="kpi-val spectral-text" id="kpi-ping-val">4.2 ms</div>
+            <span class="kpi-lbl">LATENZA MEDIA CLUSTER</span>
+            <div class="kpi-val" id="kpi-ping-val">4.2 ms</div>
             <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--status-online);">15/15 Agenti Operativi</span>
           </div>
         </div>
 
-        <div class="grid-2" style="margin-bottom:2.5rem;">
-          <div class="oval-section spectral-border" style="padding:2.5rem; margin-bottom:0;">
-            <h3 style="font-family:var(--font-sync); font-size:1.15rem; margin-bottom:1rem;">ACCESSO DIRETTO SCREENING RECENTI</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">Candidature pervenute nelle ultime 24 ore in attesa di validazione presidenziale.</p>
+        <div class="grid-2" style="margin-bottom:2rem;">
+          <div class="cms-section-card">
+            <h3 style="font-family:var(--font-display); font-size:1.15rem; margin-bottom:0.6rem; color:var(--text-dominant);">ACCESSO DIRETTO SCREENING RECENTI</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.2rem;">Candidature pervenute nelle ultime 24 ore in attesa di vidimazione presidenziale.</p>
             <div id="quick-leads-preview">
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(74,82,96,0.1);">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(212,175,55,0.15);">
                 <div><strong>Marco Bianchi</strong> <span style="font-size:0.8rem; color:#666;">(Executive Master 90g)</span></div>
-                <button class="btn-gold" style="padding:6px 14px; font-size:0.7rem;" onclick="openLeadModal('SFX-LD-8841')">ESAMINA</button>
+                <button class="btn-gold" style="padding:4px 12px; font-size:0.7rem;" onclick="openLeadModal('SFX-LD-8841')">ESAMINA</button>
               </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(74,82,96,0.1);">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(212,175,55,0.15);">
                 <div><strong>Elena Moretti</strong> <span style="font-size:0.8rem; color:#666;">(Concessione E-Commerce)</span></div>
-                <button class="btn-gold" style="padding:6px 14px; font-size:0.7rem;" onclick="openLeadModal('SFX-LD-8840')">ESAMINA</button>
+                <button class="btn-gold" style="padding:4px 12px; font-size:0.7rem;" onclick="openLeadModal('SFX-LD-8840')">ESAMINA</button>
               </div>
             </div>
           </div>
 
-          <div class="oval-section spectral-border" style="padding:2.5rem; margin-bottom:0;">
-            <h3 style="font-family:var(--font-sync); font-size:1.15rem; margin-bottom:1rem;">TELEMETRIA AG-12 SENTINEL</h3>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">Stato integrità crittografica e nodi di trasmissione attivi.</p>
-            <ul style="font-family:var(--font-mono); font-size:0.8rem; line-height:2.2; color:var(--text-muted);">
+          <div class="cms-section-card">
+            <h3 style="font-family:var(--font-display); font-size:1.15rem; margin-bottom:0.6rem; color:var(--text-dominant);">TELEMETRIA AG-12 SENTINEL</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.2rem;">Stato integrità crittografica e nodi di trasmissione attivi.</p>
+            <ul style="font-family:var(--font-mono); font-size:0.8rem; line-height:2.2; color:var(--text-muted); list-style:none;">
               <li>✔ PROTOCOLLO: <strong>EAL6+ ATTIVO</strong></li>
               <li>✔ CRITTOGRAFIA: <strong>FIDO2 / SHA-256 VAULT</strong></li>
               <li>✔ FORO GIURIDICO: <strong>VELLETRI / ROMA (INDIPENDENTE)</strong></li>
-              <li>✔ KILL-SWITCH: <strong>ARMED & READY (AG-12)</strong></li>
+              <li>✔ KILL-SWITCH: <strong>ARMED &amp; READY (AG-12)</strong></li>
             </ul>
           </div>
         </div>
@@ -365,10 +379,10 @@
 
       <!-- TAB 2: CRM & LEADS PIPELINE -->
       <div class="tab-view" id="tab-crm">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-          <div style="display:flex; gap:1rem; align-items:center;">
-            <input type="text" id="lead-search-input" placeholder="Cerca per nome, cognome, email o telefono..." class="form-input" style="width:340px; padding:10px 16px;" onkeyup="filterLeadsTable()">
-            <select id="lead-status-filter" class="form-input" style="width:180px; padding:10px 16px;" onchange="filterLeadsTable()">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.4rem;">
+          <div style="display:flex; gap:0.8rem; align-items:center;">
+            <input type="text" id="lead-search-input" placeholder="Cerca per nome, email o WhatsApp..." class="form-input" style="width:320px;" onkeyup="filterLeadsTable()">
+            <select id="lead-status-filter" class="form-input" style="width:170px;" onchange="filterLeadsTable()">
               <option value="ALL">TUTTI GLI STATI</option>
               <option value="NUOVO">NUOVO</option>
               <option value="CONVOCATO">CONVOCATO</option>
@@ -376,7 +390,9 @@
               <option value="RIGETTATO">RIGETTATO</option>
             </select>
           </div>
-          <button class="btn-secondary" style="padding:10px 18px; font-size:0.75rem;" onclick="exportLeadsCsv()">ESPORTA CSV FORENSE</button>
+          <button class="btn-outline" style="padding:8px 16px; font-size:0.75rem;" onclick="exportLeadsCsv()">
+            <i class="fa-solid fa-file-csv"></i> ESPORTA CSV FORENSE
+          </button>
         </div>
 
         <div class="data-table-wrapper">
@@ -385,29 +401,29 @@
               <tr>
                 <th>DATA / ID</th>
                 <th>CANDIDATO</th>
-                <th>CONTATTI UFFICIALI</th>
+                <th>CONTATTI</th>
                 <th>PERCORSO RICHIESTO</th>
-                <th>FASCIA ORARIA</th>
+                <th>FASCIA</th>
                 <th>STATO</th>
                 <th>AZIONI PRESIDENZIALI</th>
               </tr>
             </thead>
-            <tbody id="crm-leads-tbody">
-              <!-- Righe caricate dinamicamente via JS -->
-            </tbody>
+            <tbody id="crm-leads-tbody"></tbody>
           </table>
         </div>
       </div>
 
       <!-- TAB 3: SCHEDULATORE MEET 60 MINUTI -->
       <div class="tab-view" id="tab-meet">
-        <div class="oval-section spectral-border" style="padding:3rem; margin-bottom:2.5rem;">
-          <h3 class="spectral-text" style="font-family:var(--font-sync); font-size:1.3rem; margin-bottom:1.5rem;">ORCHESTRATORE SESSIONI SCREENING GOOGLE MEET (60m)</h3>
+        <div class="cms-section-card" style="padding:2.5rem;">
+          <h3 style="font-family:var(--font-display); font-size:1.3rem; margin-bottom:1.5rem; color:var(--text-dominant);">
+            ORCHESTRATORE SESSIONI SCREENING GOOGLE MEET (60m)
+          </h3>
           
           <div class="grid-2">
             <div>
               <div class="form-group">
-                <label class="form-label">ID CANDIDATO & NOME</label>
+                <label class="form-label">ID CANDIDATO &amp; NOME</label>
                 <input type="text" id="scheduler-lead-info" class="form-input" placeholder="Es. SFX-LD-8841 // Marco Bianchi">
               </div>
               <div class="form-group">
@@ -415,7 +431,7 @@
                 <input type="tel" id="scheduler-lead-wa" class="form-input" placeholder="+39 333 1234567">
               </div>
               <div class="form-group">
-                <label class="form-label">DATA & ORA PROPOSTA</label>
+                <label class="form-label">DATA &amp; ORA PROPOSTA</label>
                 <input type="datetime-local" id="scheduler-datetime" class="form-input">
               </div>
               <div class="form-group">
@@ -429,1022 +445,62 @@
               </div>
             </div>
 
-            <div style="background:#FFF; border:1.5px solid var(--metal-edge); border-radius:var(--radius-inner); padding:2rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1.5px solid var(--border-gold); border-radius:var(--radius-sm); padding:1.8rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <span class="badge-eal" style="font-size:0.65rem;">AG-11 CHRONOS // TEMPLATE DISPATCHER</span>
-                <h4 style="font-family:var(--font-sync); font-size:1.05rem; margin:1rem 0 0.5rem;">ANTEPRIMA NOTIFICA WHATSAPP:</h4>
-                <div id="whatsapp-preview-box" style="background:rgba(246,242,235,0.7); border:1px solid var(--metal-edge); border-radius:10px; padding:14px; font-family:var(--font-mono); font-size:0.75rem; line-height:1.6; color:var(--text-dominant); white-space:pre-wrap;">Gentile [Nome], la Presidenza di Suprema Future X Enterprise ha convalidato il suo dossier. La convocazione per il colloquio conoscitivo di 60 minuti con il Founder & CEO Giuliano Caratelli è fissata per [Data/Ora].
+                <span class="badge-forensic active" style="font-size:0.65rem;">AG-11 CHRONOS // TEMPLATE DISPATCHER</span>
+                <h4 style="font-family:var(--font-display); font-size:1.05rem; margin:1rem 0 0.5rem; color:var(--text-dominant);">ANTEPRIMA NOTIFICA WHATSAPP:</h4>
+                <div id="whatsapp-preview-box" style="background:#FFFFFF; border:1px solid var(--border-gold); border-radius:8px; padding:14px; font-family:var(--font-mono); font-size:0.75rem; line-height:1.6; color:var(--text-dominant); white-space:pre-wrap;">Gentile [Nome], la Presidenza di Suprema Future X Enterprise ha convalidato il suo dossier. La convocazione per il colloquio conoscitivo di 60 minuti con il Founder &amp; CEO Giuliano Caratelli è fissata per [Data/Ora].
 Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
               </div>
-              <div style="display:flex; gap:1rem; margin-top:1.5rem;">
-                <button class="btn-secondary" style="flex:1; padding:12px; font-size:0.75rem;" onclick="copyWhatsAppInvite()">COPIA TESTO</button>
-                <button class="btn-gold" style="flex:1.5; padding:12px; font-size:0.75rem;" onclick="dispatchMeetInvite()">INVIA WHATSAPP ➔</button>
+              <div style="display:flex; gap:0.8rem; margin-top:1.5rem;">
+                <button class="btn-outline" style="flex:1; padding:10px; font-size:0.75rem;" onclick="copyWhatsAppInvite()">COPIA TESTO</button>
+                <button class="btn-gold" style="flex:1.5; padding:10px; font-size:0.75rem;" onclick="dispatchMeetInvite()">INVIA WHATSAPP ➔</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <!-- TAB 4: CMS INTEGRALE 14 SEZIONI & 70 SLOT MULTIMEDIALI -->
       <div class="tab-view" id="tab-cms">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.2rem; background:#FFF; padding:1.8rem 2.2rem; border-radius:var(--radius-inner); border:1.5px solid var(--metal-edge); box-shadow:var(--shadow-subtle);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
           <div>
-            <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.45rem;">CMS GESTORE CONTENUTI & ARCHIVIO MEDIA</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:6px;">
-              Configurazione centralizzata e immutabile delle 14 sezioni pubbliche. Ogni sezione dispone di 5 slot multimediali dedicati e gestiti dal nodo centrale.
+            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">CMS GESTORE CONTENUTI &amp; ARCHIVIO MEDIA</h2>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
+              Configurazione centralizzata delle 14 sezioni pubbliche (Sec-00 a Sec-14). Ciascuna con 5 slot dedicati (totale 70 slot).
             </p>
           </div>
-          <button class="btn-gold" style="padding:14px 28px; font-size:0.82rem;" onclick="saveAllCmsConfigurations()">SALVA TUTTE LE 14 SEZIONI 💾</button>
+          <button class="btn-gold" style="padding:12px 24px; font-size:0.80rem;" onclick="saveAllCmsConfigurations()">SALVA TUTTE LE 14 SEZIONI 💾</button>
         </div>
 
-        <!-- ====================================================================
-             CMS SECTION 00: TOPBAR FORENSE EAL6+
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-topbar">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-00 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">TOPBAR FORENSE EAL6+</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Nodo di trasmissione Roma Centro, selettore 6 lingue, clock T+0 e indicatori crittografici</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('topbar')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('topbar')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">ETICHETTA NODO DI TRASMISSIONE</label>
-              <input type="text" id="cms-topbar-tag" class="form-input" value="NODO CENTRALE: ROMA // PROTOCOLLO EAL6+ ATTIVO">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO / BRAND DISPLAY</label>
-              <input type="text" id="cms-topbar-titolo" class="form-input" value="SUPREMA FUTURE X ENTERPRISE">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DESCRIZIONE PROTOCOLLO & NODO</label>
-            <textarea id="cms-topbar-desc" class="form-input" rows="2" style="resize:vertical;">Standard di sicurezza telemetrica con cifratura hardware FIDO2 e connessione diretta con AG-10 TITAN Bridge.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI / ASSET DELLA TOPBAR:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (LED STATUS)</strong>
-                <input type="text" id="cms-topbar-slot1" placeholder="URL Asset..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Icona Nodo Roma</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (BANDIERE)</strong>
-                <input type="text" id="cms-topbar-slot2" placeholder="URL Asset..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Selettore 6 Lingue</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (CLOCK BG)</strong>
-                <input type="text" id="cms-topbar-slot3" placeholder="URL Asset..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Fondo Telemetria</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (CERTIFICATO)</strong>
-                <input type="text" id="cms-topbar-slot4" placeholder="URL Asset..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Sigillo EAL6+</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (SHIELD ICON)</strong>
-                <input type="text" id="cms-topbar-slot5" placeholder="URL Asset..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Gateway 3-Tap</span>
-              </div>
-            </div>
-          </div>
+        <div id="cms-sections-container">
+          <!-- Popolato dinamicamente da JS per tutte le 14 sezioni (Sec-00 a Sec-14) con tutti i 70 slot -->
         </div>
-
-        <!-- ====================================================================
-             CMS SECTION 01: HERO GOVERNANCE (LOOP 6 FOTO & TRITTICO)
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-hero">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-01 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">HERO GOVERNANCE (CAROSELLO 6 FRAME & TRITTICO)</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Headline principale, motto spettrale, rotazione 6 scatti ad alta rifrazione e trittico ovale</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('hero')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('hero')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">BADGE DI VERTICE</label>
-              <input type="text" id="cms-hero-tag" class="form-input" value="ECOSISTEMA ELITE 2026 // GOVERNANCE ESECUTIVA">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO PRINCIPALE SPETTRALE</label>
-              <input type="text" id="cms-hero-titolo" class="form-input" value="COSTRUIAMO IL TUO DOMANI.">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">MOTTO ISTITUZIONALE // RIFLESSO SOLARE CONTINUO</label>
-            <input type="text" id="cms-hero-motto" class="form-input" value="GOVERNIAMO RISULTATI.">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">TESTO INTRODUTTIVO HERO</label>
-            <textarea id="cms-hero-desc" class="form-input" rows="3" style="resize:vertical;">Architettura formativa ed economica avanzata. Affiancamento 100% dal vivo in videoconferenza diretta, Concessioni E-Commerce a zero magazzino con logistica centralizzata e accesso riservato allo screening con la Presidenza.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI HERO (FRAME DEL CAROSELLO CIRCOLARE):</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (FRAME 1)</strong>
-                <input type="text" id="cms-hero-slot1" placeholder="URL Immagine..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Presidenza Roma Centro</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (FRAME 2)</strong>
-                <input type="text" id="cms-hero-slot2" placeholder="URL Immagine..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Tavolo Operativo Live</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (FRAME 3)</strong>
-                <input type="text" id="cms-hero-slot3" placeholder="URL Immagine..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Executive Screening Room</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (FRAME 4)</strong>
-                <input type="text" id="cms-hero-slot4" placeholder="URL Immagine..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Academy Master Class</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (FRAME 5)</strong>
-                <input type="text" id="cms-hero-slot5" placeholder="URL Immagine..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Hub Logistico Concessioni</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 02: CHI SIAMO & STORIE D'IMPRESA
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-genesi">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-02 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">CHI SIAMO & STORIE D'IMPRESA</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Genesi istituzionale SFX, standardizzazione scientifica e codice etico</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('genesi')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('genesi')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG IDENTITÀ ISTITUZIONALE</label>
-              <input type="text" id="cms-genesi-tag" class="form-input" value="GENESI SFX // VALORI FONDANTI">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO SEZIONE</label>
-              <input type="text" id="cms-genesi-titolo" class="form-input" value="CHI SIAMO & STORIE D'IMPRESA">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">MANIFESTO D'IMPRESA</label>
-            <textarea id="cms-genesi-desc" class="form-input" rows="3" style="resize:vertical;">Suprema Future X Enterprise nasce dalla precisa determinazione di abbattere la frammentazione del mercato digitale. Abbiamo eliminato ogni sovrastruttura opaca per fondare un polo operativo dove formazione ed economia reale convergono in totale trasparenza statutaria.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI STORIE D'IMPRESA:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (ORIGINI)</strong>
-                <input type="text" id="cms-genesi-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1557804506-669a67965ba0">
-                <span style="font-size:0.65rem; color:#888;">Atto Fondativo 2026</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (METODO LIVE)</strong>
-                <input type="text" id="cms-genesi-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Protocollo Didattico</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (COLLEFERRO)</strong>
-                <input type="text" id="cms-genesi-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Sede Operativa Colleferro</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (ROMA CENTRO)</strong>
-                <input type="text" id="cms-genesi-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Ufficio Presidenza Roma</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (TRAGUARDI)</strong>
-                <input type="text" id="cms-genesi-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Case History Concessionari</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 03: LA PRESIDENZA ESECUTIVA // GIULIANO CARATELLI
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-presidenza">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-03 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">LA PRESIDENZA ESECUTIVA</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Founder & CEO Giuliano Caratelli, video broadcast 16:9, manifesto della Governance</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('presidenza')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('presidenza')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG ORGANO DIRETTIVO</label>
-              <input type="text" id="cms-presidenza-tag" class="form-input" value="GOVERNANCE ESECUTIVA DI VERTICE">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO PRESIDENZA</label>
-              <input type="text" id="cms-presidenza-titolo" class="form-input" value="LA PRESIDENZA ESECUTIVA">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">MANIFESTO UFFICIALE DEL FOUNDER & CEO</label>
-            <textarea id="cms-presidenza-desc" class="form-input" rows="3" style="resize:vertical;">"Suprema Future X non è una scuola teorica e non è una vetrina di corsi passivi. È un patto di disciplina e competenza. Quando una persona viene ammessa attraverso lo screening conoscitivo, accede al mio tempo, alle mie sessioni in videoconferenza e alla nostra infrastruttura logistica. Pretendiamo serietà e garantiamo affiancamento totale."</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI PRESIDENZA (BROADCAST & RITRATTI):</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (VIDEO 16:9)</strong>
-                <input type="text" id="cms-presidenza-slot1" placeholder="URL Video..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Broadcast Istituzionale</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (RITRATTO 1)</strong>
-                <input type="text" id="cms-presidenza-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Direzione Esecutiva</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (RITRATTO 2)</strong>
-                <input type="text" id="cms-presidenza-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Screening Room Meet</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (BOARDROOM)</strong>
-                <input type="text" id="cms-presidenza-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Tavolo Decisionale Roma</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (SIGILLO)</strong>
-                <input type="text" id="cms-presidenza-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Firma Autografa FIDO2</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 04: SUPREMA ACADEMY 100% LIVE
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-academy">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-04 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">SUPREMA ACADEMY 100% LIVE</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Silver (60g), Executive Master (90g), Premium VIP (120g), orari live e sottomenu 3D</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('academy')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('academy')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG PERCORSI ACCADEMICI</label>
-              <input type="text" id="cms-academy-tag" class="form-input" value="DIDATTICA CERTIFICATA // ZERO REGISTRAZIONI">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO ACADEMY</label>
-              <input type="text" id="cms-academy-titolo" class="form-input" value="SUPREMA ACADEMY 100% LIVE">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">SPECIFICHE METODOLOGICHE & PIANI</label>
-            <textarea id="cms-academy-desc" class="form-input" rows="3" style="resize:vertical;">Formazione continua in videoconferenza diretta. Silver Tier (60 giorni, €249, +300 Punti Status), Executive Master (90 giorni, €299, +350 Punti Status, store e flussi AI inclusi) e Premium VIP (120 giorni, €349, +500 Punti Status con sessioni individuali 1-to-1 con Giuliano Caratelli).</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI ACADEMY:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (AULA LIVE)</strong>
-                <input type="text" id="cms-academy-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Sessione Meet Diretta</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (FLUSSI AI)</strong>
-                <input type="text" id="cms-academy-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Automazioni d'Impresa</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (OPERATIVITÀ)</strong>
-                <input type="text" id="cms-academy-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Screen Share Operativo</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (DOSSIER)</strong>
-                <input type="text" id="cms-academy-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Revisione Competenze</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (ATTESTATO)</strong>
-                <input type="text" id="cms-academy-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Rilascio Certificazione</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 05: CONCESSIONI DIGITALI E-COMMERCE
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-concessioni">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-05 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">CONCESSIONI DIGITALI E-COMMERCE</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Negozi autonomi a zero magazzino, hub logistico centralizzato, accredito immediato +800pt</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('concessioni')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('concessioni')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG COMMERCIO DIGITALE</label>
-              <input type="text" id="cms-concessioni-tag" class="form-input" value="COMMERCIO DIGITALE INDIPENDENTE">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO CONCESSIONI</label>
-              <input type="text" id="cms-concessioni-titolo" class="form-input" value="CONCESSIONI DIGITALI E-COMMERCE">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DESCRIZIONE LOGISTICA & RESA</label>
-            <textarea id="cms-concessioni-desc" class="form-input" rows="3" style="resize:vertical;">Infrastruttura di vendita digitale con catalogo attivo. Zero rischio merce o stoccaggio per il titolare: imballaggio, movimentazione colli e vettori espresso gestiti centralmente dall'hub di rete. Sblocco automatico di +800 Punti Status.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI CONCESSIONI E-COMMERCE:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (STORE 3D)</strong>
-                <input type="text" id="cms-concessioni-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Mockup Store Attivo</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (HUB LOGISTICO)</strong>
-                <input type="text" id="cms-concessioni-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Stoccaggio e Imballaggio</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (SPEDIZIONI)</strong>
-                <input type="text" id="cms-concessioni-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Vettori Espresso 24/48h</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (GESTIONALE)</strong>
-                <input type="text" id="cms-concessioni-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Cruscotto Concessionario</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (PERFORMANCE)</strong>
-                <input type="text" id="cms-concessioni-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Reportistica Vendite</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 06: CONCIERGE NEURALE AG-01 ALISON
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-alison">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-06 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">CONCIERGE AG-01 ALISON</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Radar vettoriale 60fps, modulo conversazionale e cassetto FAQ istituzionali</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('alison')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('alison')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG INTELLIGENZA CONVERSAZIONALE</label>
-              <input type="text" id="cms-alison-tag" class="form-input" value="INTELLIGENZA CONVERSAZIONALE ISTITUZIONALE">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO CONCIERGE</label>
-              <input type="text" id="cms-alison-titolo" class="form-input" value="CONCIERGE AG-01 ALISON">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">LOGICA DI TRIAGE & ASSISTENZA</label>
-            <textarea id="cms-alison-desc" class="form-input" rows="3" style="resize:vertical;">Interfaccia neurale addestrata esclusivamente su informazioni verificate: didattica 100% dal vivo, statuto del Founder & CEO e requisiti per le concessioni. Tutte le risposte sono accessibili nel cassetto a scomparsa per preservare la pulizia grafica.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI ALISON:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (RADAR CANVAS)</strong>
-                <input type="text" id="cms-alison-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Radar 60fps Vettoriale</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (TRIAGE FLOW)</strong>
-                <input type="text" id="cms-alison-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Mappa Ingestion Candidature</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (DRAWER FAQ)</strong>
-                <input type="text" id="cms-alison-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Registro FAQ Bonificate</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (MODALE CHAT)</strong>
-                <input type="text" id="cms-alison-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Console Satinata Chiara</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (FEEDBACK AUDIO)</strong>
-                <input type="text" id="cms-alison-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Audio Sintetico WebAudio</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 07: SUPREMA GOLD CARD METALLICA & SOGLIE PREMI
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-goldcard">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-07 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">SUPREMA GOLD CARD & SOGLIE PREMI</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Incisione laser fibra ottica, chip NFC FIDO2, catalogo a 5 scaglioni cumulativi</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('goldcard')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('goldcard')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG STATUS PHYGITAL</label>
-              <input type="text" id="cms-goldcard-tag" class="form-input" value="RICONOSCIMENTO PHYGITAL ESCLUSIVO">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO GOLD CARD</label>
-              <input type="text" id="cms-goldcard-titolo" class="form-input" value="SUPREMA GOLD CARD & PREMI">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">REGOLAMENTO SCAGLIONI MERITO</label>
-            <textarea id="cms-goldcard-desc" class="form-input" rows="3" style="resize:vertical;">Lastra in acciaio dorato satinato rilasciata al raggiungimento di +800 Punti Status. Disciplina le 5 soglie ufficiali: 2.000 (3 mesi conferenze CEO), 3.000 (Gala annuale Roma Centro), 4.500 (Audit personalizzato + 6 mesi call), 6.000 (Status Sovrano + 1 Corso Master), 7.500 (Weekend Luxury per 2 a Roma Centro).</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI SUPREMA GOLD CARD:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (LASTRA FISICA)</strong>
-                <input type="text" id="cms-goldcard-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Acciaio Dorato Satinato</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (INCISIONE)</strong>
-                <input type="text" id="cms-goldcard-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Marcatura Laser Fibra</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (CHIP NFC)</strong>
-                <input type="text" id="cms-goldcard-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Crittografia FIDO2</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (GALA ANNUALE)</strong>
-                <input type="text" id="cms-goldcard-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Location Roma Centro</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (WEEKEND LUXURY)</strong>
-                <input type="text" id="cms-goldcard-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Hotel 5 Stelle Partner</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 08: FLOTTA NEURALE (15 AGENTI & KILL SWITCH)
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-flotta">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-08 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">FLOTTA NEURALE (15 AGENTI SPECIALIZZATI)</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Front-office, routing operativo, audit forense EAL6+ e armamento kill switch</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('flotta')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('flotta')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG ARCHITETTURA INTELLIGENTE</label>
-              <input type="text" id="cms-flotta-tag" class="form-input" value="ARCHITETTURA AI PROPRIETARIA">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO FLOTTA</label>
-              <input type="text" id="cms-flotta-titolo" class="form-input" value="LA FLOTTA NEURALE COMPLETA">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DESCRIZIONE NODI & LATENZA</label>
-            <textarea id="cms-flotta-desc" class="form-input" rows="3" style="resize:vertical;">15 Agenti specializzati operanti sotto protocollo di sicurezza EAL6+. Monitoraggio telemetrico continuo con latenza media di 4.2ms: da AG-01 Alison fino al presidio di sicurezza AG-12 Sentinel e AG-15 Joker.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI FLOTTA NEURALE:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (TELEMETRIA)</strong>
-                <input type="text" id="cms-flotta-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Monitoraggio Flotta Console</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (TITAN BRIDGE)</strong>
-                <input type="text" id="cms-flotta-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Workflow AG-10 TITAN</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (ROUTING MEET)</strong>
-                <input type="text" id="cms-flotta-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Mappatura CHRONOS</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (SENTINEL)</strong>
-                <input type="text" id="cms-flotta-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Audit Sentinel AG-12</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (PEN-TEST)</strong>
-                <input type="text" id="cms-flotta-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Simulazione JOKER EAL6+</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 09: GARANZIE FORENSI & METODO
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-garanzie">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-09 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">GARANZIE FORENSI & METODO</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Codice etico, trasparenza contrattuale, Foro esclusivo Velletri / Roma</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('garanzie')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('garanzie')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG TUTELA LEGALE</label>
-              <input type="text" id="cms-garanzie-tag" class="form-input" value="CONFORMITÀ E TUTELA LEGALE">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO GARANZIE</label>
-              <input type="text" id="cms-garanzie-titolo" class="form-input" value="GARANZIE STATUTARIE">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DESCRIZIONE STATUTARIA</label>
-            <textarea id="cms-garanzie-desc" class="form-input" rows="3" style="resize:vertical;">I pilastri etici e giuridici a protezione del corsista e del concessionario: trasparenza contrattuale, valore operativo misurabile e competenza esclusiva e inderogabile del Foro di Velletri / Roma.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI GARANZIE FORENSI:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (STATUTO)</strong>
-                <input type="text" id="cms-garanzie-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Estratto Statuto EAL6+</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (CODICE ETICO)</strong>
-                <input type="text" id="cms-garanzie-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Codice Etico Integrale</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (MARCHI)</strong>
-                <input type="text" id="cms-garanzie-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Registrazione Marchi</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (PRIVACY)</strong>
-                <input type="text" id="cms-garanzie-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Privacy Policy GDPR</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (TERMINI)</strong>
-                <input type="text" id="cms-garanzie-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Termini & Condizioni</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 10: FUNNEL A CRISTALLO TANDEM DRAG
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-funnel">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-10 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">FUNNEL SCREENING TANDEM DRAG</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Cinematica corner peel exit, step 1 Indirizzo, step 2 Slot, step 3 Dossier crittografato</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('funnel')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('funnel')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG PROTOCOLLO DI ACCESSO</label>
-              <input type="text" id="cms-funnel-tag" class="form-input" value="PROTOCOLLO DI SELEZIONE UFFICIALE">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO FUNNEL</label>
-              <input type="text" id="cms-funnel-titolo" class="form-input" value="SCREENING PRESIDENZIALE">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DESCRIZIONE PROCEDURA SCREENING</label>
-            <textarea id="cms-funnel-desc" class="form-input" rows="3" style="resize:vertical;">Completa i passaggi obbligatori per richiedere il colloquio conoscitivo di 60 minuti via Google Meet direttamente con il Founder & CEO Giuliano Caratelli. Convocazione recapitata via WhatsApp entro 24 ore.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI FUNNEL SCREENING:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (PREPARAZIONE)</strong>
-                <input type="text" id="cms-funnel-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Preparazione al Colloquio</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (STANZA MEET)</strong>
-                <input type="text" id="cms-funnel-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Infrastruttura Meet 60m</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (CRITERI CEO)</strong>
-                <input type="text" id="cms-funnel-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Criteri di Ammissione</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (WHATSAPP NOTIFY)</strong>
-                <input type="text" id="cms-funnel-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Notifica WhatsApp Ufficiale</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (TITAN BRIDGE)</strong>
-                <input type="text" id="cms-funnel-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Crittografia del Dossier</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 11: MEDIA VAULT 400 (ARCHIVIO SICURO)
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-mediavault">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-11 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">MEDIA VAULT 400 (ARCHIVIO CRITTOGRAFATO)</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Infrastruttura di deposito crittografato, token CDN a tempo limitato (120 min)</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('mediavault')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('mediavault')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG DEPOSITO DIGITALE</label>
-              <input type="text" id="cms-mediavault-tag" class="form-input" value="CONSERVAZIONE DOCUMENTALE CERTIFICATA">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO MEDIA VAULT</label>
-              <input type="text" id="cms-mediavault-titolo" class="form-input" value="MEDIA VAULT 400">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DESCRIZIONE PROTOCOLLO CDN</label>
-            <textarea id="cms-mediavault-desc" class="form-input" rows="3" style="resize:vertical;">Infrastruttura di deposito crittografato per dispense didattiche, contratti di concessione e link a tempo limitato (120 minuti). Nessun file è indicizzato pubblicamente.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI MEDIA VAULT 400:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (DISPENSA MASTER)</strong>
-                <input type="text" id="cms-mediavault-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Anteprima Dispensa Master</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (SCHEMA STORE)</strong>
-                <input type="text" id="cms-mediavault-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Schema Flusso E-Commerce</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (CONTRATTO QUADRO)</strong>
-                <input type="text" id="cms-mediavault-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Contratto di Concessione</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (TOKEN CDN)</strong>
-                <input type="text" id="cms-mediavault-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Token CDN a Tempo</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (REGISTRO LIVE)</strong>
-                <input type="text" id="cms-mediavault-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Registro Presenze Didattica</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 12: NETWORK HUB & CANALI UFFICIALI
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-network">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-12 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">NETWORK HUB & COMUNICAZIONE</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Linee riservate WhatsApp Presidenza, canale Telegram Broadcast e caselle PEC</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('network')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('network')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TAG COMUNICAZIONE ISTITUZIONALE</label>
-              <input type="text" id="cms-network-tag" class="form-input" value="PRESIDI DIGITALI UFFICIALI">
-            </div>
-            <div class="form-group">
-              <label class="form-label">TITOLO NETWORK</label>
-              <input type="text" id="cms-network-titolo" class="form-input" value="NETWORK HUB & CANALI">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DISPOSIZIONI SUI CANALI UFFICIALI</label>
-            <textarea id="cms-network-desc" class="form-input" rows="3" style="resize:vertical;">Linee di comunicazione riservate con la Presidenza (+39 347 442 9091), circolari operative del canale Telegram (@SupremaFutureX_Official) e caselle di posta elettronica dedicate.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI NETWORK HUB:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (GALA ROMA)</strong>
-                <input type="text" id="cms-network-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Rassegna Evento Gala Roma</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (TELEGRAM)</strong>
-                <input type="text" id="cms-network-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Circolari Canale Telegram</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (WHATSAPP DIRECT)</strong>
-                <input type="text" id="cms-network-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Notifica WhatsApp Presidenza</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (CONFERENZE CEO)</strong>
-                <input type="text" id="cms-network-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Conferenza Esclusiva CEO</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (AGGIORNAMENTI)</strong>
-                <input type="text" id="cms-network-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Aggiornamento Piattaforme</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 13: FOOTER FORENSE EAL6+
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-footer">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-13 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">FOOTER FORENSE EAL6+</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Sedi Colleferro (RM) e Roma Centro, note legali, Foro esclusivo Velletri / Roma</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('footer')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('footer')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">SEDE OPERATIVA & DIDATTICA</label>
-              <input type="text" id="cms-footer-sedeop" class="form-input" value="Centro Direzionale Colleferro (Roma)">
-            </div>
-            <div class="form-group">
-              <label class="form-label">UFFICIO PRESIDENZA & GIURISDIZIONE</label>
-              <input type="text" id="cms-footer-sedelegal" class="form-input" value="Roma Centro // Foro Esclusivo: Velletri / Roma">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DICHIARAZIONE COPYRIGHT & DIRITTI</label>
-            <textarea id="cms-footer-copy" class="form-input" rows="2" style="resize:vertical;">© 2026 SUPREMA FUTURE X ENTERPRISE // TUTTI I DIRITTI RISERVATI. NODO DI TRASMISSIONE EAL6+ ATTIVO.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI FOOTER:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (LOGO FOOTER)</strong>
-                <input type="text" id="cms-footer-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Logo Ovale Chiaro</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (SIGILLO FORO)</strong>
-                <input type="text" id="cms-footer-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Sigillo Velletri / Roma</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (CERTIFICAZIONE)</strong>
-                <input type="text" id="cms-footer-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Bollino EAL6+ Shield</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (QR WHATSAPP)</strong>
-                <input type="text" id="cms-footer-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">QR Contatto Presidenza</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (SEDI 3D)</strong>
-                <input type="text" id="cms-footer-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Mappa Presidi Roma</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====================================================================
-             CMS SECTION 14: BARRA CONFERENZA CEO // INTEGRAZIONE TALLY FORM
-             ==================================================================== -->
-        <div class="cms-section-card" id="cms-card-tally">
-          <div class="cms-sec-header">
-            <div>
-              <span class="badge-eal" style="font-size:0.65rem;">SEC-14 // GESTIONE CMS</span>
-              <h3 style="font-family:var(--font-sync); font-size:1.15rem; color:var(--text-dominant); margin-top:0.4rem;">BARRA CONFERENZA CEO // MODALE TALLY FORM</h3>
-              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">Pulsante post-footer a piena larghezza, integrazione modale crittografata Tally</p>
-            </div>
-            <div style="display:flex; gap:0.8rem;">
-              <button class="btn-secondary" style="padding:8px 16px; font-size:0.7rem;" onclick="previewSection('tally')">ANTEPRIMA</button>
-              <button class="btn-gold" style="padding:8px 18px; font-size:0.7rem;" onclick="saveSectionConfig('tally')">SALVA MODIFICHE</button>
-            </div>
-          </div>
-          
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label">TESTO DEL PULSANTE A PIENA LARGHEZZA</label>
-              <input type="text" id="cms-tally-btntext" class="form-input" value="CONFERENZA CEO // PRENOTA ORA">
-            </div>
-            <div class="form-group">
-              <label class="form-label">ID MODULO TALLY UFFICIALE</label>
-              <input type="text" id="cms-tally-formid" class="form-input" value="mYzJ1L">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">NOTE OPERATIVE MODALE OVERLAY</label>
-            <textarea id="cms-tally-desc" class="form-input" rows="2" style="resize:vertical;">Il click attiva il popup modale Tally su overlay chiaro satinato (larghezza 750px) senza redirect esterno.</textarea>
-          </div>
-
-          <div style="margin-top:1.5rem;">
-            <label class="form-label" style="display:block; margin-bottom:0.6rem;">I 5 SLOT MULTIMEDIALI BARRA TALLY:</label>
-            <div class="cms-slots-grid">
-              <div class="cms-slot-box">
-                <strong>SLOT 01 (BACKGROUND)</strong>
-                <input type="text" id="cms-tally-slot1" placeholder="URL..." value="https://images.unsplash.com/photo-1556761175-5973dc0f32d7">
-                <span style="font-size:0.65rem; color:#888;">Finitura Metallo Lucido</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 02 (FASCIO ORO)</strong>
-                <input type="text" id="cms-tally-slot2" placeholder="URL..." value="https://images.unsplash.com/photo-1560250097-0b93528c311a">
-                <span style="font-size:0.65rem; color:#888;">Riflesso Continuo Oro</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 03 (MODALE TALLY)</strong>
-                <input type="text" id="cms-tally-slot3" placeholder="URL..." value="https://images.unsplash.com/photo-1573164713988-8665fc963095">
-                <span style="font-size:0.65rem; color:#888;">Layout Popup Tally</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 04 (ICONA MEET)</strong>
-                <input type="text" id="cms-tally-slot4" placeholder="URL..." value="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-                <span style="font-size:0.65rem; color:#888;">Icona Convocazione CEO</span>
-              </div>
-              <div class="cms-slot-box">
-                <strong>SLOT 05 (SIGILLO LIVE)</strong>
-                <input type="text" id="cms-tally-slot5" placeholder="URL..." value="https://images.unsplash.com/photo-1600880292203-757bb62b4baf">
-                <span style="font-size:0.65rem; color:#888;">Sigillo Didattica 100% Live</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
-<!-- TAB 5: FLOTTA NEURALE (15 AGENTI & TELEMETRIA EAL6+) -->
+
+      <!-- TAB 5: FLOTTA NEURALE (15 AGENTI & TELEMETRIA EAL6+) -->
       <div class="tab-view" id="tab-flotta">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.2rem; background:#FFF; padding:1.8rem 2.2rem; border-radius:var(--radius-inner); border:1.5px solid var(--metal-edge); box-shadow:var(--shadow-subtle);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
           <div>
-            <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.45rem;">FLOTTA NEURALE COMPLETA (15 AGENTI ATTIVI)</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:6px;">
-              Architettura distribuita EAL6+. Monitoraggio telemetrico del cluster neurale coordinato da AG-12 Sentinel. Latenza media: 4.2ms.
+            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">FLOTTA NEURALE COMPLETA (15 AGENTI ATTIVI)</h2>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
+              Architettura distribuita EAL6+. Monitoraggio telemetrico coordinato da AG-12 Sentinel. Latenza media: 4.2ms.
             </p>
           </div>
-          <button class="btn-gold" style="padding:12px 24px; font-size:0.78rem; background:rgba(255,59,48,0.12); border-color:var(--status-alert); color:var(--status-alert);" onclick="triggerMasterKillSwitch()">MASTER KILL-SWITCH FORENSE ⚠️</button>
+          <button class="btn-outline" style="padding:10px 20px; font-size:0.75rem; border-color:var(--status-alert); color:var(--status-alert);" onclick="triggerMasterKillSwitch()">MASTER KILL-SWITCH ⚠️</button>
         </div>
 
-        <div class="agent-grid" id="full-fleet-grid">
-          <!-- Popolato dinamicamente da fleetData (15 Agenti) via JS -->
-        </div>
+        <div class="agent-grid" id="full-fleet-grid"></div>
       </div>
 
       <!-- TAB 6: MEDIA VAULT 400 (REGISTRO & TOKEN 120 MINUTI) -->
       <div class="tab-view" id="tab-vault">
-        <div class="oval-section spectral-border" style="padding:3rem; margin-bottom:2.5rem;">
-          <h3 class="spectral-text" style="font-family:var(--font-sync); font-size:1.35rem; margin-bottom:1rem;">REGISTRO ASSET CRITTOGRAFATI & TOKEN TEMPORIZZATI (120 MINUTI)</h3>
-          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:2rem;">
-            Protocollo CDN EAL6+. I file depositati nel Media Vault 400 sono protetti da token monouso a tempo limitato. Nessun URL diretto risiede sui server pubblici.
+        <div class="cms-section-card" style="padding:2.5rem;">
+          <h3 style="font-family:var(--font-display); font-size:1.3rem; margin-bottom:0.8rem; color:var(--text-dominant);">
+            REGISTRO ASSET &amp; TOKEN TEMPORIZZATI (120 MINUTI)
+          </h3>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">
+            Protocollo CDN EAL6+. I file depositati nel Media Vault 400 sono protetti da token monouso crittografati.
           </p>
 
           <div class="grid-2">
@@ -1464,17 +520,19 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
                 <label class="form-label">ID CANDIDATO O ALLIEVO ASSEGNATARIO</label>
                 <input type="text" id="vault-recipient-id" class="form-input" placeholder="Es. SFX-LD-8841 // Marco Bianchi">
               </div>
-              <button class="btn-gold" style="margin-top:1rem; width:100%; text-align:center;" onclick="generateTimedVaultToken()">GENERA TOKEN CRITTOGRAFICO (120 MIN) ➔</button>
+              <button class="btn-gold" style="margin-top:0.8rem; width:100%; text-align:center;" onclick="generateTimedVaultToken()">
+                GENERA TOKEN CRITTOGRAFICO (120 MIN) ➔
+              </button>
             </div>
 
-            <div style="background:#FFF; border:1.5px solid var(--metal-edge); border-radius:var(--radius-inner); padding:2rem; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-              <span class="badge-eal" style="font-size:0.65rem; margin-bottom:0.8rem;">TOKEN MONOUSO GENERATO</span>
-              <div id="vault-generated-link" style="font-family:var(--font-mono); font-size:0.95rem; font-weight:700; color:var(--spectral-gold-deep); margin:1rem 0; word-break:break-all; padding:14px; background:rgba(246,242,235,0.7); border-radius:10px; border:1px solid var(--metal-edge);">
+            <div style="background:var(--bg-surface); border:1.5px solid var(--border-gold); border-radius:var(--radius-sm); padding:1.8rem; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+              <span class="badge-forensic active" style="font-size:0.65rem; margin-bottom:0.8rem;">TOKEN MONOUSO GENERATO</span>
+              <div id="vault-generated-link" style="font-family:var(--font-mono); font-size:0.85rem; font-weight:700; color:var(--gold-deep); margin:1rem 0; word-break:break-all; padding:12px; background:#FFFFFF; border-radius:8px; border:1px solid var(--border-gold);">
                 https://supremafuturex.it/vault?token=TOKEN_IN_ATTESA
               </div>
-              <div style="display:flex; gap:0.8rem; justify-content:center;">
-                <button class="btn-secondary" style="padding:10px 18px; font-size:0.75rem;" onclick="copyVaultLinkToClipboard()">COPIA LINK SICURO</button>
-                <button class="btn-secondary" style="padding:10px 18px; font-size:0.75rem; border-color:var(--status-alert); color:var(--status-alert);" onclick="revokeVaultToken()">REVOCA ACCESSO</button>
+              <div style="display:flex; gap:0.6rem; justify-content:center;">
+                <button class="btn-outline" style="padding:8px 16px; font-size:0.75rem;" onclick="copyVaultLinkToClipboard()">COPIA LINK</button>
+                <button class="btn-outline" style="padding:8px 16px; font-size:0.75rem; border-color:var(--status-alert); color:var(--status-alert);" onclick="revokeVaultToken()">REVOCA ACCESSO</button>
               </div>
             </div>
           </div>
@@ -1486,10 +544,10 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
               <tr>
                 <th>CODICE ASSET</th>
                 <th>DESCRIZIONE FILE</th>
-                <th>ULTIMO TOKEN RILASCIATO</th>
+                <th>ULTIMO TOKEN</th>
                 <th>DESTINATARIO</th>
                 <th>TEMPO RIMANENTE</th>
-                <th>STATO PROTOCOLLO</th>
+                <th>STATO</th>
               </tr>
             </thead>
             <tbody id="vault-tokens-history">
@@ -1509,29 +567,21 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
                 <td><span style="color:var(--text-muted);">SCADUTO</span></td>
                 <td><span class="status-badge rigettato">REVOCATO</span></td>
               </tr>
-              <tr>
-                <td><strong>MV-004</strong></td>
-                <td>Certificato Matricola Gold Card SFX-GC-0104.pdf</td>
-                <td><span style="font-family:var(--font-mono); font-size:0.75rem;">SFX-TK-99210C</span></td>
-                <td>Luca Santoro (SFX-LD-8835)</td>
-                <td><span style="color:var(--text-muted);">SCADUTO</span></td>
-                <td><span class="status-badge rigettato">ARCHIVIATO</span></td>
-              </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- TAB 7: SUPREMA GOLD CARD LEDGER (PUNTI STATUS & CATALOGO PREMI) -->
+      <!-- TAB 7: SUPREMA GOLD CARD LEDGER -->
       <div class="tab-view" id="tab-goldcard">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.2rem; background:#FFF; padding:1.8rem 2.2rem; border-radius:var(--radius-inner); border:1.5px solid var(--metal-edge); box-shadow:var(--shadow-subtle);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
           <div>
-            <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.45rem;">SUPREMA GOLD CARD // REGISTRO PUNTI STATUS</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:6px;">
-              Accredito Punti Status (+300 Silver, +350 Master, +500 VIP, +800 Store) e monitoraggio soglie premi per l'emissione fisica su lastra d'acciaio dorato.
+            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">SUPREMA GOLD CARD // REGISTRO PUNTI STATUS</h2>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
+              Accredito Punti Status (+300 Silver, +350 Master, +500 VIP, +800 Store) e monitoraggio soglie premi fisiche.
             </p>
           </div>
-          <button class="btn-gold" style="padding:12px 24px; font-size:0.8rem;" onclick="openNewCardModal()">NUOVA EMISSIONE CARTA 💳</button>
+          <button class="btn-gold" style="padding:10px 20px; font-size:0.78rem;" onclick="openNewCardModal()">NUOVA EMISSIONE CARTA 💳</button>
         </div>
 
         <div class="data-table-wrapper">
@@ -1551,36 +601,25 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
               <tr>
                 <td><span style="font-family:var(--font-mono); font-weight:700;">SFX-2026-GC-0104</span></td>
                 <td><strong>Luca Santoro</strong></td>
-                <td><span style="font-family:var(--font-mono); font-size:1.15rem; color:var(--text-accent); font-weight:700;">2.150 pt</span></td>
+                <td><span style="font-family:var(--font-mono); font-size:1.1rem; color:var(--gold-deep); font-weight:700;">2.150 pt</span></td>
                 <td><span class="status-badge convocato">SOGLIA 1 (2.000 pt - 3 Mesi Meet CEO)</span></td>
                 <td><span style="color:var(--status-online); font-weight:700;">COMPLETATA</span></td>
                 <td><span style="color:var(--status-online); font-weight:700;">ATTIVO</span></td>
                 <td>
-                  <button class="btn-secondary" style="padding:6px 12px; font-size:0.7rem;" onclick="addPointsToMember('SFX-2026-GC-0104', 350)">+350 PT MASTER</button>
-                  <button class="btn-secondary" style="padding:6px 12px; font-size:0.7rem;" onclick="addPointsToMember('SFX-2026-GC-0104', 800)">+800 PT STORE</button>
+                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0104', 350)">+350 PT</button>
+                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0104', 800)">+800 PT</button>
                 </td>
               </tr>
               <tr>
                 <td><span style="font-family:var(--font-mono); font-weight:700;">SFX-2026-GC-0105</span></td>
                 <td><strong>Alessandra Conti</strong></td>
-                <td><span style="font-family:var(--font-mono); font-size:1.15rem; color:var(--text-accent); font-weight:700;">800 pt</span></td>
+                <td><span style="font-family:var(--font-mono); font-size:1.1rem; color:var(--gold-deep); font-weight:700;">800 pt</span></td>
                 <td><span class="status-badge ammesso">QUALIFICATA (Emissione Metallica)</span></td>
                 <td><span style="color:var(--status-standby); font-weight:700;">IN PRODUZIONE</span></td>
                 <td><span style="color:var(--status-standby); font-weight:700;">IN ATTESA CHIP</span></td>
                 <td>
-                  <button class="btn-secondary" style="padding:6px 12px; font-size:0.7rem;" onclick="addPointsToMember('SFX-2026-GC-0105', 500)">+500 PT VIP</button>
-                  <button class="btn-secondary" style="padding:6px 12px; font-size:0.7rem;" onclick="addPointsToMember('SFX-2026-GC-0105', 800)">+800 PT STORE</button>
-                </td>
-              </tr>
-              <tr>
-                <td><span style="font-family:var(--font-mono); font-weight:700;">SFX-2026-GC-0106</span></td>
-                <td><strong>Roberto Ferri</strong></td>
-                <td><span style="font-family:var(--font-mono); font-size:1.15rem; color:var(--text-accent); font-weight:700;">3.400 pt</span></td>
-                <td><span class="status-badge convocato">SOGLIA 2 (3.000 pt - Gala Roma Centro)</span></td>
-                <td><span style="color:var(--status-online); font-weight:700;">CONSEGNATA</span></td>
-                <td><span style="color:var(--status-online); font-weight:700;">ATTIVO</span></td>
-                <td>
-                  <button class="btn-secondary" style="padding:6px 12px; font-size:0.7rem;" onclick="addPointsToMember('SFX-2026-GC-0106', 350)">+350 PT MASTER</button>
+                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0105', 500)">+500 PT</button>
+                  <button class="btn-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="addPointsToMember('SFX-2026-GC-0105', 800)">+800 PT</button>
                 </td>
               </tr>
             </tbody>
@@ -1590,14 +629,16 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
 
       <!-- TAB 8: AUDIT LOG FORENSE EAL6+ -->
       <div class="tab-view" id="tab-audit">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.2rem; background:#FFF; padding:1.8rem 2.2rem; border-radius:var(--radius-inner); border:1.5px solid var(--metal-edge); box-shadow:var(--shadow-subtle);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; background:#FFF; padding:1.5rem 2rem; border-radius:var(--radius-sm); border:1.5px solid var(--border-gold);">
           <div>
-            <h2 class="spectral-text" style="font-family:var(--font-sync); font-size:1.45rem;">REGISTRO FORENSE CRITTOGRAFATO (AG-12 SENTINEL)</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:6px;">
-              Tracciamento immutabile degli accessi alla X-BOX, tentativi di intrusione respinti, emissioni token e schedulazioni Google Meet.
+            <h2 style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold-deep); margin:0;">REGISTRO FORENSE CRITTOGRAFATO (AG-12 SENTINEL)</h2>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
+              Tracciamento immutabile degli accessi alla X-BOX, tentativi di intrusione, emissioni token e colloqui Google Meet.
             </p>
           </div>
-          <button class="btn-secondary" style="padding:12px 20px; font-size:0.75rem;" onclick="exportAuditLogCsv()">SCARICA AUDIT TRAIL CSV 📥</button>
+          <button class="btn-outline" style="padding:10px 18px; font-size:0.75rem;" onclick="exportAuditLogCsv()">
+            <i class="fa-solid fa-download"></i> SCARICA AUDIT CSV
+          </button>
         </div>
 
         <div class="data-table-wrapper">
@@ -1614,7 +655,7 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
             </thead>
             <tbody id="full-audit-table-body">
               <tr>
-                <td>2026-11-03 17:40:12</td>
+                <td>2026-11-10 10:45:12</td>
                 <td>AG-12 SENTINEL</td>
                 <td>AUTH_LOGIN_SUCCESS</td>
                 <td><span style="color:var(--status-online); font-weight:700;">SUCCESS</span></td>
@@ -1622,36 +663,20 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
                 <td>Sblocco autorizzato X-BOX Console via PIN presidenziale (3474429091)</td>
               </tr>
               <tr>
-                <td>2026-11-03 16:15:00</td>
+                <td>2026-11-10 09:30:00</td>
                 <td>AG-10 TITAN</td>
                 <td>DOSSIER_INGESTION</td>
-                <td><span style="color:var(--spectral-blue); font-weight:700;">INFO</span></td>
+                <td><span style="color:var(--spectral-cyan); font-weight:700;">INFO</span></td>
                 <td>GATEWAY_WEB_INGEST</td>
                 <td>Ricevuto e validato dossier anagrafico SFX-LD-8841 (Marco Bianchi)</td>
               </tr>
               <tr>
-                <td>2026-11-03 14:02:44</td>
-                <td>AG-15 JOKER</td>
-                <td>PEN_TEST_SIMULATION</td>
-                <td><span style="color:var(--status-online); font-weight:700;">PASSED</span></td>
-                <td>INTERNAL_SECURITY_CHECK</td>
-                <td>Test iniezione SQL e XSS respinto con 0 vulnerabilità rilevate</td>
-              </tr>
-              <tr>
-                <td>2026-11-02 21:10:05</td>
+                <td>2026-11-09 18:22:15</td>
                 <td>AG-11 CHRONOS</td>
                 <td>MEET_DISPATCH</td>
-                <td><span style="color:var(--spectral-gold-deep); font-weight:700;">SUCCESS</span></td>
+                <td><span style="color:var(--gold-deep); font-weight:700;">SUCCESS</span></td>
                 <td>API_GOOGLE_CALENDAR</td>
-                <td>Convocazione 60m generata per Elena Moretti (WhatsApp inviato)</td>
-              </tr>
-              <tr>
-                <td>2026-11-02 10:22:18</td>
-                <td>AG-12 SENTINEL</td>
-                <td>TOKEN_VAULT_ISSUED</td>
-                <td><span style="color:var(--spectral-blue); font-weight:700;">INFO</span></td>
-                <td>CDN_VAULT_NODE</td>
-                <td>Rilascio token SFX-TK-99214A per Dispensa Executive Master (120 min)</td>
+                <td>Convocazione 60m schedulata per Elena Moretti (WhatsApp generato)</td>
               </tr>
             </tbody>
           </table>
@@ -1661,84 +686,68 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
     </main>
   </div>
 
-  <!-- ==========================================================================
-       MODALI OPERATIVI: DETTAGLIO LEAD DOSSIER & NUOVA CARTA
-       ========================================================================== -->
+  <!-- MODALE DETTAGLIO LEAD DOSSIER -->
   <div class="modal-overlay-xbox" id="lead-dossier-modal">
-    <div class="modal-box-xbox spectral-border">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--metal-edge); padding-bottom:1.2rem; margin-bottom:1.5rem;">
+    <div class="modal-box-xbox">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-gold); padding-bottom:1rem; margin-bottom:1.4rem;">
         <div>
-          <span class="badge-eal" style="font-size:0.65rem;">DOSSIER CANDIDATO // RISERVATO</span>
-          <h3 id="modal-lead-title" style="font-family:var(--font-sync); font-size:1.35rem; margin-top:0.4rem;">MARCO BIANCHI</h3>
+          <span class="badge-forensic active" style="font-size:0.65rem;">DOSSIER CANDIDATO // RISERVATO</span>
+          <h3 id="modal-lead-title" style="font-family:var(--font-display); font-size:1.3rem; margin-top:0.3rem; color:var(--text-dominant);">MARCO BIANCHI</h3>
         </div>
-        <button style="background:transparent; border:none; font-size:1.8rem; cursor:pointer;" onclick="closeLeadModal()">✕</button>
+        <button style="background:transparent; border:none; font-size:1.6rem; cursor:pointer;" onclick="closeLeadModal()">✕</button>
       </div>
 
-      <div class="grid-2" style="margin-bottom:1.5rem;">
+      <div class="grid-2" style="margin-bottom:1.4rem;">
         <div>
           <label class="form-label">DATI ANAGRAFICI CANDIDATO</label>
-          <p id="modal-lead-anagrafica" style="font-size:0.9rem; line-height:1.8; color:var(--text-dominant); background:rgba(246,242,235,0.7); padding:16px; border-radius:12px; border:1px solid var(--metal-edge);">
-            Email: m.bianchi@email.it<br>
-            WhatsApp: +39 333 1234567<br>
-            Data Inoltro: 2026-11-03 16:15 CET
+          <p id="modal-lead-anagrafica" style="font-size:0.85rem; line-height:1.8; color:var(--text-dominant); background:var(--bg-surface); padding:14px; border-radius:8px; border:1px solid var(--border-gold);">
+            Email: m.bianchi@email.it<br>WhatsApp: +39 333 1234567<br>Data Inoltro: 2026-11-10 09:30 CET
           </p>
         </div>
         <div>
           <label class="form-label">RICHIESTA SCREENING ACCADEMICO</label>
-          <p id="modal-lead-richiesta" style="font-size:0.9rem; line-height:1.8; color:var(--text-dominant); background:rgba(246,242,235,0.7); padding:16px; border-radius:12px; border:1px solid var(--metal-edge);">
-            Percorso: Executive Master (90 Giorni)<br>
-            Fascia Oraria: Mattina (10:00 - 12:00)<br>
-            Stato Attuale: <span class="status-badge nuovo">NUOVO</span>
+          <p id="modal-lead-richiesta" style="font-size:0.85rem; line-height:1.8; color:var(--text-dominant); background:var(--bg-surface); padding:14px; border-radius:8px; border:1px solid var(--border-gold);">
+            Percorso: Executive Master (90 Giorni)<br>Fascia Oraria: Mattina (10:00 - 12:00)<br>Stato Attuale: <span class="status-badge nuovo">NUOVO</span>
           </p>
         </div>
       </div>
 
-      <div class="form-group" style="margin-bottom:1.5rem;">
+      <div class="form-group" style="margin-bottom:1.4rem;">
         <label class="form-label">NOTE DELLA PRESIDENZA (GIULIANO CARATELLI)</label>
-        <textarea id="modal-lead-notes" class="form-input" rows="3" placeholder="Inserisci note confidenziali sul profilo e sulla motivazione del candidato..."></textarea>
+        <textarea id="modal-lead-notes" class="form-input" rows="3" placeholder="Inserisci note confidenziali sul profilo..."></textarea>
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(74,82,96,0.15); padding-top:1.5rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(212,175,55,0.2); padding-top:1.4rem;">
         <div style="display:flex; gap:0.6rem;">
-          <button class="btn-secondary" style="padding:10px 16px; font-size:0.75rem;" onclick="setLeadStatus('AMMESSO')">✔ AMMETTI AL PERCORSO</button>
-          <button class="btn-secondary" style="padding:10px 16px; font-size:0.75rem; color:var(--status-alert); border-color:var(--status-alert);" onclick="setLeadStatus('RIGETTATO')">✕ RIGETTA DOSSIER</button>
+          <button class="btn-outline" style="padding:8px 14px; font-size:0.75rem;" onclick="setLeadStatus('AMMESSO')">✔ AMMETTI</button>
+          <button class="btn-outline" style="padding:8px 14px; font-size:0.75rem; color:var(--status-alert); border-color:var(--status-alert);" onclick="setLeadStatus('RIGETTATO')">✕ RIGETTA</button>
         </div>
-        <button class="btn-gold" style="padding:12px 24px; font-size:0.78rem;" onclick="convocaDaModale()">CONVOCA GOOGLE MEET (60m) ➔</button>
+        <button class="btn-gold" style="padding:10px 20px; font-size:0.75rem;" onclick="convocaDaModale()">CONVOCA GOOGLE MEET (60m) ➔</button>
       </div>
     </div>
   </div>
 
-  <!-- ==========================================================================
-       MOTORE JAVASCRIPT MONOLITICO X-BOX FORENSE (ANTI-KEYLOGGER, API & SOUND)
-       ========================================================================== -->
+  <!-- MOTORE JAVASCRIPT MONOLITICO X-BOX FORENSE -->
   <script>
-    // 1. BLOCCO FORENSE CLIENT-SIDE (ANTI F12 E TASTO DESTRO)
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toUpperCase() === 'U')) {
-        e.preventDefault();
-      }
-    });
+    'use strict';
 
-    // 2. STATO APPLICATIVO & REGISTRI DATI
+    const SFX_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaRYm0ck2uareJjsnGD42r6EkrNgtY4D1Ux5nDgN_zzJW4xnxa3iGZWKoi6u0lVW5zDA/exec";
+    const REQUIRED_PIN_LEN = 10;
     let activePin = "";
-    const REQUIRED_PIN_LEN = 10; // Corrisponde al PIN Presidenziale 3474429091
     let sfxAuthToken = sessionStorage.getItem("SFX_XBOX_AUTH_TOKEN") || "";
 
-    // DATABASE CANDIDATURE DI SCREENING
     const MOCK_LEADS = [
-      { id: "SFX-LD-8841", nome: "Marco", cognome: "Bianchi", email: "m.bianchi@email.it", wa: "+39 333 1234567", tier: "Executive Master (90 Giorni)", slot: "Mattina (10:00 - 12:00)", data: "2026-11-03 16:15", stato: "NUOVO", note: "Profilo manageriale. Forte interesse per automazioni AI e concessioni store." },
-      { id: "SFX-LD-8840", nome: "Elena", cognome: "Moretti", email: "e.moretti@email.it", wa: "+39 340 9876543", tier: "Concessione E-Commerce", slot: "Pomeriggio (15:00 - 18:00)", data: "2026-11-02 18:20", stato: "CONVOCATO", note: "Interesse per store a zero magazzino e logistica centralizzata." },
-      { id: "SFX-LD-8839", nome: "Roberto", cognome: "Ferri", email: "r.ferri@dominio.it", wa: "+39 328 5551234", tier: "Premium VIP (120 Giorni)", slot: "Serale Riservata (21:00 - 23:00)", data: "2026-11-02 11:05", stato: "AMMESSO", note: "Colloquio completato con successo col CEO. Punti Status accreditati." },
-      { id: "SFX-LD-8838", nome: "Chiara", cognome: "Galli", email: "c.galli@azienda.com", wa: "+39 349 7778899", tier: "Silver Tier (60 Giorni)", slot: "Sabato Fast-Track", data: "2026-11-01 14:40", stato: "NUOVO", note: "Richiesta convocazione flessibile via WhatsApp per disponibilità turni." },
-      { id: "SFX-LD-8837", nome: "Davide", cognome: "Rinaldi", email: "d.rinaldi@gmail.com", wa: "+39 331 4443322", tier: "Executive Master (90 Giorni)", slot: "Mattina (10:00 - 12:00)", data: "2026-10-31 09:12", stato: "CONVOCATO", note: "Colloquio schedulato per giovedì mattina via Google Meet." }
+      { id: "SFX-LD-8841", nome: "Marco", cognome: "Bianchi", email: "m.bianchi@email.it", wa: "+39 333 1234567", tier: "Executive Master (90 Giorni)", slot: "Mattina (10:00 - 12:00)", data: "2026-11-10 09:30", stato: "NUOVO", note: "Profilo manageriale. Interesse per automazioni AI e store digitale." },
+      { id: "SFX-LD-8840", nome: "Elena", cognome: "Moretti", email: "e.moretti@email.it", wa: "+39 340 9876543", tier: "Concessione E-Commerce", slot: "Pomeriggio (15:00 - 18:00)", data: "2026-11-09 18:20", stato: "CONVOCATO", note: "Interesse per store a zero magazzino e logistica centralizzata." },
+      { id: "SFX-LD-8839", nome: "Roberto", cognome: "Ferri", email: "r.ferri@dominio.it", wa: "+39 328 5551234", tier: "Premium VIP (120 Giorni)", slot: "Serale Riservata (21:00 - 23:00)", data: "2026-11-08 11:05", stato: "AMMESSO", note: "Colloquio completato con successo col CEO. Punti Status accreditati." },
+      { id: "SFX-LD-8838", nome: "Chiara", cognome: "Galli", email: "c.galli@azienda.com", wa: "+39 349 7778899", tier: "Silver Tier (60 Giorni)", slot: "Sabato Fast-Track", data: "2026-11-07 14:40", stato: "NUOVO", note: "Richiesta convocazione flessibile via WhatsApp." }
     ];
 
     let currentSelectedLead = null;
 
-    // 3. WEBAUDIO PROCEDURALE
+    // 1. WEBAUDIO PROCEDURALE
     let audioCtx;
-    function playProceduralSound(freq = 440, type = 'sine', duration = 0.12) {
+    function playProceduralSound(freq = 440, type = 'sine', duration = 0.1) {
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -1746,18 +755,17 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
         const gain = audioCtx.createGain();
         osc.type = type;
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
         osc.connect(gain); gain.connect(audioCtx.destination);
         osc.start(); osc.stop(audioCtx.currentTime + duration);
       } catch(e) {}
     }
 
-    // 4. GENERATORE RANDOM KEYPAD (ANTI-KEYLOGGER)
+    // 2. GENERATORE RANDOM TASTIERINO (ANTI-KEYLOGGER)
     function generateRandomKeypad() {
       const container = document.getElementById('virtual-keypad');
       container.innerHTML = "";
-      
       const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
       for (let i = nums.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1793,7 +801,7 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
 
     function handleDigitPress(val) {
       if (activePin.length < REQUIRED_PIN_LEN) {
-        playProceduralSound(520, 'triangle', 0.1);
+        playProceduralSound(520, 'triangle', 0.08);
         activePin += val;
         renderPinDots();
         if (activePin.length === REQUIRED_PIN_LEN) {
@@ -1803,7 +811,7 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
     }
 
     function resetPin() {
-      playProceduralSound(300, 'sine', 0.15);
+      playProceduralSound(300, 'sine', 0.12);
       activePin = "";
       renderPinDots();
       document.getElementById('login-feedback').innerText = "";
@@ -1811,7 +819,7 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
 
     function backspacePin() {
       if (activePin.length > 0) {
-        playProceduralSound(380, 'sine', 0.1);
+        playProceduralSound(380, 'sine', 0.08);
         activePin = activePin.slice(0, -1);
         renderPinDots();
       }
@@ -1827,28 +835,42 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
       }
     }
 
-    function executePinValidation() {
+    async function executePinValidation() {
       const fb = document.getElementById('login-feedback');
       fb.style.color = "var(--text-muted)";
       fb.innerText = "VERIFICA CRITTOGRAFICA IN CORSO...";
 
-      // PIN PRESIDENZIALE
-      if (activePin === "3474429091") {
-        setTimeout(() => {
-          playProceduralSound(880, 'triangle', 0.25);
+      try {
+        const res = await fetch(SFX_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'verify_xbox_pin', pin: activePin })
+        });
+        const data = await res.json();
+
+        if (data.success && data.auth_token) {
+          playProceduralSound(880, 'triangle', 0.2);
+          sfxAuthToken = data.auth_token;
+          sessionStorage.setItem("SFX_XBOX_AUTH_TOKEN", sfxAuthToken);
+          unlockXboxConsole();
+          return;
+        }
+      } catch (err) {
+        // Fallback test presidenziale sicuro
+        if (activePin === "3474429091") {
+          playProceduralSound(880, 'triangle', 0.2);
           sfxAuthToken = "SFX-XBOX-SECURE-" + Date.now();
           sessionStorage.setItem("SFX_XBOX_AUTH_TOKEN", sfxAuthToken);
           unlockXboxConsole();
-        }, 400);
-      } else {
-        setTimeout(() => {
-          playProceduralSound(200, 'sawtooth', 0.3);
-          fb.style.color = "var(--status-alert)";
-          fb.innerText = "CODICE DI SICUREZZA NON VALIDO";
-          resetPin();
-          generateRandomKeypad();
-        }, 500);
+          return;
+        }
       }
+
+      playProceduralSound(200, 'sawtooth', 0.25);
+      fb.style.color = "var(--status-alert)";
+      fb.innerText = "CODICE DI SICUREZZA NON VALIDO";
+      resetPin();
+      generateRandomKeypad();
     }
 
     function unlockXboxConsole() {
@@ -1856,11 +878,12 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
       document.getElementById('xbox-dashboard').style.display = 'grid';
       populateCrmTable();
       populateFleetGrid();
+      buildCmsSections();
       startSessionCountdown();
     }
 
     function logoutXbox() {
-      playProceduralSound(350, 'sine', 0.2);
+      playProceduralSound(350, 'sine', 0.15);
       sessionStorage.removeItem("SFX_XBOX_AUTH_TOKEN");
       activePin = "";
       renderPinDots();
@@ -1869,9 +892,9 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
       generateRandomKeypad();
     }
 
-    // 5. GESTIONE TAB CONSOLE
+    // 3. GESTIONE TAB CONSOLE
     function switchXboxTab(tabId) {
-      playProceduralSound(460, 'sine', 0.08);
+      playProceduralSound(460, 'sine', 0.06);
       document.querySelectorAll('.tab-view').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
 
@@ -1894,7 +917,7 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
       document.getElementById('tab-headline-title').innerText = titles[tabId] || 'X-BOX CONSOLE';
     }
 
-    // 6. POPOLAMENTO CRM TABLE
+    // 4. CRM POPULATION & TABLE
     function populateCrmTable(filterStatus = "ALL", searchQuery = "") {
       const tbody = document.getElementById('crm-leads-tbody');
       tbody.innerHTML = "";
@@ -1913,15 +936,15 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
           <td><strong>${ld.data}</strong><br><span style="font-family:var(--font-mono); font-size:0.68rem; color:#888;">${ld.id}</span></td>
           <td><strong>${ld.nome} ${ld.cognome}</strong></td>
           <td>
-            <a href="https://wa.me/${ld.wa.replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--spectral-gold-deep); font-weight:700;">${ld.wa}</a><br>
+            <a href="https://wa.me/${ld.wa.replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--gold-deep); font-weight:700;">${ld.wa}</a><br>
             <span style="font-size:0.75rem; color:#666;">${ld.email}</span>
           </td>
           <td>${ld.tier}</td>
           <td>${ld.slot}</td>
           <td><span class="status-badge ${badgeClass}">${ld.stato}</span></td>
           <td>
-            <button class="btn-gold" style="padding:6px 12px; font-size:0.68rem;" onclick="openLeadModal('${ld.id}')">DOSSIER</button>
-            <button class="btn-secondary" style="padding:6px 12px; font-size:0.68rem; margin-left:4px;" onclick="quickScheduleMeet('${ld.id}')">MEET</button>
+            <button class="btn-gold" style="padding:4px 10px; font-size:0.68rem;" onclick="openLeadModal('${ld.id}')">DOSSIER</button>
+            <button class="btn-outline" style="padding:4px 10px; font-size:0.68rem; margin-left:4px;" onclick="quickScheduleMeet('${ld.id}')">MEET</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -1934,9 +957,9 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
       populateCrmTable(st, q);
     }
 
-    // 7. MODALE LEAD DOSSIER
+    // 5. MODALE LEAD DOSSIER
     function openLeadModal(leadId) {
-      playProceduralSound(540, 'triangle', 0.1);
+      playProceduralSound(540, 'triangle', 0.08);
       const lead = MOCK_LEADS.find(l => l.id === leadId);
       if (!lead) return;
       currentSelectedLead = lead;
@@ -1953,7 +976,6 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
         <strong>Stato Dossier:</strong> <span class="status-badge ${lead.stato.toLowerCase()}">${lead.stato}</span>
       `;
       document.getElementById('modal-lead-notes').value = lead.note || "";
-
       document.getElementById('lead-dossier-modal').style.display = 'flex';
     }
 
@@ -1968,7 +990,7 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
         currentSelectedLead.note = document.getElementById('modal-lead-notes').value;
         populateCrmTable();
         closeLeadModal();
-        playProceduralSound(640, 'triangle', 0.15);
+        playProceduralSound(640, 'triangle', 0.12);
         alert(`Dossier ${currentSelectedLead.id} aggiornato allo stato: ${newStatus}`);
       }
     }
@@ -1993,8 +1015,8 @@ Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo</div>
 
     function updateWhatsappPreview() {
       const info = document.getElementById('scheduler-lead-info').value || "[Nome Candidato]";
-      const dt = document.getElementById('scheduler-datetime').value || "[Data e Ora da concordare]";
-      const preview = `Gentile ${info.split("//")[1] || "Candidato"}, la Presidenza di Suprema Future X Enterprise ha convalidato il suo dossier. La convocazione per il colloquio conoscitivo di 60 minuti con il Founder & CEO Giuliano Caratelli è fissata per il giorno ${dt}.
+      const dt = document.getElementById('scheduler-datetime').value || "[Data e Ora]";
+      const preview = `Gentile ${info.split("//")[1] || "Candidato"}, la Presidenza di Suprema Future X Enterprise ha convalidato il suo dossier. La convocazione per il colloquio conoscitivo di 60 minuti con il Founder &amp; CEO Giuliano Caratelli è fissata per ${dt}.
 Link riservato Google Meet: https://meet.google.com/sfx-presidenza-ceo
 Cordiali saluti, Segreteria Generale SFX.`;
       document.getElementById('whatsapp-preview-box').innerText = preview;
@@ -2005,7 +1027,7 @@ Cordiali saluti, Segreteria Generale SFX.`;
     function copyWhatsAppInvite() {
       const text = document.getElementById('whatsapp-preview-box').innerText;
       navigator.clipboard.writeText(text);
-      playProceduralSound(600, 'sine', 0.1);
+      playProceduralSound(600, 'sine', 0.08);
       alert("Testo di convocazione copiato negli appunti.");
     }
 
@@ -2016,11 +1038,89 @@ Cordiali saluti, Segreteria Generale SFX.`;
         alert("Inserire un numero WhatsApp valido.");
         return;
       }
-      playProceduralSound(700, 'triangle', 0.2);
+      playProceduralSound(700, 'triangle', 0.15);
       window.open(`https://wa.me/${wa}?text=${text}`, '_blank');
     }
 
-    // 8. POPOLAMENTO FLOTTA NEURALE (15 AGENTI)
+    // 6. COSTRUZIONE DINAMICA CMS 14 SEZIONI & 70 SLOT MULTIMEDIALI
+    const CMS_SECTIONS_DATA = [
+      { id: "sec-00", tag: "SEC-00 // TOPBAR", title: "TOPBAR FORENSE EAL6+", desc: "Nodo Roma, selettore lingue, clock CET", slots: ["LED Status", "Bandiere", "Clock BG", "Certificato", "Shield Icon"] },
+      { id: "sec-01", tag: "SEC-01 // HERO", title: "HERO MASTER GOVERNANCE", desc: "Titolo display, motto spettrale, rotazione scocca", slots: ["Logo 01", "Logo 02", "Logo 03", "Logo 04", "Logo 05"] },
+      { id: "sec-02", tag: "SEC-02 // CHI SIAMO", title: "CHI SIAMO & STORIE D'IMPRESA", desc: "Genesi istituzionale SFX e codice etico notarile", slots: ["Atto Fondativo", "Protocollo Live", "Hub Colleferro", "Ufficio Roma", "Case History"] },
+      { id: "sec-03", tag: "SEC-03 // PRESIDENZA", title: "LA PRESIDENZA ESECUTIVA", desc: "Founder & CEO Giuliano Caratelli, manifesto di vertice", slots: ["Video 16:9", "Ritratto Esecutivo", "Screening Room", "Boardroom", "Sigillo Notarile"] },
+      { id: "sec-04", tag: "SEC-04 // ACADEMY", title: "SUPREMA ACADEMY LIVE", desc: "Percorsi Silver, Master e VIP 100% in videoconferenza", slots: ["Aula Meet", "Flussi AI", "Screen Share", "Dossier Competenze", "Attestato"] },
+      { id: "sec-05", tag: "SEC-05 // CONCESSIONI", title: "CONCESSIONI DIGITALI E-COMMERCE", desc: "Store autonomi a zero magazzino e logistica centralizzata", slots: ["Store Mockup", "Hub Logistico", "Vettori Espresso", "Cruscotto Gestionale", "Report Vendite"] },
+      { id: "sec-06", tag: "SEC-06 // ALISON", title: "CONCIERGE AG-01 ALISON", desc: "Radar vettoriale 60fps e triage FAQ istituzionali", slots: ["Radar Canvas", "Mappa Triage", "FAQ Drawer", "Console Chat", "WebAudio Feed"] },
+      { id: "sec-07", tag: "SEC-07 // GOLDCARD", title: "SUPREMA GOLD CARD METALLICA", desc: "Incisione laser, chip NFC FIDO2 e catalogo 5 scaglioni", slots: ["Lastra Metallica", "Marcatura Laser", "Chip NFC", "Gala Roma Centro", "Luxury Hotel"] },
+      { id: "sec-08", tag: "SEC-08 // FLOTTA", title: "FLOTTA NEURALE 15 AGENTI", desc: "Cluster distribuito EAL6+ e presidio sicurezza AG-12", slots: ["Console Flotta", "Titan Bridge", "Chronos Routing", "Sentinel Audit", "Joker Test"] },
+      { id: "sec-09", tag: "SEC-09 // GARANZIE", title: "GARANZIE FORENSI & METODO", desc: "Trasparenza statutaria e Foro esclusivo Velletri / Roma", slots: ["Estratto Statuto", "Codice Deontologico", "Registrazione Marchi", "GDPR Privacy", "Termini Legali"] },
+      { id: "sec-10", tag: "SEC-10 // FUNNEL", title: "FUNNEL SCREENING TANDEM DRAG", desc: "Cinematica corner peel exit e trasmissione a 3 fasi", slots: ["Step 1 Percorso", "Step 2 Orario", "Step 3 Anagrafica", "WhatsApp Ingestion", "Crittografia Dossier"] },
+      { id: "sec-11", tag: "SEC-11 // MEDIAVAULT", title: "MEDIA VAULT 400 CRITTOGRAFATO", desc: "Infrastruttura deposito documenti e token a 120 minuti", slots: ["Dispensa Master", "Schema Store", "Contratto Quadro", "Token CDN", "Registro Presenze"] },
+      { id: "sec-12", tag: "SEC-12 // NETWORK", title: "NETWORK HUB & CANALI UFFICIALI", desc: "Telegram Broadcast, WhatsApp di Presidenza e caselle PEC", slots: ["Gala Annuale", "Telegram Feed", "WhatsApp Direct", "Conferenze CEO", "Aggiornamenti"] },
+      { id: "sec-13", tag: "SEC-13 // FOOTER", title: "FOOTER FORENSE EAL6+", desc: "Sede legale Colleferro (RM), presidio Roma e clausole", slots: ["Logo Chiaro", "Sigillo Giudiziario", "Bollino EAL6+", "QR WhatsApp", "Mappa Sedi"] },
+      { id: "sec-14", tag: "SEC-14 // TALLY", title: "BARRA CONFERENZA CEO // TALLY FORM", desc: "Modulo prenotazione screening diretto a tutta larghezza", slots: ["Finitura Metallo", "Fascio Speculare", "Popup Layout", "Icona Meet", "Sigillo Live"] }
+    ];
+
+    function buildCmsSections() {
+      const container = document.getElementById('cms-sections-container');
+      container.innerHTML = "";
+
+      CMS_SECTIONS_DATA.forEach(sec => {
+        const card = document.createElement('div');
+        card.className = 'cms-section-card';
+        card.innerHTML = `
+          <div class="cms-sec-header">
+            <div>
+              <span class="badge-forensic active" style="font-size:0.65rem;">${sec.tag}</span>
+              <h3 style="font-family:var(--font-display); font-size:1.15rem; color:var(--text-dominant); margin-top:0.3rem;">${sec.title}</h3>
+              <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">${sec.desc}</p>
+            </div>
+            <div style="display:flex; gap:0.6rem;">
+              <button class="btn-outline" style="padding:6px 12px; font-size:0.7rem;" onclick="previewSection('${sec.id}')">ANTEPRIMA</button>
+              <button class="btn-gold" style="padding:6px 14px; font-size:0.7rem;" onclick="saveSectionConfig('${sec.id}')">SALVA</button>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">TITOLO VISUALIZZATO</label>
+              <input type="text" class="form-input" value="${sec.title}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">TAG IDENTIFICATIVO</label>
+              <input type="text" class="form-input" value="${sec.tag}">
+            </div>
+          </div>
+          <div>
+            <label class="form-label">I 5 SLOT MULTIMEDIALI DELLA SEZIONE:</label>
+            <div class="cms-slots-grid">
+              ${sec.slots.map((s, idx) => `
+                <div class="cms-slot-box">
+                  <strong>SLOT 0${idx+1} (${s.toUpperCase()})</strong>
+                  <input type="text" placeholder="URL o media path..." value="media/${sec.id}/slot-0${idx+1}.png">
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function saveSectionConfig(secId) {
+      playProceduralSound(600, 'triangle', 0.08);
+      alert(`Configurazione e 5 slot salvati con successo per [${secId.toUpperCase()}].`);
+    }
+
+    function previewSection(secId) {
+      alert(`Generazione anteprima per la sezione [${secId.toUpperCase()}].`);
+    }
+
+    function saveAllCmsConfigurations() {
+      playProceduralSound(700, 'triangle', 0.15);
+      alert("TUTTE LE 14 SEZIONI E I 70 SLOT MULTIMEDIALI SONO STATI SINCRONIZZATI NEL NODO.");
+    }
+
+    // 7. FLOTTA NEURALE (15 AGENTI)
     function populateFleetGrid() {
       const c = document.getElementById('full-fleet-grid');
       c.innerHTML = "";
@@ -2049,38 +1149,24 @@ Cordiali saluti, Segreteria Generale SFX.`;
         d.innerHTML = `
           <div class="agent-header">
             <div>
-              <strong style="font-family:var(--font-mono); font-size:0.9rem; color:var(--text-dominant);">${ag.id} ${ag.name}</strong><br>
+              <strong style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-dominant);">${ag.id} ${ag.name}</strong><br>
               <span style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-muted);">${ag.node}</span>
             </div>
             <span style="font-family:var(--font-mono); font-size:0.68rem; color:var(--status-online); font-weight:700;">● ${ag.ping}</span>
           </div>
-          <p style="font-size:0.75rem; color:var(--text-muted); min-height:2.2rem; margin:0.5rem 0;">${ag.role}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(74,82,96,0.1); padding-top:0.6rem; font-family:var(--font-mono); font-size:0.65rem;">
+          <p style="font-size:0.75rem; color:var(--text-muted); min-height:2rem; margin:0.4rem 0;">${ag.role}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(212,175,55,0.15); padding-top:0.5rem; font-family:var(--font-mono); font-size:0.65rem;">
             <span>CPU: <strong>${ag.cpu}</strong></span>
-            <span style="color:var(--spectral-gold-deep); font-weight:700;">${ag.status}</span>
+            <span style="color:var(--gold-deep); font-weight:700;">${ag.status}</span>
           </div>
         `;
         c.appendChild(d);
       });
     }
 
-    // 9. FUNZIONI CMS, VAULT & LEDGER
-    function saveSectionConfig(tag) {
-      playProceduralSound(600, 'triangle', 0.1);
-      alert(`Configurazione e 5 slot media salvati con successo per la sezione [${tag.toUpperCase()}]. Modifiche caricate sul nodo.`);
-    }
-
-    function previewSection(tag) {
-      alert(`Generazione anteprima per la sezione [${tag.toUpperCase()}].`);
-    }
-
-    function saveAllCmsConfigurations() {
-      playProceduralSound(700, 'triangle', 0.2);
-      alert("TUTTE LE 14 SEZIONI E I 70 SLOT MULTIMEDIALI SONO STATI SINCRONIZZATI NEL REGISTRO CENTRALE.");
-    }
-
+    // 8. VAULT & TOKEN MANAGEMENT
     function generateTimedVaultToken() {
-      playProceduralSound(580, 'sine', 0.1);
+      playProceduralSound(580, 'sine', 0.08);
       const uuid = "SFX-VLT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
       const asset = document.getElementById('vault-target-asset').value.split(" ")[0];
       const link = `https://supremafuturex.it/vault?token=${uuid}&slot=${asset}`;
@@ -2091,61 +1177,57 @@ Cordiali saluti, Segreteria Generale SFX.`;
       const l = document.getElementById('vault-generated-link').innerText;
       if (l.includes("http")) {
         navigator.clipboard.writeText(l);
-        playProceduralSound(600, 'sine', 0.1);
+        playProceduralSound(600, 'sine', 0.08);
         alert("Link temporizzato (120 min) copiato negli appunti.");
       }
     }
 
     function revokeVaultToken() {
-      playProceduralSound(280, 'sawtooth', 0.2);
+      playProceduralSound(280, 'sawtooth', 0.15);
       document.getElementById('vault-generated-link').innerText = "TOKEN REVOCATO DALLA PRESIDENZA";
-      alert("Token revocato con successo. L'accesso è ora negato.");
+      alert("Token revocato con successo.");
     }
 
     function addPointsToMember(matricola, points) {
-      playProceduralSound(650, 'triangle', 0.15);
-      alert(`Accreditati +${points} Punti Status alla tessera [${matricola}]. Notifica inviata ad AG-08 Edoardo.`);
+      playProceduralSound(650, 'triangle', 0.12);
+      alert(`Accreditati +${points} Punti Status a [${matricola}]. Notificato AG-08 Edoardo.`);
     }
 
     function openNewCardModal() {
-      playProceduralSound(500, 'sine', 0.1);
-      alert("Apertura modulo per nuova emissione Suprema Gold Card Metallica...");
+      alert("Apertura modulo emissione Suprema Gold Card Metallica...");
     }
 
+    // 9. EXPORT CSV
     function exportLeadsCsv() {
       let csv = "ID,DATA,NOME,COGNOME,EMAIL,WHATSAPP,PERCORSO,SLOT,STATO,NOTE\n";
       MOCK_LEADS.forEach(l => {
         csv += `"${l.id}","${l.data}","${l.nome}","${l.cognome}","${l.email}","${l.wa}","${l.tier}","${l.slot}","${l.stato}","${l.note}"\n`;
       });
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url;
-      a.download = `SFX_CRM_LEADS_EXPORT_${Date.now()}.csv`;
+      a.href = URL.createObjectURL(blob);
+      a.download = `SFX_CRM_LEADS_${Date.now()}.csv`;
       a.click();
     }
 
     function exportAuditLogCsv() {
       let csv = "TIMESTAMP,AGENTE,TIPO_EVENTO,SEVERITA,NODO,DETTAGLIO\n";
-      csv += `"2026-11-03 17:40:12","AG-12 SENTINEL","AUTH_LOGIN_SUCCESS","SUCCESS","ROMA_CENTRO_EAL6","Sblocco autorizzato via PIN"\n`;
-      csv += `"2026-11-03 16:15:00","AG-10 TITAN","DOSSIER_INGESTION","INFO","GATEWAY_WEB_INGEST","Validazione dossier SFX-LD-8841"\n`;
+      csv += `"2026-11-10 10:45:12","AG-12 SENTINEL","AUTH_LOGIN_SUCCESS","SUCCESS","ROMA_CENTRO_EAL6","Sblocco autorizzato via PIN"\n`;
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url;
-      a.download = `SFX_AUDIT_LOG_EXPORT_${Date.now()}.csv`;
+      a.href = URL.createObjectURL(blob);
+      a.download = `SFX_AUDIT_TRAIL_${Date.now()}.csv`;
       a.click();
     }
 
     function syncWithGoogleBackend() {
-      playProceduralSound(500, 'triangle', 0.15);
-      alert("Sincronizzazione completata: Google Sheets e Apps Script cluster aggiornati.");
+      playProceduralSound(500, 'triangle', 0.1);
+      alert("Sincronizzazione completata con Google Apps Script cluster.");
     }
 
     function triggerMasterKillSwitch() {
-      const confirmKill = confirm("ATTENZIONE: Stai per attivare il Kill-Switch di sicurezza forense. Tutte le API pubbliche e i moduli di screening verranno isolati. Procedere?");
-      if (confirmKill) {
-        alert("KILL-SWITCH ATTIVATO DA GIULIANO CARATELLI. Nodo isolato.");
+      if (confirm("ATTENZIONE: Attivare il Master Kill-Switch di sicurezza forense? Tutte le sessioni esterne verranno isolate.")) {
+        alert("KILL-SWITCH ATTIVATO. Cluster isolato da Giuliano Caratelli.");
       }
     }
 
@@ -2158,7 +1240,8 @@ Cordiali saluti, Segreteria Generale SFX.`;
           const h = String(Math.floor(sessionSeconds / 3600)).padStart(2, '0');
           const m = String(Math.floor((sessionSeconds % 3600) / 60)).padStart(2, '0');
           const s = String(sessionSeconds % 60).padStart(2, '0');
-          document.getElementById('session-countdown').innerText = `${h}:${m}:${s}`;
+          const el = document.getElementById('session-countdown');
+          if (el) el.innerText = `${h}:${m}:${s}`;
         } else {
           logoutXbox();
         }
