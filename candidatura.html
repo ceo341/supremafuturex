@@ -1,756 +1,148 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Suprema Future X Enterprise - Dossier Ufficiale di Candidatura e Selezione Direzionale. Presidio Colleferro (Roma). Protocollo EAL6+ con convocazione automatica su Google Meet.">
-  <title>Dossier Ufficiale di Candidatura // Suprema Future X Enterprise</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- FONTS ISTITUZIONALI -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Modulo di Candidatura Ufficiale | Suprema Future X — Dream Defense System</title>
+  <meta name="description" content="Invia la tua candidatura per i percorsi Suprema Academy 100% Live, la Conferenza CEO con Giuliano Caratelli o il programma Luxury Model." />
+  <meta name="robots" content="index, follow" />
 
-  <!-- FOGLIO DI STILE ESTERNO -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <style>
-    :root {
-      --bg-cream: #F6F2EB;
-      --bg-surface: #FFFFFF;
-      --bg-card: #FAF8F5;
-      --navy-deep: #0B192C;
-      --navy-light: #1E3E62;
-      --gold-primary: #C5A059;
-      --gold-dark: #9E7B35;
-      --gold-subtle: rgba(197, 160, 89, 0.15);
-      --border-color: rgba(197, 160, 89, 0.35);
-      --border-strong: #C5A059;
-      --text-main: #0B192C;
-      --text-muted: #5A6B82;
-      --success: #2E7D32;
-      --danger: #B71C1C;
-      --font-serif: 'Cinzel', Georgia, serif;
-      --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--bg-cream);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* TOP BAR */
-    .top-bar {
-      background: var(--navy-deep);
-      color: #FAF8F5;
-      font-size: 11px;
-      letter-spacing: 1px;
-      padding: 6px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--gold-dark);
-      font-family: monospace;
-    }
-    .pulse-dot {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      background: #00E676;
-      border-radius: 50%;
-      margin-right: 6px;
-      box-shadow: 0 0 8px #00E676;
-    }
-
-    /* HEADER */
-    header {
-      background: var(--bg-surface);
-      border-bottom: 2px solid var(--gold-primary);
-      padding: 16px 32px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 20px rgba(11, 25, 44, 0.06);
-    }
-    .brand-title {
-      font-family: var(--font-serif);
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: var(--navy-deep);
-    }
-    .brand-subtitle {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--gold-dark);
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-    }
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-    nav a {
-      color: var(--navy-deep);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: var(--gold-dark); }
-
-    /* BOTTONI */
-    .btn-gold {
-      background: linear-gradient(135deg, #C5A059, #9E7B35);
-      color: #FFFFFF !important;
-      padding: 10px 22px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.2s;
-      box-shadow: 0 3px 12px rgba(158, 123, 53, 0.25);
-    }
-    .btn-gold:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 5px 18px rgba(158, 123, 53, 0.35);
-    }
-
-    /* CONTENITORE E GRIGLIE */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 60px 24px;
-    }
-    .section-header {
-      text-align: center;
-      max-width: 820px;
-      margin: 0 auto 50px;
-    }
-    .section-badge {
-      display: inline-block;
-      border: 1px solid var(--gold-primary);
-      background: var(--gold-subtle);
-      color: var(--gold-dark);
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 14px;
-    }
-    .section-title {
-      font-family: var(--font-serif);
-      font-size: 32px;
-      color: var(--navy-deep);
-      margin-bottom: 14px;
-      letter-spacing: 0.5px;
-    }
-    .section-desc {
-      font-size: 16px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-    }
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: var(--bg-surface);
-      border: 1.5px solid var(--border-color);
-      border-radius: 8px;
-      padding: 28px;
-      box-shadow: 0 8px 24px rgba(11, 25, 44, 0.04);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(11, 25, 44, 0.08);
-      border-color: var(--gold-primary);
-    }
-    .card h3 {
-      font-family: var(--font-serif);
-      font-size: 18px;
-      color: var(--navy-deep);
-      margin-bottom: 10px;
-    }
-    .card p {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* HERO CANDIDATURA */
-    .candidature-hero {
-      padding: 80px 24px 50px;
-      text-align: center;
-      background: radial-gradient(circle at center, rgba(197, 160, 89, 0.15) 0%, transparent 70%);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    /* STEPS PROTOCOLLO */
-    .protocol-step-card {
-      background: var(--bg-surface);
-      border: 1.5px solid var(--border-color);
-      border-radius: 6px;
-      padding: 24px;
-    }
-    .step-number {
-      font-family: var(--font-serif);
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--gold-primary);
-      line-height: 1;
-      margin-bottom: 10px;
-    }
-
-    /* TABS */
-    .tabs-nav {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 20px auto 35px;
-      max-width: 650px;
-      background: var(--bg-surface);
-      padding: 6px;
-      border: 1.5px solid var(--border-color);
-      border-radius: 6px;
-      box-shadow: 0 4px 15px rgba(11, 25, 44, 0.04);
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 12px 18px;
-      border: none;
-      background: transparent;
-      color: var(--navy-deep);
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-    }
-    .tab-btn.active {
-      background: linear-gradient(135deg, #C5A059, #9E7B35);
-      color: #FFFFFF;
-      box-shadow: 0 2px 8px rgba(158, 123, 53, 0.3);
-    }
-
-    /* FORM WRAPPER */
-    .form-wrapper {
-      background: var(--bg-surface);
-      border: 2px solid var(--gold-primary);
-      border-radius: 8px;
-      padding: 40px;
-      box-shadow: 0 15px 45px rgba(11, 25, 44, 0.06);
-    }
-    .form-group { margin-bottom: 20px; }
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--navy-deep);
-      margin-bottom: 6px;
-    }
-    .form-control {
-      width: 100%;
-      padding: 13px 16px;
-      border: 1.5px solid var(--border-color);
-      border-radius: 4px;
-      font-family: var(--font-sans);
-      font-size: 14px;
-      background: var(--bg-card);
-      color: var(--navy-deep);
-    }
-    .form-control:focus {
-      outline: none;
-      border-color: var(--gold-dark);
-      background: #FFFFFF;
-    }
-    textarea.form-control { resize: vertical; min-height: 90px; }
-
-    /* CONTAINER TALLY */
-    .tally-frame-container {
-      background: var(--bg-surface);
-      border: 2px solid var(--gold-primary);
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 15px 45px rgba(11, 25, 44, 0.06);
-      min-height: 720px;
-    }
-
-    /* STATUTO BOX */
-    .statute-box {
-      background: var(--navy-deep);
-      color: #FAF8F5;
-      border: 2px solid var(--gold-primary);
-      border-radius: 8px;
-      padding: 36px;
-    }
-    .statute-box h3 {
-      font-family: var(--font-serif);
-      color: var(--gold-primary);
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
-    .statute-box p {
-      font-size: 14px;
-      color: #E2E8F0;
-      line-height: 1.8;
-      margin-bottom: 14px;
-    }
-
-    /* MODAL */
-    .hidden { display: none !important; }
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(11, 25, 44, 0.88); backdrop-filter: blur(6px);
-      z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px;
-    }
-    .modal-box {
-      background: #FFFFFF; border: 2px solid var(--gold-primary);
-      border-radius: 8px; width: 100%; max-width: 480px; padding: 36px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    }
-
-    /* FOOTER */
-    footer {
-      background: var(--navy-deep);
-      color: #FAF8F5;
-      padding: 60px 24px 30px;
-      border-top: 3px solid var(--gold-primary);
-      font-size: 13px;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
-      margin: 0 auto 40px;
-    }
-    .footer-col h4 {
-      font-family: var(--font-serif);
-      color: var(--gold-primary);
-      font-size: 15px;
-      margin-bottom: 14px;
-    }
-    .footer-col p, .footer-col a { color: #A0AEC0; font-size: 13px; line-height: 1.8; text-decoration: none; }
-    .footer-col a:hover { color: var(--gold-primary); }
-    .footer-bottom {
-      border-top: 1px solid rgba(197, 160, 89, 0.25);
-      padding-top: 24px;
-      text-align: center;
-      font-size: 11px;
-      color: #718096;
-    }
-  </style>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="stile-globale.css" />
 </head>
 <body>
 
-  <!-- TOP BAR TELEMETRIA -->
-  <aside class="top-bar" aria-label="Telemetria di presidio">
-    <div>
-      <span class="pulse-dot" aria-hidden="true"></span>
-      <strong>PRESIDIO CENTRALE:</strong> Colleferro (Roma) &bull; 
-      <strong>FORO ESCLUSIVO:</strong> Velletri / Roma &bull; 
-      <strong>PROTOCOLLO:</strong> EAL6+ Certified Intake
-    </div>
-    <div>
-      <span>GATEWAY V32 ATTIVO</span> &bull; 
-      <span>DISPATCH NOC TELEGRAM: <strong>@SupremaFutureX_NocBot</strong></span>
-    </div>
-  </aside>
+  <canvas id="matrix-bg-canvas" aria-hidden="true"></canvas>
 
-  <!-- HEADER ISTITUZIONALE -->
-  <header>
-    <div>
-      <a href="index.html" style="text-decoration:none;">
-        <div class="brand-title">SUPREMA FUTURE X</div>
-        <div class="brand-subtitle">High-End Enterprise Hub // Colleferro (Roma)</div>
-      </a>
-    </div>
-    <nav aria-label="Navigazione Principale">
-      <a href="index.html">&larr; Torna alla Home</a>
-      <a href="index.html#statuto">Statuto Velletri</a>
-      <a href="index.html#academy">Executive Master</a>
-      <a href="index.html#store">Store Hub</a>
-      <a href="index.html#goldcard">Gold Card</a>
-      <a href="index.html#vault">Media Vault</a>
-      <button type="button" onclick="document.getElementById('xbox-login-modal').classList.remove('hidden')" class="btn-gold" style="padding: 7px 15px; font-size: 11px;">
-        X-BOX Console
-      </button>
-    </nav>
-  </header>
+  <div class="landing-shell-13">
+    <div class="film-grain" aria-hidden="true"></div>
 
-  <main>
-    <!-- HERO INTRODUTTIVA DEL DOSSIER -->
-    <section class="candidature-hero">
-      <div class="section-badge">PROTOCOLLO SELETTIVO DIRETTO // EAL6+ ASSEVERATO</div>
-      <h1 style="font-family: var(--font-serif); font-size: 40px; color: var(--navy-deep); margin-bottom: 16px;">
-        Dossier Istruttorio di Candidatura
-      </h1>
-      <p style="font-size: 17px; color: var(--text-muted); max-width: 840px; margin: 0 auto 24px;">
-        Accesso ai programmi di vertice di Suprema Future X Enterprise. 
-        Ogni fascicolo viene sottoposto a firma crittografica forense SHA-256, schedulazione dello slot 
-        di screening su Google Calendar e notifica simultanea al NOC di presidio.
-      </p>
-
-      <div style="display:inline-flex; align-items:center; gap:8px; font-family:monospace; font-size:12px; color:var(--navy-deep); background:var(--gold-subtle); padding:6px 16px; border-radius:4px; border:1px solid var(--gold-primary);">
-        <span>PRESIDIO GIUDIZIARIO: VELLETRI / ROMA</span> &bull; 
-        <span>SCREENING DIRETTO CON IL CEO GIULIANO CARATELLI</span>
-      </div>
-    </section>
-
-    <!-- FASI DEL PROTOCOLLO DI SCREENING -->
-    <section class="container" style="padding-top: 40px; padding-bottom: 20px;">
-      <div class="grid-4">
-        <div class="protocol-step-card">
-          <div class="step-number">01</div>
-          <h4 style="font-family:var(--font-serif); font-size:16px; margin-bottom:6px;">Vidimazione Dati</h4>
-          <p style="font-size:12px; color:var(--text-muted);">
-            Acquisizione dei dati anagrafici e calcolo dell'impronta forense SHA-256. Archiviazione diretta sul Google Sheet di presidio.
-          </p>
-        </div>
-        <div class="protocol-step-card">
-          <div class="step-number">02</div>
-          <h4 style="font-family:var(--font-serif); font-size:16px; margin-bottom:6px;">Calendar &amp; Meet</h4>
-          <p style="font-size:12px; color:var(--text-muted);">
-            Blocco dello slot orario ufficiale su Google Calendar e generazione automatica della stanza Google Meet riservata.
-          </p>
-        </div>
-        <div class="protocol-step-card">
-          <div class="step-number">03</div>
-          <h4 style="font-family:var(--font-serif); font-size:16px; margin-bottom:6px;">Dispatch 3 Canali</h4>
-          <p style="font-size:12px; color:var(--text-muted);">
-            Notifica push istantanea al bot Telegram di presidio (@SupremaFutureX_NocBot), inoltro email via Gmail e gateway WhatsApp.
-          </p>
-        </div>
-        <div class="protocol-step-card">
-          <div class="step-number">04</div>
-          <h4 style="font-family:var(--font-serif); font-size:16px; margin-bottom:6px;">Screening 60m</h4>
-          <p style="font-size:12px; color:var(--text-muted);">
-            Colloquio preliminare da 60 minuti a porte chiuse con il Founder &amp; CEO Giuliano Caratelli per l'ammissione formale.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROGRAMMI DISPONIBILI -->
-    <section class="container" style="padding-top: 20px; padding-bottom: 30px;">
-      <div class="section-header" style="margin-bottom: 30px;">
-        <div class="section-badge">AMBITI DI CANDIDATURA</div>
-        <h2 class="section-title">Linee d'Ingresso nell'Ecosistema</h2>
-        <p class="section-desc">Selezionare accuratamente il programma di riferimento per consentire alla presidenza di istruire il fascicolo idoneo.</p>
+    <header class="top-status-bar">
+      <div class="top-brand-left">
+        <span class="status-dot-live"></span>
+        <span class="brand-metallic-title dream-defense-badge">
+          DREAM DEFENSE SYSTEM // SUPREMA ENTERPRISE
+        </span>
       </div>
 
-      <div class="grid-4">
-        <div class="card" style="border-top: 3px solid var(--gold-primary);">
-          <h3 style="font-size:17px;">Executive Master Live</h3>
-          <p style="font-size:13px;">90 giorni di formazione intensiva sincrona su finanza strategica, corporate structuring e governance sovrana.</p>
-          <div style="font-size:11px; font-weight:700; color:var(--gold-dark); margin-top:10px;">SLOT MEET: 10-13 / 15-18 / 21-23</div>
-        </div>
-        <div class="card" style="border-top: 3px solid var(--gold-primary);">
-          <h3 style="font-size:17px;">Concessione Store</h3>
-          <p style="font-size:13px;">Accordo commerciale a capitale protetto: logistica centralizzata a Colleferro, zero magazzino e marginalità contrattualizzata.</p>
-          <div style="font-size:11px; font-weight:700; color:var(--gold-dark); margin-top:10px;">CONTRATTO NOTARILE VELLETRI</div>
-        </div>
-        <div class="card" style="border-top: 3px solid var(--gold-primary);">
-          <h3 style="font-size:17px;">Tavolo CDA Riservato</h3>
-          <p style="font-size:13px;">Ammissione all'organo consultivo e assembleare straordinario. Riservato a investitori e partner di vertice.</p>
-          <div style="font-size:11px; font-weight:700; color:var(--gold-dark); margin-top:10px;">ACCORDO DI RISERVATEZZA</div>
-        </div>
-        <div class="card" style="border-top: 3px solid var(--gold-primary);">
-          <h3 style="font-size:17px;">Gold Card Sovereign</h3>
-          <p style="font-size:13px;">Ingresso nel programma fedeltà a partita doppia. Raggiungimento di 800 PT per l'emissione della lastra metallica NFC FIDO2.</p>
-          <div style="font-size:11px; font-weight:700; color:var(--gold-dark); margin-top:10px;">LEDGER CRITTOGRAFICO EAL6+</div>
-        </div>
+      <div class="top-right-controls">
+        <div class="cet-clock-pill" id="cet-live-clock">00:00:00 CET</div>
+        <a href="index.html" class="btn-luxury" style="padding: 0.48rem 1.15rem; font-size: 0.76rem;">
+          🏠 Torna alla Landing
+        </a>
       </div>
-    </section>
+    </header>
 
-    <!-- SELETTORE MASCHERA NATIVA / TALLY EMBED -->
-    <section class="container" style="padding-top: 10px;">
-      <div class="tabs-nav" role="tablist">
-        <button type="button" class="tab-btn active" id="tab-btn-native" onclick="sfxSwitchIntakeTab('native')">
-          1. Maschera Diretta EAL6+
-        </button>
-        <button type="button" class="tab-btn" id="tab-btn-tally" onclick="sfxSwitchIntakeTab('tally')">
-          2. Modulo Tally.so Integrato
-        </button>
+    <section class="section-container" style="border-bottom: none;">
+      <div class="section-header">
+        <span class="section-kicker"><i class="fa-solid fa-file-signature"></i> Ammissione &amp; Colloqui Direzionali</span>
+        <h1 class="section-title">Candidatura Ufficiale Suprema Future X</h1>
+        <p class="section-lead">
+          Compila il modulo qui sotto per richiedere l’accesso ai percorsi <strong>Suprema Academy 100% Live</strong>, prenotare la <strong>Conferenza con il CEO Giuliano Caratelli</strong> o avviare il progetto <strong>Luxury Model</strong>.
+        </p>
       </div>
 
-      <!-- PANNELLO 1: FORM NATIVO ASSEVERATO (COLLEGATO A JS/CODE.JS) -->
-      <div id="intake-panel-native" class="form-wrapper">
-        <div class="section-header" style="margin-bottom: 25px;">
-          <div class="section-badge">MODULO NATIVO GATEWAY V32</div>
-          <h2 class="section-title" style="font-size:26px;">Compilazione Fascicolo Esecutivo</h2>
-          <p class="section-desc">Tutti i campi con asterisco sono obbligatori per consentire la vidimazione e la generazione automatica della stanza Google Meet.</p>
-        </div>
-
-        <form id="sfx-candidatura-form">
-          <div class="grid-2">
-            <div class="form-group">
-              <label for="sfx-nome">Nome *</label>
-              <input type="text" id="sfx-nome" class="form-control" placeholder="Es. Giuliano" required autocomplete="given-name">
+      <div class="glass-deck" style="max-width: 840px; margin: 0 auto;">
+        <form id="standalone-candidatura-form" onsubmit="inviaCandidaturaCompleta(event)" style="display: flex; flex-direction: column; gap: 1.15rem;">
+          <div class="cards-2-grid">
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.35rem;">Nome e Cognome *</label>
+              <input type="text" id="cand-nome" class="luxury-input" placeholder="Es. Mario Rossi" required />
             </div>
-            <div class="form-group">
-              <label for="sfx-cognome">Cognome *</label>
-              <input type="text" id="sfx-cognome" class="form-control" placeholder="Es. Caratelli" required autocomplete="family-name">
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.35rem;">Email Principale *</label>
+              <input type="email" id="cand-email" class="luxury-input" placeholder="nome@dominio.it" required />
             </div>
           </div>
 
-          <div class="grid-2">
-            <div class="form-group">
-              <label for="sfx-email">Email Certificata di Contatto *</label>
-              <input type="email" id="sfx-email" class="form-control" placeholder="nome@dominio.it" required autocomplete="email">
+          <div class="cards-2-grid">
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.35rem;">Telefono / WhatsApp *</label>
+              <input type="tel" id="cand-telefono" class="luxury-input" placeholder="+39 333 0000000" required />
             </div>
-            <div class="form-group">
-              <label for="sfx-whatsapp">Numero Diretto WhatsApp *</label>
-              <input type="tel" id="sfx-whatsapp" class="form-control" placeholder="+39 347 4429091" required autocomplete="tel">
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div class="form-group">
-              <label for="sfx-azienda">Azienda / Ragione Sociale</label>
-              <input type="text" id="sfx-azienda" class="form-control" placeholder="Ragione sociale o N/D" autocomplete="organization">
-            </div>
-            <div class="form-group">
-              <label for="sfx-citta">Città di Residenza / Sede Operativa</label>
-              <input type="text" id="sfx-citta" class="form-control" placeholder="Es. Colleferro, Roma, Milano" autocomplete="address-level2">
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div class="form-group">
-              <label for="sfx-profilo">Profilo Candidato</label>
-              <select id="sfx-profilo" class="form-control">
-                <option value="Professionista Indipendente">Professionista Indipendente</option>
-                <option value="Imprenditore / Titolare d'Azienda">Imprenditore / Titolare d'Azienda</option>
-                <option value="Executive Director / C-Level">Executive Director / C-Level</option>
-                <option value="Investitore Istituzionale">Investitore Istituzionale</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="sfx-programma">Programma di Vertice Richiesto *</label>
-              <select id="sfx-programma" class="form-control" required>
-                <option value="Executive Master Live">Executive Master Live (90 Giorni Didattici)</option>
-                <option value="Concessione Store Colleferro">Concessione Store Colleferro (Zero Magazzino)</option>
-                <option value="Tavolo CDA Riservato">Tavolo CDA Riservato (Ammissione per Merito)</option>
-                <option value="Gold Card Status Sovereign">Gold Card Status Sovereign (Acciaio Satinato NFC)</option>
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.35rem;">Profilo Attuale *</label>
+              <select id="cand-profilo" class="luxury-select">
+                <option value="Imprenditore / Titolare Azienda">Imprenditore / Titolare Azienda</option>
+                <option value="Libero Professionista / Consulente">Libero Professionista / Consulente</option>
+                <option value="Nuovo Percorso Digitale">Nuovo Percorso Digitale</option>
+                <option value="Collaborazione Commerciale">Collaborazione Commerciale</option>
               </select>
             </div>
           </div>
 
-          <!-- SELETTORE FASCE ORARIE (CON SLOT PRIMARIO 10:00 - 13:00) -->
-          <div class="form-group">
-            <label for="sfx-fascia">Fascia Oraria Convocazione Screening Meet (60 Minuti) *</label>
-            <select id="sfx-fascia" class="form-control" required>
-              <option value="Mattina (10:00 - 13:00 CET)" selected>Mattina (10:00 - 13:00 CET) - Slot Primario Ufficiale</option>
-              <option value="Pomeriggio (15:00 - 18:00 CET)">Pomeriggio (15:00 - 18:00 CET)</option>
-              <option value="Serale (21:00 - 23:00 CET)">Serale (21:00 - 23:00 CET)</option>
-            </select>
+          <div class="cards-2-grid">
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.35rem;">Percorso di Interesse *</label>
+              <select id="cand-interesse" class="luxury-select">
+                <option value="Conferenza Gratuita CEO Giuliano Caratelli">Conferenza Gratuita con il CEO Giuliano Caratelli</option>
+                <option value="Suprema Gold (20 Conferenze Live + 1 Agente AI)">Suprema Academy — Percorso GOLD</option>
+                <option value="Suprema Premium (35 Ore Live + Documenti)">Suprema Academy — Percorso PREMIUM</option>
+                <option value="Suprema Enterprise (60 Conferenze + Tecnologie)">Suprema Academy — Percorso ENTERPRISE</option>
+                <option value="Concessione E-Commerce Luxury Model">Concessione E-Commerce Luxury Model</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.35rem;">Fascia Oraria Preferita (CET) *</label>
+              <select id="cand-fascia" class="luxury-select">
+                <option value="Mattina (10:00 - 13:00 CET)">Mattina (10:00 - 13:00 CET)</option>
+                <option value="Pomeriggio (15:00 - 18:00 CET)">Pomeriggio (15:00 - 18:00 CET)</option>
+                <option value="Serale (21:00 - 23:00 CET)">Serale (21:00 - 23:00 CET)</option>
+              </select>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="sfx-note">Sintesi Obiettivi Operativi &amp; Note di Presentazione</label>
-            <textarea id="sfx-note" class="form-control" placeholder="Descrivere sinteticamente il profilo aziendale, il fatturato indicativo e le finalità della candidatura..."></textarea>
+          <div>
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dominant); margin-bottom: 0.35rem;">Obiettivi o Note per Alison AG-01 e la Presidenza</label>
+            <textarea id="cand-note" class="luxury-textarea" rows="4" placeholder="Raccontaci brevemente cosa desideri realizzare..."></textarea>
           </div>
 
-          <button type="submit" id="sfx-submit-btn" class="btn-gold" style="width: 100%; padding: 18px; font-size: 14px; letter-spacing: 1.5px;">
-            Vidima e Trasmetti Dossier Candidatura
-          </button>
+          <label style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; color: var(--text-muted); cursor: pointer;">
+            <input type="checkbox" required style="margin-top: 0.25rem;" />
+            <span>Acconsento al trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) per l’elaborazione della candidatura da parte di Suprema Future X.</span>
+          </label>
 
-          <div style="margin-top: 22px; padding: 14px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 4px; font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.6;">
-            <strong>ASSEVERAZIONE FORENSE:</strong> La trasmissione comporta la creazione del protocollo crittografico univoco <code>#SFX-...</code>, 
-            il calcolo dell'hash SHA-256 e l'immediata notifica ai canali di presidenza. Giurisdizione: <strong>Foro di Velletri / Roma</strong>.
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-top: 0.5rem;">
+            <button type="submit" class="btn-luxury" id="cand-submit-btn">
+              <i class="fa-solid fa-paper-plane"></i> Invia Candidatura Ufficiale
+            </button>
+            <a href="index.html" class="btn-luxury-outline">Annulla e Torna alla Home</a>
           </div>
         </form>
-
-        <div id="sfx-form-feedback" style="margin-top: 20px;"></div>
-      </div>
-
-      <!-- PANNELLO 2: EMBED TALLY.SO INTEGRATO -->
-      <div id="intake-panel-tally" class="tally-frame-container hidden">
-        <div style="text-align:center; margin-bottom:20px;">
-          <span class="section-badge">CANALE DI BACKUP SINCRONIZZATO</span>
-          <h3 style="font-family:var(--font-serif); font-size:22px; margin-top:8px;">Modulo Ufficiale Certificato Tally.so</h3>
-          <p style="font-size:13px; color:var(--text-muted);">
-            Questo modulo invia i dati al webhook del backend Versione 32, scrivendo sulla stessa scheda Google Sheets del presidio.
-          </p>
-        </div>
-
-        <!-- IFRAME TALLY.SO -->
-        <iframe 
-          data-tally-src="https://tally.so/embed/3yV5EE?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-          loading="lazy" 
-          width="100%" 
-          height="650" 
-          frameborder="0" 
-          marginheight="0" 
-          marginwidth="0" 
-          title="Suprema Future X Candidatura">
-        </iframe>
-
-        <div style="text-align:center; margin-top:15px; font-size:12px;">
-          Problemi con il caricamento? 
-          <a href="https://tally.so/r/3yV5EE" target="_blank" style="color:var(--gold-dark); font-weight:bold;">
-            Apri il modulo Tally a schermo intero &rarr;
-          </a>
-        </div>
       </div>
     </section>
 
-    <!-- BOX DI CONFORMITÀ STATUTARIA E FORO VELLETRI -->
-    <section class="container" style="padding-top: 20px;">
-      <div class="statute-box">
-        <div class="section-badge" style="background: rgba(197,160,89,0.25); color: #FAF8F5; border-color: var(--gold-primary);">
-          GARANZIA DI LEGALITÀ STATUTARIA &bull; ARTICOLO 3
-        </div>
-        <h3 style="font-size: 20px;">Dichiarazione Vincolante Anti-Piramidale</h3>
-        <p>
-          In ottemperanza all'<strong>Articolo 3 dello Statuto Sociale</strong>, Suprema Future X non adotta né consente modelli riconducibili 
-          a vendita piramidale, catene di Sant'Antonio o sistemi di Multilevel Marketing (MLM). 
-          L'intero operato commerciale è basato su contratti d'opera reali, compravendite fisiche e consulenza d'alta direzione.
-        </p>
-        <p style="margin-bottom:0;">
-          Qualsiasi accordo scaturente dall'accettazione della presente candidatura è soggetto in via esclusiva ed inderogabile 
-          alla competenza giudiziaria del <strong>Foro di Velletri / Roma</strong> con sede operativa e legale radicata nel presidio di <strong>Colleferro (Roma)</strong>.
-        </p>
-      </div>
-    </section>
+    <footer class="footer-section" style="padding-top: 2rem;">
+      <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+        &copy; 2026 Suprema Future X — Dream Defense System | Sede Operativa: Colleferro (RM) | Foro Competente: Velletri / Roma
+      </p>
+    </footer>
+  </div>
 
-    <!-- MODAL DI LOGIN 2FA X-BOX (ACCESSO ANCHE DALLA PAGINA CANDIDATURE) -->
-    <div id="xbox-login-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="xbox-cand-title">
-      <div class="modal-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;">
-          <div>
-            <h3 id="xbox-cand-title" style="font-family: var(--font-serif); font-size: 18px; color: var(--navy-deep);">CONSOLE SUPERADMIN X-BOX</h3>
-            <p style="font-size: 11px; color: var(--gold-dark); font-weight: bold; margin: 0;">SICUREZZA EAL6+ &bull; PRESIDIO COLLEFERRO</p>
-          </div>
-          <button type="button" onclick="document.getElementById('xbox-login-modal').classList.add('hidden')" style="background: none; border: none; font-size: 24px; cursor: pointer; color: var(--navy-deep);">&times;</button>
-        </div>
-
-        <!-- STEP 1: PASSWORD -->
-        <div id="xbox-step-password">
-          <div class="form-group">
-            <label for="xbox-input-password">Master Password di Vertice</label>
-            <input type="password" id="xbox-input-password" class="form-control" placeholder="Inserire Master Password">
-          </div>
-          <button type="button" onclick="sfxVerifyPassword()" class="btn-gold" style="width: 100%; padding: 14px;">
-            Valida Password (Step 1/2)
-          </button>
-        </div>
-
-        <!-- STEP 2: PIN 2FA -->
-        <div id="xbox-step-pin" class="hidden">
-          <div class="form-group">
-            <label for="xbox-input-pin">Master PIN 2FA (6 Cifre)</label>
-            <input type="password" id="xbox-input-pin" class="form-control" placeholder="******" maxlength="6">
-          </div>
-          <button type="button" onclick="sfxVerifyPin()" class="btn-gold" style="width: 100%; padding: 14px;">
-            Autentica Sessione EAL6+
-          </button>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- FOOTER ISTITUZIONALE -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>SUPREMA FUTURE X</h4>
-        <p>Presidio Istituzionale per l'autonomia strategica d'impresa. Governance centralizzata a Colleferro (Roma), logistica reale e contratti notarili protetti.</p>
-        <p style="margin-top: 10px; font-weight: bold; color: var(--gold-primary);">Sede Operativa: Colleferro (Roma), Italia</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>ACCESSI RAPIDI</h4>
-        <p><a href="index.html#hero">&bull; Home &amp; Presidio</a></p>
-        <p><a href="index.html#statuto">&bull; Statuto &amp; Art. 3 Anti-MLM</a></p>
-        <p><a href="index.html#academy">&bull; Executive Master Live</a></p>
-        <p><a href="index.html#store">&bull; Concessione Store Hub</a></p>
-        <p><a href="index.html#vault">&bull; Media Vault Crittografico</a></p>
-      </div>
-
-      <div class="footer-col">
-        <h4>SICUREZZA &amp; FORO</h4>
-        <p><strong>Foro Esclusivo:</strong> Velletri / Roma</p>
-        <p><strong>Standard Forense:</strong> EAL6+ Hardened</p>
-        <p><strong>Crittografia:</strong> SHA-256 Asimmetrica</p>
-        <p><strong>NOC Telegram:</strong> @SupremaFutureX_NocBot</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>CONTATTI PRESIDENZA</h4>
-        <p>Città di Colleferro (Roma), Italia</p>
-        <p>CEO: Giuliano Caratelli</p>
-        <p>Email: <a href="mailto:ceo@supremaofficial.com">ceo@supremaofficial.com</a></p>
-        <p>WhatsApp: <a href="https://wa.me/393474429091">+39 347 4429091</a></p>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      &copy; 2026 Suprema Future X Enterprise. Tutti i diritti riservati. 
-      Statuto Sociale Art. 3: Divieto categorico di schemi piramidali, catene di sant'Antonio o strutture MLM. 
-      Atti asseverati presso il Foro di Velletri / Roma. Certificazione EAL6+ Vidimata.
-    </div>
-  </footer>
-
-  <!-- TALLY EMBED SCRIPT -->
-  <script async src="https://tally.so/widgets/embed.js"></script>
-
-  <!-- ENGINE CLIENT-SIDE FRONTEND -->
   <script src="js/code.js"></script>
-
   <script>
-    // GESTIONE SWITCH TRA MASCHERA DIRETTA E TALLY EMBED
-    function sfxSwitchIntakeTab(tab) {
-      const panelNative = document.getElementById('intake-panel-native');
-      const panelTally = document.getElementById('intake-panel-tally');
-      const btnNative = document.getElementById('tab-btn-native');
-      const btnTally = document.getElementById('tab-btn-tally');
+    function inviaCandidaturaCompleta(event) {
+      event.preventDefault();
+      const btn = document.getElementById('cand-submit-btn');
+      const payload = {
+        tipo: 'Candidatura Ufficiale (Pagina Dedicata)',
+        nome: document.getElementById('cand-nome').value.trim(),
+        email: document.getElementById('cand-email').value.trim(),
+        telefono: document.getElementById('cand-telefono').value.trim(),
+        profilo: document.getElementById('cand-profilo').value,
+        interesse: document.getElementById('cand-interesse').value,
+        fascia: document.getElementById('cand-fascia').value,
+        note: document.getElementById('cand-note').value.trim()
+      };
 
-      if (tab === 'native') {
-        panelNative.classList.remove('hidden');
-        panelTally.classList.add('hidden');
-        btnNative.classList.add('active');
-        btnTally.classList.remove('active');
-      } else {
-        panelNative.classList.add('hidden');
-        panelTally.classList.remove('hidden');
-        btnNative.classList.remove('active');
-        btnTally.classList.add('active');
-        if (typeof Tally !== 'undefined') {
-          Tally.loadEmbeds();
-        }
+      if (typeof sendToBackend === 'function') {
+        sendToBackend(payload, btn, 'Candidatura Ricevuta!', () => event.target.reset());
       }
     }
   </script>
