@@ -1,19 +1,18 @@
 /* ==========================================================================
    SUPREMA FUTURE X ENTERPRISE 2026 — MOTORE LOGICO INTEGRALE (js/code.js)
-   Architettura: Matrix Sottostante, Carosello 10 Loghi PNG, Radio 30 Slot,
-   Sottomenu Universali con Upload Persistenti, 3 Corsi Academy, Gold Card 3D,
-   Traduttore Google 11 Lingue e Telemetria Protetta da PIN 3474429091.
+   Con Webhook Apps Script Attivo, Auto-Rilevamento Media GitHub (Logo Loop,
+   Radio 30 Slot, Gold Card Reale, Immagini Sezioni & 3 Corsi Academy),
+   Matrix Fluido, Traduttore Google 11 Lingue e Telemetria PIN 3474429091.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   00. CONFIGURAZIONE CENTRALIZZATA LINK (INSERISCI QUI I TUOI URL REALI)
+   00. CONFIGURAZIONE CENTRALIZZATA
    -------------------------------------------------------------------------- */
 const SFX_CONFIG = {
-  // Link Conferenza Gratuita CEO su OpenEduCat
+  githubRepo: 'ceo341/supremafuturex',
   openEducatConferenzaUrl: '#conferenza-prenotazione',
   openEducatGoldCardUrl: '#portale-goldcard',
 
-  // Link Pagamenti Corsi (Revolut / PayPal / SumUp)
   payments: {
     gold: {
       revolut: 'https://revolut.me/',
@@ -32,22 +31,149 @@ const SFX_CONFIG = {
     }
   },
 
-  // Webhook Google Apps Script (Fase 1) o n8n Hetzner (Fase 2)
-  webhookEndpoint: '',
+  // Webhook Google Apps Script Attivo (Notifiche Email CEO + Telegram)
+  webhookEndpoint: 'https://script.google.com/macros/s/AKfycbzkpeKBeP5PBKYKKgWvQs-avgQzId10Nr3G2DN1YbU-ePY0m9JgOcCCPCT6F-xzYCDP1w/exec',
   newsletterEmail: 'segreteria@gmail.com',
 
   // PIN Telemetria Direzionale
   telemetryPin: '3474429091',
 
-  // Parametri Multimediali GitHub
+  // Parametri Multimediali
   heroLogosCount: 10,
   radioTotalSlots: 30,
   radioAvailableMp3: 14
 };
 
+// Archivio dinamico delle foto rilevate nelle cartelle media/ di GitHub
+const GITHUB_MEDIA_CACHE = {
+  heroLogos: [
+    'media/sec-01-hero/logo-01.png',
+    'media/sec-01-hero/logo-02.png',
+    'media/sec-01-hero/logo-03.png',
+    'media/sec-01-hero/logo-04.png',
+    'media/sec-01-hero/logo-05.png',
+    'media/sec-01-hero/logo-06.png',
+    'media/sec-01-hero/logo-07.png',
+    'media/sec-01-hero/logo-08.png',
+    'media/sec-01-hero/logo-09.png',
+    'media/sec-01-hero/logo-10.png'
+  ],
+  radioTracks: Array.from({ length: 14 }, (_, i) => {
+    const n = (i + 1).toString().padStart(2, '0');
+    return `media/audio-radio/track-${n}.mp3`;
+  }),
+  academyImages: [],
+  goldCardImage: ''
+};
+
 /* --------------------------------------------------------------------------
-   01. ARCHIVIO PERSISTENTE SUL DISPOSITIVO (INDEXEDDB PER VIDEO, FOTO E TESTI)
-   Permette di caricare file dal dispositivo e mantenerli salvati e fissi.
+   01. AUTO-RILEVAMENTO IMMAGINI & AUDIO DALLE CARTELLE media/ DI GITHUB
+   -------------------------------------------------------------------------- */
+async function fetchGithubFolderFiles(folderPath) {
+  const cacheKey = `sfx_gh_dir_${folderPath}`;
+  const cached = sessionStorage.getItem(cacheKey);
+  if (cached) {
+    try {
+      return JSON.parse(cached);
+    } catch (e) {}
+  }
+
+  try {
+    const apiUrl = `https://api.github.com/repos/${SFX_CONFIG.githubRepo}/contents/${folderPath}`;
+    const res = await fetch(apiUrl);
+    if (!res.ok) return [];
+    const items = await res.json();
+    if (!Array.isArray(items)) return [];
+
+    const validFiles = items
+      .filter((item) => item.type === 'file' && !item.name.toLowerCase().includes('placeholder'))
+      .map((item) => `${folderPath}/${item.name}`);
+
+    sessionStorage.setItem(cacheKey, JSON.stringify(validFiles));
+    return validFiles;
+  } catch (e) {
+    return [];
+  }
+}
+
+async function autoDiscoverGithubMedia() {
+  // 1. Scocca Ovale Hero (media/sec-01-hero)
+  const heroFiles = await fetchGithubFolderFiles('media/sec-01-hero');
+  const heroImgs = heroFiles.filter((f) => /\.(png|jpe?g|webp|gif)$/i.test(f)).sort();
+  if (heroImgs.length > 0) {
+    GITHUB_MEDIA_CACHE.heroLogos = heroImgs;
+  }
+
+  // 2. Tracce Radio (media/audio-radio)
+  const audioFiles = await fetchGithubFolderFiles('media/audio-radio');
+  const mp3Files = audioFiles.filter((f) => /\.mp3$/i.test(f)).sort();
+  if (mp3Files.length > 0) {
+    GITHUB_MEDIA_CACHE.radioTracks = mp3Files;
+    initRadioLounge();
+  }
+
+  // 3. Suprema Gold Card Reale (media/sec-06-goldcard)
+  const goldCardFiles = await fetchGithubFolderFiles('media/sec-06-goldcard');
+  const goldCardImgs = goldCardFiles.filter((f) => /\.(png|jpe?g|webp)$/i.test(f)).sort();
+  if (goldCardImgs.length > 0) {
+    GITHUB_MEDIA_CACHE.goldCardImage = goldCardImgs[0];
+    const gcImgEl = document.getElementById('goldcard-real-img');
+    if (gcImgEl) gcImgEl.src = goldCardImgs[0];
+  }
+
+  // 4. Suprema Academy & I 3 Corsi (media/sec-05-academy)
+  const academyFiles = await fetchGithubFolderFiles('media/sec-05-academy');
+  const academyImgs = academyFiles.filter((f) => /\.(png|jpe?g|webp)$/i.test(f)).sort();
+  const academyVids = academyFiles.filter((f) => /\.(mp4|webm)$/i.test(f)).sort();
+
+  if (academyImgs.length > 0) {
+    GITHUB_MEDIA_CACHE.academyImages = academyImgs;
+    const mainAcadImg = document.getElementById('img-sec-05-academy-main');
+    if (mainAcadImg) mainAcadImg.src = academyImgs[0];
+
+    const goldThumb = document.getElementById('course-thumb-gold');
+    const premThumb = document.getElementById('course-thumb-premium');
+    const entThumb = document.getElementById('course-thumb-enterprise');
+
+    if (goldThumb) goldThumb.src = academyImgs[1] || academyImgs[0];
+    if (premThumb) premThumb.src = academyImgs[2] || academyImgs[1] || academyImgs[0];
+    if (entThumb) entThumb.src = academyImgs[3] || academyImgs[2] || academyImgs[0];
+  }
+
+  if (academyVids.length > 0) {
+    const acadVid = document.getElementById('academy-main-video');
+    if (acadVid) {
+      acadVid.src = academyVids[0];
+    }
+  }
+
+  // 5. Tutte le altre sezioni (escluse SEC-00, CEO e Alison come richiesto)
+  const sectionFolders = [
+    'sec-04-funnel',
+    'sec-07-vault',
+    'sec-08-social',
+    'sec-09-ecommerce',
+    'sec-10-testimonials',
+    'sec-11-newsletter',
+    'sec-12-feedback'
+  ];
+
+  for (const folder of sectionFolders) {
+    const files = await fetchGithubFolderFiles(`media/${folder}`);
+    const imgs = files.filter((f) => /\.(png|jpe?g|webp)$/i.test(f)).sort();
+    if (imgs.length > 0) {
+      const bannerEl = document.getElementById(`banner-${folder}`);
+      const imgEl = document.getElementById(`img-${folder}`);
+      if (bannerEl && imgEl) {
+        imgEl.src = imgs[0];
+        bannerEl.classList.add('has-media');
+      }
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   02. ARCHIVIO PERSISTENTE SUL DISPOSITIVO (INDEXEDDB PER UPLOAD LOCALI)
    -------------------------------------------------------------------------- */
 const SFXMediaStore = {
   dbName: 'SupremaFutureX_MediaDB',
@@ -103,7 +229,7 @@ const SFXMediaStore = {
 };
 
 /* --------------------------------------------------------------------------
-   02. MOTORE MATRIX A CALATA LENTA (SFONDO LANDING, SOTTOMENU E TELEMETRIA)
+   03. MOTORE MATRIX VELOCE E FLUIDO (SFONDO LANDING, SOTTOMENU E TELEMETRIA)
    -------------------------------------------------------------------------- */
 const matrixControllers = {};
 
@@ -117,8 +243,8 @@ function startSlowMatrixCanvas(canvasId, options = {}) {
 
   const ctx = canvas.getContext('2d');
   const chars = 'SUPREMAFUTUREX0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ✦◈';
-  const fontSize = options.fontSize || 14;
-  const speedDelay = options.speedDelay || 65; // Calata lenta e fluida (ms tra step)
+  const fontSize = options.fontSize || 15;
+  const speedDelay = options.speedDelay || 36; // Calata più veloce e scorrevole
   let columns = 0;
   let drops = [];
   let lastTick = 0;
@@ -127,7 +253,7 @@ function startSlowMatrixCanvas(canvasId, options = {}) {
     canvas.width = canvas.parentElement ? canvas.parentElement.clientWidth || window.innerWidth : window.innerWidth;
     canvas.height = canvas.parentElement ? canvas.parentElement.clientHeight || window.innerHeight : window.innerHeight;
     columns = Math.floor(canvas.width / fontSize);
-    drops = Array.from({ length: columns }, () => Math.floor(Math.random() * -40));
+    drops = Array.from({ length: columns }, () => Math.floor(Math.random() * -30));
   }
 
   resize();
@@ -137,21 +263,20 @@ function startSlowMatrixCanvas(canvasId, options = {}) {
     if (timestamp - lastTick >= speedDelay) {
       lastTick = timestamp;
 
-      ctx.fillStyle = 'rgba(7, 16, 25, 0.09)';
+      ctx.fillStyle = 'rgba(7, 16, 25, 0.11)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
+      ctx.font = `bold ${fontSize}px "JetBrains Mono", monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars.charAt(Math.floor(Math.random() * chars.length));
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Alternanza elegante oro satinato e ciano morbido
-        ctx.fillStyle = i % 5 === 0 ? 'rgba(212, 175, 55, 0.65)' : 'rgba(0, 229, 201, 0.45)';
+        ctx.fillStyle = i % 4 === 0 ? 'rgba(244, 223, 142, 0.85)' : 'rgba(0, 240, 255, 0.65)';
         ctx.fillText(text, x, y);
 
-        if (y > canvas.height && Math.random() > 0.978) {
+        if (y > canvas.height && Math.random() > 0.972) {
           drops[i] = 0;
         }
         drops[i]++;
@@ -171,7 +296,31 @@ function startSlowMatrixCanvas(canvasId, options = {}) {
 }
 
 /* --------------------------------------------------------------------------
-   03. OROLOGIO LIVE CET (EUROPE/ROME) & TELEMETRIA VISITATORI
+   04. ANIMAZIONI DI SCORRIMENTO SULLE SEZIONI (SCROLL REVEAL)
+   -------------------------------------------------------------------------- */
+function initScrollAnimations() {
+  const revealEls = document.querySelectorAll('.sfx-reveal');
+  if (!('IntersectionObserver' in window)) {
+    revealEls.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    },
+    { threshold: 0.08 }
+  );
+
+  revealEls.forEach((el) => observer.observe(el));
+}
+
+/* --------------------------------------------------------------------------
+   05. OROLOGIO LIVE CET & TELEMETRIA VISITATORI
    -------------------------------------------------------------------------- */
 const SESSION_START_TIME = Date.now();
 
@@ -241,7 +390,7 @@ function openTelemetryPinModal() {
     setTimeout(() => input.focus(), 120);
   }
 
-  startSlowMatrixCanvas('telemetry-matrix-canvas', { speedDelay: 60 });
+  startSlowMatrixCanvas('telemetry-matrix-canvas', { speedDelay: 38 });
 }
 
 function verifyTelemetryPin() {
@@ -270,26 +419,28 @@ function closeTelemetryModal() {
 }
 
 /* --------------------------------------------------------------------------
-   04. SCOCCA OVALE CENTRALE: 3s MONOGRAMMA SF -> LOOP 10 LOGHI PNG
+   06. SCOCCA OVALE CENTRALE: 3s MONOGRAMMA SF -> LOOP LOGHI DA GITHUB
    -------------------------------------------------------------------------- */
 function initHeroOvalCarousel() {
   const monogramEl = document.getElementById('oval-monogram-sf');
   const imgEl = document.getElementById('oval-carousel-image');
   if (!monogramEl || !imgEl) return;
 
-  // Precarica silenzioso delle 10 immagini PNG su GitHub
-  for (let i = 1; i <= SFX_CONFIG.heroLogosCount; i++) {
+  let currentIdx = 0;
+
+  // Precarica le immagini
+  GITHUB_MEDIA_CACHE.heroLogos.forEach((src) => {
     const pre = new Image();
-    const num = i.toString().padStart(2, '0');
-    pre.src = `media/sec-01-hero/logo-${num}.png`;
-  }
+    pre.src = src;
+  });
 
-  let currentIndex = 1;
-
-  // Dopo esattamente 3.0 secondi sfuma il monogramma SF e avvia il loop fotografico
+  // Dopo 3.0 secondi sfuma il monogramma SF e avvia il carosello delle foto
   setTimeout(() => {
+    const logos = GITHUB_MEDIA_CACHE.heroLogos;
+    if (logos.length > 0) {
+      imgEl.src = logos[0];
+    }
     monogramEl.style.opacity = '0';
-    imgEl.src = 'media/sec-01-hero/logo-01.png';
     imgEl.classList.add('visible');
 
     setTimeout(() => {
@@ -297,19 +448,21 @@ function initHeroOvalCarousel() {
     }, 850);
 
     setInterval(() => {
+      const list = GITHUB_MEDIA_CACHE.heroLogos;
+      if (!list || list.length === 0) return;
+
       imgEl.classList.remove('visible');
       setTimeout(() => {
-        currentIndex = currentIndex >= SFX_CONFIG.heroLogosCount ? 1 : currentIndex + 1;
-        const idxStr = currentIndex.toString().padStart(2, '0');
-        imgEl.src = `media/sec-01-hero/logo-${idxStr}.png`;
+        currentIdx = (currentIdx + 1) % list.length;
+        imgEl.src = list[currentIdx];
         imgEl.classList.add('visible');
       }, 450);
-    }, 3200);
+    }, 3000);
   }, 3000);
 }
 
 /* --------------------------------------------------------------------------
-   05. RADAR 60FPS ALISON AG-01 & TYPEWRITER (SEC-03)
+   07. RADAR 60FPS ALISON AG-01 & TYPEWRITER (SEC-03)
    -------------------------------------------------------------------------- */
 function initAlisonRadar() {
   const canvas = document.getElementById('alison-radar-canvas');
@@ -323,7 +476,6 @@ function initAlisonRadar() {
   function drawRadar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Sfondo circolare perla-ciano
     const bgGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, radius);
     bgGrad.addColorStop(0, '#FFFFFF');
     bgGrad.addColorStop(1, '#E2F5F7');
@@ -332,7 +484,6 @@ function initAlisonRadar() {
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cerchi concentrici telemetrici
     ctx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
     ctx.lineWidth = 1;
     [0.33, 0.66, 1].forEach((scale) => {
@@ -341,7 +492,6 @@ function initAlisonRadar() {
       ctx.stroke();
     });
 
-    // Assi cartesiani
     ctx.beginPath();
     ctx.moveTo(cx - radius, cy);
     ctx.lineTo(cx + radius, cy);
@@ -349,7 +499,6 @@ function initAlisonRadar() {
     ctx.lineTo(cx, cy + radius);
     ctx.stroke();
 
-    // Raggio conico rotante
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(angle);
@@ -364,14 +513,12 @@ function initAlisonRadar() {
     ctx.fill();
     ctx.restore();
 
-    // Bordo oro esterno
     ctx.strokeStyle = '#D4AF37';
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.stroke();
 
-    // Punto centrale Alison
     ctx.fillStyle = '#0B192C';
     ctx.beginPath();
     ctx.arc(cx, cy, 5, 0, Math.PI * 2);
@@ -402,7 +549,7 @@ function initAlisonTypewriter() {
 }
 
 /* --------------------------------------------------------------------------
-   06. SUPREMA MENU HAMBURGER (TIMER AUTOMATICO A 15 SECONDI)
+   08. SUPREMA MENU HAMBURGER (TIMER AUTOMATICO A 15 SECONDI)
    -------------------------------------------------------------------------- */
 let menuCountdownInterval = null;
 let menuRemainingSeconds = 15;
@@ -447,7 +594,7 @@ function closeSupremaMenu() {
 }
 
 /* --------------------------------------------------------------------------
-   07. SUPREMA RADIO LOUNGE (30 SLOT + PLAY / STOP / INDIETRO / AVANTI / MUTO)
+   09. SUPREMA RADIO LOUNGE (30 SLOT + AUDIO REALE SBLOCCATO)
    -------------------------------------------------------------------------- */
 const RADIO_STATE = {
   currentSlot: 1,
@@ -457,19 +604,38 @@ const RADIO_STATE = {
 
 function initRadioLounge() {
   const selector = document.getElementById('radio-slot-selector');
+  const audio = document.getElementById('master-radio-audio');
+  const activeCount = GITHUB_MEDIA_CACHE.radioTracks.length || SFX_CONFIG.radioAvailableMp3;
+
   if (selector) {
     let optionsHtml = '';
     for (let i = 1; i <= SFX_CONFIG.radioTotalSlots; i++) {
       const slotNum = i.toString().padStart(2, '0');
-      const statusTag = i <= SFX_CONFIG.radioAvailableMp3 ? 'Attivo' : 'Slot Libero';
+      const statusTag = i <= activeCount ? 'Brano Attivo' : 'Slot Libero';
       optionsHtml += `<option value="${i}">Slot ${slotNum} / 30 — Suprema Lounge (${statusTag})</option>`;
     }
     selector.innerHTML = optionsHtml;
   }
+
+  if (audio && !audio.dataset.boundEvents) {
+    audio.dataset.boundEvents = '1';
+    audio.addEventListener('ended', () => {
+      nextRadioTrack();
+    });
+    audio.addEventListener('error', () => {
+      const label = document.getElementById('radio-track-label');
+      if (label) {
+        label.textContent = `Slot ${RADIO_STATE.currentSlot.toString().padStart(2, '0')} — Slot vuoto (seleziona 01-${activeCount.toString().padStart(2, '0')})`;
+      }
+      RADIO_STATE.isPlaying = false;
+      updateRadioUI(true);
+    });
+  }
+
   updateRadioUI();
 }
 
-function updateRadioUI() {
+function updateRadioUI(keepErrorLabel = false) {
   const slotNum = RADIO_STATE.currentSlot.toString().padStart(2, '0');
   const label = document.getElementById('radio-track-label');
   const eqBars = document.querySelectorAll('#radio-eq-bars .eq-bar');
@@ -479,11 +645,11 @@ function updateRadioUI() {
 
   if (selector) selector.value = RADIO_STATE.currentSlot.toString();
 
-  if (label) {
+  if (label && !keepErrorLabel) {
     const stateText = RADIO_STATE.isMuted
       ? 'Audio Silenziato (Muto)'
       : RADIO_STATE.isPlaying
-      ? 'In Riproduzione'
+      ? 'In Riproduzione Live'
       : 'In Pausa (Pronta)';
     label.textContent = `Slot ${slotNum} / 30 — ${stateText}`;
   }
@@ -496,24 +662,40 @@ function updateRadioUI() {
   if (btnMute) btnMute.classList.toggle('active', RADIO_STATE.isMuted);
 }
 
+function getTrackUrlForSlot(slotNumber) {
+  const idx = slotNumber - 1;
+  if (GITHUB_MEDIA_CACHE.radioTracks[idx]) {
+    return GITHUB_MEDIA_CACHE.radioTracks[idx];
+  }
+  const slotNum = slotNumber.toString().padStart(2, '0');
+  return `media/audio-radio/track-${slotNum}.mp3`;
+}
+
 function playRadioTrack() {
   const audio = document.getElementById('master-radio-audio');
   if (!audio) return;
 
-  const slotNum = RADIO_STATE.currentSlot.toString().padStart(2, '0');
-  const targetSrc = `media/audio-radio/track-${slotNum}.mp3`;
-
-  if (!audio.src.endsWith(targetSrc)) {
-    audio.src = targetSrc;
+  const targetSrc = getTrackUrlForSlot(RADIO_STATE.currentSlot);
+  if (!audio.getAttribute('src') || !audio.src.endsWith(targetSrc)) {
+    audio.setAttribute('src', targetSrc);
+    audio.load();
   }
 
-  audio.play().then(() => {
-    RADIO_STATE.isPlaying = true;
-    updateRadioUI();
-  }).catch(() => {
-    RADIO_STATE.isPlaying = false;
-    updateRadioUI();
-  });
+  audio.muted = RADIO_STATE.isMuted;
+  audio.volume = 1.0;
+
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        RADIO_STATE.isPlaying = true;
+        updateRadioUI();
+      })
+      .catch(() => {
+        RADIO_STATE.isPlaying = false;
+        updateRadioUI();
+      });
+  }
 }
 
 function stopRadioTrack() {
@@ -527,14 +709,14 @@ function stopRadioTrack() {
 }
 
 function nextRadioTrack() {
-  RADIO_STATE.currentSlot =
-    RADIO_STATE.currentSlot >= SFX_CONFIG.radioTotalSlots ? 1 : RADIO_STATE.currentSlot + 1;
+  const maxActive = GITHUB_MEDIA_CACHE.radioTracks.length || SFX_CONFIG.radioAvailableMp3;
+  RADIO_STATE.currentSlot = RADIO_STATE.currentSlot >= maxActive ? 1 : RADIO_STATE.currentSlot + 1;
   playRadioTrack();
 }
 
 function prevRadioTrack() {
-  RADIO_STATE.currentSlot =
-    RADIO_STATE.currentSlot <= 1 ? SFX_CONFIG.radioTotalSlots : RADIO_STATE.currentSlot - 1;
+  const maxActive = GITHUB_MEDIA_CACHE.radioTracks.length || SFX_CONFIG.radioAvailableMp3;
+  RADIO_STATE.currentSlot = RADIO_STATE.currentSlot <= 1 ? maxActive : RADIO_STATE.currentSlot - 1;
   playRadioTrack();
 }
 
@@ -566,7 +748,7 @@ function toggleRadioPopover() {
 }
 
 /* --------------------------------------------------------------------------
-   08. TRADUTTORE GOOGLE A 11 LINGUE
+   10. TRADUTTORE GOOGLE A 11 LINGUE
    -------------------------------------------------------------------------- */
 function googleTranslateElementInit() {
   if (window.google && window.google.translate) {
@@ -608,7 +790,7 @@ function closeAllPopovers() {
 }
 
 /* --------------------------------------------------------------------------
-   09. GOLD CARD 3D TILT ENGINE & GIROSCOPIO (SEC-06)
+   11. GOLD CARD 3D TILT ENGINE & GIROSCOPIO (SEC-06)
    -------------------------------------------------------------------------- */
 function initGoldCard3DTilt() {
   const card = document.getElementById('goldcard-3d-box');
@@ -646,7 +828,7 @@ function initGoldCard3DTilt() {
 }
 
 /* --------------------------------------------------------------------------
-   10. FUNNEL SCREENING TANDEM DRAG (SEC-04)
+   12. FUNNEL SCREENING TANDEM DRAG (SEC-04)
    -------------------------------------------------------------------------- */
 const FUNNEL_DATA = {
   step1: '',
@@ -706,8 +888,7 @@ function submitFunnelForm(event) {
 }
 
 /* --------------------------------------------------------------------------
-   11. SOTTOMENU & POPUP UNIVERSALI (STORIE, CORSI ACADEMY, GOLD CARD,
-       LUXURY MODEL, REGOLAMENTO, CODICE ETICO E 40 TESTIMONIANZE)
+   13. SOTTOMENU & POPUP UNIVERSALI
    -------------------------------------------------------------------------- */
 const SUBMENU_ORDER = [
   'chi-siamo-hub',
@@ -882,6 +1063,12 @@ function generate40TestimonialsHtml() {
 }
 
 function getSubmenuTemplate(id) {
+  const acadImgs = GITHUB_MEDIA_CACHE.academyImages;
+  const goldImg = acadImgs[1] || acadImgs[0] || 'media/sec-01-hero/logo-05.png';
+  const premImg = acadImgs[2] || acadImgs[1] || acadImgs[0] || 'media/sec-01-hero/logo-06.png';
+  const entImg = acadImgs[3] || acadImgs[2] || acadImgs[0] || 'media/sec-01-hero/logo-07.png';
+  const gcImg = GITHUB_MEDIA_CACHE.goldCardImage || 'media/sec-01-hero/logo-08.png';
+
   switch (id) {
     case 'chi-siamo-hub':
       return {
@@ -1033,6 +1220,7 @@ function getSubmenuTemplate(id) {
         html: `
           <span class="section-kicker">Suprema Academy 100% Live // Percorso 01</span>
           <h2>SUPREMA GOLD — Le Fondamenta dell’Ecosistema</h2>
+          <img src="${goldImg}" alt="Suprema Gold" style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 16px; border: 1.5px solid var(--spectral-gold); margin-bottom: 1rem;" />
           <p><strong>Il punto di partenza ideale per chi vuole smettere di improvvisare e iniziare a lavorare con metodo, tecnologia e visione.</strong></p>
           <ul style="margin: 1rem 0 1.2rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
             <li><strong>Accesso Completo alla Struttura Suprema Future X:</strong> Tutti gli ambienti operativi e la tua area personale su OpenEduCat.</li>
@@ -1065,6 +1253,7 @@ function getSubmenuTemplate(id) {
         html: `
           <span class="section-kicker">Suprema Academy 100% Live // Percorso 02</span>
           <h2>SUPREMA PREMIUM — Accelerazione e Archivio Strategico</h2>
+          <img src="${premImg}" alt="Suprema Premium" style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 16px; border: 1.5px solid var(--spectral-gold); margin-bottom: 1rem;" />
           <p><strong>Quando decidi di fare sul serio, hai bisogno degli strumenti e della mappa completa per muoverti più veloce degli altri.</strong></p>
           <ul style="margin: 1rem 0 1.2rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
             <li><strong>Tutto ciò che è incluso in Suprema Gold:</strong> Struttura completa, 1 Agente AI dedicato e Community ufficiale.</li>
@@ -1096,6 +1285,7 @@ function getSubmenuTemplate(id) {
         html: `
           <span class="section-kicker">Dream Defense System // Percorso 03</span>
           <h2>SUPREMA ENTERPRISE — Affiancamento Totale &amp; Tecnologie Avanzate</h2>
+          <img src="${entImg}" alt="Suprema Enterprise" style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 16px; border: 1.5px solid var(--spectral-gold); margin-bottom: 1rem;" />
           <p><strong>Il livello massimo dell’Academy: avrai il CEO al tuo fianco passo dopo passo e l’intero arsenale tecnologico nelle tue mani.</strong></p>
           <ul style="margin: 1rem 0 1.2rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
             <li><strong>Tutto ciò che è incluso in Suprema Gold e Suprema Premium:</strong> Struttura, Agente AI, Community e tutti i documenti di crescita e Networking.</li>
@@ -1127,6 +1317,7 @@ function getSubmenuTemplate(id) {
         html: `
           <span class="section-kicker">OpenEduCat Fedeltà // Punti &amp; Premi</span>
           <h2>Suprema Gold Card — Generazione Punti e Catalogo Premi</h2>
+          <img src="${gcImg}" alt="Suprema Gold Card" style="width: 100%; max-height: 220px; object-fit: contain; border-radius: 16px; margin-bottom: 1rem;" />
           <p>Il sistema punti è collegato direttamente al tuo account <strong>OpenEduCat</strong>. Ogni azione formativa e ogni invito generato dal tuo link personale incrementa il tuo saldo:</p>
           <div class="cards-2-grid" style="margin: 1.1rem 0;">
             <div class="glass-deck" style="padding: 1.15rem;">
@@ -1221,7 +1412,7 @@ async function openSubmenu(submenuId) {
   document.body.classList.add('modal-open');
   closeAllPopovers();
 
-  startSlowMatrixCanvas('submenu-matrix-canvas', { speedDelay: 60 });
+  startSlowMatrixCanvas('submenu-matrix-canvas', { speedDelay: 38 });
 
   if (data.uploadKey) {
     await hydrateSavedUploads(data.uploadKey);
@@ -1281,7 +1472,7 @@ function sendAlisonQuickReply() {
 }
 
 /* --------------------------------------------------------------------------
-   12. NEWSLETTER (segreteria@gmail.com), FEEDBACK & NAVIGAZIONE
+   14. NEWSLETTER, FEEDBACK & NAVIGAZIONE
    -------------------------------------------------------------------------- */
 function submitNewsletterForm(event) {
   event.preventDefault();
@@ -1362,20 +1553,23 @@ function bindOpenEducatLinks() {
 }
 
 /* --------------------------------------------------------------------------
-   13. AVVIO GLOBALE AL CARICAMENTO DELLA PAGINA
+   15. AVVIO GLOBALE AL CARICAMENTO DELLA PAGINA
    -------------------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', async () => {
   await SFXMediaStore.init();
 
-  // Avvia Matrix lento sotto la cornice 13"
-  startSlowMatrixCanvas('matrix-bg-canvas', { speedDelay: 70 });
+  // Matrix veloce e fluido sotto la cornice 13"
+  startSlowMatrixCanvas('matrix-bg-canvas', { speedDelay: 36 });
+
+  // Animazioni allo scorrimento su tutte le sezioni
+  initScrollAnimations();
 
   // Orologio CET e Telemetria
   updateCetClock();
   setInterval(updateCetClock, 1000);
   initVisitorTelemetryTracker();
 
-  // Hero Ovale, Radar Alison, Radio 30 Slot e Gold Card 3D
+  // Carosello Ovale Hero, Radar Alison, Radio 30 Slot e Gold Card 3D
   initHeroOvalCarousel();
   initAlisonRadar();
   initAlisonTypewriter();
@@ -1383,7 +1577,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   initGoldCard3DTilt();
   bindOpenEducatLinks();
 
-  // Chiusura rapida con tasto ESC
+  // Auto-caricamento immediato delle foto reali e tracce audio dalle cartelle GitHub
+  await autoDiscoverGithubMedia();
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeAllPopovers();
