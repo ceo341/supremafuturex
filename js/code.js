@@ -1,397 +1,1394 @@
-/**
- * ==============================================================================
- * SUPREMA FUTURE X ENTERPRISE // FRONTEND CLIENT ENGINE
- * File: js/code.js
- * Piattaforma: GitHub Pages -> Google Apps Script REST Gateway
- * Endpoint Attivo: Versione 32 (11 Nov 2026)
- * Presidio Operativo: Colleferro (Roma) // Foro Giudiziario: Velletri / Roma
- * ==============================================================================
- */
+/* ==========================================================================
+   SUPREMA FUTURE X ENTERPRISE 2026 — MOTORE LOGICO INTEGRALE (js/code.js)
+   Architettura: Matrix Sottostante, Carosello 10 Loghi PNG, Radio 30 Slot,
+   Sottomenu Universali con Upload Persistenti, 3 Corsi Academy, Gold Card 3D,
+   Traduttore Google 11 Lingue e Telemetria Protetta da PIN 3474429091.
+   ========================================================================== */
 
-'use strict';
-
-// 1. CONFIGURAZIONE MASTER CLIENT-SIDE (VERSIONE 32)
+/* --------------------------------------------------------------------------
+   00. CONFIGURAZIONE CENTRALIZZATA LINK (INSERISCI QUI I TUOI URL REALI)
+   -------------------------------------------------------------------------- */
 const SFX_CONFIG = {
-  // Nuovo Endpoint Web App Google Apps Script Versione 32
-  API_URL: "https://script.google.com/macros/s/AKfycbyNWO9e32EIhLusbtZrfGalQHjep80waY7YbyWdPQr-9ARmmPEau8ngdVMtGkasogoMFA/exec",
-  
-  CHANNELS: {
-    TELEGRAM_BOT: "@SupremaFutureX_NocBot",
-    TELEGRAM_CANALE: "https://t.me/supremafuturex",
-    WHATSAPP_CEO: "+393474429091",
-    EMAIL_CEO: "ceo@supremaofficial.com"
+  // Link Conferenza Gratuita CEO su OpenEduCat
+  openEducatConferenzaUrl: '#conferenza-prenotazione',
+  openEducatGoldCardUrl: '#portale-goldcard',
+
+  // Link Pagamenti Corsi (Revolut / PayPal / SumUp)
+  payments: {
+    gold: {
+      revolut: 'https://revolut.me/',
+      paypal: 'https://www.paypal.com/',
+      sumup: 'https://pay.sumup.com/'
+    },
+    premium: {
+      revolut: 'https://revolut.me/',
+      paypal: 'https://www.paypal.com/',
+      sumup: 'https://pay.sumup.com/'
+    },
+    enterprise: {
+      revolut: 'https://revolut.me/',
+      paypal: 'https://www.paypal.com/',
+      sumup: 'https://pay.sumup.com/'
+    }
   },
 
-  TIME_SLOTS: [
-    "Mattina (10:00 - 13:00 CET)",
-    "Pomeriggio (15:00 - 18:00 CET)",
-    "Serale (21:00 - 23:00 CET)"
-  ],
+  // Webhook Google Apps Script (Fase 1) o n8n Hetzner (Fase 2)
+  webhookEndpoint: '',
+  newsletterEmail: 'segreteria@gmail.com',
 
-  STORAGE_KEYS: {
-    SESSION_TOKEN: "sfx_master_session_token",
-    SESSION_EXPIRY: "sfx_master_session_expiry"
+  // PIN Telemetria Direzionale
+  telemetryPin: '3474429091',
+
+  // Parametri Multimediali GitHub
+  heroLogosCount: 10,
+  radioTotalSlots: 30,
+  radioAvailableMp3: 14
+};
+
+/* --------------------------------------------------------------------------
+   01. ARCHIVIO PERSISTENTE SUL DISPOSITIVO (INDEXEDDB PER VIDEO, FOTO E TESTI)
+   Permette di caricare file dal dispositivo e mantenerli salvati e fissi.
+   -------------------------------------------------------------------------- */
+const SFXMediaStore = {
+  dbName: 'SupremaFutureX_MediaDB',
+  storeName: 'uploads',
+  db: null,
+
+  init() {
+    return new Promise((resolve) => {
+      if (!window.indexedDB) {
+        resolve(null);
+        return;
+      }
+      const request = indexedDB.open(this.dbName, 1);
+      request.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(this.storeName)) {
+          db.createObjectStore(this.storeName, { keyPath: 'key' });
+        }
+      };
+      request.onsuccess = (e) => {
+        this.db = e.target.result;
+        resolve(this.db);
+      };
+      request.onerror = () => resolve(null);
+    });
+  },
+
+  save(key, value) {
+    return new Promise((resolve) => {
+      if (!this.db) {
+        resolve(false);
+        return;
+      }
+      const tx = this.db.transaction(this.storeName, 'readwrite');
+      tx.objectStore(this.storeName).put({ key, value, updatedAt: Date.now() });
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => resolve(false);
+    });
+  },
+
+  load(key) {
+    return new Promise((resolve) => {
+      if (!this.db) {
+        resolve(null);
+        return;
+      }
+      const tx = this.db.transaction(this.storeName, 'readonly');
+      const req = tx.objectStore(this.storeName).get(key);
+      req.onsuccess = () => resolve(req.result ? req.result.value : null);
+      req.onerror = () => resolve(null);
+    });
   }
 };
 
-/**
- * 2. COMUNICAZIONE HTTP FETCH VERSO IL GATEWAY APPS SCRIPT
- */
-async function sfxApiCall(payload) {
-  try {
-    const response = await fetch(SFX_CONFIG.API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-      body: JSON.stringify(payload)
-    });
+/* --------------------------------------------------------------------------
+   02. MOTORE MATRIX A CALATA LENTA (SFONDO LANDING, SOTTOMENU E TELEMETRIA)
+   -------------------------------------------------------------------------- */
+const matrixControllers = {};
 
-    if (!response.ok) {
-      throw new Error("HTTP Status " + response.status);
+function startSlowMatrixCanvas(canvasId, options = {}) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  if (matrixControllers[canvasId]) {
+    cancelAnimationFrame(matrixControllers[canvasId].rafId);
+  }
+
+  const ctx = canvas.getContext('2d');
+  const chars = 'SUPREMAFUTUREX0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ✦◈';
+  const fontSize = options.fontSize || 14;
+  const speedDelay = options.speedDelay || 65; // Calata lenta e fluida (ms tra step)
+  let columns = 0;
+  let drops = [];
+  let lastTick = 0;
+
+  function resize() {
+    canvas.width = canvas.parentElement ? canvas.parentElement.clientWidth || window.innerWidth : window.innerWidth;
+    canvas.height = canvas.parentElement ? canvas.parentElement.clientHeight || window.innerHeight : window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = Array.from({ length: columns }, () => Math.floor(Math.random() * -40));
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  function render(timestamp) {
+    if (timestamp - lastTick >= speedDelay) {
+      lastTick = timestamp;
+
+      ctx.fillStyle = 'rgba(7, 16, 25, 0.09)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Alternanza elegante oro satinato e ciano morbido
+        ctx.fillStyle = i % 5 === 0 ? 'rgba(212, 175, 55, 0.65)' : 'rgba(0, 229, 201, 0.45)';
+        ctx.fillText(text, x, y);
+
+        if (y > canvas.height && Math.random() > 0.978) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
     }
 
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.error("[SFX GATEWAY ERROR]", err);
-    return {
-      success: false,
-      status: "error",
-      message: "Impossibile comunicare con il nodo di Colleferro: " + err.message
+    matrixControllers[canvasId] = {
+      rafId: requestAnimationFrame(render),
+      resize
     };
   }
+
+  matrixControllers[canvasId] = {
+    rafId: requestAnimationFrame(render),
+    resize
+  };
 }
 
-/**
- * 3. INOLTRO CANDIDATURA (MASCHERA FRONTEND)
- */
-async function sfxSubmitCandidatura(event) {
-  if (event) event.preventDefault();
+/* --------------------------------------------------------------------------
+   03. OROLOGIO LIVE CET (EUROPE/ROME) & TELEMETRIA VISITATORI
+   -------------------------------------------------------------------------- */
+const SESSION_START_TIME = Date.now();
 
-  const submitBtn = document.getElementById("sfx-submit-btn");
-  const feedbackBox = document.getElementById("sfx-form-feedback");
+function updateCetClock() {
+  const el = document.getElementById('cet-live-clock');
+  if (!el) return;
+  try {
+    const formatted = new Intl.DateTimeFormat('it-IT', {
+      timeZone: 'Europe/Rome',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).format(new Date());
+    el.textContent = `${formatted} CET`;
+  } catch (e) {
+    el.textContent = `${new Date().toTimeString().slice(0, 8)} CET`;
+  }
+}
 
-  const nome = (document.getElementById("sfx-nome")?.value || "").trim();
-  const cognome = (document.getElementById("sfx-cognome")?.value || "").trim();
-  const email = (document.getElementById("sfx-email")?.value || "").trim();
-  const whatsapp = (document.getElementById("sfx-whatsapp")?.value || "").trim();
-  const azienda = (document.getElementById("sfx-azienda")?.value || "N/D").trim();
-  const citta = (document.getElementById("sfx-citta")?.value || "Colleferro").trim();
-  const profilo = document.getElementById("sfx-profilo")?.value || "Professionista Indipendente";
-  const programma = document.getElementById("sfx-programma")?.value || "Executive Master Live";
-  const fasciaMeet = document.getElementById("sfx-fascia")?.value || SFX_CONFIG.TIME_SLOTS[0];
-  const note = (document.getElementById("sfx-note")?.value || "").trim();
+function initVisitorTelemetryTracker() {
+  const visitsKey = 'sfx_total_visits_count';
+  const durationKey = 'sfx_accumulated_seconds';
 
-  if (!nome || !cognome || !email || !whatsapp) {
-    sfxShowToast("Tutti i campi contrassegnati con recapito sono obbligatori.", "warning");
-    return;
+  let totalVisits = parseInt(localStorage.getItem(visitsKey) || '148', 10);
+  if (!sessionStorage.getItem('sfx_session_counted')) {
+    totalVisits += 1;
+    localStorage.setItem(visitsKey, totalVisits.toString());
+    sessionStorage.setItem('sfx_session_counted', '1');
   }
 
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.innerText = "CRITTOGRAFIA & TRASMISSIONE EAL6+...";
+  setInterval(() => {
+    const elapsedSec = Math.floor((Date.now() - SESSION_START_TIME) / 1000);
+    const prevSaved = parseInt(localStorage.getItem(durationKey) || '185', 10);
+    const avgSec = Math.max(elapsedSec, Math.floor((prevSaved + elapsedSec) / 2));
+
+    const visitsEl = document.getElementById('stat-total-visits');
+    const liveEl = document.getElementById('stat-live-users');
+    const durEl = document.getElementById('stat-avg-duration');
+
+    if (visitsEl) visitsEl.textContent = totalVisits.toLocaleString('it-IT');
+    if (liveEl) liveEl.textContent = '1';
+    if (durEl) {
+      const mins = Math.floor(avgSec / 60).toString().padStart(2, '0');
+      const secs = (avgSec % 60).toString().padStart(2, '0');
+      durEl.textContent = `${mins}m ${secs}s`;
+    }
+  }, 1000);
+}
+
+function openTelemetryPinModal() {
+  const modal = document.getElementById('telemetry-pin-modal');
+  const lockScreen = document.getElementById('telemetry-lock-screen');
+  const dashScreen = document.getElementById('telemetry-dashboard-screen');
+  const input = document.getElementById('telemetry-pin-input');
+  const err = document.getElementById('telemetry-pin-error');
+
+  if (!modal) return;
+  modal.classList.add('open');
+  document.body.classList.add('modal-open');
+
+  if (lockScreen) lockScreen.style.display = 'block';
+  if (dashScreen) dashScreen.style.display = 'none';
+  if (err) err.style.display = 'none';
+  if (input) {
+    input.value = '';
+    setTimeout(() => input.focus(), 120);
   }
 
+  startSlowMatrixCanvas('telemetry-matrix-canvas', { speedDelay: 60 });
+}
+
+function verifyTelemetryPin() {
+  const input = document.getElementById('telemetry-pin-input');
+  const err = document.getElementById('telemetry-pin-error');
+  const lockScreen = document.getElementById('telemetry-lock-screen');
+  const dashScreen = document.getElementById('telemetry-dashboard-screen');
+
+  if (!input) return;
+
+  if (input.value.trim() === SFX_CONFIG.telemetryPin) {
+    if (err) err.style.display = 'none';
+    if (lockScreen) lockScreen.style.display = 'none';
+    if (dashScreen) dashScreen.style.display = 'block';
+  } else {
+    if (err) err.style.display = 'block';
+    input.value = '';
+    input.focus();
+  }
+}
+
+function closeTelemetryModal() {
+  const modal = document.getElementById('telemetry-pin-modal');
+  if (modal) modal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+}
+
+/* --------------------------------------------------------------------------
+   04. SCOCCA OVALE CENTRALE: 3s MONOGRAMMA SF -> LOOP 10 LOGHI PNG
+   -------------------------------------------------------------------------- */
+function initHeroOvalCarousel() {
+  const monogramEl = document.getElementById('oval-monogram-sf');
+  const imgEl = document.getElementById('oval-carousel-image');
+  if (!monogramEl || !imgEl) return;
+
+  // Precarica silenzioso delle 10 immagini PNG su GitHub
+  for (let i = 1; i <= SFX_CONFIG.heroLogosCount; i++) {
+    const pre = new Image();
+    const num = i.toString().padStart(2, '0');
+    pre.src = `media/sec-01-hero/logo-${num}.png`;
+  }
+
+  let currentIndex = 1;
+
+  // Dopo esattamente 3.0 secondi sfuma il monogramma SF e avvia il loop fotografico
+  setTimeout(() => {
+    monogramEl.style.opacity = '0';
+    imgEl.src = 'media/sec-01-hero/logo-01.png';
+    imgEl.classList.add('visible');
+
+    setTimeout(() => {
+      monogramEl.style.display = 'none';
+    }, 850);
+
+    setInterval(() => {
+      imgEl.classList.remove('visible');
+      setTimeout(() => {
+        currentIndex = currentIndex >= SFX_CONFIG.heroLogosCount ? 1 : currentIndex + 1;
+        const idxStr = currentIndex.toString().padStart(2, '0');
+        imgEl.src = `media/sec-01-hero/logo-${idxStr}.png`;
+        imgEl.classList.add('visible');
+      }, 450);
+    }, 3200);
+  }, 3000);
+}
+
+/* --------------------------------------------------------------------------
+   05. RADAR 60FPS ALISON AG-01 & TYPEWRITER (SEC-03)
+   -------------------------------------------------------------------------- */
+function initAlisonRadar() {
+  const canvas = document.getElementById('alison-radar-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  const radius = cx - 8;
+  let angle = 0;
+
+  function drawRadar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Sfondo circolare perla-ciano
+    const bgGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, radius);
+    bgGrad.addColorStop(0, '#FFFFFF');
+    bgGrad.addColorStop(1, '#E2F5F7');
+    ctx.fillStyle = bgGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cerchi concentrici telemetrici
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
+    ctx.lineWidth = 1;
+    [0.33, 0.66, 1].forEach((scale) => {
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius * scale, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+
+    // Assi cartesiani
+    ctx.beginPath();
+    ctx.moveTo(cx - radius, cy);
+    ctx.lineTo(cx + radius, cy);
+    ctx.moveTo(cx, cy - radius);
+    ctx.lineTo(cx, cy + radius);
+    ctx.stroke();
+
+    // Raggio conico rotante
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+    const sweepGrad = ctx.createLinearGradient(0, 0, radius, 0);
+    sweepGrad.addColorStop(0, 'rgba(0, 230, 118, 0.55)');
+    sweepGrad.addColorStop(1, 'rgba(0, 240, 255, 0.08)');
+    ctx.fillStyle = sweepGrad;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, radius, -0.45, 0.45);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // Bordo oro esterno
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Punto centrale Alison
+    ctx.fillStyle = '#0B192C';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    angle += 0.035;
+    requestAnimationFrame(drawRadar);
+  }
+
+  requestAnimationFrame(drawRadar);
+}
+
+function initAlisonTypewriter() {
+  const box = document.getElementById('alison-typewriter-box');
+  if (!box) return;
+  const fullText = 'Benvenuto in Suprema Future X. Sono Alison AG-01: come posso guidare la tua crescita oggi?';
+  let i = 0;
+  box.textContent = '';
+
+  function typeStep() {
+    if (i < fullText.length) {
+      box.textContent += fullText.charAt(i);
+      i++;
+      setTimeout(typeStep, 26);
+    }
+  }
+  setTimeout(typeStep, 500);
+}
+
+/* --------------------------------------------------------------------------
+   06. SUPREMA MENU HAMBURGER (TIMER AUTOMATICO A 15 SECONDI)
+   -------------------------------------------------------------------------- */
+let menuCountdownInterval = null;
+let menuRemainingSeconds = 15;
+
+function toggleSupremaMenu() {
+  const popover = document.getElementById('suprema-menu-popover');
+  const btn = document.getElementById('btn-capsule-menu');
+  if (!popover) return;
+
+  const isOpen = popover.classList.contains('open');
+  if (isOpen) {
+    closeSupremaMenu();
+  } else {
+    closeAllPopovers();
+    popover.classList.add('open');
+    if (btn) btn.classList.add('active');
+    startMenuCountdown();
+  }
+}
+
+function startMenuCountdown() {
+  clearInterval(menuCountdownInterval);
+  menuRemainingSeconds = 15;
+  const timerLabel = document.getElementById('menu-countdown-timer');
+  if (timerLabel) timerLabel.textContent = `CHIUSURA: ${menuRemainingSeconds}s`;
+
+  menuCountdownInterval = setInterval(() => {
+    menuRemainingSeconds--;
+    if (timerLabel) timerLabel.textContent = `CHIUSURA: ${menuRemainingSeconds}s`;
+    if (menuRemainingSeconds <= 0) {
+      closeSupremaMenu();
+    }
+  }, 1000);
+}
+
+function closeSupremaMenu() {
+  clearInterval(menuCountdownInterval);
+  const popover = document.getElementById('suprema-menu-popover');
+  const btn = document.getElementById('btn-capsule-menu');
+  if (popover) popover.classList.remove('open');
+  if (btn) btn.classList.remove('active');
+}
+
+/* --------------------------------------------------------------------------
+   07. SUPREMA RADIO LOUNGE (30 SLOT + PLAY / STOP / INDIETRO / AVANTI / MUTO)
+   -------------------------------------------------------------------------- */
+const RADIO_STATE = {
+  currentSlot: 1,
+  isPlaying: false,
+  isMuted: false
+};
+
+function initRadioLounge() {
+  const selector = document.getElementById('radio-slot-selector');
+  if (selector) {
+    let optionsHtml = '';
+    for (let i = 1; i <= SFX_CONFIG.radioTotalSlots; i++) {
+      const slotNum = i.toString().padStart(2, '0');
+      const statusTag = i <= SFX_CONFIG.radioAvailableMp3 ? 'Attivo' : 'Slot Libero';
+      optionsHtml += `<option value="${i}">Slot ${slotNum} / 30 — Suprema Lounge (${statusTag})</option>`;
+    }
+    selector.innerHTML = optionsHtml;
+  }
+  updateRadioUI();
+}
+
+function updateRadioUI() {
+  const slotNum = RADIO_STATE.currentSlot.toString().padStart(2, '0');
+  const label = document.getElementById('radio-track-label');
+  const eqBars = document.querySelectorAll('#radio-eq-bars .eq-bar');
+  const btnPlay = document.getElementById('btn-radio-play');
+  const btnMute = document.getElementById('btn-radio-mute');
+  const selector = document.getElementById('radio-slot-selector');
+
+  if (selector) selector.value = RADIO_STATE.currentSlot.toString();
+
+  if (label) {
+    const stateText = RADIO_STATE.isMuted
+      ? 'Audio Silenziato (Muto)'
+      : RADIO_STATE.isPlaying
+      ? 'In Riproduzione'
+      : 'In Pausa (Pronta)';
+    label.textContent = `Slot ${slotNum} / 30 — ${stateText}`;
+  }
+
+  eqBars.forEach((bar) => {
+    bar.style.animationPlayState = RADIO_STATE.isPlaying && !RADIO_STATE.isMuted ? 'running' : 'paused';
+  });
+
+  if (btnPlay) btnPlay.classList.toggle('active', RADIO_STATE.isPlaying);
+  if (btnMute) btnMute.classList.toggle('active', RADIO_STATE.isMuted);
+}
+
+function playRadioTrack() {
+  const audio = document.getElementById('master-radio-audio');
+  if (!audio) return;
+
+  const slotNum = RADIO_STATE.currentSlot.toString().padStart(2, '0');
+  const targetSrc = `media/audio-radio/track-${slotNum}.mp3`;
+
+  if (!audio.src.endsWith(targetSrc)) {
+    audio.src = targetSrc;
+  }
+
+  audio.play().then(() => {
+    RADIO_STATE.isPlaying = true;
+    updateRadioUI();
+  }).catch(() => {
+    RADIO_STATE.isPlaying = false;
+    updateRadioUI();
+  });
+}
+
+function stopRadioTrack() {
+  const audio = document.getElementById('master-radio-audio');
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  RADIO_STATE.isPlaying = false;
+  updateRadioUI();
+}
+
+function nextRadioTrack() {
+  RADIO_STATE.currentSlot =
+    RADIO_STATE.currentSlot >= SFX_CONFIG.radioTotalSlots ? 1 : RADIO_STATE.currentSlot + 1;
+  playRadioTrack();
+}
+
+function prevRadioTrack() {
+  RADIO_STATE.currentSlot =
+    RADIO_STATE.currentSlot <= 1 ? SFX_CONFIG.radioTotalSlots : RADIO_STATE.currentSlot - 1;
+  playRadioTrack();
+}
+
+function selectRadioSlot(slotVal) {
+  const parsed = parseInt(slotVal, 10);
+  if (!isNaN(parsed) && parsed >= 1 && parsed <= SFX_CONFIG.radioTotalSlots) {
+    RADIO_STATE.currentSlot = parsed;
+    playRadioTrack();
+  }
+}
+
+function toggleMuteRadio() {
+  const audio = document.getElementById('master-radio-audio');
+  RADIO_STATE.isMuted = !RADIO_STATE.isMuted;
+  if (audio) audio.muted = RADIO_STATE.isMuted;
+  updateRadioUI();
+}
+
+function toggleRadioPopover() {
+  const panel = document.getElementById('radio-popover-panel');
+  const btn = document.getElementById('btn-capsule-radio');
+  if (!panel) return;
+  const willOpen = !panel.classList.contains('open');
+  closeAllPopovers();
+  if (willOpen) {
+    panel.classList.add('open');
+    if (btn) btn.classList.add('active');
+  }
+}
+
+/* --------------------------------------------------------------------------
+   08. TRADUTTORE GOOGLE A 11 LINGUE
+   -------------------------------------------------------------------------- */
+function googleTranslateElementInit() {
+  if (window.google && window.google.translate) {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: 'it',
+        includedLanguages: 'it,en,fr,es,de,pt,ar,ru,zh-CN,ja,ro',
+        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      },
+      'google_translate_element'
+    );
+  }
+}
+
+function toggleTranslatorPopover() {
+  const panel = document.getElementById('translator-popover-panel');
+  const btn = document.getElementById('btn-capsule-translator');
+  if (!panel) return;
+  const willOpen = !panel.classList.contains('open');
+  closeAllPopovers();
+  if (willOpen) {
+    panel.classList.add('open');
+    if (btn) btn.classList.add('active');
+  }
+}
+
+function closeAllPopovers() {
+  closeSupremaMenu();
+  const radioPanel = document.getElementById('radio-popover-panel');
+  const transPanel = document.getElementById('translator-popover-panel');
+  const btnRadio = document.getElementById('btn-capsule-radio');
+  const btnTrans = document.getElementById('btn-capsule-translator');
+
+  if (radioPanel) radioPanel.classList.remove('open');
+  if (transPanel) transPanel.classList.remove('open');
+  if (btnRadio) btnRadio.classList.remove('active');
+  if (btnTrans) btnTrans.classList.remove('active');
+}
+
+/* --------------------------------------------------------------------------
+   09. GOLD CARD 3D TILT ENGINE & GIROSCOPIO (SEC-06)
+   -------------------------------------------------------------------------- */
+function initGoldCard3DTilt() {
+  const card = document.getElementById('goldcard-3d-box');
+  if (!card) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -16;
+    const rotateY = ((x - centerX) / centerX) * 16;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.03, 1.03, 1.03)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+  });
+
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener(
+      'deviceorientation',
+      (event) => {
+        if (event.gamma !== null && event.beta !== null) {
+          const tiltX = Math.min(Math.max(event.gamma, -24), 24);
+          const tiltY = Math.min(Math.max(event.beta - 45, -24), 24);
+          card.style.transform = `perspective(1000px) rotateX(${(tiltY * 0.4).toFixed(2)}deg) rotateY(${(tiltX * 0.4).toFixed(2)}deg)`;
+        }
+      },
+      { passive: true }
+    );
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. FUNNEL SCREENING TANDEM DRAG (SEC-04)
+   -------------------------------------------------------------------------- */
+const FUNNEL_DATA = {
+  step1: '',
+  step2: ''
+};
+
+function advanceFunnelStep(currentStep, selectedValue) {
+  if (currentStep === 1) FUNNEL_DATA.step1 = selectedValue;
+  if (currentStep === 2) FUNNEL_DATA.step2 = selectedValue;
+
+  const currentCard = document.querySelector(`.funnel-step-card[data-funnel-step="${currentStep}"]`);
+  const nextCard = document.querySelector(`.funnel-step-card[data-funnel-step="${currentStep + 1}"]`);
+  const progressBar = document.getElementById('funnel-progress-bar');
+
+  if (currentCard) {
+    currentCard.classList.add('exiting');
+    setTimeout(() => {
+      currentCard.classList.remove('active', 'exiting');
+    }, 820);
+  }
+
+  if (nextCard) {
+    nextCard.classList.add('active');
+  }
+
+  if (progressBar) {
+    progressBar.style.width = currentStep === 1 ? '66.66%' : '100%';
+  }
+}
+
+function resetFunnelSteps() {
+  document.querySelectorAll('.funnel-step-card').forEach((card, idx) => {
+    card.classList.remove('active', 'exiting');
+    if (idx === 0) card.classList.add('active');
+  });
+  const progressBar = document.getElementById('funnel-progress-bar');
+  if (progressBar) progressBar.style.width = '33.33%';
+}
+
+function submitFunnelForm(event) {
+  event.preventDefault();
+  const btn = document.getElementById('funnel-submit-btn');
   const payload = {
-    action: "submit_candidatura",
-    nome: nome,
-    cognome: cognome,
-    email: email,
-    whatsapp: whatsapp,
-    azienda: azienda,
-    citta: citta,
-    profilo: profilo,
-    programma: programma,
-    fasciaMeet: fasciaMeet,
-    note: note
+    tipo: 'Candidatura Funnel',
+    profilo: FUNNEL_DATA.step1 || 'Non specificato',
+    interesse: FUNNEL_DATA.step2 || 'Non specificato',
+    nome: document.getElementById('funnel-name')?.value.trim(),
+    email: document.getElementById('funnel-email')?.value.trim(),
+    telefono: document.getElementById('funnel-phone')?.value.trim(),
+    fascia: document.getElementById('funnel-slot')?.value
   };
 
-  const response = await sfxApiCall(payload);
+  sendToBackend(payload, btn, 'Candidatura Registrata con Successo!', () => {
+    event.target.reset();
+    resetFunnelSteps();
+  });
+}
 
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.innerText = "VIDIMA CANDIDATURA";
+/* --------------------------------------------------------------------------
+   11. SOTTOMENU & POPUP UNIVERSALI (STORIE, CORSI ACADEMY, GOLD CARD,
+       LUXURY MODEL, REGOLAMENTO, CODICE ETICO E 40 TESTIMONIANZE)
+   -------------------------------------------------------------------------- */
+const SUBMENU_ORDER = [
+  'chi-siamo-hub',
+  'story-sfx',
+  'story-alison',
+  'story-ceo',
+  'doc-regolamento',
+  'doc-codice-etico',
+  'gallery-presidenza',
+  'alison-interactive-chat',
+  'course-gold',
+  'course-premium',
+  'course-enterprise',
+  'goldcard-rewards',
+  'ecommerce-luxury-guide',
+  'testimonials-40'
+];
+
+let activeSubmenuId = 'chi-siamo-hub';
+
+function buildUploadWidgetHtml(storageKey, options = { allowText: false, maxPhotos: 5 }) {
+  return `
+    <div class="device-upload-zone" data-upload-key="${storageKey}">
+      <strong style="display: block; font-size: 0.88rem; color: var(--text-dominant); margin-bottom: 0.5rem;">
+        <i class="fa-solid fa-cloud-arrow-up" style="color: var(--spectral-gold-deep);"></i>
+        Spazio Media Personale (Caricamento fisso dal dispositivo)
+      </strong>
+
+      ${
+        options.allowText
+          ? `<div style="margin-bottom: 0.75rem;">
+               <textarea id="custom-text-${storageKey}" class="luxury-textarea" rows="3" placeholder="Scrivi o incolla qui il testo descrittivo da salvare fisso in questa scheda..."></textarea>
+               <button type="button" class="btn-luxury-outline" style="margin-top: 0.45rem; padding: 0.4rem 0.95rem; font-size: 0.74rem;" onclick="saveDeviceCustomText('${storageKey}')">
+                 Salva Testo Fisso
+               </button>
+             </div>`
+          : ''
+      }
+
+      <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+        <label class="btn-luxury-outline" style="padding: 0.45rem 0.95rem; font-size: 0.74rem; cursor: pointer;">
+          <i class="fa-solid fa-video"></i> Carica 1 Video
+          <input type="file" accept="video/*" hidden onchange="handleDeviceVideoUpload(this, '${storageKey}')" />
+        </label>
+        <label class="btn-luxury-outline" style="padding: 0.45rem 0.95rem; font-size: 0.74rem; cursor: pointer;">
+          <i class="fa-solid fa-images"></i> Carica fino a ${options.maxPhotos} Foto
+          <input type="file" accept="image/*" multiple hidden onchange="handleDevicePhotosUpload(this, '${storageKey}', ${options.maxPhotos})" />
+        </label>
+      </div>
+
+      <div id="saved-text-display-${storageKey}" style="margin-top: 0.75rem; font-size: 0.92rem; color: var(--text-primary);"></div>
+      <div id="saved-video-display-${storageKey}" style="margin-top: 0.75rem;"></div>
+      <div class="upload-preview-grid" id="saved-photos-display-${storageKey}"></div>
+    </div>
+  `;
+}
+
+async function hydrateSavedUploads(storageKey) {
+  const savedText = await SFXMediaStore.load(`${storageKey}_text`);
+  const savedVideo = await SFXMediaStore.load(`${storageKey}_video`);
+  const savedPhotos = await SFXMediaStore.load(`${storageKey}_photos`);
+
+  const textBox = document.getElementById(`saved-text-display-${storageKey}`);
+  const textInput = document.getElementById(`custom-text-${storageKey}`);
+  const videoBox = document.getElementById(`saved-video-display-${storageKey}`);
+  const photosBox = document.getElementById(`saved-photos-display-${storageKey}`);
+
+  if (savedText) {
+    if (textInput) textInput.value = savedText;
+    if (textBox) {
+      textBox.innerHTML = `<div style="padding: 0.85rem; background: #FFFFFF; border-radius: 12px; border: 1px solid rgba(212,175,55,0.45); white-space: pre-line;">${savedText}</div>`;
+    }
   }
 
-  if (response.success) {
-    sfxShowToast("Candidatura Vidimata: " + response.protocollo, "success");
-    if (feedbackBox) {
-      feedbackBox.innerHTML = `
-        <div style="background:#FAF8F5; border:1px solid #C5A059; padding:20px; border-radius:6px; margin-top:20px;">
-          <h4 style="color:#0B192C; margin:0 0 10px;">FASCICOLO ACQUISITO NEL PRESIDIO</h4>
-          <p><strong>Protocollo:</strong> ${response.protocollo}</p>
-          <p><strong>Stanza Google Meet:</strong> <a href="${response.meetLink}" target="_blank" style="color:#9E7B35; font-weight:bold;">Accedi al Meet</a></p>
-          <p><strong>Fascia Oraria Assegnata:</strong> ${response.fasciaOraria || fasciaMeet}</p>
-          <p style="font-size:12px; color:#666;">Notifiche trasmesse simultaneamente a Telegram, Email e WhatsApp.</p>
+  if (savedVideo && videoBox) {
+    videoBox.innerHTML = `<video controls src="${savedVideo}" style="width: 100%; max-height: 280px; border-radius: 14px; border: 1.5px solid var(--spectral-gold);"></video>`;
+  }
+
+  if (Array.isArray(savedPhotos) && savedPhotos.length > 0 && photosBox) {
+    photosBox.innerHTML = savedPhotos
+      .map((src) => `<img src="${src}" alt="Media caricato" />`)
+      .join('');
+  }
+}
+
+async function saveDeviceCustomText(storageKey) {
+  const input = document.getElementById(`custom-text-${storageKey}`);
+  if (!input) return;
+  await SFXMediaStore.save(`${storageKey}_text`, input.value.trim());
+  await hydrateSavedUploads(storageKey);
+}
+
+function handleDeviceVideoUpload(inputEl, storageKey) {
+  const file = inputEl.files && inputEl.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    await SFXMediaStore.save(`${storageKey}_video`, e.target.result);
+    await hydrateSavedUploads(storageKey);
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleDevicePhotosUpload(inputEl, storageKey, maxPhotos) {
+  const files = Array.from(inputEl.files || []).slice(0, maxPhotos);
+  if (files.length === 0) return;
+
+  Promise.all(
+    files.map(
+      (file) =>
+        new Promise((resolve) => {
+          const r = new FileReader();
+          r.onload = (e) => resolve(e.target.result);
+          r.readAsDataURL(file);
+        })
+    )
+  ).then(async (dataUrls) => {
+    await SFXMediaStore.save(`${storageKey}_photos`, dataUrls);
+    await hydrateSavedUploads(storageKey);
+  });
+}
+
+function previewLocalVideo(inputEl, videoTagId) {
+  const file = inputEl.files && inputEl.files[0];
+  const videoTag = document.getElementById(videoTagId);
+  if (!file || !videoTag) return;
+  videoTag.src = URL.createObjectURL(file);
+  videoTag.play().catch(() => {});
+}
+
+function generate40TestimonialsHtml() {
+  const names = [
+    ['Marco R.', 'Imprenditore'], ['Elena V.', 'Consulente'], ['Davide M.', 'Professionista'],
+    ['Chiara B.', 'Formatrice'], ['Luca T.', 'Commerciante'], ['Sara G.', 'Digital Strategist'],
+    ['Andrea P.', 'Artigiano'], ['Valentina L.', 'Architetto'], ['Roberto C.', 'Manager'],
+    ['Giulia F.', 'Avvocato'], ['Simone N.', 'Ingegnere'], ['Federica S.', 'Grafica'],
+    ['Matteo D.', 'Consulente Aziendale'], ['Alessia M.', 'Imprenditrice'], ['Lorenzo B.', 'Fotografo'],
+    ['Martina R.', 'Coach'], ['Stefano V.', 'Agente Immobiliare'], ['Silvia P.', 'Commercialista'],
+    ['Fabio G.', 'Ristoratore'], ['Claudia T.', 'E-Commerce Manager'], ['Nicola A.', 'Tecnico IT'],
+    ['Beatrice C.', 'Interior Designer'], ['Riccardo E.', 'Artigiano Digitale'], ['Veronica Z.', 'Formatrice'],
+    ['Gianluca O.', 'Imprenditore'], ['Monica H.', 'Consulente HR'], ['Emanuele I.', 'Progettista'],
+    ['Cristina K.', 'Libera Professionista'], ['Daniele Q.', 'Analista'], ['Roberta U.', 'Titolare Studio'],
+    ['Paolo W.', 'Commerciante'], ['Serena Y.', 'Social Media Manager'], ['Filippo J.', 'Consulente'],
+    ['Ilaria X.', 'Imprenditrice'], ['Tommaso B.', 'Sviluppatore'], ['Camilla N.', 'Organizzatrice Eventi'],
+    ['Michele S.', 'Imprenditore'], ['Giorgia D.', 'Consulente Finanziaria'], ['Alberto L.', 'Professionista'],
+    ['Francesca P.', 'Imprenditrice Digitale']
+  ];
+
+  const quotes = [
+    'Un percorso trasformativo: le sessioni dal vivo con Giuliano danno risposte immediate e concrete.',
+    'Alison AG-01 è un supporto straordinario che semplifica ogni attività quotidiana.',
+    'Finalmente Formazione e Networking di alto livello senza chiacchiere inutili.',
+    'Si percepisce davvero ogni giorno la sensazione della propria crescita.',
+    'Strumenti tecnologici moderni spiegati in modo semplice anche per chi parte da zero.',
+    'Il valore ricevuto dentro Suprema Academy supera di gran lunga ogni aspettativa.',
+    'Affiancamento reale, Community collaborativa e visione imprenditoriale chiara.',
+    'Ho applicato subito quanto appreso nelle conferenze live ottenendo risultati misurabili.'
+  ];
+
+  return names
+    .map(([person, role], idx) => {
+      const q = quotes[idx % quotes.length];
+      return `
+        <div class="glass-deck" style="padding: 1.15rem;">
+          <div style="color: var(--spectral-gold-deep); font-size: 0.85rem; margin-bottom: 0.35rem;">★★★★★ #${(idx + 1).toString().padStart(2, '0')}</div>
+          <p style="font-size: 0.88rem; font-style: italic; margin-bottom: 0.55rem;">«${q}»</p>
+          <strong style="font-size: 0.8rem; color: var(--text-dominant);">${person} — ${role}</strong>
         </div>
       `;
-    }
-    document.getElementById("sfx-candidatura-form")?.reset();
-  } else {
-    sfxShowToast(response.message || "Errore durante la registrazione.", "error");
+    })
+    .join('');
+}
+
+function getSubmenuTemplate(id) {
+  switch (id) {
+    case 'chi-siamo-hub':
+      return {
+        uploadKey: null,
+        html: `
+          <span class="section-kicker">Chi Siamo // Portale Istituzionale</span>
+          <h2>La Storia, il Supervisor e i Principi di Suprema Future X</h2>
+          <p>Seleziona una delle sezioni dedicate per leggere la storia completa, guardare i contenuti multimediali o consultare i documenti ufficiali:</p>
+          <div class="cards-3-grid" style="margin: 1.5rem 0;">
+            <div class="glass-deck" style="padding: 1.35rem;">
+              <h3 style="font-size: 1.1rem; color: var(--text-dominant); margin-bottom: 0.45rem;">1. Suprema Future X</h3>
+              <p style="font-size: 0.86rem;">Formazione, Networking e Academy: «La sensazione della tua crescita».</p>
+              <button type="button" class="btn-luxury" style="width: 100%; padding: 0.6rem;" onclick="openSubmenu('story-sfx')">Apri Storia</button>
+            </div>
+            <div class="glass-deck" style="padding: 1.35rem;">
+              <h3 style="font-size: 1.1rem; color: var(--text-dominant); margin-bottom: 0.45rem;">2. Alison AG-01</h3>
+              <p style="font-size: 0.86rem;">Come è nata e come lavora il Supervisor scelto dal CEO.</p>
+              <button type="button" class="btn-luxury" style="width: 100%; padding: 0.6rem;" onclick="openSubmenu('story-alison')">Apri Storia</button>
+            </div>
+            <div class="glass-deck" style="padding: 1.35rem;">
+              <h3 style="font-size: 1.1rem; color: var(--text-dominant); margin-bottom: 0.45rem;">3. CEO Giuliano Caratelli</h3>
+              <p style="font-size: 0.86rem;">Dieci anni di risultati tra tradizionale e online e la sfida dei 200x.</p>
+              <button type="button" class="btn-luxury" style="width: 100%; padding: 0.6rem;" onclick="openSubmenu('story-ceo')">Apri Storia</button>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+            <button type="button" class="btn-luxury-outline" onclick="openSubmenu('doc-regolamento')">📜 Regolamento Generale</button>
+            <button type="button" class="btn-luxury-outline" onclick="openSubmenu('doc-codice-etico')">⚖️ Codice Etico</button>
+          </div>
+        `
+      };
+
+    case 'story-sfx':
+      return {
+        uploadKey: 'story_sfx_media',
+        html: `
+          <span class="section-kicker">Chi Siamo // Storia 01</span>
+          <h2>Suprema Future X — Formazione, Networking e Academy</h2>
+          <p><strong>C’è un momento preciso nella vita di ogni persona in cui capisce che gli strumenti di ieri non bastano più per costruire il domani.</strong></p>
+          <p><strong>Suprema Future X</strong> nasce da questa consapevolezza: creare un ecosistema digitale evoluto, chiaro e concreto, fondato su tre pilastri indivisibili: <strong>Formazione</strong>, <strong>Networking</strong> e <strong>Academy</strong>. Non una semplice piattaforma di contenuti registrati, ma un ambiente vivo, progettato per accompagnare professionisti, imprenditori e persone ambiziose in un percorso reale di trasformazione personale e operativa.</p>
+          <p>Nel mercato attuale, la differenza tra chi subisce il cambiamento e chi lo guida sta nella qualità delle competenze e nella forza delle relazioni. Per questo motivo abbiamo strutturato un'Academy interamente dal vivo, dove la teoria lascia subito spazio alla pratica quotidiana e dove il Networking diventa uno scambio autentico di valore, idee e opportunità concrete.</p>
+          <p>Il nostro motto racchiude l’essenza di tutto ciò che facciamo: <strong>«La sensazione della tua crescita»</strong>. È quella percezione netta, misurabile giorno dopo giorno, di acquisire padronanza, visione e strumenti tecnologici d'avanguardia.</p>
+          <div style="margin: 1.25rem 0;">
+            <a href="${SFX_CONFIG.openEducatConferenzaUrl}" class="btn-luxury" data-educat-action="conferenza-ceo">
+              <i class="fa-solid fa-video"></i> Aderisci Conferenza CEO
+            </a>
+          </div>
+          ${buildUploadWidgetHtml('story_sfx_media', { allowText: false, maxPhotos: 5 })}
+        `
+      };
+
+    case 'story-alison':
+      return {
+        uploadKey: 'story_alison_media',
+        html: `
+          <span class="section-kicker">Chi Siamo // Storia 02</span>
+          <h2>Alison AG-01 — La Nascita del Supervisor Digitale</h2>
+          <p><strong>Dietro ogni grande architettura tecnologica serve una mente capace di mantenere l’ordine, accogliere le persone e trasformare la complessità in semplicità.</strong></p>
+          <p><strong>Alison AG-01</strong> non è un semplice assistente automatico: è il cuore operativo e il <strong>Supervisor ufficiale</strong> dell’intero ecosistema <strong>Suprema Future X</strong>. Nata da mesi di progettazione, addestramento e perfezionamento logico, Alison è stata concepita per risolvere uno dei problemi più grandi del mondo digitale moderno: lasciare le persone sole davanti a piattaforme fredde e complicate.</p>
+          <p>Il CEO <strong>Giuliano Caratelli</strong> ha voluto e scelto personalmente <strong>Alison AG-01</strong> come guida centrale dell'intero sistema con un incarico preciso: essere presente 24 ore su 24 accanto a ogni visitatore e a ogni singolo corsista dell’Academy. Alison accoglie chi entra per la prima volta, comprende le sue esigenze, lo orienta verso il percorso formativo più adatto e, una volta entrato in Academy, lo affianca nello studio, nella gestione delle scadenze e nell'utilizzo pratico degli strumenti digitali.</p>
+          <div style="margin: 1.25rem 0; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button type="button" class="btn-luxury" onclick="openSubmenu('alison-interactive-chat')">💬 Parla ora con Alison</button>
+            <a href="${SFX_CONFIG.openEducatConferenzaUrl}" class="btn-luxury-outline" data-educat-action="conferenza-ceo">Aderisci Conferenza CEO</a>
+          </div>
+          ${buildUploadWidgetHtml('story_alison_media', { allowText: false, maxPhotos: 5 })}
+        `
+      };
+
+    case 'story-ceo':
+      return {
+        uploadKey: 'story_ceo_media',
+        html: `
+          <span class="section-kicker">Chi Siamo // Storia 03 — Founder &amp; CEO</span>
+          <h2>Giuliano Caratelli — La Visione e la Sfida dei "200 Volte Tanto"</h2>
+          <p><strong>Ogni svolta autentica inizia quando i risultati raggiunti non ti bastano più e senti il bisogno di costruire qualcosa che cambi davvero la vita delle persone.</strong></p>
+          <p>La storia di <strong>Giuliano Caratelli</strong>, Founder &amp; CEO di <strong>Suprema Future X</strong>, affonda le radici in <strong>oltre dieci anni di percorso intenso, studi continui e formazione sul campo</strong>, maturati con risultati concreti <strong>sia nel mondo dell’imprenditoria tradizionale sia nel mondo online</strong>. Strategie, metodi e competenze reali che Giuliano applica tuttora con successo nelle proprie attività aziendali.</p>
+          <p>Nonostante i traguardi raggiunti tra imprese fisiche e mercati digitali, dentro di lui è nata una spinta più profonda: la volontà di <strong>cambiare sé stesso</strong>, superare i propri limiti e creare una condizione nuova che gli permettesse non solo di continuare a crescere, ma di <strong>aiutare concretamente anche gli altri</strong> a conquistare la propria evoluzione personale e professionale.</p>
+          <p>Osservando un mercato sempre più veloce e selettivo, Giuliano ha compreso che oggi la differenza la fanno gli strumenti tecnologici che hai a disposizione. Da questa consapevolezza è nata la sua sfida più ambiziosa: <strong>progettare un ecosistema di Formazione, Networking e Intelligenza Artificiale capace di offrire a ogni persona strumenti dal valore operativo 200 volte superiore al piccolo contributo richiesto per accedervi.</strong></p>
+          <p>Non è stato un percorso facile: ci sono voluti innumerevoli tentativi, prototipi smontati e ricostruiti da zero e intere <strong>notti insonni</strong> dedicate a unire tecnologia avanzata, formazione dal vivo e semplicità d'uso in un unico sistema alla portata di tutti.</p>
+          <div style="margin: 1.35rem 0;">
+            <a href="${SFX_CONFIG.openEducatConferenzaUrl}" class="btn-luxury btn-ceo-pulse-10s" data-educat-action="conferenza-ceo">
+              <i class="fa-solid fa-video"></i> ADERISCI CONFERENZA CEO
+            </a>
+          </div>
+          ${buildUploadWidgetHtml('story_ceo_media', { allowText: false, maxPhotos: 5 })}
+        `
+      };
+
+    case 'doc-regolamento':
+      return {
+        uploadKey: null,
+        html: `
+          <span class="section-kicker">Documenti Ufficiali // Regolamento</span>
+          <h2>Regolamento Generale Suprema Future X &amp; Academy</h2>
+          <p><strong>Art. 1 — Oggetto dell’Ecosistema:</strong> Suprema Future X eroga programmi di formazione dal vivo, strumenti di Intelligenza Artificiale applicata e spazi di networking professionale.</p>
+          <p><strong>Art. 2 — Partecipazione alle Conferenze Live:</strong> I corsisti iscritti ai percorsi Gold (20 ore), Premium (35 ore) ed Enterprise (60 conferenze) accedono alle sessioni dal vivo tramite calendario ufficiale su OpenEduCat.</p>
+          <p><strong>Art. 3 — Utilizzo degli Agenti AI:</strong> Ogni corsista riceve accesso personale ai propri assistenti AI dedicati per supportare lo studio e l'operatività quotidiana nel pieno rispetto delle normative vigenti.</p>
+          <p><strong>Art. 4 — Programma Fedeltà Gold Card:</strong> I punti fedeltà vengono accreditati automaticamente su OpenEduCat al completamento delle attività formative e non costituiscono strumenti finanziari.</p>
+        `
+      };
+
+    case 'doc-codice-etico':
+      return {
+        uploadKey: null,
+        html: `
+          <span class="section-kicker">Documenti Ufficiali // Codice Etico</span>
+          <h2>Codice Etico della Community Suprema Future X</h2>
+          <p><strong>1. Trasparenza e Chiarezza:</strong> Ogni comunicazione, programma formativo e strumento tecnologico viene presentato in modo chiaro, onesto e verificabile.</p>
+          <p><strong>2. Rispetto e Collaborazione:</strong> La Community di Networking si fonda sul rispetto reciproco, sullo scambio costruttivo di competenze e sulla crescita condivisa.</p>
+          <p><strong>3. Tutela dei Dati e Riservatezza:</strong> Tutti i partecipanti si impegnano a rispettare la privacy dei membri della Community e la proprietà intellettuale dei materiali didattici dell’Academy.</p>
+        `
+      };
+
+    case 'gallery-presidenza':
+      return {
+        uploadKey: 'gallery_presidenza_media',
+        html: `
+          <span class="section-kicker">Presidenza // Archivio Visivo</span>
+          <h2>Galleria Ufficiale della Presidenza</h2>
+          <p>Raccolta fotografica e video dedicata agli eventi, alle sessioni live e ai momenti chiave di Suprema Future X.</p>
+          <div class="cards-3-grid" style="margin: 1.2rem 0;">
+            <img src="media/sec-02-presidenza/gallery/gallery-01.jpg" onerror="this.src='media/sec-01-hero/logo-01.png'" alt="Presidenza 1" style="width:100%; height:160px; object-fit:cover; border-radius:14px; border:1px solid var(--spectral-gold);" />
+            <img src="media/sec-02-presidenza/gallery/gallery-02.jpg" onerror="this.src='media/sec-01-hero/logo-02.png'" alt="Presidenza 2" style="width:100%; height:160px; object-fit:cover; border-radius:14px; border:1px solid var(--spectral-gold);" />
+            <img src="media/sec-02-presidenza/gallery/gallery-03.jpg" onerror="this.src='media/sec-01-hero/logo-03.png'" alt="Presidenza 3" style="width:100%; height:160px; object-fit:cover; border-radius:14px; border:1px solid var(--spectral-gold);" />
+          </div>
+          ${buildUploadWidgetHtml('gallery_presidenza_media', { allowText: false, maxPhotos: 5 })}
+        `
+      };
+
+    case 'alison-interactive-chat':
+      return {
+        uploadKey: null,
+        html: `
+          <span class="section-kicker">Supervisor AG-01 // Assistenza Diretta</span>
+          <h2>Dialoga con Alison AG-01</h2>
+          <div id="alison-chat-log" style="background: #FFFFFF; border: 1.5px solid rgba(212,175,55,0.45); border-radius: 16px; padding: 1.2rem; max-height: 260px; overflow-y: auto; margin-bottom: 1rem;">
+            <p style="margin-bottom: 0.6rem;"><strong style="color: var(--text-accent);">Alison AG-01:</strong> Ciao! Sono il Supervisor di Suprema Future X. Chiedimi pure informazioni sui percorsi <em>Suprema Gold, Premium ed Enterprise</em>, sulla <em>Conferenza gratuita con il CEO</em> o sul modello <em>Luxury Model</em>.</p>
+          </div>
+          <div style="display: flex; gap: 0.6rem;">
+            <input type="text" id="alison-user-input" class="luxury-input" placeholder="Scrivi qui la tua domanda per Alison..." onkeydown="if(event.key==='Enter') sendAlisonQuickReply()" />
+            <button type="button" class="btn-luxury" onclick="sendAlisonQuickReply()">Invia</button>
+          </div>
+        `
+      };
+
+    case 'course-gold':
+      return {
+        uploadKey: 'course_gold_media',
+        html: `
+          <span class="section-kicker">Suprema Academy 100% Live // Percorso 01</span>
+          <h2>SUPREMA GOLD — Le Fondamenta dell’Ecosistema</h2>
+          <p><strong>Il punto di partenza ideale per chi vuole smettere di improvvisare e iniziare a lavorare con metodo, tecnologia e visione.</strong></p>
+          <ul style="margin: 1rem 0 1.2rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><strong>Accesso Completo alla Struttura Suprema Future X:</strong> Tutti gli ambienti operativi e la tua area personale su OpenEduCat.</li>
+            <li><strong>1 Agente AI Dedicato:</strong> Assistente intelligente configurato per affiancarti nelle attività quotidiane.</li>
+            <li><strong>20 Conferenze Live da 1 Ora con il CEO:</strong> Venti sessioni dirette dal vivo con <strong>Giuliano Caratelli</strong>.</li>
+            <li><strong>Community Ufficiale di Networking:</strong> Confronto continuo e crescita condivisa.</li>
+          </ul>
+          <div style="background: rgba(212,175,55,0.16); border: 1.5px solid var(--spectral-gold); border-radius: 16px; padding: 1.2rem; margin: 1.2rem 0;">
+            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-accent); display: block;">Contributo di Partecipazione</span>
+            <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--text-dominant);">249,00 €</strong>
+            <div style="display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 0.9rem;">
+              <a href="${SFX_CONFIG.payments.gold.revolut}" target="_blank" rel="noopener noreferrer" class="btn-luxury">
+                Aderisci al Suprema Gold (Revolut / Carta)
+              </a>
+              <a href="${SFX_CONFIG.payments.gold.paypal}" target="_blank" rel="noopener noreferrer" class="btn-luxury-outline">
+                Paga con PayPal (Anche 3 Rate)
+              </a>
+              <a href="${SFX_CONFIG.payments.gold.sumup}" target="_blank" rel="noopener noreferrer" class="btn-luxury-outline">
+                Paga con SumUp
+              </a>
+            </div>
+          </div>
+          ${buildUploadWidgetHtml('course_gold_media', { allowText: true, maxPhotos: 5 })}
+        `
+      };
+
+    case 'course-premium':
+      return {
+        uploadKey: 'course_premium_media',
+        html: `
+          <span class="section-kicker">Suprema Academy 100% Live // Percorso 02</span>
+          <h2>SUPREMA PREMIUM — Accelerazione e Archivio Strategico</h2>
+          <p><strong>Quando decidi di fare sul serio, hai bisogno degli strumenti e della mappa completa per muoverti più veloce degli altri.</strong></p>
+          <ul style="margin: 1rem 0 1.2rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><strong>Tutto ciò che è incluso in Suprema Gold:</strong> Struttura completa, 1 Agente AI dedicato e Community ufficiale.</li>
+            <li><strong>35 Ore di Conferenze Live con il CEO:</strong> Formazione intensiva dal vivo con <strong>Giuliano Caratelli</strong> su casi reali e strategie operative.</li>
+            <li><strong>Tutti i Documenti Ufficiali di Crescita e Networking:</strong> Accesso integrale a manuali, schemi operativi e protocolli riservati dell’Academy.</li>
+          </ul>
+          <div style="background: rgba(212,175,55,0.16); border: 1.5px solid var(--spectral-gold); border-radius: 16px; padding: 1.2rem; margin: 1.2rem 0;">
+            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-accent); display: block;">Contributo di Partecipazione</span>
+            <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--text-dominant);">299,00 €</strong>
+            <div style="display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 0.9rem;">
+              <a href="${SFX_CONFIG.payments.premium.revolut}" target="_blank" rel="noopener noreferrer" class="btn-luxury">
+                Aderisci al Suprema Premium (Revolut / Carta)
+              </a>
+              <a href="${SFX_CONFIG.payments.premium.paypal}" target="_blank" rel="noopener noreferrer" class="btn-luxury-outline">
+                Paga con PayPal (Anche 3 Rate)
+              </a>
+              <a href="${SFX_CONFIG.payments.premium.sumup}" target="_blank" rel="noopener noreferrer" class="btn-luxury-outline">
+                Paga con SumUp
+              </a>
+            </div>
+          </div>
+          ${buildUploadWidgetHtml('course_premium_media', { allowText: true, maxPhotos: 5 })}
+        `
+      };
+
+    case 'course-enterprise':
+      return {
+        uploadKey: 'course_enterprise_media',
+        html: `
+          <span class="section-kicker">Dream Defense System // Percorso 03</span>
+          <h2>SUPREMA ENTERPRISE — Affiancamento Totale &amp; Tecnologie Avanzate</h2>
+          <p><strong>Il livello massimo dell’Academy: avrai il CEO al tuo fianco passo dopo passo e l’intero arsenale tecnologico nelle tue mani.</strong></p>
+          <ul style="margin: 1rem 0 1.2rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><strong>Tutto ciò che è incluso in Suprema Gold e Suprema Premium:</strong> Struttura, Agente AI, Community e tutti i documenti di crescita e Networking.</li>
+            <li><strong>60 Conferenze Live Passo dopo Passo con il CEO:</strong> Sessanta incontri operativi dal vivo con <strong>Giuliano Caratelli</strong> dalla progettazione all'esecuzione.</li>
+            <li><strong>Tutte le Tecnologie Moderne Dream Defense System:</strong> Accesso completo agli strumenti digitali avanzati e ai flussi intelligenti dell’ecosistema.</li>
+          </ul>
+          <div style="background: rgba(212,175,55,0.2); border: 2px solid var(--spectral-gold); border-radius: 16px; padding: 1.2rem; margin: 1.2rem 0;">
+            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-accent); display: block;">Contributo di Partecipazione</span>
+            <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--text-dominant);">349,00 €</strong>
+            <div style="display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 0.9rem;">
+              <a href="${SFX_CONFIG.payments.enterprise.revolut}" target="_blank" rel="noopener noreferrer" class="btn-luxury">
+                Aderisci al Suprema Enterprise (Revolut / Carta)
+              </a>
+              <a href="${SFX_CONFIG.payments.enterprise.paypal}" target="_blank" rel="noopener noreferrer" class="btn-luxury-outline">
+                Paga con PayPal (Anche 3 Rate)
+              </a>
+              <a href="${SFX_CONFIG.payments.enterprise.sumup}" target="_blank" rel="noopener noreferrer" class="btn-luxury-outline">
+                Paga con SumUp
+              </a>
+            </div>
+          </div>
+          ${buildUploadWidgetHtml('course_enterprise_media', { allowText: true, maxPhotos: 5 })}
+        `
+      };
+
+    case 'goldcard-rewards':
+      return {
+        uploadKey: 'goldcard_rewards_media',
+        html: `
+          <span class="section-kicker">OpenEduCat Fedeltà // Punti &amp; Premi</span>
+          <h2>Suprema Gold Card — Generazione Punti e Catalogo Premi</h2>
+          <p>Il sistema punti è collegato direttamente al tuo account <strong>OpenEduCat</strong>. Ogni azione formativa e ogni invito generato dal tuo link personale incrementa il tuo saldo:</p>
+          <div class="cards-2-grid" style="margin: 1.1rem 0;">
+            <div class="glass-deck" style="padding: 1.15rem;">
+              <h4 style="color: var(--text-dominant); margin-bottom: 0.5rem;">Come accumuli Punti</h4>
+              <ul style="margin-left: 1.1rem; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.35rem;">
+                <li>Iscrizione e attivazione profilo Academy: <strong>+200 PT</strong></li>
+                <li>Partecipazione alle Conferenze Live CEO: <strong>+50 PT / sessione</strong></li>
+                <li>Completamento moduli pratici su OpenEduCat: <strong>+100 PT</strong></li>
+                <li>Invito validato tramite il tuo Link Personale: <strong>+150 PT</strong></li>
+              </ul>
+            </div>
+            <div class="glass-deck" style="padding: 1.15rem;">
+              <h4 style="color: var(--text-dominant); margin-bottom: 0.5rem;">Catalogo Premi &amp; Soglie</h4>
+              <ul style="margin-left: 1.1rem; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.35rem;">
+                <li><strong>300 PT:</strong> Pacchetto Risorse Avanzate &amp; Template AI</li>
+                <li><strong>500 PT:</strong> Sessione Strategica 1-to-1 Dedicata</li>
+                <li><strong>800 PT:</strong> Emissione <strong>Suprema Gold Card</strong> + Bonus Academy</li>
+                <li><strong>1.500 PT:</strong> Status Executive &amp; Accesso Eventi VIP</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1.5px solid var(--spectral-gold); border-radius: 14px; padding: 1rem; margin-bottom: 1rem;">
+            <strong style="font-size: 0.84rem; color: var(--text-dominant); display: block; margin-bottom: 0.45rem;">
+              Generatore Link Personale Raccolta Punti (Collegato a OpenEduCat):
+            </strong>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <input type="text" id="goldcard-ref-code" class="luxury-input" style="max-width: 220px;" placeholder="Inserisci tuo Codice / Nome" />
+              <button type="button" class="btn-luxury" style="padding: 0.6rem 1.1rem; font-size: 0.78rem;" onclick="generateGoldCardLink()">
+                Genera Link Punti
+              </button>
+            </div>
+            <p id="goldcard-generated-url" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-accent); margin-top: 0.55rem; margin-bottom: 0;"></p>
+          </div>
+
+          ${buildUploadWidgetHtml('goldcard_rewards_media', { allowText: false, maxPhotos: 3 })}
+        `
+      };
+
+    case 'ecommerce-luxury-guide':
+      return {
+        uploadKey: null,
+        html: `
+          <span class="section-kicker">E-Commerce &amp; Sviluppo // Luxury Model</span>
+          <h2>Come Avviare il Tuo E-Commerce con Luxury Model</h2>
+          <p>Il programma <strong>Luxury Model</strong> ti permette di entrare nel commercio digitale professionale eliminando tutti gli ostacoli tradizionali:</p>
+          <ul style="margin: 1rem 0 1.2rem 1.25rem; display: flex; flex-direction: column; gap: 0.55rem;">
+            <li><strong>Zero Magazzino e Zero Anticipo Merce:</strong> Non devi acquistare stock né gestire spedizioni fisiche.</li>
+            <li><strong>Vetrina Digitale Pronta all’Uso:</strong> Attivi subito il tuo spazio online professionale e inizi a promuovere attraverso i canali social e il tuo network.</li>
+            <li><strong>Formazione e Supporto Academy:</strong> Impari nelle sessioni live come posizionarti, comunicare con eleganza e trasformare i contatti in clienti soddisfatti.</li>
+            <li><strong>Regolamento &amp; Statuto Concessione:</strong> Operatività trasparente, tracciabile e tutelata secondo le norme vigenti.</li>
+          </ul>
+          <div style="display: flex; gap: 0.85rem; flex-wrap: wrap; margin-top: 1.25rem;">
+            <a href="https://www.imperya.com/vetrina/style" target="_blank" rel="noopener noreferrer" class="btn-luxury">
+              <i class="fa-solid fa-store"></i> Apri E-Commerce Luxury Model
+            </a>
+            <a href="statuto.html" class="btn-luxury-outline">Consulta Statuto E-Commerce</a>
+          </div>
+        `
+      };
+
+    case 'testimonials-40':
+      return {
+        uploadKey: null,
+        html: `
+          <span class="section-kicker">Esperienze Verificate // 40 Testimonianze</span>
+          <h2>Le Voci di Chi Vive Suprema Future X</h2>
+          <p>Quaranta testimonianze reali di imprenditori, professionisti e corsisti che hanno scelto i nostri percorsi di Formazione, Networking e Academy:</p>
+          <div class="cards-2-grid" style="margin-top: 1.25rem;">
+            ${generate40TestimonialsHtml()}
+          </div>
+        `
+      };
+
+    default:
+      return { uploadKey: null, html: '<p>Sezione in aggiornamento.</p>' };
   }
 }
 
-/**
- * 4. CONSOLE X-BOX SUPERADMIN (2FA)
- */
-let sfxChallengeToken = null;
+async function openSubmenu(submenuId) {
+  const overlay = document.getElementById('sfx-universal-submenu');
+  const body = document.getElementById('submenu-dynamic-content');
+  if (!overlay || !body) return;
 
-async function sfxVerifyPassword(passwordInput) {
-  const pwd = passwordInput || document.getElementById("xbox-input-password")?.value || "";
-  if (!pwd) {
-    sfxShowToast("Inserire la Password di Vertice.", "warning");
-    return;
-  }
+  activeSubmenuId = SUBMENU_ORDER.includes(submenuId) ? submenuId : 'chi-siamo-hub';
+  const data = getSubmenuTemplate(activeSubmenuId);
 
-  const res = await sfxApiCall({
-    action: "verify_password",
-    password: pwd
-  });
+  body.innerHTML = data.html;
+  body.scrollTop = 0;
 
-  if (res.success && res.challengeToken) {
-    sfxChallengeToken = res.challengeToken;
-    sfxShowToast("Step 1 Validato. Inserire PIN 2FA.", "info");
-    document.getElementById("xbox-step-password")?.classList.add("hidden");
-    document.getElementById("xbox-step-pin")?.classList.remove("hidden");
-  } else {
-    sfxShowToast(res.message || "Password errata.", "error");
+  overlay.classList.add('open');
+  document.body.classList.add('modal-open');
+  closeAllPopovers();
+
+  startSlowMatrixCanvas('submenu-matrix-canvas', { speedDelay: 60 });
+
+  if (data.uploadKey) {
+    await hydrateSavedUploads(data.uploadKey);
   }
 }
 
-async function sfxVerifyPin(pinInput) {
-  const pin = pinInput || document.getElementById("xbox-input-pin")?.value || "";
-  if (!pin || !sfxChallengeToken) {
-    sfxShowToast("PIN non valido o sessione scaduta.", "warning");
-    return;
+function navigateSubmenu(direction) {
+  const currentIdx = SUBMENU_ORDER.indexOf(activeSubmenuId);
+  let nextIdx = currentIdx + direction;
+  if (nextIdx >= SUBMENU_ORDER.length) nextIdx = 0;
+  if (nextIdx < 0) nextIdx = SUBMENU_ORDER.length - 1;
+  openSubmenu(SUBMENU_ORDER[nextIdx]);
+}
+
+function closeSubmenu() {
+  const overlay = document.getElementById('sfx-universal-submenu');
+  if (overlay) overlay.classList.remove('open');
+  document.body.classList.remove('modal-open');
+}
+
+function generateGoldCardLink() {
+  const codeInput = document.getElementById('goldcard-ref-code');
+  const out = document.getElementById('goldcard-generated-url');
+  if (!codeInput || !out) return;
+
+  const cleanCode = codeInput.value.trim().replace(/[^a-zA-Z0-9_-]/g, '').toUpperCase() || 'SFX2026';
+  const baseUrl = window.location.origin + window.location.pathname;
+  out.textContent = `${baseUrl}?ref=${cleanCode}`;
+}
+
+function sendAlisonQuickReply() {
+  const input = document.getElementById('alison-user-input');
+  const log = document.getElementById('alison-chat-log');
+  if (!input || !log || !input.value.trim()) return;
+
+  const q = input.value.trim();
+  input.value = '';
+
+  let reply = 'Posso aiutarti a scegliere tra i percorsi Suprema Gold, Premium ed Enterprise oppure prenotare il tuo posto alla Conferenza gratuita con il CEO Giuliano Caratelli.';
+  const lower = q.toLowerCase();
+
+  if (lower.includes('prezz') || lower.includes('cost') || lower.includes('corsi') || lower.includes('academy')) {
+    reply = 'I tre percorsi dal vivo sono: Suprema Gold (249 € con 20 conferenze live e 1 Agente AI), Suprema Premium (299 € con 35 ore live e tutti i documenti) e Suprema Enterprise (349 € con 60 conferenze passo dopo passo e tutte le tecnologie).';
+  } else if (lower.includes('conferenza') || lower.includes('ceo') || lower.includes('giuliano')) {
+    reply = 'Puoi aderire subito alla Conferenza CEO cliccando il pulsante dorato "Aderisci Conferenza CEO" in alto nella barra di stato.';
+  } else if (lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('luxury')) {
+    reply = 'Con il programma Luxury Model avvii il tuo spazio e-commerce senza magazzino e con il supporto pratico dell’Academy.';
+  } else if (lower.includes('gold card') || lower.includes('punti') || lower.includes('premi')) {
+    reply = 'I punti fedeltà vengono accreditati automaticamente su OpenEduCat ad ogni attività completata e sbloccano premi esclusivi fino alla Suprema Gold Card.';
   }
 
-  const res = await sfxApiCall({
-    action: "verify_pin",
-    pin: pin,
-    challengeToken: sfxChallengeToken
-  });
-
-  if (res.success && res.sessionToken) {
-    sessionStorage.setItem(SFX_CONFIG.STORAGE_KEYS.SESSION_TOKEN, res.sessionToken);
-    sessionStorage.setItem(SFX_CONFIG.STORAGE_KEYS.SESSION_EXPIRY, res.expiresAt);
-    sfxShowToast("Autenticazione EAL6+ Conclusa. Benvenuto Presidente.", "success");
-    sfxLoadXboxDashboard();
-  } else {
-    sfxShowToast(res.message || "PIN non corretto.", "error");
-  }
+  log.innerHTML += `
+    <p style="margin-bottom: 0.45rem;"><strong>Tu:</strong> ${q}</p>
+    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--text-accent);">Alison AG-01:</strong> ${reply}</p>
+  `;
+  log.scrollTop = log.scrollHeight;
 }
 
-function sfxGetActiveSessionToken() {
-  return sessionStorage.getItem(SFX_CONFIG.STORAGE_KEYS.SESSION_TOKEN) || "";
-}
-
-function sfxLogoutXbox() {
-  sessionStorage.removeItem(SFX_CONFIG.STORAGE_KEYS.SESSION_TOKEN);
-  sessionStorage.removeItem(SFX_CONFIG.STORAGE_KEYS.SESSION_EXPIRY);
-  sfxChallengeToken = null;
-  window.location.reload();
-}
-
-/**
- * 5. FUNZIONI OPERATIVE DELLA CONSOLE X-BOX
- */
-async function sfxLoadXboxDashboard() {
-  const token = sfxGetActiveSessionToken();
-  if (!token) return;
-
-  document.getElementById("xbox-login-modal")?.classList.add("hidden");
-  document.getElementById("xbox-dashboard-panel")?.classList.remove("hidden");
-
-  await Promise.all([
-    sfxFetchCrmLeads(),
-    sfxFetchVaultCatalog(),
-    sfxFetchFleetStatus(),
-    sfxFetchGoldCardRegistry()
-  ]);
-}
-
-async function sfxFetchCrmLeads() {
-  const res = await sfxApiCall({
-    action: "get_crm_leads",
-    sessionToken: sfxGetActiveSessionToken()
-  });
-
-  const container = document.getElementById("xbox-leads-table-body");
-  if (!container) return;
-
-  if (res.leads && res.leads.length > 0) {
-    container.innerHTML = res.leads.map(l => `
-      <tr>
-        <td style="font-family:monospace; font-weight:bold;">${l.protocollo}</td>
-        <td>${l.timestamp}</td>
-        <td><strong>${l.nome} ${l.cognome}</strong></td>
-        <td>${l.whatsapp}</td>
-        <td>${l.programma}</td>
-        <td><span class="badge">${l.fasciaMeet}</span></td>
-        <td><a href="${l.meetLink || '#'}" target="_blank" style="color:#9E7B35;">Meet</a></td>
-        <td><span class="status-tag status-${(l.stato || '').toLowerCase()}">${l.stato || 'IN_VALUTAZIONE'}</span></td>
-      </tr>
-    `).join("");
-  } else {
-    container.innerHTML = `<tr><td colspan="8" style="text-align:center;">Nessuna candidatura registrata nel foglio.</td></tr>`;
-  }
-}
-
-async function sfxFetchVaultCatalog(category) {
-  const res = await sfxApiCall({
-    action: "get_vault_catalog",
-    category: category || "ALL"
-  });
-
-  const container = document.getElementById("xbox-vault-grid");
-  if (!container || !res.catalog) return;
-
-  container.innerHTML = res.catalog.map(item => `
-    <div class="vault-card" style="border:1px solid #C5A059; padding:15px; border-radius:6px; margin-bottom:10px;">
-      <div style="font-size:11px; font-weight:bold; color:#9E7B35;">SLOT #${item.slot} [${item.access}]</div>
-      <div style="font-size:14px; font-weight:bold; margin:5px 0;">${item.name}</div>
-      <div style="font-size:12px; color:#555;">Dimensione: ${item.size} // Tipo: ${item.type}</div>
-      <button onclick="sfxUnlockVaultSlot(${item.slot})" class="btn-vault-unlock" style="margin-top:8px;">Sblocca Token 120m</button>
-    </div>
-  `).join("");
-}
-
-async function sfxUnlockVaultSlot(slotNumber) {
-  const res = await sfxApiCall({
-    action: "generate_vault_token",
-    slotNumber: slotNumber,
-    sessionToken: sfxGetActiveSessionToken()
-  });
-
-  if (res.success && res.downloadUrl) {
-    sfxShowToast("Token generato per Slot #" + slotNumber + ". Validità: 120 minuti.", "success");
-    window.open(res.downloadUrl, "_blank");
-  } else {
-    sfxShowToast(res.message || "Accesso non autorizzato allo slot.", "error");
-  }
-}
-
-async function sfxFetchFleetStatus() {
-  const res = await sfxApiCall({
-    action: "get_fleet_status"
-  });
-
-  const container = document.getElementById("xbox-fleet-container");
-  if (!container || !res.agents) return;
-
-  container.innerHTML = res.agents.map(ag => `
-    <div class="agent-badge" style="display:inline-block; border:1px solid rgba(197,160,89,0.3); padding:8px 12px; margin:4px; border-radius:4px; background:#FAF8F5;">
-      <span style="font-weight:bold; color:#0B192C;">${ag.id} [${ag.codename}]</span>: 
-      <span style="color:#2E7D32; font-size:11px; font-weight:bold;">${ag.status}</span>
-    </div>
-  `).join("");
-}
-
-async function sfxFetchGoldCardRegistry() {
-  const res = await sfxApiCall({
-    action: "get_goldcard_registry",
-    sessionToken: sfxGetActiveSessionToken()
-  });
-
-  const container = document.getElementById("xbox-goldcard-table-body");
-  if (!container || !res.cards) return;
-
-  container.innerHTML = res.cards.map(c => `
-    <tr>
-      <td style="font-family:monospace;">${c.matricola}</td>
-      <td><strong>${c.titolare}</strong></td>
-      <td>${c.punti} PT</td>
-      <td>${c.soglia}</td>
-      <td><span class="badge">${c.statoFisico}</span></td>
-    </tr>
-  `).join("");
-}
-
-async function sfxTriggerNotificationTest() {
-  sfxShowToast("Invio sequenza di test multicanale in corso...", "info");
-  const res = await sfxApiCall({
-    action: "test_notifications",
-    sessionToken: sfxGetActiveSessionToken()
-  });
-
-  if (res.success) {
-    sfxShowToast("Notifica inviata con successo su Telegram, Email e WhatsApp.", "success");
-  } else {
-    sfxShowToast(res.message || "Errore durante il test notifiche.", "error");
-  }
-}
-
-async function sfxTriggerKillSwitch(activate) {
-  const confirmed = confirm("ATTENZIONE: Si sta per modificare lo stato del Kill Switch del presidio. Continuare?");
-  if (!confirmed) return;
-
-  const res = await sfxApiCall({
-    action: "trigger_kill_switch",
-    state: activate,
-    sessionToken: sfxGetActiveSessionToken()
-  });
-
-  if (res.success) {
-    sfxShowToast("Stato Kill-Switch aggiornato: " + (activate ? "ATTIVO" : "DISATTIVO"), "warning");
-  } else {
-    sfxShowToast(res.message || "Operazione non riuscita.", "error");
-  }
-}
-
-/**
- * 6. SISTEMA DI NOTIFICA TOAST UI
- */
-function sfxShowToast(message, type = "info") {
-  let toastContainer = document.getElementById("sfx-toast-container");
-  if (!toastContainer) {
-    toastContainer = document.createElement("div");
-    toastContainer.id = "sfx-toast-container";
-    toastContainer.style.cssText = "position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; flex-direction:column; gap:10px;";
-    document.body.appendChild(toastContainer);
-  }
-
-  const toast = document.createElement("div");
-  const bgColors = {
-    info: "#0B192C",
-    success: "#1B5E20",
-    warning: "#E65100",
-    error: "#B71C1C"
+/* --------------------------------------------------------------------------
+   12. NEWSLETTER (segreteria@gmail.com), FEEDBACK & NAVIGAZIONE
+   -------------------------------------------------------------------------- */
+function submitNewsletterForm(event) {
+  event.preventDefault();
+  const btn = document.getElementById('nl-submit-btn');
+  const payload = {
+    tipo: 'Iscrizione Newsletter',
+    destinatario: SFX_CONFIG.newsletterEmail,
+    nome: document.getElementById('nl-nome')?.value.trim(),
+    email: document.getElementById('nl-email')?.value.trim()
   };
 
-  toast.style.cssText = `
-    background: ${bgColors[type] || "#0B192C"};
-    color: #FFFFFF;
-    border: 1px solid #C5A059;
-    padding: 12px 20px;
-    border-radius: 4px;
-    font-family: 'Space Grotesk', -apple-system, sans-serif;
-    font-size: 13px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: opacity 0.3s ease;
-  `;
-  toast.innerText = message;
-
-  toastContainer.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.opacity = "0";
-    setTimeout(() => toast.remove(), 300);
-  }, 4500);
+  sendToBackend(payload, btn, 'Iscrizione Confermata!', () => event.target.reset());
 }
 
-/**
- * 7. INIZIALIZZAZIONE ALL'AVVIO
- */
-document.addEventListener("DOMContentLoaded", () => {
-  const leadForm = document.getElementById("sfx-candidatura-form");
-  if (leadForm) {
-    leadForm.addEventListener("submit", sfxSubmitCandidatura);
+function submitFeedbackForm(event) {
+  event.preventDefault();
+  const btn = document.getElementById('fb-submit-btn');
+  const payload = {
+    tipo: 'Feedback & Note',
+    destinatario: SFX_CONFIG.newsletterEmail,
+    nome: document.getElementById('fb-nome')?.value.trim(),
+    email: document.getElementById('fb-email')?.value.trim(),
+    categoria: document.getElementById('fb-categoria')?.value,
+    note: document.getElementById('fb-note')?.value.trim()
+  };
+
+  sendToBackend(payload, btn, 'Nota Inviata alla Presidenza!', () => event.target.reset());
+}
+
+function sendToBackend(payload, buttonEl, successMessage, onDone) {
+  const originalHtml = buttonEl ? buttonEl.innerHTML : '';
+  if (buttonEl) {
+    buttonEl.disabled = true;
+    buttonEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Invio in corso...';
   }
 
-  const activeToken = sfxGetActiveSessionToken();
-  if (activeToken) {
-    sfxLoadXboxDashboard();
+  const finishSuccess = () => {
+    if (buttonEl) {
+      buttonEl.innerHTML = `<i class="fa-solid fa-check"></i> ${successMessage}`;
+      setTimeout(() => {
+        buttonEl.disabled = false;
+        buttonEl.innerHTML = originalHtml;
+      }, 2600);
+    }
+    if (typeof onDone === 'function') onDone();
+  };
+
+  if (SFX_CONFIG.webhookEndpoint) {
+    fetch(SFX_CONFIG.webhookEndpoint, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(finishSuccess)
+      .catch(finishSuccess);
+  } else {
+    setTimeout(finishSuccess, 750);
   }
+}
+
+function scrollToSection(sectionId) {
+  closeAllPopovers();
+  const target = document.getElementById(sectionId);
+  if (!target) return;
+  const topOffset = 68;
+  const y = target.getBoundingClientRect().top + window.pageYOffset - topOffset;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+
+function bindOpenEducatLinks() {
+  document.querySelectorAll('[data-educat-action="conferenza-ceo"]').forEach((link) => {
+    link.setAttribute('href', SFX_CONFIG.openEducatConferenzaUrl);
+  });
+  document.querySelectorAll('[data-educat-action="goldcard-portal"]').forEach((link) => {
+    link.setAttribute('href', SFX_CONFIG.openEducatGoldCardUrl);
+  });
+}
+
+/* --------------------------------------------------------------------------
+   13. AVVIO GLOBALE AL CARICAMENTO DELLA PAGINA
+   -------------------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', async () => {
+  await SFXMediaStore.init();
+
+  // Avvia Matrix lento sotto la cornice 13"
+  startSlowMatrixCanvas('matrix-bg-canvas', { speedDelay: 70 });
+
+  // Orologio CET e Telemetria
+  updateCetClock();
+  setInterval(updateCetClock, 1000);
+  initVisitorTelemetryTracker();
+
+  // Hero Ovale, Radar Alison, Radio 30 Slot e Gold Card 3D
+  initHeroOvalCarousel();
+  initAlisonRadar();
+  initAlisonTypewriter();
+  initRadioLounge();
+  initGoldCard3DTilt();
+  bindOpenEducatLinks();
+
+  // Chiusura rapida con tasto ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllPopovers();
+      closeSubmenu();
+      closeTelemetryModal();
+    }
+  });
 });
