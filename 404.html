@@ -1,303 +1,54 @@
 <!DOCTYPE html>
-<html lang="it" dir="ltr">
+<html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>404 // ASSET NON RINTRACCIATO - SUPREMA FUTURE X</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagina Non Trovata | Suprema Future X</title>
+  <meta name="robots" content="noindex, follow" />
 
-  <meta name="robots" content="noindex, follow">
-  <meta name="theme-color" content="#F6F2EB">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="stile-globale.css">
-  <link rel="manifest" href="manifest.json">
-
-  <style>
-    :root {
-      --bg-pearl-satin: #F6F2EB;
-      --bg-pearl-pure: #FAF8F5;
-      --bg-surface: #EFECE4;
-      --spectral-gold: #D4AF37;
-      --spectral-gold-deep: #B8860B;
-      --border-gold-strong: rgba(212, 175, 55, 0.85);
-      --border-gold: rgba(212, 175, 55, 0.35);
-      --text-dominant: #0B192C;
-      --text-muted: #5A6270;
-      --status-alert: #D32F2F;
-      --status-online: #00E676;
-      --radius-sm: 8px;
-      --radius-md: 16px;
-      --radius-oval: 9999px;
-      --shadow-base: 0 10px 30px rgba(74, 82, 96, 0.15);
-      --font-main: 'Space Grotesk', sans-serif;
-      --font-display: 'Cinzel', serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background: var(--bg-pearl-satin);
-      color: var(--text-dominant);
-      font-family: var(--font-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow-x: hidden;
-    }
-
-    .film-grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.03;
-      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAIAAAACAAICAAAAAgIAAgAAAAICAEONPAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAMElEQVQ4y2NgQAX8DIwgwmEESM1gYhJhYGAxZ2BgEGMQY0AWMDIwgGkQ1IgjRgwDAG55EwfU1Q4cAAAAAElFTkSuQmCC");
-    }
-
-    header {
-      background: rgba(250, 248, 245, 0.9);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 15px 30px;
-      border-bottom: 1.5px solid var(--border-gold);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .badge-forensic {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: var(--radius-oval);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 800;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid var(--spectral-gold);
-      color: var(--spectral-gold-deep);
-      text-transform: uppercase;
-    }
-
-    .btn-gold {
-      padding: 12px 26px;
-      background: linear-gradient(135deg, var(--spectral-gold), var(--spectral-gold-deep));
-      border: 1px solid #8C6D23;
-      border-radius: var(--radius-oval);
-      color: #FFF;
-      font-family: var(--font-main);
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
-    }
-
-    .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(184, 134, 11, 0.45);
-    }
-
-    .btn-outline {
-      padding: 11px 22px;
-      background: #FFF;
-      border: 1.5px solid var(--border-gold-strong);
-      border-radius: var(--radius-oval);
-      color: var(--text-dominant);
-      font-family: var(--font-main);
-      font-size: 0.80rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-outline:hover {
-      background: var(--bg-pearl-light);
-      border-color: var(--spectral-gold);
-      color: var(--spectral-gold-deep);
-    }
-
-    .error-card-vault {
-      width: 92%;
-      max-width: 760px;
-      margin: 40px auto;
-      background: var(--bg-pearl-pure);
-      border: 2px solid var(--spectral-gold);
-      border-radius: var(--radius-md);
-      padding: 45px 40px;
-      box-shadow: var(--shadow-base);
-      text-align: center;
-    }
-
-    .terminal-console-error {
-      background: var(--bg-surface);
-      border: 1.5px solid var(--border-gold);
-      border-left: 4px solid var(--status-alert);
-      border-radius: var(--radius-sm);
-      padding: 16px 20px;
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      color: var(--text-dominant);
-      line-height: 1.8;
-      text-align: left;
-      margin: 25px 0;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="stile-globale.css" />
 </head>
 <body>
 
-  <div class="film-grain" aria-hidden="true"></div>
+  <canvas id="matrix-bg-canvas" aria-hidden="true"></canvas>
 
-  <!-- Header Istituzionale -->
-  <header>
-    <div style="display: flex; align-items: center; gap: 12px;">
-      <div style="width: 9px; height: 9px; border-radius: 50%; background: var(--status-online); box-shadow: 0 0 8px var(--status-online);"></div>
-      <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800;">
-        NODO CENTRALE: ROMA // INCIDENT REPORT 404
-      </span>
-    </div>
-    <a href="index.html" class="btn-outline" style="padding: 6px 14px; font-size: 0.72rem;">
-      <i class="fa-solid fa-house"></i> Landing Page
-    </a>
-  </header>
+  <div class="landing-shell-13" style="min-height: 82vh; display: flex; flex-direction: column; justify-content: space-between;">
+    <header class="top-status-bar">
+      <div class="top-brand-left">
+        <span class="status-dot-live"></span>
+        <span class="brand-metallic-title dream-defense-badge">
+          DREAM DEFENSE SYSTEM // SUPREMA ENTERPRISE
+        </span>
+      </div>
+      <div class="cet-clock-pill" id="cet-live-clock">00:00:00 CET</div>
+    </header>
 
-  <!-- Corpo Errore 404 -->
-  <main>
-    <div class="error-card-vault">
-      
-      <span class="badge-forensic" style="border-color: var(--status-alert); color: var(--status-alert); background: rgba(211, 47, 47, 0.08);">
-        <i class="fa-solid fa-triangle-exclamation"></i> DISPERSIONE INDIRIZZO FORENSE
-      </span>
-
-      <div style="font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 900; color: var(--text-dominant); line-height: 1; margin: 15px 0 5px;">
+    <main style="padding: 4rem 2rem; text-align: center; position: relative; z-index: 4;">
+      <span class="section-kicker">Navigazione Ecosistema // Codice 404</span>
+      <h1 class="brand-metallic-title" style="font-size: clamp(3rem, 7vw, 5rem); margin: 0.5rem 0;">
         404
-      </div>
-
-      <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--spectral-gold-deep); font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;">
-        RISORSA NON PRESENTE NEI REGISTRI NOTARILI EAL6+
-      </div>
-
-      <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; max-width: 600px; margin: 18px auto 0;">
-        L'indirizzo richiesto non corrisponde a nessun atto vidimato, modulo di screening o credenziale registrata presso i nodi operativi di Colleferro (Roma).
+      </h1>
+      <h2 class="section-title" style="font-size: 1.65rem;">
+        Questa pagina non è più disponibile o è stata spostata
+      </h2>
+      <p class="section-lead" style="margin-bottom: 2rem;">
+        Alison AG-01 ti riporta subito nel cuore di <strong>Suprema Future X</strong> per esplorare la Formazione, il Networking e l’Academy dal vivo.
       </p>
+      <a href="index.html" class="btn-luxury">
+        🏠 Torna Subito alla Landing Page
+      </a>
+    </main>
 
-      <!-- Terminale Supervisor AG-01 -->
-      <div class="terminal-console-error">
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-gold); padding-bottom: 6px; margin-bottom: 10px; font-weight: 800; color: var(--spectral-gold-deep);">
-          <span><i class="fa-solid fa-terminal"></i> ALISON AG-01 // AUDIT INTERNO</span>
-          <span style="color: var(--status-alert);">STATUS: NON_INDEXED</span>
-        </div>
-        <div>URI TARGET: <span id="currentPath" style="font-weight: 700; color: var(--text-dominant);">--</span></div>
-        <div>TIMESTAMP: <span id="currentTimestamp" style="color: var(--text-muted);">--</span></div>
-        <div>AZIONE AUTOMATICA: Reindirizzamento al Presidio Istituzionale attivo.</div>
-      </div>
+    <footer class="footer-section" style="padding: 1.5rem; text-align: center;">
+      <p style="font-size: 0.78rem; color: var(--text-muted);">
+        &copy; 2026 Suprema Future X — «La sensazione della tua crescita»
+      </p>
+    </footer>
+  </div>
 
-      <!-- Barra Timer Reindirizzamento Automatico -->
-      <div style="margin-bottom: 25px;">
-        <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 800; color: var(--spectral-gold-deep); margin-bottom: 8px;" id="timerLabel">
-          REINDIRIZZAMENTO AUTOMATICO TRA: 10s
-        </div>
-        <div style="background: var(--bg-surface); height: 6px; border-radius: 3px; overflow: hidden; border: 1px solid var(--border-gold); max-width: 420px; margin: 0 auto;">
-          <div id="redirectProgress" style="width: 100%; height: 100%; background: linear-gradient(90deg, var(--spectral-gold), var(--spectral-gold-deep)); transition: width 1s linear;"></div>
-        </div>
-      </div>
-
-      <!-- Pulsanti Azione -->
-      <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-        <a href="index.html" class="btn-gold">
-          <i class="fa-solid fa-arrow-left"></i> Ritorna alla Home Istituzionale
-        </a>
-        <a href="candidatura.html" class="btn-outline">
-          <i class="fa-solid fa-handshake"></i> Screening Meet 60m
-        </a>
-        <button type="button" class="btn-outline" onclick="sfxStopCountdown()" id="btnStopTimer">
-          <i class="fa-solid fa-pause"></i> Blocca Timer
-        </button>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Footer Forense -->
-  <footer style="text-align: center; padding: 25px 20px; font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-muted); border-top: 1px solid var(--border-gold);">
-    &copy; 2026 SUPREMA FUTURE X ENTERPRISE. Sede: Colleferro (Roma). Foro Competente: Velletri / Roma.
-  </footer>
-
-  <script>
-    'use strict';
-
-    let countdownSeconds = 10;
-    let countdownInterval = null;
-
-    document.getElementById('currentPath').textContent = window.location.pathname;
-    document.getElementById('currentTimestamp').textContent = new Date().toISOString() + " [CET]";
-
-    function sfxStartCountdown() {
-      const label = document.getElementById('timerLabel');
-      const bar = document.getElementById('redirectProgress');
-
-      countdownInterval = setInterval(() => {
-        countdownSeconds--;
-        if (label) label.textContent = `REINDIRIZZAMENTO AUTOMATICO TRA: ${countdownSeconds}s`;
-        if (bar) bar.style.width = `${(countdownSeconds / 10) * 100}%`;
-
-        if (countdownSeconds <= 0) {
-          clearInterval(countdownInterval);
-          window.location.href = "index.html";
-        }
-      }, 1000);
-    }
-
-    function sfxStopCountdown() {
-      if (countdownInterval) {
-        clearInterval(countdownInterval);
-        countdownInterval = null;
-        const btn = document.getElementById('btnStopTimer');
-        const label = document.getElementById('timerLabel');
-        if (label) label.textContent = "TIMER SOSPESO DALL'OPERATORE";
-        if (btn) {
-          btn.innerHTML = '<i class="fa-solid fa-play"></i> Riavvia Timer';
-          btn.setAttribute('onclick', 'sfxResumeCountdown()');
-        }
-      }
-    }
-
-    function sfxResumeCountdown() {
-      countdownSeconds = 10;
-      sfxStartCountdown();
-      const btn = document.getElementById('btnStopTimer');
-      if (btn) {
-        btn.innerHTML = '<i class="fa-solid fa-pause"></i> Blocca Timer';
-        btn.setAttribute('onclick', 'sfxStopCountdown()');
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      sfxStartCountdown();
-    });
-  </script>
+  <script src="js/code.js"></script>
 </body>
 </html>
